@@ -1,0 +1,16 @@
+PODS:
+  - AFNetworking (1.3.3)
+  - GoogleAnalytics-iOS-SDK (3.0.3)
+  - NewRelicAgent (3.256)
+
+DEPENDENCIES:
+  - AFNetworking (~> 1.3.3)
+  - GoogleAnalytics-iOS-SDK (~> 3.0.1)
+  - NewRelicAgent (~> 3.256)
+
+SPEC CHECKSUMS:
+  AFNetworking: 61fdd49e2ffe6380378df37b3b6e70630bb9dd66
+  GoogleAnalytics-iOS-SDK: 7b0e55cfe5e70d60478a7b105f15ac71e8bc373e
+  NewRelicAgent: 14ab6b0fd2af34eca7668449b83bf2ae872ec533
+
+COCOAPODS: 0.29.0
