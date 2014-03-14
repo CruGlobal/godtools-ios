@@ -9,23 +9,20 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class GTPackage;
+@class GTLanguage, GTPackage;
 
 @interface GTResourceLog : NSManagedObject
 
 @property (nonatomic, retain) NSNumber * currentInterpreterVersion;
 @property (nonatomic, retain) NSDate * lastUpdated;
-@property (nonatomic, retain) NSManagedObject *currentLanguage;
-@property (nonatomic, retain) GTPackage *currentPackage;
-@property (nonatomic, retain) NSManagedObject *currentParallelLanguage;
 @property (nonatomic, retain) NSSet *languages;
 @property (nonatomic, retain) NSSet *packages;
 @end
 
 @interface GTResourceLog (CoreDataGeneratedAccessors)
 
-- (void)addLanguagesObject:(NSManagedObject *)value;
-- (void)removeLanguagesObject:(NSManagedObject *)value;
+- (void)addLanguagesObject:(GTLanguage *)value;
+- (void)removeLanguagesObject:(GTLanguage *)value;
 - (void)addLanguages:(NSSet *)values;
 - (void)removeLanguages:(NSSet *)values;
 

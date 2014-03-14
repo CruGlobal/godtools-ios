@@ -7,6 +7,7 @@
 //
 
 #import "GTResourceLog.h"
+#import "GTLanguage.h"
 #import "GTPackage.h"
 
 
@@ -14,9 +15,6 @@
 
 @dynamic currentInterpreterVersion;
 @dynamic lastUpdated;
-@dynamic currentLanguage;
-@dynamic currentPackage;
-@dynamic currentParallelLanguage;
 @dynamic languages;
 @dynamic packages;
 

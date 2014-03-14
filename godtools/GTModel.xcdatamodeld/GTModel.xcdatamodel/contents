@@ -21,15 +21,12 @@
     <entity name="GTResourceLog" representedClassName="GTResourceLog" syncable="YES">
         <attribute name="currentInterpreterVersion" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="lastUpdated" optional="YES" attributeType="Date" syncable="YES"/>
-        <relationship name="currentLanguage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GTLanguage" syncable="YES"/>
-        <relationship name="currentPackage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GTPackage" syncable="YES"/>
-        <relationship name="currentParallelLanguage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GTLanguage" syncable="YES"/>
         <relationship name="languages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GTLanguage" inverseName="resourceLog" inverseEntity="GTLanguage" syncable="YES"/>
         <relationship name="packages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GTPackage" inverseName="resourceLog" inverseEntity="GTPackage" syncable="YES"/>
     </entity>
     <elements>
         <element name="GTLanguage" positionX="-63" positionY="-18" width="128" height="118"/>
         <element name="GTPackage" positionX="-54" positionY="-9" width="128" height="178"/>
-        <element name="GTResourceLog" positionX="-36" positionY="9" width="128" height="148"/>
+        <element name="GTResourceLog" positionX="-36" positionY="9" width="128" height="103"/>
     </elements>
 </model>

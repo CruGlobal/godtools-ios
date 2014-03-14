@@ -7,6 +7,8 @@
 //
 
 #import "GTPackage.h"
+#import "GTLanguage.h"
+#import "GTResourceLog.h"
 
 
 @implementation GTPackage
