@@ -19,3 +19,6 @@ DerivedData
 
 #CocoaPods
 Pods
+
+#GodTools specific
+config-godtools-ios-api.plist

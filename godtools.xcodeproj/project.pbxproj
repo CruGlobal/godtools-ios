@@ -35,6 +35,8 @@
 		68E6068718D3952800844377 /* GTAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E6068518D3952800844377 /* GTAPI.m */; };
 		68E6068C18D398AC00844377 /* GTPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E6068B18D398AC00844377 /* GTPackage.m */; };
 		68E6068D18D398AC00844377 /* GTPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E6068B18D398AC00844377 /* GTPackage.m */; };
+		68E6068F18D3A08900844377 /* config-godtools-ios-api.plist in Resources */ = {isa = PBXBuildFile; fileRef = 68E6068E18D3A08900844377 /* config-godtools-ios-api.plist */; };
+		68E6069018D3A08900844377 /* config-godtools-ios-api.plist in Resources */ = {isa = PBXBuildFile; fileRef = 68E6068E18D3A08900844377 /* config-godtools-ios-api.plist */; };
 		EC75323B8E7649068F0619CB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93D6EED5D0AA48EEB979D824 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -83,6 +85,7 @@
 		68E6068918D3986D00844377 /* GTResourceLog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = GTResourceLog.m; path = "godtools-ios-api/Models/GTResourceLog.m"; sourceTree = "<group>"; };
 		68E6068A18D398AC00844377 /* GTPackage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTPackage.h; path = "godtools-ios-api/Models/GTPackage.h"; sourceTree = "<group>"; };
 		68E6068B18D398AC00844377 /* GTPackage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTPackage.m; path = "godtools-ios-api/Models/GTPackage.m"; sourceTree = "<group>"; };
+		68E6068E18D3A08900844377 /* config-godtools-ios-api.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "config-godtools-ios-api.plist"; path = "godtools-ios-api/config-godtools-ios-api.plist"; sourceTree = "<group>"; };
 		93D6EED5D0AA48EEB979D824 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E249B0B61E7F44AA97C935A4 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -195,6 +198,7 @@
 				68E6066B18D383EE00844377 /* Models */,
 				68E6068418D3952800844377 /* GTAPI.h */,
 				68E6068518D3952800844377 /* GTAPI.m */,
+				68E6068E18D3A08900844377 /* config-godtools-ios-api.plist */,
 			);
 			name = "godtools-ios-api";
 			sourceTree = "<group>";
@@ -297,6 +301,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68E6068F18D3A08900844377 /* config-godtools-ios-api.plist in Resources */,
 				68740D2B18D24F9A00D36C0E /* Images.xcassets in Resources */,
 				68740D1D18D24F9A00D36C0E /* InfoPlist.strings in Resources */,
 				68740D2618D24F9A00D36C0E /* Main.storyboard in Resources */,
@@ -307,6 +312,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68E6069018D3A08900844377 /* config-godtools-ios-api.plist in Resources */,
 				68740D3C18D24F9A00D36C0E /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
