@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5063" systemVersion="13C64" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="GTLanguage" syncable="YES">
+    <entity name="GTLanguage" representedClassName="GTLanguage" syncable="YES">
         <attribute name="code" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="downloaded" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="packages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GTPackage" inverseName="languages" inverseEntity="GTPackage" syncable="YES"/>
         <relationship name="resourceLog" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GTResourceLog" inverseName="languages" inverseEntity="GTResourceLog" syncable="YES"/>
     </entity>
-    <entity name="GTPackage" syncable="YES">
+    <entity name="GTPackage" representedClassName="GTPackage" syncable="YES">
         <attribute name="code" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="configFile" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="icon" optional="YES" attributeType="String" syncable="YES"/>
@@ -19,7 +18,7 @@
         <relationship name="languages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GTLanguage" inverseName="packages" inverseEntity="GTLanguage" syncable="YES"/>
         <relationship name="resourceLog" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GTResourceLog" inverseName="packages" inverseEntity="GTResourceLog" syncable="YES"/>
     </entity>
-    <entity name="GTResourceLog" syncable="YES">
+    <entity name="GTResourceLog" representedClassName="GTResourceLog" syncable="YES">
         <attribute name="currentInterpreterVersion" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="lastUpdated" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="currentLanguage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GTLanguage" syncable="YES"/>
@@ -29,7 +28,7 @@
         <relationship name="packages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GTPackage" inverseName="resourceLog" inverseEntity="GTPackage" syncable="YES"/>
     </entity>
     <elements>
-        <element name="GTLanguage" positionX="-63" positionY="-18" width="128" height="133"/>
+        <element name="GTLanguage" positionX="-63" positionY="-18" width="128" height="118"/>
         <element name="GTPackage" positionX="-54" positionY="-9" width="128" height="178"/>
         <element name="GTResourceLog" positionX="-36" positionY="9" width="128" height="148"/>
     </elements>
