@@ -1,16 +1,41 @@
 PODS:
-  - AFNetworking (1.3.3)
+  - AFNetworking (2.2.1):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+    - AFNetworking/UIKit
+  - AFNetworking/NSURLConnection (2.2.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.2.1):
+    - AFNetworking/NSURLConnection
+  - AFNetworking/Reachability (2.2.1)
+  - AFNetworking/Security (2.2.1)
+  - AFNetworking/Serialization (2.2.1)
+  - AFNetworking/UIKit (2.2.1):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+  - AFRaptureXMLRequestOperation (1.0.3):
+    - AFNetworking (~> 2.0.2)
+    - RaptureXML (~> 1.0.1)
   - GoogleAnalytics-iOS-SDK (3.0.3)
   - NewRelicAgent (3.256)
+  - RaptureXML (1.0.1)
 
 DEPENDENCIES:
-  - AFNetworking (~> 1.3.3)
+  - AFNetworking (~> 2.0)
+  - AFRaptureXMLRequestOperation (~> 1.0)
   - GoogleAnalytics-iOS-SDK (~> 3.0.1)
   - NewRelicAgent (~> 3.256)
 
 SPEC CHECKSUMS:
-  AFNetworking: 61fdd49e2ffe6380378df37b3b6e70630bb9dd66
+  AFNetworking: 0121f4b69be3fa58d1ab317866e036e12ac9651d
+  AFRaptureXMLRequestOperation: 56cf8e0ac06cb52540e1cbe83b49feecca9656e9
   GoogleAnalytics-iOS-SDK: 7b0e55cfe5e70d60478a7b105f15ac71e8bc373e
   NewRelicAgent: 14ab6b0fd2af34eca7668449b83bf2ae872ec533
+  RaptureXML: ef017fda62eb95c60300108366d1f0cd0c28cbd4
 
 COCOAPODS: 0.29.0

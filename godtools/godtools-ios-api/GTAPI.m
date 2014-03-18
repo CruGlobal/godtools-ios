@@ -8,6 +8,39 @@
 
 #import "GTAPI.h"
 
+@interface GTAPI ()
+
+@property (nonatomic, strong) GTDataImporter *dataImporter;
+
+@end
+
 @implementation GTAPI
+
++ (instancetype)api {
+	
+	static GTAPI *api;
+	static dispatch_once_t onceToken;
+	
+	dispatch_once(&onceToken, ^{
+		
+		
+		
+	});
+	
+	return api;
+	
+}
+
+- (instancetype)initWithConfig:(GTConfig *)config {
+	
+	
+	
+}
+
+- (void)getMenuInfoSince:(NSDate *)date success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement))failure;{
+	
+}
+
+- (void)getResourcesForLanguage:(GTLanguage *)language since:(NSDate *)date success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement))failure;
 
 @end
