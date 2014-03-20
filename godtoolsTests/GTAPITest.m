@@ -36,11 +36,13 @@
 - (void)testThatTheAPICanDownloadAnXmlFileFromTheMetaEndpoint {
     
 	[self.api getMenuInfoSince:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, id XMLRootElement) {
-		NSLog(@"%@", XMLRootElement);
+		
 		XCTAssertNotNil(XMLRootElement, @"XML root element is nil");
 		
 	} failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id XMLRootElement) {
+		
 		XCTFail(@"Recieved failure from meta endpoint with message: %@", error.localizedDescription);
+		
 	}];
 	
 }
