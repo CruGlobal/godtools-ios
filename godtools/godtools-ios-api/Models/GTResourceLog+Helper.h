@@ -12,8 +12,4 @@
 
 @interface GTResourceLog (Helper)
 
-@property (nonatomic, retain) GTLanguage *currentLanguage;
-@property (nonatomic, retain) GTPackage *currentPackage;
-@property (nonatomic, retain) GTLanguage *currentParallelLanguage;
-
 @end

@@ -10,18 +10,18 @@
 
 @implementation GTConfig
 
-+ (GTConfig *)sharedInstance {
++ (GTConfig *)sharedConfig {
 	
-	static GTConfig *sharedInstance;
+	static GTConfig *_sharedConfig;
 	static dispatch_once_t onceToken;
 	
 	dispatch_once(&onceToken, ^{
 		
-		sharedInstance					= [[GTConfig alloc] init];
+		_sharedConfig					= [[GTConfig alloc] init];
 		
 	});
 	
-	return sharedInstance;
+	return _sharedConfig;
 	
 }
 
@@ -41,6 +41,7 @@
 		_baseUrl					= [NSURL URLWithString:baseUrlString];
 		
 		//set api keys
+		_apiKeyGodTools				= ( [configDictionary valueForKey:@"godtools_api_key"] ? [configDictionary valueForKey:@"godtools_api_key"] : @"" );
 		_apiKeyErrbit				= ( [configDictionary valueForKey:@"errbit_api_key"] ? [configDictionary valueForKey:@"errbit_api_key"] : @"" );
 		_apiKeyGoogleAnalytics		= ( [configDictionary valueForKey:@"google_analytics_api_key"] ? [configDictionary valueForKey:@"google_analytics_api_key"] : @"" );
 		_apiKeyNewRelic				= ( [configDictionary valueForKey:@"newrelic_api_key"] ? [configDictionary valueForKey:@"newrelic_api_key"] : @"" );

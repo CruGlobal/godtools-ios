@@ -7,7 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "GTAPI.h"
 
 @interface GTDataImporter : NSObject
+
++ (instancetype)sharedImporter;
+- (instancetype)initWithAPI:(GTAPI *)api;
+
+- (void)updateMenuInfo;
+- (void)updatePackagesForLanguage;
 
 @end

@@ -7,18 +7,15 @@
 //
 
 #import "AFHTTPRequestOperationManager.h"
-#import "AFRaptureXMLRequestOperation.h"
-#import "RXMLElement.h"
-#import "GTDataImporter.h"
 #import "GTLanguage+Helper.h"
 #import "GTConfig.h"
 
 @interface GTAPI : AFHTTPRequestOperationManager
 
-+ (instancetype)api;
++ (instancetype)sharedAPI;
 - (instancetype)initWithConfig:(GTConfig *)config;
 
-- (void)getMenuInfoSince:(NSDate *)date success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement))failure;;
-- (void)getResourcesForLanguage:(GTLanguage *)language since:(NSDate *)date success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement))failure;;
+- (void)getMenuInfoSince:(NSDate *)date success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, id XMLRootElement))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id XMLRootElement))failure;
+- (void)getResourcesForLanguage:(GTLanguage *)language since:(NSDate *)date success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, id XMLRootElement))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id XMLRootElement))failure;
 
 @end

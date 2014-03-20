@@ -2,7 +2,7 @@
 //  GTResourceLog.h
 //  godtools
 //
-//  Created by Michael Harrison on 3/14/14.
+//  Created by Michael Harrison on 3/19/14.
 //  Copyright (c) 2014 Michael Harrison. All rights reserved.
 //
 
@@ -17,6 +17,9 @@
 @property (nonatomic, retain) NSDate * lastUpdated;
 @property (nonatomic, retain) NSSet *languages;
 @property (nonatomic, retain) NSSet *packages;
+@property (nonatomic, retain) GTLanguage *currentLanguage;
+@property (nonatomic, retain) GTPackage *currentPackage;
+@property (nonatomic, retain) GTLanguage *currentParallelLanguage;
 @end
 
 @interface GTResourceLog (CoreDataGeneratedAccessors)

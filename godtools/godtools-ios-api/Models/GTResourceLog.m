@@ -2,7 +2,7 @@
 //  GTResourceLog.m
 //  godtools
 //
-//  Created by Michael Harrison on 3/14/14.
+//  Created by Michael Harrison on 3/19/14.
 //  Copyright (c) 2014 Michael Harrison. All rights reserved.
 //
 
@@ -17,5 +17,8 @@
 @dynamic lastUpdated;
 @dynamic languages;
 @dynamic packages;
+@dynamic currentLanguage;
+@dynamic currentPackage;
+@dynamic currentParallelLanguage;
 
 @end

@@ -12,10 +12,11 @@
 
 @property (nonatomic, strong, readonly) NSURL		*baseUrl;
 
+@property (nonatomic, strong, readonly) NSString	*apiKeyGodTools;
 @property (nonatomic, strong, readonly) NSString	*apiKeyErrbit;
 @property (nonatomic, strong, readonly) NSString	*apiKeyGoogleAnalytics;
 @property (nonatomic, strong, readonly) NSString	*apiKeyNewRelic;
 
-+ (GTConfig *)sharedInstance;
++ (GTConfig *)sharedConfig;
 
 @end
