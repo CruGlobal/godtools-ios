@@ -36,7 +36,7 @@
 		NSDictionary *configDictionary	= [NSDictionary dictionaryWithContentsOfFile:configFilePath];
 		
 		//set urls base on mode
-		NSString *baseUrlString			= ( [configDictionary valueForKey:@"base_url"] ? [configDictionary valueForKey:@"development_url"] : @"" );
+		NSString *baseUrlString			= ( [configDictionary valueForKey:@"base_url"] ? [configDictionary valueForKey:@"base_url"] : @"" );
 		
 		_baseUrl					= [NSURL URLWithString:baseUrlString];
 		
