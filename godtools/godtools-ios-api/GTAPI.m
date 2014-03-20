@@ -27,14 +27,14 @@ NSString * const GTAPIBaseParamsAPIKeyKey = @"api_key";
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
 		
-        _sharedAPI = [[GTAPI alloc] initWithConfig:[GTConfig sharedConfig]];
+        _sharedAPI = [[GTAPI alloc] initWithConfig:[GTConfig sharedConfig] errorHandler:[GTAPIErrorHandler sharedErrorHandler]];
 		
     });
     
     return _sharedAPI;
 }
 
-- (instancetype)initWithConfig:(GTConfig *)config {
+- (instancetype)initWithConfig:(GTConfig *)config errorHandler:(GTAPIErrorHandler *)errorHandler {
 	
 	self = [self initWithBaseURL:config.baseUrl];
 	
@@ -43,6 +43,10 @@ NSString * const GTAPIBaseParamsAPIKeyKey = @"api_key";
 		[self willChangeValueForKey:@"apiKey"];
 		_apiKey	= config.apiKeyGodTools;
 		[self didChangeValueForKey:@"apiKey"];
+		
+		[self willChangeValueForKey:@"errorHandler"];
+		_errorHandler	= errorHandler;
+		[self didChangeValueForKey:@"errorHandler"];
 		
     }
 	
@@ -55,9 +59,12 @@ NSString * const GTAPIBaseParamsAPIKeyKey = @"api_key";
 
 - (void)getMenuInfoSince:(NSDate *)date success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, id XMLRootElement))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id XMLRootElement))failure {
 	
+	NSMutableDictionary *params = (date ? [NSMutableDictionary dictionaryWithDictionary:@{@"since": date}] : [NSMutableDictionary dictionary] );
+	[params addEntriesFromDictionary:self.baseParams];
+	
 	NSMutableURLRequest *request = [self.requestSerializer requestWithMethod:@"GET"
 																   URLString:[[NSURL URLWithString:@"meta" relativeToURL:self.baseURL] absoluteString]
-																  parameters:self.baseParams
+																  parameters:params
 																	   error:nil];
 	
 	AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request

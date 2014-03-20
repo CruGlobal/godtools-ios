@@ -7,6 +7,7 @@
 //
 
 #import "GTViewController.h"
+#import "GTDataImporter.h"
 
 @interface GTViewController ()
 
@@ -14,16 +15,19 @@
 
 @implementation GTViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
+	
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+	
+	[[GTDataImporter sharedImporter] updateMenuInfo];
+	
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
+	
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+	
+	
 }
 
 @end

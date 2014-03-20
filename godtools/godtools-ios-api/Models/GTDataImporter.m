@@ -8,12 +8,17 @@
 
 #import "GTDataImporter.h"
 
+#import "RXMLElement.h"
 #import "GTResourceLog+Helper.h"
 
 @interface GTDataImporter ()
 
-@property (nonatomic, strong) GTAPI			*api;
-@property (nonatomic, strong) GTResourceLog	*resourceLog;
+@property (nonatomic, strong, readonly) GTAPI			*api;
+@property (nonatomic, strong)			GTResourceLog	*resourceLog;
+@property (nonatomic, strong)			NSDate			*lastMenuInfoUpdate;
+
+- (void)persistMenuInfoFromXMLElement:(RXMLElement *)rootElement;
+- (void)displayMenuInfoRequestError:(NSError *)error;
 
 @end
 
@@ -36,7 +41,7 @@
 	self = [self init];
     if (self) {
         
-		self.api	= api;
+		_api	= api;
 		
     }
 	
@@ -45,7 +50,33 @@
 
 - (void)updateMenuInfo {
 	
+	__weak typeof(self)weakSelf = self;
+	[self.api getMenuInfoSince:self.lastMenuInfoUpdate
+					   success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLRootElement) {
+						   
+						   [weakSelf persistMenuInfoFromXMLElement:XMLRootElement];
+						   
+					   } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLRootElement) {
+						   
+						   [weakSelf displayMenuInfoRequestError:error];
+						   
+					   }];
 	
+}
+
+- (void)persistMenuInfoFromXMLElement:(RXMLElement *)rootElement {
+	
+	[rootElement iterate:@"language" usingBlock:^(RXMLElement *language) {
+		
+		NSLog(@"%@", [language attribute:@"code"]);
+		
+	}];
+	
+}
+
+- (void)displayMenuInfoRequestError:(NSError *)error {
+	
+	[self.api.errorHandler displayError:error];
 	
 }
 
