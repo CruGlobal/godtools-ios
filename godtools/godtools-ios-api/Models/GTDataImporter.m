@@ -71,9 +71,21 @@
 
 - (void)persistMenuInfoFromXMLElement:(RXMLElement *)rootElement {
 	
+	NSMutableArray *languages	= [NSMutableArray array];
+	NSMutableArray *packages	= [NSMutableArray array];
+	
 	[rootElement iterate:@"language" usingBlock:^(RXMLElement *language) {
 		
-		NSLog(@"%@", [language attribute:@"code"]);
+		NSString *languageCode = [language attribute:@"code"];
+		[languages addObject:languageCode];
+		
+		[language iterate:@"packages.package" usingBlock:^(RXMLElement *package) {
+			
+			NSString *packageCode	= [package attribute:@"code"];
+			NSString *identifier	= [languageCode stringByAppendingFormat:@"-%@", packageCode];
+			[packages addObject:identifier];
+			
+		}];
 		
 	}];
 	
