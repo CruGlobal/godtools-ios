@@ -37,14 +37,16 @@
 		
 		//set urls base on mode
 		NSString *baseUrlString			= ( [configDictionary valueForKey:@"base_url"] ? [configDictionary valueForKey:@"base_url"] : @"" );
+		_baseUrl						= [NSURL URLWithString:baseUrlString];
 		
-		_baseUrl					= [NSURL URLWithString:baseUrlString];
+		//set interpreter version
+		_interpreterVersion				= ( [configDictionary valueForKey:@"interpreter_version"] ? [configDictionary valueForKey:@"interpreter_version"] : @0 );
 		
 		//set api keys
-		_apiKeyGodTools				= ( [configDictionary valueForKey:@"godtools_api_key"] ? [configDictionary valueForKey:@"godtools_api_key"] : @"" );
-		_apiKeyErrbit				= ( [configDictionary valueForKey:@"errbit_api_key"] ? [configDictionary valueForKey:@"errbit_api_key"] : @"" );
-		_apiKeyGoogleAnalytics		= ( [configDictionary valueForKey:@"google_analytics_api_key"] ? [configDictionary valueForKey:@"google_analytics_api_key"] : @"" );
-		_apiKeyNewRelic				= ( [configDictionary valueForKey:@"newrelic_api_key"] ? [configDictionary valueForKey:@"newrelic_api_key"] : @"" );
+		_apiKeyGodTools					= ( [configDictionary valueForKey:@"godtools_api_key"] ? [configDictionary valueForKey:@"godtools_api_key"] : @"" );
+		_apiKeyErrbit					= ( [configDictionary valueForKey:@"errbit_api_key"] ? [configDictionary valueForKey:@"errbit_api_key"] : @"" );
+		_apiKeyGoogleAnalytics			= ( [configDictionary valueForKey:@"google_analytics_api_key"] ? [configDictionary valueForKey:@"google_analytics_api_key"] : @"" );
+		_apiKeyNewRelic					= ( [configDictionary valueForKey:@"newrelic_api_key"] ? [configDictionary valueForKey:@"newrelic_api_key"] : @"" );
 		
     }
 	

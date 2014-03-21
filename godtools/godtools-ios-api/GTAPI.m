@@ -10,11 +10,13 @@
 
 #import "AFRaptureXMLRequestOperation.h"
 
-NSString * const GTAPIBaseParamsAPIKeyKey = @"api_key";
+NSString * const GTAPIBaseParamsAPIKeyKey				= @"api_key";
+NSString * const GTAPIBaseParamsInterpreterVersionKey	= @"interpreter_version";
 
 @interface GTAPI ()
 
 @property (nonatomic, strong, readonly) NSString		*apiKey;
+@property (nonatomic, strong, readonly) NSNumber		*interpreterVersion;
 @property (nonatomic, strong, readonly) NSDictionary	*baseParams;
 
 @end
@@ -45,8 +47,12 @@ NSString * const GTAPIBaseParamsAPIKeyKey = @"api_key";
 		[self didChangeValueForKey:@"apiKey"];
 		
 		[self willChangeValueForKey:@"errorHandler"];
-		_errorHandler	= errorHandler;
+		_errorHandler = errorHandler;
 		[self didChangeValueForKey:@"errorHandler"];
+		
+		[self willChangeValueForKey:@"interpreterVersion"];
+		_interpreterVersion	= config.interpreterVersion;
+		[self didChangeValueForKey:@"interpreterVersion"];
 		
     }
 	
@@ -54,7 +60,7 @@ NSString * const GTAPIBaseParamsAPIKeyKey = @"api_key";
 }
 
 - (NSDictionary *)baseParams {
-	return @{ GTAPIBaseParamsAPIKeyKey: self.apiKey };
+	return @{ GTAPIBaseParamsAPIKeyKey: self.apiKey , GTAPIBaseParamsInterpreterVersionKey: self.interpreterVersion };
 }
 
 - (void)getMenuInfoSince:(NSDate *)date success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, id XMLRootElement))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id XMLRootElement))failure {

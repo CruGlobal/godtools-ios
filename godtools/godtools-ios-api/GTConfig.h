@@ -11,6 +11,7 @@
 @interface GTConfig : NSObject
 
 @property (nonatomic, strong, readonly) NSURL		*baseUrl;
+@property (nonatomic, strong, readonly) NSNumber	*interpreterVersion;
 
 @property (nonatomic, strong, readonly) NSString	*apiKeyGodTools;
 @property (nonatomic, strong, readonly) NSString	*apiKeyErrbit;
