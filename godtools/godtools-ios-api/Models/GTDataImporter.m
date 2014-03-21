@@ -9,13 +9,11 @@
 #import "GTDataImporter.h"
 
 #import "RXMLElement.h"
-#import "GTResourceLog+Helper.h"
 
 @interface GTDataImporter ()
 
 @property (nonatomic, strong, readonly) GTAPI			*api;
 @property (nonatomic, strong, readonly)	GTStorage		*storage;
-@property (nonatomic, strong)			GTResourceLog	*resourceLog;
 @property (nonatomic, strong)			NSDate			*lastMenuInfoUpdate;
 
 - (void)persistMenuInfoFromXMLElement:(RXMLElement *)rootElement;
