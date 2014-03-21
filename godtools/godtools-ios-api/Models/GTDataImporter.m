@@ -14,6 +14,7 @@
 @interface GTDataImporter ()
 
 @property (nonatomic, strong, readonly) GTAPI			*api;
+@property (nonatomic, strong, readonly)	GTStorage		*storage;
 @property (nonatomic, strong)			GTResourceLog	*resourceLog;
 @property (nonatomic, strong)			NSDate			*lastMenuInfoUpdate;
 
@@ -30,18 +31,22 @@
     static dispatch_once_t onceToken;
 	
     dispatch_once(&onceToken, ^{
-        _sharedImporter = [[GTDataImporter alloc] initWithAPI:[GTAPI sharedAPI]];
+		
+        _sharedImporter = [[GTDataImporter alloc] initWithAPI:[GTAPI sharedAPI]
+													  storage:[GTStorage sharedStorage]];
+		
     });
 	
     return _sharedImporter;
 }
 
-- (instancetype)initWithAPI:(GTAPI *)api {
+- (instancetype)initWithAPI:(GTAPI *)api storage:(GTStorage *)storage {
 	
 	self = [self init];
     if (self) {
         
-		_api	= api;
+		_api		= api;
+		_storage	= storage;
 		
     }
 	

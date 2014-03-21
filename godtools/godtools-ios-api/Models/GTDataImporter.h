@@ -8,11 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import "GTAPI.h"
+#import "GTStorage.h"
 
 @interface GTDataImporter : NSObject
 
 + (instancetype)sharedImporter;
-- (instancetype)initWithAPI:(GTAPI *)api;
+- (instancetype)initWithAPI:(GTAPI *)api storage:(GTStorage *)storage;
 
 - (void)updateMenuInfo;
 - (void)updatePackagesForLanguage;
