@@ -35,6 +35,8 @@
 		68A1CBFF18DB6F9600D84F12 /* GTAPITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A1CBFE18DB6F9600D84F12 /* GTAPITest.m */; };
 		68A1CC0218DB901C00D84F12 /* GTAPIErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A1CC0118DB901C00D84F12 /* GTAPIErrorHandler.m */; };
 		68A1CC0318DB901C00D84F12 /* GTAPIErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A1CC0118DB901C00D84F12 /* GTAPIErrorHandler.m */; };
+		68BA852418DCB9E4001AC6B3 /* CRUStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BA852318DCB9E4001AC6B3 /* CRUStorage.m */; };
+		68BA852518DCB9E4001AC6B3 /* CRUStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BA852318DCB9E4001AC6B3 /* CRUStorage.m */; };
 		68E6067218D3844600844377 /* GTLanguage.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E6066D18D3844600844377 /* GTLanguage.m */; };
 		68E6067318D3844600844377 /* GTLanguage.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E6066D18D3844600844377 /* GTLanguage.m */; };
 		68E6067A18D3947600844377 /* GTLanguage+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E6067918D3947600844377 /* GTLanguage+Helper.m */; };
@@ -89,6 +91,8 @@
 		68A1CBFE18DB6F9600D84F12 /* GTAPITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTAPITest.m; sourceTree = "<group>"; };
 		68A1CC0018DB901C00D84F12 /* GTAPIErrorHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTAPIErrorHandler.h; path = "godtools-ios-api/GTAPIErrorHandler.h"; sourceTree = "<group>"; };
 		68A1CC0118DB901C00D84F12 /* GTAPIErrorHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTAPIErrorHandler.m; path = "godtools-ios-api/GTAPIErrorHandler.m"; sourceTree = "<group>"; };
+		68BA852218DCB9E4001AC6B3 /* CRUStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRUStorage.h; path = "godtools-ios-api/Models/CRUStorage.h"; sourceTree = "<group>"; };
+		68BA852318DCB9E4001AC6B3 /* CRUStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRUStorage.m; path = "godtools-ios-api/Models/CRUStorage.m"; sourceTree = "<group>"; };
 		68E6066C18D3844600844377 /* GTLanguage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTLanguage.h; path = "godtools-ios-api/Models/GTLanguage.h"; sourceTree = "<group>"; };
 		68E6066D18D3844600844377 /* GTLanguage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTLanguage.m; path = "godtools-ios-api/Models/GTLanguage.m"; sourceTree = "<group>"; };
 		68E6067818D3947600844377 /* GTLanguage+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GTLanguage+Helper.h"; path = "godtools-ios-api/Models/GTLanguage+Helper.h"; sourceTree = "<group>"; };
@@ -243,6 +247,8 @@
 				68E6068918D3986D00844377 /* GTResourceLog.m */,
 				682F0E8218D88BA600FBE3E0 /* GTDataImporter.h */,
 				682F0E8318D88BA600FBE3E0 /* GTDataImporter.m */,
+				68BA852218DCB9E4001AC6B3 /* CRUStorage.h */,
+				68BA852318DCB9E4001AC6B3 /* CRUStorage.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -424,6 +430,7 @@
 				68A1CC0218DB901C00D84F12 /* GTAPIErrorHandler.m in Sources */,
 				68740D4918D259AA00D36C0E /* GTModel.xcdatamodeld in Sources */,
 				68740D1F18D24F9A00D36C0E /* main.m in Sources */,
+				68BA852418DCB9E4001AC6B3 /* CRUStorage.m in Sources */,
 				68740D2918D24F9A00D36C0E /* GTViewController.m in Sources */,
 				68E6068618D3952800844377 /* GTAPI.m in Sources */,
 				68740D2318D24F9A00D36C0E /* GTAppDelegate.m in Sources */,
@@ -435,6 +442,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68BA852518DCB9E4001AC6B3 /* CRUStorage.m in Sources */,
 				682F0E8518D88BD600FBE3E0 /* GTResourceLog.m in Sources */,
 				682F0E8618D88BD600FBE3E0 /* GTDataImporter.m in Sources */,
 				68E6068718D3952800844377 /* GTAPI.m in Sources */,
