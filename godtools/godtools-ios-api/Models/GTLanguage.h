@@ -2,14 +2,14 @@
 //  GTLanguage.h
 //  godtools
 //
-//  Created by Michael Harrison on 3/14/14.
+//  Created by Michael Harrison on 3/21/14.
 //  Copyright (c) 2014 Michael Harrison. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class GTPackage, GTResourceLog;
+@class GTPackage;
 
 @interface GTLanguage : NSManagedObject
 
@@ -17,7 +17,6 @@
 @property (nonatomic, retain) NSNumber * downloaded;
 @property (nonatomic, retain) NSString * status;
 @property (nonatomic, retain) NSSet *packages;
-@property (nonatomic, retain) GTResourceLog *resourceLog;
 @end
 
 @interface GTLanguage (CoreDataGeneratedAccessors)
