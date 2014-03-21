@@ -29,6 +29,8 @@ NSString *const GTStorageModelName				= @"GTModel";
 													modelURL:[GTStorage modelURL]
 					 contextsSharePersistentStoreCoordinator:YES];
 		
+		_sharedStorage.mainObjectContext.undoManager	= nil;
+		
     });
     
     return _sharedStorage;
