@@ -10,8 +10,10 @@
 
 @interface GTDefaults : NSObject
 
-@property (nonatomic, strong) NSString *currentPackage;
-@property (nonatomic, strong) NSString *currentLanguage;
-@property (nonatomic, strong) NSString *currentParallelLanguage;
+@property (nonatomic, strong) NSString *currentPackageCode;
+@property (nonatomic, strong) NSString *currentLanguageCode;
+@property (nonatomic, strong) NSString *currentParallelLanguageCode;
+
++ (instancetype)sharedDefaults;
 
 @end
