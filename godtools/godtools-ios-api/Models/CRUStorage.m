@@ -32,6 +32,8 @@ NSString *const CRUStorageExceptionNameForCouldNotOpenStore	= @"org.cru.crustora
 
 @synthesize sharedPersistentStoreCoordinator	= _sharedPersistentStoreCoordinator;
 
+#pragma mark - Initialization
+
 - (id)initWithStoreURL:(NSURL*)storeURL modelURL:(NSURL*)modelURL contextsSharePersistentStoreCoordinator:(BOOL)shared {
 	
 	self = [super init];
@@ -47,6 +49,8 @@ NSString *const CRUStorageExceptionNameForCouldNotOpenStore	= @"org.cru.crustora
 	
 	return self;
 }
+
+#pragma mark - Managed Object Context Creation
 
 - (void)setupManagedObjectContexts {
 	
@@ -90,10 +94,14 @@ NSString *const CRUStorageExceptionNameForCouldNotOpenStore	= @"org.cru.crustora
 	return managedObjectContext;
 }
 
+#pragma mark - Object Model Creation
+
 - (NSManagedObjectModel*)managedObjectModel {
 	
 	return [[NSManagedObjectModel alloc] initWithContentsOfURL:self.modelURL];
 }
+
+#pragma mark - Persistent Store Creation
 
 - (NSPersistentStoreCoordinator *)sharedPersistentStoreCoordinator {
 	
@@ -144,6 +152,26 @@ NSString *const CRUStorageExceptionNameForCouldNotOpenStore	= @"org.cru.crustora
 		}
 	}
 	
+}
+
+#pragma mark - FetchRequests
+
+- (NSArray *)fetchArrayOfModels:(Class)modelType usingKey:(NSString *)key forIDs:(NSArray *)IDsArray inBackground:(BOOL)background {
+	
+	if (modelType == nil || key == nil || IDsArray == nil) {
+		return nil;
+	}
+	
+	NSManagedObjectContext *context	= ( background ? self.backgroundObjectContext : self.mainObjectContext );
+	NSEntityDescription *entity		= [NSEntityDescription entityForName:NSStringFromClass(modelType)
+											  inManagedObjectContext:context];
+	NSFetchRequest *fetchRequest	= [[NSFetchRequest alloc] init];
+	fetchRequest.entity				= entity;
+	fetchRequest.predicate			= [NSPredicate predicateWithFormat:@"@K IN %@", key, IDsArray];
+	
+	NSArray *fetchedObjects			= [context executeFetchRequest:fetchRequest error:nil];
+	
+	return fetchedObjects;
 }
 
 @end

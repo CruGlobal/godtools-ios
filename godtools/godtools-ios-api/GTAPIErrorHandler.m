@@ -23,10 +23,4 @@
     return _sharedErrorHandler;
 }
 
-- (void)displayError:(NSError *)error {
-	
-	NSLog(@"%@", error);
-	
-}
-
 @end

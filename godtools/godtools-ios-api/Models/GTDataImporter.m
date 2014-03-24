@@ -9,6 +9,7 @@
 #import "GTDataImporter.h"
 
 #import "RXMLElement.h"
+#import "GTPackage+Helper.h"
 
 @interface GTDataImporter ()
 
@@ -69,9 +70,10 @@
 
 - (void)persistMenuInfoFromXMLElement:(RXMLElement *)rootElement {
 	
-	NSMutableArray *languages	= [NSMutableArray array];
-	NSMutableArray *packages	= [NSMutableArray array];
+	NSMutableArray *languages			= [NSMutableArray array];
+	NSMutableArray *packages			= [NSMutableArray array];
 	
+	//collect language and package ids for database fetch
 	[rootElement iterate:@"language" usingBlock:^(RXMLElement *language) {
 		
 		NSString *languageCode = [language attribute:@"code"];
@@ -86,6 +88,57 @@
 		}];
 		
 	}];
+	
+	//fetch and prepare the available languages from the database
+	NSMutableDictionary *languageObjects	= [NSMutableDictionary dictionary];
+	NSArray *languageArray = [self.storage fetchArrayOfModels:[GTLanguage class]
+													 usingKey:@"code"
+													   forIDs:languages
+												 inBackground:YES];
+	
+	[languageArray enumerateObjectsUsingBlock:^(GTLanguage *language, NSUInteger index, BOOL *stop) {
+		
+		languageObjects[language.code]	= language;
+		
+	}];
+	
+	//fetch and prepare the available languages from the database
+	NSMutableDictionary *packageObjects	= [NSMutableDictionary dictionary];
+	NSArray *packageArray = [self.storage fetchArrayOfModels:[GTPackage class]
+													usingKey:@"identifier"
+													  forIDs:packages
+												inBackground:YES];
+	
+	[packageArray enumerateObjectsUsingBlock:^(GTPackage *package, NSUInteger index, BOOL *stop) {
+		
+		packageObjects[package.identifier]	= package;
+		
+	}];
+	
+	//update data
+	[rootElement iterate:@"language" usingBlock:^(RXMLElement *language) {
+		
+		NSString *languageCode = [language attribute:@"code"];
+		[languages addObject:languageCode];
+		
+		[language iterate:@"packages.package" usingBlock:^(RXMLElement *package) {
+			
+			NSString *packageCode	= [package attribute:@"code"];
+			NSString *identifier	= [languageCode stringByAppendingFormat:@"-%@", packageCode];
+			[packages addObject:identifier];
+			
+		}];
+		
+	}];
+	
+	//save data to the database
+	NSError *error;
+	[self.storage.backgroundObjectContext save:&error];
+	if (error) {
+		[self.storage.errorHandler displayError:error];
+	}
+	
+#warning incomplete implementation of persistMenuInfoFromXMLElement
 	
 }
 

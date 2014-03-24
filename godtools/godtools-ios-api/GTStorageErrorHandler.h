@@ -1,15 +1,14 @@
 //
-//  GTAPIErrorHandler.h
+//  GTStorageErrorHandler.h
 //  godtools
 //
-//  Created by Michael Harrison on 3/20/14.
+//  Created by Michael Harrison on 3/24/14.
 //  Copyright (c) 2014 Michael Harrison. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import "GTErrorHandler.h"
 
-@interface GTAPIErrorHandler : GTErrorHandler
+@interface GTStorageErrorHandler : GTErrorHandler
 
 + (instancetype)sharedErrorHandler;
 

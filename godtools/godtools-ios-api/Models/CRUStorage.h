@@ -33,4 +33,15 @@ extern NSString *const CRUStorageExceptionNameForCouldNotOpenStore;
  */
 @property (nonatomic,readonly) NSManagedObjectContext* backgroundObjectContext;
 
+/**
+ Will grab an array of Model Objects from the Persistent Store where their value for key matches one of the IDs in IDsArray
+ @param modelType - Class of object you want to grab (assumes Class name matches CoreData Entity name)
+ @param key - The name of the instance variable on the Model that you would like to search. It will return models with IDs that match the value on myModel.myKey in IDsArray[]
+ @param IDsArray - array of IDs that you would like to search for.
+ @param background - should it be run on the background context (using its background queue) or the main context (using the main thread)
+ @example [myStorage fetchArrayOfModels:[Book class] usingKey:@"title" forIDs:@[@"Gone with the wind", @"The Bible"] inBackground:YES];
+ this would search in the background for books with the title "Gone with the wind" or "The Bible".
+ */
+- (NSArray *)fetchArrayOfModels:(Class)modelType usingKey:(NSString *)key forIDs:(NSArray *)IDsArray inBackground:(BOOL)background;
+
 @end
