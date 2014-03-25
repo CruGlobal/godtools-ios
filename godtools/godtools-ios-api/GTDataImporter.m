@@ -117,25 +117,25 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier			= @"identifier";
 
 - (void)updatePackagesWithNewVersions {
 	
-	
+	#warning incomplete implementation for updatePackagesWithNewVersions
 	
 }
 
 - (void)downloadPackagesForLanguage:(GTLanguage *)language {
 	
-	
+	#warning incomplete implementation for downloadPackagesForLanguage
 	
 }
 
 - (void)checkForPackagesWithNewVersionsForLanguage:(GTLanguage *)language {
 	
-	
+	#warning incomplete implementation for checkForPackagesWithNewVersionsForLanguage
 	
 }
 
 - (void)updatePackagesWithNewVersionsForLanguage:(GTLanguage *)langauge {
 	
-	
+	#warning incomplete implementation for updatePackagesWithNewVersionsForLanguage
 	
 }
 
