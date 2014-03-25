@@ -7,9 +7,13 @@
 //
 
 #import "CRUStorage.h"
+#import "GTStorageErrorHandler.h"
 
 @interface GTStorage : CRUStorage
 
 + (instancetype)sharedStorage;
+- (id)initWithStoreURL:(NSURL*)storeURL modelURL:(NSURL*)modelURL contextsSharePersistentStoreCoordinator:(BOOL)shared errorHandler:(GTStorageErrorHandler *)errorHandler;
+
+@property (nonatomic, strong, readonly) GTStorageErrorHandler *errorHandler;
 
 @end

@@ -27,7 +27,8 @@ NSString *const GTStorageModelName				= @"GTModel";
 		
         _sharedStorage = [[GTStorage alloc] initWithStoreURL:[GTStorage storeURL]
 													modelURL:[GTStorage modelURL]
-					 contextsSharePersistentStoreCoordinator:YES];
+					 contextsSharePersistentStoreCoordinator:YES
+												errorHandler:[GTStorageErrorHandler sharedErrorHandler]];
 		
 		_sharedStorage.mainObjectContext.undoManager	= nil;
 		
@@ -35,6 +36,19 @@ NSString *const GTStorageModelName				= @"GTModel";
     
     return _sharedStorage;
 	
+}
+
+- (id)initWithStoreURL:(NSURL*)storeURL modelURL:(NSURL*)modelURL contextsSharePersistentStoreCoordinator:(BOOL)shared errorHandler:(GTStorageErrorHandler *)errorHandler {
+	
+	self = [super initWithStoreURL:storeURL modelURL:modelURL contextsSharePersistentStoreCoordinator:shared];
+	
+	if (self) {
+		
+		_errorHandler = errorHandler;
+		
+	}
+	
+	return self;
 }
 
 + (NSURL *)storeURL {
