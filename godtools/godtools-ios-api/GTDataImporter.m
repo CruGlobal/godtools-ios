@@ -34,6 +34,8 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier			= @"identifier";
 @property (nonatomic, strong)			NSDate			*lastMenuInfoUpdate;
 @property (nonatomic, strong)			NSMutableArray	*packagesNeedingToBeUpdated;
 
+- (void)setupForDefaults;
+
 - (void)persistMenuInfoFromXMLElement:(RXMLElement *)rootElement;
 - (void)displayMenuInfoRequestError:(NSError *)error;
 
@@ -66,15 +68,29 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier			= @"identifier";
 	
     if (self) {
         
+		self.packagesNeedingToBeUpdated	= [NSMutableArray array];
+		
 		_api		= api;
 		_storage	= storage;
 		_defaults	= defaults;
-	
-		self.packagesNeedingToBeUpdated	= [NSMutableArray array];
+		
+		if (self.defaults) {
+			
+			[self setupForDefaults];
+			
+		}
 		
     }
 	
     return self;
+}
+
+- (void)setupForDefaults {
+	
+#warning incomplete implementation for setupForDefaults
+	//add listeners
+	//check if currentLanguage needs to be downloaded (ie first time app is opened)
+	
 }
 
 - (void)updateMenuInfo {
