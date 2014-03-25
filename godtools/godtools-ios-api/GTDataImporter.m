@@ -141,6 +141,8 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier			= @"identifier";
 
 - (void)persistMenuInfoFromXMLElement:(RXMLElement *)rootElement {
 	
+#warning will crash if xml is missing values. Needs Try catch block around parsing (ie contents of the method).
+	
 	NSMutableArray *packageCodes			= [NSMutableArray array];
 	NSMutableArray *languageCodes			= [NSMutableArray array];
 	
