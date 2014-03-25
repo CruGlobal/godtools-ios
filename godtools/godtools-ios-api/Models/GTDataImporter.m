@@ -70,20 +70,20 @@
 
 - (void)persistMenuInfoFromXMLElement:(RXMLElement *)rootElement {
 	
-	NSMutableArray *languages			= [NSMutableArray array];
-	NSMutableArray *packages			= [NSMutableArray array];
+	NSMutableArray *languageCodes		= [NSMutableArray array];
+	NSMutableArray *packageCodes		= [NSMutableArray array];
 	
-	//collect language and package ids for database fetch
+	//collect language and package codes for database fetch
 	[rootElement iterate:@"language" usingBlock:^(RXMLElement *language) {
 		
 		NSString *languageCode = [language attribute:@"code"];
-		[languages addObject:languageCode];
+		[languageCodes addObject:languageCode];
 		
 		[language iterate:@"packages.package" usingBlock:^(RXMLElement *package) {
 			
 			NSString *packageCode	= [package attribute:@"code"];
 			NSString *identifier	= [languageCode stringByAppendingFormat:@"-%@", packageCode];
-			[packages addObject:identifier];
+			[packageCodes addObject:identifier];
 			
 		}];
 		
@@ -93,7 +93,7 @@
 	NSMutableDictionary *languageObjects	= [NSMutableDictionary dictionary];
 	NSArray *languageArray = [self.storage fetchArrayOfModels:[GTLanguage class]
 													 usingKey:@"code"
-													   forIDs:languages
+													forValues:languageCodes
 												 inBackground:YES];
 	
 	[languageArray enumerateObjectsUsingBlock:^(GTLanguage *language, NSUInteger index, BOOL *stop) {
@@ -106,7 +106,7 @@
 	NSMutableDictionary *packageObjects	= [NSMutableDictionary dictionary];
 	NSArray *packageArray = [self.storage fetchArrayOfModels:[GTPackage class]
 													usingKey:@"identifier"
-													  forIDs:packages
+												   forValues:packageCodes
 												inBackground:YES];
 	
 	[packageArray enumerateObjectsUsingBlock:^(GTPackage *package, NSUInteger index, BOOL *stop) {
@@ -116,16 +116,14 @@
 	}];
 	
 	//update data
+#warning incomplete implementation of persistMenuInfoFromXMLElement
 	[rootElement iterate:@"language" usingBlock:^(RXMLElement *language) {
 		
-		NSString *languageCode = [language attribute:@"code"];
-		[languages addObject:languageCode];
+		//update language
 		
 		[language iterate:@"packages.package" usingBlock:^(RXMLElement *package) {
 			
-			NSString *packageCode	= [package attribute:@"code"];
-			NSString *identifier	= [languageCode stringByAppendingFormat:@"-%@", packageCode];
-			[packages addObject:identifier];
+			//update package
 			
 		}];
 		
@@ -137,8 +135,6 @@
 	if (error) {
 		[self.storage.errorHandler displayError:error];
 	}
-	
-#warning incomplete implementation of persistMenuInfoFromXMLElement
 	
 }
 

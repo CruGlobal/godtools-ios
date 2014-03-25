@@ -157,9 +157,9 @@ NSString *const CRUStorageExceptionUserInfoKeyForError		= @"org.cru.crustorage.e
 
 #pragma mark - FetchRequests
 
-- (NSArray *)fetchArrayOfModels:(Class)modelType usingKey:(NSString *)key forIDs:(NSArray *)IDsArray inBackground:(BOOL)background {
+- (NSArray *)fetchArrayOfModels:(Class)modelType usingKey:(NSString *)key forValues:(NSArray *)valueArray inBackground:(BOOL)background {
 	
-	if (modelType == nil || key == nil || IDsArray == nil) {
+	if (modelType == nil || key == nil || valueArray == nil) {
 		return nil;
 	}
 	
@@ -168,7 +168,7 @@ NSString *const CRUStorageExceptionUserInfoKeyForError		= @"org.cru.crustorage.e
 											  inManagedObjectContext:context];
 	NSFetchRequest *fetchRequest	= [[NSFetchRequest alloc] init];
 	fetchRequest.entity				= entity;
-	fetchRequest.predicate			= [NSPredicate predicateWithFormat:@"@K IN %@", key, IDsArray];
+	fetchRequest.predicate			= [NSPredicate predicateWithFormat:@"@K IN %@", key, valueArray];
 	
 	NSArray *fetchedObjects			= [context executeFetchRequest:fetchRequest error:nil];
 	
