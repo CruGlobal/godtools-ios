@@ -1,18 +1,18 @@
 //
-//  godtoolsTests.m
-//  godtoolsTests
+//  GTAPIErrorHandlerTests.m
+//  godtools
 //
-//  Created by Michael Harrison on 3/13/14.
+//  Created by Michael Harrison on 3/25/14.
 //  Copyright (c) 2014 Michael Harrison. All rights reserved.
 //
 
 #import <XCTest/XCTest.h>
 
-@interface godtoolsTests : XCTestCase
+@interface GTAPIErrorHandlerTests : XCTestCase
 
 @end
 
-@implementation godtoolsTests
+@implementation GTAPIErrorHandlerTests
 
 - (void)setUp
 {
@@ -24,6 +24,11 @@
 {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
+}
+
+- (void)testExample
+{
+    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
 }
 
 @end
