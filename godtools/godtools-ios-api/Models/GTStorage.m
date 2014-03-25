@@ -40,15 +40,25 @@ NSString *const GTStorageModelName				= @"GTModel";
 
 - (id)initWithStoreURL:(NSURL*)storeURL modelURL:(NSURL*)modelURL contextsSharePersistentStoreCoordinator:(BOOL)shared errorHandler:(GTStorageErrorHandler *)errorHandler {
 	
-	self = [super initWithStoreURL:storeURL modelURL:modelURL contextsSharePersistentStoreCoordinator:shared];
-	
-	if (self) {
+	@try {
 		
-		_errorHandler = errorHandler;
+		self = [super initWithStoreURL:storeURL modelURL:modelURL contextsSharePersistentStoreCoordinator:shared];
+		
+		if (self) {
+			
+			_errorHandler = errorHandler;
+			
+		}
+		
+		return self;
+		
+	}
+	@catch (NSException *exception) {
+		
+		[errorHandler displayError:exception.userInfo[CRUStorageExceptionUserInfoKeyForError]];
 		
 	}
 	
-	return self;
 }
 
 + (NSURL *)storeURL {

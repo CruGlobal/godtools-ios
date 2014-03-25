@@ -23,4 +23,11 @@
     return _sharedErrorHandler;
 }
 
+- (void)displayError:(NSError *)error {
+	
+#warning incomplete impelementation. Error specific handling should go here to catch general API errors like no connection.
+	
+	[super displayError:error];
+}
+
 @end

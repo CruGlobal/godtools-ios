@@ -9,6 +9,7 @@
 #import "CRUStorage.h"
 
 NSString *const CRUStorageExceptionNameForCouldNotOpenStore	= @"org.cru.crustorage.exception.name.couldnotopenstore";
+NSString *const CRUStorageExceptionUserInfoKeyForError		= @"org.cru.crustorage.exception.userInfo.key.error";
 
 @interface CRUStorage ()
 
@@ -148,7 +149,7 @@ NSString *const CRUStorageExceptionNameForCouldNotOpenStore	= @"org.cru.crustora
 		if (error) {
 			@throw [NSException exceptionWithName:CRUStorageExceptionNameForCouldNotOpenStore
 										   reason:error.localizedDescription
-										 userInfo:nil];
+										 userInfo:@{CRUStorageExceptionUserInfoKeyForError: error}];
 		}
 	}
 	

@@ -13,6 +13,7 @@
 - (void)displayError:(NSError *)error {
 	
 	NSLog(@"%@", error);
+#warning incomplete impelementation of displayError
 	
 }
 

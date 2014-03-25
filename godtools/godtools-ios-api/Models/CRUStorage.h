@@ -10,6 +10,7 @@
 #import <CoreData/CoreData.h>
 
 extern NSString *const CRUStorageExceptionNameForCouldNotOpenStore;
+extern NSString *const CRUStorageExceptionUserInfoKeyForError;
 
 @interface CRUStorage : NSObject
 
