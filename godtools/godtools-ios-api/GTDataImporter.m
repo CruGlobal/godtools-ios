@@ -11,6 +11,21 @@
 #import "RXMLElement.h"
 #import "GTPackage+Helper.h"
 
+NSString *const GTDataImporterNotificationNameUpdateNeeded			= @"com.godtoolsapp.GTDataImporter.notifications.updateNeeded";
+
+NSString *const GTDataImporterLanguageMetaXmlPathRelativeToRoot		= @"language";
+NSString *const GTDataImporterLanguageMetaXmlAttributeNameCode		= @"code";
+NSString *const GTDataImporterLanguageModelKeyNameCode				= @"code";
+
+NSString *const GTDataImporterPackageMetaXmlPathRelativeToLanguage	= @"packages.package";
+NSString *const GTDataImporterPackageMetaXmlAttributeNameCode		= @"code";
+NSString *const GTDataImporterPackageMetaXmlAttributeNameIcon		= @"icon";
+NSString *const GTDataImporterPackageMetaXmlAttributeNameName		= @"name";
+NSString *const GTDataImporterPackageMetaXmlAttributeNameStatus		= @"status";
+NSString *const GTDataImporterPackageMetaXmlAttributeNameType		= @"type";
+NSString *const GTDataImporterPackageMetaXmlAttributeNameVersion	= @"version";
+NSString *const GTDataImporterPackageModelKeyNameIdentifier			= @"identifier";
+
 @interface GTDataImporter ()
 
 @property (nonatomic, strong, readonly) GTAPI			*api;
@@ -78,20 +93,44 @@
 	
 }
 
+- (void)updatePackagesWithNewVersions {
+	
+	
+	
+}
+
+- (void)downloadPackagesForLanguage:(GTLanguage *)language {
+	
+	
+	
+}
+
+- (void)checkForPackagesWithNewVersionsForLanguage:(GTLanguage *)language {
+	
+	
+	
+}
+
+- (void)updatePackagesWithNewVersionsForLanguage:(GTLanguage *)langauge {
+	
+	
+	
+}
+
 - (void)persistMenuInfoFromXMLElement:(RXMLElement *)rootElement {
 	
 	NSMutableArray *languageCodes		= [NSMutableArray array];
 	NSMutableArray *packageCodes		= [NSMutableArray array];
 	
 	//collect language and package codes for database fetch
-	[rootElement iterate:@"language" usingBlock:^(RXMLElement *languageElement) {
+	[rootElement iterate:GTDataImporterLanguageMetaXmlPathRelativeToRoot usingBlock:^(RXMLElement *languageElement) {
 		
-		NSString *languageCode = [languageElement attribute:@"code"];
+		NSString *languageCode = [languageElement attribute:GTDataImporterLanguageMetaXmlAttributeNameCode];
 		[languageCodes addObject:languageCode];
 		
-		[languageElement iterate:@"packages.package" usingBlock:^(RXMLElement *packageElement) {
+		[languageElement iterate:GTDataImporterPackageMetaXmlPathRelativeToLanguage usingBlock:^(RXMLElement *packageElement) {
 			
-			NSString *packageCode	= [packageElement attribute:@"code"];
+			NSString *packageCode	= [packageElement attribute:GTDataImporterPackageMetaXmlAttributeNameCode];
 			NSString *identifier	= [GTPackage identifierWithPackageCode:packageCode languageCode:languageCode];
 			[packageCodes addObject:identifier];
 			
@@ -102,7 +141,7 @@
 	//fetch and prepare the available languages from the database
 	NSMutableDictionary *languageObjects	= [NSMutableDictionary dictionary];
 	NSArray *languageArray = [self.storage fetchArrayOfModels:[GTLanguage class]
-													 usingKey:@"code"
+													 usingKey:GTDataImporterLanguageModelKeyNameCode
 													forValues:languageCodes
 												 inBackground:YES];
 	
@@ -115,7 +154,7 @@
 	//fetch and prepare the available languages from the database
 	NSMutableDictionary *packageObjects	= [NSMutableDictionary dictionary];
 	NSArray *packageArray = [self.storage fetchArrayOfModels:[GTPackage class]
-													usingKey:@"identifier"
+													usingKey:GTDataImporterPackageModelKeyNameIdentifier
 												   forValues:packageCodes
 												inBackground:YES];
 	
@@ -127,10 +166,10 @@
 	
 	//update data
 #warning incomplete implementation of persistMenuInfoFromXMLElement
-	[rootElement iterate:@"language" usingBlock:^(RXMLElement *languageElement) {
+	[rootElement iterate:GTDataImporterLanguageMetaXmlPathRelativeToRoot usingBlock:^(RXMLElement *languageElement) {
 		
 		//update language
-		NSString *languageCode		= [languageElement attribute:@"code"];
+		NSString *languageCode		= [languageElement attribute:GTDataImporterLanguageMetaXmlAttributeNameCode];
 		GTLanguage *language		= languageObjects[languageCode];
 		
 		if (!language) {
@@ -140,12 +179,12 @@
 			
 		}
 		
-		[languageElement iterate:@"packages.package" usingBlock:^(RXMLElement *packageElement) {
+		[languageElement iterate:GTDataImporterPackageMetaXmlPathRelativeToLanguage usingBlock:^(RXMLElement *packageElement) {
 			
 			//update package
-			NSString *packageCode	= [packageElement attribute:@"code"];
+			NSString *packageCode	= [packageElement attribute:GTDataImporterPackageMetaXmlAttributeNameCode];
 			NSString *identifier	= [GTPackage identifierWithPackageCode:packageCode languageCode:languageCode];
-			NSNumber *version		= @([[packageElement attribute:@"version"] integerValue]);
+			NSNumber *version		= @([[packageElement attribute:GTDataImporterPackageMetaXmlAttributeNameVersion] integerValue]);
 			
 			GTPackage *package		= packageObjects[identifier];
 			
@@ -166,10 +205,10 @@
 				
 			}
 			
-			package.icon			= [packageElement attribute:@"icon"];
-			package.name			= [packageElement attribute:@"name"];
-			package.status			= [packageElement attribute:@"status"];
-			package.type			= [packageElement attribute:@"type"];
+			package.icon			= [packageElement attribute:GTDataImporterPackageMetaXmlAttributeNameIcon];
+			package.name			= [packageElement attribute:GTDataImporterPackageMetaXmlAttributeNameName];
+			package.status			= [packageElement attribute:GTDataImporterPackageMetaXmlAttributeNameStatus];
+			package.type			= [packageElement attribute:GTDataImporterPackageMetaXmlAttributeNameType];
 			package.version			= version;
 			
 			[packageObjects removeObjectForKey:identifier];
@@ -202,7 +241,7 @@
 	
 	if (self.packagesNeedingToBeUpdated.count > 0) {
 		
-		[[NSNotificationCenter defaultCenter] postNotificationName:@"com.godtoolsapp.GTDataImporter.notifications.updateNeeded" object:self];
+		[[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationNameUpdateNeeded object:self];
 		
 	}
 	
@@ -217,10 +256,6 @@
 	
 }
 
-- (void)updatePackagesForLanguage {
-	
-	
-	
-}
+
 
 @end
