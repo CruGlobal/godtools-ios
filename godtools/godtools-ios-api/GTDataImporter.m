@@ -41,6 +41,12 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier			= @"identifier";
 
 - (void)cleanUpMenuImportFailureWithError:(NSError *)error;
 - (void)fireMenuImportSuccessNotifications;
+
+- (void)fillArraysWithPackageAndLanguageCodesForXmlElement:(RXMLElement *)rootElement packageCodeArray:(NSMutableArray **)packageCodesArray languageCodeArray:(NSMutableArray **)languageCodesArray;
+- (void)fillDictionariesWithPackageAndLanguageObjectsForPackageCodeArray:(NSArray *)packageCodes languageCodeArray:(NSArray *)languageCodes packageObjectsDictionary:(NSMutableDictionary **)packageObjectsDictionary languageObjectsDictionary:(NSMutableDictionary **)languageObjectsDictionary;
+- (void)updateOrCreatePackageAndLanguageObjectsForXmlElement:(RXMLElement *)rootElement packageObjectsDictionary:(NSMutableDictionary *)packageObjectsDictionary languageObjectsDictionary:(NSMutableDictionary *)languageObjectsDictionary;
+- (void)updateOrCreatePackageObjectsForXmlElement:(RXMLElement *)languageElement languageObject:(GTLanguage *)language packageObjectsDictionary:(NSMutableDictionary *)packageObjectsDictionary;
+- (void)checkForUpdateAndRegisterPackage:(GTPackage *)package basedOnLanguageCode:(NSString *)languageCode newVersionNumber:(NSNumber *)newVersionNumber;
 	
 @end
 
@@ -135,8 +141,46 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier			= @"identifier";
 
 - (void)persistMenuInfoFromXMLElement:(RXMLElement *)rootElement {
 	
-	NSMutableArray *languageCodes		= [NSMutableArray array];
-	NSMutableArray *packageCodes		= [NSMutableArray array];
+	NSMutableArray *packageCodes			= [NSMutableArray array];
+	NSMutableArray *languageCodes			= [NSMutableArray array];
+	
+	//collect language and package codes for database fetch
+	[self fillArraysWithPackageAndLanguageCodesForXmlElement:rootElement
+											packageCodeArray:&packageCodes
+										   languageCodeArray:&languageCodes];
+	
+	//fetch and prepare the available languages from the database
+	NSMutableDictionary *packageObjects		= [NSMutableDictionary dictionary];
+	NSMutableDictionary *languageObjects	= [NSMutableDictionary dictionary];
+	
+	[self fillDictionariesWithPackageAndLanguageObjectsForPackageCodeArray:packageCodes
+														 languageCodeArray:languageCodes
+												  packageObjectsDictionary:&packageObjects
+												 languageObjectsDictionary:&languageObjects];
+	
+	//update models with XML data
+	[self updateOrCreatePackageAndLanguageObjectsForXmlElement:rootElement
+									  packageObjectsDictionary:packageObjects
+									 languageObjectsDictionary:languageObjects];
+	
+	//save models to storage
+	NSError *error;
+	if ([self.storage.backgroundObjectContext save:&error]) {
+		
+		[self fireMenuImportSuccessNotifications];
+		
+	} else {
+		
+		[self cleanUpMenuImportFailureWithError:error];
+		
+	}
+	
+}
+
+- (void)fillArraysWithPackageAndLanguageCodesForXmlElement:(RXMLElement *)rootElement packageCodeArray:(NSMutableArray **)packageCodesArray languageCodeArray:(NSMutableArray **)languageCodesArray {
+	
+	NSMutableArray *packageCodes = *packageCodesArray;
+	NSMutableArray *languageCodes = *languageCodesArray;
 	
 	//collect language and package codes for database fetch
 	[rootElement iterate:GTDataImporterLanguageMetaXmlPathRelativeToRoot usingBlock:^(RXMLElement *languageElement) {
@@ -154,8 +198,13 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier			= @"identifier";
 		
 	}];
 	
-	//fetch and prepare the available languages from the database
-	NSMutableDictionary *languageObjects	= [NSMutableDictionary dictionary];
+}
+
+- (void)fillDictionariesWithPackageAndLanguageObjectsForPackageCodeArray:(NSArray *)packageCodes languageCodeArray:(NSArray *)languageCodes packageObjectsDictionary:(NSMutableDictionary **)packageObjectsDictionary languageObjectsDictionary:(NSMutableDictionary **)languageObjectsDictionary {
+	
+	NSMutableDictionary *packageObjects		= *packageObjectsDictionary;
+	NSMutableDictionary *languageObjects	= *languageObjectsDictionary;
+	
 	NSArray *languageArray = [self.storage fetchArrayOfModels:[GTLanguage class]
 													 usingKey:GTDataImporterLanguageModelKeyNameCode
 													forValues:languageCodes
@@ -167,8 +216,6 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier			= @"identifier";
 		
 	}];
 	
-	//fetch and prepare the available languages from the database
-	NSMutableDictionary *packageObjects	= [NSMutableDictionary dictionary];
 	NSArray *packageArray = [self.storage fetchArrayOfModels:[GTPackage class]
 													usingKey:GTDataImporterPackageModelKeyNameIdentifier
 												   forValues:packageCodes
@@ -180,8 +227,13 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier			= @"identifier";
 		
 	}];
 	
-	//update data
-#warning incomplete implementation of persistMenuInfoFromXMLElement
+}
+
+- (void)updateOrCreatePackageAndLanguageObjectsForXmlElement:(RXMLElement *)rootElement packageObjectsDictionary:(NSMutableDictionary *)packageObjectsDictionary languageObjectsDictionary:(NSMutableDictionary *)languageObjectsDictionary {
+	
+	NSMutableDictionary *packageObjects		= packageObjectsDictionary;
+	NSMutableDictionary *languageObjects	= languageObjectsDictionary;
+	
 	[rootElement iterate:GTDataImporterLanguageMetaXmlPathRelativeToRoot usingBlock:^(RXMLElement *languageElement) {
 		
 		//update language
@@ -195,53 +247,58 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier			= @"identifier";
 			
 		}
 		
-		[languageElement iterate:GTDataImporterPackageMetaXmlPathRelativeToLanguage usingBlock:^(RXMLElement *packageElement) {
-			
-			//update package
-			NSString *packageCode	= [packageElement attribute:GTDataImporterPackageMetaXmlAttributeNameCode];
-			NSString *identifier	= [GTPackage identifierWithPackageCode:packageCode languageCode:languageCode];
-			NSNumber *version		= @([[packageElement attribute:GTDataImporterPackageMetaXmlAttributeNameVersion] integerValue]);
-			
-			GTPackage *package		= packageObjects[identifier];
-			
-			if (!package) {
-				
-				package						= [GTPackage packageWithCode:packageCode language:language inContext:self.storage.backgroundObjectContext];
-				packageObjects[identifier]	= package;
-				
-			} else {
-				
-				if ([self.defaults.currentLanguageCode isEqualToString:languageCode] ||
-					[self.defaults.currentParallelLanguageCode isEqualToString:languageCode] ||
-					package.version < version) {
-					
-					[self.packagesNeedingToBeUpdated addObject:package];
-					
-				}
-				
-			}
-			
-			package.icon			= [packageElement attribute:GTDataImporterPackageMetaXmlAttributeNameIcon];
-			package.name			= [packageElement attribute:GTDataImporterPackageMetaXmlAttributeNameName];
-			package.status			= [packageElement attribute:GTDataImporterPackageMetaXmlAttributeNameStatus];
-			package.type			= [packageElement attribute:GTDataImporterPackageMetaXmlAttributeNameType];
-			package.version			= version;
-			
-			[packageObjects removeObjectForKey:identifier];
-			
-		}];
+		[self updateOrCreatePackageObjectsForXmlElement:languageElement
+										 languageObject:language
+							   packageObjectsDictionary:packageObjects];
 		
 	}];
 	
-	//save data to the database
-	NSError *error;
-	if ([self.storage.backgroundObjectContext save:&error]) {
+}
+
+- (void)updateOrCreatePackageObjectsForXmlElement:(RXMLElement *)languageElement languageObject:(GTLanguage *)language packageObjectsDictionary:(NSMutableDictionary *)packageObjectsDictionary {
+	
+	NSMutableDictionary *packageObjects	= packageObjectsDictionary;
+	NSString			*languageCode	= language.code;
+	
+	[languageElement iterate:GTDataImporterPackageMetaXmlPathRelativeToLanguage usingBlock:^(RXMLElement *packageElement) {
 		
-		[self fireMenuImportSuccessNotifications];
+		//update package
+		NSString *packageCode	= [packageElement attribute:GTDataImporterPackageMetaXmlAttributeNameCode];
+		NSString *identifier	= [GTPackage identifierWithPackageCode:packageCode languageCode:languageCode];
+		NSNumber *version		= @([[packageElement attribute:GTDataImporterPackageMetaXmlAttributeNameVersion] integerValue]);
 		
-	} else {
+		GTPackage *package		= packageObjects[identifier];
 		
-		[self cleanUpMenuImportFailureWithError:error];
+		if (!package) {
+			
+			package						= [GTPackage packageWithCode:packageCode language:language inContext:self.storage.backgroundObjectContext];
+			packageObjects[identifier]	= package;
+			
+		} else {
+			
+			[self checkForUpdateAndRegisterPackage:package basedOnLanguageCode:languageCode newVersionNumber:version];
+			
+		}
+		
+		package.icon			= [packageElement attribute:GTDataImporterPackageMetaXmlAttributeNameIcon];
+		package.name			= [packageElement attribute:GTDataImporterPackageMetaXmlAttributeNameName];
+		package.status			= [packageElement attribute:GTDataImporterPackageMetaXmlAttributeNameStatus];
+		package.type			= [packageElement attribute:GTDataImporterPackageMetaXmlAttributeNameType];
+		package.version			= version;
+		
+		[packageObjects removeObjectForKey:identifier];
+		
+	}];
+	
+}
+
+- (void)checkForUpdateAndRegisterPackage:(GTPackage *)package basedOnLanguageCode:(NSString *)languageCode newVersionNumber:(NSNumber *)newVersionNumber {
+	
+	if ([self.defaults.currentLanguageCode isEqualToString:languageCode] ||
+		[self.defaults.currentParallelLanguageCode isEqualToString:languageCode] ||
+		[package.version integerValue] < [newVersionNumber integerValue]) {
+		
+		[self.packagesNeedingToBeUpdated addObject:package];
 		
 	}
 	
