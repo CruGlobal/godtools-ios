@@ -9,11 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "GTAPI.h"
 #import "GTStorage.h"
+#import "GTDefaults.h"
 
 @interface GTDataImporter : NSObject
 
 + (instancetype)sharedImporter;
-- (instancetype)initWithAPI:(GTAPI *)api storage:(GTStorage *)storage;
+- (instancetype)initWithAPI:(GTAPI *)api storage:(GTStorage *)storage defaults:(GTDefaults *)defaults;
 
 - (void)updateMenuInfo;
 - (void)updatePackagesForLanguage;

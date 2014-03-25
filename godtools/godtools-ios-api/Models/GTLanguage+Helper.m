@@ -10,4 +10,12 @@
 
 @implementation GTLanguage (Helper)
 
++ (instancetype)languageWithCode:(NSString *)code inContext:(NSManagedObjectContext *)context {
+	
+	GTLanguage *language	= [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class]) inManagedObjectContext:context];
+	language.code			= code;
+	
+	return language;
+}
+
 @end

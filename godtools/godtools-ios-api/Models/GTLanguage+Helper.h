@@ -10,4 +10,6 @@
 
 @interface GTLanguage (Helper)
 
++ (instancetype)languageWithCode:(NSString *)code inContext:(NSManagedObjectContext *)context;
+
 @end

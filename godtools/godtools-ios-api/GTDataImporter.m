@@ -15,11 +15,16 @@
 
 @property (nonatomic, strong, readonly) GTAPI			*api;
 @property (nonatomic, strong, readonly)	GTStorage		*storage;
+@property (nonatomic, strong, readonly) GTDefaults		*defaults;
 @property (nonatomic, strong)			NSDate			*lastMenuInfoUpdate;
+@property (nonatomic, strong)			NSMutableArray	*packagesNeedingToBeUpdated;
 
 - (void)persistMenuInfoFromXMLElement:(RXMLElement *)rootElement;
 - (void)displayMenuInfoRequestError:(NSError *)error;
 
+- (void)cleanUpMenuImportFailureWithError:(NSError *)error;
+- (void)fireMenuImportSuccessNotifications;
+	
 @end
 
 @implementation GTDataImporter
@@ -32,20 +37,25 @@
     dispatch_once(&onceToken, ^{
 		
         _sharedImporter = [[GTDataImporter alloc] initWithAPI:[GTAPI sharedAPI]
-													  storage:[GTStorage sharedStorage]];
+													  storage:[GTStorage sharedStorage]
+													 defaults:[GTDefaults sharedDefaults]];
 		
     });
 	
     return _sharedImporter;
 }
 
-- (instancetype)initWithAPI:(GTAPI *)api storage:(GTStorage *)storage {
+- (instancetype)initWithAPI:(GTAPI *)api storage:(GTStorage *)storage defaults:(GTDefaults *)defaults {
 	
 	self = [self init];
+	
     if (self) {
         
 		_api		= api;
 		_storage	= storage;
+		_defaults	= defaults;
+	
+		self.packagesNeedingToBeUpdated	= [NSMutableArray array];
 		
     }
 	
@@ -74,15 +84,15 @@
 	NSMutableArray *packageCodes		= [NSMutableArray array];
 	
 	//collect language and package codes for database fetch
-	[rootElement iterate:@"language" usingBlock:^(RXMLElement *language) {
+	[rootElement iterate:@"language" usingBlock:^(RXMLElement *languageElement) {
 		
-		NSString *languageCode = [language attribute:@"code"];
+		NSString *languageCode = [languageElement attribute:@"code"];
 		[languageCodes addObject:languageCode];
 		
-		[language iterate:@"packages.package" usingBlock:^(RXMLElement *package) {
+		[languageElement iterate:@"packages.package" usingBlock:^(RXMLElement *packageElement) {
 			
-			NSString *packageCode	= [package attribute:@"code"];
-			NSString *identifier	= [languageCode stringByAppendingFormat:@"-%@", packageCode];
+			NSString *packageCode	= [packageElement attribute:@"code"];
+			NSString *identifier	= [GTPackage identifierWithPackageCode:packageCode languageCode:languageCode];
 			[packageCodes addObject:identifier];
 			
 		}];
@@ -117,13 +127,52 @@
 	
 	//update data
 #warning incomplete implementation of persistMenuInfoFromXMLElement
-	[rootElement iterate:@"language" usingBlock:^(RXMLElement *language) {
+	[rootElement iterate:@"language" usingBlock:^(RXMLElement *languageElement) {
 		
 		//update language
+		NSString *languageCode		= [languageElement attribute:@"code"];
+		GTLanguage *language		= languageObjects[languageCode];
 		
-		[language iterate:@"packages.package" usingBlock:^(RXMLElement *package) {
+		if (!language) {
+			
+			language						= [GTLanguage languageWithCode:languageCode inContext:self.storage.backgroundObjectContext];
+			languageObjects[languageCode]	= language;
+			
+		}
+		
+		[languageElement iterate:@"packages.package" usingBlock:^(RXMLElement *packageElement) {
 			
 			//update package
+			NSString *packageCode	= [packageElement attribute:@"code"];
+			NSString *identifier	= [GTPackage identifierWithPackageCode:packageCode languageCode:languageCode];
+			NSNumber *version		= @([[packageElement attribute:@"version"] integerValue]);
+			
+			GTPackage *package		= packageObjects[identifier];
+			
+			if (!package) {
+				
+				package						= [GTPackage packageWithCode:packageCode language:language inContext:self.storage.backgroundObjectContext];
+				packageObjects[identifier]	= package;
+				
+			} else {
+				
+				if ([self.defaults.currentLanguageCode isEqualToString:languageCode] ||
+					[self.defaults.currentParallelLanguageCode isEqualToString:languageCode] ||
+					package.version < version) {
+					
+					[self.packagesNeedingToBeUpdated addObject:package];
+					
+				}
+				
+			}
+			
+			package.icon			= [packageElement attribute:@"icon"];
+			package.name			= [packageElement attribute:@"name"];
+			package.status			= [packageElement attribute:@"status"];
+			package.type			= [packageElement attribute:@"type"];
+			package.version			= version;
+			
+			[packageObjects removeObjectForKey:identifier];
 			
 		}];
 		
@@ -131,9 +180,14 @@
 	
 	//save data to the database
 	NSError *error;
-	[self.storage.backgroundObjectContext save:&error];
-	if (error) {
-		[self.storage.errorHandler displayError:error];
+	if ([self.storage.backgroundObjectContext save:&error]) {
+		
+		[self fireMenuImportSuccessNotifications];
+		
+	} else {
+		
+		[self cleanUpMenuImportFailureWithError:error];
+		
 	}
 	
 }
@@ -141,6 +195,25 @@
 - (void)displayMenuInfoRequestError:(NSError *)error {
 	
 	[self.api.errorHandler displayError:error];
+	
+}
+
+- (void)fireMenuImportSuccessNotifications {
+	
+	if (self.packagesNeedingToBeUpdated.count > 0) {
+		
+		[[NSNotificationCenter defaultCenter] postNotificationName:@"com.godtoolsapp.GTDataImporter.notifications.updateNeeded" object:self];
+		
+	}
+	
+}
+
+- (void)cleanUpMenuImportFailureWithError:(NSError *)error {
+	
+	[self.storage.errorHandler displayError:error];
+	
+#warning make conditional if there is an error that can be recovered from
+	[self.packagesNeedingToBeUpdated removeAllObjects];
 	
 }
 
