@@ -12,6 +12,9 @@
 #import "GTPackage+Helper.h"
 
 NSString *const GTDataImporterNotificationNameUpdateNeeded			= @"com.godtoolsapp.GTDataImporter.notifications.updateNeeded";
+NSString *const GTDataImporterErrorDomain							= @"com.godtoolsapp.GTDataImporter.errorDomain";
+
+NSInteger const GTDataImporterErrorCodeInvalidXml					= 1;
 
 NSString *const GTDataImporterLanguageMetaXmlPathRelativeToRoot		= @"language";
 NSString *const GTDataImporterLanguageMetaXmlAttributeNameCode		= @"code";
@@ -141,39 +144,52 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier			= @"identifier";
 
 - (void)persistMenuInfoFromXMLElement:(RXMLElement *)rootElement {
 	
-#warning will crash if xml is missing values. Needs Try catch block around parsing (ie contents of the method).
-	
-	NSMutableArray *packageCodes			= [NSMutableArray array];
-	NSMutableArray *languageCodes			= [NSMutableArray array];
-	
-	//collect language and package codes for database fetch
-	[self fillArraysWithPackageAndLanguageCodesForXmlElement:rootElement
-											packageCodeArray:&packageCodes
-										   languageCodeArray:&languageCodes];
-	
-	//fetch and prepare the available languages from the database
-	NSMutableDictionary *packageObjects		= [NSMutableDictionary dictionary];
-	NSMutableDictionary *languageObjects	= [NSMutableDictionary dictionary];
-	
-	[self fillDictionariesWithPackageAndLanguageObjectsForPackageCodeArray:packageCodes
-														 languageCodeArray:languageCodes
-												  packageObjectsDictionary:&packageObjects
-												 languageObjectsDictionary:&languageObjects];
-	
-	//update models with XML data
-	[self updateOrCreatePackageAndLanguageObjectsForXmlElement:rootElement
-									  packageObjectsDictionary:packageObjects
-									 languageObjectsDictionary:languageObjects];
-	
-	//save models to storage
-	NSError *error;
-	if ([self.storage.backgroundObjectContext save:&error]) {
+	@try {
 		
-		[self fireMenuImportSuccessNotifications];
+		NSMutableArray *packageCodes			= [NSMutableArray array];
+		NSMutableArray *languageCodes			= [NSMutableArray array];
 		
-	} else {
+		//collect language and package codes for database fetch
+		[self fillArraysWithPackageAndLanguageCodesForXmlElement:rootElement
+												packageCodeArray:&packageCodes
+											   languageCodeArray:&languageCodes];
 		
-		[self cleanUpMenuImportFailureWithError:error];
+		//fetch and prepare the available languages from the database
+		NSMutableDictionary *packageObjects		= [NSMutableDictionary dictionary];
+		NSMutableDictionary *languageObjects	= [NSMutableDictionary dictionary];
+		
+		[self fillDictionariesWithPackageAndLanguageObjectsForPackageCodeArray:packageCodes
+															 languageCodeArray:languageCodes
+													  packageObjectsDictionary:&packageObjects
+													 languageObjectsDictionary:&languageObjects];
+		
+		//update models with XML data
+		[self updateOrCreatePackageAndLanguageObjectsForXmlElement:rootElement
+										  packageObjectsDictionary:packageObjects
+										 languageObjectsDictionary:languageObjects];
+		
+		//save models to storage
+		NSError *error;
+		if ([self.storage.backgroundObjectContext save:&error]) {
+			
+			[self fireMenuImportSuccessNotifications];
+			
+		} else {
+			
+			[self cleanUpMenuImportFailureWithError:error];
+			
+		}
+		
+	} @catch (NSException *exception) {
+		
+		NSString *errorMessage	= NSLocalizedStringWithDefaultValue(@"GTDataImporter_updateMenuInfo_bad_xml", nil, [NSBundle mainBundle],
+																	@"Data was missing when asking the server for menu information.",
+																	@"Error message when meta endpoint response is missing data.");
+		NSError *xmlError = [NSError errorWithDomain:GTDataImporterErrorDomain
+												code:GTDataImporterErrorCodeInvalidXml
+											userInfo:@{NSLocalizedDescriptionKey: errorMessage,
+													   NSLocalizedFailureReasonErrorKey: exception.description }];
+		[self cleanUpMenuImportFailureWithError:xmlError];
 		
 	}
 	
