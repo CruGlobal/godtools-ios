@@ -10,14 +10,13 @@
 
 #import "AFRaptureXMLRequestOperation.h"
 
-NSString * const GTAPIBaseParamsAPIKeyKey				= @"api_key";
-NSString * const GTAPIBaseParamsInterpreterVersionKey	= @"interpreter_version";
+NSString * const GTAPIDefaultHeaderKeyAPIKey				= @"authorization";
+NSString * const GTAPIDefaultHeaderKeyInterpreterVersion	= @"interpreter_version";
 
 @interface GTAPI ()
 
 @property (nonatomic, strong, readonly) NSString		*apiKey;
 @property (nonatomic, strong, readonly) NSNumber		*interpreterVersion;
-@property (nonatomic, strong, readonly) NSDictionary	*baseParams;
 
 @end
 
@@ -42,31 +41,32 @@ NSString * const GTAPIBaseParamsInterpreterVersionKey	= @"interpreter_version";
 	
     if (self) {
 		
-		[self willChangeValueForKey:@"apiKey"];
-		_apiKey	= config.apiKeyGodTools;
-		[self didChangeValueForKey:@"apiKey"];
-		
 		[self willChangeValueForKey:@"errorHandler"];
 		_errorHandler = errorHandler;
 		[self didChangeValueForKey:@"errorHandler"];
 		
+		[self willChangeValueForKey:@"apiKey"];
+		_apiKey	= config.apiKeyGodTools;
+		[self didChangeValueForKey:@"apiKey"];
+		
 		[self willChangeValueForKey:@"interpreterVersion"];
 		_interpreterVersion	= config.interpreterVersion;
 		[self didChangeValueForKey:@"interpreterVersion"];
+		
+		[self.requestSerializer setValue:self.apiKey
+					  forHTTPHeaderField:GTAPIDefaultHeaderKeyAPIKey];
+		
+		[self.requestSerializer setValue:[self.interpreterVersion stringValue]
+					  forHTTPHeaderField:GTAPIDefaultHeaderKeyInterpreterVersion];
 		
     }
 	
     return self;
 }
 
-- (NSDictionary *)baseParams {
-	return @{ GTAPIBaseParamsAPIKeyKey: self.apiKey , GTAPIBaseParamsInterpreterVersionKey: self.interpreterVersion };
-}
-
 - (void)getMenuInfoSince:(NSDate *)date success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, id XMLRootElement))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id XMLRootElement))failure {
 	
 	NSMutableDictionary *params = (date ? [NSMutableDictionary dictionaryWithDictionary:@{@"since": date}] : [NSMutableDictionary dictionary] );
-	[params addEntriesFromDictionary:self.baseParams];
 	
 	NSMutableURLRequest *request = [self.requestSerializer requestWithMethod:@"GET"
 																   URLString:[[NSURL URLWithString:@"meta" relativeToURL:self.baseURL] absoluteString]
