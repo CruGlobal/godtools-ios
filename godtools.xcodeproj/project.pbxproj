@@ -28,6 +28,8 @@
 		68464FD018E1CE4E00D14C2B /* GTStorageErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 68464FCA18E1CE4E00D14C2B /* GTStorageErrorHandler.m */; };
 		68464FD318E1CEBE00D14C2B /* GTDataImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 68464FD218E1CEBE00D14C2B /* GTDataImporter.m */; };
 		68464FD418E1CEBE00D14C2B /* GTDataImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 68464FD218E1CEBE00D14C2B /* GTDataImporter.m */; };
+		684D0A5318E38731004F51EE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 684D0A5618E38731004F51EE /* Localizable.strings */; };
+		684D0A5418E38731004F51EE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 684D0A5618E38731004F51EE /* Localizable.strings */; };
 		68740D1318D24F9A00D36C0E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68740D1218D24F9A00D36C0E /* Foundation.framework */; };
 		68740D1518D24F9A00D36C0E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68740D1418D24F9A00D36C0E /* CoreGraphics.framework */; };
 		68740D1718D24F9A00D36C0E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68740D1618D24F9A00D36C0E /* UIKit.framework */; };
@@ -94,6 +96,7 @@
 		68464FCA18E1CE4E00D14C2B /* GTStorageErrorHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTStorageErrorHandler.m; path = "godtools-ios-api/Error Handling/GTStorageErrorHandler.m"; sourceTree = "<group>"; };
 		68464FD118E1CEBE00D14C2B /* GTDataImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTDataImporter.h; path = "godtools-ios-api/GTDataImporter.h"; sourceTree = "<group>"; };
 		68464FD218E1CEBE00D14C2B /* GTDataImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTDataImporter.m; path = "godtools-ios-api/GTDataImporter.m"; sourceTree = "<group>"; };
+		684D0A5518E38731004F51EE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		68740D0F18D24F9A00D36C0E /* godtools.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = godtools.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		68740D1218D24F9A00D36C0E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		68740D1418D24F9A00D36C0E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -242,6 +245,7 @@
 				68740D1B18D24F9A00D36C0E /* InfoPlist.strings */,
 				68740D1E18D24F9A00D36C0E /* main.m */,
 				68740D2018D24F9A00D36C0E /* godtools-Prefix.pch */,
+				684D0A5618E38731004F51EE /* Localizable.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -389,6 +393,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				684D0A5318E38731004F51EE /* Localizable.strings in Resources */,
 				682F0E9018D8FBE100FBE3E0 /* config.plist in Resources */,
 				68740D2B18D24F9A00D36C0E /* Images.xcassets in Resources */,
 				68740D1D18D24F9A00D36C0E /* InfoPlist.strings in Resources */,
@@ -401,6 +406,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				682F0E9118D8FBE100FBE3E0 /* config.plist in Resources */,
+				684D0A5418E38731004F51EE /* Localizable.strings in Resources */,
 				68740D3C18D24F9A00D36C0E /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -538,6 +544,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		684D0A5618E38731004F51EE /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				684D0A5518E38731004F51EE /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		68740D1B18D24F9A00D36C0E /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (

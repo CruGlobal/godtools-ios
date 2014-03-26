@@ -182,9 +182,7 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier			= @"identifier";
 		
 	} @catch (NSException *exception) {
 		
-		NSString *errorMessage	= NSLocalizedStringWithDefaultValue(@"GTDataImporter_updateMenuInfo_bad_xml", nil, [NSBundle mainBundle],
-																	@"Data was missing when asking the server for menu information.",
-																	@"Error message when meta endpoint response is missing data.");
+		NSString *errorMessage	= NSLocalizedString(@"GTDataImporter_updateMenuInfo_bad_xml", @"Error message when meta endpoint response is missing data.");
 		NSError *xmlError = [NSError errorWithDomain:GTDataImporterErrorDomain
 												code:GTDataImporterErrorCodeInvalidXml
 											userInfo:@{NSLocalizedDescriptionKey: errorMessage,
