@@ -110,7 +110,20 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier			= @"identifier";
 	[self.api getMenuInfoSince:self.lastMenuInfoUpdate
 					   success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLRootElement) {
 						   
-						   [weakSelf persistMenuInfoFromXMLElement:XMLRootElement];
+						   @try {
+						   
+							   [weakSelf persistMenuInfoFromXMLElement:XMLRootElement];
+						   
+						   } @catch (NSException *exception) {
+							   
+							   NSString *errorMessage	= NSLocalizedString(@"GTDataImporter_updateMenuInfo_bad_xml", @"Error message when meta endpoint response is missing data.");
+							   NSError *xmlError = [NSError errorWithDomain:GTDataImporterErrorDomain
+																	   code:GTDataImporterErrorCodeInvalidXml
+																   userInfo:@{NSLocalizedDescriptionKey: errorMessage,
+																			  NSLocalizedFailureReasonErrorKey: exception.description }];
+							   [weakSelf displayMenuInfoImportError:xmlError];
+							   
+						   }
 						   
 					   } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLRootElement) {
 						   
@@ -122,7 +135,7 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier			= @"identifier";
 
 - (void)persistMenuInfoFromXMLElement:(RXMLElement *)rootElement {
 	
-	@try {
+	if (rootElement) {
 		
 		NSMutableArray *packageCodes			= [NSMutableArray array];
 		NSMutableArray *languageCodes			= [NSMutableArray array];
@@ -156,15 +169,6 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier			= @"identifier";
 		
 		//check for updates in current languages
 		[self checkForPackagesWithNewVersionsForLanguage:nil];
-		
-	} @catch (NSException *exception) {
-		
-		NSString *errorMessage	= NSLocalizedString(@"GTDataImporter_updateMenuInfo_bad_xml", @"Error message when meta endpoint response is missing data.");
-		NSError *xmlError = [NSError errorWithDomain:GTDataImporterErrorDomain
-												code:GTDataImporterErrorCodeInvalidXml
-											userInfo:@{NSLocalizedDescriptionKey: errorMessage,
-													   NSLocalizedFailureReasonErrorKey: exception.description }];
-		[self displayMenuInfoImportError:xmlError];
 		
 	}
 	
