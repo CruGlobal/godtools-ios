@@ -11,7 +11,7 @@
 #import "AFRaptureXMLRequestOperation.h"
 
 NSString * const GTAPIDefaultHeaderKeyAPIKey				= @"authorization";
-NSString * const GTAPIDefaultHeaderKeyInterpreterVersion	= @"interpreter_version";
+NSString * const GTAPIDefaultHeaderKeyInterpreterVersion	= @"interpreter";
 
 @interface GTAPI ()
 

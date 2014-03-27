@@ -40,20 +40,20 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier			= @"identifier";
 - (void)setupForDefaults;
 
 - (void)persistMenuInfoFromXMLElement:(RXMLElement *)rootElement;
-- (void)displayMenuInfoRequestError:(NSError *)error;
-
-- (void)cleanUpMenuImportFailureWithError:(NSError *)error;
-- (void)fireMenuImportSuccessNotifications;
-
 - (void)fillArraysWithPackageAndLanguageCodesForXmlElement:(RXMLElement *)rootElement packageCodeArray:(NSMutableArray **)packageCodesArray languageCodeArray:(NSMutableArray **)languageCodesArray;
 - (void)fillDictionariesWithPackageAndLanguageObjectsForPackageCodeArray:(NSArray *)packageCodes languageCodeArray:(NSArray *)languageCodes packageObjectsDictionary:(NSMutableDictionary **)packageObjectsDictionary languageObjectsDictionary:(NSMutableDictionary **)languageObjectsDictionary;
 - (void)updateOrCreatePackageAndLanguageObjectsForXmlElement:(RXMLElement *)rootElement packageObjectsDictionary:(NSMutableDictionary *)packageObjectsDictionary languageObjectsDictionary:(NSMutableDictionary *)languageObjectsDictionary;
 - (void)updateOrCreatePackageObjectsForXmlElement:(RXMLElement *)languageElement languageObject:(GTLanguage *)language packageObjectsDictionary:(NSMutableDictionary *)packageObjectsDictionary;
-- (void)checkForUpdateAndRegisterPackage:(GTPackage *)package basedOnLanguageCode:(NSString *)languageCode newVersionNumber:(NSNumber *)newVersionNumber;
+
+- (void)displayMenuInfoRequestError:(NSError *)error;
+- (void)displayMenuInfoImportError:(NSError *)error;
+
 	
 @end
 
 @implementation GTDataImporter
+
+#pragma mark - Initialization and Setup
 
 + (instancetype)sharedImporter {
 	
@@ -102,6 +102,8 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier			= @"identifier";
 	
 }
 
+#pragma mark - Menu Info Import
+
 - (void)updateMenuInfo {
 	
 	__weak typeof(self)weakSelf = self;
@@ -115,30 +117,6 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier			= @"identifier";
 						   [weakSelf displayMenuInfoRequestError:error];
 						   
 					   }];
-	
-}
-
-- (void)updatePackagesWithNewVersions {
-	
-	#warning incomplete implementation for updatePackagesWithNewVersions
-	
-}
-
-- (void)downloadPackagesForLanguage:(GTLanguage *)language {
-	
-	#warning incomplete implementation for downloadPackagesForLanguage
-	
-}
-
-- (void)checkForPackagesWithNewVersionsForLanguage:(GTLanguage *)language {
-	
-	#warning incomplete implementation for checkForPackagesWithNewVersionsForLanguage
-	
-}
-
-- (void)updatePackagesWithNewVersionsForLanguage:(GTLanguage *)langauge {
-	
-	#warning incomplete implementation for updatePackagesWithNewVersionsForLanguage
 	
 }
 
@@ -170,15 +148,14 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier			= @"identifier";
 		
 		//save models to storage
 		NSError *error;
-		if ([self.storage.backgroundObjectContext save:&error]) {
+		if (![self.storage.backgroundObjectContext save:&error]) {
 			
-			[self fireMenuImportSuccessNotifications];
-			
-		} else {
-			
-			[self cleanUpMenuImportFailureWithError:error];
+			[self displayMenuInfoImportError:error];
 			
 		}
+		
+		//check for updates in current languages
+		[self checkForPackagesWithNewVersionsForLanguage:nil];
 		
 	} @catch (NSException *exception) {
 		
@@ -187,7 +164,7 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier			= @"identifier";
 												code:GTDataImporterErrorCodeInvalidXml
 											userInfo:@{NSLocalizedDescriptionKey: errorMessage,
 													   NSLocalizedFailureReasonErrorKey: exception.description }];
-		[self cleanUpMenuImportFailureWithError:xmlError];
+		[self displayMenuInfoImportError:xmlError];
 		
 	}
 	
@@ -290,17 +267,13 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier			= @"identifier";
 			package						= [GTPackage packageWithCode:packageCode language:language inContext:self.storage.backgroundObjectContext];
 			packageObjects[identifier]	= package;
 			
-		} else {
-			
-			[self checkForUpdateAndRegisterPackage:package basedOnLanguageCode:languageCode newVersionNumber:version];
-			
 		}
 		
 		package.icon			= [packageElement attribute:GTDataImporterPackageMetaXmlAttributeNameIcon];
 		package.name			= [packageElement attribute:GTDataImporterPackageMetaXmlAttributeNameName];
 		package.status			= [packageElement attribute:GTDataImporterPackageMetaXmlAttributeNameStatus];
 		package.type			= [packageElement attribute:GTDataImporterPackageMetaXmlAttributeNameType];
-		package.version			= version;
+		package.latestVersion	= version;
 		
 		[packageObjects removeObjectForKey:identifier];
 		
@@ -308,25 +281,26 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier			= @"identifier";
 	
 }
 
-- (void)checkForUpdateAndRegisterPackage:(GTPackage *)package basedOnLanguageCode:(NSString *)languageCode newVersionNumber:(NSNumber *)newVersionNumber {
+#pragma mark - Package downloading
+
+- (void)downloadPackagesForLanguage:(GTLanguage *)language {
 	
-	if ([self.defaults.currentLanguageCode isEqualToString:languageCode] ||
-		[self.defaults.currentParallelLanguageCode isEqualToString:languageCode] ||
-		[package.version integerValue] < [newVersionNumber integerValue]) {
-		
-		[self.packagesNeedingToBeUpdated addObject:package];
-		
-	}
+#warning incomplete implementation for downloadPackagesForLanguage
 	
 }
 
-- (void)displayMenuInfoRequestError:(NSError *)error {
-	
-	[self.api.errorHandler displayError:error];
-	
-}
+#pragma mark - Package update checking and downloading
 
-- (void)fireMenuImportSuccessNotifications {
+- (void)checkForPackagesWithNewVersionsForLanguage:(GTLanguage *)language {
+	
+	NSManagedObjectContext *context	= self.storage.backgroundObjectContext;
+	NSArray *currentLanguages		= (language ? @[language.code] : @[self.defaults.currentLanguageCode, self.defaults.currentParallelLanguageCode]);
+	NSFetchRequest *fetchRequest	= [[NSFetchRequest alloc] init];
+	fetchRequest.entity				= [NSEntityDescription entityForName:NSStringFromClass([GTPackage class]) inManagedObjectContext:context];
+	fetchRequest.predicate			= [NSPredicate predicateWithFormat:@"(localVersion < latestVersion) && language.code IN %@", currentLanguages];
+	
+	NSArray *fetchedObjects			= [context executeFetchRequest:fetchRequest error:nil];
+	self.packagesNeedingToBeUpdated = [fetchedObjects mutableCopy];
 	
 	if (self.packagesNeedingToBeUpdated.count > 0) {
 		
@@ -336,12 +310,23 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier			= @"identifier";
 	
 }
 
-- (void)cleanUpMenuImportFailureWithError:(NSError *)error {
+- (void)updatePackagesWithNewVersions {
+	
+#warning incomplete implementation for updatePackagesWithNewVersions
+	
+}
+
+#pragma mark - Error Handling
+
+- (void)displayMenuInfoRequestError:(NSError *)error {
+	
+	[self.api.errorHandler displayError:error];
+	
+}
+
+- (void)displayMenuInfoImportError:(NSError *)error {
 	
 	[self.storage.errorHandler displayError:error];
-	
-#warning make conditional if there is an error that can be recovered from
-	[self.packagesNeedingToBeUpdated removeAllObjects];
 	
 }
 

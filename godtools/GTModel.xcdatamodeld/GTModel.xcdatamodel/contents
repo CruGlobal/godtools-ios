@@ -11,14 +11,15 @@
         <attribute name="configFile" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="icon" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="latestVersion" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="localVersion" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="version" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="language" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GTLanguage" inverseName="packages" inverseEntity="GTLanguage" syncable="YES"/>
     </entity>
     <elements>
         <element name="GTLanguage" positionX="-63" positionY="-18" width="128" height="103"/>
-        <element name="GTPackage" positionX="-54" positionY="-9" width="128" height="178"/>
+        <element name="GTPackage" positionX="-54" positionY="-9" width="128" height="195"/>
     </elements>
 </model>
