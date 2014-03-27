@@ -9,25 +9,30 @@
 #import "GTDataImporter.h"
 
 #import "RXMLElement.h"
+#import "SSZipArchive.h"
 #import "GTPackage+Helper.h"
 
-NSString *const GTDataImporterNotificationNameUpdateNeeded			= @"com.godtoolsapp.GTDataImporter.notifications.updateNeeded";
-NSString *const GTDataImporterErrorDomain							= @"com.godtoolsapp.GTDataImporter.errorDomain";
+NSString *const GTDataImporterNotificationLanguageDownloadProgressMade	= @"com.godtoolsapp.GTDataImporter.notifications.languageDownloadProgressMade";
+NSString *const GTDataImporterNotificationLanguageDownloadFinished		= @"com.godtoolsapp.GTDataImporter.notifications.languageDownloadFinished";
+NSString *const GTDataImporterNotificationLanguageDownloadPercentageKey	= @"com.godtoolsapp.GTDataImporter.notifications.languageDownloadProgressMade.key.percentage";
 
-NSInteger const GTDataImporterErrorCodeInvalidXml					= 1;
+NSString *const GTDataImporterNotificationNameUpdateNeeded				= @"com.godtoolsapp.GTDataImporter.notifications.updateNeeded";
+NSString *const GTDataImporterErrorDomain								= @"com.godtoolsapp.GTDataImporter.errorDomain";
 
-NSString *const GTDataImporterLanguageMetaXmlPathRelativeToRoot		= @"language";
-NSString *const GTDataImporterLanguageMetaXmlAttributeNameCode		= @"code";
-NSString *const GTDataImporterLanguageModelKeyNameCode				= @"code";
+NSInteger const GTDataImporterErrorCodeInvalidXml						= 1;
 
-NSString *const GTDataImporterPackageMetaXmlPathRelativeToLanguage	= @"packages.package";
-NSString *const GTDataImporterPackageMetaXmlAttributeNameCode		= @"code";
-NSString *const GTDataImporterPackageMetaXmlAttributeNameIcon		= @"icon";
-NSString *const GTDataImporterPackageMetaXmlAttributeNameName		= @"name";
-NSString *const GTDataImporterPackageMetaXmlAttributeNameStatus		= @"status";
-NSString *const GTDataImporterPackageMetaXmlAttributeNameType		= @"type";
-NSString *const GTDataImporterPackageMetaXmlAttributeNameVersion	= @"version";
-NSString *const GTDataImporterPackageModelKeyNameIdentifier			= @"identifier";
+NSString *const GTDataImporterLanguageMetaXmlPathRelativeToRoot			= @"language";
+NSString *const GTDataImporterLanguageMetaXmlAttributeNameCode			= @"code";
+NSString *const GTDataImporterLanguageModelKeyNameCode					= @"code";
+
+NSString *const GTDataImporterPackageMetaXmlPathRelativeToLanguage		= @"packages.package";
+NSString *const GTDataImporterPackageMetaXmlAttributeNameCode			= @"code";
+NSString *const GTDataImporterPackageMetaXmlAttributeNameIcon			= @"icon";
+NSString *const GTDataImporterPackageMetaXmlAttributeNameName			= @"name";
+NSString *const GTDataImporterPackageMetaXmlAttributeNameStatus			= @"status";
+NSString *const GTDataImporterPackageMetaXmlAttributeNameType			= @"type";
+NSString *const GTDataImporterPackageMetaXmlAttributeNameVersion		= @"version";
+NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
 
 @interface GTDataImporter ()
 
@@ -45,8 +50,12 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier			= @"identifier";
 - (void)updateOrCreatePackageAndLanguageObjectsForXmlElement:(RXMLElement *)rootElement packageObjectsDictionary:(NSMutableDictionary *)packageObjectsDictionary languageObjectsDictionary:(NSMutableDictionary *)languageObjectsDictionary;
 - (void)updateOrCreatePackageObjectsForXmlElement:(RXMLElement *)languageElement languageObject:(GTLanguage *)language packageObjectsDictionary:(NSMutableDictionary *)packageObjectsDictionary;
 
+- (RXMLElement *)unzipResourcesAtTarget:(NSURL *)targetPath forLanguage:(GTLanguage *)language package:(GTPackage *)package;
+
 - (void)displayMenuInfoRequestError:(NSError *)error;
 - (void)displayMenuInfoImportError:(NSError *)error;
+- (void)displayDownloadPackagesRequestError:(NSError *)error;
+- (void)displayDownloadPackagesUnzippingError:(NSError *)error;
 
 	
 @end
@@ -172,6 +181,8 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier			= @"identifier";
 		
 	}
 	
+#warning untested implementation of persistMenuInfoFromXMLElement
+	
 }
 
 - (void)fillArraysWithPackageAndLanguageCodesForXmlElement:(RXMLElement *)rootElement packageCodeArray:(NSMutableArray **)packageCodesArray languageCodeArray:(NSMutableArray **)languageCodesArray {
@@ -194,6 +205,8 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier			= @"identifier";
 		}];
 		
 	}];
+	
+#warning untested implementation of fillArraysWithPackageAndLanguageCodesForXmlElement
 	
 }
 
@@ -224,6 +237,8 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier			= @"identifier";
 		
 	}];
 	
+#warning untested implementation of fillDictionariesWithPackageAndLanguageObjectsForPackageCodeArray
+	
 }
 
 - (void)updateOrCreatePackageAndLanguageObjectsForXmlElement:(RXMLElement *)rootElement packageObjectsDictionary:(NSMutableDictionary *)packageObjectsDictionary languageObjectsDictionary:(NSMutableDictionary *)languageObjectsDictionary {
@@ -249,6 +264,8 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier			= @"identifier";
 							   packageObjectsDictionary:packageObjects];
 		
 	}];
+	
+#warning untested implementation of updateOrCreatePackageAndLanguageObjectsForXmlElement
 	
 }
 
@@ -283,13 +300,71 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier			= @"identifier";
 		
 	}];
 	
+#warning untested implementation of updateOrCreatePackageObjectsForXmlElement
+	
 }
 
 #pragma mark - Package downloading
 
 - (void)downloadPackagesForLanguage:(GTLanguage *)language {
 	
-#warning incomplete implementation for downloadPackagesForLanguage
+	NSParameterAssert(language);
+	
+	__weak typeof(self)weakSelf = self;
+	[self.api getResourcesForLanguage:language
+							 progress:^(NSNumber *percentage) {
+								 
+								 [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadProgressMade
+																					 object:weakSelf
+																				   userInfo:@{GTDataImporterNotificationLanguageDownloadPercentageKey: percentage}];
+								 
+							 } success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSURL *targetPath) {
+								 
+								 RXMLElement *contents = [weakSelf unzipResourcesAtTarget:targetPath forLanguage:language package:nil];
+								 
+#warning Need to update storage with data from contents.
+#warning Post Notification that it is finished.
+								 
+							 } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+								 
+								 [weakSelf displayDownloadPackagesRequestError:error];
+								 
+							 }];
+#warning untested implementation of downloadPackagesForLanguage
+	
+}
+
+- (RXMLElement *)unzipResourcesAtTarget:(NSURL *)targetPath forLanguage:(GTLanguage *)language package:(GTPackage *)package {
+	
+	NSParameterAssert(language.code || package.code);
+	
+	NSString *temporaryFolderName	= (language.code ? language.code : @"");
+	temporaryFolderName				= [temporaryFolderName stringByAppendingString:(package.code ? package.code : @"")];
+	
+	NSURL* documentDirectory		= [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
+																		inDomain:NSUserDomainMask
+															   appropriateForURL:nil
+																		  create:YES
+																		   error:nil];
+	NSURL* temporaryDirectory		= [documentDirectory URLByAppendingPathComponent:temporaryFolderName isDirectory:YES];
+	
+	NSError *error;
+	if(![SSZipArchive unzipFileAtPath:[targetPath absoluteString]
+						toDestination:[temporaryDirectory absoluteString]
+							overwrite:NO
+							 password:nil
+								error:&error
+							 delegate:nil]) {
+		
+		[self displayDownloadPackagesUnzippingError:error];
+		
+	}
+	
+	RXMLElement *element = [RXMLElement elementFromXMLFile:[[temporaryDirectory URLByAppendingPathComponent:@"contents.xml"] absoluteString]];
+	
+#warning need to move all files to Documents Directory after contents.xml has been parsed.
+	
+	return element;
 	
 }
 
@@ -311,6 +386,8 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier			= @"identifier";
 		[[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationNameUpdateNeeded object:self];
 		
 	}
+	
+#warning untested implementation of checkForPackagesWithNewVersionsForLanguage
 	
 }
 
@@ -334,6 +411,16 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier			= @"identifier";
 	
 }
 
+- (void)displayDownloadPackagesUnzippingError:(NSError *)error {
+	
+	[self.storage.errorHandler displayError:error];
+	
+}
 
+- (void)displayDownloadPackagesRequestError:(NSError *)error {
+	
+	[self.storage.errorHandler displayError:error];
+	
+}
 
 @end
