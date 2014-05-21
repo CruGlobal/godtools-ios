@@ -40,9 +40,9 @@ SPEC CHECKSUMS:
   AFDownloadRequestOperation: fcb19dc1010296e05c76d863d340051820ffb326
   AFNetworking: 0121f4b69be3fa58d1ab317866e036e12ac9651d
   AFRaptureXMLRequestOperation: 56cf8e0ac06cb52540e1cbe83b49feecca9656e9
-  GoogleAnalytics-iOS-SDK: 7b0e55cfe5e70d60478a7b105f15ac71e8bc373e
-  NewRelicAgent: 14ab6b0fd2af34eca7668449b83bf2ae872ec533
+  GoogleAnalytics-iOS-SDK: 80c804540a992c59d88397b3f9567417ba1001dc
+  NewRelicAgent: 321e4d1d37cdbaee7438af0c8e749a4d3aba1fb6
   RaptureXML: ef017fda62eb95c60300108366d1f0cd0c28cbd4
-  SSZipArchive: 47d0589a15452311749a4eeecb97e12800d127de
+  SSZipArchive: 5479ec96c412904a987a3ae3180d65234aa46b6e
 
-COCOAPODS: 0.29.0
+COCOAPODS: 0.31.1

@@ -64,6 +64,8 @@
 		68E6067F18D3949700844377 /* GTPackage+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E6067D18D3949700844377 /* GTPackage+Helper.m */; };
 		68E6068618D3952800844377 /* GTAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E6068518D3952800844377 /* GTAPI.m */; };
 		68E6068718D3952800844377 /* GTAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E6068518D3952800844377 /* GTAPI.m */; };
+		68FB9CC9192D46800009C9A8 /* AFHTTPRequestSerializer+GTAPIHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 68FB9CC8192D46800009C9A8 /* AFHTTPRequestSerializer+GTAPIHelpers.m */; };
+		68FB9CCA192D46800009C9A8 /* AFHTTPRequestSerializer+GTAPIHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 68FB9CC8192D46800009C9A8 /* AFHTTPRequestSerializer+GTAPIHelpers.m */; };
 		EC75323B8E7649068F0619CB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93D6EED5D0AA48EEB979D824 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -136,6 +138,8 @@
 		68E6068518D3952800844377 /* GTAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTAPI.m; path = "godtools-ios-api/GTAPI.m"; sourceTree = "<group>"; };
 		68E6068818D3986D00844377 /* GTDefaults.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GTDefaults.h; path = "godtools-ios-api/Models/GTDefaults.h"; sourceTree = "<group>"; };
 		68E6068918D3986D00844377 /* GTDefaults.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = GTDefaults.m; path = "godtools-ios-api/Models/GTDefaults.m"; sourceTree = "<group>"; };
+		68FB9CC7192D46800009C9A8 /* AFHTTPRequestSerializer+GTAPIHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AFHTTPRequestSerializer+GTAPIHelpers.h"; path = "godtools-ios-api/Serialization/AFHTTPRequestSerializer+GTAPIHelpers.h"; sourceTree = "<group>"; };
+		68FB9CC8192D46800009C9A8 /* AFHTTPRequestSerializer+GTAPIHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "AFHTTPRequestSerializer+GTAPIHelpers.m"; path = "godtools-ios-api/Serialization/AFHTTPRequestSerializer+GTAPIHelpers.m"; sourceTree = "<group>"; };
 		93D6EED5D0AA48EEB979D824 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E249B0B61E7F44AA97C935A4 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -284,6 +288,7 @@
 				68464FB818E1CCA500D14C2B /* Error Handling */,
 				68464FB718E1CC3D00D14C2B /* Persistence */,
 				68E6066B18D383EE00844377 /* Models */,
+				68FB9CBE192D3E670009C9A8 /* Serialization */,
 				68E6068418D3952800844377 /* GTAPI.h */,
 				68E6068518D3952800844377 /* GTAPI.m */,
 				68464FD118E1CEBE00D14C2B /* GTDataImporter.h */,
@@ -310,6 +315,15 @@
 				68464FBA18E1CE2C00D14C2B /* GTConfig.m */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		68FB9CBE192D3E670009C9A8 /* Serialization */ = {
+			isa = PBXGroup;
+			children = (
+				68FB9CC7192D46800009C9A8 /* AFHTTPRequestSerializer+GTAPIHelpers.h */,
+				68FB9CC8192D46800009C9A8 /* AFHTTPRequestSerializer+GTAPIHelpers.m */,
+			);
+			name = Serialization;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -483,6 +497,7 @@
 			files = (
 				6878F01518E4AC2D007D1B5B /* GTPackage.m in Sources */,
 				68464FCF18E1CE4E00D14C2B /* GTStorageErrorHandler.m in Sources */,
+				68FB9CC9192D46800009C9A8 /* AFHTTPRequestSerializer+GTAPIHelpers.m in Sources */,
 				68A1CBFD18DB6C3B00D84F12 /* GTDefaults.m in Sources */,
 				68E6067A18D3947600844377 /* GTLanguage+Helper.m in Sources */,
 				68464FC318E1CE4000D14C2B /* GTStorage.m in Sources */,
@@ -523,6 +538,7 @@
 				68E6067B18D3947600844377 /* GTLanguage+Helper.m in Sources */,
 				68740D4A18D259AA00D36C0E /* GTModel.xcdatamodeld in Sources */,
 				68464FD018E1CE4E00D14C2B /* GTStorageErrorHandler.m in Sources */,
+				68FB9CCA192D46800009C9A8 /* AFHTTPRequestSerializer+GTAPIHelpers.m in Sources */,
 				68BA853918DCF13F001AC6B3 /* CRUStorageTests.m in Sources */,
 				68BA853718DCF129001AC6B3 /* GTDataImporterTests.m in Sources */,
 				68E6067F18D3949700844377 /* GTPackage+Helper.m in Sources */,

@@ -8,11 +8,14 @@
 
 #import "GTAPI.h"
 
+#import "AFHTTPRequestSerializer+GTAPIHelpers.h"
 #import "AFRaptureXMLRequestOperation.h"
 #import "AFDownloadRequestOperation.h"
 
 NSString * const GTAPIDefaultHeaderKeyAPIKey				= @"authorization";
 NSString * const GTAPIDefaultHeaderKeyInterpreterVersion	= @"interpreter";
+NSString * const GTAPIDefaultHeaderKeyDensity				= @"density";
+NSString * const GTAPIDefaultHeaderValueDensity				= @"High";
 
 @interface GTAPI ()
 
@@ -43,22 +46,27 @@ NSString * const GTAPIDefaultHeaderKeyInterpreterVersion	= @"interpreter";
     if (self) {
 		
 		[self willChangeValueForKey:@"errorHandler"];
-		_errorHandler = errorHandler;
+		_errorHandler		= errorHandler;
 		[self didChangeValueForKey:@"errorHandler"];
 		
 		[self willChangeValueForKey:@"apiKey"];
-		_apiKey	= config.apiKeyGodTools;
+		_apiKey				= config.apiKeyGodTools;
 		[self didChangeValueForKey:@"apiKey"];
 		
 		[self willChangeValueForKey:@"interpreterVersion"];
 		_interpreterVersion	= config.interpreterVersion;
 		[self didChangeValueForKey:@"interpreterVersion"];
 		
+		self.requestSerializer.baseURL	= self.baseURL;
+		
 		[self.requestSerializer setValue:self.apiKey
 					  forHTTPHeaderField:GTAPIDefaultHeaderKeyAPIKey];
 		
 		[self.requestSerializer setValue:[self.interpreterVersion stringValue]
 					  forHTTPHeaderField:GTAPIDefaultHeaderKeyInterpreterVersion];
+		
+		[self.requestSerializer setValue:GTAPIDefaultHeaderValueDensity
+					  forHTTPHeaderField:GTAPIDefaultHeaderKeyDensity];
 		
     }
 	
@@ -67,12 +75,10 @@ NSString * const GTAPIDefaultHeaderKeyInterpreterVersion	= @"interpreter";
 
 - (void)getMenuInfoSince:(NSDate *)date success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, id XMLRootElement))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id XMLRootElement))failure {
 	
-	NSDictionary *params			= (date ? @{@"since": date} : @{} );
-	
-	NSMutableURLRequest *request	= [self.requestSerializer requestWithMethod:@"GET"
-																   URLString:[[NSURL URLWithString:@"meta" relativeToURL:self.baseURL] absoluteString]
-																  parameters:params
-																	   error:nil];
+	NSMutableURLRequest *request			= [self.requestSerializer metaRequestWithLanguage:nil
+																				   package:nil
+																					 since:date
+																					 error:nil];
 	
 	AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request
 																										 success:success
@@ -86,12 +92,11 @@ NSString * const GTAPIDefaultHeaderKeyInterpreterVersion	= @"interpreter";
 	NSParameterAssert(language.code);
 #warning untested implementation of getResourcesForLanguage
 	
-	NSDictionary *params			= @{@"language": language.code};
-	
-	NSMutableURLRequest *request	= [self.requestSerializer requestWithMethod:@"GET"
-																   URLString:[[NSURL URLWithString:@"packages" relativeToURL:self.baseURL] absoluteString]
-																  parameters:params
-																	   error:nil];
+	NSMutableURLRequest *request	= [self.requestSerializer packageRequestWithLanguage:language
+																			  package:nil
+																			  version:nil
+																		   compressed:YES
+																				error:nil];
 	
 	NSURL* documentsDirectory		= [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
 																		inDomain:NSUserDomainMask
