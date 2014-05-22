@@ -11,11 +11,14 @@
 #import "GTLanguage+Helper.h"
 #import "GTPackage+Helper.h"
 
+NSString * const GTAPIEndpointAuthName			= @"auth";
 NSString * const GTAPIEndpointMetaName			= @"meta";
 NSString * const GTAPIEndpointPackagesName		= @"packages";
 NSString * const GTAPIEndpointTranslationsName	= @"translations";
 
-NSString * const GTAPIEndpointPackagesParameterSinceName			= @"since";
+NSString * const GTAPIEndpointAuthParameterDeviceIDName				= @"device-id";
+
+NSString * const GTAPIEndpointMetaParameterSinceName				= @"since";
 
 NSString * const GTAPIEndpointPackagesParameterCompressedName		= @"compressed";
 NSString * const GTAPIEndpointPackagesParameterCompressedValueTrue	= @"true";
@@ -43,12 +46,27 @@ NSString * const GTAPIEndpointPackagesParameterVersionName			= @"version";
 	
 }
 
+- (NSMutableURLRequest *)authRequestWithAccessCode:(NSString *)accessCode error:(NSError * __autoreleasing *)error {
+	
+	NSURL *fullURL					= [self.baseURL URLByAppendingPathComponent:GTAPIEndpointAuthName];
+	fullURL							= (accessCode ? [fullURL URLByAppendingPathComponent:accessCode] : fullURL);
+	NSDictionary *params			= nil;//(deviceID ? @{GTAPIEndpointAuthParameterDeviceIDName: deviceID} : @{} );
+	
+	NSMutableURLRequest *request	= [self requestWithMethod:@"POST"
+												 URLString:[fullURL absoluteString]
+												parameters:params
+													 error:error];
+	
+	return request;
+	
+}
+
 - (NSMutableURLRequest *)metaRequestWithLanguage:(GTLanguage *)language package:(GTPackage *)package since:(NSDate *)since error:(NSError *__autoreleasing *)error {
 	
 	NSURL *fullURL					= [self.baseURL URLByAppendingPathComponent:GTAPIEndpointMetaName];
 	fullURL							= (language ? [fullURL URLByAppendingPathComponent:language.code] : fullURL);
 	fullURL							= (package ? [fullURL URLByAppendingPathComponent:package.code] : fullURL);
-	NSDictionary *params			= (since ? @{GTAPIEndpointPackagesParameterSinceName: since} : @{} );
+	NSDictionary *params			= (since ? @{GTAPIEndpointMetaParameterSinceName: since} : @{} );
 	
 	NSMutableURLRequest *request	= [self requestWithMethod:@"GET"
 												 URLString:[fullURL absoluteString]

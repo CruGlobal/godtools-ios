@@ -14,6 +14,9 @@
 
 @property (nonatomic, strong) NSURL *baseURL;
 
+- (NSMutableURLRequest *)authRequestWithAccessCode:(NSString *)accessCode
+											 error:(NSError * __autoreleasing *)error;
+
 - (NSMutableURLRequest *)metaRequestWithLanguage:(GTLanguage *)language
 										 package:(GTPackage *)package
 										   since:(NSDate *)since
