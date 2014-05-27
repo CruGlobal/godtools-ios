@@ -184,10 +184,10 @@
 		68464FB818E1CCA500D14C2B /* Error Handling */ = {
 			isa = PBXGroup;
 			children = (
-				68464FC518E1CE4E00D14C2B /* GTAPIErrorHandler.h */,
-				68464FC618E1CE4E00D14C2B /* GTAPIErrorHandler.m */,
 				68464FC718E1CE4E00D14C2B /* GTErrorHandler.h */,
 				68464FC818E1CE4E00D14C2B /* GTErrorHandler.m */,
+				68464FC518E1CE4E00D14C2B /* GTAPIErrorHandler.h */,
+				68464FC618E1CE4E00D14C2B /* GTAPIErrorHandler.m */,
 				68464FC918E1CE4E00D14C2B /* GTStorageErrorHandler.h */,
 				68464FCA18E1CE4E00D14C2B /* GTStorageErrorHandler.m */,
 			);
