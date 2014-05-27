@@ -38,11 +38,9 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
 
 @property (nonatomic, strong, readonly) GTAPI			*api;
 @property (nonatomic, strong, readonly)	GTStorage		*storage;
-@property (nonatomic, strong, readonly) GTDefaults		*defaults;
+@property (nonatomic, strong)			GTDefaults		*defaults;
 @property (nonatomic, strong)			NSDate			*lastMenuInfoUpdate;
 @property (nonatomic, strong)			NSMutableArray	*packagesNeedingToBeUpdated;
-
-- (void)setupForDefaults;
 
 - (void)persistMenuInfoFromXMLElement:(RXMLElement *)rootElement;
 - (void)fillArraysWithPackageAndLanguageCodesForXmlElement:(RXMLElement *)rootElement packageCodeArray:(NSMutableArray **)packageCodesArray languageCodeArray:(NSMutableArray **)languageCodesArray;
@@ -92,18 +90,16 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
 		_storage	= storage;
 		_defaults	= defaults;
 		
-		if (self.defaults) {
-			
-			[self setupForDefaults];
-			
-		}
-		
     }
 	
     return self;
 }
 
-- (void)setupForDefaults {
+- (void)setDefaults:(GTDefaults *)defaults {
+	
+	[self willChangeValueForKey:@"defaults"];
+	_defaults	= defaults;
+	[self didChangeValueForKey:@"defaults"];
 	
 #warning incomplete implementation for setupForDefaults
 	//add listeners
@@ -338,8 +334,7 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
 	
 	NSParameterAssert(language.code || package.code);
 	
-	NSString *temporaryFolderName	= (language.code ? language.code : @"");
-	temporaryFolderName				= [temporaryFolderName stringByAppendingString:(package.code ? package.code : @"")];
+	NSString *temporaryFolderName	= [[NSUUID UUID] UUIDString];
 	
 	NSURL* documentDirectory		= [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
 																		inDomain:NSUserDomainMask
@@ -363,6 +358,7 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
 	RXMLElement *element = [RXMLElement elementFromXMLFile:[[temporaryDirectory URLByAppendingPathComponent:@"contents.xml"] absoluteString]];
 	
 #warning need to move all files to Documents Directory after contents.xml has been parsed.
+#warning Need to update database with config filenames.
 	
 	return element;
 	
