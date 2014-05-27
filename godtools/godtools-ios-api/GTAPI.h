@@ -13,12 +13,23 @@
 
 @interface GTAPI : AFHTTPRequestOperationManager
 
+@property (nonatomic, strong)			NSString *authToken;
 @property (nonatomic, strong, readonly) GTAPIErrorHandler *errorHandler;
 
 + (instancetype)sharedAPI;
 - (instancetype)initWithConfig:(GTConfig *)config errorHandler:(GTAPIErrorHandler *)errorHandler;
 
-- (void)getMenuInfoSince:(NSDate *)date success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, id XMLRootElement))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id XMLRootElement))failure;
-- (void)getResourcesForLanguage:(GTLanguage *)language progress:(void (^)(NSNumber *percentage))progress success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSURL *targetPath))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure;
+- (void)getAuthTokenForDeviceID:(NSString *)deviceID
+						success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSString *authToken))success
+						failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure;
+
+- (void)getMenuInfoSince:(NSDate *)date
+				 success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, id XMLRootElement))success
+				 failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id XMLRootElement))failure;
+
+- (void)getResourcesForLanguage:(GTLanguage *)language
+					   progress:(void (^)(NSNumber *percentage))progress
+						success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSURL *targetPath))success
+						failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure;
 
 @end

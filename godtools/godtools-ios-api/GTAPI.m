@@ -11,11 +11,14 @@
 #import "AFHTTPRequestSerializer+GTAPIHelpers.h"
 #import "AFRaptureXMLRequestOperation.h"
 #import "AFDownloadRequestOperation.h"
+#import "RXMLElement.h"
 
 NSString * const GTAPIDefaultHeaderKeyAPIKey				= @"authorization";
 NSString * const GTAPIDefaultHeaderKeyInterpreterVersion	= @"interpreter";
 NSString * const GTAPIDefaultHeaderKeyDensity				= @"density";
-NSString * const GTAPIDefaultHeaderValueDensity				= @"High";
+NSString * const GTAPIDefaultHeaderValueDensity				= @"high";
+
+NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
 
 @interface GTAPI ()
 
@@ -25,6 +28,8 @@ NSString * const GTAPIDefaultHeaderValueDensity				= @"High";
 @end
 
 @implementation GTAPI
+
+#pragma mark - initialization
 
 + (instancetype)sharedAPI {
 	
@@ -73,6 +78,43 @@ NSString * const GTAPIDefaultHeaderValueDensity				= @"High";
     return self;
 }
 
+#pragma mark - getters setters
+
+- (void)setAuthToken:(NSString *)authToken {
+	
+	[self willChangeValueForKey:@"authToken"];
+	_authToken	= authToken;
+	[self didChangeValueForKey:@"authToken"];
+	
+	[self.requestSerializer setValue:_authToken
+				  forHTTPHeaderField:GTAPIDefaultHeaderKeyAPIKey];
+	
+}
+
+#pragma mark - Authorization methods
+
+- (void)getAuthTokenForDeviceID:(NSString *)deviceID success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSString *authToken))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure {
+	
+	NSMutableURLRequest *request			= [self.requestSerializer authRequestWithAccessCode:self.apiKey
+																				 error:nil];
+	
+	AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request
+																				success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement) {
+																				
+																					success(request, response, [XMLElement child:GTAPIAuthEndpointAuthTokenKey].text);
+																					
+																				}
+																				failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement) {
+																					
+																					failure(request, response, error);
+																					
+																				}];
+	
+	[self.operationQueue addOperation:operation];
+}
+
+#pragma mark - download meta information methods
+
 - (void)getMenuInfoSince:(NSDate *)date success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, id XMLRootElement))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id XMLRootElement))failure {
 	
 	NSMutableURLRequest *request			= [self.requestSerializer metaRequestWithLanguage:nil
@@ -86,6 +128,8 @@ NSString * const GTAPIDefaultHeaderValueDensity				= @"High";
 	
     [self.operationQueue addOperation:operation];
 }
+
+#pragma mark - download resource methods
 
 - (void)getResourcesForLanguage:(GTLanguage *)language progress:(void (^)(NSNumber *percentage))progress success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSURL *targetPath))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure {
 	
