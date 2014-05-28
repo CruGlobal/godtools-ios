@@ -32,11 +32,13 @@
  *  and meta data.
  *
  *  @param accessCode The API access code. This is currently your API key.
+ *  @param deviceID   Unique identifier for the device. It is Optional. If used we recommend using the Identifier for vendor.
  *  @param error      If an error occurs in create the request object the details will be found in this object.
  *
  *  @return a NSMutableURLRequest object that has been configured for a POST request to the Auth endpoint.
  */
 - (NSMutableURLRequest *)authRequestWithAccessCode:(NSString *)accessCode
+										  deviceID:(NSString *)deviceID
 											 error:(NSError * __autoreleasing *)error;
 
 /**

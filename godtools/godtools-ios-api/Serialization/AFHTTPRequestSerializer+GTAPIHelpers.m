@@ -8,6 +8,7 @@
 
 #import "AFHTTPRequestSerializer+GTAPIHelpers.h"
 
+#import <objc/runtime.h>
 #import "GTLanguage+Helper.h"
 #import "GTPackage+Helper.h"
 
@@ -25,32 +26,27 @@ NSString * const GTAPIEndpointPackagesParameterCompressedValueTrue	= @"true";
 NSString * const GTAPIEndpointPackagesParameterCompressedValueFalse	= @"false";
 NSString * const GTAPIEndpointPackagesParameterVersionName			= @"version";
 
-@interface AFHTTPRequestSerializer () {
-	NSURL *_baseURL;
-}
-
-@end
-
 @implementation AFHTTPRequestSerializer (GTAPIHelpers)
 
 - (NSURL *)baseURL {
 	
-	return _baseURL;
+#warning I feel dirty having used objc/runtime.h
+	return objc_getAssociatedObject(self, @selector(baseURL));
 }
 
 - (void)setBaseURL:(NSURL *)baseURL {
 	
 	[self willChangeValueForKey:@"baseURL"];
-	_baseURL = baseURL;
+	objc_setAssociatedObject(self, @selector(baseURL), baseURL, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	[self didChangeValueForKey:@"baseURL"];
 	
 }
 
-- (NSMutableURLRequest *)authRequestWithAccessCode:(NSString *)accessCode error:(NSError * __autoreleasing *)error {
+- (NSMutableURLRequest *)authRequestWithAccessCode:(NSString *)accessCode deviceID:(NSString *)deviceID error:(NSError * __autoreleasing *)error {
 	
 	NSURL *fullURL					= [self.baseURL URLByAppendingPathComponent:GTAPIEndpointAuthName];
 	fullURL							= (accessCode ? [fullURL URLByAppendingPathComponent:accessCode] : fullURL);
-	NSDictionary *params			= nil;//(deviceID ? @{GTAPIEndpointAuthParameterDeviceIDName: deviceID} : @{} );
+	NSDictionary *params			= (deviceID ? @{GTAPIEndpointAuthParameterDeviceIDName: deviceID} : @{} );
 	
 	NSMutableURLRequest *request	= [self requestWithMethod:@"POST"
 												 URLString:[fullURL absoluteString]

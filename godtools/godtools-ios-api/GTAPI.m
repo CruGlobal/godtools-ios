@@ -98,6 +98,7 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
 - (void)getAuthTokenForDeviceID:(NSString *)deviceID success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSString *authToken))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure {
 	
 	NSMutableURLRequest *request			= [self.requestSerializer authRequestWithAccessCode:self.apiKey
+																			  deviceID:deviceID
 																				 error:nil];
 	
 	AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request
