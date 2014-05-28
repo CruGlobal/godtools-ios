@@ -25,6 +25,8 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
 @property (nonatomic, strong, readonly) NSString		*apiKey;
 @property (nonatomic, strong, readonly) NSNumber		*interpreterVersion;
 
+- (void)getFilesForRequest:(NSMutableURLRequest *)request progress:(void (^)(NSNumber *))progress success:(void (^)(NSURLRequest *, NSHTTPURLResponse *, NSURL *))success failure:(void (^)(NSURLRequest *, NSHTTPURLResponse *, NSError *))failure;
+
 @end
 
 @implementation GTAPI
@@ -134,7 +136,6 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
 - (void)getResourcesForLanguage:(GTLanguage *)language progress:(void (^)(NSNumber *percentage))progress success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSURL *targetPath))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure {
 	
 	NSParameterAssert(language.code);
-#warning untested implementation of getResourcesForLanguage
 	
 	NSMutableURLRequest *request	= [self.requestSerializer packageRequestWithLanguage:language
 																			  package:nil
@@ -142,12 +143,32 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
 																		   compressed:YES
 																				error:nil];
 	
+	[self getFilesForRequest:request progress:progress success:success failure:failure];
+}
+
+- (void)getXmlFilesForLanguage:(GTLanguage *)language progress:(void (^)(NSNumber *))progress success:(void (^)(NSURLRequest *, NSHTTPURLResponse *, NSURL *))success failure:(void (^)(NSURLRequest *, NSHTTPURLResponse *, NSError *))failure {
+	
+	NSParameterAssert(language.code);
+	
+	NSMutableURLRequest *request	= [self.requestSerializer translationRequestWithLanguage:language
+																			  package:nil
+																			  version:nil
+																		   compressed:YES
+																				error:nil];
+	
+	[self getFilesForRequest:request progress:progress success:success failure:failure];
+}
+
+- (void)getFilesForRequest:(NSMutableURLRequest *)request progress:(void (^)(NSNumber *))progress success:(void (^)(NSURLRequest *, NSHTTPURLResponse *, NSURL *))success failure:(void (^)(NSURLRequest *, NSHTTPURLResponse *, NSError *))failure {
+	
 	NSURL* documentsDirectory		= [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
 																		inDomain:NSUserDomainMask
 															   appropriateForURL:nil
 																		  create:YES
 																		   error:nil];
-	NSURL *target					= [documentsDirectory URLByAppendingPathComponent:[NSString stringWithFormat:@"%@.zip", language.code]];
+	
+	//target will have the format ${DOCUMENTS_PATH}/1E2DFA89-496A-47FD-9941-DF1FC4E6484A.zip where the filename is a unique identifier for this download.
+	NSURL *target					= [documentsDirectory URLByAppendingPathComponent:[[[NSUUID UUID] UUIDString] stringByAppendingPathExtension:@"zip"]];
 	
 	AFDownloadRequestOperation *operation = [[AFDownloadRequestOperation alloc] initWithRequest:request
 																					 targetPath:[target absoluteString]
@@ -170,6 +191,8 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
 	}];
 	
 	[self.operationQueue addOperation:operation];
+	
+#warning untested implementation of getFilesForLanguage
 	
 }
 
