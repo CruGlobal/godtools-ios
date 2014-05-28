@@ -10,19 +10,6 @@
 
 @implementation GTStorageErrorHandler
 
-+ (instancetype)sharedErrorHandler {
-	
-    static GTStorageErrorHandler *_sharedErrorHandler = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-		
-        _sharedErrorHandler = [[GTStorageErrorHandler alloc] init];
-		
-    });
-    
-    return _sharedErrorHandler;
-}
-
 - (void)displayError:(NSError *)error {
 	
 #warning incomplete impelementation. Error specific handling should go here to catch general storage errors like cannot open.

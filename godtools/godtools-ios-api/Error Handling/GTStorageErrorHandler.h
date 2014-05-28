@@ -10,6 +10,4 @@
 
 @interface GTStorageErrorHandler : GTErrorHandler
 
-+ (instancetype)sharedErrorHandler;
-
 @end

@@ -10,6 +10,19 @@
 
 @implementation GTErrorHandler
 
++ (instancetype)sharedErrorHandler {
+	
+    static id _sharedErrorHandler = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+		
+        _sharedErrorHandler = [[self alloc] init];
+		
+    });
+    
+    return _sharedErrorHandler;
+}
+
 - (void)displayError:(NSError *)error {
 	
 	NSLog(@"%@", error);
