@@ -12,9 +12,11 @@
 #import "GTDefaults.h"
 
 /**
- *  Class used to download content from the God Tools API and save it locally.
+ *  Class used to download content from the God Tools API and save it locally. This is the main class you should use.
  */
-@interface GTDataImporter : NSObject
+@interface GTDataImporter : NSObject\
+
+#error This is the main class you should use with the apps logic. Start by reading this documentation
 
 /**
  *  Singleton for God Tools Data Importer
