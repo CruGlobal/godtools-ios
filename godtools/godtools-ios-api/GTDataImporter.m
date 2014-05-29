@@ -173,7 +173,7 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
 		}
 		
 		//check for updates in current languages
-		[self checkForPackagesWithNewVersionsForLanguage:nil];
+		[self checkForPackagesWithNewVersionsForLanguageCodes:@[self.defaults.currentLanguageCode, self.defaults.currentParallelLanguageCode]];
 		
 	}
 	
@@ -366,10 +366,12 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
 
 #pragma mark - Package update checking and downloading
 
-- (void)checkForPackagesWithNewVersionsForLanguage:(GTLanguage *)language {
+- (void)checkForPackagesWithNewVersionsForLanguageCodes:(NSArray *)languageCodes {
+	
+	NSParameterAssert(languageCodes.count);
 	
 	NSManagedObjectContext *context	= self.storage.backgroundObjectContext;
-	NSArray *currentLanguages		= (language ? @[language.code] : @[self.defaults.currentLanguageCode, self.defaults.currentParallelLanguageCode]);
+	NSArray *currentLanguages		= languageCodes;
 	NSFetchRequest *fetchRequest	= [[NSFetchRequest alloc] init];
 	fetchRequest.entity				= [NSEntityDescription entityForName:NSStringFromClass([GTPackage class]) inManagedObjectContext:context];
 	fetchRequest.predicate			= [NSPredicate predicateWithFormat:@"(localVersion < latestVersion) && language.code IN %@", currentLanguages];
