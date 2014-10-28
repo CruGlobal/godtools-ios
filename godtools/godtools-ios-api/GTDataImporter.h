@@ -16,7 +16,7 @@
  */
 @interface GTDataImporter : NSObject\
 
-#error This is the main class you should use with the apps logic. Start by reading this documentation
+//#error This is the main class you should use with the apps logic. Start by reading this documentation
 
 /**
  *  Singleton for God Tools Data Importer

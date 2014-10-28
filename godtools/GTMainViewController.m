@@ -1,19 +1,19 @@
 //
-//  GTViewController.m
+//  GTMainViewController.m
 //  godtools
 //
 //  Created by Michael Harrison on 3/13/14.
 //  Copyright (c) 2014 Michael Harrison. All rights reserved.
 //
 
-#import "GTViewController.h"
+#import "GTMainViewController.h"
 #import "GTDataImporter.h"
 
-@interface GTViewController ()
+@interface GTMainViewController ()
 
 @end
 
-@implementation GTViewController
+@implementation GTMainViewController
 
 - (void)viewDidLoad {
 	

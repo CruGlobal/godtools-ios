@@ -1,5 +1,5 @@
 //
-//  GTViewController.h
+//  GTMainViewController.h
 //  godtools
 //
 //  Created by Michael Harrison on 3/13/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GTViewController : UIViewController
+@interface GTMainViewController : UIViewController
 
 @end
