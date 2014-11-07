@@ -1,0 +1,8 @@
+/* 
+  Localizable.strings
+  godtools
+
+  Created by Michael Harrison on 3/26/14.
+  Copyright (c) 2014 Michael Harrison. All rights reserved.
+*/
+"GTDataImporter_updateMenuInfo_bad_xml" = "Data was missing when asking the server for menu information.";
