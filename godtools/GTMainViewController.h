@@ -13,6 +13,6 @@
 #import <GTViewController/GTShareViewController.h>
 #import <GTViewController/GTAboutViewController.h>
 
-@interface GTMainViewController : UIViewController <GTViewControllerMenuDelegate, GTAboutViewControllerDelegate>
+@interface GTMainViewController : UIViewController
 
 @end

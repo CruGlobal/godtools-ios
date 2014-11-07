@@ -10,6 +10,8 @@
 	<string>godtools</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>C46238CE8B78F48BF6D61A253530EA363C8CECDD</key>
+		<string>https://elementz.git.beanstalkapp.com/godtoolsios.git</string>
 		<key>EDE2B63B72CB739042D9669FDAF6105AE9C104E2</key>
 		<string>https://github.com/CruGlobal/godtools-ios</string>
 	</dict>
@@ -17,15 +19,17 @@
 	<string>godtools.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>EDE2B63B72CB739042D9669FDAF6105AE9C104E2</key>
+		<key>C46238CE8B78F48BF6D61A253530EA363C8CECDD</key>
 		<string>..</string>
+		<key>EDE2B63B72CB739042D9669FDAF6105AE9C104E2</key>
+		<string>../../godtools-ios</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/CruGlobal/godtools-ios</string>
+	<string>https://elementz.git.beanstalkapp.com/godtoolsios.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>EDE2B63B72CB739042D9669FDAF6105AE9C104E2</string>
+	<string>C46238CE8B78F48BF6D61A253530EA363C8CECDD</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
@@ -35,6 +39,14 @@
 			<string>EDE2B63B72CB739042D9669FDAF6105AE9C104E2</string>
 			<key>IDESourceControlWCCName</key>
 			<string>godtools-ios</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>C46238CE8B78F48BF6D61A253530EA363C8CECDD</string>
+			<key>IDESourceControlWCCName</key>
+			<string>godtoolsios</string>
 		</dict>
 	</array>
 </dict>

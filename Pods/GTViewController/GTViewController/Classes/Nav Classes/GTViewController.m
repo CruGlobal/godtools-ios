@@ -407,7 +407,6 @@ NSString * const kAttr_filename		= @"filename";
 #pragma mark - config parsing
 
 - (NSMutableArray *)pageArrayForConfigFile:(NSString *)filename {
-    NSLog(@"pageArray forconfigFile %@",[self.fileLoader pathOfFileWithFilename:filename]);
 	//init the xml
 	NSData *data				= [NSData dataWithContentsOfFile:[self.fileLoader pathOfFileWithFilename:filename]];
     
@@ -449,9 +448,7 @@ NSString * const kAttr_filename		= @"filename";
 	[pageArr addObject:descArr];
 	
 	//grab file name of about page
-    NSLog(@"page array: %@",pageArr);
 	self.aboutFilename = [TBXML valueOfAttributeNamed:kAttr_filename forElement:about_el];
-    NSLog(@"pageArray forconfigFile END");
 	
 	return pageArr;
 }

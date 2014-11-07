@@ -7,8 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <GTViewController/GTViewController.h>
+#import <GTViewController/GTFileLoader.h>
+#import <GTViewController/GTPageMenuViewController.h>
+#import <GTViewController/GTShareViewController.h>
+#import <GTViewController/GTAboutViewController.h>
 
-@interface GTHomeViewController : UITableViewController
+@interface GTHomeViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate,GTViewControllerMenuDelegate, GTAboutViewControllerDelegate >
 
 @property (strong, nonatomic) NSArray* articles;
 

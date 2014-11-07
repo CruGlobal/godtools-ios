@@ -7,19 +7,24 @@
 //
 
 #import "GTHomeViewController.h"
+#import <GTViewController/GTViewController.h>
 #import "GTHomeViewCell.h"
 #import "GTLanguage+Helper.h"
 #import "GTPackage+Helper.h"
 #import "GTStorage.h"
 
 @interface GTHomeViewController ()
-    @property (nonatomic, strong, readonly)	GTStorage		*storage;
+    @property (strong,nonatomic) NSString *languageCode;
+    @property (nonatomic, strong) GTViewController *godtoolsViewController;
 @end
 
 @implementation GTHomeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.navigationItem.hidesBackButton = YES;
+    [self.tableView setBounces:NO];
     
     self.articles = [[NSMutableArray alloc]init];
     [self setData];
@@ -35,33 +40,43 @@
 -(void)setData{
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    self.languageCode = [defaults stringForKey:@"mainLanguage"];
+    NSArray *languages = [[GTStorage sharedStorage]fetchArrayOfModels:[GTLanguage class] usingKey:@"code" forValues:@[self.languageCode] inBackground:NO];
     
-    //NSFetchRequest *fetch = [[NSFetchRequest alloc] init];
-    //NSEntityDescription *entity = [NSEntityDescription entityForName:@"Language"  inManagedObjectContext: [GTStorage sharedStorage].backgroundObjectContext];
-    //[fetch setEntity:entity];
-    //[fetch setPredicate:[NSPredicate predicateWithFormat:@"(name = %@)",[defaults objectForKey:@"mainLanguage"]]];
-    NSError * error = nil;
+    GTLanguage* mainLanguage = (GTLanguage*)[languages objectAtIndex:0];
     
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Language" inManagedObjectContext:[GTStorage sharedStorage].mainObjectContext];
-    
-    NSLog(@"ENTITY: %@",entity);
-    
-    [fetchRequest setEntity:entity];
-    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"name == %@",[defaults stringForKey:@"mainLanguage"]]];
-    GTLanguage* mainLanguage = (GTLanguage*)[[  self.storage.backgroundObjectContext executeFetchRequest:fetchRequest error:&error]objectAtIndex:0];
-    
-    //GTLanguage* mainLanguage = [[[GTStorage sharedStorage].backgroundObjectContext executeFetchRequest:fetch error:&error]objectAtIndex:0];
+    NSLog(@"mainlanguage: %@",mainLanguage);
     
     self.articles = [mainLanguage.packages allObjects];
-    
-    NSLog(@"mainLanguage: %@, articles: %@",mainLanguage,self.articles);
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma  mark - GodToolsViewController getter
+- (GTViewController *)godtoolsViewController {
+    
+    if (!_godtoolsViewController) {
+        
+        GTPackage *package = [self.articles objectAtIndex:0];
+        
+        //NSString *configFile	= [NSString stringWithFormat:@"/%@",package.configFile];
+        
+        GTFileLoader *fileLoader = [GTFileLoader fileLoader];
+        fileLoader.language		= self.languageCode;
+        GTShareViewController *shareViewController = [[GTShareViewController alloc] init];
+        GTPageMenuViewController *pageMenuViewController = [[GTPageMenuViewController alloc] initWithFileLoader:fileLoader];
+        GTAboutViewController *aboutViewController = [[GTAboutViewController alloc] initWithDelegate:self fileLoader:fileLoader];
+        
+        [self willChangeValueForKey:@"godtoolsViewController"];
+        _godtoolsViewController	= [[GTViewController alloc] initWithConfigFile:package.configFile
+                                                                    fileLoader:fileLoader
+                                                           shareViewController:shareViewController
+                                                        pageMenuViewController:pageMenuViewController
+                                                           aboutViewController:aboutViewController
+                                                                      delegate:self];
+        [self didChangeValueForKey:@"godtoolsViewController"];
+        
+    }
+    
+    return _godtoolsViewController;
 }
 
 #pragma mark - Table view data source
@@ -87,6 +102,10 @@
     
     cell.titleLabel.text = package.name;
     
+    NSString *imageFilePath = [[GTFileLoader pathOfPackagesDirectory] stringByAppendingPathComponent:package.icon];
+    
+    cell.icon.image = [UIImage imageWithContentsOfFile: imageFilePath];
+    
     return cell;
 }
 
@@ -95,48 +114,23 @@
     return 130.0f;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    GTPackage *package = [self.articles objectAtIndex:indexPath.row];
+    
+    //NSString *configFile	= [NSString stringWithFormat:@"%@/%@",self.languageCode,package.configFile];
+    
+    [self.godtoolsViewController loadResourceWithConfigFilename:package.configFile];
+    
+    [self.navigationController pushViewController:self.godtoolsViewController animated:YES];
+    
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

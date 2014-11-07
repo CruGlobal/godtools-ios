@@ -26,52 +26,31 @@
 	
     [super viewDidLoad];
 	
+    //check if there is internet connection
 	//[[GTDataImporter sharedImporter] updateMenuInfo];
-    
-    //NSString *configFile	= self.resources[0][@"keyConfigFile"];
-    
-    NSLog(@"%@", [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]);
-    
+
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     //check if first launch
     if([defaults objectForKey:@"isDoneWithFirstLaunch"]==nil){
-        NSLog(@"FIRST LAUNCH");
-        
+        //NSLog(@"FIRST LAUNCH");
         //prepare initial content
         [self extractMetaData];
         [self extractBundle];
         [defaults setBool:YES forKey:@"isDoneWithFirstLaunch"];
         
     }else{
-        NSLog(@"NOT FIRST LAUNCH");
+        //NSLog(@"NOT FIRST LAUNCH");
     }
     
-    //[self performSegueWithIdentifier:@"splashToHomeViewSegue" sender:self];
-    
-    
-    //SAMPLE CODE FOR USING GTVIEWCONTROLLER -- put this at the home page
-    //[self.godtoolsViewController loadResourceWithConfigFilename:configFile];
-
-    //[self.navigationController pushViewController:self.godtoolsViewController animated:YES];
-    //[self.navigationController setNavigationBarHidden:YES];
+   [self performSegueWithIdentifier:@"splashToHomeViewSegue" sender:self];
     
 }
 
 -(void)extractBundle{
 
-    NSString *destinationPath ;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSError *error;
-    
-    destinationPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"Packages/en"];
-    NSLog(@"DESTINATION PATH: %@",destinationPath);
-    
-    if (![[NSFileManager defaultManager] fileExistsAtPath:destinationPath]){   //Does directory already exist?
-        if (![[NSFileManager defaultManager] createDirectoryAtPath:destinationPath withIntermediateDirectories:YES  attributes:nil error:&error]){
-            NSLog(@"Create directory error: %@", error);
-        }
-    }
     
     NSString *temporaryFolderName	= [[NSUUID UUID] UUIDString];
     NSString* temporaryDirectory = [[paths objectAtIndex:0] stringByAppendingPathComponent:temporaryFolderName];
@@ -83,7 +62,7 @@
         }
     }
     
-    NSString* pathOfEnglishBundle              = [[NSBundle mainBundle] pathForResource:@"en" ofType:@"zip"];
+    NSString* pathOfEnglishBundle = [[NSBundle mainBundle] pathForResource:@"en" ofType:@"zip"];
     
     //unzip to temporary directory
     if(![SSZipArchive unzipFileAtPath:pathOfEnglishBundle
@@ -101,17 +80,26 @@
     RXMLElement *rootXML = [RXMLElement elementFromXMLData:[NSData dataWithContentsOfFile:[temporaryDirectory stringByAppendingPathComponent:@"contents.xml"]]];
 
     //Update database with config filenames.
-
-    GTLanguage *english = [GTLanguage languageWithCode:@"en" inContext:[GTStorage sharedStorage].backgroundObjectContext];
-    english.name = @"English";
+    NSArray *englishArray = [[GTStorage sharedStorage]fetchArrayOfModels:[GTLanguage class] usingKey:@"code" forValues:@[@"en"] inBackground:NO];
+    GTLanguage *english;
+    if([englishArray count]==0){
+        english = [GTLanguage languageWithCode:@"en" inContext:[GTStorage sharedStorage].mainObjectContext];
+        english.name = @"English";
+    }else{
+        english = [englishArray objectAtIndex:0];
+        [english removePackages:english.packages];
+    }
     
-    NSMutableSet *packages = [english mutableSetValueForKey:@"packages"];
     [rootXML iterate:@"resource" usingBlock: ^(RXMLElement *resource) {
+        GTPackage *package;
         
-        GTPackage* package	= [GTPackage packageWithCode:[resource attribute:@"package"] language:english inContext:[GTStorage sharedStorage].backgroundObjectContext];
+        NSArray *packageArray = [[GTStorage sharedStorage]fetchArrayOfModels:[GTPackage class] usingKey:@"code" forValues:@[[resource attribute:@"package"]] inBackground:NO];
         
-        NSLog(@"Pack: %@",package.code);
-        
+        if([packageArray count]==0){
+            package = [GTPackage packageWithCode:[resource attribute:@"package"] language:english inContext:[GTStorage sharedStorage].mainObjectContext];
+        }else{
+            package = [packageArray objectAtIndex:0];
+        }
         
         package.name = [resource attribute:@"name"];
         package.configFile = [resource attribute:@"config"];
@@ -119,59 +107,62 @@
         package.status = [resource attribute:@"status"];
         package.localVersion = [NSNumber numberWithInt:[[resource attribute:@"version"] integerValue] ];
         package.latestVersion = [NSNumber numberWithInt:[[resource attribute:@"version"] integerValue] ];
-        
-        [packages addObject:package];
+    
+        [english addPackagesObject:package];
         
     }];
     
-#warning need to move all files to Documents Directory after contents.xml has been parsed.
-    
-    //move to documents directory
-    //    NSFileManager *fileManager = [NSFileManager defaultManager];
-    //    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    //    NSString *documentsDirectory = [paths objectAtIndex:0];
-    //
-    //    NSString *txtPath = [documentsDirectory stringByAppendingPathComponent:@"txtFile.txt"];
-    //
-    //    if ([fileManager fileExistsAtPath:txtPath] == NO) {
-    //        NSString *resourcePath = [[NSBundle mainBundle] pathForResource:@"txtFile" ofType:@"txt"];
-    //        [fileManager copyItemAtPath:resourcePath toPath:txtPath error:&error];
-    //    }
-    
     if (![[GTStorage sharedStorage].mainObjectContext save:&error]) {
-        
         NSLog(@"error saving");
-        
+    }
+    
+    //move to Packages folder
+    
+    NSString *destinationPath = [GTFileLoader pathOfPackagesDirectory];
+    
+    if (![[NSFileManager defaultManager] fileExistsAtPath:destinationPath]){   //Does directory already exist?
+        if (![[NSFileManager defaultManager] createDirectoryAtPath:destinationPath withIntermediateDirectories:NO  attributes:nil error:&error]){
+            NSLog(@"Create directory error: %@", error);
+        }
+    }
+    
+    NSFileManager *fm = [NSFileManager defaultManager];
+    
+    for (NSString *file in [fm contentsOfDirectoryAtPath:temporaryDirectory error:&error]) {
+        if(![file  isEqual: @"contents.xml"]){
+            NSString *filepath = [NSString stringWithFormat:@"%@/%@",temporaryDirectory,file];
+            BOOL success = [fm copyItemAtPath:filepath toPath:[NSString stringWithFormat:@"%@/%@",destinationPath,file] error:&error] ;
+            if (!success || error) {
+                NSLog(@"Error: %@",[error localizedDescription]);
+                NSLog(@"Error: %@\n",[error localizedFailureReason]);
+            }else{
+                [fm removeItemAtPath:filepath error:&error];
+            }
+        }
+    }
+    if(!error){
+        [fm removeItemAtPath:temporaryDirectory error:&error];
     }
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-
-    [defaults setObject:english.name forKey:@"mainLanguage"];
+    [defaults setObject:english.code forKey:@"mainLanguage"];
     
-    [[GTSettingsManager sharedManager] setMainLanguage:english];
 }
 
 -(void)extractMetaData{
     NSError *error;
     NSString* pathOfMeta = [[NSBundle mainBundle] pathForResource:@"meta" ofType:@"xml"];
-    
     RXMLElement *metaXML = [RXMLElement elementFromXMLData:[NSData dataWithContentsOfFile:pathOfMeta]];
-    __block NSMutableSet *metaPackagesOfLanguage;
     
     [metaXML iterate:@"language" usingBlock: ^(RXMLElement *languageElement) {
         
-        __block GTLanguage *language = [GTLanguage languageWithCode:[languageElement attribute:@"code"] inContext:[GTStorage sharedStorage].backgroundObjectContext];
+        __block GTLanguage *language = [GTLanguage languageWithCode:[languageElement attribute:@"code"] inContext:[GTStorage sharedStorage].mainObjectContext];
         
         language.name = [languageElement attribute:@"name"];
         
-        metaPackagesOfLanguage = [language mutableSetValueForKey:@"packages"];
-        
         [languageElement iterate:@"packages.package" usingBlock: ^(RXMLElement *packageElement) {
             
-            
-            GTPackage* package	= [GTPackage packageWithCode:[packageElement attribute:@"code"] language:language inContext:[GTStorage sharedStorage].backgroundObjectContext];
-
-            
+            GTPackage* package	= [GTPackage packageWithCode:[packageElement attribute:@"code"] language:language inContext:[GTStorage sharedStorage].mainObjectContext];
             package.name = [packageElement attribute:@"name"];
             package.configFile = [packageElement attribute:@"config"];
             package.icon = [packageElement attribute:@"icon"];
@@ -179,38 +170,13 @@
             package.localVersion = [NSNumber numberWithInt:[[packageElement attribute:@"version"] integerValue] ];
             package.latestVersion = [NSNumber numberWithInt:[[packageElement attribute:@"version"] integerValue] ];
             
-            [metaPackagesOfLanguage addObject:package];
+            [language addPackagesObject:package];
         }];
-        
     }];
 
     if (![[GTStorage sharedStorage].mainObjectContext save:&error]) {
         NSLog(@"error saving");
     }
-}
-
-- (GTViewController *)godtoolsViewController {
-    
-    if (!_godtoolsViewController) {
-        NSString *configFile	= self.resources[0][@"keyConfigFile"];
-        GTFileLoader *fileLoader = [GTFileLoader fileLoader];
-        fileLoader.language		= @"en";
-        GTShareViewController *shareViewController = [[GTShareViewController alloc] init];
-        GTPageMenuViewController *pageMenuViewController = [[GTPageMenuViewController alloc] initWithFileLoader:fileLoader];
-        GTAboutViewController *aboutViewController = [[GTAboutViewController alloc] initWithDelegate:self fileLoader:fileLoader];
-        
-        [self willChangeValueForKey:@"godtoolsViewController"];
-        _godtoolsViewController	= [[GTViewController alloc] initWithConfigFile:configFile
-                                                                    fileLoader:fileLoader
-                                                           shareViewController:shareViewController
-                                                        pageMenuViewController:pageMenuViewController
-                                                           aboutViewController:aboutViewController
-                                                                      delegate:self];
-        [self didChangeValueForKey:@"godtoolsViewController"];
-        
-    }
-    
-    return _godtoolsViewController;
 }
 
 - (void)didReceiveMemoryWarning {
