@@ -23,6 +23,11 @@
     
     self.languages = [[GTStorage sharedStorage]fetchArrayOfModels:[GTLanguage class] inBackground:YES];
     
+    NSArray *sortedArray;
+    sortedArray = [self.languages sortedArrayUsingSelector:@selector(compare:)];
+    
+    self.languages = sortedArray;
+    
     //NSLog(@"Languages: %@", self.languages);
 }
 
