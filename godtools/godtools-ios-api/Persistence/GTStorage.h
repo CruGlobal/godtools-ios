@@ -39,4 +39,15 @@
  */
 @property (nonatomic, strong, readonly) GTStorageErrorHandler *errorHandler;
 
+/**
+ *  Grab array of models from the Persistent Store
+    @param modelType  Class of object you want to grab (assumes Class name matches CoreData Entity name)
+ *  @param background determines if it will be run on the background context (using its background queue) or the main context (using the main thread)
+ *
+ *  @example [myStorage fetchArrayOfModels:[Book class] inBackground:YES];
+ *  This would search in the background for all the books .
+ *
+ *  @return array of models
+ */
+- (NSArray *)fetchArrayOfModels:(Class)modelType inBackground:(BOOL)background ;
 @end

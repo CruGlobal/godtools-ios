@@ -335,23 +335,28 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
 																				   userInfo:@{GTDataImporterNotificationLanguageDownloadPercentageKey: percentage}];
 								 
 							 } success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSURL *targetPath) {
-								 
+                                 NSLog(@"success download for packages for language");
 								 RXMLElement *contents = [weakSelf unzipResourcesAtTarget:targetPath forLanguage:language package:nil];
 								 
 #warning Need to update storage with data from contents.
 #warning Post Notification that it is finished.
 								 
 							 } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-								 
+                                 NSLog(@"failed download for packages for language");
+                                 NSLog(@"\n\REQUEST: %@\n\n",request.description);
+                                 NSLog(@"\n\nRESPONSE: %@\n\n",response.description);
+                                 NSLog(@"\nERROR: %@\n\n",error.description);
 								 [weakSelf displayDownloadPackagesRequestError:error];
 								 
 							 }];
-#warning untested implementation of downloadPackagesForLanguage
+#warning untested implementation of downloadPackagesForLanguages
 	
 }
 
 - (RXMLElement *)unzipResourcesAtTarget:(NSURL *)targetPath forLanguage:(GTLanguage *)language package:(GTPackage *)package {
 	
+    NSLog(@"Unzip resources at target");
+    
 	NSParameterAssert(language.code || package.code);
 	
 	NSString *temporaryFolderName	= [[NSUUID UUID] UUIDString];

@@ -267,7 +267,6 @@ NSString * const kAttr_filename		= @"filename";
 }
 
 - (void)skipToIndex:(NSInteger)index animated:(BOOL)animated {
-    NSLog(@"skip to index animated");
 	GTPage *newLeftLeftPage, *newLeftPage, *newCenterPage, *newRightPage, *newRightRightPage;
 	
 	//make sure the views aren't animating
@@ -387,7 +386,6 @@ NSString * const kAttr_filename		= @"filename";
 	}
 	//}
     
-    NSLog(@"skip to index end");
 }
 
 - (void)skipToTransitionDidStop {

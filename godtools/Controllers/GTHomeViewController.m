@@ -30,11 +30,20 @@
     [self setData];
     [self.tableView reloadData];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self setSettingsButton];
+}
+
+-(void)setSettingsButton{
+    UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc]
+                                   initWithTitle:@"Settings"
+                                   style:UIBarButtonItemStyleBordered
+                                   target:self
+                                   action:@selector(viewSettings)];
+    self.navigationItem.rightBarButtonItem = settingsButton;
+}
+
+-(void)viewSettings{
+    [self performSegueWithIdentifier:@"homeToSettingsViewSegue" sender:self];
 }
 
 -(void)setData{

@@ -8,7 +8,6 @@
 
 #import "GTMainViewController.h"
 #import "GTDataImporter.h"
-#import "GTSettingsManager.h"
 #import "RXMLElement.h"
 #import "SSZipArchive.h"
 #import "GTLanguage+Helper.h"
@@ -107,11 +106,12 @@
         package.status = [resource attribute:@"status"];
         package.localVersion = [NSNumber numberWithInt:[[resource attribute:@"version"] integerValue] ];
         package.latestVersion = [NSNumber numberWithInt:[[resource attribute:@"version"] integerValue] ];
-    
+
         [english addPackagesObject:package];
         
     }];
     
+    english.downloaded = [NSNumber numberWithBool: YES];
     if (![[GTStorage sharedStorage].mainObjectContext save:&error]) {
         NSLog(@"error saving");
     }
@@ -175,6 +175,7 @@
     }];
 
     if (![[GTStorage sharedStorage].mainObjectContext save:&error]) {
+        [[GTStorage sharedStorage]errorHandler];
         NSLog(@"error saving");
     }
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="OvA-bH-obN">
     <dependencies>
+        <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
@@ -50,24 +51,60 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="5Ls-gX-6vb">
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5Ls-gX-6vb" id="gO1-cj-dY5">
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="AWF-La-Kem" id="Uvx-Tr-AWv"/>
                             <outlet property="delegate" destination="AWF-La-Kem" id="bbd-J3-GEF"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="FAR-sA-04V"/>
+                    <connections>
+                        <segue destination="Fem-Oz-R52" kind="push" identifier="homeToSettingsViewSegue" id="LbP-eU-MfM"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ow3-7k-jBO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="372" y="140"/>
+            <point key="canvasLocation" x="332" y="140"/>
+        </scene>
+        <!--Settings View Controller-->
+        <scene sceneID="wQJ-mz-8l0">
+            <objects>
+                <tableViewController id="Fem-Oz-R52" customClass="GTSettingsViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="7ky-vu-k7U">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <connections>
+                            <outlet property="dataSource" destination="Fem-Oz-R52" id="aPf-F4-RBy"/>
+                            <outlet property="delegate" destination="Fem-Oz-R52" id="QDg-oh-R6q"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="p7Y-VJ-YIz"/>
+                    <connections>
+                        <segue destination="YJa-Gt-v9R" kind="push" identifier="settingsToLanguageViewSegue" id="MQB-lm-Ula"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zqH-NW-CPJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="707" y="140"/>
+        </scene>
+        <!--Languages View Controller-->
+        <scene sceneID="RDo-IJ-h67">
+            <objects>
+                <tableViewController id="YJa-Gt-v9R" customClass="GTLanguagesViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Y61-Vs-jDL">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <connections>
+                            <outlet property="dataSource" destination="YJa-Gt-v9R" id="qMc-ND-BFp"/>
+                            <outlet property="delegate" destination="YJa-Gt-v9R" id="TSt-AU-olI"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="Cq2-Vf-NsW"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VqI-v3-edI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1098" y="137"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
