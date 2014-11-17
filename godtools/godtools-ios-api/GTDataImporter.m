@@ -11,12 +11,8 @@
 #import "RXMLElement.h"
 #import "SSZipArchive.h"
 #import "GTPackage+Helper.h"
+#import <GTViewController/GTFileLoader.h>
 
-NSString *const GTDataImporterNotificationLanguageDownloadProgressMade	= @"com.godtoolsapp.GTDataImporter.notifications.languageDownloadProgressMade";
-NSString *const GTDataImporterNotificationLanguageDownloadFinished		= @"com.godtoolsapp.GTDataImporter.notifications.languageDownloadFinished";
-NSString *const GTDataImporterNotificationLanguageDownloadPercentageKey	= @"com.godtoolsapp.GTDataImporter.notifications.languageDownloadProgressMade.key.percentage";
-
-NSString *const GTDataImporterNotificationNameUpdateNeeded				= @"com.godtoolsapp.GTDataImporter.notifications.updateNeeded";
 NSString *const GTDataImporterErrorDomain								= @"com.godtoolsapp.GTDataImporter.errorDomain";
 
 NSInteger const GTDataImporterErrorCodeInvalidXml						= 1;
@@ -323,7 +319,7 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
 #pragma mark - Package downloading
 
 - (void)downloadPackagesForLanguage:(GTLanguage *)language {
-    NSLog(@"downlad packages for language");
+    NSLog(@"downlad packages for language %@",language);
 	NSParameterAssert(language);
 	
 	__weak typeof(self)weakSelf = self;
@@ -335,17 +331,51 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
 																				   userInfo:@{GTDataImporterNotificationLanguageDownloadPercentageKey: percentage}];
 								 
 							 } success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSURL *targetPath) {
-                                 NSLog(@"success download for packages for language");
-								 RXMLElement *contents = [weakSelf unzipResourcesAtTarget:targetPath forLanguage:language package:nil];
 								 
-#warning Need to update storage with data from contents.
-#warning Post Notification that it is finished.
+                                 RXMLElement *contents =[weakSelf unzipResourcesAtTarget:targetPath forLanguage:language package:nil];
+                                 NSError *error;
+                                 if(contents!=nil){
+                                     //Update storage with data from contents.
+                                     [language removePackages:language.packages];
+                                     [contents iterate:@"resource" usingBlock: ^(RXMLElement *resource) {
+                                         NSString *existingIdentifier = [GTPackage identifierWithPackageCode:[resource attribute:@"package"] languageCode:language.code];
+                                         
+                                         GTPackage *package;
+                                         
+                                         NSArray *packageArray = [[GTStorage sharedStorage]fetchArrayOfModels:[GTPackage class] usingKey:@"identifier" forValues:@[existingIdentifier] inBackground:NO];
+                                         
+                                         if([packageArray count]==0){
+                                             package = [GTPackage packageWithCode:[resource attribute:@"package"] language:language inContext:[GTStorage sharedStorage].mainObjectContext];
+                                         }else{
+                                             package = [packageArray objectAtIndex:0];
+                                             NSLog(@"==========PACKAGE EXISTS: %@",package);
+                                         }
+                                         
+                                         package.name = [resource attribute:@"name"];
+                                         package.configFile = [resource attribute:@"config"];
+                                         package.icon = [resource attribute:@"icon"];
+                                         package.status = [resource attribute:@"status"];
+                                         package.localVersion = [NSNumber numberWithInt:[[resource attribute:@"version"] integerValue] ];
+                                         package.latestVersion = [NSNumber numberWithInt:[[resource attribute:@"version"] integerValue] ];
+                                         
+                                         [language addPackagesObject:package];
+                                         
+                                     }];
+                                     
+                                     language.downloaded = [NSNumber numberWithBool: YES];
+                                     if (![[GTStorage sharedStorage].mainObjectContext save:&error]) {
+                                         NSLog(@"error saving");
+                                     }else{
+                                         NSLog(@"PACKAGES NOW: %@",language.packages);
+                                         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                                         [defaults setObject:language.code forKey:@"mainLanguage"];
+                                     }
+                                     
+                                     NSLog(@"Done!");
+                                    [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadFinished object:self];
+                                 }
 								 
 							 } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                 NSLog(@"failed download for packages for language");
-                                 NSLog(@"\n\REQUEST: %@\n\n",request.description);
-                                 NSLog(@"\n\nRESPONSE: %@\n\n",response.description);
-                                 NSLog(@"\nERROR: %@\n\n",error.description);
 								 [weakSelf displayDownloadPackagesRequestError:error];
 								 
 							 }];
@@ -355,21 +385,11 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
 
 - (RXMLElement *)unzipResourcesAtTarget:(NSURL *)targetPath forLanguage:(GTLanguage *)language package:(GTPackage *)package {
 	
-    NSLog(@"Unzip resources at target");
+    NSLog(@"\nUnzip resources at target %@\n",targetPath);
     
 	NSParameterAssert(language.code || package.code);
 	
-	NSString *temporaryFolderName	= [[NSUUID UUID] UUIDString];
-	
-	NSURL* documentDirectory		= [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
-																		inDomain:NSUserDomainMask
-															   appropriateForURL:nil
-																		  create:YES
-																		   error:nil];
-	NSURL* temporaryDirectory		= [documentDirectory URLByAppendingPathComponent:temporaryFolderName isDirectory:YES];
-	
-	NSError *error;
-	if(![SSZipArchive unzipFileAtPath:[targetPath absoluteString]
+	/*if(![SSZipArchive unzipFileAtPath:[targetPath absoluteString]
 						toDestination:[temporaryDirectory absoluteString]
 							overwrite:NO
 							 password:nil
@@ -378,14 +398,78 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
 		
 		[self displayDownloadPackagesUnzippingError:error];
 		
-	}
+	}*/
 	
-	RXMLElement *element = [RXMLElement elementFromXMLFile:[[temporaryDirectory URLByAppendingPathComponent:@"contents.xml"] absoluteString]];
-	
-#warning need to move all files to Documents Directory after contents.xml has been parsed.
-#warning Need to update database with config filenames.
-	
-	return element;
+    NSError *error;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *temporaryFolderName	= [[NSUUID UUID] UUIDString];
+    NSString* temporaryDirectory = [[paths objectAtIndex:0] stringByAppendingPathComponent:temporaryFolderName];
+    
+    
+    if (![[NSFileManager defaultManager] fileExistsAtPath:temporaryDirectory]){    //Does directory already exist?
+        if (![[NSFileManager defaultManager] createDirectoryAtPath:temporaryDirectory withIntermediateDirectories:NO attributes:nil error:&error]){
+            NSLog(@"Create directory error: %@", error);
+        }
+    }
+    
+    //unzip to temporary directory
+    if(![SSZipArchive unzipFileAtPath:[targetPath absoluteString]
+                        toDestination:temporaryDirectory
+                            overwrite:NO
+                             password:nil
+                                error:&error
+                             delegate:nil]) {
+        
+        [self displayDownloadPackagesUnzippingError:error];
+        #warning error handling
+    }
+    
+    if(!error){
+        NSLog(@"CONTENTS>XML AT: %@",[NSData dataWithContentsOfFile:[temporaryDirectory stringByAppendingPathComponent:@"contents.xml"]]);
+        RXMLElement *element = [RXMLElement elementFromXMLData:[NSData dataWithContentsOfFile:[temporaryDirectory stringByAppendingPathComponent:@"contents.xml"]]];
+        //[RXMLElement elementFromXMLFile:[[temporaryDirectory URLByAppendingPathComponent:@"contents.xml"] absoluteString]];
+        
+        NSLog(@"ELEMENT: %@",[element description]);
+        
+        [element iterate:@"resource" usingBlock: ^(RXMLElement *resource) {
+            NSLog(@"reource: %@",[resource attribute:@"name"]);
+        }];
+        #warning need to move all files to Documents Directory after contents.xml has been parsed.
+        //move to Packages folder
+        
+        NSString *destinationPath = [GTFileLoader pathOfPackagesDirectory];
+        NSFileManager *fm = [NSFileManager defaultManager];
+        
+        if (![fm fileExistsAtPath:destinationPath]){   //Does directory already exist?
+            if (![[NSFileManager defaultManager] createDirectoryAtPath:destinationPath withIntermediateDirectories:NO  attributes:nil error:&error]){
+                NSLog(@"Create directory error: %@", error);
+            }
+        }
+        
+        
+        for (NSString *file in [fm contentsOfDirectoryAtPath:temporaryDirectory error:&error]) {
+            NSString *filepath = [NSString stringWithFormat:@"%@/%@",temporaryDirectory,file];
+            NSString *destinationFile = [NSString stringWithFormat:@"%@/%@",destinationPath,file];
+            if(![file  isEqual: @"contents.xml"] && ![fm fileExistsAtPath:destinationFile]){
+                NSLog(@"=====COPY ====%@\n\n",filepath);
+                BOOL success = [fm copyItemAtPath:filepath toPath:destinationFile error:&error] ;
+                if (!success || error) {
+                    NSLog(@"Error: %@ file: %@",[error description],file);
+                }else{
+                    [fm removeItemAtPath:filepath error:&error];
+                }
+            }
+        }
+        if(!error){ //No error moving files
+            NSLog(@"No error moving files");
+            [fm removeItemAtPath:temporaryDirectory error:&error];
+            [fm removeItemAtPath:targetPath error:&error];
+        }
+        return element;
+    }
+    #warning Need to update database with config filenames.
+    
+    return nil;
 	
 }
 

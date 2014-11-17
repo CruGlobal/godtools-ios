@@ -13,17 +13,24 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Language name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KFe-mW-0Q8">
-                        <rect key="frame" x="15" y="12" width="249" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <rect key="frame" x="55" y="12" width="249" height="20"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="downloadIcon" translatesAutoresizingMaskIntoConstraints="NO" id="iwf-Yq-N8B">
+                        <rect key="frame" x="10" y="7" width="30" height="30"/>
+                    </imageView>
                 </subviews>
             </tableViewCellContentView>
             <connections>
+                <outlet property="downloadIcon" destination="iwf-Yq-N8B" id="irm-13-PdR"/>
                 <outlet property="languageName" destination="KFe-mW-0Q8" id="dZt-fh-iai"/>
             </connections>
-            <point key="canvasLocation" x="250" y="279"/>
+            <point key="canvasLocation" x="250" y="277"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="downloadIcon" width="300" height="300"/>
+    </resources>
 </document>

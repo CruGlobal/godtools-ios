@@ -20,20 +20,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //[[GTDataImporter sharedImporter]updateMenuInfo];
     
-    self.languages = [[GTStorage sharedStorage]fetchArrayOfModels:[GTLanguage class] inBackground:YES];
+    self.languages = [[GTStorage sharedStorage]fetchArrayOfModels:[GTLanguage class] inBackground:NO];
     
     NSArray *sortedArray;
     sortedArray = [self.languages sortedArrayUsingSelector:@selector(compare:)];
     
     self.languages = sortedArray;
     
-    //NSLog(@"Languages: %@", self.languages);
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
@@ -54,8 +53,17 @@
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"GTLanguageViewCell" owner:self options:nil];
         cell = [nib objectAtIndex:0];
     }
+    GTLanguage *language = [self.languages objectAtIndex:indexPath.row];
+    cell.languageName.text = language.name;
     
-    cell.languageName.text = [[self.languages objectAtIndex:indexPath.row]name];
+    if([language.code isEqual:[[NSUserDefaults standardUserDefaults]stringForKey:@"mainLanguage"]]){
+        cell.languageName.textColor = [UIColor blueColor];
+    }
+    
+    if(language.downloaded){
+        [cell.downloadIcon setHidden:YES];
+    }
+    
     
     return cell;
 }
@@ -64,8 +72,23 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    GTLanguage *chosen = (GTLanguage*)[self.languages objectAtIndex:indexPath.row];
     
-    [[GTDataImporter sharedImporter]downloadPackagesForLanguage:[self.languages objectAtIndex:indexPath.row]];
+    if(![chosen downloaded]){
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadProgressMade
+                                                            object:self
+                                                          userInfo:nil];
+        [[GTDataImporter sharedImporter]downloadPackagesForLanguage:[self.languages objectAtIndex:indexPath.row]];
+        
+    }else{
+        
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:[chosen code] forKey:@"mainLanguage"];
+        
+    }
+    
+    [self.navigationController popToViewController:[[self.navigationController viewControllers] objectAtIndex:1] animated:YES];
 }
 
 

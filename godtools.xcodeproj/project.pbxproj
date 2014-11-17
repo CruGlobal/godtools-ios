@@ -76,6 +76,8 @@
 		B76536D71A0CD1AC001C3FC3 /* GTLanguagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B76536D61A0CD1AC001C3FC3 /* GTLanguagesViewController.m */; };
 		B76536DA1A0CD2CF001C3FC3 /* GTLanguageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B76536D91A0CD2CF001C3FC3 /* GTLanguageViewCell.m */; };
 		B76536DC1A0CD2E1001C3FC3 /* GTLanguageViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B76536DB1A0CD2E1001C3FC3 /* GTLanguageViewCell.xib */; };
+		B7E472801A15A1F8002DF715 /* GTHomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7E4727F1A15A1F8002DF715 /* GTHomeView.xib */; };
+		B7E472831A15A210002DF715 /* GTHomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E472821A15A210002DF715 /* GTHomeView.m */; };
 		F4C1A344ED97B5D4B250557D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74F8066D3A00B27C587FD9D9 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -170,6 +172,10 @@
 		B76536D81A0CD2CF001C3FC3 /* GTLanguageViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTLanguageViewCell.h; path = Views/GTLanguageViewCell.h; sourceTree = "<group>"; };
 		B76536D91A0CD2CF001C3FC3 /* GTLanguageViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTLanguageViewCell.m; path = Views/GTLanguageViewCell.m; sourceTree = "<group>"; };
 		B76536DB1A0CD2E1001C3FC3 /* GTLanguageViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GTLanguageViewCell.xib; path = Views/GTLanguageViewCell.xib; sourceTree = "<group>"; };
+		B7E4727E1A1450E6002DF715 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		B7E4727F1A15A1F8002DF715 /* GTHomeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GTHomeView.xib; path = Views/GTHomeView.xib; sourceTree = "<group>"; };
+		B7E472811A15A210002DF715 /* GTHomeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTHomeView.h; path = Views/GTHomeView.h; sourceTree = "<group>"; };
+		B7E472821A15A210002DF715 /* GTHomeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTHomeView.m; path = Views/GTHomeView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -288,9 +294,10 @@
 				68740D2118D24F9A00D36C0E /* GTAppDelegate.h */,
 				68740D2218D24F9A00D36C0E /* GTAppDelegate.m */,
 				68740D2418D24F9A00D36C0E /* Main.storyboard */,
-				68740D4718D259AA00D36C0E /* GTModel.xcdatamodeld */,
 				68740D2A18D24F9A00D36C0E /* Images.xcassets */,
+				68740D4718D259AA00D36C0E /* GTModel.xcdatamodeld */,
 				68740D1918D24F9A00D36C0E /* Supporting Files */,
+				B7E4727E1A1450E6002DF715 /* Constants.h */,
 			);
 			path = godtools;
 			sourceTree = "<group>";
@@ -391,6 +398,9 @@
 				B76536D81A0CD2CF001C3FC3 /* GTLanguageViewCell.h */,
 				B76536D91A0CD2CF001C3FC3 /* GTLanguageViewCell.m */,
 				B76536DB1A0CD2E1001C3FC3 /* GTLanguageViewCell.xib */,
+				B7E4727F1A15A1F8002DF715 /* GTHomeView.xib */,
+				B7E472811A15A210002DF715 /* GTHomeView.h */,
+				B7E472821A15A210002DF715 /* GTHomeView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -495,6 +505,7 @@
 				68740D1D18D24F9A00D36C0E /* InfoPlist.strings in Resources */,
 				66D1D7011A09F40F00AC4E48 /* en.zip in Resources */,
 				68740D2618D24F9A00D36C0E /* Main.storyboard in Resources */,
+				B7E472801A15A1F8002DF715 /* GTHomeView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -587,6 +598,7 @@
 				68A1CBFD18DB6C3B00D84F12 /* GTDefaults.m in Sources */,
 				68E6067A18D3947600844377 /* GTLanguage+Helper.m in Sources */,
 				B76536D41A0CCC17001C3FC3 /* GTSettingsViewCell.m in Sources */,
+				B7E472831A15A210002DF715 /* GTHomeView.m in Sources */,
 				B76536DA1A0CD2CF001C3FC3 /* GTLanguageViewCell.m in Sources */,
 				68464FC318E1CE4000D14C2B /* GTStorage.m in Sources */,
 				B76536CC1A0CCAE8001C3FC3 /* GTSettingsViewController.m in Sources */,

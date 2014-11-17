@@ -25,7 +25,7 @@
 	
     [super viewDidLoad];
 	
-    //check if there is internet connection
+#warning check if there is internet connection
 	//[[GTDataImporter sharedImporter] updateMenuInfo];
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -48,11 +48,11 @@
 
 -(void)extractBundle{
 
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+   // NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSError *error;
     
     NSString *temporaryFolderName	= [[NSUUID UUID] UUIDString];
-    NSString* temporaryDirectory = [[paths objectAtIndex:0] stringByAppendingPathComponent:temporaryFolderName];
+    NSString* temporaryDirectory = [NSTemporaryDirectory() stringByAppendingPathComponent:temporaryFolderName];
 
     
     if (![[NSFileManager defaultManager] fileExistsAtPath:temporaryDirectory]){    //Does directory already exist?
@@ -90,9 +90,14 @@
     }
     
     [rootXML iterate:@"resource" usingBlock: ^(RXMLElement *resource) {
+       
+        NSString *existingIdentifier = [GTPackage identifierWithPackageCode:[resource attribute:@"package"] languageCode:english.code];
+        
+        NSArray *packageArray = [[GTStorage sharedStorage]fetchArrayOfModels:[GTPackage class] usingKey:@"identifier" forValues:@[existingIdentifier] inBackground:NO];
+        
         GTPackage *package;
         
-        NSArray *packageArray = [[GTStorage sharedStorage]fetchArrayOfModels:[GTPackage class] usingKey:@"code" forValues:@[[resource attribute:@"package"]] inBackground:NO];
+        //NSArray *packageArray = [[GTStorage sharedStorage]fetchArrayOfModels:[GTPackage class] usingKey:@"code" forValues:@[[resource attribute:@"package"]] inBackground:NO];
         
         if([packageArray count]==0){
             package = [GTPackage packageWithCode:[resource attribute:@"package"] language:english inContext:[GTStorage sharedStorage].mainObjectContext];
@@ -117,7 +122,6 @@
     }
     
     //move to Packages folder
-    
     NSString *destinationPath = [GTFileLoader pathOfPackagesDirectory];
     
     if (![[NSFileManager defaultManager] fileExistsAtPath:destinationPath]){   //Does directory already exist?
@@ -134,7 +138,6 @@
             BOOL success = [fm copyItemAtPath:filepath toPath:[NSString stringWithFormat:@"%@/%@",destinationPath,file] error:&error] ;
             if (!success || error) {
                 NSLog(@"Error: %@",[error localizedDescription]);
-                NSLog(@"Error: %@\n",[error localizedFailureReason]);
             }else{
                 [fm removeItemAtPath:filepath error:&error];
             }

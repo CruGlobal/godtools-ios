@@ -13,6 +13,7 @@
 
 @interface GTSettingsViewController ()
     @property (strong, nonatomic) GTLanguage *mainLanguage;
+    @property (strong, nonatomic) GTLanguage *parallelLanguage;
 @end
 
 @implementation GTSettingsViewController
@@ -21,13 +22,30 @@
     [super viewDidLoad];
     [self.tableView setBounces:NO];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    
+
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO];
+    [self.tableView reloadData];
+}
+
+-(GTLanguage *)mainLanguage{
     NSString *mainLanguageCode = [[NSUserDefaults standardUserDefaults]stringForKey:@"mainLanguage"];
-    
     NSArray *languages = [[GTStorage sharedStorage]fetchArrayOfModels:[GTLanguage class] usingKey:@"code" forValues:@[mainLanguageCode] inBackground:NO];
     
-    self.mainLanguage = (GTLanguage*)[languages objectAtIndex:0];
+    return (GTLanguage*)[languages objectAtIndex:0];
+}
 
+-(GTLanguage *)parallelLanguage{
+    NSString *code = [[NSUserDefaults standardUserDefaults]stringForKey:@"parallelLanguage"];
+    if(code != nil){
+        NSArray *languages = [[GTStorage sharedStorage]fetchArrayOfModels:[GTLanguage class] usingKey:@"code" forValues:@[code] inBackground:NO];
+        return (GTLanguage*)[languages objectAtIndex:0];
+    }else{
+        return nil;
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -67,7 +85,12 @@
             cell.label.text = @"Parallel language";
             break;
         case 3:
-            cell.label.text = self.mainLanguage.name;
+            if(self.parallelLanguage){
+                cell.label.text = self.parallelLanguage.name;
+            }else{
+                cell.label.text = self.mainLanguage.name;
+            }
+
             [cell addSeparator];
             break;
         default:

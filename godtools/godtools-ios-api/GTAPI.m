@@ -165,40 +165,39 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
 }
 
 - (void)getFilesForRequest:(NSMutableURLRequest *)request progress:(void (^)(NSNumber *))progress success:(void (^)(NSURLRequest *, NSHTTPURLResponse *, NSURL *))success failure:(void (^)(NSURLRequest *, NSHTTPURLResponse *, NSError *))failure {
-    NSLog(@"===========get files for request");
-	NSURL* documentsDirectory		= [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
+
+	/*NSURL* documentsDirectory		= [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
 																		inDomain:NSUserDomainMask
 															   appropriateForURL:nil
 																		  create:YES
-																		   error:nil];
-	
+																		   error:nil];*/
+    
 	//target will have the format ${DOCUMENTS_PATH}/1E2DFA89-496A-47FD-9941-DF1FC4E6484A.zip where the filename is a unique identifier for this download.
-	NSURL *target					= [documentsDirectory URLByAppendingPathComponent:[[[NSUUID UUID] UUIDString] stringByAppendingPathExtension:@"zip"]];
-	
-    NSLog(@"target: %@",target);
+	//NSURL *target					= [documentsDirectory URLByAppendingPathComponent:[[[NSUUID UUID] UUIDString] stringByAppendingPathExtension:@"zip"]];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    
+    NSString *target = [[paths objectAtIndex:0] stringByAppendingPathComponent:[ [ [NSUUID UUID] UUIDString] stringByAppendingPathExtension:@"zip" ]];
     
 	AFDownloadRequestOperation *operation = [[AFDownloadRequestOperation alloc] initWithRequest:request
-																					 targetPath:[target absoluteString]
+                                                                                    targetPath:target
 																				   shouldResume:YES];
-    NSLog(@"download operation defined");
+
 	[operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-		
 		success(operation.request, operation.response, [NSURL URLWithString:responseObject]);
 		
 	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-		
 		failure(operation.request, operation.response, error);
 		
 	}];
 	
 	[operation setProgressiveDownloadProgressBlock:^(AFDownloadRequestOperation *operation, NSInteger bytesRead, long long totalBytesRead, long long totalBytesExpected, long long totalBytesReadForFile, long long totalBytesExpectedToReadForFile) {
-		
-		progress(@(totalBytesReadForFile/(float)totalBytesExpectedToReadForFile));
+        NSNumber *percentage = @(totalBytesReadForFile/(float)totalBytesExpectedToReadForFile);
+        NSLog(@"Percentage %@ == %lld / %lld",percentage, totalBytesReadForFile, totalBytesExpected);
+		progress(percentage);
 		
 	}];
     
-    
-	
 	[self.operationQueue addOperation:operation];
 	
 #warning untested implementation of getFilesForLanguage

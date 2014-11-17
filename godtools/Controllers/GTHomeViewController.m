@@ -9,40 +9,92 @@
 #import "GTHomeViewController.h"
 #import <GTViewController/GTViewController.h>
 #import "GTHomeViewCell.h"
+#import "GTHomeView.h"
 #import "GTLanguage+Helper.h"
 #import "GTPackage+Helper.h"
 #import "GTStorage.h"
+#import "GTDataImporter.h"
+
 
 @interface GTHomeViewController ()
-    @property (strong,nonatomic) NSString *languageCode;
-    @property (nonatomic, strong) GTViewController *godtoolsViewController;
+
+@property (strong,nonatomic) NSString *languageCode;
+@property (strong, nonatomic) GTViewController *godtoolsViewController;
+@property (strong, nonatomic) UIActivityIndicatorView *downloadIndicatorView;
+@property (strong, nonatomic) GTHomeView *homeView;
+
 @end
 
 @implementation GTHomeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    [self.navigationController setNavigationBarHidden:YES];
     
-    self.navigationItem.hidesBackButton = YES;
-    [self.tableView setBounces:NO];
+    self.homeView = (GTHomeView*) [[[NSBundle mainBundle] loadNibNamed:@"GTHomeView" owner:nil options:nil]objectAtIndex:0];
+    self.homeView.frame = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, self.view.frame.size.height);
+    self.view = self.homeView;
+    
+    self.homeView.delegate = self;
+    self.homeView.tableView.delegate = self;
+    self.homeView.tableView.dataSource = self;
+    self.homeView.tableView.estimatedRowHeight = UITableViewAutomaticDimension;
+    self.homeView.tableView.contentInset = UIEdgeInsetsZero;
+    self.homeView.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.homeView.tableView.bounds.size.width, 0.01f)];
+    self.homeView.tableView.tableFooterView = nil;
+    
+    [self.homeView.tableView setBounces:NO];
+    [self.homeView.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [self.homeView.tableView.layer setBorderColor:[UIColor blackColor].CGColor];
+    [self.homeView.tableView.layer setBorderWidth:2.0f];
+    [self.homeView.tableView.layer setCornerRadius:8.0f];
+
+    [self.homeView initDownloadIndicator];
     
     self.articles = [[NSMutableArray alloc]init];
-    [self setData];
-    [self.tableView reloadData];
     
-    [self setSettingsButton];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(downloadFinished:)
+                                                 name: GTDataImporterNotificationLanguageDownloadFinished
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(showDownloadIndicator:)
+                                                 name: GTDataImporterNotificationLanguageDownloadProgressMade
+                                               object:nil];
+    
 }
 
--(void)setSettingsButton{
-    UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc]
-                                   initWithTitle:@"Settings"
-                                   style:UIBarButtonItemStyleBordered
-                                   target:self
-                                   action:@selector(viewSettings)];
-    self.navigationItem.rightBarButtonItem = settingsButton;
+-(void)downloadFinished:(NSNotification *) notification{
+    
+    if([self.homeView.activityView isAnimating]){
+        [self.homeView hideDownloadIndicator];
+    }
+
+    [self setData];
+    [self.homeView.tableView reloadData];
 }
 
--(void)viewSettings{
+-(void)showDownloadIndicator:(NSNotification *) notification{
+    NSDictionary *userInfo = notification.userInfo;
+    
+    NSLog(@" downloading %@",[userInfo objectForKey:GTDataImporterNotificationLanguageDownloadPercentageKey]);
+
+    if(![self.homeView.activityView isAnimating]){
+        [self.homeView showDownloadIndicator];
+    }
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES];
+    if(! [self.languageCode isEqual:[[NSUserDefaults standardUserDefaults] stringForKey:@"mainLanguage"]]){
+        [self setData];
+        [self.homeView.tableView reloadData];
+    }
+}
+
+-(void)settingsButtonPressed{
     [self performSegueWithIdentifier:@"homeToSettingsViewSegue" sender:self];
 }
 
@@ -54,8 +106,6 @@
     
     GTLanguage* mainLanguage = (GTLanguage*)[languages objectAtIndex:0];
     
-    NSLog(@"mainlanguage: %@",mainLanguage);
-    
     self.articles = [mainLanguage.packages allObjects];
 }
 
@@ -65,9 +115,6 @@
     if (!_godtoolsViewController) {
         
         GTPackage *package = [self.articles objectAtIndex:0];
-        
-        //NSString *configFile	= [NSString stringWithFormat:@"/%@",package.configFile];
-        
         GTFileLoader *fileLoader = [GTFileLoader fileLoader];
         fileLoader.language		= self.languageCode;
         GTShareViewController *shareViewController = [[GTShareViewController alloc] init];
@@ -91,49 +138,73 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    
+    if(tableView == self.homeView.tableView){
+        return 1;
+    }
+    
+    return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.articles.count;
+    if(tableView == self.homeView.tableView){
+        return self.articles.count;
+    }
+    
+    return 0;
 }
 
+- (UITableViewHeaderFooterView *)headerViewForSection:(NSInteger)section{
+    return nil;
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    GTHomeViewCell *cell = (GTHomeViewCell*)[tableView dequeueReusableCellWithIdentifier:@"GTHomeViewCell"];
     
-    if (cell == nil)
-    {
-        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"GTHomeViewCell" owner:self options:nil];
-        cell = [nib objectAtIndex:0];
+    if(tableView == self.homeView.tableView){
+        GTHomeViewCell *cell = (GTHomeViewCell*)[tableView dequeueReusableCellWithIdentifier:@"GTHomeViewCell"];
+        
+        if (cell == nil){
+            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"GTHomeViewCell" owner:self options:nil];
+            cell = [nib objectAtIndex:0];
+        }
+        
+        GTPackage *package = [self.articles objectAtIndex:indexPath.row];
+        
+        cell.titleLabel.text = package.name;
+        cell.statusLabel.text = package.status;
+        
+        NSString *imageFilePath = [[GTFileLoader pathOfPackagesDirectory] stringByAppendingPathComponent:package.icon];
+        
+        cell.icon.image = [UIImage imageWithContentsOfFile: imageFilePath];
+        [cell setUpBackground:(indexPath.row % 2)];
+        
+        [cell setNeedsUpdateConstraints];
+        [cell updateConstraintsIfNeeded];
+        return cell;
     }
-    GTPackage *package = [self.articles objectAtIndex:indexPath.row];
-    
-    cell.titleLabel.text = package.name;
-    
-    NSString *imageFilePath = [[GTFileLoader pathOfPackagesDirectory] stringByAppendingPathComponent:package.icon];
-    
-    cell.icon.image = [UIImage imageWithContentsOfFile: imageFilePath];
-    
-    return cell;
+    return nil;
 }
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 130.0f;
+    if(tableView == self.homeView.tableView){
+        return 44;
+    }
+    return 0;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    GTPackage *package = [self.articles objectAtIndex:indexPath.row];
-    
-    //NSString *configFile	= [NSString stringWithFormat:@"%@/%@",self.languageCode,package.configFile];
-    
-    [self.godtoolsViewController loadResourceWithConfigFilename:package.configFile];
-    
-    [self.navigationController pushViewController:self.godtoolsViewController animated:YES];
+    if(tableView == self.homeView.tableView){
+        [self.homeView.tableView deselectRowAtIndexPath:indexPath animated:YES];
+        
+        GTPackage *package = [self.articles objectAtIndex:indexPath.row];
+        
+        //NSString *configFile	= [NSString stringWithFormat:@"%@/%@",self.languageCode,package.configFile];
+        
+        [self.godtoolsViewController loadResourceWithConfigFilename:package.configFile];
+        
+        [self.navigationController pushViewController:self.godtoolsViewController animated:YES];
+    }
     
 }
 
