@@ -11,4 +11,5 @@
 @interface GTSettingsViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *label;
 -(void) addSeparator;
+-(void)setAsLanguageSelector;
 @end

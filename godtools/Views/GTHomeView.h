@@ -7,25 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GTBaseView.h"
 @protocol GTHomeViewDelegate <NSObject>
 @required
 -(void)settingsButtonPressed;
 @end
 
 
-@interface GTHomeView : UIView
+@interface GTHomeView : GTBaseView
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong,nonatomic) id<GTHomeViewDelegate> delegate;
-@property (nonatomic, retain) UIActivityIndicatorView * activityView;
-@property (nonatomic, retain) UIView *loadingView;
-@property (nonatomic, retain) UILabel *loadingLabel;
 @property (weak, nonatomic) IBOutlet UIButton *settingsButton;
 - (IBAction)settingsButtonPressed:(id)sender;
-
-
--(void)initDownloadIndicator;
--(void)showDownloadIndicator;
--(void)hideDownloadIndicator;
 
 @end

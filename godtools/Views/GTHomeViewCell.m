@@ -11,7 +11,8 @@
 @implementation GTHomeViewCell
 
 - (void)awakeFromNib {
-    self.titleLabel.numberOfLines = 3;
+    self.titleLabel.numberOfLines = 0;
+    self.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

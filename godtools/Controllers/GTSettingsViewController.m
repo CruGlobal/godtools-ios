@@ -10,6 +10,7 @@
 #import "GTSettingsViewCell.h"
 #import "GTLanguage+Helper.h"
 #import "GTStorage.h"
+#import "GTDefaults.h"
 
 @interface GTSettingsViewController ()
     @property (strong, nonatomic) GTLanguage *mainLanguage;
@@ -22,24 +23,28 @@
     [super viewDidLoad];
     [self.tableView setBounces:NO];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-
+    //self.tableView.rowHeight = UITableViewAutomaticDimension;
+    //self.tableView.estimatedRowHeight = 44.0;
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO];
+
     [self.tableView reloadData];
 }
 
 -(GTLanguage *)mainLanguage{
-    NSString *mainLanguageCode = [[NSUserDefaults standardUserDefaults]stringForKey:@"mainLanguage"];
+    NSString *mainLanguageCode = [[GTDefaults sharedDefaults] currentLanguageCode];
     NSArray *languages = [[GTStorage sharedStorage]fetchArrayOfModels:[GTLanguage class] usingKey:@"code" forValues:@[mainLanguageCode] inBackground:NO];
     
     return (GTLanguage*)[languages objectAtIndex:0];
 }
 
 -(GTLanguage *)parallelLanguage{
-    NSString *code = [[NSUserDefaults standardUserDefaults]stringForKey:@"parallelLanguage"];
+    NSString *code = [[GTDefaults sharedDefaults] currentParallelLanguageCode];
+
     if(code != nil){
         NSArray *languages = [[GTStorage sharedStorage]fetchArrayOfModels:[GTLanguage class] usingKey:@"code" forValues:@[code] inBackground:NO];
         return (GTLanguage*)[languages objectAtIndex:0];
@@ -80,6 +85,7 @@
         case 1:
             cell.label.text = self.mainLanguage.name;
             [cell addSeparator];
+            [cell setAsLanguageSelector];
             break;
         case 2:
             cell.label.text = @"Parallel language";
@@ -88,17 +94,28 @@
             if(self.parallelLanguage){
                 cell.label.text = self.parallelLanguage.name;
             }else{
-                cell.label.text = self.mainLanguage.name;
+                cell.label.text = @"None";
             }
-
             [cell addSeparator];
+            break;
+        case 4:
+            cell.label.text = @"You can select a primary and parallel language that you can switch to at any time";
+            [cell addSeparator];
+            break;
+        case 5:
+            cell.label.text = @"If you are a GodTools translator wanting to see your latest translations, enable Preview Mode";
+            break;
+        case 6:
+            cell.label.text = @"Preview Mode";
             break;
         default:
             break;
     }
-    
+    //[cell setNeedsUpdateConstraints];
+    //[cell updateConstraintsIfNeeded];
     return cell;
 }
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     

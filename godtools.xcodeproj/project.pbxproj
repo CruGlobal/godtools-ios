@@ -78,6 +78,7 @@
 		B76536DC1A0CD2E1001C3FC3 /* GTLanguageViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B76536DB1A0CD2E1001C3FC3 /* GTLanguageViewCell.xib */; };
 		B7E472801A15A1F8002DF715 /* GTHomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7E4727F1A15A1F8002DF715 /* GTHomeView.xib */; };
 		B7E472831A15A210002DF715 /* GTHomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E472821A15A210002DF715 /* GTHomeView.m */; };
+		B7E472881A19FE90002DF715 /* GTBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E472871A19FE90002DF715 /* GTBaseView.m */; };
 		F4C1A344ED97B5D4B250557D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74F8066D3A00B27C587FD9D9 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -176,6 +177,8 @@
 		B7E4727F1A15A1F8002DF715 /* GTHomeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GTHomeView.xib; path = Views/GTHomeView.xib; sourceTree = "<group>"; };
 		B7E472811A15A210002DF715 /* GTHomeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTHomeView.h; path = Views/GTHomeView.h; sourceTree = "<group>"; };
 		B7E472821A15A210002DF715 /* GTHomeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTHomeView.m; path = Views/GTHomeView.m; sourceTree = "<group>"; };
+		B7E472861A19FE90002DF715 /* GTBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTBaseView.h; path = Views/GTBaseView.h; sourceTree = "<group>"; };
+		B7E472871A19FE90002DF715 /* GTBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTBaseView.m; path = Views/GTBaseView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -401,6 +404,8 @@
 				B7E4727F1A15A1F8002DF715 /* GTHomeView.xib */,
 				B7E472811A15A210002DF715 /* GTHomeView.h */,
 				B7E472821A15A210002DF715 /* GTHomeView.m */,
+				B7E472861A19FE90002DF715 /* GTBaseView.h */,
+				B7E472871A19FE90002DF715 /* GTBaseView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -589,6 +594,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7E472881A19FE90002DF715 /* GTBaseView.m in Sources */,
 				6692BB1C1A072B0C00B15355 /* GTDataImporter.m in Sources */,
 				6878F01518E4AC2D007D1B5B /* GTPackage.m in Sources */,
 				68464FCF18E1CE4E00D14C2B /* GTStorageErrorHandler.m in Sources */,

@@ -13,9 +13,11 @@
 #import "GTLanguage+Helper.h"
 #import "GTPackage+Helper.h"
 #import "TBXML.h"
+#import "GTBaseView.h"
 
 @interface GTMainViewController ()
     @property (nonatomic, strong) GTViewController *godtoolsViewController;
+    @property (nonatomic, strong) GTBaseView *baseView;
     @property (nonatomic, strong) NSArray *resources;
 @end
 
@@ -26,22 +28,48 @@
     [super viewDidLoad];
 	
 #warning check if there is internet connection
-	//[[GTDataImporter sharedImporter] updateMenuInfo];
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
+    self.baseView = [[GTBaseView alloc]initWithFrame:self.view.frame];
+    [self.baseView initDownloadIndicator];
+    [self.view addSubview:self.baseView];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateFinished:)
+                                                 name: GTDataImporterNotificationUpdatedFinished
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateStarted:)
+                                                 name: GTDataImporterNotificationUpdatedStarted
+                                               object:nil];
+    
     //check if first launch
     if([defaults objectForKey:@"isDoneWithFirstLaunch"]==nil){
-        //NSLog(@"FIRST LAUNCH");
         //prepare initial content
         [self extractMetaData];
         [self extractBundle];
         [defaults setBool:YES forKey:@"isDoneWithFirstLaunch"];
-        
-    }else{
-        //NSLog(@"NOT FIRST LAUNCH");
     }
     
+    [[GTDataImporter sharedImporter] updateMenuInfo];
+    
+}
+
+-(void)updateStarted:(NSNotification *) notification{
+    NSLog(@"updating...");
+    self.baseView.loadingLabel.text = @"Updating Resources...";
+    if(![self.baseView.activityView isAnimating]){
+        [self.baseView showDownloadIndicator];
+    }
+}
+
+
+-(void)updateFinished:(NSNotification *) notification{
+    if([self.baseView.activityView isAnimating]){
+        [self.baseView hideDownloadIndicator];
+    }
    [self performSegueWithIdentifier:@"splashToHomeViewSegue" sender:self];
     
 }
@@ -97,8 +125,6 @@
         
         GTPackage *package;
         
-        //NSArray *packageArray = [[GTStorage sharedStorage]fetchArrayOfModels:[GTPackage class] usingKey:@"code" forValues:@[[resource attribute:@"package"]] inBackground:NO];
-        
         if([packageArray count]==0){
             package = [GTPackage packageWithCode:[resource attribute:@"package"] language:english inContext:[GTStorage sharedStorage].mainObjectContext];
         }else{
@@ -124,7 +150,7 @@
     //move to Packages folder
     NSString *destinationPath = [GTFileLoader pathOfPackagesDirectory];
     
-    if (![[NSFileManager defaultManager] fileExistsAtPath:destinationPath]){   //Does directory already exist?
+    if (![[NSFileManager defaultManager] fileExistsAtPath:destinationPath]){
         if (![[NSFileManager defaultManager] createDirectoryAtPath:destinationPath withIntermediateDirectories:NO  attributes:nil error:&error]){
             NSLog(@"Create directory error: %@", error);
         }
@@ -147,8 +173,10 @@
         [fm removeItemAtPath:temporaryDirectory error:&error];
     }
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:english.code forKey:@"mainLanguage"];
+    //NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    //[defaults setObject:english.code forKey:@"current_language_code"];
+    
+    [[GTDefaults sharedDefaults]setCurrentLanguageCode:english.code];
     
 }
 

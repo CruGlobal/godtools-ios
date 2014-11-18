@@ -11,6 +11,7 @@
 #import "GTStorage.h"
 #import "GTLanguage+Helper.h"
 #import "GTDataImporter.h"
+#import "GTDefaults.h"
 
 @interface GTLanguagesViewController ()
     @property (strong,nonatomic) NSArray *languages;
@@ -28,6 +29,8 @@
     sortedArray = [self.languages sortedArrayUsingSelector:@selector(compare:)];
     
     self.languages = sortedArray;
+    
+    NSLog(@"LANGUAGES: %@",sortedArray);
     
 }
 
@@ -56,7 +59,7 @@
     GTLanguage *language = [self.languages objectAtIndex:indexPath.row];
     cell.languageName.text = language.name;
     
-    if([language.code isEqual:[[NSUserDefaults standardUserDefaults]stringForKey:@"mainLanguage"]]){
+    if([language.code isEqual:[[GTDefaults sharedDefaults]currentLanguageCode]]){
         cell.languageName.textColor = [UIColor blueColor];
     }
     
@@ -82,9 +85,9 @@
         [[GTDataImporter sharedImporter]downloadPackagesForLanguage:[self.languages objectAtIndex:indexPath.row]];
         
     }else{
+#warning check if for main or parallel
         
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setObject:[chosen code] forKey:@"mainLanguage"];
+        [[GTDefaults sharedDefaults]setCurrentLanguageCode:chosen.code];
         
     }
     

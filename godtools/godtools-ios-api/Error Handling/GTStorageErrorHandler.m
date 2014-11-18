@@ -18,6 +18,8 @@
 	
 #warning GTStorage assumes error handler will display an error that blocks everything and tells the users to relaunch the app in the case of a cannot open error.
 	
+    
+    
 	[super displayError:error];
 }
 

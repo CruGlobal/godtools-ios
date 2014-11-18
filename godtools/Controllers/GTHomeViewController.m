@@ -14,6 +14,7 @@
 #import "GTPackage+Helper.h"
 #import "GTStorage.h"
 #import "GTDataImporter.h"
+#import "GTDefaults.h"
 
 
 @interface GTHomeViewController ()
@@ -88,7 +89,8 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES];
-    if(! [self.languageCode isEqual:[[NSUserDefaults standardUserDefaults] stringForKey:@"mainLanguage"]]){
+    //if(! [self.languageCode isEqual:[[NSUserDefaults standardUserDefaults] stringForKey:@"current_language_code"]]){
+    if(! [self.languageCode isEqual:[[GTDefaults sharedDefaults] currentLanguageCode]]){
         [self setData];
         [self.homeView.tableView reloadData];
     }
@@ -100,13 +102,14 @@
 
 -(void)setData{
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    self.languageCode = [defaults stringForKey:@"mainLanguage"];
+    self.languageCode = [[GTDefaults sharedDefaults]currentLanguageCode];
     NSArray *languages = [[GTStorage sharedStorage]fetchArrayOfModels:[GTLanguage class] usingKey:@"code" forValues:@[self.languageCode] inBackground:NO];
     
     GTLanguage* mainLanguage = (GTLanguage*)[languages objectAtIndex:0];
     
     self.articles = [mainLanguage.packages allObjects];
+    
+    NSLog(@"articles: %@",self.articles);
 }
 
 #pragma  mark - GodToolsViewController getter
@@ -198,8 +201,6 @@
         [self.homeView.tableView deselectRowAtIndexPath:indexPath animated:YES];
         
         GTPackage *package = [self.articles objectAtIndex:indexPath.row];
-        
-        //NSString *configFile	= [NSString stringWithFormat:@"%@/%@",self.languageCode,package.configFile];
         
         [self.godtoolsViewController loadResourceWithConfigFilename:package.configFile];
         

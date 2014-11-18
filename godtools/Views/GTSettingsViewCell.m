@@ -12,6 +12,8 @@
 
 - (void)awakeFromNib {
     [self setSelectionStyle:UITableViewCellSelectionStyleNone];
+    self.label.numberOfLines = 0;
+    self.label.lineBreakMode = UILineBreakModeWordWrap;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -26,4 +28,14 @@
     separatorLineView.backgroundColor = [UIColor blackColor];
     [self.contentView addSubview:separatorLineView];
 }
+
+-(void)setAsLanguageSelector{
+    NSLog(@"here");
+//    CGRect frame = self.label.frame;
+//    self.label.frame = CGRectMake(frame.origin.x + 20, frame.origin.y, frame.size.width - 20, frame.size.height);
+//    [self layoutSubviews];
+    self.indentationLevel = self.indentationLevel + 2;
+    [self layoutSubviews ];
+}
+
 @end

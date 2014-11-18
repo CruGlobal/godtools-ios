@@ -12,8 +12,8 @@
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="55I-wb-IEX" id="CCq-5y-39y">
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ooW-Gr-Vy3">
-                        <rect key="frame" x="8" y="9" width="304" height="29"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LbI-hF-ES4">
+                        <rect key="frame" x="8" y="12" width="304" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
@@ -21,9 +21,9 @@
                 </subviews>
             </tableViewCellContentView>
             <connections>
-                <outlet property="label" destination="ooW-Gr-Vy3" id="26j-rJ-xjc"/>
+                <outlet property="label" destination="LbI-hF-ES4" id="adb-A2-HJF"/>
             </connections>
-            <point key="canvasLocation" x="205" y="252"/>
+            <point key="canvasLocation" x="205" y="291"/>
         </tableViewCell>
     </objects>
 </document>
