@@ -7,15 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-<<<<<<< HEAD
-		2B455C66AFC64D62ADFFFD47 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93D6EED5D0AA48EEB979D824 /* libPods.a */; };
-=======
 		498E2278AF98C76BDF632C70 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74F8066D3A00B27C587FD9D9 /* libPods.a */; };
 		6692BB1C1A072B0C00B15355 /* GTDataImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 68464FD218E1CEBE00D14C2B /* GTDataImporter.m */; };
 		66D1D7011A09F40F00AC4E48 /* en.zip in Resources */ = {isa = PBXBuildFile; fileRef = 66D1D6AB1A09F40F00AC4E48 /* en.zip */; };
 		66D1D7021A09F40F00AC4E48 /* meta.xml in Resources */ = {isa = PBXBuildFile; fileRef = 66D1D6AC1A09F40F00AC4E48 /* meta.xml */; };
 		66D1D71D1A0B74EA00AC4E48 /* GTLanguage.m in Sources */ = {isa = PBXBuildFile; fileRef = 66D1D71C1A0B74EA00AC4E48 /* GTLanguage.m */; };
->>>>>>> refs/heads/elementzMaster
 		682F0E8518D88BD600FBE3E0 /* GTDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E6068918D3986D00844377 /* GTDefaults.m */; };
 		682F0E9018D8FBE100FBE3E0 /* config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 682F0E8F18D8FBE100FBE3E0 /* config.plist */; };
 		682F0E9118D8FBE100FBE3E0 /* config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 682F0E8F18D8FBE100FBE3E0 /* config.plist */; };
@@ -34,10 +30,6 @@
 		68464FCE18E1CE4E00D14C2B /* GTErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 68464FC818E1CE4E00D14C2B /* GTErrorHandler.m */; };
 		68464FCF18E1CE4E00D14C2B /* GTStorageErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 68464FCA18E1CE4E00D14C2B /* GTStorageErrorHandler.m */; };
 		68464FD018E1CE4E00D14C2B /* GTStorageErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 68464FCA18E1CE4E00D14C2B /* GTStorageErrorHandler.m */; };
-<<<<<<< HEAD
-		68464FD318E1CEBE00D14C2B /* GTDataImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 68464FD218E1CEBE00D14C2B /* GTDataImporter.m */; };
-=======
->>>>>>> refs/heads/elementzMaster
 		68464FD418E1CEBE00D14C2B /* GTDataImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 68464FD218E1CEBE00D14C2B /* GTDataImporter.m */; };
 		684D0A5318E38731004F51EE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 684D0A5618E38731004F51EE /* Localizable.strings */; };
 		684D0A5418E38731004F51EE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 684D0A5618E38731004F51EE /* Localizable.strings */; };
@@ -48,10 +40,6 @@
 		68740D1F18D24F9A00D36C0E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 68740D1E18D24F9A00D36C0E /* main.m */; };
 		68740D2318D24F9A00D36C0E /* GTAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 68740D2218D24F9A00D36C0E /* GTAppDelegate.m */; };
 		68740D2618D24F9A00D36C0E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68740D2418D24F9A00D36C0E /* Main.storyboard */; };
-<<<<<<< HEAD
-		68740D2918D24F9A00D36C0E /* GTMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68740D2818D24F9A00D36C0E /* GTMainViewController.m */; };
-=======
->>>>>>> refs/heads/elementzMaster
 		68740D2B18D24F9A00D36C0E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68740D2A18D24F9A00D36C0E /* Images.xcassets */; };
 		68740D3218D24F9A00D36C0E /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68740D3118D24F9A00D36C0E /* XCTest.framework */; };
 		68740D3318D24F9A00D36C0E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68740D1218D24F9A00D36C0E /* Foundation.framework */; };
@@ -63,11 +51,8 @@
 		6878F01618E4AC39007D1B5B /* GTPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6878F01418E49AF4007D1B5B /* GTPackage.m */; };
 		68A1CBFD18DB6C3B00D84F12 /* GTDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E6068918D3986D00844377 /* GTDefaults.m */; };
 		68A1CBFF18DB6F9600D84F12 /* GTAPITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A1CBFE18DB6F9600D84F12 /* GTAPITest.m */; };
-<<<<<<< HEAD
 		68BA852C18DCE50C001AC6B3 /* GTLanguage.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BA852B18DCE50C001AC6B3 /* GTLanguage.m */; };
 		68BA852D18DCE50C001AC6B3 /* GTLanguage.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BA852B18DCE50C001AC6B3 /* GTLanguage.m */; };
-=======
->>>>>>> refs/heads/elementzMaster
 		68BA853318DCF0EB001AC6B3 /* GTDefaultsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BA853218DCF0EB001AC6B3 /* GTDefaultsTests.m */; };
 		68BA853518DCF102001AC6B3 /* GTStorageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BA853418DCF102001AC6B3 /* GTStorageTests.m */; };
 		68BA853718DCF129001AC6B3 /* GTDataImporterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BA853618DCF129001AC6B3 /* GTDataImporterTests.m */; };
@@ -83,9 +68,6 @@
 		68E6068718D3952800844377 /* GTAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E6068518D3952800844377 /* GTAPI.m */; };
 		68FB9CC9192D46800009C9A8 /* AFHTTPRequestSerializer+GTAPIHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 68FB9CC8192D46800009C9A8 /* AFHTTPRequestSerializer+GTAPIHelpers.m */; };
 		68FB9CCA192D46800009C9A8 /* AFHTTPRequestSerializer+GTAPIHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 68FB9CC8192D46800009C9A8 /* AFHTTPRequestSerializer+GTAPIHelpers.m */; };
-<<<<<<< HEAD
-		EC75323B8E7649068F0619CB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93D6EED5D0AA48EEB979D824 /* libPods.a */; };
-=======
 		B76536C01A0CC677001C3FC3 /* GTHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B76536BD1A0CC677001C3FC3 /* GTHomeViewController.m */; };
 		B76536C11A0CC677001C3FC3 /* GTMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B76536BF1A0CC677001C3FC3 /* GTMainViewController.m */; };
 		B76536C51A0CC6CB001C3FC3 /* GTHomeViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B76536C31A0CC6CB001C3FC3 /* GTHomeViewCell.m */; };
@@ -100,7 +82,6 @@
 		B7E472831A15A210002DF715 /* GTHomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E472821A15A210002DF715 /* GTHomeView.m */; };
 		B7E472881A19FE90002DF715 /* GTBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E472871A19FE90002DF715 /* GTBaseView.m */; };
 		F4C1A344ED97B5D4B250557D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74F8066D3A00B27C587FD9D9 /* libPods.a */; };
->>>>>>> refs/heads/elementzMaster
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,13 +96,10 @@
 
 /* Begin PBXFileReference section */
 		368D2F901C18B173F9C84776 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-<<<<<<< HEAD
-=======
 		66D1D6AB1A09F40F00AC4E48 /* en.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = en.zip; sourceTree = "<group>"; };
 		66D1D6AC1A09F40F00AC4E48 /* meta.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = meta.xml; sourceTree = "<group>"; };
 		66D1D71B1A0B74EA00AC4E48 /* GTLanguage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTLanguage.h; path = "godtools-ios-api/Models/GTLanguage.h"; sourceTree = "<group>"; };
 		66D1D71C1A0B74EA00AC4E48 /* GTLanguage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTLanguage.m; path = "godtools-ios-api/Models/GTLanguage.m"; sourceTree = "<group>"; };
->>>>>>> refs/heads/elementzMaster
 		682F0E8F18D8FBE100FBE3E0 /* config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = config.plist; path = "godtools-ios-api/config.plist"; sourceTree = "<group>"; };
 		68464FB118E1C79300D14C2B /* GTErrorHandlerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTErrorHandlerTests.m; sourceTree = "<group>"; };
 		68464FB318E1C7AE00D14C2B /* GTStorageErrorHandlerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTStorageErrorHandlerTests.m; sourceTree = "<group>"; };
@@ -152,11 +130,6 @@
 		68740D2118D24F9A00D36C0E /* GTAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GTAppDelegate.h; sourceTree = "<group>"; };
 		68740D2218D24F9A00D36C0E /* GTAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GTAppDelegate.m; sourceTree = "<group>"; };
 		68740D2518D24F9A00D36C0E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-<<<<<<< HEAD
-		68740D2718D24F9A00D36C0E /* GTMainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GTMainViewController.h; sourceTree = "<group>"; };
-		68740D2818D24F9A00D36C0E /* GTMainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GTMainViewController.m; sourceTree = "<group>"; };
-=======
->>>>>>> refs/heads/elementzMaster
 		68740D2A18D24F9A00D36C0E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		68740D3018D24F9A00D36C0E /* godtoolsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = godtoolsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		68740D3118D24F9A00D36C0E /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -166,11 +139,6 @@
 		6878F01318E49AF4007D1B5B /* GTPackage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GTPackage.h; path = "godtools-ios-api/Models/GTPackage.h"; sourceTree = "<group>"; };
 		6878F01418E49AF4007D1B5B /* GTPackage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = GTPackage.m; path = "godtools-ios-api/Models/GTPackage.m"; sourceTree = "<group>"; };
 		68A1CBFE18DB6F9600D84F12 /* GTAPITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTAPITest.m; sourceTree = "<group>"; };
-<<<<<<< HEAD
-		68BA852A18DCE50C001AC6B3 /* GTLanguage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTLanguage.h; path = "godtools-ios-api/Models/GTLanguage.h"; sourceTree = "<group>"; };
-		68BA852B18DCE50C001AC6B3 /* GTLanguage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTLanguage.m; path = "godtools-ios-api/Models/GTLanguage.m"; sourceTree = "<group>"; };
-=======
->>>>>>> refs/heads/elementzMaster
 		68BA853218DCF0EB001AC6B3 /* GTDefaultsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTDefaultsTests.m; sourceTree = "<group>"; };
 		68BA853418DCF102001AC6B3 /* GTStorageTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTStorageTests.m; sourceTree = "<group>"; };
 		68BA853618DCF129001AC6B3 /* GTDataImporterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTDataImporterTests.m; sourceTree = "<group>"; };
@@ -188,10 +156,6 @@
 		68E6068918D3986D00844377 /* GTDefaults.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = GTDefaults.m; path = "godtools-ios-api/Models/GTDefaults.m"; sourceTree = "<group>"; };
 		68FB9CC7192D46800009C9A8 /* AFHTTPRequestSerializer+GTAPIHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AFHTTPRequestSerializer+GTAPIHelpers.h"; path = "godtools-ios-api/Serialization/AFHTTPRequestSerializer+GTAPIHelpers.h"; sourceTree = "<group>"; };
 		68FB9CC8192D46800009C9A8 /* AFHTTPRequestSerializer+GTAPIHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "AFHTTPRequestSerializer+GTAPIHelpers.m"; path = "godtools-ios-api/Serialization/AFHTTPRequestSerializer+GTAPIHelpers.m"; sourceTree = "<group>"; };
-<<<<<<< HEAD
-		93D6EED5D0AA48EEB979D824 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		9537C6E0A54FC8D76DE342FC /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-=======
 		74F8066D3A00B27C587FD9D9 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9537C6E0A54FC8D76DE342FC /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		B76536BC1A0CC677001C3FC3 /* GTHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTHomeViewController.h; path = Controllers/GTHomeViewController.h; sourceTree = "<group>"; };
@@ -217,7 +181,6 @@
 		B7E472821A15A210002DF715 /* GTHomeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTHomeView.m; path = Views/GTHomeView.m; sourceTree = "<group>"; };
 		B7E472861A19FE90002DF715 /* GTBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTBaseView.h; path = Views/GTBaseView.h; sourceTree = "<group>"; };
 		B7E472871A19FE90002DF715 /* GTBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTBaseView.m; path = Views/GTBaseView.m; sourceTree = "<group>"; };
->>>>>>> refs/heads/elementzMaster
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,11 +191,7 @@
 				68740D1518D24F9A00D36C0E /* CoreGraphics.framework in Frameworks */,
 				68740D1718D24F9A00D36C0E /* UIKit.framework in Frameworks */,
 				68740D1318D24F9A00D36C0E /* Foundation.framework in Frameworks */,
-<<<<<<< HEAD
-				EC75323B8E7649068F0619CB /* libPods.a in Frameworks */,
-=======
 				F4C1A344ED97B5D4B250557D /* libPods.a in Frameworks */,
->>>>>>> refs/heads/elementzMaster
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -243,19 +202,13 @@
 				68740D3218D24F9A00D36C0E /* XCTest.framework in Frameworks */,
 				68740D3418D24F9A00D36C0E /* UIKit.framework in Frameworks */,
 				68740D3318D24F9A00D36C0E /* Foundation.framework in Frameworks */,
-<<<<<<< HEAD
-				2B455C66AFC64D62ADFFFD47 /* libPods.a in Frameworks */,
-=======
 				498E2278AF98C76BDF632C70 /* libPods.a in Frameworks */,
->>>>>>> refs/heads/elementzMaster
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-<<<<<<< HEAD
-=======
 		66D1D6551A09F40F00AC4E48 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
@@ -280,7 +233,6 @@
 			name = Controllers;
 			sourceTree = "<group>";
 		};
->>>>>>> refs/heads/elementzMaster
 		68464FB718E1CC3D00D14C2B /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
@@ -332,11 +284,7 @@
 				68740D1418D24F9A00D36C0E /* CoreGraphics.framework */,
 				68740D1618D24F9A00D36C0E /* UIKit.framework */,
 				68740D3118D24F9A00D36C0E /* XCTest.framework */,
-<<<<<<< HEAD
-				93D6EED5D0AA48EEB979D824 /* libPods.a */,
-=======
 				74F8066D3A00B27C587FD9D9 /* libPods.a */,
->>>>>>> refs/heads/elementzMaster
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -345,16 +293,6 @@
 			isa = PBXGroup;
 			children = (
 				68E6065E18D3834300844377 /* godtools-ios-api */,
-<<<<<<< HEAD
-				68740D2118D24F9A00D36C0E /* GTAppDelegate.h */,
-				68740D2218D24F9A00D36C0E /* GTAppDelegate.m */,
-				68740D2418D24F9A00D36C0E /* Main.storyboard */,
-				68740D2718D24F9A00D36C0E /* GTMainViewController.h */,
-				68740D2818D24F9A00D36C0E /* GTMainViewController.m */,
-				68740D4718D259AA00D36C0E /* GTModel.xcdatamodeld */,
-				68740D2A18D24F9A00D36C0E /* Images.xcassets */,
-				68740D1918D24F9A00D36C0E /* Supporting Files */,
-=======
 				66D1D7031A0B406800AC4E48 /* Controllers */,
 				B76536BB1A0CC616001C3FC3 /* Views */,
 				66D1D6551A09F40F00AC4E48 /* Packages */,
@@ -365,7 +303,6 @@
 				68740D4718D259AA00D36C0E /* GTModel.xcdatamodeld */,
 				68740D1918D24F9A00D36C0E /* Supporting Files */,
 				B7E4727E1A1450E6002DF715 /* Constants.h */,
->>>>>>> refs/heads/elementzMaster
 			);
 			path = godtools;
 			sourceTree = "<group>";
@@ -433,22 +370,14 @@
 				68E6067918D3947600844377 /* GTLanguage+Helper.m */,
 				68E6067C18D3949700844377 /* GTPackage+Helper.h */,
 				68E6067D18D3949700844377 /* GTPackage+Helper.m */,
-<<<<<<< HEAD
-				68BA852A18DCE50C001AC6B3 /* GTLanguage.h */,
-				68BA852B18DCE50C001AC6B3 /* GTLanguage.m */,
-=======
->>>>>>> refs/heads/elementzMaster
 				6878F01318E49AF4007D1B5B /* GTPackage.h */,
 				6878F01418E49AF4007D1B5B /* GTPackage.m */,
 				68E6068818D3986D00844377 /* GTDefaults.h */,
 				68E6068918D3986D00844377 /* GTDefaults.m */,
 				68464FB918E1CE2C00D14C2B /* GTConfig.h */,
 				68464FBA18E1CE2C00D14C2B /* GTConfig.m */,
-<<<<<<< HEAD
-=======
 				66D1D71B1A0B74EA00AC4E48 /* GTLanguage.h */,
 				66D1D71C1A0B74EA00AC4E48 /* GTLanguage.m */,
->>>>>>> refs/heads/elementzMaster
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -462,8 +391,7 @@
 			name = Serialization;
 			sourceTree = "<group>";
 		};
-<<<<<<< HEAD
-=======
+
 		B76536BB1A0CC616001C3FC3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -485,7 +413,7 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
->>>>>>> refs/heads/elementzMaster
+
 		E600F78C726A1280F9AFC198 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -576,13 +504,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-<<<<<<< HEAD
-				684D0A5318E38731004F51EE /* Localizable.strings in Resources */,
-				682F0E9018D8FBE100FBE3E0 /* config.plist in Resources */,
-				68740D2B18D24F9A00D36C0E /* Images.xcassets in Resources */,
-				68740D1D18D24F9A00D36C0E /* InfoPlist.strings in Resources */,
-				68740D2618D24F9A00D36C0E /* Main.storyboard in Resources */,
-=======
 				B76536C61A0CC6CB001C3FC3 /* GTHomeViewCell.xib in Resources */,
 				66D1D7021A09F40F00AC4E48 /* meta.xml in Resources */,
 				684D0A5318E38731004F51EE /* Localizable.strings in Resources */,
@@ -594,7 +515,6 @@
 				66D1D7011A09F40F00AC4E48 /* en.zip in Resources */,
 				68740D2618D24F9A00D36C0E /* Main.storyboard in Resources */,
 				B7E472801A15A1F8002DF715 /* GTHomeView.xib in Resources */,
->>>>>>> refs/heads/elementzMaster
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -678,23 +598,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-<<<<<<< HEAD
-				6878F01518E4AC2D007D1B5B /* GTPackage.m in Sources */,
-				68464FCF18E1CE4E00D14C2B /* GTStorageErrorHandler.m in Sources */,
-				68FB9CC9192D46800009C9A8 /* AFHTTPRequestSerializer+GTAPIHelpers.m in Sources */,
-				68A1CBFD18DB6C3B00D84F12 /* GTDefaults.m in Sources */,
-				68E6067A18D3947600844377 /* GTLanguage+Helper.m in Sources */,
-				68464FC318E1CE4000D14C2B /* GTStorage.m in Sources */,
-				68E6067E18D3949700844377 /* GTPackage+Helper.m in Sources */,
-				68BA852C18DCE50C001AC6B3 /* GTLanguage.m in Sources */,
-				68740D4918D259AA00D36C0E /* GTModel.xcdatamodeld in Sources */,
-				68464FD318E1CEBE00D14C2B /* GTDataImporter.m in Sources */,
-				68740D1F18D24F9A00D36C0E /* main.m in Sources */,
-				68740D2918D24F9A00D36C0E /* GTMainViewController.m in Sources */,
-				68E6068618D3952800844377 /* GTAPI.m in Sources */,
-				68464FBB18E1CE2C00D14C2B /* GTConfig.m in Sources */,
-				68464FC118E1CE4000D14C2B /* CRUStorage.m in Sources */,
-=======
 				B7E472881A19FE90002DF715 /* GTBaseView.m in Sources */,
 				6692BB1C1A072B0C00B15355 /* GTDataImporter.m in Sources */,
 				6878F01518E4AC2D007D1B5B /* GTPackage.m in Sources */,
@@ -718,7 +621,6 @@
 				68464FBB18E1CE2C00D14C2B /* GTConfig.m in Sources */,
 				68464FC118E1CE4000D14C2B /* CRUStorage.m in Sources */,
 				B76536C51A0CC6CB001C3FC3 /* GTHomeViewCell.m in Sources */,
->>>>>>> refs/heads/elementzMaster
 				68740D2318D24F9A00D36C0E /* GTAppDelegate.m in Sources */,
 				68464FCD18E1CE4E00D14C2B /* GTErrorHandler.m in Sources */,
 				68464FCB18E1CE4E00D14C2B /* GTAPIErrorHandler.m in Sources */,
@@ -730,10 +632,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6878F01618E4AC39007D1B5B /* GTPackage.m in Sources */,
-<<<<<<< HEAD
 				68BA852D18DCE50C001AC6B3 /* GTLanguage.m in Sources */,
-=======
->>>>>>> refs/heads/elementzMaster
 				68BA853B18DCF15D001AC6B3 /* GTConfigTests.m in Sources */,
 				68464FB618E1C7C700D14C2B /* GTAPIErrorHandlerTests.m in Sources */,
 				682F0E8518D88BD600FBE3E0 /* GTDefaults.m in Sources */,
@@ -839,11 +738,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-<<<<<<< HEAD
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
-=======
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -854,7 +748,6 @@
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = iphoneos;
 				"USER_HEADER_SEARCH_PATHS[arch=*]" = "$(inherited)";
->>>>>>> refs/heads/elementzMaster
 			};
 			name = Debug;
 		};
@@ -884,10 +777,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-<<<<<<< HEAD
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				SDKROOT = iphoneos;
-=======
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -897,7 +786,6 @@
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = iphoneos;
 				"USER_HEADER_SEARCH_PATHS[arch=*]" = "$(inherited)";
->>>>>>> refs/heads/elementzMaster
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -910,8 +798,6 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "godtools/godtools-Prefix.pch";
-<<<<<<< HEAD
-=======
 				HEADER_SEARCH_PATHS = (
 					"\"${PODS_ROOT}/Headers/Public\"",
 					"\"${PODS_ROOT}/Headers/Public/AFDownloadRequestOperation\"",
@@ -928,15 +814,11 @@
 					"$(SDKROOT)/usr/include/libz",
 					$,
 				);
->>>>>>> refs/heads/elementzMaster
 				INFOPLIST_FILE = "godtools/godtools-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-<<<<<<< HEAD
-=======
 				"USER_HEADER_SEARCH_PATHS[arch=*]" = "$(inherited)";
->>>>>>> refs/heads/elementzMaster
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -949,8 +831,6 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "godtools/godtools-Prefix.pch";
-<<<<<<< HEAD
-=======
 				HEADER_SEARCH_PATHS = (
 					"\"${PODS_ROOT}/Headers/Public\"",
 					"\"${PODS_ROOT}/Headers/Public/AFDownloadRequestOperation\"",
@@ -967,15 +847,11 @@
 					"$(SDKROOT)/usr/include/libz",
 					$,
 				);
->>>>>>> refs/heads/elementzMaster
 				INFOPLIST_FILE = "godtools/godtools-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-<<<<<<< HEAD
-=======
 				"USER_HEADER_SEARCH_PATHS[arch=*]" = "$(inherited)";
->>>>>>> refs/heads/elementzMaster
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

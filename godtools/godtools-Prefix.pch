@@ -13,8 +13,5 @@
 #ifdef __OBJC__
 	#import <UIKit/UIKit.h>
 	#import <Foundation/Foundation.h>
-<<<<<<< HEAD
-=======
     #import "Constants.h"
->>>>>>> refs/heads/elementzMaster
 #endif

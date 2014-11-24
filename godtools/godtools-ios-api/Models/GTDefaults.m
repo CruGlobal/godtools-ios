@@ -7,20 +7,17 @@
 //
 
 #import "GTDefaults.h"
-<<<<<<< HEAD
-=======
 #import "GTStorage.h"
 #import "GTLanguage+Helper.h"
->>>>>>> refs/heads/elementzMaster
+
 
 NSString *const GTDefaultscurrentPackageCodeKey				= @"current_package_code";
 NSString *const GTDefaultscurrentLanguageCodeKey			= @"current_language_code";
 NSString *const GTDefaultscurrentParallelLanguageCodeKey	= @"current_parallel_language_code";
-<<<<<<< HEAD
-=======
+
 NSString *const GTDefaultsisChoosingForMainLanguage         = @"is_for_main_language";
 NSString *const GTDefaultsisFirstLaunch                     = @"is_first_launch";
->>>>>>> refs/heads/elementzMaster
+
 
 @interface GTDefaults ()
 
@@ -33,11 +30,10 @@ NSString *const GTDefaultsisFirstLaunch                     = @"is_first_launch"
 @synthesize currentPackageCode			= _currentPackageCode;
 @synthesize currentLanguageCode			= _currentLanguageCode;
 @synthesize currentParallelLanguageCode	= _currentParallelLanguageCode;
-<<<<<<< HEAD
-=======
+
 @synthesize isChoosingForMainLanguage   = _isChoosingForMainLanguage;
 @synthesize isFirstLaunch               = _isFirstLaunch;
->>>>>>> refs/heads/elementzMaster
+
 
 #pragma mark - initialization
 
@@ -60,12 +56,7 @@ NSString *const GTDefaultsisFirstLaunch                     = @"is_first_launch"
     self = [super init];
     
 	if (self) {
-		
-<<<<<<< HEAD
-		self.currentLanguageCode	= ( self.currentLanguageCode ? self.currentLanguageCode : self.phonesLanguageCode );
-=======
 		//self.currentLanguageCode	= ( self.currentLanguageCode ? self.currentLanguageCode : self.phonesLanguageCode );
->>>>>>> refs/heads/elementzMaster
 		
     }
 	
@@ -80,18 +71,6 @@ NSString *const GTDefaultsisFirstLaunch                     = @"is_first_launch"
 	
 	NSArray			*preferredLanguages			= [NSLocale preferredLanguages];
 	NSLocale		*currentLocale				= [NSLocale currentLocale];
-<<<<<<< HEAD
-	
-	NSString		*phonesLanguage				= ( preferredLanguages.count > 0 ? preferredLanguages[0] : @"en" );
-	NSString		*phonesLocale				= ( [currentLocale objectForKey:NSLocaleCountryCode] ? [currentLocale objectForKey:NSLocaleCountryCode] : @"" );
-    NSString		*phonesLangageWithLocale	= [phonesLanguage stringByAppendingFormat:@"_%@", phonesLocale];
-	
-	if ([self isValidLanguageCode:phonesLangageWithLocale]) {
-		
-		language	= phonesLangageWithLocale;
-		
-	} else if ([self isValidLanguageCode:phonesLangageWithLocale]) {
-=======
     
     //NSLog(@"preferredLanguages %@",preferredLanguages);
     //NSLog(@"current Locale: %@", currentLocale);
@@ -105,7 +84,6 @@ NSString *const GTDefaultsisFirstLaunch                     = @"is_first_launch"
 		language	= phonesLanguageWithLocale;
 		
 	} else if ([self isValidLanguageCode:phonesLanguage]) {
->>>>>>> refs/heads/elementzMaster
 		
 		language	= phonesLanguage;
 		
@@ -114,21 +92,12 @@ NSString *const GTDefaultsisFirstLaunch                     = @"is_first_launch"
 		language	= @"en";
 		
 	}
-<<<<<<< HEAD
-	
-=======
-    NSLog(@"LANGUAGE at phonesLanguageCode: %@",language);
->>>>>>> refs/heads/elementzMaster
+
 	return language;
 }
 
 - (BOOL)isValidLanguageCode:(NSString *)languageCode {
-	
-<<<<<<< HEAD
-#warning incomplete impelementation of isValidLanguageCode
-	
-	return YES;
-=======
+
     //get all languages
     NSArray *languages = [[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:languageCode inBackground:YES];
     
@@ -139,7 +108,7 @@ NSString *const GTDefaultsisFirstLaunch                     = @"is_first_launch"
         NSLog(@"%@ is invalid",languageCode);
         return NO;
     }
->>>>>>> refs/heads/elementzMaster
+
 }
 
 #pragma mark - currentPackageCode
@@ -172,13 +141,10 @@ NSString *const GTDefaultsisFirstLaunch                     = @"is_first_launch"
 - (void)setCurrentLanguageCode:(NSString *)currentLanguageCode {
 	
 	[self willChangeValueForKey:@"currentLanguageCode"];
-<<<<<<< HEAD
-=======
     
     if([currentLanguageCode isEqualToString:_currentParallelLanguageCode]){
         [self setCurrentParallelLanguageCode:nil];
     }
->>>>>>> refs/heads/elementzMaster
 	_currentLanguageCode	= currentLanguageCode;
 	[self didChangeValueForKey:@"currentLanguageCode"];
     
@@ -192,10 +158,7 @@ NSString *const GTDefaultsisFirstLaunch                     = @"is_first_launch"
 		
 		[self willChangeValueForKey:@"currentLanguageCode"];
 		_currentLanguageCode = [[NSUserDefaults standardUserDefaults] stringForKey:GTDefaultscurrentLanguageCodeKey];
-<<<<<<< HEAD
-=======
-        NSLog(@"_currentLanguageCode: %@",_currentLanguageCode);
->>>>>>> refs/heads/elementzMaster
+
 		[self didChangeValueForKey:@"currentLanguageCode"];
 		
 	}
@@ -206,13 +169,9 @@ NSString *const GTDefaultsisFirstLaunch                     = @"is_first_launch"
 #pragma mark - currentParallelLanguageCode
 
 - (void)setCurrentParallelLanguageCode:(NSString *)currentParallelLanguageCode {
-	
-<<<<<<< HEAD
-	[self willChangeValueForKey:@"currentParallelLanguageCode"];
-=======
+
     [self willChangeValueForKey:@"currentParallelLanguageCode"];
     
->>>>>>> refs/heads/elementzMaster
 	_currentParallelLanguageCode	= currentParallelLanguageCode;
 	[self didChangeValueForKey:@"currentParallelLanguageCode"];
     
@@ -233,8 +192,7 @@ NSString *const GTDefaultsisFirstLaunch                     = @"is_first_launch"
 	return _currentParallelLanguageCode;
 }
 
-<<<<<<< HEAD
-=======
+
 #pragma mark - Choosing Main Language
 
 -(void)setIsChoosingForMainLanguage:(NSNumber*)isChoosingForMainLanguage{
@@ -282,6 +240,4 @@ NSString *const GTDefaultsisFirstLaunch                     = @"is_first_launch"
     return _isFirstLaunch;
 }
 
-
->>>>>>> refs/heads/elementzMaster
 @end

@@ -39,8 +39,6 @@
  */
 @property (nonatomic, strong, readonly) GTStorageErrorHandler *errorHandler;
 
-<<<<<<< HEAD
-=======
 /**
  *  Grab array of models from the Persistent Store
     @param modelType  Class of object you want to grab (assumes Class name matches CoreData Entity name)
@@ -64,5 +62,4 @@
  *  @return array of models
  */
 - (NSArray *)fetchModel:(Class)modelType usingKey:(NSString *)key forValue:(NSString *)value inBackground:(BOOL)background;
->>>>>>> refs/heads/elementzMaster
 @end

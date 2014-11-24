@@ -78,8 +78,6 @@ NSString *const GTStorageModelName				= @"GTModel";
 	
 }
 
-<<<<<<< HEAD
-=======
 - (NSArray *)fetchArrayOfModels:(Class)modelType inBackground:(BOOL)background {
     
     if (modelType == nil) {
@@ -126,5 +124,4 @@ NSString *const GTStorageModelName				= @"GTModel";
     return fetchedObjects;
 }
 
->>>>>>> refs/heads/elementzMaster
 @end

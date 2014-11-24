@@ -12,10 +12,7 @@
 #import "AFRaptureXMLRequestOperation.h"
 #import "AFDownloadRequestOperation.h"
 #import "RXMLElement.h"
-<<<<<<< HEAD
-=======
 #import <GTViewController/GTFileLoader.h>
->>>>>>> refs/heads/elementzMaster
 
 NSString * const GTAPIDefaultHeaderKeyAPIKey				= @"authorization";
 NSString * const GTAPIDefaultHeaderKeyInterpreterVersion	= @"interpreter";
@@ -70,23 +67,12 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
 		
 		self.requestSerializer.baseURL	= self.baseURL;
 		
-<<<<<<< HEAD
-		[self.requestSerializer setValue:self.apiKey
-					  forHTTPHeaderField:GTAPIDefaultHeaderKeyAPIKey];
-		
-		[self.requestSerializer setValue:[self.interpreterVersion stringValue]
-					  forHTTPHeaderField:GTAPIDefaultHeaderKeyInterpreterVersion];
-		
-=======
-        
-        
 		[self.requestSerializer setValue:self.apiKey
 					  forHTTPHeaderField:GTAPIDefaultHeaderKeyAPIKey];
         
 		[self.requestSerializer setValue:[self.interpreterVersion stringValue]
 					  forHTTPHeaderField:GTAPIDefaultHeaderKeyInterpreterVersion];
         
->>>>>>> refs/heads/elementzMaster
 		[self.requestSerializer setValue:GTAPIDefaultHeaderValueDensity
 					  forHTTPHeaderField:GTAPIDefaultHeaderKeyDensity];
 		
@@ -118,20 +104,13 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
 	
 	AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request
 																				success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement) {
-<<<<<<< HEAD
-																				
-=======
                                                                                     NSLog(@"get auth successful");
->>>>>>> refs/heads/elementzMaster
 																					success(request, response, [XMLElement child:GTAPIAuthEndpointAuthTokenKey].text);
 																					
 																				}
 																				failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement) {
-<<<<<<< HEAD
-																					
-=======
+
                                                                                     NSLog(@"get auth not successful");
->>>>>>> refs/heads/elementzMaster
 																					failure(request, response, error);
 																					
 																				}];
@@ -148,10 +127,6 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
 																					 since:date
 																					 error:nil];
 	
-<<<<<<< HEAD
-=======
-    
->>>>>>> refs/heads/elementzMaster
 	AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request
 																										 success:success
 																										 failure:failure];
@@ -188,28 +163,6 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
 }
 
 - (void)getFilesForRequest:(NSMutableURLRequest *)request progress:(void (^)(NSNumber *))progress success:(void (^)(NSURLRequest *, NSHTTPURLResponse *, NSURL *))success failure:(void (^)(NSURLRequest *, NSHTTPURLResponse *, NSError *))failure {
-<<<<<<< HEAD
-	
-	NSURL* documentsDirectory		= [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
-																		inDomain:NSUserDomainMask
-															   appropriateForURL:nil
-																		  create:YES
-																		   error:nil];
-	
-	//target will have the format ${DOCUMENTS_PATH}/1E2DFA89-496A-47FD-9941-DF1FC4E6484A.zip where the filename is a unique identifier for this download.
-	NSURL *target					= [documentsDirectory URLByAppendingPathComponent:[[[NSUUID UUID] UUIDString] stringByAppendingPathExtension:@"zip"]];
-	
-	AFDownloadRequestOperation *operation = [[AFDownloadRequestOperation alloc] initWithRequest:request
-																					 targetPath:[target absoluteString]
-																				   shouldResume:YES];
-	
-	[operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-		
-		success(operation.request, operation.response, [NSURL URLWithString:responseObject]);
-		
-	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-		
-=======
 
 	/*NSURL* documentsDirectory		= [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
 																		inDomain:NSUserDomainMask
@@ -232,25 +185,17 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
 		success(operation.request, operation.response, [NSURL URLWithString:responseObject]);
 		
 	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
->>>>>>> refs/heads/elementzMaster
 		failure(operation.request, operation.response, error);
 		
 	}];
 	
 	[operation setProgressiveDownloadProgressBlock:^(AFDownloadRequestOperation *operation, NSInteger bytesRead, long long totalBytesRead, long long totalBytesExpected, long long totalBytesReadForFile, long long totalBytesExpectedToReadForFile) {
-<<<<<<< HEAD
-		
-		progress(@(totalBytesReadForFile/(float)totalBytesExpectedToReadForFile));
-		
-	}];
-	
-=======
+
         NSNumber *percentage = @(totalBytesReadForFile/(float)totalBytesExpectedToReadForFile);
 		progress(percentage);
 		
 	}];
-    
->>>>>>> refs/heads/elementzMaster
+
 	[self.operationQueue addOperation:operation];
 	
 #warning untested implementation of getFilesForLanguage
