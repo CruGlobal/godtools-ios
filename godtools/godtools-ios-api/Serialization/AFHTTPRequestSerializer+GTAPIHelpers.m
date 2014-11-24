@@ -58,12 +58,21 @@ NSString * const GTAPIEndpointPackagesParameterVersionName			= @"version";
 }
 
 - (NSMutableURLRequest *)metaRequestWithLanguage:(GTLanguage *)language package:(GTPackage *)package since:(NSDate *)since error:(NSError *__autoreleasing *)error {
+<<<<<<< HEAD
 	
+=======
+
+    
+>>>>>>> refs/heads/elementzMaster
 	NSURL *fullURL					= [self.baseURL URLByAppendingPathComponent:GTAPIEndpointMetaName];
 	fullURL							= (language ? [fullURL URLByAppendingPathComponent:language.code] : fullURL);
 	fullURL							= (package ? [fullURL URLByAppendingPathComponent:package.code] : fullURL);
 	NSDictionary *params			= (since ? @{GTAPIEndpointMetaParameterSinceName: since} : @{} );
+<<<<<<< HEAD
 	
+=======
+    
+>>>>>>> refs/heads/elementzMaster
 	NSMutableURLRequest *request	= [self requestWithMethod:@"GET"
 												 URLString:[fullURL absoluteString]
 												parameters:params

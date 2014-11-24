@@ -18,4 +18,11 @@
 	return language;
 }
 
+<<<<<<< HEAD
+=======
+- (NSComparisonResult)compare:(GTLanguage *)otherLanguage {
+    return [self.name compare:otherLanguage.name];
+}
+
+>>>>>>> refs/heads/elementzMaster
 @end

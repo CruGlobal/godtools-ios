@@ -166,11 +166,24 @@ NSString *const CRUStorageExceptionUserInfoKeyForError		= @"org.cru.crustorage.e
 	NSManagedObjectContext *context	= ( background ? self.backgroundObjectContext : self.mainObjectContext );
 	NSEntityDescription *entity		= [NSEntityDescription entityForName:NSStringFromClass(modelType)
 											  inManagedObjectContext:context];
+<<<<<<< HEAD
 	NSFetchRequest *fetchRequest	= [[NSFetchRequest alloc] init];
 	fetchRequest.entity				= entity;
 	fetchRequest.predicate			= [NSPredicate predicateWithFormat:@"@K IN %@", key, valueArray];
 	
 	NSArray *fetchedObjects			= [context executeFetchRequest:fetchRequest error:nil];
+=======
+    //NSLog(@"ENTITY; %@",entity);
+    //NSLog(@"value: %@",valueArray);
+    
+	NSFetchRequest *fetchRequest	= [[NSFetchRequest alloc] init];
+	fetchRequest.entity				= entity;
+	fetchRequest.predicate			= [NSPredicate predicateWithFormat:@"%K IN %@", key, valueArray];
+	
+	NSArray *fetchedObjects			= [context executeFetchRequest:fetchRequest error:nil];
+    
+    //NSLog(@"fetched array: %@",fetchedObjects);
+>>>>>>> refs/heads/elementzMaster
 	
 	return fetchedObjects;
 }

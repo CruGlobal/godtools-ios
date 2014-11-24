@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Xcode
 .DS_Store
 */build/*
@@ -22,3 +23,6 @@ Pods
 
 #GodTools specific
 config.plist
+=======
+*.DS_STORE
+>>>>>>> refs/heads/elementzMaster

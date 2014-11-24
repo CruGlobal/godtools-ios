@@ -10,13 +10,21 @@
 #import "GTAPI.h"
 #import "GTStorage.h"
 #import "GTDefaults.h"
+<<<<<<< HEAD
+=======
+#import "RXMLElement.h"
+>>>>>>> refs/heads/elementzMaster
 
 /**
  *  Class used to download content from the God Tools API and save it locally. This is the main class you should use.
  */
 @interface GTDataImporter : NSObject\
 
+<<<<<<< HEAD
 #error This is the main class you should use with the apps logic. Start by reading this documentation
+=======
+#warning This is the main class you should use with the apps logic. Start by reading this documentation
+>>>>>>> refs/heads/elementzMaster
 
 /**
  *  Singleton for God Tools Data Importer

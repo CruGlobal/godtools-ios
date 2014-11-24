@@ -26,6 +26,17 @@
 - (void)displayError:(NSError *)error {
 	
 	NSLog(@"%@", error);
+<<<<<<< HEAD
+=======
+    
+    UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                       message:error.localizedDescription
+                                                      delegate:self
+                                             cancelButtonTitle:@"OK"
+                                             otherButtonTitles:nil];
+    [errorAlert show];
+    
+>>>>>>> refs/heads/elementzMaster
 #warning incomplete impelementation of displayError
 	
 }

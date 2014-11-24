@@ -14,6 +14,15 @@
 @property (nonatomic, strong) NSString *currentLanguageCode;
 @property (nonatomic, strong) NSString *currentParallelLanguageCode;
 
+<<<<<<< HEAD
 + (instancetype)sharedDefaults;
+=======
+//will be used for choosing  language in the settings menu. This will be the flag to check if the user is choosing a main language or a parallel language
+@property (nonatomic) NSNumber *isChoosingForMainLanguage;
+@property (nonatomic) NSNumber *isFirstLaunch;
+
++ (instancetype)sharedDefaults;
+- (NSString *)phonesLanguageCode;
+>>>>>>> refs/heads/elementzMaster
 
 @end

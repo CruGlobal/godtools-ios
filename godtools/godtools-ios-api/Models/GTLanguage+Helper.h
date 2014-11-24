@@ -11,5 +11,9 @@
 @interface GTLanguage (Helper)
 
 + (instancetype)languageWithCode:(NSString *)code inContext:(NSManagedObjectContext *)context;
+<<<<<<< HEAD
 
+=======
+- (NSComparisonResult)compare:(GTLanguage *)otherLanguage;
+>>>>>>> refs/heads/elementzMaster
 @end

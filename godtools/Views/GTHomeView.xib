@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="GTHomeView">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eMI-zH-hMh">
+                    <rect key="frame" x="506" y="467" width="84" height="32"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="eMI-zH-hMh" secondAttribute="height" multiplier="8:3" constant="-1.3333333333333286" id="8M0-G5-jbP"/>
+                        <constraint firstAttribute="width" constant="80" id="HNg-d8-Etx"/>
+                    </constraints>
+                    <state key="normal" title="Settings">
+                        <color key="titleColor" red="0.99933016975532596" green="1" blue="0.99359994484633574" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="HNg-d8-Etx"/>
+                        </mask>
+                    </variation>
+                    <connections>
+                        <action selector="settingsButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="XcJ-vI-5cw"/>
+                    </connections>
+                </button>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="K6k-oN-bLy">
+                    <rect key="frame" x="10" y="215" width="580" height="224"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="K6k-oN-bLy" secondAttribute="bottom" constant="161" id="8j2-jm-2z4"/>
+                <constraint firstItem="K6k-oN-bLy" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="BEC-ij-KZw"/>
+                <constraint firstAttribute="trailing" secondItem="K6k-oN-bLy" secondAttribute="trailing" constant="10" id="fZH-JF-D8e"/>
+                <constraint firstItem="K6k-oN-bLy" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="215" id="miE-c7-BqG"/>
+                <constraint firstAttribute="trailing" secondItem="eMI-zH-hMh" secondAttribute="trailing" constant="73" id="nWi-7d-Cg4"/>
+                <constraint firstItem="eMI-zH-hMh" firstAttribute="top" secondItem="K6k-oN-bLy" secondAttribute="bottom" constant="28" id="o31-3k-9pg"/>
+                <constraint firstAttribute="trailing" secondItem="eMI-zH-hMh" secondAttribute="trailing" constant="10" id="u2S-WC-cIu"/>
+            </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="nWi-7d-Cg4"/>
+                </mask>
+            </variation>
+            <connections>
+                <outlet property="settingsButton" destination="eMI-zH-hMh" id="iRJ-1O-gXY"/>
+                <outlet property="tableView" destination="K6k-oN-bLy" id="jyd-dZ-g1e"/>
+            </connections>
+            <point key="canvasLocation" x="140" y="150"/>
+        </view>
+    </objects>
+</document>

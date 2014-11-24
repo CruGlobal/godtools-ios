@@ -14,6 +14,14 @@
       "idiom" : "iphone",
       "size" : "60x60",
       "scale" : "2x"
+<<<<<<< HEAD
+=======
+    },
+    {
+      "idiom" : "iphone",
+      "size" : "60x60",
+      "scale" : "3x"
+>>>>>>> refs/heads/elementzMaster
     }
   ],
   "info" : {
