@@ -14,7 +14,7 @@
 #import <GTViewController/GTAboutViewController.h>
 #import "GTHomeView.h"
 
-@interface GTHomeViewController : UIViewController <UITableViewDataSource, UITableViewDelegate,GTViewControllerMenuDelegate, GTAboutViewControllerDelegate, GTHomeViewDelegate >
+@interface GTHomeViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, GTViewControllerMenuDelegate, GTAboutViewControllerDelegate, GTHomeViewDelegate >
 
 @property (strong, nonatomic) NSArray* articles;
 

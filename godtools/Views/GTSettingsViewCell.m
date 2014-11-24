@@ -30,7 +30,6 @@
 }
 
 -(void)setAsLanguageSelector{
-    NSLog(@"here");
 //    CGRect frame = self.label.frame;
 //    self.label.frame = CGRectMake(frame.origin.x + 20, frame.origin.y, frame.size.width - 20, frame.size.height);
 //    [self layoutSubviews];

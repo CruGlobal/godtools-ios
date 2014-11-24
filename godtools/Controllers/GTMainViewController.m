@@ -14,6 +14,7 @@
 #import "GTPackage+Helper.h"
 #import "TBXML.h"
 #import "GTBaseView.h"
+#import "GTDefaults.h"
 
 @interface GTMainViewController ()
     @property (nonatomic, strong) GTViewController *godtoolsViewController;
@@ -26,11 +27,7 @@
 - (void)viewDidLoad {
 	
     [super viewDidLoad];
-	
-#warning check if there is internet connection
 
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
     self.baseView = [[GTBaseView alloc]initWithFrame:self.view.frame];
     [self.baseView initDownloadIndicator];
     [self.view addSubview:self.baseView];
@@ -44,15 +41,25 @@
                                              selector:@selector(updateStarted:)
                                                  name: GTDataImporterNotificationUpdatedStarted
                                                object:nil];
-    
+    //NSLog(@"MAIN: iSFIRST LAUNCH: %@",[[GTDefaults sharedDefaults]isFirstLaunch]);
     //check if first launch
-    if([defaults objectForKey:@"isDoneWithFirstLaunch"]==nil){
+    if([[GTDefaults sharedDefaults]isFirstLaunch] == [NSNumber numberWithBool:YES]){
+      //  NSLog(@"FIRST LAUNCH");
         //prepare initial content
         [self extractMetaData];
         [self extractBundle];
-        [defaults setBool:YES forKey:@"isDoneWithFirstLaunch"];
+        [[GTDefaults sharedDefaults]setIsFirstLaunch:[NSNumber numberWithBool:NO]];
+        //[defaults setBool:YES forKey:@"isDoneWithFirstLaunch"];
+    }else{
+        //NSLog(@"NOT FIRST LAUNCH");
     }
-    
+   
+    /*if([AFNetworkReachabilityManager sharedManager].reachable){
+        NSLog(@"REACHABLE");
+        [[GTDataImporter sharedImporter] updateMenuInfo];
+    }else{
+        NSLog(@"NOT REACHABLE");
+    }*/
     [[GTDataImporter sharedImporter] updateMenuInfo];
     
 }
@@ -175,7 +182,7 @@
     
     //NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     //[defaults setObject:english.code forKey:@"current_language_code"];
-    
+   //NSLog(@"ENGLISH DONE");
     [[GTDefaults sharedDefaults]setCurrentLanguageCode:english.code];
     
 }

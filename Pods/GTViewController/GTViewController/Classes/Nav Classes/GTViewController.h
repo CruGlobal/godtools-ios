@@ -61,11 +61,19 @@ extern NSString *const GTViewControllerNotificationResourceDidOpen;
  */
 - (void)switchToPageWithIndex:(NSUInteger)pageIndex;
 
+/**
+ *  Parallel Language Configuration File
+ *
+ */
+@property (strong, nonatomic) NSString *parallelConfigFile;
+
 @end
 
 @protocol GTViewControllerMenuDelegate <NSObject>
 @optional
 - (void)showToolbar;
 - (void)hideToolbar;
+
+
 
 @end

@@ -101,6 +101,8 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
 #warning incomplete implementation for setupForDefaults
 	//add listeners
 	//check if currentLanguage needs to be downloaded (ie first time app is opened)
+    
+    
 	
 }
 
@@ -132,13 +134,17 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
 																   userInfo:@{NSLocalizedDescriptionKey: errorMessage,
 																			  NSLocalizedFailureReasonErrorKey: exception.description }];
 							   [weakSelf displayMenuInfoImportError:xmlError];
-							   
+                               [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationUpdatedFinished
+                                                                                   object:weakSelf
+                                                                                 userInfo:nil];
 						   }
 						   
 					   } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLRootElement) {
 						   
 						   [weakSelf displayMenuInfoRequestError:error];
-						   
+                           [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationUpdatedFinished
+                                                                               object:weakSelf
+                                                                             userInfo:nil];
 					   }];
 
  
@@ -194,8 +200,6 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
 		
 	}
 	
-#warning untested implementation of persistMenuInfoFromXMLElement
-	
 }
 
 - (void)fillArraysWithPackageAndLanguageCodesForXmlElement:(RXMLElement *)rootElement packageCodeArray:(NSMutableArray **)packageCodesArray languageCodeArray:(NSMutableArray **)languageCodesArray {
@@ -218,8 +222,6 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
 		}];
 		
 	}];
-	
-#warning untested implementation of fillArraysWithPackageAndLanguageCodesForXmlElement
 	
 }
 
@@ -251,8 +253,6 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
 		packageObjects[package.identifier]	= package;
 		
 	}];
-	
-#warning untested implementation of fillDictionariesWithPackageAndLanguageObjectsForPackageCodeArray
 	
 }
 
@@ -320,15 +320,13 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
             
         }];
     }
-#warning untested implementation of updateOrCreatePackageObjectsForXmlElement
 	
 }
 
 #pragma mark - Package downloading
 
 - (void)downloadPackagesForLanguage:(GTLanguage *)language {
-    NSLog(@"downlad packages for language %@",language);
-	NSParameterAssert(language);
+   	NSParameterAssert(language);
 	
 	__weak typeof(self)weakSelf = self;
 	[self.api getResourcesForLanguage:language
@@ -374,18 +372,27 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
                                      if (![[GTStorage sharedStorage].mainObjectContext save:&error]) {
                                          NSLog(@"error saving");
                                      }else{
-                                         [[GTDefaults sharedDefaults]setCurrentLanguageCode:language.code];
+                                         if([[GTDefaults sharedDefaults] isChoosingForMainLanguage] == [NSNumber numberWithBool:YES]){
+                                             
+                                             [[GTDefaults sharedDefaults]setCurrentLanguageCode:language.code];
+                                             NSLog(@"DONE DOWNLOADING ");
+                                             
+                                         }else{
+                                             
+                                             [[GTDefaults sharedDefaults]setCurrentParallelLanguageCode:language.code];
+                                         }
                                      }
 
                                     [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadFinished object:self];
                                  }
 								 
 							 } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                                 
 								 [weakSelf displayDownloadPackagesRequestError:error];
                                  [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadFinished object:self];
 								 
 							 }];
-#warning untested implementation of downloadPackagesForLanguages
+
 	
 }
 
@@ -513,7 +520,7 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
 }
 
 - (void)displayDownloadPackagesUnzippingError:(NSError *)error {
-	
+#warning error handling not yet done
     NSString *errorMessage	= NSLocalizedString(@"GTDataImporter_unzipPackages_error", @"Error message when compressed package failed to be unzip.");
     NSError *unzipError = [NSError errorWithDomain:GTDataImporterErrorDomain
                                             code:GTDataImporterErrorCodeInvalidZip

@@ -7,6 +7,7 @@
 //
 
 #import "GTSettingsViewController.h"
+#import "GTLanguagesViewController.h"
 #import "GTSettingsViewCell.h"
 #import "GTLanguage+Helper.h"
 #import "GTStorage.h"
@@ -119,7 +120,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    //[self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     switch (indexPath.row) {
         case 1:
@@ -129,13 +130,29 @@
             //cell.label.text = @"Parallel language";
             break;
         case 3:
-            //cell.label.text = self.mainLanguage.name;
-            //[cell addSeparator];
+            [self performSegueWithIdentifier:@"settingsToLanguageViewSegue" sender:self];
             break;
         default:
             break;
     }
     
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"settingsToLanguageViewSegue"]){
+
+        if([self.tableView indexPathForSelectedRow].row == 1){
+            
+            [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:[NSNumber numberWithBool: YES]];
+            
+        }else if([self.tableView indexPathForSelectedRow].row == 3){
+            
+            [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:[NSNumber numberWithBool: NO]];
+        
+        }
+        
+    }
 }
 
 

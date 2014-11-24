@@ -28,9 +28,10 @@
 
 @implementation GTHomeViewController
 
+#pragma mark - View Controller Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    //NSLog(@"HOME VIEW DID LOAD");
     [self.navigationController setNavigationBarHidden:YES];
     
     self.homeView = (GTHomeView*) [[[NSBundle mainBundle] loadNibNamed:@"GTHomeView" owner:nil options:nil]objectAtIndex:0];
@@ -54,6 +55,9 @@
     [self.homeView initDownloadIndicator];
     
     self.articles = [[NSMutableArray alloc]init];
+    self.languageCode = [[GTDefaults sharedDefaults]currentLanguageCode];
+    [self setData];
+    [self.homeView.tableView reloadData];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(downloadFinished:)
@@ -64,8 +68,20 @@
                                                  name: GTDataImporterNotificationLanguageDownloadProgressMade
                                                object:nil];
     
+    [self checkPhonesLanguage];
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES];
+    if(! [self.languageCode isEqual:[[GTDefaults sharedDefaults] currentLanguageCode]]){
+        NSLog(@"%@ change live articles for %@",self.languageCode,[[GTDefaults sharedDefaults] currentLanguageCode] );
+        [self setData];
+        [self.homeView.tableView reloadData];
+    }
+}
+
+#pragma mark - Download packages methods
 -(void)downloadFinished:(NSNotification *) notification{
     
     if([self.homeView.activityView isAnimating]){
@@ -77,65 +93,17 @@
 }
 
 -(void)showDownloadIndicator:(NSNotification *) notification{
-    NSDictionary *userInfo = notification.userInfo;
+    //NSDictionary *userInfo = notification.userInfo;
     
-    NSLog(@" downloading %@",[userInfo objectForKey:GTDataImporterNotificationLanguageDownloadPercentageKey]);
+    //NSLog(@" downloading %@",[userInfo objectForKey:GTDataImporterNotificationLanguageDownloadPercentageKey]);
 
     if(![self.homeView.activityView isAnimating]){
         [self.homeView showDownloadIndicator];
     }
 }
 
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES];
-    //if(! [self.languageCode isEqual:[[NSUserDefaults standardUserDefaults] stringForKey:@"current_language_code"]]){
-    if(! [self.languageCode isEqual:[[GTDefaults sharedDefaults] currentLanguageCode]]){
-        [self setData];
-        [self.homeView.tableView reloadData];
-    }
-}
-
 -(void)settingsButtonPressed{
     [self performSegueWithIdentifier:@"homeToSettingsViewSegue" sender:self];
-}
-
--(void)setData{
-    
-    self.languageCode = [[GTDefaults sharedDefaults]currentLanguageCode];
-    NSArray *languages = [[GTStorage sharedStorage]fetchArrayOfModels:[GTLanguage class] usingKey:@"code" forValues:@[self.languageCode] inBackground:NO];
-    
-    GTLanguage* mainLanguage = (GTLanguage*)[languages objectAtIndex:0];
-    
-    self.articles = [mainLanguage.packages allObjects];
-    
-    NSLog(@"articles: %@",self.articles);
-}
-
-#pragma  mark - GodToolsViewController getter
-- (GTViewController *)godtoolsViewController {
-    
-    if (!_godtoolsViewController) {
-        
-        GTPackage *package = [self.articles objectAtIndex:0];
-        GTFileLoader *fileLoader = [GTFileLoader fileLoader];
-        fileLoader.language		= self.languageCode;
-        GTShareViewController *shareViewController = [[GTShareViewController alloc] init];
-        GTPageMenuViewController *pageMenuViewController = [[GTPageMenuViewController alloc] initWithFileLoader:fileLoader];
-        GTAboutViewController *aboutViewController = [[GTAboutViewController alloc] initWithDelegate:self fileLoader:fileLoader];
-        
-        [self willChangeValueForKey:@"godtoolsViewController"];
-        _godtoolsViewController	= [[GTViewController alloc] initWithConfigFile:package.configFile
-                                                                    fileLoader:fileLoader
-                                                           shareViewController:shareViewController
-                                                        pageMenuViewController:pageMenuViewController
-                                                           aboutViewController:aboutViewController
-                                                                      delegate:self];
-        [self didChangeValueForKey:@"godtoolsViewController"];
-        
-    }
-    
-    return _godtoolsViewController;
 }
 
 #pragma mark - Table view data source
@@ -181,8 +149,8 @@
         cell.icon.image = [UIImage imageWithContentsOfFile: imageFilePath];
         [cell setUpBackground:(indexPath.row % 2)];
         
-        [cell setNeedsUpdateConstraints];
-        [cell updateConstraintsIfNeeded];
+        //[cell setNeedsUpdateConstraints];
+        //[cell updateConstraintsIfNeeded];
         return cell;
     }
     return nil;
@@ -200,18 +168,154 @@
     if(tableView == self.homeView.tableView){
         [self.homeView.tableView deselectRowAtIndexPath:indexPath animated:YES];
         
-        GTPackage *package = [self.articles objectAtIndex:indexPath.row];
-        
-        [self.godtoolsViewController loadResourceWithConfigFilename:package.configFile];
+        GTPackage *selectedPackage = [self.articles objectAtIndex:indexPath.row];
+
+        [self.godtoolsViewController loadResourceWithConfigFilename:selectedPackage.configFile];
+        self.godtoolsViewController.parallelConfigFile = nil;
+
+        //add checker if parallel language has a package
+        if([[GTDefaults sharedDefaults]currentParallelLanguageCode] != nil ){
+            NSArray *languages = [[GTStorage sharedStorage]fetchArrayOfModels:[GTLanguage class] usingKey:@"code" forValues:@[[[GTDefaults sharedDefaults]currentParallelLanguageCode]] inBackground:NO];
+            if(languages){
+                GTLanguage *parallelLanguage = [languages objectAtIndex:0];
+                for(GTPackage *parallelPackage in parallelLanguage.packages){
+                    if ([parallelPackage.code isEqualToString:selectedPackage.code]) {
+                        self.godtoolsViewController.parallelConfigFile = parallelPackage.configFile;
+                    }
+                }
+            }
+        }
         
         [self.navigationController pushViewController:self.godtoolsViewController animated:YES];
     }
     
 }
 
+#pragma mark - Data setter methods
+
+-(void)setData{
+    
+    self.languageCode = [[GTDefaults sharedDefaults]currentLanguageCode];
+    NSArray *languages = [[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:self.languageCode inBackground:NO];
+    
+    GTLanguage* mainLanguage = (GTLanguage*)[languages objectAtIndex:0];
+    
+    self.articles = [mainLanguage.packages allObjects];
+    
+    NSLog(@"ARTICLES: %@",self.articles);
+    
+}
+
+#pragma mark - Language Methods
+-(void)checkPhonesLanguage{
+    NSLog(@"Current language: %@",[[GTDefaults sharedDefaults]currentLanguageCode ]);
+    if(![[[GTDefaults sharedDefaults]phonesLanguageCode] isEqualToString:[[GTDefaults sharedDefaults] currentLanguageCode]]){
+        NSLog(@"current phone's language is not the current app's main language");
+        if ([UIAlertController class]){
+            NSLog(@"controller");
+            UIAlertController *languageAlert =[UIAlertController
+                                               alertControllerWithTitle:@"Language Settings"
+                                               message:[NSString stringWithFormat:@"Would you like to make %@ as the default language?",@"Korean" ]
+                                               preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction* ok = [UIAlertAction
+                                 actionWithTitle:@"YES"
+                                 style:UIAlertActionStyleDefault
+                                 handler:^(UIAlertAction * action)
+                                 {
+                                    [self setMainLanguageToPhonesLanguage];
+                                     [languageAlert dismissViewControllerAnimated:YES completion:nil];
+                                     
+                                 }];
+            UIAlertAction* cancel = [UIAlertAction
+                                     actionWithTitle:@"NO"
+                                     style:UIAlertActionStyleDefault
+                                     handler:^(UIAlertAction * action)
+                                     {
+                                         [languageAlert dismissViewControllerAnimated:YES completion:nil];
+                                         
+                                     }];
+            
+            [languageAlert addAction:ok];
+            [languageAlert addAction:cancel];
+            
+            [self presentViewController:languageAlert animated:YES completion:nil];
+        }else{
+            NSLog(@"!controller");
+            UIAlertView *languageAlert = [[UIAlertView alloc] initWithTitle:@"Language Settings"
+                                                                    message:[NSString stringWithFormat:@"Would you like to make %@ as the default language?",@"Korean" ]
+                                                                   delegate:self
+                                                          cancelButtonTitle:@"NO"
+                                                          otherButtonTitles:nil];
+            [languageAlert addButtonWithTitle:@"YES"];
+            [languageAlert show];
+        }
+    }else if([[[GTDefaults sharedDefaults]phonesLanguageCode] isEqualToString:[[GTDefaults sharedDefaults] currentLanguageCode]]){
+        NSLog(@"current phone's language is the current app's main language");
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"Button Index = %ld",(long)buttonIndex);
+    if (buttonIndex == 1) {
+        [self setMainLanguageToPhonesLanguage];
+    }
+}
+
+-(void)setMainLanguageToPhonesLanguage{
+    GTLanguage *language = [[[GTStorage sharedStorage] fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] phonesLanguageCode] inBackground:NO]objectAtIndex:0];
+    
+    NSLog(@"Set %@",language.code);
+    
+    if(language.downloaded){
+        NSLog(@"no need to download language");
+        [[GTDefaults sharedDefaults]setCurrentLanguageCode:language.code];
+        [self setData];
+        [self.homeView.tableView reloadData];
+    }else{
+        [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadProgressMade
+                                                            object:self
+                                                          userInfo:nil];
+        [[GTDefaults sharedDefaults] setIsChoosingForMainLanguage:[NSNumber numberWithBool:YES]];
+        [[GTDataImporter sharedImporter]downloadPackagesForLanguage:language];
+        NSLog(@"Need to download language");
+    }
+}
+
+#pragma  mark - GodToolsViewController
+- (GTViewController *)godtoolsViewController {
+    
+    if (!_godtoolsViewController) {
+        
+        GTPackage *package = [self.articles objectAtIndex:0];
+        GTFileLoader *fileLoader = [GTFileLoader fileLoader];
+        fileLoader.language		= self.languageCode;
+        GTShareViewController *shareViewController = [[GTShareViewController alloc] init];
+        GTPageMenuViewController *pageMenuViewController = [[GTPageMenuViewController alloc] initWithFileLoader:fileLoader];
+        GTAboutViewController *aboutViewController = [[GTAboutViewController alloc] initWithDelegate:self fileLoader:fileLoader];
+        
+        [self willChangeValueForKey:@"godtoolsViewController"];
+        _godtoolsViewController	= [[GTViewController alloc] initWithConfigFile:package.configFile
+                                                                    fileLoader:fileLoader
+                                                           shareViewController:shareViewController
+                                                        pageMenuViewController:pageMenuViewController
+                                                           aboutViewController:aboutViewController
+                                                                      delegate:self];
+        [self didChangeValueForKey:@"godtoolsViewController"];
+        
+    }
+    
+    return _godtoolsViewController;
+}
+
+#pragma mark - GTAboutViewController Delegate
+
+- (UIView *)viewOfPageViewController {
+    
+    return _godtoolsViewController.view;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end
