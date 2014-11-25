@@ -17,6 +17,7 @@
 //will be used for choosing  language in the settings menu. This will be the flag to check if the user is choosing a main language or a parallel language
 @property (nonatomic) NSNumber *isChoosingForMainLanguage;
 @property (nonatomic) NSNumber *isFirstLaunch;
+@property (nonatomic) NSNumber *isInTranslatorMode;
 
 + (instancetype)sharedDefaults;
 - (NSString *)phonesLanguageCode;

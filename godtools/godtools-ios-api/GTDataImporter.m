@@ -373,6 +373,11 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
                                      }else{
                                          if([[GTDefaults sharedDefaults] isChoosingForMainLanguage] == [NSNumber numberWithBool:YES]){
                                              
+                                             if([[[GTDefaults sharedDefaults]currentParallelLanguageCode] isEqualToString:language.code]){
+                                                 [[GTDefaults sharedDefaults]setCurrentParallelLanguageCode:[[GTDefaults sharedDefaults] currentLanguageCode]];
+                                             }
+                                             
+                                             
                                              [[GTDefaults sharedDefaults]setCurrentLanguageCode:language.code];
                                              NSLog(@"DONE DOWNLOADING ");
                                              

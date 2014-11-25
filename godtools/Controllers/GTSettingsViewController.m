@@ -14,8 +14,13 @@
 #import "GTDefaults.h"
 
 @interface GTSettingsViewController ()
-    @property (strong, nonatomic) GTLanguage *mainLanguage;
-    @property (strong, nonatomic) GTLanguage *parallelLanguage;
+
+@property (strong, nonatomic) GTLanguage *mainLanguage;
+@property (strong, nonatomic) GTLanguage *parallelLanguage;
+@property (strong, nonatomic) UISwitch *translatorSwitch;
+@property (strong, nonatomic) UIAlertView *translatorModeAlert;
+@property (strong, nonatomic) UIAlertView *exitTranslatorModeAlert;
+
 @end
 
 @implementation GTSettingsViewController
@@ -27,6 +32,14 @@
     //self.tableView.rowHeight = UITableViewAutomaticDimension;
     //self.tableView.estimatedRowHeight = 44.0;
     
+    self.translatorSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
+    [self.translatorSwitch addTarget:self action:@selector(translatorSwitchToggled) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.translatorModeAlert = [[UIAlertView alloc]initWithTitle:@"" message:@"Enter Access Code" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Send", nil];
+    self.translatorModeAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [self.translatorModeAlert textFieldAtIndex:0].delegate = self;
+    
+    self.exitTranslatorModeAlert = [[UIAlertView alloc]initWithTitle:@"Exit Preview Mode?" message:@"Drafts will not be displayed" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -66,7 +79,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    return 7;
 }
 
 
@@ -108,6 +121,10 @@
             break;
         case 6:
             cell.label.text = @"Preview Mode";
+            cell.accessoryView = self.translatorSwitch;
+            if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]){
+                [self.translatorSwitch setOn:YES animated:NO];
+            }
             break;
         default:
             break;
@@ -152,6 +169,35 @@
         
         }
         
+    }
+}
+
+-(void)translatorSwitchToggled{
+    if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:NO]){
+        [self.translatorModeAlert show];
+    }else{
+        [self.exitTranslatorModeAlert show];
+    }
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if(alertView == self.exitTranslatorModeAlert){
+        if(buttonIndex == 1){
+            [[GTDefaults sharedDefaults]setIsInTranslatorMode:[NSNumber numberWithBool:NO]];
+            [self.translatorSwitch setOn:NO animated:YES];
+        }else{
+            [self.translatorSwitch setOn:YES animated:YES];
+        }
+    }else if(alertView == self.translatorModeAlert){
+        if(buttonIndex == 1){
+            #warning validate access code
+            if(YES){
+                [[GTDefaults sharedDefaults]setIsInTranslatorMode:[NSNumber numberWithBool:YES]];
+                [self.translatorSwitch setOn:YES animated:YES];
+            }
+        }else{
+            [self.translatorSwitch setOn:NO animated:YES];
+        }
     }
 }
 

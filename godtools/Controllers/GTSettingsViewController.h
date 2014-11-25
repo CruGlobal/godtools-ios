@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GTSettingsViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
+@interface GTSettingsViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource,
+                        UIAlertViewDelegate, UITextFieldDelegate>
 
 @end

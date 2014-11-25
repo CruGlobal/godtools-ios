@@ -269,7 +269,9 @@
     
     if(language.downloaded){
         NSLog(@"no need to download language");
+        NSString *current = [[GTDefaults sharedDefaults]currentLanguageCode];
         [[GTDefaults sharedDefaults]setCurrentLanguageCode:language.code];
+        [[GTDefaults sharedDefaults]setCurrentParallelLanguageCode:current];
         [self setData];
         [self.homeView.tableView reloadData];
     }else{

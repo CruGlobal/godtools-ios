@@ -17,7 +17,7 @@ NSString *const GTDefaultscurrentParallelLanguageCodeKey	= @"current_parallel_la
 
 NSString *const GTDefaultsisChoosingForMainLanguage         = @"is_for_main_language";
 NSString *const GTDefaultsisFirstLaunch                     = @"is_first_launch";
-
+NSString *const GTDefaultsisInTranslatorMode                = @"is_in_translator_mode";
 
 @interface GTDefaults ()
 
@@ -33,6 +33,7 @@ NSString *const GTDefaultsisFirstLaunch                     = @"is_first_launch"
 
 @synthesize isChoosingForMainLanguage   = _isChoosingForMainLanguage;
 @synthesize isFirstLaunch               = _isFirstLaunch;
+@synthesize isInTranslatorMode          = _isInTranslatorMode;
 
 
 #pragma mark - initialization
@@ -238,6 +239,29 @@ NSString *const GTDefaultsisFirstLaunch                     = @"is_first_launch"
     }
     
     return _isFirstLaunch;
+}
+
+#pragma mark - isFirstLaunch
+
+-(void)setIsInTranslatorMode:(NSNumber *)isInTranslatorMode{
+    [self willChangeValueForKey:@"isInTranslatorMode"];
+    _isInTranslatorMode  = isInTranslatorMode;
+    [self didChangeValueForKey:@"isInTranslatorMode"];
+    
+    [[NSUserDefaults standardUserDefaults]setObject:_isInTranslatorMode forKey:GTDefaultsisInTranslatorMode];
+    
+}
+-(NSNumber*)isInTranslatorMode{
+    if (!_isInTranslatorMode) {
+        [self willChangeValueForKey:@"isInTranslatorMode"];
+        _isInTranslatorMode = [[NSUserDefaults standardUserDefaults] objectForKey:GTDefaultsisInTranslatorMode];
+        if(!_isInTranslatorMode){
+            [self setIsInTranslatorMode:[NSNumber numberWithBool:NO]];
+        }
+        [self didChangeValueForKey:@"isInTranslatorMode"];
+    }
+    
+    return _isInTranslatorMode;
 }
 
 @end
