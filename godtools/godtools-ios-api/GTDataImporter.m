@@ -267,6 +267,7 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
 
 		if (!language) {
 			language						= [GTLanguage languageWithCode:languageCode inContext:self.storage.backgroundObjectContext];
+            language.name                   = [languageElement attribute:@"name"];
 			languageObjects[languageCode]	= language;
 		}
         
@@ -326,7 +327,7 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
 - (void)downloadPackagesForLanguage:(GTLanguage *)language {
 
    	NSParameterAssert(language);
-	
+
 	__weak typeof(self)weakSelf = self;
 	[self.api getResourcesForLanguage:language
 							 progress:^(NSNumber *percentage) {
@@ -379,7 +380,6 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
                                              
                                              
                                              [[GTDefaults sharedDefaults]setCurrentLanguageCode:language.code];
-                                             NSLog(@"DONE DOWNLOADING ");
                                              
                                          }else{
                                              
@@ -387,7 +387,7 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
                                          }
                                      }
 
-                                    [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadFinished object:self];
+                                     [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadFinished object:self];
                                  }
 								 
 							 } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
@@ -401,8 +401,6 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
 }
 
 - (RXMLElement *)unzipResourcesAtTarget:(NSURL *)targetPath forLanguage:(GTLanguage *)language package:(GTPackage *)package {
-	
-    NSLog(@"\nUnzip resources at target %@\n",targetPath);
     
 	NSParameterAssert(language.code || package.code);
 	
@@ -489,7 +487,6 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
 	self.packagesNeedingToBeUpdated = [fetchedObjects mutableCopy];
 
     if (self.packagesNeedingToBeUpdated.count > 0) {
-        NSLog(@"PACKAGES NEED TO BE UPDATED");
 		[[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationNameUpdateNeeded object:self];
         [self updatePackagesWithNewVersions];
     }
@@ -497,7 +494,6 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
 
 - (void)updatePackagesWithNewVersions {
 	
-#warning incomplete implementation for zupdatePackagesWithNewVersions
     NSError *error;
     [self.packagesNeedingToBeUpdated enumerateObjectsUsingBlock:^(GTPackage *package, NSUInteger index, BOOL *stop) {
         
@@ -510,6 +506,27 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
     }
 
 }
+
+
+#pragma mark - Translation downloader
+-(void)authorizeTranslator:(NSString *)accessCode{
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationAuthTokenUpdateStarted object:self];
+    [[GTDefaults sharedDefaults]setTranslatorAccessCode:accessCode];
+
+    [[GTAPI sharedAPI]getAuthTokenWithAccessCode:accessCode success:^(NSURLRequest *request, NSHTTPURLResponse *response,NSString *authToken) {
+        
+        [[GTAPI sharedAPI]setAuthToken:authToken];
+        [[GTDefaults sharedDefaults]setIsInTranslatorMode:[NSNumber numberWithBool:YES]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationAuthTokenUpdateSuccessful object:self];
+        
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationAuthTokenUpdateFail object:self];
+    }];
+}
+
+
+
 
 #pragma mark - Error Handling
 

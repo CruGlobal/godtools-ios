@@ -12,6 +12,7 @@
 #import "GTLanguage+Helper.h"
 #import "GTStorage.h"
 #import "GTDefaults.h"
+#import "GTDataImporter.h"
 
 @interface GTSettingsViewController ()
 
@@ -20,6 +21,7 @@
 @property (strong, nonatomic) UISwitch *translatorSwitch;
 @property (strong, nonatomic) UIAlertView *translatorModeAlert;
 @property (strong, nonatomic) UIAlertView *exitTranslatorModeAlert;
+@property (strong, nonatomic) UIAlertView *buttonLessAlert;
 
 @end
 
@@ -40,6 +42,21 @@
     [self.translatorModeAlert textFieldAtIndex:0].delegate = self;
     
     self.exitTranslatorModeAlert = [[UIAlertView alloc]initWithTitle:@"Exit Preview Mode?" message:@"Drafts will not be displayed" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+    
+    self.buttonLessAlert = [[UIAlertView alloc]initWithTitle:@"" message:@"" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(authorizeTranslatorAlert:)
+                                                 name: GTDataImporterNotificationAuthTokenUpdateStarted
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(authorizeTranslatorAlert:)
+                                                 name: GTDataImporterNotificationAuthTokenUpdateSuccessful
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(authorizeTranslatorAlert:)
+                                                 name: GTDataImporterNotificationAuthTokenUpdateFail
+                                               object:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -190,17 +207,56 @@
         }
     }else if(alertView == self.translatorModeAlert){
         if(buttonIndex == 1){
-            #warning validate access code
-            if(YES){
-                [[GTDefaults sharedDefaults]setIsInTranslatorMode:[NSNumber numberWithBool:YES]];
-                [self.translatorSwitch setOn:YES animated:YES];
+            if([self.translatorModeAlert  textFieldAtIndex:0].text.length > 0){
+                [[GTDataImporter sharedImporter]authorizeTranslator:[self.translatorModeAlert  textFieldAtIndex:0].text];
+            }else{
+                [self.translatorSwitch setOn:NO animated:YES];
             }
         }else{
             [self.translatorSwitch setOn:NO animated:YES];
+            [self.translatorModeAlert textFieldAtIndex:0].text = nil;
         }
     }
 }
 
+-(void)authorizeTranslatorAlert:(NSNotification *) notification{
+
+    if([notification.name isEqualToString:GTDataImporterNotificationAuthTokenUpdateStarted]){
+        UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        
+        indicator.center = CGPointMake(self.buttonLessAlert.bounds.size.width / 2, self.buttonLessAlert.bounds.size.height - 50);
+        [indicator startAnimating];
+        [self.buttonLessAlert addSubview:indicator];
+        
+        self.buttonLessAlert.message = @"Authenticating access code";
+        [self.buttonLessAlert show];
+    }else if([notification.name isEqualToString:GTDataImporterNotificationAuthTokenUpdateFail]){
+        self.buttonLessAlert.message = @"Invalid access code";
+        [self.buttonLessAlert show];
+        [self performSelector:@selector(dismissAlertView:) withObject:self.buttonLessAlert afterDelay:1.0];
+        [self.translatorSwitch setOn:NO animated:YES];
+        [self.translatorModeAlert textFieldAtIndex:0].text = nil;
+        
+    }else if([notification.name isEqualToString:GTDataImporterNotificationAuthTokenUpdateSuccessful]){
+        
+        if([[GTDefaults sharedDefaults]isInTranslatorMode] ==[NSNumber numberWithBool:YES]){
+            self.buttonLessAlert.message = @"Translator preview mode is enabled";
+            [self.buttonLessAlert show];
+            [self performSelector:@selector(dismissAlertView:) withObject:self.buttonLessAlert afterDelay:1.0];
+            [self.translatorSwitch setOn:YES animated:YES];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDraftsDownloadStarted object:self];
+            
+        }
+    }
+}
+
+-(void)dismissAlertView:(UIAlertView *)alertView{
+    [alertView dismissWithClickedButtonIndex:0 animated:YES];
+    if(alertView == self.buttonLessAlert && [[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]){
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
 
 
 @end

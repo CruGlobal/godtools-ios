@@ -10,7 +10,7 @@
 #define godtools_Constants_h
 
 /*
- *  Notifications Contants
+ *  Notifications Constants
  */
 
 //Data Importer
@@ -21,5 +21,13 @@
 
 #define GTDataImporterNotificationUpdatedFinished @"com.godtoolsapp.GTDataImporter.notifications.updateFinished"
 #define GTDataImporterNotificationUpdatedStarted @"com.godtoolsapp.GTDataImporter.notifications.updateStarted"
+
+#define GTDataImporterNotificationAuthTokenUpdateStarted @"com.godtoolsapp.GTDataImporter.notifications.authTokenUpdateStarted"
+#define GTDataImporterNotificationAuthTokenUpdateSuccessful @"com.godtoolsapp.GTDataImporter.notifications.authTokenUpdateSuccessful"
+#define GTDataImporterNotificationAuthTokenUpdateFail @"com.godtoolsapp.GTDataImporter.notifications.authTokenUpdateFailed"
+
+#define GTDataImporterNotificationLanguageDraftsDownloadProgressMade  @"com.godtoolsapp.GTDataImporter.notifications.draftsDownloadProgressMade"
+#define GTDataImporterNotificationLanguageDraftsDownloadFinished      @"com.godtoolsapp.GTDataImporter.notifications.draftsDownloadFinished"
+#define GTDataImporterNotificationLanguageDraftsDownloadStarted      @"com.godtoolsapp.GTDataImporter.notifications.draftsDownloadStarted"
 
 #endif

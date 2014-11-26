@@ -19,6 +19,8 @@ NSString *const GTDefaultsisChoosingForMainLanguage         = @"is_for_main_lang
 NSString *const GTDefaultsisFirstLaunch                     = @"is_first_launch";
 NSString *const GTDefaultsisInTranslatorMode                = @"is_in_translator_mode";
 
+NSString *const GTDefaultstranslatorAccessCode              = @"translator_access_code";
+
 @interface GTDefaults ()
 
 @property (nonatomic, strong, readonly) NSString *phonesLanguageCode;
@@ -34,6 +36,8 @@ NSString *const GTDefaultsisInTranslatorMode                = @"is_in_translator
 @synthesize isChoosingForMainLanguage   = _isChoosingForMainLanguage;
 @synthesize isFirstLaunch               = _isFirstLaunch;
 @synthesize isInTranslatorMode          = _isInTranslatorMode;
+
+@synthesize translatorAccessCode        = _translatorAccessCode;
 
 
 #pragma mark - initialization
@@ -103,10 +107,10 @@ NSString *const GTDefaultsisInTranslatorMode                = @"is_in_translator
     NSArray *languages = [[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:languageCode inBackground:YES];
     
     if(languages.count > 0){
-        NSLog(@"%@ is valid",languageCode);
+        //NSLog(@"%@ is valid",languageCode);
         return YES;
     }else{
-        NSLog(@"%@ is invalid",languageCode);
+        //NSLog(@"%@ is invalid",languageCode);
         return NO;
     }
 
@@ -156,12 +160,12 @@ NSString *const GTDefaultsisInTranslatorMode                = @"is_in_translator
 - (NSString *)currentLanguageCode {
 	
 	if (!_currentLanguageCode) {
-		
+        NSLog(@"!_currentLanguageCode");
 		[self willChangeValueForKey:@"currentLanguageCode"];
 		_currentLanguageCode = [[NSUserDefaults standardUserDefaults] stringForKey:GTDefaultscurrentLanguageCodeKey];
 
 		[self didChangeValueForKey:@"currentLanguageCode"];
-		
+        NSLog(@"currentLanguageCode: %@", _currentLanguageCode);
 	}
 	
 	return _currentLanguageCode;
@@ -232,7 +236,8 @@ NSString *const GTDefaultsisInTranslatorMode                = @"is_in_translator
         NSLog(@"!_isfirstlaunch");
         [self willChangeValueForKey:@"isFirstLaunch"];
         _isFirstLaunch = [[NSUserDefaults standardUserDefaults] objectForKey:GTDefaultsisFirstLaunch];
-        if(!_isFirstLaunch){
+        if(_isFirstLaunch == nil){
+            NSLog(@"first launch");
             [self setIsFirstLaunch:[NSNumber numberWithBool:YES]];
         }
         [self didChangeValueForKey:@"isFirstLaunch"];
@@ -262,6 +267,32 @@ NSString *const GTDefaultsisInTranslatorMode                = @"is_in_translator
     }
     
     return _isInTranslatorMode;
+}
+
+#pragma mark - translatorAccessCode
+
+- (void)setTranslatorAccessCode:(NSString *)translatorAccessCode{
+    
+    [self willChangeValueForKey:@"translatorAccessCode"];
+    
+    _translatorAccessCode	= translatorAccessCode;
+    [self didChangeValueForKey:@"translatorAccessCode"];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:translatorAccessCode forKey:GTDefaultstranslatorAccessCode];
+    
+}
+
+- (NSString *)translatorAccessCode {
+    
+    if (!_translatorAccessCode) {
+        
+        [self willChangeValueForKey:@"translatorAccessCode"];
+        _translatorAccessCode = [[NSUserDefaults standardUserDefaults] stringForKey:GTDefaultstranslatorAccessCode];
+        [self didChangeValueForKey:@"translatorAccessCode"];
+        
+    }
+    
+    return _translatorAccessCode;
 }
 
 @end

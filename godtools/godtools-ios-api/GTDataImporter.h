@@ -91,4 +91,10 @@
  */
 - (void)checkForPackagesWithNewVersionsForLanguageCodes:(NSArray *)languageCodes;
 
+
+
+-(void)authorizeTranslator:(NSString *)accessCode;
+
+-(void)persistMenuInfoFromXMLElement:(RXMLElement *)rootElement ;
+
 @end

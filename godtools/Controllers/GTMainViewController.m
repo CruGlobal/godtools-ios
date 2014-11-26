@@ -44,23 +44,24 @@
     //NSLog(@"MAIN: iSFIRST LAUNCH: %@",[[GTDefaults sharedDefaults]isFirstLaunch]);
     //check if first launch
     if([[GTDefaults sharedDefaults]isFirstLaunch] == [NSNumber numberWithBool:YES]){
-      //  NSLog(@"FIRST LAUNCH");
+        NSLog(@"FIRST LAUNCH");
         //prepare initial content
-        [self extractMetaData];
         [self extractBundle];
+                [self extractMetaData];
         [[GTDefaults sharedDefaults]setIsFirstLaunch:[NSNumber numberWithBool:NO]];
         //[defaults setBool:YES forKey:@"isDoneWithFirstLaunch"];
     }else{
         //NSLog(@"NOT FIRST LAUNCH");
     }
    
-    /*if([AFNetworkReachabilityManager sharedManager].reachable){
+    if([AFNetworkReachabilityManager sharedManager].reachable){
         NSLog(@"REACHABLE");
         [[GTDataImporter sharedImporter] updateMenuInfo];
     }else{
         NSLog(@"NOT REACHABLE");
-    }*/
-    [[GTDataImporter sharedImporter] updateMenuInfo];
+        [self performSegueWithIdentifier:@"splashToHomeViewSegue" sender:self];
+    }
+    //[[GTDataImporter sharedImporter] updateMenuInfo];
     
 }
 
@@ -192,7 +193,9 @@
     NSString* pathOfMeta = [[NSBundle mainBundle] pathForResource:@"meta" ofType:@"xml"];
     RXMLElement *metaXML = [RXMLElement elementFromXMLData:[NSData dataWithContentsOfFile:pathOfMeta]];
     
-    [metaXML iterate:@"language" usingBlock: ^(RXMLElement *languageElement) {
+    [[GTDataImporter sharedImporter]persistMenuInfoFromXMLElement:metaXML];
+    
+    /*[metaXML iterate:@"language" usingBlock: ^(RXMLElement *languageElement) {
         
         __block GTLanguage *language = [GTLanguage languageWithCode:[languageElement attribute:@"code"] inContext:[GTStorage sharedStorage].mainObjectContext];
         
@@ -215,7 +218,7 @@
     if (![[GTStorage sharedStorage].mainObjectContext save:&error]) {
         [[GTStorage sharedStorage]errorHandler];
         NSLog(@"error saving");
-    }
+    }*/
 }
 
 - (void)didReceiveMemoryWarning {

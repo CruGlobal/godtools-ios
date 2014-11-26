@@ -75,7 +75,7 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES];
     if(! [self.languageCode isEqual:[[GTDefaults sharedDefaults] currentLanguageCode]]){
-        NSLog(@"%@ change live articles for %@",self.languageCode,[[GTDefaults sharedDefaults] currentLanguageCode] );
+       // NSLog(@"%@ change live articles for %@",self.languageCode,[[GTDefaults sharedDefaults] currentLanguageCode] );
         [self setData];
         [self.homeView.tableView reloadData];
     }
@@ -83,7 +83,7 @@
 
 #pragma mark - Download packages methods
 -(void)downloadFinished:(NSNotification *) notification{
-    
+
     if([self.homeView.activityView isAnimating]){
         [self.homeView hideDownloadIndicator];
     }
@@ -96,7 +96,11 @@
     //NSDictionary *userInfo = notification.userInfo;
     
     //NSLog(@" downloading %@",[userInfo objectForKey:GTDataImporterNotificationLanguageDownloadPercentageKey]);
-
+    if([notification.name isEqualToString: GTDataImporterNotificationLanguageDownloadProgressMade]){
+        self.homeView.loadingLabel.text = @"Updating Resources...";
+    }else if([notification.name isEqualToString:GTDataImporterNotificationLanguageDraftsDownloadStarted]){
+        self.homeView.loadingLabel.text = @"Downloading drafts";
+    }
     if(![self.homeView.activityView isAnimating]){
         [self.homeView showDownloadIndicator];
     }
@@ -201,21 +205,18 @@
     GTLanguage* mainLanguage = (GTLanguage*)[languages objectAtIndex:0];
     
     self.articles = [mainLanguage.packages allObjects];
-    
-    NSLog(@"ARTICLES: %@",self.articles);
-    
 }
 
 #pragma mark - Language Methods
 -(void)checkPhonesLanguage{
-    NSLog(@"Current language: %@",[[GTDefaults sharedDefaults]currentLanguageCode ]);
+
     if(![[[GTDefaults sharedDefaults]phonesLanguageCode] isEqualToString:[[GTDefaults sharedDefaults] currentLanguageCode]]){
-        NSLog(@"current phone's language is not the current app's main language");
+        //NSLog(@"current phone's language is not the current app's main language");
+        GTLanguage *phonesLanguage = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults]phonesLanguageCode] inBackground:NO]objectAtIndex:0];
         if ([UIAlertController class]){
-            NSLog(@"controller");
             UIAlertController *languageAlert =[UIAlertController
                                                alertControllerWithTitle:@"Language Settings"
-                                               message:[NSString stringWithFormat:@"Would you like to make %@ as the default language?",@"Korean" ]
+                                               message:[NSString stringWithFormat:@"Would you like to make %@ as the default language?",phonesLanguage.name ]
                                                preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction* ok = [UIAlertAction
                                  actionWithTitle:@"YES"
@@ -240,23 +241,22 @@
             
             [self presentViewController:languageAlert animated:YES completion:nil];
         }else{
-            NSLog(@"!controller");
+            //NSLog(@"!controller");
             UIAlertView *languageAlert = [[UIAlertView alloc] initWithTitle:@"Language Settings"
-                                                                    message:[NSString stringWithFormat:@"Would you like to make %@ as the default language?",@"Korean" ]
+                                                                    message:[NSString stringWithFormat:@"Would you like to make %@ as the default language?",phonesLanguage.name]
                                                                    delegate:self
                                                           cancelButtonTitle:@"NO"
                                                           otherButtonTitles:nil];
             [languageAlert addButtonWithTitle:@"YES"];
             [languageAlert show];
         }
-    }else if([[[GTDefaults sharedDefaults]phonesLanguageCode] isEqualToString:[[GTDefaults sharedDefaults] currentLanguageCode]]){
-        NSLog(@"current phone's language is the current app's main language");
     }
+    /*else if([[[GTDefaults sharedDefaults]phonesLanguageCode] isEqualToString:[[GTDefaults sharedDefaults] currentLanguageCode]]){
+        //NSLog(@"current phone's language is the current app's main language");
+    }*/
 }
 
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-    NSLog(@"Button Index = %ld",(long)buttonIndex);
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 1) {
         [self setMainLanguageToPhonesLanguage];
     }
@@ -265,10 +265,8 @@
 -(void)setMainLanguageToPhonesLanguage{
     GTLanguage *language = [[[GTStorage sharedStorage] fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] phonesLanguageCode] inBackground:NO]objectAtIndex:0];
     
-    NSLog(@"Set %@",language.code);
-    
     if(language.downloaded){
-        NSLog(@"no need to download language");
+        //NSLog(@"no need to download language");
         NSString *current = [[GTDefaults sharedDefaults]currentLanguageCode];
         [[GTDefaults sharedDefaults]setCurrentLanguageCode:language.code];
         [[GTDefaults sharedDefaults]setCurrentParallelLanguageCode:current];
@@ -280,7 +278,6 @@
                                                           userInfo:nil];
         [[GTDefaults sharedDefaults] setIsChoosingForMainLanguage:[NSNumber numberWithBool:YES]];
         [[GTDataImporter sharedImporter]downloadPackagesForLanguage:language];
-        NSLog(@"Need to download language");
     }
 }
 

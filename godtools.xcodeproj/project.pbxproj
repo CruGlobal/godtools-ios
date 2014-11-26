@@ -51,8 +51,7 @@
 		6878F01618E4AC39007D1B5B /* GTPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6878F01418E49AF4007D1B5B /* GTPackage.m */; };
 		68A1CBFD18DB6C3B00D84F12 /* GTDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E6068918D3986D00844377 /* GTDefaults.m */; };
 		68A1CBFF18DB6F9600D84F12 /* GTAPITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A1CBFE18DB6F9600D84F12 /* GTAPITest.m */; };
-		68BA852C18DCE50C001AC6B3 /* GTLanguage.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BA852B18DCE50C001AC6B3 /* GTLanguage.m */; };
-		68BA852D18DCE50C001AC6B3 /* GTLanguage.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BA852B18DCE50C001AC6B3 /* GTLanguage.m */; };
+		68BA852D18DCE50C001AC6B3 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		68BA853318DCF0EB001AC6B3 /* GTDefaultsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BA853218DCF0EB001AC6B3 /* GTDefaultsTests.m */; };
 		68BA853518DCF102001AC6B3 /* GTStorageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BA853418DCF102001AC6B3 /* GTStorageTests.m */; };
 		68BA853718DCF129001AC6B3 /* GTDataImporterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BA853618DCF129001AC6B3 /* GTDataImporterTests.m */; };
@@ -391,7 +390,6 @@
 			name = Serialization;
 			sourceTree = "<group>";
 		};
-
 		B76536BB1A0CC616001C3FC3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -413,7 +411,6 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
-
 		E600F78C726A1280F9AFC198 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -475,6 +472,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Michael Harrison";
 				TargetAttributes = {
+					68740D0E18D24F9A00D36C0E = {
+						DevelopmentTeam = 4PT58WHRJ5;
+					};
 					68740D2F18D24F9A00D36C0E = {
 						TestTargetID = 68740D0E18D24F9A00D36C0E;
 					};
@@ -632,7 +632,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6878F01618E4AC39007D1B5B /* GTPackage.m in Sources */,
-				68BA852D18DCE50C001AC6B3 /* GTLanguage.m in Sources */,
+				68BA852D18DCE50C001AC6B3 /* (null) in Sources */,
 				68BA853B18DCF15D001AC6B3 /* GTConfigTests.m in Sources */,
 				68464FB618E1C7C700D14C2B /* GTAPIErrorHandlerTests.m in Sources */,
 				682F0E8518D88BD600FBE3E0 /* GTDefaults.m in Sources */,
@@ -722,7 +722,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Claudine Bael (BKHE62CR3F)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Claudine Bael (BKHE62CR3F)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -767,7 +768,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Claudine Bael (BKHE62CR3F)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Claudine Bael (BKHE62CR3F)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -796,6 +798,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "godtools/godtools-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -818,6 +822,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				"USER_HEADER_SEARCH_PATHS[arch=*]" = "$(inherited)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -829,6 +834,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "godtools/godtools-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -851,6 +858,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				"USER_HEADER_SEARCH_PATHS[arch=*]" = "$(inherited)";
 				WRAPPER_EXTENSION = app;
 			};

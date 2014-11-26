@@ -12,6 +12,7 @@
 #import "AFRaptureXMLRequestOperation.h"
 #import "AFDownloadRequestOperation.h"
 #import "RXMLElement.h"
+#import "GTDefaults.h"
 #import <GTViewController/GTFileLoader.h>
 
 NSString * const GTAPIDefaultHeaderKeyAPIKey				= @"authorization";
@@ -43,7 +44,7 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
         _sharedAPI = [[GTAPI alloc] initWithConfig:[GTConfig sharedConfig] errorHandler:[GTAPIErrorHandler sharedErrorHandler]];
 		
     });
-    
+        
     return _sharedAPI;
 }
 
@@ -98,7 +99,7 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
 
 - (void)getAuthTokenForDeviceID:(NSString *)deviceID success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSString *authToken))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure {
 	
-	NSMutableURLRequest *request			= [self.requestSerializer authRequestWithAccessCode:self.apiKey
+    NSMutableURLRequest *request			= [self.requestSerializer authRequestWithAccessCode:[[GTDefaults sharedDefaults] translatorAccessCode]
 																			  deviceID:deviceID
 																				 error:nil];
 	
@@ -116,6 +117,23 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
 																				}];
 	
 	[self.operationQueue addOperation:operation];
+}
+
+- (void)getAuthTokenWithAccessCode:(NSString *)accessCode success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response,NSString *authToken))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure {
+    
+    NSMutableURLRequest *request			= [self.requestSerializer authRequestWithAccessCode:accessCode
+                                                                              deviceID:nil
+                                                                                 error:nil];
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]initWithRequest:request];
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        success(operation.request, operation.response,[operation.response.allHeaderFields objectForKey:@"Authorization"]);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation.request, operation.response, error);
+    }];
+    
+    [self.operationQueue addOperation:operation];
 }
 
 #pragma mark - download meta information methods
@@ -197,8 +215,6 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
 	}];
 
 	[self.operationQueue addOperation:operation];
-	
-#warning untested implementation of getFilesForLanguage
 	
 }
 

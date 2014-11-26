@@ -66,6 +66,25 @@
 						failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure;
 
 /**
+ *  Retrieves response from the APIs auth endpoint together with an access code. This token is needed for all future calls to the API.
+ *  To have it automatically sent with all future calls assign the value to the authToken property of this class.
+ *
+ *  @warning you should wait for this method to return the auth token before making other requests to the API.
+ *
+ *  @param accessCode A string that will be used as an access code for translator mode.
+ *  @param success  callback that delivers your auth token to be taken from the response headers
+ *  @param failure  callback that delivers the error object describing why your request failed.
+ *
+ *  @example [api getAuthTokenForDeviceID:[[[UIDevice currentDevice] identifierForVendor] UUIDString]
+ success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSString *authToken) {
+ api.authToken = authToken;
+ }
+ failure:nil];
+ *
+ */
+
+- (void)getAuthTokenWithAccessCode:(NSString *)accessCode success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSString *authToken))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure;
+/**
  *  If you send this request and it is successful you will receive an xml response that lists the meta data for available resources.
  *  See docs for examples. It will filter out resources using the language, package and since date as filters where you have provided them.
  *
