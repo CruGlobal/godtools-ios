@@ -167,7 +167,7 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
 	[self getFilesForRequest:request progress:progress success:success failure:failure];
 }
 
-- (void)getXmlFilesForLanguage:(GTLanguage *)language progress:(void (^)(NSNumber *))progress success:(void (^)(NSURLRequest *, NSHTTPURLResponse *, NSURL *))success failure:(void (^)(NSURLRequest *, NSHTTPURLResponse *, NSError *))failure {
+- (void)getXmlFilesForLanguage:(GTLanguage *)language progress:(void (^)(NSNumber *percentage))progress success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSURL *targetPath))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure {
 	
 	NSParameterAssert(language.code);
 	
@@ -178,6 +178,18 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
 																				error:nil];
 	
 	[self getFilesForRequest:request progress:progress success:success failure:failure];
+}
+
+- (void)getDraftsResourcesForLanguage:(GTLanguage *)language progress:(void (^)(NSNumber *percentage))progress success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSURL *targetPath))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure {
+    NSParameterAssert(language.code);
+    
+    NSMutableURLRequest *request	= [self.requestSerializer draftsRequestWithLanguage:language
+                                                                                  package:nil
+                                                                                  version:nil
+                                                                               compressed:YES
+                                                                                    error:nil];
+    
+    [self getFilesForRequest:request progress:progress success:success failure:failure];
 }
 
 - (void)getFilesForRequest:(NSMutableURLRequest *)request progress:(void (^)(NSNumber *))progress success:(void (^)(NSURLRequest *, NSHTTPURLResponse *, NSURL *))success failure:(void (^)(NSURLRequest *, NSHTTPURLResponse *, NSError *))failure {

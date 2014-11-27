@@ -246,7 +246,8 @@
             [self.translatorSwitch setOn:YES animated:YES];
             
             [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDraftsDownloadStarted object:self];
-            
+            GTLanguage *current = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:NO]objectAtIndex:0];
+            [[GTDataImporter sharedImporter]downloadDraftsForLanguage:current];
         }
     }
 }

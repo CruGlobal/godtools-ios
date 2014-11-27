@@ -97,4 +97,6 @@
 
 -(void)persistMenuInfoFromXMLElement:(RXMLElement *)rootElement ;
 
+- (void)downloadDraftsForLanguage:(GTLanguage *)language;
+
 @end

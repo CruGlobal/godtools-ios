@@ -29,5 +29,6 @@
 #define GTDataImporterNotificationLanguageDraftsDownloadProgressMade  @"com.godtoolsapp.GTDataImporter.notifications.draftsDownloadProgressMade"
 #define GTDataImporterNotificationLanguageDraftsDownloadFinished      @"com.godtoolsapp.GTDataImporter.notifications.draftsDownloadFinished"
 #define GTDataImporterNotificationLanguageDraftsDownloadStarted      @"com.godtoolsapp.GTDataImporter.notifications.draftsDownloadStarted"
+#define GTDataImporterNotificationLanguageDraftsDownloadPercentageKey @"com.godtoolsapp.GTDataImporter.notifications.draftsDownloadProgressMade.key.percentage"
 
 #endif

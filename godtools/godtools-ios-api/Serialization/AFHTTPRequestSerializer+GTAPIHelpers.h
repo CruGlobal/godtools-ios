@@ -92,4 +92,6 @@
 										 compressed:(BOOL)compressed
 											  error:(NSError * __autoreleasing *)error;
 
+
+- (NSMutableURLRequest *)draftsRequestWithLanguage:(GTLanguage *)language package:(GTPackage *)package version:(NSNumber *)version compressed:(BOOL)compressed error:(NSError * __autoreleasing *)error;
 @end
