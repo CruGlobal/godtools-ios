@@ -17,6 +17,7 @@ NSString * const GTAPIEndpointMetaName			= @"meta";
 NSString * const GTAPIEndpointPackagesName		= @"packages";
 NSString * const GTAPIEndpointTranslationsName	= @"translations";
 NSString * const GTAPIEndpointDraftsName        = @"drafts";
+NSString * const GTAPIEndpointPagesName         = @"pages";
 
 NSString * const GTAPIEndpointAuthParameterDeviceIDName				= @"device-id";
 
@@ -137,6 +138,23 @@ NSString * const GTAPIEndpointPackagesParameterVersionName			= @"version";
     NSMutableURLRequest *request	= [self requestWithMethod:@"GET"
                                                  URLString:[fullURL absoluteString]
                                                 parameters:params
+                                                     error:error];
+    
+    return request;
+}
+
+- (NSMutableURLRequest *)pageRequesttWithLanguage:(GTLanguage *)language package:(GTPackage *)package pageID:(NSString *)pageID error:(NSError * __autoreleasing *)error {
+    
+    NSParameterAssert(language.code || package.code || pageID);
+    
+    NSURL *fullURL					= [[self.baseURL URLByAppendingPathComponent:GTAPIEndpointDraftsName] URLByAppendingPathComponent:language.code];
+    fullURL							= (package ? [fullURL URLByAppendingPathComponent:package.code] : fullURL);
+    fullURL                         = (pageID ? [[fullURL URLByAppendingPathComponent:GTAPIEndpointPagesName]URLByAppendingPathComponent:pageID]: fullURL);
+    
+    
+    NSMutableURLRequest *request	= [self requestWithMethod:@"GET"
+                                                 URLString:[fullURL absoluteString]
+                                                parameters:nil
                                                      error:error];
     
     return request;

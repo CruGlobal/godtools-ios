@@ -49,7 +49,7 @@
 		_apiKeyNewRelic					= ( [configDictionary valueForKey:@"newrelic_api_key"] ? [configDictionary valueForKey:@"newrelic_api_key"] : @"" );
         #warning change newrelic api key, google_analytics and errbit
         
-        NSLog (@"CONFIG++++++%@",configDictionary);
+        //NSLog (@"CONFIG++++++%@",configDictionary);
 
 		
     }

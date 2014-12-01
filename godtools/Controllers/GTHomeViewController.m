@@ -31,7 +31,7 @@
 #pragma mark - View Controller Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //NSLog(@"HOME VIEW DID LOAD");
+    
     [self.navigationController setNavigationBarHidden:YES];
     
     self.homeView = (GTHomeView*) [[[NSBundle mainBundle] loadNibNamed:@"GTHomeView" owner:nil options:nil]objectAtIndex:0];
@@ -67,6 +67,14 @@
                                              selector:@selector(showDownloadIndicator:)
                                                  name: GTDataImporterNotificationLanguageDownloadProgressMade
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(showDownloadIndicator:)
+                                                 name: GTDataImporterNotificationLanguageDraftsDownloadStarted
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(downloadFinished:)
+                                                 name: GTDataImporterNotificationLanguageDraftsDownloadFinished
+                                               object:nil];
     
     [self checkPhonesLanguage];
 }
@@ -74,11 +82,11 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES];
-    if(! [self.languageCode isEqual:[[GTDefaults sharedDefaults] currentLanguageCode]]){
+    //if(! [self.languageCode isEqual:[[GTDefaults sharedDefaults] currentLanguageCode]]){
        // NSLog(@"%@ change live articles for %@",self.languageCode,[[GTDefaults sharedDefaults] currentLanguageCode] );
         [self setData];
         [self.homeView.tableView reloadData];
-    }
+    //}
 }
 
 #pragma mark - Download packages methods
@@ -106,8 +114,20 @@
     }
 }
 
+#pragma Home View Delegates
+
 -(void)settingsButtonPressed{
     [self performSegueWithIdentifier:@"homeToSettingsViewSegue" sender:self];
+}
+
+-(void)addDraftButtonPressed{
+    //[];
+}
+
+-(void)refreshButtonPressed{
+    [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDraftsDownloadStarted object:self];
+    GTLanguage *current = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:NO]objectAtIndex:0];
+    [[GTDataImporter sharedImporter]downloadDraftsForLanguage:current];
 }
 
 #pragma mark - Table view data source
@@ -204,7 +224,26 @@
     
     GTLanguage* mainLanguage = (GTLanguage*)[languages objectAtIndex:0];
     
-    self.articles = [mainLanguage.packages allObjects];
+    self.articles = [[mainLanguage.packages allObjects]mutableCopy]
+    ;
+    
+
+    if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:NO]){
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"status == %@",@"live"];
+        
+        //NSLog(@"predicate: %@",predicate);
+        
+        NSArray *filteredArray = [self.articles filteredArrayUsingPredicate:predicate];
+        self.articles =  filteredArray.count > 0 ? [filteredArray mutableCopy] : nil;
+    }
+    //NSArray *sortedArray = [self.articles sortedArrayUsingSelector:@selector(compare:)];
+    
+    [self.articles sortUsingDescriptors:
+     [NSArray arrayWithObjects:
+      [NSSortDescriptor sortDescriptorWithKey:@"status" ascending:NO],
+      [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES], nil]];
+    
+    //self.articles = [sortedArray mutableCopy];
 }
 
 #pragma mark - Language Methods

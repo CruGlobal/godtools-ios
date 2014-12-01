@@ -37,6 +37,9 @@
                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="addDraftButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="9ks-qd-yAH"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vUk-VE-nXf">
                     <rect key="frame" x="10" y="469" width="53" height="30"/>
@@ -44,12 +47,15 @@
                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="refreshButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="Qkh-CJ-DWI"/>
+                    </connections>
                 </button>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="K6k-oN-bLy">
-                    <rect key="frame" x="10" y="121" width="580" height="186"/>
+                    <rect key="frame" x="10" y="121" width="580" height="301"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="186" id="Gx5-JF-xhZ"/>
+                        <constraint firstAttribute="height" constant="301" id="Gx5-JF-xhZ"/>
                     </constraints>
                     <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </tableView>
@@ -68,6 +74,8 @@
                 <constraint firstItem="eMI-zH-hMh" firstAttribute="trailing" secondItem="K6k-oN-bLy" secondAttribute="trailing" id="hQU-HW-c72"/>
             </constraints>
             <connections>
+                <outlet property="addDraftButton" destination="rI0-rz-YTH" id="UIj-kD-zvO"/>
+                <outlet property="refreshButton" destination="vUk-VE-nXf" id="crZ-vz-IJI"/>
                 <outlet property="settingsButton" destination="eMI-zH-hMh" id="iRJ-1O-gXY"/>
                 <outlet property="tableView" destination="K6k-oN-bLy" id="jyd-dZ-g1e"/>
             </connections>

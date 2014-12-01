@@ -44,16 +44,22 @@
     //NSLog(@"MAIN: iSFIRST LAUNCH: %@",[[GTDefaults sharedDefaults]isFirstLaunch]);
     //check if first launch
     if([[GTDefaults sharedDefaults]isFirstLaunch] == [NSNumber numberWithBool:YES]){
-        NSLog(@"FIRST LAUNCH");
+        //NSLog(@"FIRST LAUNCH");
         //prepare initial content
         [self extractBundle];
-                [self extractMetaData];
+        [self extractMetaData];
         [[GTDefaults sharedDefaults]setIsFirstLaunch:[NSNumber numberWithBool:NO]];
         //[defaults setBool:YES forKey:@"isDoneWithFirstLaunch"];
     }else{
         //NSLog(@"NOT FIRST LAUNCH");
     }
    
+
+    if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]){
+        [[GTDataImporter sharedImporter] authorizeTranslator:[[GTDefaults sharedDefaults]translatorAccessCode]];
+    }
+    
+    
     if([AFNetworkReachabilityManager sharedManager].reachable){
         NSLog(@"REACHABLE");
         [[GTDataImporter sharedImporter] updateMenuInfo];
@@ -66,7 +72,7 @@
 }
 
 -(void)updateStarted:(NSNotification *) notification{
-    NSLog(@"updating...");
+    //NSLog(@"updating...");
     self.baseView.loadingLabel.text = @"Updating Resources...";
     if(![self.baseView.activityView isAnimating]){
         [self.baseView showDownloadIndicator];

@@ -92,6 +92,8 @@
 - (void)checkForPackagesWithNewVersionsForLanguageCodes:(NSArray *)languageCodes;
 
 
+-(void)downloadPageForLanguage:(GTLanguage*)language package:(GTPackage*)package pageID:(NSString*)pageID ;
+
 
 -(void)authorizeTranslator:(NSString *)accessCode;
 

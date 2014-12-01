@@ -160,12 +160,10 @@ NSString *const GTDefaultstranslatorAccessCode              = @"translator_acces
 - (NSString *)currentLanguageCode {
 	
 	if (!_currentLanguageCode) {
-        NSLog(@"!_currentLanguageCode");
 		[self willChangeValueForKey:@"currentLanguageCode"];
 		_currentLanguageCode = [[NSUserDefaults standardUserDefaults] stringForKey:GTDefaultscurrentLanguageCodeKey];
 
 		[self didChangeValueForKey:@"currentLanguageCode"];
-        NSLog(@"currentLanguageCode: %@", _currentLanguageCode);
 	}
 	
 	return _currentLanguageCode;
@@ -231,13 +229,12 @@ NSString *const GTDefaultstranslatorAccessCode              = @"translator_acces
     
 }
 -(NSNumber*)isFirstLaunch{
-    NSLog(@"get is first launch");
+    
     if (!_isFirstLaunch) {
-        NSLog(@"!_isfirstlaunch");
+        
         [self willChangeValueForKey:@"isFirstLaunch"];
         _isFirstLaunch = [[NSUserDefaults standardUserDefaults] objectForKey:GTDefaultsisFirstLaunch];
         if(_isFirstLaunch == nil){
-            NSLog(@"first launch");
             [self setIsFirstLaunch:[NSNumber numberWithBool:YES]];
         }
         [self didChangeValueForKey:@"isFirstLaunch"];

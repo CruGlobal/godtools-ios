@@ -473,7 +473,7 @@
 				ORGANIZATIONNAME = "Michael Harrison";
 				TargetAttributes = {
 					68740D0E18D24F9A00D36C0E = {
-						DevelopmentTeam = 4PT58WHRJ5;
+						DevelopmentTeam = 5F5KU23F35;
 					};
 					68740D2F18D24F9A00D36C0E = {
 						TestTargetID = 68740D0E18D24F9A00D36C0E;
@@ -798,8 +798,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Elementz Interactive LLC (5F5KU23F35)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Elementz Interactive LLC (5F5KU23F35)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "godtools/godtools-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -822,7 +822,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "351deec4-ace9-4a89-9702-392feafe63df";
 				"USER_HEADER_SEARCH_PATHS[arch=*]" = "$(inherited)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -834,8 +834,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Elementz Interactive LLC (5F5KU23F35)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Elementz Interactive LLC (5F5KU23F35)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "godtools/godtools-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -858,7 +858,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "351deec4-ace9-4a89-9702-392feafe63df";
 				"USER_HEADER_SEARCH_PATHS[arch=*]" = "$(inherited)";
 				WRAPPER_EXTENSION = app;
 			};

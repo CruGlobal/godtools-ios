@@ -445,6 +445,9 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
             NSString *filepath = [NSString stringWithFormat:@"%@/%@",temporaryDirectory,file];
             NSString *destinationFile = [NSString stringWithFormat:@"%@/%@",destinationPath,file];
             if(![file  isEqual: @"contents.xml"] && ![fm fileExistsAtPath:destinationFile]){
+                //if([fm fileExistsAtPath:destinationFile]){
+                  //  [fm removeItemAtPath:destinationFile error:&error];
+                //}
                 BOOL success = [fm copyItemAtPath:filepath toPath:destinationFile error:&error] ;
                 if (!success || error) {
                     NSLog(@"Error: %@ file: %@",[error description],file);
@@ -462,8 +465,8 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
         
     }else{
         
-        [[NSFileManager defaultManager] removeItemAtPath:temporaryDirectory error:&error];
-        [[NSFileManager defaultManager] removeItemAtPath:[targetPath absoluteString] error:&error];
+       // [[NSFileManager defaultManager] removeItemAtPath:temporaryDirectory error:&error];
+       // [[NSFileManager defaultManager] removeItemAtPath:[targetPath absoluteString] error:&error];
     }
 
     return nil;
@@ -538,14 +541,16 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
                                                           userInfo:@{GTDataImporterNotificationLanguageDraftsDownloadPercentageKey: percentage}];
         
                             } success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSURL *targetPath) {
-                                 
+                               // NSLog(@"REQUEST: %@ headers %@",request, request.allHTTPHeaderFields);
+                               // NSLog(@"RESPONSE: %@",response);
+                                if(response.statusCode == 200){
                                  RXMLElement *contents =[weakSelf unzipResourcesAtTarget:targetPath forLanguage:language package:nil];
                                  NSError *error;
                                  if(contents!=nil){
                                      //Update storage with data from contents.
                                      //[language removePackages:language.packages];
                                      [contents iterate:@"resource" usingBlock: ^(RXMLElement *resource) {
-                                         NSLog(@"STATUS: %@",[resource attribute:@"status"]);
+                                         //NSLog(@"STATUS: %@",[resource attribute:@"status"]);
                                          NSString *existingIdentifier = [GTPackage identifierWithPackageCode:[resource attribute:@"package"] languageCode:language.code];
                                          
                                          GTPackage *package;
@@ -557,13 +562,13 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
                                              
                                             
                                          }else{
-                                             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"status == %@ AND version == %@",@"draft",[resource attribute:@"version"]];
+                                             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"status == %@",@"draft"];
                                              
-                                             NSLog(@"predicate: %@",predicate);
+                                             //NSLog(@"predicate: %@",predicate);
                                              
                                              NSArray *filteredArray = [packageArray filteredArrayUsingPredicate:predicate];
                                              package =  filteredArray.count > 0 ? filteredArray.firstObject : nil;
-                                             NSLog(@"PACKAGE");
+                                             //NSLog(@"PACKAGE");
                                              if(!package){
                                                  NSLog(@"no such package");
                                                  package = [GTPackage packageWithCode:[resource attribute:@"package"] language:language inContext:[GTStorage sharedStorage].mainObjectContext];
@@ -582,7 +587,7 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
                                          //package.latestVersion = [NSNumber numberWithInt:[[resource attribute:@"version"] integerValue] ];
                                          
                                          [language addPackagesObject:package];
-                                         NSLog(@"package: %@",package);
+                                         //NSLog(@"package: %@",package);
                                          
                                      }];
                                      
@@ -607,15 +612,52 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
                                      
                                      [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDraftsDownloadFinished object:self];
                                  }
-                                 
+                                }else{
+                                    [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDraftsDownloadFinished object:self];
+                                }
+                                
                              } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
                                  
                                  [weakSelf displayDownloadPackagesRequestError:error];
                                  [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDraftsDownloadFinished object:self];
                                  
                              }];
+}
+
+-(void)downloadPageForLanguage:(GTLanguage *)language package:(GTPackage *)package pageID:(NSString *)pageID{
+    __weak typeof(self)weakSelf = self;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationUpdatedStarted
+                                                        object:weakSelf
+                                                      userInfo:nil];
+    
+    [self.api getPageForLanguage:language package:package pageID:pageID
+                        progress:^(NSNumber *percentage) {
+        
+                            /*[[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDraftsDownloadProgressMade
+                                                                                object:weakSelf
+                                                                              userInfo:@{GTDataImporterNotificationLanguageDraftsDownloadPercentageKey: percentage}];*/
+                            
+                        } success:^(NSURLRequest *request, NSHTTPURLResponse *response, id XMLRootElement) {
+                            @try {
+                                //parse XML
+                            }
+                            @catch (NSException *exception) {
+                               /* NSString *errorMessage	= NSLocalizedString(@"GTDataImporter_updatePage_bad_xml", @"Error message when pages endpoint response is missing data.");
+                                NSError *xmlError = [NSError errorWithDomain:GTDataImporterErrorDomain
+                                                                        code:GTDataImporterErrorCodeInvalidXml
+                                                                    userInfo:@{NSLocalizedDescriptionKey: errorMessage,
+                                                                               NSLocalizedFailureReasonErrorKey: exception.description }];*/
+                                #warning Display error
+                            }
+                            
+
+                        } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id XMLRootElement) {
+                                    #warning Display error
+                        }];
     
     
+
 }
 
 
@@ -649,8 +691,12 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
 }
 
 - (void)displayDownloadPackagesRequestError:(NSError *)error {
-	
-	[self.storage.errorHandler displayError:error];
+    NSString *errorMessage	= NSLocalizedString(@"GTDataImporter_downloadPackages_error", @"Error message when downloading package.");
+    NSError *downloadError = [NSError errorWithDomain:GTDataImporterErrorDomain
+                                              code:GTDataImporterErrorCodeInvalidZip
+                                          userInfo:@{NSLocalizedDescriptionKey: errorMessage,
+                                                     NSLocalizedFailureReasonErrorKey: @"FAILURE REASON" }];
+	[self.storage.errorHandler displayError:downloadError];
 	
 }
 

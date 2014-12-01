@@ -89,11 +89,11 @@
     
     if(![chosen downloaded]){
         //if([AFNetworkReachabilityManager sharedManager].reachable){
-             NSLog(@"REACHABLE");
+             //NSLog(@"REACHABLE");
             [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadProgressMade
                                                                 object:self
                                                               userInfo:nil];
-        NSLog(@"DOWNLOAD %@",[(GTLanguage*)[self.languages objectAtIndex:indexPath.row] code]);
+        //NSLog(@"DOWNLOAD %@",[(GTLanguage*)[self.languages objectAtIndex:indexPath.row] code]);
             [[GTDataImporter sharedImporter]downloadPackagesForLanguage:[self.languages objectAtIndex:indexPath.row]];
             [self.navigationController popToViewController:[[self.navigationController viewControllers] objectAtIndex:1] animated:YES];
          //}else{

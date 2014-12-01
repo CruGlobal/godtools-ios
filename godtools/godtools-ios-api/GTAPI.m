@@ -192,6 +192,22 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
     [self getFilesForRequest:request progress:progress success:success failure:failure];
 }
 
+-(void)getPageForLanguage:(GTLanguage *)language package:(GTPackage *)package pageID:(NSString *)pageID progress:(void (^)(NSNumber *))progress success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, id XMLRootElement))success failure:(void (^)(NSURLRequest *, NSHTTPURLResponse *, NSError *, id XMLRootElement))failure{
+    NSParameterAssert(language.code);
+    
+    NSMutableURLRequest *request	= [self.requestSerializer pageRequesttWithLanguage:language
+                                                                                package:package
+                                                                                pageID:pageID
+                                                                                error:nil];
+    
+    AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request success:success failure:failure];
+    
+    [self.operationQueue addOperation:operation];
+    
+    //[self getFilesForRequest:request progress:progress success:success failure:failure];
+    
+}
+
 - (void)getFilesForRequest:(NSMutableURLRequest *)request progress:(void (^)(NSNumber *))progress success:(void (^)(NSURLRequest *, NSHTTPURLResponse *, NSURL *))success failure:(void (^)(NSURLRequest *, NSHTTPURLResponse *, NSError *))failure {
 
 	/*NSURL* documentsDirectory		= [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory

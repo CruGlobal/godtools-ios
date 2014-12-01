@@ -94,4 +94,6 @@
 
 
 - (NSMutableURLRequest *)draftsRequestWithLanguage:(GTLanguage *)language package:(GTPackage *)package version:(NSNumber *)version compressed:(BOOL)compressed error:(NSError * __autoreleasing *)error;
+
+- (NSMutableURLRequest *)pageRequesttWithLanguage:(GTLanguage *)language package:(GTPackage *)package pageID:(NSString *)pageID error:(NSError * __autoreleasing *)error;
 @end
