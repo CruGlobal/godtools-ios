@@ -7,12 +7,14 @@
 //
 
 #import "GTAppDelegate.h"
+#import <TestFlightSDK/TestFlight.h>
 
 @implementation GTAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    [TestFlight takeOff:@"5e5624d0-cc54-48de-b69d-597e63ccf4ab"];
+    
     return YES;
 }
 							
