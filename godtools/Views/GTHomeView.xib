@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <deployment defaultVersion="1536" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -14,9 +14,9 @@
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eMI-zH-hMh">
                     <rect key="frame" x="506" y="468" width="84" height="32"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="32" id="CLk-1s-6Tq"/>
                         <constraint firstAttribute="width" constant="80" id="HNg-d8-Etx"/>
-                        <constraint firstAttribute="width" constant="84" id="tv3-Fh-MvU"/>
+                        <constraint firstAttribute="width" constant="84" id="O5a-Gm-FNf"/>
+                        <constraint firstAttribute="height" constant="32" id="wFg-d5-QfY"/>
                     </constraints>
                     <state key="normal" title="Settings">
                         <color key="titleColor" red="0.99933016975532596" green="1" blue="0.99359994484633574" alpha="1" colorSpace="calibratedRGB"/>
@@ -52,26 +52,29 @@
                     </connections>
                 </button>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="K6k-oN-bLy">
-                    <rect key="frame" x="10" y="121" width="580" height="301"/>
+                    <rect key="frame" x="10" y="121" width="580" height="235"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="301" id="Gx5-JF-xhZ"/>
+                        <constraint firstAttribute="height" constant="235" id="Gx5-JF-xhZ"/>
                     </constraints>
                     <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </tableView>
             </subviews>
             <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="eMI-zH-hMh" secondAttribute="bottom" constant="100" id="0pJ-Zv-uIO"/>
                 <constraint firstItem="K6k-oN-bLy" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="2kB-30-goT"/>
                 <constraint firstItem="rI0-rz-YTH" firstAttribute="leading" secondItem="vUk-VE-nXf" secondAttribute="trailing" constant="42" id="88Q-Zs-coD"/>
-                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="eMI-zH-hMh" secondAttribute="bottom" constant="100" id="AcI-Yu-Y0z"/>
                 <constraint firstItem="vUk-VE-nXf" firstAttribute="baseline" secondItem="rI0-rz-YTH" secondAttribute="baseline" id="CEY-QE-k8b"/>
                 <constraint firstItem="K6k-oN-bLy" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="121" id="FGA-US-ggk"/>
                 <constraint firstItem="vUk-VE-nXf" firstAttribute="leading" secondItem="K6k-oN-bLy" secondAttribute="leading" id="HQi-vD-zIm"/>
-                <constraint firstAttribute="bottom" secondItem="eMI-zH-hMh" secondAttribute="bottom" constant="100" id="Hkc-bz-v5N"/>
-                <constraint firstItem="eMI-zH-hMh" firstAttribute="baseline" secondItem="rI0-rz-YTH" secondAttribute="baseline" id="Uw2-PG-rql"/>
+                <constraint firstAttribute="bottom" secondItem="rI0-rz-YTH" secondAttribute="bottom" constant="101" id="KAd-hP-45N"/>
+                <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="eMI-zH-hMh" secondAttribute="bottom" constant="100" id="LuO-iC-hhk"/>
+                <constraint firstAttribute="bottom" secondItem="vUk-VE-nXf" secondAttribute="bottom" constant="101" id="aPr-zI-otu"/>
                 <constraint firstItem="K6k-oN-bLy" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="f0x-bQ-Q6q"/>
-                <constraint firstItem="eMI-zH-hMh" firstAttribute="trailing" secondItem="K6k-oN-bLy" secondAttribute="trailing" id="hQU-HW-c72"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="eMI-zH-hMh" secondAttribute="bottom" constant="100" id="icG-kr-JN3"/>
+                <constraint firstItem="eMI-zH-hMh" firstAttribute="baseline" secondItem="rI0-rz-YTH" secondAttribute="baseline" id="rn0-Mk-H0P"/>
+                <constraint firstItem="eMI-zH-hMh" firstAttribute="trailing" secondItem="K6k-oN-bLy" secondAttribute="trailing" id="zh7-4Z-pGC"/>
             </constraints>
             <connections>
                 <outlet property="addDraftButton" destination="rI0-rz-YTH" id="UIj-kD-zvO"/>
