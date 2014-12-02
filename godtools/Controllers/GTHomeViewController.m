@@ -19,7 +19,8 @@
 
 @interface GTHomeViewController ()
 
-@property (strong,nonatomic) NSString *languageCode;
+@property (strong, nonatomic) NSString *languageCode;
+@property (strong, nonatomic) NSMutableArray *packagesWithNoDrafts;
 @property (strong, nonatomic) GTViewController *godtoolsViewController;
 @property (strong, nonatomic) GTHomeView *homeView;
 @property (strong, nonatomic) GTLanguage *phonesLanguage;
@@ -72,7 +73,6 @@
     [self.phonesLanguageAlert addButtonWithTitle:@"YES"];
     
     self.draftsAlert = [[UIAlertView alloc]initWithTitle:nil message:@"Do you want to publish this draft?" delegate:self cancelButtonTitle:@"No, I just need to see it." otherButtonTitles:@"Yes, it's ready!", nil];
-    
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(downloadFinished:)
@@ -143,7 +143,12 @@
 }
 
 -(void)addDraftButtonPressed{
-    //[];
+    //[self getPackagesWithNoDrafts];
+    self.createDraftsAlert = [[UIAlertView alloc]initWithTitle:nil message:@"Add draft?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+    for (GTPackage *package in [self packagesWithNoDrafts]) {
+        [self.createDraftsAlert addButtonWithTitle:package.name];
+    }
+    [self.createDraftsAlert show];
 }
 
 -(void)refreshButtonPressed{
@@ -313,6 +318,25 @@
         [[GTDefaults sharedDefaults] setIsChoosingForMainLanguage:[NSNumber numberWithBool:YES]];
         [[GTDataImporter sharedImporter]downloadPackagesForLanguage:language];
     }
+}
+
+- (NSMutableArray *)packagesWithNoDrafts{
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"status == %@",@"draft"];
+    NSArray *draftsCodes = [[self.articles filteredArrayUsingPredicate:predicate]valueForKeyPath:@"code"];
+    
+    NSLog(@"drafts: %@",draftsCodes);
+    
+    predicate = [NSPredicate predicateWithFormat:@"status == %@ AND NOT (code IN %@)",@"live",draftsCodes];
+    
+    //NSLog(@"predicate: %@",predicate);
+    
+    NSArray *filteredArray = [self.articles filteredArrayUsingPredicate:predicate];
+    NSLog(@"without drafts %@",[filteredArray valueForKeyPath:@"name"]);
+    //self.articles =  filteredArray.count > 0 ? [filteredArray mutableCopy] : nil;
+    
+    return [filteredArray mutableCopy];
+
 }
 
 #pragma mark - Utility methods

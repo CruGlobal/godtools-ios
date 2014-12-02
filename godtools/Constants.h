@@ -31,4 +31,8 @@
 #define GTDataImporterNotificationLanguageDraftsDownloadStarted      @"com.godtoolsapp.GTDataImporter.notifications.draftsDownloadStarted"
 #define GTDataImporterNotificationLanguageDraftsDownloadPercentageKey @"com.godtoolsapp.GTDataImporter.notifications.draftsDownloadProgressMade.key.percentage"
 
+#define GTDataImporterNotificationCreateDraftStarted    @"com.godtoolsapp.GTDataImporter.notifications.createDraftStarted"
+#define GTDataImporterNotificationCreateDraftSuccessful @"com.godtoolsapp.GTDataImporter.notifications.createDraftSuccessful"
+#define GTDataImporterNotificationCreateDraftFail       @"com.godtoolsapp.GTDataImporter.notifications.createDraftFail"
+
 #endif

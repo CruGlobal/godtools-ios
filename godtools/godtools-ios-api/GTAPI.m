@@ -180,18 +180,6 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
 	[self getFilesForRequest:request progress:progress success:success failure:failure];
 }
 
-- (void)getDraftsResourcesForLanguage:(GTLanguage *)language progress:(void (^)(NSNumber *percentage))progress success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSURL *targetPath))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure {
-    NSParameterAssert(language.code);
-    
-    NSMutableURLRequest *request	= [self.requestSerializer draftsRequestWithLanguage:language
-                                                                                  package:nil
-                                                                                  version:nil
-                                                                               compressed:YES
-                                                                                    error:nil];
-    
-    [self getFilesForRequest:request progress:progress success:success failure:failure];
-}
-
 -(void)getPageForLanguage:(GTLanguage *)language package:(GTPackage *)package pageID:(NSString *)pageID progress:(void (^)(NSNumber *))progress success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, id XMLRootElement))success failure:(void (^)(NSURLRequest *, NSHTTPURLResponse *, NSError *, id XMLRootElement))failure{
     NSParameterAssert(language.code);
     
@@ -245,5 +233,43 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
 	[self.operationQueue addOperation:operation];
 	
 }
+
+#pragma mark - Drafts
+- (void)getDraftsResourcesForLanguage:(GTLanguage *)language progress:(void (^)(NSNumber *percentage))progress success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSURL *targetPath))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure {
+    NSParameterAssert(language.code);
+    
+    NSMutableURLRequest *request	= [self.requestSerializer draftsRequestWithLanguage:language
+                                                                             package:nil
+                                                                             version:nil
+                                                                          compressed:YES
+                                                                               error:nil];
+    
+    [self getFilesForRequest:request progress:progress success:success failure:failure];
+}
+
+-(void)createDraftsForLanguage:(GTLanguage *)language package:(GTPackage *)package success:(void (^)(NSURLRequest *, NSHTTPURLResponse *))success failure:(void (^)(NSURLRequest *, NSHTTPURLResponse *, NSError *))failure{
+    
+    NSMutableURLRequest *request	= [self.requestSerializer createDraftsRequestWithLanguage:language
+                                                                                   package:package
+                                                                                     error:nil];
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]initWithRequest:request];
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        success(operation.request, operation.response);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation.request, operation.response, error);
+    }];
+    
+    [self.operationQueue addOperation:operation];
+
+}
+
+-(void)uploadTranslationForLanguage:(GTLanguage *)language package:(GTPackage *)package success:(void (^)(NSURLRequest *, NSHTTPURLResponse *))success failure:(void (^)(NSURLRequest *, NSHTTPURLResponse *, NSError *))failure{
+    
+    
+}
+
+
 
 @end

@@ -92,13 +92,17 @@
 - (void)checkForPackagesWithNewVersionsForLanguageCodes:(NSArray *)languageCodes;
 
 
--(void)downloadPageForLanguage:(GTLanguage*)language package:(GTPackage*)package pageID:(NSString*)pageID ;
+- (void)downloadPageForLanguage:(GTLanguage*)language package:(GTPackage*)package pageID:(NSString*)pageID ;
 
 
--(void)authorizeTranslator:(NSString *)accessCode;
+- (void)authorizeTranslator:(NSString *)accessCode;
 
--(void)persistMenuInfoFromXMLElement:(RXMLElement *)rootElement ;
+- (void)persistMenuInfoFromXMLElement:(RXMLElement *)rootElement;
 
 - (void)downloadDraftsForLanguage:(GTLanguage *)language;
+
+- (void)createDraftsForLanguage:(GTLanguage *)language package:(GTPackage *)package;
+
+
 
 @end

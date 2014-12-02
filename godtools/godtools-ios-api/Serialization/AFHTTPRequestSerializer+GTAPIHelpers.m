@@ -120,6 +120,8 @@ NSString * const GTAPIEndpointPackagesParameterVersionName			= @"version";
 	return request;
 }
 
+#pragma mark - Drafts Requests
+
 - (NSMutableURLRequest *)draftsRequestWithLanguage:(GTLanguage *)language package:(GTPackage *)package version:(NSNumber *)version compressed:(BOOL)compressed error:(NSError * __autoreleasing *)error {
     
     NSParameterAssert(language.code);
@@ -138,6 +140,21 @@ NSString * const GTAPIEndpointPackagesParameterVersionName			= @"version";
     NSMutableURLRequest *request	= [self requestWithMethod:@"GET"
                                                  URLString:[fullURL absoluteString]
                                                 parameters:params
+                                                     error:error];
+    
+    return request;
+}
+
+-(NSMutableURLRequest *)createDraftsRequestWithLanguage:(GTLanguage *)language package:(GTPackage *)package error:(NSError *__autoreleasing *)error{
+    NSParameterAssert(language.code || package.code);
+    
+    NSURL *fullURL					= [[self.baseURL URLByAppendingPathComponent:GTAPIEndpointTranslationsName] URLByAppendingPathComponent:language.code];
+    fullURL							= (package ? [fullURL URLByAppendingPathComponent:package.code] : fullURL);
+    
+    
+    NSMutableURLRequest *request	= [self requestWithMethod:@"POST"
+                                                 URLString:[fullURL absoluteString]
+                                                parameters:nil
                                                      error:error];
     
     return request;
