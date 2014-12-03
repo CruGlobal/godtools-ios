@@ -511,7 +511,7 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
 }
 
 
-#pragma mark - Translation downloader
+#pragma mark - Translator Mode
 -(void)authorizeTranslator:(NSString *)accessCode{
 
     [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationAuthTokenUpdateStarted object:self];
@@ -667,9 +667,19 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
     
     [self.api createDraftsForLanguage:language package:package success:^(NSURLRequest *request, NSHTTPURLResponse *response) {
         //check response
-        //if 201, created
-        //if 401, unauthorized
-        //if 404, not found
+        if(response.statusCode == 201){//, created
+            NSLog(@"created");
+            [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationCreateDraftSuccessful object:self];
+        }
+        else if(response.statusCode == 401){//, unauthorized
+            NSLog(@"Unauthorized");
+            [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationCreateDraftFail object:self];
+
+        }
+        else if(response.statusCode == 404){//, not found
+            NSLog(@"Not found");
+            [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationCreateDraftFail object:self];
+        }
     }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
         NSLog(@"creation error: %@", error);
         [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationCreateDraftFail object:self];

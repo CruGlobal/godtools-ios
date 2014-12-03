@@ -90,6 +90,19 @@
                                              selector:@selector(downloadFinished:)
                                                  name: GTDataImporterNotificationLanguageDraftsDownloadFinished
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(showDownloadIndicator:)
+                                                 name: GTDataImporterNotificationCreateDraftStarted
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(refreshButtonPressed)
+                                                 name: GTDataImporterNotificationCreateDraftSuccessful
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(downloadFinished:)
+                                                 name: GTDataImporterNotificationCreateDraftFail
+                                               object:nil];
     
     [self checkPhonesLanguage];
 }
@@ -124,12 +137,14 @@
 
 -(void)showDownloadIndicator:(NSNotification *) notification{
     //NSDictionary *userInfo = notification.userInfo;
-    
+#warning Optimize after all the features are done. Use userInfo.
     //NSLog(@" downloading %@",[userInfo objectForKey:GTDataImporterNotificationLanguageDownloadPercentageKey]);
     if([notification.name isEqualToString: GTDataImporterNotificationLanguageDownloadProgressMade]){
         self.homeView.loadingLabel.text = @"Updating Resources...";
     }else if([notification.name isEqualToString:GTDataImporterNotificationLanguageDraftsDownloadStarted]){
         self.homeView.loadingLabel.text = @"Downloading drafts";
+    }else if([notification.name isEqualToString:GTDataImporterNotificationCreateDraftStarted])    {
+        self.homeView.loadingLabel.text = @"Creating draft";
     }
     if(![self.homeView.activityView isAnimating]){
         [self.homeView showDownloadIndicator];
@@ -351,6 +366,12 @@
             [self loadRendererWithPackage:selectedPackage];
         }else if(buttonIndex == 1){
             //[]; //
+        }
+    }else if(alertView == self.createDraftsAlert){
+        if(buttonIndex > 0){
+            GTPackage *selectedPackage = [[self packagesWithNoDrafts]objectAtIndex:buttonIndex-1];
+            NSLog(@"%@ chosen",selectedPackage.name);
+            [[GTDataImporter sharedImporter]createDraftsForLanguage:selectedPackage.language package:selectedPackage];
         }
     }
 }
