@@ -1,1 +1,0 @@
-../../../SSCWhatsAppActivity/SSCWhatsAppActivity/SSCWhatsAppActivity.h
