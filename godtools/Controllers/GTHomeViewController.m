@@ -7,7 +7,6 @@
 //
 
 #import "GTHomeViewController.h"
-#import <GTViewController/GTViewController.h>
 #import "GTHomeViewCell.h"
 #import "GTHomeView.h"
 #import "GTLanguage+Helper.h"
@@ -110,11 +109,10 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES];
-    //if(! [self.languageCode isEqual:[[GTDefaults sharedDefaults] currentLanguageCode]]){
-       // NSLog(@"%@ change live articles for %@",self.languageCode,[[GTDefaults sharedDefaults] currentLanguageCode] );
-        [self setData];
-        [self.homeView.tableView reloadData];
-    //}
+    
+    [self setData];
+    [self.homeView.tableView reloadData];
+
     if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:NO]){
         self.homeView.refreshButton.hidden = YES;
         self.homeView.addDraftButton.hidden = YES;
@@ -159,7 +157,7 @@
 
 -(void)addDraftButtonPressed{
     //[self getPackagesWithNoDrafts];
-    self.createDraftsAlert = [[UIAlertView alloc]initWithTitle:nil message:@"Add draft?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+    self.createDraftsAlert = [[UIAlertView alloc]initWithTitle:nil message:@"Add draft?" delegate:self cancelButtonTitle:@"None" otherButtonTitles:nil, nil];
     for (GTPackage *package in [self packagesWithNoDrafts]) {
         [self.createDraftsAlert addButtonWithTitle:package.name];
     }
@@ -378,9 +376,9 @@
 
 #pragma mark - Renderer methods
 -(void)loadRendererWithPackage: (GTPackage *)package{
-    [self.godtoolsViewController loadResourceWithConfigFilename:package.configFile];
-    self.godtoolsViewController.parallelConfigFile = nil;
-    
+   
+    NSString *parallelConfigFile;
+    BOOL isDraft = [package.status isEqualToString:@"draft"]? YES: NO;
     //add checker if parallel language has a package
     if([[GTDefaults sharedDefaults]currentParallelLanguageCode] != nil ){
         NSArray *languages = [[GTStorage sharedStorage]fetchArrayOfModels:[GTLanguage class] usingKey:@"code" forValues:@[[[GTDefaults sharedDefaults]currentParallelLanguageCode]] inBackground:NO];
@@ -388,12 +386,15 @@
             GTLanguage *parallelLanguage = [languages objectAtIndex:0];
             for(GTPackage *parallelPackage in parallelLanguage.packages){
                 if ([parallelPackage.code isEqualToString:package.code]) {
-                    self.godtoolsViewController.parallelConfigFile = parallelPackage.configFile;
+                    parallelConfigFile = parallelPackage.configFile;
                 }
             }
         }
     }
-    
+    //[self.godtoolsViewController loadResourceWithConfigFilename:package.configFile];
+    self.godtoolsViewController.currentPackage = package;
+    [self.godtoolsViewController addNotificationObservers];
+    [self.godtoolsViewController loadResourceWithConfigFilename:package.configFile parallelConfigFileName:parallelConfigFile isDraft:isDraft];
     [self.navigationController pushViewController:self.godtoolsViewController animated:YES];
     
 }

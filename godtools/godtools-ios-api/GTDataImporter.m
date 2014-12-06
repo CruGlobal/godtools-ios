@@ -444,10 +444,11 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
         for (NSString *file in [fm contentsOfDirectoryAtPath:temporaryDirectory error:&error]) {
             NSString *filepath = [NSString stringWithFormat:@"%@/%@",temporaryDirectory,file];
             NSString *destinationFile = [NSString stringWithFormat:@"%@/%@",destinationPath,file];
-            if(![file  isEqual: @"contents.xml"] && ![fm fileExistsAtPath:destinationFile]){
-                //if([fm fileExistsAtPath:destinationFile]){
-                  //  [fm removeItemAtPath:destinationFile error:&error];
-                //}
+            if(![file  isEqual: @"contents.xml"]){ //&& ![fm fileExistsAtPath:destinationFile]){
+                if([fm fileExistsAtPath:destinationFile]){
+                    //NSLog(@"file exist: %@", destinationFile);
+                    [fm removeItemAtPath:destinationFile error:&error];
+                }
                 BOOL success = [fm copyItemAtPath:filepath toPath:destinationFile error:&error] ;
                 if (!success || error) {
                     NSLog(@"Error: %@ file: %@",[error description],file);
@@ -628,7 +629,7 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
 -(void)downloadPageForLanguage:(GTLanguage *)language package:(GTPackage *)package pageID:(NSString *)pageID{
     __weak typeof(self)weakSelf = self;
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationUpdatedStarted
+    [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationDownloadPageStarted
                                                         object:weakSelf
                                                       userInfo:nil];
     
@@ -639,9 +640,15 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
                                                                                 object:weakSelf
                                                                               userInfo:@{GTDataImporterNotificationLanguageDraftsDownloadPercentageKey: percentage}];*/
                             
-                        } success:^(NSURLRequest *request, NSHTTPURLResponse *response, id XMLRootElement) {
+                        } success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSURL *targetPath) {
+                            NSLog(@"success donwload of page");
                             @try {
-                                //parse XML
+                                //unzip
+                                [self unzipResourcesAtTarget:targetPath forLanguage:language package:package];
+                                [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationDownloadPageSuccessful
+                                                                                    object:weakSelf
+                                                                                  userInfo:nil];
+                                
                             }
                             @catch (NSException *exception) {
                                /* NSString *errorMessage	= NSLocalizedString(@"GTDataImporter_updatePage_bad_xml", @"Error message when pages endpoint response is missing data.");
@@ -650,11 +657,19 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
                                                                     userInfo:@{NSLocalizedDescriptionKey: errorMessage,
                                                                                NSLocalizedFailureReasonErrorKey: exception.description }];*/
                                 #warning Display error
+                                [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationDownloadPageFail
+                                                                                    object:weakSelf
+                                                                                  userInfo:nil];
+
                             }
                             
 
-                        } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id XMLRootElement) {
+                        } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
                                     #warning Display error
+                            NSLog(@"page download fail");
+                            [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationDownloadPageFail
+                                                                                object:weakSelf
+                                                                              userInfo:nil];
                         }];
 }
 

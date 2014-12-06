@@ -133,7 +133,7 @@
 
 -(void)createDraftsForLanguage:(GTLanguage *)language package:(GTPackage *)package success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure;
 
-- (void)getPageForLanguage:(GTLanguage *)language package:(GTPackage*)package pageID:(NSString *)pageID progress:(void (^)(NSNumber *percentage))progress success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response,id XMLRootElement))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id XMLRootElement))failure;
+- (void)getPageForLanguage:(GTLanguage *)language package:(GTPackage*)package pageID:(NSString *)pageID progress:(void (^)(NSNumber *percentage))progress success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response,NSURL *targetPath))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure;
 
 -(void)uploadTranslationForLanguage:(GTLanguage *)language package:(GTPackage *)package success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure;
 

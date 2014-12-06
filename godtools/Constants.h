@@ -35,4 +35,8 @@
 #define GTDataImporterNotificationCreateDraftSuccessful @"com.godtoolsapp.GTDataImporter.notifications.createDraftSuccessful"
 #define GTDataImporterNotificationCreateDraftFail       @"com.godtoolsapp.GTDataImporter.notifications.createDraftFail"
 
+#define GTDataImporterNotificationDownloadPageStarted   @"com.godtoolsapp.GTDataImporter.notifications.downloadPageStarted"
+#define GTDataImporterNotificationDownloadPageSuccessful @"com.godtoolsapp.GTDataImporter.notifications.downloadPageSuccessful"
+#define GTDataImporterNotificationDownloadPageFail       @"com.godtoolsapp.GTDataImporter.notifications.downloadPageFail"
+
 #endif

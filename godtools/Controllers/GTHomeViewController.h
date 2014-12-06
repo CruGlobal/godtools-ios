@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <GTViewController/GTViewController.h>
+#import "GTViewController+Helper.h"
 #import <GTViewController/GTFileLoader.h>
 #import <GTViewController/GTPageMenuViewController.h>
 #import <GTViewController/GTShareViewController.h>

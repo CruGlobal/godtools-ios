@@ -160,7 +160,7 @@ NSString * const GTAPIEndpointPackagesParameterVersionName			= @"version";
     return request;
 }
 
-- (NSMutableURLRequest *)pageRequesttWithLanguage:(GTLanguage *)language package:(GTPackage *)package pageID:(NSString *)pageID error:(NSError * __autoreleasing *)error {
+- (NSMutableURLRequest *)pageRequestWithLanguage:(GTLanguage *)language package:(GTPackage *)package pageID:(NSString *)pageID error:(NSError * __autoreleasing *)error {
     
     NSParameterAssert(language.code || package.code || pageID);
     

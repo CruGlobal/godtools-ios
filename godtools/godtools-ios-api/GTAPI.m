@@ -180,19 +180,23 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
 	[self getFilesForRequest:request progress:progress success:success failure:failure];
 }
 
--(void)getPageForLanguage:(GTLanguage *)language package:(GTPackage *)package pageID:(NSString *)pageID progress:(void (^)(NSNumber *))progress success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, id XMLRootElement))success failure:(void (^)(NSURLRequest *, NSHTTPURLResponse *, NSError *, id XMLRootElement))failure{
+-(void)getPageForLanguage:(GTLanguage *)language package:(GTPackage *)package pageID:(NSString *)pageID progress:(void (^)(NSNumber *))progress success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSURL *targetPath))success failure:(void (^)(NSURLRequest *, NSHTTPURLResponse *, NSError *))failure{
     NSParameterAssert(language.code);
     
-    NSMutableURLRequest *request	= [self.requestSerializer pageRequesttWithLanguage:language
+    /*NSMutableURLRequest *request	= [self.requestSerializer pageRequesttWithLanguage:language
                                                                                 package:package
                                                                                 pageID:pageID
-                                                                                error:nil];
+                                                                                error:nil];*/
+    NSMutableURLRequest *request	= [self.requestSerializer pageRequestWithLanguage:language
+                                                                           package:package
+                                                                            pageID:pageID
+                                                                             error:nil];
+
+    //AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request success:success failure:failure];
     
-    AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request success:success failure:failure];
+    //[self.operationQueue addOperation:operation];
     
-    [self.operationQueue addOperation:operation];
-    
-    //[self getFilesForRequest:request progress:progress success:success failure:failure];
+    [self getFilesForRequest:request progress:progress success:success failure:failure];
     
 }
 
