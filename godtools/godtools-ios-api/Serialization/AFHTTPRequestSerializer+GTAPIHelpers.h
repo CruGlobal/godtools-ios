@@ -99,4 +99,6 @@
 
 - (NSMutableURLRequest *)createDraftsRequestWithLanguage:(GTLanguage *)language package:(GTPackage *)package error:(NSError * __autoreleasing *)error;
 
+- (NSMutableURLRequest *)publishDraftRequestWithLanguage:(GTLanguage *)language package:(GTPackage *)package error:(NSError * __autoreleasing *)error;
+
 @end

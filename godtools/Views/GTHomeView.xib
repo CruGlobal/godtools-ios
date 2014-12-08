@@ -11,26 +11,9 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eMI-zH-hMh">
-                    <rect key="frame" x="506" y="468" width="84" height="32"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="80" id="HNg-d8-Etx"/>
-                        <constraint firstAttribute="width" constant="84" id="O5a-Gm-FNf"/>
-                        <constraint firstAttribute="height" constant="32" id="wFg-d5-QfY"/>
-                    </constraints>
-                    <state key="normal" title="Settings">
-                        <color key="titleColor" red="0.99933016975532596" green="1" blue="0.99359994484633574" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <variation key="default">
-                        <mask key="constraints">
-                            <exclude reference="HNg-d8-Etx"/>
-                        </mask>
-                    </variation>
-                    <connections>
-                        <action selector="settingsButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="XcJ-vI-5cw"/>
-                    </connections>
-                </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="zQA-Ub-gch">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rI0-rz-YTH">
                     <rect key="frame" x="105" y="469" width="65" height="30"/>
                     <state key="normal" title="Add draft">
@@ -59,22 +42,38 @@
                     </constraints>
                     <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eMI-zH-hMh">
+                    <rect key="frame" x="453" y="459" width="100" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="0Qi-Mu-DVw"/>
+                        <constraint firstAttribute="width" constant="80" id="HNg-d8-Etx"/>
+                        <constraint firstAttribute="height" constant="50" id="bYL-VC-y73"/>
+                    </constraints>
+                    <state key="normal" image="settings_button">
+                        <color key="titleColor" red="0.99933016975532596" green="1" blue="0.99359994484633574" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="HNg-d8-Etx"/>
+                        </mask>
+                    </variation>
+                    <connections>
+                        <action selector="settingsButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="XcJ-vI-5cw"/>
+                    </connections>
+                </button>
             </subviews>
-            <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="eMI-zH-hMh" secondAttribute="bottom" constant="100" id="0pJ-Zv-uIO"/>
                 <constraint firstItem="K6k-oN-bLy" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="2kB-30-goT"/>
+                <constraint firstItem="eMI-zH-hMh" firstAttribute="centerY" secondItem="rI0-rz-YTH" secondAttribute="centerY" id="2oq-Fl-aOg"/>
                 <constraint firstItem="rI0-rz-YTH" firstAttribute="leading" secondItem="vUk-VE-nXf" secondAttribute="trailing" constant="42" id="88Q-Zs-coD"/>
                 <constraint firstItem="vUk-VE-nXf" firstAttribute="baseline" secondItem="rI0-rz-YTH" secondAttribute="baseline" id="CEY-QE-k8b"/>
                 <constraint firstItem="K6k-oN-bLy" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="121" id="FGA-US-ggk"/>
                 <constraint firstItem="vUk-VE-nXf" firstAttribute="leading" secondItem="K6k-oN-bLy" secondAttribute="leading" id="HQi-vD-zIm"/>
                 <constraint firstAttribute="bottom" secondItem="rI0-rz-YTH" secondAttribute="bottom" constant="101" id="KAd-hP-45N"/>
-                <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="eMI-zH-hMh" secondAttribute="bottom" constant="100" id="LuO-iC-hhk"/>
+                <constraint firstAttribute="trailing" secondItem="eMI-zH-hMh" secondAttribute="trailing" constant="47" id="T75-5Q-8kx"/>
                 <constraint firstAttribute="bottom" secondItem="vUk-VE-nXf" secondAttribute="bottom" constant="101" id="aPr-zI-otu"/>
                 <constraint firstItem="K6k-oN-bLy" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="f0x-bQ-Q6q"/>
-                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="eMI-zH-hMh" secondAttribute="bottom" constant="100" id="icG-kr-JN3"/>
-                <constraint firstItem="eMI-zH-hMh" firstAttribute="baseline" secondItem="rI0-rz-YTH" secondAttribute="baseline" id="rn0-Mk-H0P"/>
-                <constraint firstItem="eMI-zH-hMh" firstAttribute="trailing" secondItem="K6k-oN-bLy" secondAttribute="trailing" id="zh7-4Z-pGC"/>
             </constraints>
             <connections>
                 <outlet property="addDraftButton" destination="rI0-rz-YTH" id="UIj-kD-zvO"/>
@@ -85,4 +84,8 @@
             <point key="canvasLocation" x="140" y="150"/>
         </view>
     </objects>
+    <resources>
+        <image name="background" width="750" height="1334"/>
+        <image name="settings_button" width="151" height="103"/>
+    </resources>
 </document>

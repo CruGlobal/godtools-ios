@@ -177,4 +177,20 @@ NSString * const GTAPIEndpointPackagesParameterVersionName			= @"version";
     return request;
 }
 
+-(NSMutableURLRequest *)publishDraftRequestWithLanguage:(GTLanguage *)language package:(GTPackage *)package error:(NSError *__autoreleasing *)error{
+    NSParameterAssert(language.code || package.code);
+    
+    NSURL *fullURL					= [[self.baseURL URLByAppendingPathComponent:GTAPIEndpointTranslationsName] URLByAppendingPathComponent:language.code];
+    fullURL							= (package ? [fullURL URLByAppendingPathComponent:package.code] : fullURL);
+    
+    
+    NSMutableURLRequest *request	= [self requestWithMethod:@"PUT"
+                                                 URLString:[fullURL absoluteString]
+                                                parameters:nil
+                                                     error:error];
+    
+    return request;
+
+}
+
 @end
