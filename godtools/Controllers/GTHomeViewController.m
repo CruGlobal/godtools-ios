@@ -52,7 +52,7 @@
     
     [self.homeView.tableView setBounces:NO];
     [self.homeView.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    [self.homeView.tableView.layer setBorderColor:[UIColor blackColor].CGColor];
+    [self.homeView.tableView.layer setBorderColor:[UIColor whiteColor].CGColor];
     [self.homeView.tableView.layer setBorderWidth:2.0f];
     [self.homeView.tableView.layer setCornerRadius:8.0f];
 
