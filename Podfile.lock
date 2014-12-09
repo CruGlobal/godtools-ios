@@ -34,7 +34,6 @@ PODS:
   - SSCWhatsAppActivity (1.2)
   - SSZipArchive (0.3.2)
   - TBXML (1.5)
-  - TestFlightSDK (3.0.2)
 
 DEPENDENCIES:
   - AFDownloadRequestOperation (~> 2.0)
@@ -44,7 +43,6 @@ DEPENDENCIES:
   - GTViewController (from `https://github.com/CruGlobal/GTViewController.git`, branch `dev4.0`)
   - NewRelicAgent (~> 3.256)
   - SSZipArchive (~> 0.3)
-  - TestFlightSDK
 
 EXTERNAL SOURCES:
   GTViewController:
@@ -62,6 +60,5 @@ SPEC CHECKSUMS:
   SSCWhatsAppActivity: 87a5ee02a689a7f635f3a9fa66402aab72cf7a00
   SSZipArchive: 11299a4e89821bd4085b12f25edaa85853e0051c
   TBXML: a279440030ba55c40e1455cafba3b0a44e1963d4
-  TestFlightSDK: 0c24c533748d0d84bfe7a3cb6036fa79124d84ee
 
 COCOAPODS: 0.34.4

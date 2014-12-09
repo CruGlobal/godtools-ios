@@ -7,14 +7,11 @@
 //
 
 #import "GTAppDelegate.h"
-#import <TestFlightSDK/TestFlight.h>
 
 @implementation GTAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    //[TestFlight takeOff:@"5e5624d0-cc54-48de-b69d-597e63ccf4ab"];
-    //[NSException raise:@"Take Off" format:@"Testflight was able to takeOff"];
     return YES;
 }
 							
