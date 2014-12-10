@@ -56,7 +56,7 @@
    
 
     if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]){
-        [[GTDataImporter sharedImporter] authorizeTranslator:[[GTDefaults sharedDefaults]translatorAccessCode]];
+        [[GTDataImporter sharedImporter] authorizeTranslator];
     }
     
     

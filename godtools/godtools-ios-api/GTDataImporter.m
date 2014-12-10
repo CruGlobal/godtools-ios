@@ -513,11 +513,11 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
 
 
 #pragma mark - Translator Mode
--(void)authorizeTranslator:(NSString *)accessCode{
+-(void)authorizeTranslator{
 
     [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationAuthTokenUpdateStarted object:self];
-    [[GTDefaults sharedDefaults]setTranslatorAccessCode:accessCode];
-
+    NSString *accessCode = [[GTDefaults sharedDefaults]translatorAccessCode];
+    NSLog(@"access code: %@",accessCode);
     [[GTAPI sharedAPI]getAuthTokenWithAccessCode:accessCode success:^(NSURLRequest *request, NSHTTPURLResponse *response,NSString *authToken) {
         
         [[GTAPI sharedAPI]setAuthToken:authToken];
@@ -526,7 +526,8 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
         [[GTDefaults sharedDefaults]setIsInTranslatorMode:[NSNumber numberWithBool:YES]];
         [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationAuthTokenUpdateSuccessful object:self];
         
-    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) { 
+        NSLog(@"failure response: %@",response.allHeaderFields);
         [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationAuthTokenUpdateFail object:self];
     }];
 }
@@ -588,7 +589,6 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
                                          //package.latestVersion = [NSNumber numberWithInt:[[resource attribute:@"version"] integerValue] ];
                                          
                                          [language addPackagesObject:package];
-                                         //NSLog(@"package: %@",package);
                                          
                                      }];    
                                      
@@ -596,25 +596,23 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
                                      if (![[GTStorage sharedStorage].mainObjectContext save:&error]) {
                                          NSLog(@"error saving");
                                      }else{
-//                                         if([[GTDefaults sharedDefaults] isChoosingForMainLanguage] == [NSNumber numberWithBool:YES]){
-//                                             
-//                                             if([[[GTDefaults sharedDefaults]currentParallelLanguageCode] isEqualToString:language.code]){
-//                                                 [[GTDefaults sharedDefaults]setCurrentParallelLanguageCode:[[GTDefaults sharedDefaults] currentLanguageCode]];
-//                                             }
-//                                             
-//                                             
-//                                             [[GTDefaults sharedDefaults]setCurrentLanguageCode:language.code];
-//                                             
-//                                         }else{
-//                                             
-//                                             [[GTDefaults sharedDefaults]setCurrentParallelLanguageCode:language.code];
-//                                         }
+
                                      }
                                      
                                      [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDraftsDownloadFinished object:self];
                                  }
                                 }else{
                                     NSLog(@"error. response is: %@",response);
+                                    if(response.statusCode == 404){
+                                        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"status == %@",@"draft"];
+                                        
+                                        [language removePackages:[language.packages filteredSetUsingPredicate:predicate]];
+                                        
+                                        NSError *error;
+                                        if (![[GTStorage sharedStorage].mainObjectContext save:&error]) {
+                                            NSLog(@"error saving");
+                                        }
+                                    }
                                     [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDraftsDownloadFinished object:self];
                                 }
                                 
@@ -698,6 +696,37 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
     }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
         NSLog(@"creation error: %@", error);
         [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationCreateDraftFail object:self];
+    }];
+    
+}
+
+- (void)publishDraftForLanguage:(GTLanguage *)language package:(GTPackage *)package{
+    __weak typeof(self)weakSelf = self;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationPublishDraftStarted
+                                                        object:weakSelf
+                                                      userInfo:nil];
+    
+    [self.api publishTranslationForLanguage:language package:package success:^(NSURLRequest *request, NSHTTPURLResponse *response) {
+        //check response
+        NSLog(@"Request: %@",request);
+        NSLog(@"Response: %@",response);
+        if(response.statusCode == 204){//, created
+            NSLog(@"published");
+            [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationPublishDraftSuccessful object:self];
+        }
+        else if(response.statusCode == 401){//, unauthorized
+            NSLog(@"Unauthorized");
+            [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationPublishDraftFail object:self];
+            
+        }
+        else if(response.statusCode == 404){//, not found
+            NSLog(@"Not found");
+            [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationPublishDraftFail object:self];
+        }
+    }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+        NSLog(@"publishing error: %@", error);
+        [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationPublishDraftFail object:self];
     }];
     
 }

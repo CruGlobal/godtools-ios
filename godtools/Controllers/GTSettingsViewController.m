@@ -208,7 +208,9 @@
     }else if(alertView == self.translatorModeAlert){
         if(buttonIndex == 1){
             if([self.translatorModeAlert  textFieldAtIndex:0].text.length > 0){
-                [[GTDataImporter sharedImporter]authorizeTranslator:[self.translatorModeAlert  textFieldAtIndex:0].text];
+                NSString *accessCode = [self.translatorModeAlert  textFieldAtIndex:0].text;
+                [[GTDefaults sharedDefaults]setTranslatorAccessCode:accessCode];
+                [[GTDataImporter sharedImporter]authorizeTranslator];
             }else{
                 [self.translatorSwitch setOn:NO animated:YES];
             }

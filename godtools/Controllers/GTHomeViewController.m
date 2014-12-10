@@ -72,7 +72,7 @@
     [self.phonesLanguageAlert addButtonWithTitle:@"YES"];
     
     self.draftsAlert = [[UIAlertView alloc]initWithTitle:nil message:@"Do you want to publish this draft?" delegate:self cancelButtonTitle:@"No, I just need to see it." otherButtonTitles:@"Yes, it's ready!", nil];
-    
+            
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(downloadFinished:)
                                                  name: GTDataImporterNotificationLanguageDownloadFinished
@@ -103,6 +103,21 @@
                                                  name: GTDataImporterNotificationCreateDraftFail
                                                object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(showDownloadIndicator:)
+                                                 name: GTDataImporterNotificationPublishDraftStarted
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(downloadFinished:)
+                                                 name: GTDataImporterNotificationPublishDraftSuccessful
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(downloadFinished:)
+                                                 name: GTDataImporterNotificationPublishDraftFail
+                                               object:nil];
+    
     [self checkPhonesLanguage];
 }
 
@@ -131,6 +146,10 @@
 
     [self setData];
     [self.homeView.tableView reloadData];
+    
+    if([notification.name isEqualToString: GTDataImporterNotificationPublishDraftSuccessful]){
+        [self refreshButtonPressed];
+    }
 }
 
 -(void)showDownloadIndicator:(NSNotification *) notification{
@@ -143,6 +162,8 @@
         self.homeView.loadingLabel.text = @"Downloading drafts";
     }else if([notification.name isEqualToString:GTDataImporterNotificationCreateDraftStarted])    {
         self.homeView.loadingLabel.text = @"Creating draft";
+    }else if([notification.name isEqualToString:GTDataImporterNotificationPublishDraftStarted]){
+        self.homeView.loadingLabel.text = @"Publishing draft";
     }
     if(![self.homeView.activityView isAnimating]){
         [self.homeView showDownloadIndicator];
@@ -156,7 +177,6 @@
 }
 
 -(void)addDraftButtonPressed{
-    //[self getPackagesWithNoDrafts];
     self.createDraftsAlert = [[UIAlertView alloc]initWithTitle:nil message:@"Add draft?" delegate:self cancelButtonTitle:@"None" otherButtonTitles:nil, nil];
     for (GTPackage *package in [self packagesWithNoDrafts]) {
         [self.createDraftsAlert addButtonWithTitle:package.name];
@@ -359,11 +379,12 @@
             [self setMainLanguageToPhonesLanguage];
         }
     }else if(alertView == self.draftsAlert){
+        GTPackage *selectedPackage = [self.articles objectAtIndex:self.homeView.tableView.indexPathForSelectedRow.row];
         if(buttonIndex == 0){
-            GTPackage *selectedPackage = [self.articles objectAtIndex:self.homeView.tableView.indexPathForSelectedRow.row];
             [self loadRendererWithPackage:selectedPackage];
         }else if(buttonIndex == 1){
-            //[]; //
+            //publish draft
+            [[GTDataImporter sharedImporter] publishDraftForLanguage:selectedPackage.language package:selectedPackage];
         }
     }else if(alertView == self.createDraftsAlert){
         if(buttonIndex > 0){

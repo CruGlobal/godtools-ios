@@ -127,9 +127,12 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
     
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]initWithRequest:request];
     
+    NSLog(@"operation request: %@",operation.request);
+    
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         success(operation.request, operation.response,[operation.response.allHeaderFields objectForKey:@"Authorization"]);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"request %@, response: %@", operation.request, operation.response);
         failure(operation.request, operation.response, error);
     }];
     
@@ -269,7 +272,7 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
 
 }
 
--(void)uploadTranslationForLanguage:(GTLanguage *)language package:(GTPackage *)package success:(void (^)(NSURLRequest *, NSHTTPURLResponse *))success failure:(void (^)(NSURLRequest *, NSHTTPURLResponse *, NSError *))failure{
+-(void)publishTranslationForLanguage:(GTLanguage *)language package:(GTPackage *)package success:(void (^)(NSURLRequest *, NSHTTPURLResponse *))success failure:(void (^)(NSURLRequest *, NSHTTPURLResponse *, NSError *))failure{
     
     NSMutableURLRequest *request = [self.requestSerializer publishDraftRequestWithLanguage:language package:package error:nil];
     
@@ -281,8 +284,7 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
         failure(operation.request, operation.response, error);
     }];
     
-    
-    
+    [self.operationQueue addOperation:operation];
 }
 
 

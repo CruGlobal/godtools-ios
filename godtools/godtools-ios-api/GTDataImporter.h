@@ -95,13 +95,15 @@
 - (void)downloadPageForLanguage:(GTLanguage*)language package:(GTPackage*)package pageID:(NSString*)pageID ;
 
 
-- (void)authorizeTranslator:(NSString *)accessCode;
+- (void)authorizeTranslator;
 
 - (void)persistMenuInfoFromXMLElement:(RXMLElement *)rootElement;
 
 - (void)downloadDraftsForLanguage:(GTLanguage *)language;
 
 - (void)createDraftsForLanguage:(GTLanguage *)language package:(GTPackage *)package;
+
+- (void)publishDraftForLanguage: (GTLanguage *)language package:(GTPackage *)package;
 
 
 

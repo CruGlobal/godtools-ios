@@ -27,6 +27,9 @@ NSString * const GTAPIEndpointPackagesParameterCompressedName		= @"compressed";
 NSString * const GTAPIEndpointPackagesParameterCompressedValueTrue	= @"true";
 NSString * const GTAPIEndpointPackagesParameterCompressedValueFalse	= @"false";
 NSString * const GTAPIEndpointPackagesParameterVersionName			= @"version";
+NSString * const GTAPIEndpointPackagesParameterPublishName          = @"publish";
+NSString * const GTAPIEndpointPackagesParameterPublishValueTrue     = @"true";
+NSString * const GTAPIEndpointPackagesParameterPublishValueFalse	= @"false";
 
 @implementation AFHTTPRequestSerializer (GTAPIHelpers)
 
@@ -183,11 +186,16 @@ NSString * const GTAPIEndpointPackagesParameterVersionName			= @"version";
     NSURL *fullURL					= [[self.baseURL URLByAppendingPathComponent:GTAPIEndpointTranslationsName] URLByAppendingPathComponent:language.code];
     fullURL							= (package ? [fullURL URLByAppendingPathComponent:package.code] : fullURL);
     
+    fullURL                         = [NSURL URLWithString:[NSString stringWithFormat:@"?%@=%@",GTAPIEndpointPackagesParameterPublishName, GTAPIEndpointPackagesParameterPublishValueTrue] relativeToURL:fullURL];
+    
+    //NSMutableDictionary	*params		= [NSMutableDictionary dictionary];
+    //params[GTAPIEndpointPackagesParameterPublishName]	= GTAPIEndpointPackagesParameterPublishValueTrue;
     
     NSMutableURLRequest *request	= [self requestWithMethod:@"PUT"
                                                  URLString:[fullURL absoluteString]
                                                 parameters:nil
                                                      error:error];
+
     
     return request;
 

@@ -75,7 +75,7 @@
  *  @param success  callback that delivers your auth token to be taken from the response headers
  *  @param failure  callback that delivers the error object describing why your request failed.
  *
- *  @example [api getAuthTokenForDeviceID:[[[UIDevice currentDevice] identifierForVendor] UUIDString]
+ *  @example [api getAuthTokenWithAccessCode:accessCode
  success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSString *authToken) {
  api.authToken = authToken;
  }
@@ -135,7 +135,7 @@
 
 - (void)getPageForLanguage:(GTLanguage *)language package:(GTPackage*)package pageID:(NSString *)pageID progress:(void (^)(NSNumber *percentage))progress success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response,NSURL *targetPath))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure;
 
--(void)uploadTranslationForLanguage:(GTLanguage *)language package:(GTPackage *)package success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure;
+-(void)publishTranslationForLanguage:(GTLanguage *)language package:(GTPackage *)package success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure;
 
 
 @end
