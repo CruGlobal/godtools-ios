@@ -13,13 +13,14 @@
 #import "GTLanguage+Helper.h"
 #import "GTPackage+Helper.h"
 #import "TBXML.h"
-#import "GTBaseView.h"
 #import "GTDefaults.h"
+#import "GTBaseView.h"
+#import "GTSplashScreenView.h"
 
 @interface GTMainViewController ()
     @property (nonatomic, strong) GTViewController *godtoolsViewController;
-    @property (nonatomic, strong) GTBaseView *baseView;
     @property (nonatomic, strong) NSArray *resources;
+    @property (nonatomic, strong) GTSplashScreenView *splashScreen;
 @end
 
 @implementation GTMainViewController
@@ -28,17 +29,22 @@
 	
     [super viewDidLoad];
 
-    self.baseView = [[GTBaseView alloc]initWithFrame:self.view.frame];
-    [self.baseView initDownloadIndicator];
-    [self.view addSubview:self.baseView];
+    [self.navigationController setNavigationBarHidden:YES];
     
+    self.splashScreen = (GTSplashScreenView*) [[[NSBundle mainBundle] loadNibNamed:@"GTSplashScreenView" owner:nil options:nil]objectAtIndex:0];
+    self.splashScreen.frame = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, self.view.frame.size.height);
+    self.view = self.splashScreen;
+
+    NSLog(@"SPLASH IS   %@", [self.splashScreen class]);
+    [self.splashScreen sayHi];
+    [self.splashScreen initDownloadIndicator];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(updateFinished:)
                                                  name: GTDataImporterNotificationUpdatedFinished
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(updateStarted:)
+                                             selector:@selector(showLoadingIndicator:)
                                                  name: GTDataImporterNotificationUpdatedStarted
                                                object:nil];
     //NSLog(@"MAIN: iSFIRST LAUNCH: %@",[[GTDefaults sharedDefaults]isFirstLaunch]);
@@ -61,36 +67,50 @@
     
     
     if([AFNetworkReachabilityManager sharedManager].reachable){
+    //if(YES){
         NSLog(@"REACHABLE");
         [[GTDataImporter sharedImporter] updateMenuInfo];
     }else{
         NSLog(@"NOT REACHABLE");
-        [self performSegueWithIdentifier:@"splashToHomeViewSegue" sender:self];
+        [self performSelector:@selector(goToHome) withObject:nil afterDelay:1.0];
     }
-    //[[GTDataImporter sharedImporter] updateMenuInfo];
-    
 }
 
--(void)updateStarted:(NSNotification *) notification{
-    //NSLog(@"updating...");
-    self.baseView.loadingLabel.text = @"Updating Resources...";
-    if(![self.baseView.activityView isAnimating]){
-        [self.baseView showDownloadIndicator];
-    }
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:GTDataImporterNotificationUpdatedFinished
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:GTDataImporterNotificationUpdatedStarted
+                                                  object:nil];
+}
+
+-(void)goToHome{
+    [self performSegueWithIdentifier:@"splashToHomeViewSegue" sender:self];
+}
+
+-(void)showLoadingIndicator:(NSNotification *) notification{
+    [self.splashScreen showDownloadIndicatorWithLabel:@"Checking for Updates"];
 }
 
 
 -(void)updateFinished:(NSNotification *) notification{
-    if([self.baseView.activityView isAnimating]){
-        [self.baseView hideDownloadIndicator];
+    NSLog(@"notification main: %@",notification.name);
+    if([self.splashScreen.activityView isAnimating]){
+        [self.splashScreen hideDownloadIndicator];
     }
    [self performSegueWithIdentifier:@"splashToHomeViewSegue" sender:self];
     
 }
 
 -(void)extractBundle{
+    //WILL ONLY BE TRIGERRED AT FRESH INSTALL
 
-   // NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    [self.splashScreen showDownloadIndicatorWithLabel:[NSString stringWithFormat:(NSLocalizedString(@"GTHome_status_updatingResources", nil)),@"English"]];
+   
     NSError *error;
     
     NSString *temporaryFolderName	= [[NSUUID UUID] UUIDString];
@@ -121,10 +141,10 @@
     RXMLElement *rootXML = [RXMLElement elementFromXMLData:[NSData dataWithContentsOfFile:[temporaryDirectory stringByAppendingPathComponent:@"contents.xml"]]];
 
     //Update database with config filenames.
-    NSArray *englishArray = [[GTStorage sharedStorage]fetchArrayOfModels:[GTLanguage class] usingKey:@"code" forValues:@[@"en"] inBackground:NO];
+    NSArray *englishArray = [[GTStorage sharedStorage]fetchArrayOfModels:[GTLanguage class] usingKey:@"code" forValues:@[@"en"] inBackground:YES];
     GTLanguage *english;
     if([englishArray count]==0){
-        english = [GTLanguage languageWithCode:@"en" inContext:[GTStorage sharedStorage].mainObjectContext];
+        english = [GTLanguage languageWithCode:@"en" inContext:[GTStorage sharedStorage].backgroundObjectContext];
         english.name = @"English";
     }else{
         english = [englishArray objectAtIndex:0];
@@ -135,13 +155,15 @@
        
         NSString *existingIdentifier = [GTPackage identifierWithPackageCode:[resource attribute:@"package"] languageCode:english.code];
         
-        NSArray *packageArray = [[GTStorage sharedStorage]fetchArrayOfModels:[GTPackage class] usingKey:@"identifier" forValues:@[existingIdentifier] inBackground:NO];
+        NSArray *packageArray = [[GTStorage sharedStorage]fetchArrayOfModels:[GTPackage class] usingKey:@"identifier" forValues:@[existingIdentifier] inBackground:YES];
         
         GTPackage *package;
         
         if([packageArray count]==0){
-            package = [GTPackage packageWithCode:[resource attribute:@"package"] language:english inContext:[GTStorage sharedStorage].mainObjectContext];
+            NSLog(@"create new package");
+            package = [GTPackage packageWithCode:[resource attribute:@"package"] language:english inContext:[GTStorage sharedStorage].backgroundObjectContext];
         }else{
+            NSLog(@"get old package");
             package = [packageArray objectAtIndex:0];
         }
         
@@ -157,7 +179,7 @@
     }];
     
     english.downloaded = [NSNumber numberWithBool: YES];
-    if (![[GTStorage sharedStorage].mainObjectContext save:&error]) {
+    if (![[GTStorage sharedStorage].backgroundObjectContext save:&error]) {
         NSLog(@"error saving");
     }
     

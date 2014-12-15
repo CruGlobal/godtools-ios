@@ -10,6 +10,7 @@
 #import "GTLanguageViewCell.h"
 #import "GTStorage.h"
 #import "GTLanguage+Helper.h"
+#import "GTPackage+Helper.h"
 #import "GTDataImporter.h"
 #import "GTDefaults.h"
 
@@ -19,9 +20,13 @@
 
 @implementation GTLanguagesViewController
 
+#pragma mark - View Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //[[GTDataImporter sharedImporter]updateMenuInfo];
+    [[GTDataImporter sharedImporter]updateMenuInfo];
+    
+    //NSLog(@"ALL PACKAGES: %@",[[GTStorage sharedStorage]fetchArrayOfModels:[GTPackage class] inBackground:NO]);
+
     
     self.languages = [[[GTStorage sharedStorage]fetchArrayOfModels:[GTLanguage class] inBackground:NO]mutableCopy];
     
@@ -30,12 +35,25 @@
     
     self.languages = [sortedArray mutableCopy];
     
+    
 
     if([[GTDefaults sharedDefaults] isChoosingForMainLanguage] == [NSNumber numberWithBool:NO]){
         GTLanguage *main = [[[GTStorage sharedStorage]fetchArrayOfModels:[GTLanguage class] usingKey:@"code" forValues:@[[[GTDefaults sharedDefaults] currentLanguageCode]] inBackground:NO] objectAtIndex:0];
         
         [self.languages removeObject:main];
     }
+    
+   // NSMutableArray *filteredArray = [[NSMutableArray alloc]init];
+    
+    NSPredicate *predicate = [[NSPredicate alloc]init];
+    
+    if([[GTDefaults sharedDefaults] isInTranslatorMode] == [NSNumber numberWithBool:NO]){
+        predicate = [NSPredicate predicateWithFormat:@"packages.@count > 0 AND ANY packages.status == %@",@"live"];
+    }else if([[GTDefaults sharedDefaults] isInTranslatorMode] == [NSNumber numberWithBool:YES]){
+        predicate = [NSPredicate predicateWithFormat:@"packages.@count > 0"];
+    }
+    
+    self.languages = [[self.languages filteredArrayUsingPredicate:predicate]mutableCopy];
     
 }
 

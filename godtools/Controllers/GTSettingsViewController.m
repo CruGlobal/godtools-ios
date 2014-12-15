@@ -22,6 +22,7 @@
 @property (strong, nonatomic) UIAlertView *translatorModeAlert;
 @property (strong, nonatomic) UIAlertView *exitTranslatorModeAlert;
 @property (strong, nonatomic) UIAlertView *buttonLessAlert;
+@property (strong, nonatomic) NSMutableArray *settingsOptions;
 
 @end
 
@@ -29,21 +30,50 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     [self.tableView setBounces:NO];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    //self.tableView.rowHeight = UITableViewAutomaticDimension;
-    //self.tableView.estimatedRowHeight = 44.0;
+    [self.tableView reloadData];
+    
+    self.settingsOptions = [[NSMutableArray alloc]initWithArray:@[
+                                  NSLocalizedString(@"GTSettings_mainLanguage_label", nil),
+                                  @"English",
+                                  NSLocalizedString(@"GTSettings_parallelLanguage_label", nil),
+                                  NSLocalizedString(@"GTSettings_parallelLanguage_default", nil),
+                                  NSLocalizedString(@"GTSettings_languageInstructions", nil),
+                                  NSLocalizedString(@"GTSettings_previewModeInstructions", nil),
+                                  NSLocalizedString(@"GTSettings_previewMode_label", nil),
+                                  NSLocalizedString(@"GTSettings_aboutGodTools", nil),
+                              ]];
+    
+    self.translatorModeAlert    = [[UIAlertView alloc]
+                                        initWithTitle:@""
+                                        message:NSLocalizedString(@"AlertMessage_enterAccessCode", nil)
+                                        delegate:self
+                                        cancelButtonTitle:@"Cancel"
+                                        otherButtonTitles:@"Send", nil];
+    
+    self.translatorModeAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [self.translatorModeAlert textFieldAtIndex:0].delegate = self;
+    [self.translatorModeAlert textFieldAtIndex:0].keyboardType = UIKeyboardTypeDecimalPad;
+    
+    self.exitTranslatorModeAlert = [[UIAlertView alloc]
+                                        initWithTitle:NSLocalizedString(@"AlertTitle_exitPreviewMode", nil)
+                                        message:NSLocalizedString(@"AlertMessafe_exitPreviewMode", nil)
+                                        delegate:self
+                                        cancelButtonTitle:@"No"
+                                        otherButtonTitles:@"Yes",nil];
+    
+    self.buttonLessAlert        = [[UIAlertView alloc]
+                                        initWithTitle:@""
+                                        message:@""
+                                        delegate:self
+                                        cancelButtonTitle:nil
+                                        otherButtonTitles:nil, nil];
+    
     
     self.translatorSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
     [self.translatorSwitch addTarget:self action:@selector(translatorSwitchToggled) forControlEvents:UIControlEventTouchUpInside];
-    
-    self.translatorModeAlert = [[UIAlertView alloc]initWithTitle:@"" message:@"Enter Access Code" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Send", nil];
-    self.translatorModeAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
-    [self.translatorModeAlert textFieldAtIndex:0].delegate = self;
-    
-    self.exitTranslatorModeAlert = [[UIAlertView alloc]initWithTitle:@"Exit Preview Mode?" message:@"Drafts will not be displayed" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
-    
-    self.buttonLessAlert = [[UIAlertView alloc]initWithTitle:@"" message:@"" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(authorizeTranslatorAlert:)
@@ -62,11 +92,11 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO];
-
     [self.tableView reloadData];
 }
 
 -(GTLanguage *)mainLanguage{
+    
     NSString *mainLanguageCode = [[GTDefaults sharedDefaults] currentLanguageCode];
     NSArray *languages = [[GTStorage sharedStorage]fetchArrayOfModels:[GTLanguage class] usingKey:@"code" forValues:@[mainLanguageCode] inBackground:NO];
     
@@ -74,6 +104,7 @@
 }
 
 -(GTLanguage *)parallelLanguage{
+    
     NSString *code = [[GTDefaults sharedDefaults] currentParallelLanguageCode];
 
     if(code != nil){
@@ -89,16 +120,35 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Table view data source
+#pragma mark - Table view delegates
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 7;
+    return self.settingsOptions.count;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+    
+    CGFloat maxHeight = MAXFLOAT;
+    
+    CGFloat constrainHeight = maxHeight;
+    CGFloat constrainWidth  = tableView.frame.size.width;
+    
+    NSString *text       = [self.settingsOptions objectAtIndex:indexPath.row];
+    
+    CGSize constrainSize = CGSizeMake(constrainWidth, constrainHeight);
+    CGSize labelSize = [text    sizeWithFont:[UIFont systemFontOfSize:15.0f]
+                                constrainedToSize:constrainSize
+                                lineBreakMode:NSLineBreakByWordWrapping];
+    CGFloat labelHeight = labelSize.height;
+    
+    return labelHeight + 25.0f;
+
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     GTSettingsViewCell *cell = (GTSettingsViewCell*)[tableView dequeueReusableCellWithIdentifier:@"GTSettingsViewCell"];
@@ -108,60 +158,44 @@
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"GTSettingsViewCell" owner:self options:nil];
         cell = [nib objectAtIndex:0];
     }
-    
+    cell.label.text = [self.settingsOptions objectAtIndex:indexPath.row];
+
     switch (indexPath.row) {
-        case 0:
-            cell.label.text = @"Main language";
-            break;
         case 1:
             cell.label.text = self.mainLanguage.name;
-            [cell addSeparator];
+            [cell addSeparatorWithCellHeight:[self tableView:tableView heightForRowAtIndexPath:indexPath]];
             [cell setAsLanguageSelector];
-            break;
-        case 2:
-            cell.label.text = @"Parallel language";
             break;
         case 3:
             if(self.parallelLanguage){
                 cell.label.text = self.parallelLanguage.name;
-            }else{
-                cell.label.text = @"None";
             }
-            [cell addSeparator];
+            [cell addSeparatorWithCellHeight:[self tableView:tableView heightForRowAtIndexPath:indexPath]];
+            [cell setAsLanguageSelector];
             break;
         case 4:
-            cell.label.text = @"You can select a primary and parallel language that you can switch to at any time";
-            [cell addSeparator];
-            break;
-        case 5:
-            cell.label.text = @"If you are a GodTools translator wanting to see your latest translations, enable Preview Mode";
+            [cell addSeparatorWithCellHeight:[self tableView:tableView heightForRowAtIndexPath:indexPath]];
             break;
         case 6:
-            cell.label.text = @"Preview Mode";
             cell.accessoryView = self.translatorSwitch;
             if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]){
                 [self.translatorSwitch setOn:YES animated:NO];
             }
+            [cell addSeparatorWithCellHeight:[self tableView:tableView heightForRowAtIndexPath:indexPath]];
             break;
         default:
             break;
     }
-    //[cell setNeedsUpdateConstraints];
-    //[cell updateConstraintsIfNeeded];
+
     return cell;
 }
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    //[self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
     switch (indexPath.row) {
         case 1:
             [self performSegueWithIdentifier:@"settingsToLanguageViewSegue" sender:self];
-            break;
-        case 2:
-            //cell.label.text = @"Parallel language";
             break;
         case 3:
             [self performSegueWithIdentifier:@"settingsToLanguageViewSegue" sender:self];
@@ -171,6 +205,8 @@
     }
     
 }
+
+#pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -188,6 +224,8 @@
         
     }
 }
+
+#pragma mark - UI Utilities
 
 -(void)translatorSwitchToggled{
     if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:NO]){
@@ -221,7 +259,16 @@
     }
 }
 
+-(void)dismissAlertView:(UIAlertView *)alertView{
+    [alertView dismissWithClickedButtonIndex:0 animated:YES];
+    if(alertView == self.buttonLessAlert && [[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]){
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
 -(void)authorizeTranslatorAlert:(NSNotification *) notification{
+    
+    NSLog(@"notif %@", notification.name);
 
     if([notification.name isEqualToString:GTDataImporterNotificationAuthTokenUpdateStarted]){
         UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -230,34 +277,33 @@
         [indicator startAnimating];
         [self.buttonLessAlert addSubview:indicator];
         
-        self.buttonLessAlert.message = @"Authenticating access code";
+        self.buttonLessAlert.message = NSLocalizedString(@"AlertMessage_authenticatingAccessCode", nil);
         [self.buttonLessAlert show];
+        
     }else if([notification.name isEqualToString:GTDataImporterNotificationAuthTokenUpdateFail]){
-        self.buttonLessAlert.message = @"Invalid access code";
+        
+        self.buttonLessAlert.message = NSLocalizedString(@"AlertMesssage_invalidAccessCode", nil);
         [self.buttonLessAlert show];
-        [self performSelector:@selector(dismissAlertView:) withObject:self.buttonLessAlert afterDelay:1.0];
+        
+        [self performSelector:@selector(dismissAlertView:) withObject:self.buttonLessAlert afterDelay:2.0];
         [self.translatorSwitch setOn:NO animated:YES];
+        
         [self.translatorModeAlert textFieldAtIndex:0].text = nil;
         
     }else if([notification.name isEqualToString:GTDataImporterNotificationAuthTokenUpdateSuccessful]){
         
         if([[GTDefaults sharedDefaults]isInTranslatorMode] ==[NSNumber numberWithBool:YES]){
-            self.buttonLessAlert.message = @"Translator preview mode is enabled";
+            self.buttonLessAlert.message = NSLocalizedString(@"AlertMessage_previewModeEnabled", nil);
             [self.buttonLessAlert show];
-            [self performSelector:@selector(dismissAlertView:) withObject:self.buttonLessAlert afterDelay:1.0];
+            
+            [self performSelector:@selector(dismissAlertView:) withObject:self.buttonLessAlert afterDelay:2.0];
             [self.translatorSwitch setOn:YES animated:YES];
             
             [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDraftsDownloadStarted object:self];
+            
             GTLanguage *current = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:NO]objectAtIndex:0];
             [[GTDataImporter sharedImporter]downloadDraftsForLanguage:current];
         }
-    }
-}
-
--(void)dismissAlertView:(UIAlertView *)alertView{
-    [alertView dismissWithClickedButtonIndex:0 animated:YES];
-    if(alertView == self.buttonLessAlert && [[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]){
-        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 

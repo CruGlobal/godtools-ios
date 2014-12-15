@@ -12,6 +12,7 @@
 #import <GTViewController/GTPageMenuViewController.h>
 #import <GTViewController/GTShareViewController.h>
 #import <GTViewController/GTAboutViewController.h>
+#import "GTSplashScreenView.h"
 
 @interface GTMainViewController : UIViewController
 

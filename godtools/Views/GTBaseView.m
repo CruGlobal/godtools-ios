@@ -23,21 +23,24 @@
     self.loadingLabel = [[UILabel alloc] initWithFrame:CGRectMake(40.0f, 10.0f, 130, 22)];
     self.loadingLabel.backgroundColor = [UIColor clearColor];
     self.loadingLabel.textColor = [UIColor whiteColor];
-    self.loadingLabel.adjustsFontSizeToFitWidth = YES;
+    self.loadingLabel.font = [UIFont systemFontOfSize:12.0f];
+    //self.loadingLabel.adjustsFontSizeToFitWidth = YES;
     self.loadingLabel.text = @"Downloading Resources...";
     [self.loadingView addSubview:self.loadingLabel];
     [self addSubview:self.loadingView];
     self.loadingView.hidden = YES;
 }
 
--(void)showDownloadIndicator{
+-(void)showDownloadIndicatorWithLabel:(NSString *)label{
+    self.loadingLabel.text = label;
     self.loadingView.hidden = NO;
-    [self.activityView startAnimating];
+    if(![self.activityView isAnimating])
+        [self.activityView startAnimating];
 }
 
 -(void)hideDownloadIndicator{
     self.loadingView.hidden = YES;
-    [self.activityView stopAnimating];
+    if([self.activityView isAnimating])
+        [self.activityView stopAnimating];
 }
-
 @end

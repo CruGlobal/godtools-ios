@@ -139,10 +139,8 @@
 
 #pragma mark - Download packages methods
 -(void)downloadFinished:(NSNotification *) notification{
-
-    if([self.homeView.activityView isAnimating]){
-        [self.homeView hideDownloadIndicator];
-    }
+    NSLog(@"NOTIFICATION: %@",notification.name);
+    [self.homeView hideDownloadIndicator];
 
     [self setData];
     [self.homeView.tableView reloadData];
@@ -150,23 +148,23 @@
     if([notification.name isEqualToString: GTDataImporterNotificationPublishDraftSuccessful]){
         [self refreshButtonPressed];
     }
+    [self.homeView.tableView setUserInteractionEnabled:YES];
 }
 
 -(void)showDownloadIndicator:(NSNotification *) notification{
+    [self.homeView.tableView setUserInteractionEnabled:NO];
+    NSLog(@"NOTIFICATION: %@",notification.name);
     //NSDictionary *userInfo = notification.userInfo;
 #warning Optimize after all the features are done. Use userInfo.
     //NSLog(@" downloading %@",[userInfo objectForKey:GTDataImporterNotificationLanguageDownloadPercentageKey]);
     if([notification.name isEqualToString: GTDataImporterNotificationLanguageDownloadProgressMade]){
-        self.homeView.loadingLabel.text = @"Updating Resources...";
+        [self.homeView showDownloadIndicatorWithLabel: [NSString stringWithFormat: NSLocalizedString(@"GTHome_status_updatingResources", nil),@""]];
     }else if([notification.name isEqualToString:GTDataImporterNotificationLanguageDraftsDownloadStarted]){
-        self.homeView.loadingLabel.text = @"Downloading drafts";
-    }else if([notification.name isEqualToString:GTDataImporterNotificationCreateDraftStarted])    {
-        self.homeView.loadingLabel.text = @"Creating draft";
+        [self.homeView showDownloadIndicatorWithLabel: NSLocalizedString(@"GTHome_status_updatingDrafts", nil)];
+    }else if([notification.name isEqualToString:GTDataImporterNotificationCreateDraftStarted]){
+        [self.homeView showDownloadIndicatorWithLabel: NSLocalizedString(@"GTHome_status_creatingDrafts", nil)];
     }else if([notification.name isEqualToString:GTDataImporterNotificationPublishDraftStarted]){
-        self.homeView.loadingLabel.text = @"Publishing draft";
-    }
-    if(![self.homeView.activityView isAnimating]){
-        [self.homeView showDownloadIndicator];
+        [self.homeView showDownloadIndicatorWithLabel: NSLocalizedString(@"GTHome_status_publishingDrafts", nil)];
     }
 }
 
@@ -233,8 +231,6 @@
         cell.icon.image = [UIImage imageWithContentsOfFile: imageFilePath];
         [cell setUpBackground:(indexPath.row % 2)];
         
-        //[cell setNeedsUpdateConstraints];
-        //[cell updateConstraintsIfNeeded];
         return cell;
     }
     return nil;
@@ -256,8 +252,6 @@
         }else{
             [self.draftsAlert show];
         }
-        
-        //[self.homeView.tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
     
 }
@@ -271,53 +265,50 @@
     
     GTLanguage* mainLanguage = (GTLanguage*)[languages objectAtIndex:0];
     
-    self.articles = [[mainLanguage.packages allObjects]mutableCopy]
-    ;
-    
-
+    self.articles = [[mainLanguage.packages allObjects]mutableCopy];
+    //NSLog(@"mainlanguages packages: %@",self.articles);
+    NSPredicate *predicate;
     if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:NO]){
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"status == %@",@"live"];
-        
-        //NSLog(@"predicate: %@",predicate);
+        predicate = [NSPredicate predicateWithFormat:@"status == %@",@"live"];
         
         NSArray *filteredArray = [self.articles filteredArrayUsingPredicate:predicate];
         self.articles =  filteredArray.count > 0 ? [filteredArray mutableCopy] : nil;
     }
-    //NSArray *sortedArray = [self.articles sortedArrayUsingSelector:@selector(compare:)];
+    
+    predicate = [NSPredicate predicateWithFormat:@"configFile != nil"];
+    self.articles = [[self.articles filteredArrayUsingPredicate:predicate]mutableCopy];
     
     [self.articles sortUsingDescriptors:
      [NSArray arrayWithObjects:
       [NSSortDescriptor sortDescriptorWithKey:@"status" ascending:NO],
       [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES], nil]];
     
-    //self.articles = [sortedArray mutableCopy];
 }
 
 #pragma mark - Language Methods
 -(void)checkPhonesLanguage{
 
+    //phone's language is not the current main language of the app
     if(![[[GTDefaults sharedDefaults]phonesLanguageCode] isEqualToString:[[GTDefaults sharedDefaults] currentLanguageCode]]){
         if ([UIAlertController class]){
-            UIAlertController *languageAlert =[UIAlertController
-                                               alertControllerWithTitle:@"Language Settings"
-                                               message:[NSString stringWithFormat:@"Would you like to make %@ as the default language?",self.phonesLanguage.name ]
-                                               preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertController *languageAlert =[UIAlertController alertControllerWithTitle:      NSLocalizedString(@"AlertTitle_updateLanguageToPhonesLanguage", nil)
+                                        message:[NSString stringWithFormat: NSLocalizedString(@"AlertMessage_updateLanguageToPhonesLanguage", nil),self.phonesLanguage.name]
+                                        preferredStyle: UIAlertControllerStyleAlert];
+            
             UIAlertAction* ok = [UIAlertAction
-                                 actionWithTitle:@"YES"
-                                 style:UIAlertActionStyleDefault
-                                 handler:^(UIAlertAction * action)
-                                 {
-                                    [self setMainLanguageToPhonesLanguage];
-                                     [languageAlert dismissViewControllerAnimated:YES completion:nil];
-                                     
+                                    actionWithTitle: NSLocalizedString(@"Yes", nil)
+                                    style:UIAlertActionStyleDefault
+                                    handler:^(UIAlertAction * action){
+                                        [self setMainLanguageToPhonesLanguage];
+                                        [languageAlert dismissViewControllerAnimated:YES completion:nil];
                                  }];
+            
             UIAlertAction* cancel = [UIAlertAction
-                                     actionWithTitle:@"NO"
+                                     actionWithTitle: NSLocalizedString(@"No", nil)
                                      style:UIAlertActionStyleDefault
-                                     handler:^(UIAlertAction * action)
-                                     {
+                                     handler:^(UIAlertAction * action){
                                          [languageAlert dismissViewControllerAnimated:YES completion:nil];
-                                         
                                      }];
             
             [languageAlert addAction:ok];
@@ -329,19 +320,16 @@
             [self.phonesLanguageAlert show];
         }
     }
-    /*else if([[[GTDefaults sharedDefaults]phonesLanguageCode] isEqualToString:[[GTDefaults sharedDefaults] currentLanguageCode]]){
-        //NSLog(@"current phone's language is the current app's main language");
-    }*/
 }
 
 -(void)setMainLanguageToPhonesLanguage{
     GTLanguage *language = [[[GTStorage sharedStorage] fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] phonesLanguageCode] inBackground:NO]objectAtIndex:0];
     
     if(language.downloaded){
-        //NSLog(@"no need to download language");
-        NSString *current = [[GTDefaults sharedDefaults]currentLanguageCode];
         [[GTDefaults sharedDefaults]setCurrentLanguageCode:language.code];
-        [[GTDefaults sharedDefaults]setCurrentParallelLanguageCode:current];
+        if([[[GTDefaults sharedDefaults]currentParallelLanguageCode] isEqualToString:language.code]){
+           [[GTDefaults sharedDefaults]setCurrentParallelLanguageCode:nil];
+        }
         [self setData];
         [self.homeView.tableView reloadData];
     }else{
@@ -358,15 +346,9 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"status == %@",@"draft"];
     NSArray *draftsCodes = [[self.articles filteredArrayUsingPredicate:predicate]valueForKeyPath:@"code"];
     
-    NSLog(@"drafts: %@",draftsCodes);
-    
     predicate = [NSPredicate predicateWithFormat:@"status == %@ AND NOT (code IN %@)",@"live",draftsCodes];
     
-    //NSLog(@"predicate: %@",predicate);
-    
     NSArray *filteredArray = [self.articles filteredArrayUsingPredicate:predicate];
-    NSLog(@"without drafts %@",[filteredArray valueForKeyPath:@"name"]);
-    //self.articles =  filteredArray.count > 0 ? [filteredArray mutableCopy] : nil;
     
     return [filteredArray mutableCopy];
 
@@ -389,7 +371,7 @@
     }else if(alertView == self.createDraftsAlert){
         if(buttonIndex > 0){
             GTPackage *selectedPackage = [[self packagesWithNoDrafts]objectAtIndex:buttonIndex-1];
-            NSLog(@"%@ chosen",selectedPackage.name);
+            //NSLog(@"%@ chosen",selectedPackage.name);
             [[GTDataImporter sharedImporter]createDraftsForLanguage:selectedPackage.language package:selectedPackage];
         }
     }
@@ -400,6 +382,7 @@
    
     NSString *parallelConfigFile;
     BOOL isDraft = [package.status isEqualToString:@"draft"]? YES: NO;
+    
     //add checker if parallel language has a package
     if([[GTDefaults sharedDefaults]currentParallelLanguageCode] != nil ){
         NSArray *languages = [[GTStorage sharedStorage]fetchArrayOfModels:[GTLanguage class] usingKey:@"code" forValues:@[[[GTDefaults sharedDefaults]currentParallelLanguageCode]] inBackground:NO];
@@ -412,9 +395,10 @@
             }
         }
     }
-    //[self.godtoolsViewController loadResourceWithConfigFilename:package.configFile];
+
     self.godtoolsViewController.currentPackage = package;
     [self.godtoolsViewController addNotificationObservers];
+    
     [self.godtoolsViewController loadResourceWithConfigFilename:package.configFile parallelConfigFileName:parallelConfigFile isDraft:isDraft];
     [self.navigationController pushViewController:self.godtoolsViewController animated:YES];
     
@@ -449,7 +433,6 @@
 #pragma mark - GTAboutViewController Delegate
 
 - (UIView *)viewOfPageViewController {
-    NSLog(@"view of page view controller");
     return _godtoolsViewController.view;
 }
 - (void)didReceiveMemoryWarning {

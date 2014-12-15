@@ -15,7 +15,7 @@
 @property (nonatomic, retain) UILabel *loadingLabel;
 
 -(void)initDownloadIndicator;
--(void)showDownloadIndicator;
+-(void)showDownloadIndicatorWithLabel:(NSString *)label;
 -(void)hideDownloadIndicator;
 
 @end

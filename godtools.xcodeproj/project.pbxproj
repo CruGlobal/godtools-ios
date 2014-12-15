@@ -82,6 +82,7 @@
 		B7E472831A15A210002DF715 /* GTHomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E472821A15A210002DF715 /* GTHomeView.m */; };
 		B7E472881A19FE90002DF715 /* GTBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E472871A19FE90002DF715 /* GTBaseView.m */; };
 		B7EA1B431A38097D0098890F /* GTSplashScreenView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7EA1B421A38097D0098890F /* GTSplashScreenView.xib */; };
+		B7EA1B461A3826070098890F /* GTSplashScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = B7EA1B451A3826070098890F /* GTSplashScreenView.m */; };
 		F4C1A344ED97B5D4B250557D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74F8066D3A00B27C587FD9D9 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -185,6 +186,8 @@
 		B7E472861A19FE90002DF715 /* GTBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTBaseView.h; path = Views/GTBaseView.h; sourceTree = "<group>"; };
 		B7E472871A19FE90002DF715 /* GTBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTBaseView.m; path = Views/GTBaseView.m; sourceTree = "<group>"; };
 		B7EA1B421A38097D0098890F /* GTSplashScreenView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GTSplashScreenView.xib; path = Views/GTSplashScreenView.xib; sourceTree = "<group>"; };
+		B7EA1B441A3826070098890F /* GTSplashScreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTSplashScreenView.h; path = Views/GTSplashScreenView.h; sourceTree = "<group>"; };
+		B7EA1B451A3826070098890F /* GTSplashScreenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTSplashScreenView.m; path = Views/GTSplashScreenView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -415,6 +418,8 @@
 				B7E472861A19FE90002DF715 /* GTBaseView.h */,
 				B7E472871A19FE90002DF715 /* GTBaseView.m */,
 				B7EA1B421A38097D0098890F /* GTSplashScreenView.xib */,
+				B7EA1B441A3826070098890F /* GTSplashScreenView.h */,
+				B7EA1B451A3826070098890F /* GTSplashScreenView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -631,6 +636,7 @@
 				68464FBB18E1CE2C00D14C2B /* GTConfig.m in Sources */,
 				68464FC118E1CE4000D14C2B /* CRUStorage.m in Sources */,
 				B76536C51A0CC6CB001C3FC3 /* GTHomeViewCell.m in Sources */,
+				B7EA1B461A3826070098890F /* GTSplashScreenView.m in Sources */,
 				68740D2318D24F9A00D36C0E /* GTAppDelegate.m in Sources */,
 				68464FCD18E1CE4E00D14C2B /* GTErrorHandler.m in Sources */,
 				68464FCB18E1CE4E00D14C2B /* GTAPIErrorHandler.m in Sources */,

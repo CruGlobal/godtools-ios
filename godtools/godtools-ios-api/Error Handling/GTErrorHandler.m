@@ -24,8 +24,6 @@
 }
 
 - (void)displayError:(NSError *)error {
-	
-	NSLog(@"%@", error);
 
     UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Error"
                                                        message:error.localizedDescription

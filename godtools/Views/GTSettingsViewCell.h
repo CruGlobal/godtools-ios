@@ -10,6 +10,6 @@
 
 @interface GTSettingsViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *label;
--(void) addSeparator;
+-(void) addSeparatorWithCellHeight:(CGFloat)cellHeight;
 -(void)setAsLanguageSelector;
 @end
