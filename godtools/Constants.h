@@ -19,8 +19,8 @@
 #define GTDataImporterNotificationLanguageDownloadPercentageKey @"com.godtoolsapp.GTDataImporter.notifications.languageDownloadProgressMade.key.percentage"
 #define GTDataImporterNotificationNameUpdateNeeded              @"com.godtoolsapp.GTDataImporter.notifications.updateNeeded"
 
-#define GTDataImporterNotificationUpdatedFinished @"com.godtoolsapp.GTDataImporter.notifications.updateFinished"
-#define GTDataImporterNotificationUpdatedStarted @"com.godtoolsapp.GTDataImporter.notifications.updateStarted"
+#define GTDataImporterNotificationMenuUpdateFinished @"com.godtoolsapp.GTDataImporter.notifications.updateFinished"
+#define GTDataImporterNotificationMenuUpdateStarted @"com.godtoolsapp.GTDataImporter.notifications.updateStarted"
 
 #define GTDataImporterNotificationAuthTokenUpdateStarted @"com.godtoolsapp.GTDataImporter.notifications.authTokenUpdateStarted"
 #define GTDataImporterNotificationAuthTokenUpdateSuccessful @"com.godtoolsapp.GTDataImporter.notifications.authTokenUpdateSuccessful"

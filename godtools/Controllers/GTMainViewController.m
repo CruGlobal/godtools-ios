@@ -36,16 +36,16 @@
     self.view = self.splashScreen;
 
     NSLog(@"SPLASH IS   %@", [self.splashScreen class]);
-    [self.splashScreen sayHi];
+    
     [self.splashScreen initDownloadIndicator];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(updateFinished:)
-                                                 name: GTDataImporterNotificationUpdatedFinished
+                                                 name: GTDataImporterNotificationMenuUpdateFinished
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(showLoadingIndicator:)
-                                                 name: GTDataImporterNotificationUpdatedStarted
+                                                 name: GTDataImporterNotificationMenuUpdateStarted
                                                object:nil];
     //NSLog(@"MAIN: iSFIRST LAUNCH: %@",[[GTDefaults sharedDefaults]isFirstLaunch]);
     //check if first launch
@@ -66,8 +66,8 @@
     }
     
     
-    if([AFNetworkReachabilityManager sharedManager].reachable){
-    //if(YES){
+    //if([AFNetworkReachabilityManager sharedManager].reachable){
+    if(YES){
         NSLog(@"REACHABLE");
         [[GTDataImporter sharedImporter] updateMenuInfo];
     }else{
@@ -81,10 +81,10 @@
     [super viewDidDisappear:animated];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:GTDataImporterNotificationUpdatedFinished
+                                                    name:GTDataImporterNotificationMenuUpdateFinished
                                                   object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:GTDataImporterNotificationUpdatedStarted
+                                                    name:GTDataImporterNotificationMenuUpdateStarted
                                                   object:nil];
 }
 

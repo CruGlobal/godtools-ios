@@ -89,7 +89,7 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
 	[self willChangeValueForKey:@"authToken"];
 	_authToken	= authToken;
 	[self didChangeValueForKey:@"authToken"];
-	
+    NSLog(@"token:%@",_authToken);
 	[self.requestSerializer setValue:_authToken
 				  forHTTPHeaderField:GTAPIDefaultHeaderKeyAPIKey];
 	

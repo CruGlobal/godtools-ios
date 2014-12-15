@@ -110,7 +110,7 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
     
 	__weak typeof(self)weakSelf = self;
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationUpdatedStarted
+    [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationMenuUpdateStarted
                                                         object:weakSelf
                                                       userInfo:nil];
 
@@ -121,9 +121,10 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
 
 							   [weakSelf persistMenuInfoFromXMLElement:XMLRootElement];
                                
-                               [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationUpdatedFinished
-                                                                                   object:weakSelf
-                                                                                 userInfo:nil];
+                               [[NSNotificationCenter defaultCenter]
+                                    postNotificationName:GTDataImporterNotificationMenuUpdateFinished
+                                    object:weakSelf
+                                    userInfo:nil];
 						   
 						   } @catch (NSException *exception) {
 
@@ -134,17 +135,20 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
 																			  NSLocalizedFailureReasonErrorKey: exception.description }];
 							   [weakSelf displayMenuInfoImportError:xmlError];
 
-                               [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationUpdatedFinished
-                                                                                   object:weakSelf
-                                                                                 userInfo:nil];
+                               [[NSNotificationCenter defaultCenter]
+                                    postNotificationName:GTDataImporterNotificationMenuUpdateFinished
+                                    object:weakSelf
+                                    userInfo:nil];
 						   }
 						   
 					   } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLRootElement) {
 						   
 						   [weakSelf displayMenuInfoRequestError:error];
-                           [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationUpdatedFinished
-                                                                               object:weakSelf
-                                                                             userInfo:nil];
+                           [[NSNotificationCenter defaultCenter]
+                                postNotificationName:GTDataImporterNotificationMenuUpdateFinished
+                                object:weakSelf
+                                userInfo:nil];
+                           
 					   }];
 
 	
@@ -543,6 +547,9 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
    	NSParameterAssert(language.code);
     
     __weak typeof(self)weakSelf = self;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDraftsDownloadStarted object:self];
+    
     [self.api getDraftsResourcesForLanguage:language
                             progress:^(NSNumber *percentage) {
         

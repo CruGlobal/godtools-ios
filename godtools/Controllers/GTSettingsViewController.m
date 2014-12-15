@@ -59,7 +59,7 @@
     
     self.exitTranslatorModeAlert = [[UIAlertView alloc]
                                         initWithTitle:NSLocalizedString(@"AlertTitle_exitPreviewMode", nil)
-                                        message:NSLocalizedString(@"AlertMessafe_exitPreviewMode", nil)
+                                        message:NSLocalizedString(@"AlertMessage_exitPreviewMode", nil)
                                         delegate:self
                                         cancelButtonTitle:@"No"
                                         otherButtonTitles:@"Yes",nil];
@@ -75,6 +75,20 @@
     self.translatorSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
     [self.translatorSwitch addTarget:self action:@selector(translatorSwitchToggled) forControlEvents:UIControlEventTouchUpInside];
     
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO];
+    [self.tableView reloadData];
+}
+
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    [self removeNotificationObservers];
+}
+
+-(void)addNotificationObservers{
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(authorizeTranslatorAlert:)
                                                  name: GTDataImporterNotificationAuthTokenUpdateStarted
@@ -89,10 +103,16 @@
                                                object:nil];
 }
 
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:NO];
-    [self.tableView reloadData];
+-(void)removeNotificationObservers{
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:GTDataImporterNotificationAuthTokenUpdateStarted
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:GTDataImporterNotificationAuthTokenUpdateSuccessful
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:GTDataImporterNotificationAuthTokenUpdateFail
+                                                  object:nil];
 }
 
 -(GTLanguage *)mainLanguage{
@@ -249,6 +269,7 @@
                 NSString *accessCode = [self.translatorModeAlert  textFieldAtIndex:0].text;
                 [[GTDefaults sharedDefaults]setTranslatorAccessCode:accessCode];
                 [[GTDataImporter sharedImporter]authorizeTranslator];
+                [self addNotificationObservers];
             }else{
                 [self.translatorSwitch setOn:NO animated:YES];
             }
@@ -299,9 +320,7 @@
             [self performSelector:@selector(dismissAlertView:) withObject:self.buttonLessAlert afterDelay:2.0];
             [self.translatorSwitch setOn:YES animated:YES];
             
-            [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDraftsDownloadStarted object:self];
-            
-            GTLanguage *current = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:NO]objectAtIndex:0];
+            GTLanguage *current = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:YES]objectAtIndex:0];
             [[GTDataImporter sharedImporter]downloadDraftsForLanguage:current];
         }
     }

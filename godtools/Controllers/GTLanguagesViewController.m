@@ -23,12 +23,20 @@
 #pragma mark - View Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[GTDataImporter sharedImporter]updateMenuInfo];
     
-    //NSLog(@"ALL PACKAGES: %@",[[GTStorage sharedStorage]fetchArrayOfModels:[GTPackage class] inBackground:NO]);
+    [[GTDataImporter sharedImporter]updateMenuInfo];
+    [self setData];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(setData)
+                                                 name: GTDataImporterNotificationAuthTokenUpdateStarted
+                                               object:nil];
 
     
-    self.languages = [[[GTStorage sharedStorage]fetchArrayOfModels:[GTLanguage class] inBackground:NO]mutableCopy];
+}
+
+- (void)setData{
+    self.languages = [[[GTStorage sharedStorage]fetchArrayOfModels:[GTLanguage class] inBackground:YES]mutableCopy];
     
     NSArray *sortedArray;
     sortedArray = [self.languages sortedArrayUsingSelector:@selector(compare:)];
@@ -36,14 +44,14 @@
     self.languages = [sortedArray mutableCopy];
     
     
-
+    
     if([[GTDefaults sharedDefaults] isChoosingForMainLanguage] == [NSNumber numberWithBool:NO]){
-        GTLanguage *main = [[[GTStorage sharedStorage]fetchArrayOfModels:[GTLanguage class] usingKey:@"code" forValues:@[[[GTDefaults sharedDefaults] currentLanguageCode]] inBackground:NO] objectAtIndex:0];
+        GTLanguage *main = [[[GTStorage sharedStorage]fetchArrayOfModels:[GTLanguage class] usingKey:@"code" forValues:@[[[GTDefaults sharedDefaults] currentLanguageCode]] inBackground:YES] objectAtIndex:0];
         
         [self.languages removeObject:main];
     }
     
-   // NSMutableArray *filteredArray = [[NSMutableArray alloc]init];
+    // NSMutableArray *filteredArray = [[NSMutableArray alloc]init];
     
     NSPredicate *predicate = [[NSPredicate alloc]init];
     
@@ -55,6 +63,7 @@
     
     self.languages = [[self.languages filteredArrayUsingPredicate:predicate]mutableCopy];
     
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {

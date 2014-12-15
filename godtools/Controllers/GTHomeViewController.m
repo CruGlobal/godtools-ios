@@ -184,7 +184,7 @@
 
 -(void)refreshButtonPressed{
     [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDraftsDownloadStarted object:self];
-    GTLanguage *current = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:NO]objectAtIndex:0];
+    GTLanguage *current = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:YES]objectAtIndex:0];
     [[GTDataImporter sharedImporter]downloadDraftsForLanguage:current];
 }
 
@@ -205,10 +205,6 @@
     }
     
     return 0;
-}
-
-- (UITableViewHeaderFooterView *)headerViewForSection:(NSInteger)section{
-    return nil;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -253,7 +249,6 @@
             [self.draftsAlert show];
         }
     }
-    
 }
 
 #pragma mark - Data setter methods
@@ -261,7 +256,7 @@
 -(void)setData{
     
     self.languageCode = [[GTDefaults sharedDefaults]currentLanguageCode];
-    NSArray *languages = [[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:self.languageCode inBackground:NO];
+    NSArray *languages = [[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:self.languageCode inBackground:YES];
     
     GTLanguage* mainLanguage = (GTLanguage*)[languages objectAtIndex:0];
     
@@ -269,6 +264,7 @@
     //NSLog(@"mainlanguages packages: %@",self.articles);
     NSPredicate *predicate;
     if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:NO]){
+        NSLog(@"not in translator mode");
         predicate = [NSPredicate predicateWithFormat:@"status == %@",@"live"];
         
         NSArray *filteredArray = [self.articles filteredArrayUsingPredicate:predicate];
@@ -323,7 +319,7 @@
 }
 
 -(void)setMainLanguageToPhonesLanguage{
-    GTLanguage *language = [[[GTStorage sharedStorage] fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] phonesLanguageCode] inBackground:NO]objectAtIndex:0];
+    GTLanguage *language = [[[GTStorage sharedStorage] fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] phonesLanguageCode] inBackground:YES]objectAtIndex:0];
     
     if(language.downloaded){
         [[GTDefaults sharedDefaults]setCurrentLanguageCode:language.code];
