@@ -8,6 +8,7 @@
 
 "GTDataImporter_updateMenuInfo_bad_xml" = "Data was missing when asking the server for menu information.";
 "GTDataImporter_downloadPackages_error" = "There was an error downloading the packages";
+"GTDataImporter_downloadPage_error"     = "There was an error downloading the page";
 "GTDataImporter_unzipPackages_error"    = "There was an error extracting the files";
 
 

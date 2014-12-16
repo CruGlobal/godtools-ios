@@ -688,6 +688,19 @@ NSString * const kAttr_filename		= @"filename";
     
 }
 
+-(void)refreshView{
+    //Used this instead of 	[self loadResourceWithConfigFilename:self.configFilename]; because we have to skipToTheCurrentIndex
+    [self.fileLoader clearCache];
+    
+    self.pageArray =  [self pageArrayForConfigFile:self.configFilename];
+    
+    //restore active index
+    NSInteger currentIndex = self.activeView;
+    self.activeView = (NSInteger)fmin((double)[[[self pageArray] objectAtIndex:kPageArray_File] count] - 1, (double)currentIndex);
+    [self skipTo:self.activeView];
+    
+}
+
 -(void)refreshCurrentPage:(NSString *)currentPage{
     //should be overridden
 }
@@ -730,15 +743,7 @@ NSString * const kAttr_filename		= @"filename";
     self.configFilename = self.parallelConfigFilename;
     self.parallelConfigFilename = current;
     
-    //Used this instead of 	[self loadResourceWithConfigFilename:self.configFilename]; because we have to skipToTheCurrentIndex
-    [self.fileLoader clearCache];
-    
-    self.pageArray =  [self pageArrayForConfigFile:self.configFilename];
-    
-    //restore active index
-    NSInteger currentIndex = self.activeView;
-    self.activeView = (NSInteger)fmin((double)[[[self pageArray] objectAtIndex:kPageArray_File] count] - 1, (double)currentIndex);
-    [self skipTo:self.activeView];
+    [self refreshView];
     
 }
 

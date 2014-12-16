@@ -26,6 +26,7 @@ NSString const *refreshDraftAlertKey = @"com.godtools.gtviewcontroller.refreshDr
     NSLog(@"current package: %@",self.currentPackage);
     NSLog(@"current language: %@",self.currentPackage.language);
     [[GTDataImporter sharedImporter]downloadPageForLanguage:self.currentPackage.language package:self.currentPackage pageID:pageID];
+    [self refreshView];
 }
 
 -(void)addNotificationObservers{

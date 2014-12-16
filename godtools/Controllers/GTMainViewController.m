@@ -47,7 +47,7 @@
                                              selector:@selector(showLoadingIndicator:)
                                                  name: GTDataImporterNotificationMenuUpdateStarted
                                                object:nil];
-    //NSLog(@"MAIN: iSFIRST LAUNCH: %@",[[GTDefaults sharedDefaults]isFirstLaunch]);
+
     //check if first launch
     if([[GTDefaults sharedDefaults]isFirstLaunch] == [NSNumber numberWithBool:YES]){
         //NSLog(@"FIRST LAUNCH");
@@ -171,8 +171,8 @@
         package.configFile = [resource attribute:@"config"];
         package.icon = [resource attribute:@"icon"];
         package.status = [resource attribute:@"status"];
-        package.localVersion = [NSNumber numberWithInt:[[resource attribute:@"version"] integerValue] ];
-        package.latestVersion = [NSNumber numberWithInt:[[resource attribute:@"version"] integerValue] ];
+        package.localVersion = [NSNumber numberWithFloat:[[resource attribute:@"version"] floatValue] ];
+        package.latestVersion = [NSNumber numberWithFloat:[[resource attribute:@"version"] floatValue] ];
 
         [english addPackagesObject:package];
         
@@ -209,44 +209,17 @@
         [fm removeItemAtPath:temporaryDirectory error:&error];
     }
     
-    //NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    //[defaults setObject:english.code forKey:@"current_language_code"];
-   //NSLog(@"ENGLISH DONE");
     [[GTDefaults sharedDefaults]setCurrentLanguageCode:english.code];
     
 }
 
 -(void)extractMetaData{
-    NSError *error;
+
     NSString* pathOfMeta = [[NSBundle mainBundle] pathForResource:@"meta" ofType:@"xml"];
     RXMLElement *metaXML = [RXMLElement elementFromXMLData:[NSData dataWithContentsOfFile:pathOfMeta]];
     
     [[GTDataImporter sharedImporter]persistMenuInfoFromXMLElement:metaXML];
-    
-    /*[metaXML iterate:@"language" usingBlock: ^(RXMLElement *languageElement) {
-        
-        __block GTLanguage *language = [GTLanguage languageWithCode:[languageElement attribute:@"code"] inContext:[GTStorage sharedStorage].mainObjectContext];
-        
-        language.name = [languageElement attribute:@"name"];
-        
-        [languageElement iterate:@"packages.package" usingBlock: ^(RXMLElement *packageElement) {
-            
-            GTPackage* package	= [GTPackage packageWithCode:[packageElement attribute:@"code"] language:language inContext:[GTStorage sharedStorage].mainObjectContext];
-            package.name = [packageElement attribute:@"name"];
-            package.configFile = [packageElement attribute:@"config"];
-            package.icon = [packageElement attribute:@"icon"];
-            package.status = [packageElement attribute:@"status"];
-            package.localVersion = [NSNumber numberWithInt:[[packageElement attribute:@"version"] integerValue] ];
-            package.latestVersion = [NSNumber numberWithInt:[[packageElement attribute:@"version"] integerValue] ];
-            
-            [language addPackagesObject:package];
-        }];
-    }];
 
-    if (![[GTStorage sharedStorage].mainObjectContext save:&error]) {
-        [[GTStorage sharedStorage]errorHandler];
-        NSLog(@"error saving");
-    }*/
 }
 
 - (void)didReceiveMemoryWarning {

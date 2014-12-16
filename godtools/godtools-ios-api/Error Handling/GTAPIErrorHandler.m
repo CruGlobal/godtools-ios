@@ -14,7 +14,7 @@
 	
 #warning incomplete impelementation. Error specific handling should go here to catch general API errors like no connection.
 	NSLog(@"API Error: %@", error);
-	//[super displayError:error];
+	[super displayError:error];
 }
 
 @end

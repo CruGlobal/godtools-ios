@@ -78,6 +78,7 @@
 		B76536DA1A0CD2CF001C3FC3 /* GTLanguageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B76536D91A0CD2CF001C3FC3 /* GTLanguageViewCell.m */; };
 		B76536DC1A0CD2E1001C3FC3 /* GTLanguageViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B76536DB1A0CD2E1001C3FC3 /* GTLanguageViewCell.xib */; };
 		B7C6B6101A2EEE73000DD4C6 /* GTViewController+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C6B60F1A2EEE73000DD4C6 /* GTViewController+Helper.m */; };
+		B7D2AF7D1A40328A009B7D5B /* GTAboutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7D2AF7C1A40328A009B7D5B /* GTAboutView.xib */; };
 		B7E472801A15A1F8002DF715 /* GTHomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7E4727F1A15A1F8002DF715 /* GTHomeView.xib */; };
 		B7E472831A15A210002DF715 /* GTHomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E472821A15A210002DF715 /* GTHomeView.m */; };
 		B7E472881A19FE90002DF715 /* GTBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E472871A19FE90002DF715 /* GTBaseView.m */; };
@@ -179,6 +180,7 @@
 		B76536DB1A0CD2E1001C3FC3 /* GTLanguageViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GTLanguageViewCell.xib; path = Views/GTLanguageViewCell.xib; sourceTree = "<group>"; };
 		B7C6B60E1A2EEE73000DD4C6 /* GTViewController+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GTViewController+Helper.h"; path = "Controllers/GTViewController+Helper.h"; sourceTree = "<group>"; };
 		B7C6B60F1A2EEE73000DD4C6 /* GTViewController+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GTViewController+Helper.m"; path = "Controllers/GTViewController+Helper.m"; sourceTree = "<group>"; };
+		B7D2AF7C1A40328A009B7D5B /* GTAboutView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GTAboutView.xib; path = Views/GTAboutView.xib; sourceTree = "<group>"; };
 		B7E4727E1A1450E6002DF715 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		B7E4727F1A15A1F8002DF715 /* GTHomeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GTHomeView.xib; path = Views/GTHomeView.xib; sourceTree = "<group>"; };
 		B7E472811A15A210002DF715 /* GTHomeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTHomeView.h; path = Views/GTHomeView.h; sourceTree = "<group>"; };
@@ -420,6 +422,7 @@
 				B7EA1B421A38097D0098890F /* GTSplashScreenView.xib */,
 				B7EA1B441A3826070098890F /* GTSplashScreenView.h */,
 				B7EA1B451A3826070098890F /* GTSplashScreenView.m */,
+				B7D2AF7C1A40328A009B7D5B /* GTAboutView.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -518,6 +521,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B76536C61A0CC6CB001C3FC3 /* GTHomeViewCell.xib in Resources */,
+				B7D2AF7D1A40328A009B7D5B /* GTAboutView.xib in Resources */,
 				66D1D7021A09F40F00AC4E48 /* meta.xml in Resources */,
 				684D0A5318E38731004F51EE /* Localizable.strings in Resources */,
 				B76536DC1A0CD2E1001C3FC3 /* GTLanguageViewCell.xib in Resources */,
