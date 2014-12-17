@@ -171,10 +171,13 @@ NSString * const GTAPIEndpointPackagesParameterPublishValueFalse	= @"false";
     fullURL							= (package ? [fullURL URLByAppendingPathComponent:package.code] : fullURL);
     fullURL                         = (pageID ? [[fullURL URLByAppendingPathComponent:GTAPIEndpointPagesName]URLByAppendingPathComponent:pageID]: fullURL);
     
+    NSMutableDictionary	*params		= [NSMutableDictionary dictionary];
+    params[GTAPIEndpointPackagesParameterCompressedName]	=
+                GTAPIEndpointPackagesParameterCompressedValueTrue ;
     
     NSMutableURLRequest *request	= [self requestWithMethod:@"GET"
                                                  URLString:[fullURL absoluteString]
-                                                parameters:nil
+                                                parameters:params
                                                      error:error];
     
     return request;

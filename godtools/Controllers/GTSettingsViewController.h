@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface GTSettingsViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource,
-                        UIAlertViewDelegate, UITextFieldDelegate, UIPopoverControllerDelegate>
+                        UIAlertViewDelegate, UITextFieldDelegate>
 
 @end

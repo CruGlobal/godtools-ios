@@ -62,15 +62,16 @@
     self.languageCode = [[GTDefaults sharedDefaults]currentLanguageCode];
     [self setData];
     [self.homeView.tableView reloadData];
-    
-    self.phonesLanguage = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults]phonesLanguageCode] inBackground:NO]objectAtIndex:0];
-    self.phonesLanguageAlert = [[UIAlertView alloc] initWithTitle:@"Language Settings"
-                                                            message:[NSString stringWithFormat:@"Would you like to make %@ as the default language?",self.phonesLanguage.name]
-                                                           delegate:self
-                                                  cancelButtonTitle:@"NO"
-                                                  otherButtonTitles:nil];
-    [self.phonesLanguageAlert addButtonWithTitle:@"YES"];
-    
+    NSLog(@"phone's :%@",[[GTDefaults sharedDefaults]phonesLanguageCode]);
+    if([[GTDefaults sharedDefaults]phonesLanguageCode]){
+        self.phonesLanguage = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults]phonesLanguageCode] inBackground:YES]objectAtIndex:0];
+        self.phonesLanguageAlert = [[UIAlertView alloc] initWithTitle:@"Language Settings"
+                                                                message:[NSString stringWithFormat:@"Would you like to make %@ as the default language?",self.phonesLanguage.name]
+                                                               delegate:self
+                                                      cancelButtonTitle:@"NO"
+                                                      otherButtonTitles:nil];
+        [self.phonesLanguageAlert addButtonWithTitle:@"YES"];
+    }
     self.draftsAlert = [[UIAlertView alloc]initWithTitle:nil message:@"Do you want to publish this draft?" delegate:self cancelButtonTitle:@"No, I just need to see it." otherButtonTitles:@"Yes, it's ready!", nil];
             
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -134,6 +135,7 @@
     }else if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]){
         self.homeView.refreshButton.hidden = NO;
         self.homeView.addDraftButton.hidden = NO;
+        //[self refreshButtonPressed];
     }
 }
 
@@ -148,6 +150,7 @@
     if([notification.name isEqualToString: GTDataImporterNotificationPublishDraftSuccessful]){
         [self refreshButtonPressed];
     }
+
     [self.homeView.tableView setUserInteractionEnabled:YES];
 }
 
@@ -218,7 +221,6 @@
         }
         
         GTPackage *package = [self.articles objectAtIndex:indexPath.row];
-        
         cell.titleLabel.text = package.name;
         cell.statusLabel.text = package.status;
         
@@ -226,6 +228,10 @@
         
         cell.icon.image = [UIImage imageWithContentsOfFile: imageFilePath];
         [cell setUpBackground:(indexPath.row % 2)];
+        
+        if([self.languageCode isEqualToString:@"am-ET"]){
+            cell.titleLabel.font = [UIFont fontWithName:@"NotoSansEthiopic" size:cell.titleLabel.font.pointSize];
+        }
         
         return cell;
     }
@@ -285,7 +291,7 @@
 -(void)checkPhonesLanguage{
 
     //phone's language is not the current main language of the app
-    if(![[[GTDefaults sharedDefaults]phonesLanguageCode] isEqualToString:[[GTDefaults sharedDefaults] currentLanguageCode]]){
+    if(![[[GTDefaults sharedDefaults]phonesLanguageCode] isEqualToString:[[GTDefaults sharedDefaults] currentLanguageCode]] && [[GTDefaults sharedDefaults]phonesLanguageCode]!=nil){
         if ([UIAlertController class]){
             
             UIAlertController *languageAlert =[UIAlertController alertControllerWithTitle:      NSLocalizedString(@"AlertTitle_updateLanguageToPhonesLanguage", nil)
@@ -378,15 +384,18 @@
    
     NSString *parallelConfigFile;
     BOOL isDraft = [package.status isEqualToString:@"draft"]? YES: NO;
-    
+    NSLog(@"parallel: %@",[[GTDefaults sharedDefaults]currentParallelLanguageCode]);
     //add checker if parallel language has a package
     if([[GTDefaults sharedDefaults]currentParallelLanguageCode] != nil ){
+        NSLog(@"parallel is %@",[[GTDefaults sharedDefaults]currentParallelLanguageCode] );
         NSArray *languages = [[GTStorage sharedStorage]fetchArrayOfModels:[GTLanguage class] usingKey:@"code" forValues:@[[[GTDefaults sharedDefaults]currentParallelLanguageCode]] inBackground:NO];
         if(languages){
             GTLanguage *parallelLanguage = [languages objectAtIndex:0];
             for(GTPackage *parallelPackage in parallelLanguage.packages){
-                if ([parallelPackage.code isEqualToString:package.code]) {
-                    parallelConfigFile = parallelPackage.configFile;
+                if ([parallelPackage.code isEqualToString:package.code] && [parallelPackage.status isEqualToString:package.status]) {
+                #warning workaround to pass a parallel  config file that is not nil. this is due to packages created with no config file
+                    if(parallelPackage.configFile)
+                        parallelConfigFile = parallelPackage.configFile;
                 }
             }
         }

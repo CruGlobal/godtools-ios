@@ -26,7 +26,7 @@ NSString const *refreshDraftAlertKey = @"com.godtools.gtviewcontroller.refreshDr
     NSLog(@"current package: %@",self.currentPackage);
     NSLog(@"current language: %@",self.currentPackage.language);
     [[GTDataImporter sharedImporter]downloadPageForLanguage:self.currentPackage.language package:self.currentPackage pageID:pageID];
-    [self refreshView];
+    //[[GTDataImporter sharedImporter]downloadPageForLanguage:self.currentPackage.language package:self.currentPackage pageID:@"5f8c6251-551c-40d6-be02-ae89f7d01935"];
 }
 
 -(void)addNotificationObservers{
@@ -47,15 +47,22 @@ NSString const *refreshDraftAlertKey = @"com.godtools.gtviewcontroller.refreshDr
 -(void)showHideRefreshAlert:(NSNotification *)notification{
     NSLog(@"notif: %@",notification.name);
     if([notification.name isEqualToString:GTDataImporterNotificationDownloadPageStarted]){
-        //if(!self.refreshDraftAlert){
+        if(!self.refreshDraftAlert){
             self.refreshDraftAlert = [[UIAlertView alloc] initWithTitle:nil message:@"Refreshing draft..." delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
-        //}
-        NSLog(@"refresh alert view, show yourself!");
-        [self.refreshDraftAlert show];
+        }
+        if(!self.refreshDraftAlert.visible){
+            NSLog(@"refresh alert view, show yourself!");
+            [self.refreshDraftAlert show];
+        }
     }else if([notification.name isEqualToString:GTDataImporterNotificationDownloadPageSuccessful]){
-        [self.refreshDraftAlert dismissWithClickedButtonIndex:0 animated:YES];
+        [self refreshView];
+        //[self.refreshDraftAlert setMessage:@"Refresh successful"];
+        //[self.refreshDraftAlert dismissWithClickedButtonIndex:0 animated:YES];
+        //[self.refreshDraftAlert show];
+        [self.refreshDraftAlert dismissWithClickedButtonIndex:3 animated:YES];
     }else if([notification.name isEqualToString:GTDataImporterNotificationDownloadPageFail]){
-        [self.refreshDraftAlert dismissWithClickedButtonIndex:0 animated:YES];
+        [self.refreshDraftAlert setMessage:@"Refresh failure"];
+        [self.refreshDraftAlert dismissWithClickedButtonIndex:4 animated:YES];
     }
 }
 

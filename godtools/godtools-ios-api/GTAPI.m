@@ -250,6 +250,8 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
     
     //[self.operationQueue addOperation:operation];
     
+    NSLog(@"request: %@",request);
+    
     [self getFilesForRequest:request progress:progress success:success failure:failure];
     
 }
@@ -286,6 +288,7 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
     
     [self.operationQueue addOperation:operation];
 }
+
 
 
 

@@ -39,7 +39,6 @@
 		68740D1D18D24F9A00D36C0E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 68740D1B18D24F9A00D36C0E /* InfoPlist.strings */; };
 		68740D1F18D24F9A00D36C0E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 68740D1E18D24F9A00D36C0E /* main.m */; };
 		68740D2318D24F9A00D36C0E /* GTAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 68740D2218D24F9A00D36C0E /* GTAppDelegate.m */; };
-		68740D2618D24F9A00D36C0E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68740D2418D24F9A00D36C0E /* Main.storyboard */; };
 		68740D2B18D24F9A00D36C0E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68740D2A18D24F9A00D36C0E /* Images.xcassets */; };
 		68740D3218D24F9A00D36C0E /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68740D3118D24F9A00D36C0E /* XCTest.framework */; };
 		68740D3318D24F9A00D36C0E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68740D1218D24F9A00D36C0E /* Foundation.framework */; };
@@ -79,6 +78,9 @@
 		B76536DC1A0CD2E1001C3FC3 /* GTLanguageViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B76536DB1A0CD2E1001C3FC3 /* GTLanguageViewCell.xib */; };
 		B7C6B6101A2EEE73000DD4C6 /* GTViewController+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C6B60F1A2EEE73000DD4C6 /* GTViewController+Helper.m */; };
 		B7D2AF7D1A40328A009B7D5B /* GTAboutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7D2AF7C1A40328A009B7D5B /* GTAboutView.xib */; };
+		B7D2AF821A414D2E009B7D5B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68740D2418D24F9A00D36C0E /* Main.storyboard */; };
+		B7D2AF851A415419009B7D5B /* NotoSansEthiopic-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B7D2AF831A415419009B7D5B /* NotoSansEthiopic-Bold.ttf */; };
+		B7D2AF861A415419009B7D5B /* NotoSansEthiopic-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B7D2AF841A415419009B7D5B /* NotoSansEthiopic-Regular.ttf */; };
 		B7E472801A15A1F8002DF715 /* GTHomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7E4727F1A15A1F8002DF715 /* GTHomeView.xib */; };
 		B7E472831A15A210002DF715 /* GTHomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E472821A15A210002DF715 /* GTHomeView.m */; };
 		B7E472881A19FE90002DF715 /* GTBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E472871A19FE90002DF715 /* GTBaseView.m */; };
@@ -181,6 +183,8 @@
 		B7C6B60E1A2EEE73000DD4C6 /* GTViewController+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GTViewController+Helper.h"; path = "Controllers/GTViewController+Helper.h"; sourceTree = "<group>"; };
 		B7C6B60F1A2EEE73000DD4C6 /* GTViewController+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GTViewController+Helper.m"; path = "Controllers/GTViewController+Helper.m"; sourceTree = "<group>"; };
 		B7D2AF7C1A40328A009B7D5B /* GTAboutView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GTAboutView.xib; path = Views/GTAboutView.xib; sourceTree = "<group>"; };
+		B7D2AF831A415419009B7D5B /* NotoSansEthiopic-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansEthiopic-Bold.ttf"; sourceTree = "<group>"; };
+		B7D2AF841A415419009B7D5B /* NotoSansEthiopic-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansEthiopic-Regular.ttf"; sourceTree = "<group>"; };
 		B7E4727E1A1450E6002DF715 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		B7E4727F1A15A1F8002DF715 /* GTHomeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GTHomeView.xib; path = Views/GTHomeView.xib; sourceTree = "<group>"; };
 		B7E472811A15A210002DF715 /* GTHomeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTHomeView.h; path = Views/GTHomeView.h; sourceTree = "<group>"; };
@@ -218,12 +222,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		66D1D6551A09F40F00AC4E48 /* Packages */ = {
+		66D1D6551A09F40F00AC4E48 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B7D2AF831A415419009B7D5B /* NotoSansEthiopic-Bold.ttf */,
+				B7D2AF841A415419009B7D5B /* NotoSansEthiopic-Regular.ttf */,
 				66D1D6AB1A09F40F00AC4E48 /* en.zip */,
 				66D1D6AC1A09F40F00AC4E48 /* meta.xml */,
 			);
+			name = Resources;
 			path = Packages;
 			sourceTree = "<group>";
 		};
@@ -306,7 +313,7 @@
 				68E6065E18D3834300844377 /* godtools-ios-api */,
 				66D1D7031A0B406800AC4E48 /* Controllers */,
 				B76536BB1A0CC616001C3FC3 /* Views */,
-				66D1D6551A09F40F00AC4E48 /* Packages */,
+				66D1D6551A09F40F00AC4E48 /* Resources */,
 				68740D2118D24F9A00D36C0E /* GTAppDelegate.h */,
 				68740D2218D24F9A00D36C0E /* GTAppDelegate.m */,
 				68740D2418D24F9A00D36C0E /* Main.storyboard */,
@@ -520,7 +527,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7D2AF821A414D2E009B7D5B /* Main.storyboard in Resources */,
 				B76536C61A0CC6CB001C3FC3 /* GTHomeViewCell.xib in Resources */,
+				B7D2AF861A415419009B7D5B /* NotoSansEthiopic-Regular.ttf in Resources */,
 				B7D2AF7D1A40328A009B7D5B /* GTAboutView.xib in Resources */,
 				66D1D7021A09F40F00AC4E48 /* meta.xml in Resources */,
 				684D0A5318E38731004F51EE /* Localizable.strings in Resources */,
@@ -528,10 +537,10 @@
 				682F0E9018D8FBE100FBE3E0 /* config.plist in Resources */,
 				B76536D11A0CCBFB001C3FC3 /* GTSettingsViewCell.xib in Resources */,
 				68740D2B18D24F9A00D36C0E /* Images.xcassets in Resources */,
+				B7D2AF851A415419009B7D5B /* NotoSansEthiopic-Bold.ttf in Resources */,
 				68740D1D18D24F9A00D36C0E /* InfoPlist.strings in Resources */,
 				B7EA1B431A38097D0098890F /* GTSplashScreenView.xib in Resources */,
 				66D1D7011A09F40F00AC4E48 /* en.zip in Resources */,
-				68740D2618D24F9A00D36C0E /* Main.storyboard in Resources */,
 				B7E472801A15A1F8002DF715 /* GTHomeView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

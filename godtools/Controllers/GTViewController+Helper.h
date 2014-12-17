@@ -12,7 +12,7 @@
 @interface GTViewController (Helper)
 
 @property (strong, nonatomic) GTPackage *currentPackage;
-@property (strong, nonatomic) UIAlertView *refreshDraftAlert;
+@property (retain) UIAlertView *refreshDraftAlert;
 -(void)addNotificationObservers;
 
 @end

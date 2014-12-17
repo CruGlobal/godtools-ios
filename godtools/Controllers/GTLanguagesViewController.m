@@ -128,6 +128,7 @@
         if([[GTDefaults sharedDefaults] isChoosingForMainLanguage] == [NSNumber numberWithBool:YES]){
             [[GTDefaults sharedDefaults]setCurrentLanguageCode:chosen.code];
         }else{
+            NSLog(@"set as parallel: %@",chosen.code);
             [[GTDefaults sharedDefaults]setCurrentParallelLanguageCode:chosen.code];
         }
         [self.navigationController popViewControllerAnimated:YES];

@@ -307,6 +307,13 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
                 package						= [GTPackage packageWithCode:packageCode language:language inContext:self.storage.backgroundObjectContext];
                 packageObjects[identifier]	= package;
                 
+            }else{
+                NSLog(@"update %@ - %@",identifier, package.status);
+                if(![package.status isEqualToString:[packageElement attribute:GTDataImporterPackageMetaXmlAttributeNameStatus]]){
+                    NSLog(@"create new for %@", [packageElement attribute:GTDataImporterPackageMetaXmlAttributeNameStatus]);
+                    package						= [GTPackage packageWithCode:packageCode language:language inContext:self.storage.backgroundObjectContext];
+                    packageObjects[identifier]	= package;
+                }
             }
             
             if([packageElement attribute:GTDataImporterPackageMetaXmlAttributeNameIcon]){
@@ -365,7 +372,8 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
                                                  package = [packageArray objectAtIndex:0];
                                              }
                                              
-                                             package.name = [resource attribute:@"name"];
+                                             package.name = [NSString stringWithUTF8String:[[resource attribute:@"name"] UTF8String]];
+                                             NSLog(@"name: %@",package.name);
                                              package.configFile = [resource attribute:@"config"];
                                              package.icon = [resource attribute:@"icon"];
                                              package.status = [resource attribute:@"status"];
@@ -492,6 +500,64 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
 
 	
 }
+
+- (NSError *)unzipXMLAtTarget:(NSURL *)targetPath forPage:(NSString *)pageID {
+    
+    NSError *error;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *fileName = [NSString stringWithFormat:@"%@.xml",pageID];
+    NSString *fileDownloadDestinationPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:pageID];
+    
+    if(![SSZipArchive unzipFileAtPath:[targetPath absoluteString]
+                        toDestination:fileDownloadDestinationPath
+                            overwrite:NO
+                             password:nil
+                                error:&error
+                             delegate:nil]) {
+        
+        [self displayDownloadPackagesUnzippingError:error];
+        [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadFinished object:self];
+    }
+    
+    if(!error){
+        
+        //RXMLElement *element = [RXMLElement elementFromXMLData:[NSData dataWithContentsOfFile:[temporaryDirectory stringByAppendingPathComponent:@"contents.xml"]]];
+        
+        //move to Packages folder
+        NSString *destinationPath = [GTFileLoader pathOfPackagesDirectory];
+        NSFileManager *fm = [NSFileManager defaultManager];
+        
+        if (![fm fileExistsAtPath:destinationPath]){ //Create directory
+            if (![[NSFileManager defaultManager] createDirectoryAtPath:destinationPath withIntermediateDirectories:NO  attributes:nil error:&error]){
+                NSLog(@"Create directory error: %@", error);
+            }
+        }
+        for (NSString *file in [fm contentsOfDirectoryAtPath:fileDownloadDestinationPath error:&error]) {
+            NSString *filepath = [NSString stringWithFormat:@"%@/%@",fileDownloadDestinationPath,file];
+            NSString *destinationFile = [NSString stringWithFormat:@"%@/%@",destinationPath,file];
+            if([fm fileExistsAtPath:destinationFile]){
+                //NSLog(@"file exist: %@", destinationFile);
+                [fm removeItemAtPath:destinationFile error:&error];
+            }
+            BOOL success = [fm copyItemAtPath:filepath toPath:destinationFile error:&error] ;
+            if (!success || error) {
+                NSLog(@"Error: %@ file: %@",[error description],file);
+                return error;
+            }else{
+                [fm removeItemAtPath:fileDownloadDestinationPath error:&error];
+                return nil;
+            }
+        }
+        
+    }else{
+        return error;
+    }
+    
+    return nil;
+    
+    
+}
+
 
 #pragma mark - Package update checking and downloading
 
@@ -657,7 +723,7 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
                             NSLog(@"success donwload of page");
                             @try {
                                 //unzip
-                                [self unzipResourcesAtTarget:targetPath forLanguage:language package:package];
+                                [self unzipXMLAtTarget:targetPath forPage:pageID];
                                 [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationDownloadPageSuccessful
                                                                                     object:weakSelf
                                                                                   userInfo:nil];

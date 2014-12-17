@@ -78,12 +78,13 @@ NSString *const GTDefaultstranslatorAccessCode              = @"translator_acces
 	NSLocale		*currentLocale				= [NSLocale currentLocale];
     
     //NSLog(@"preferredLanguages %@",preferredLanguages);
-    //NSLog(@"current Locale: %@", currentLocale);
+    //NSLog(@"current Locale: %@", currentLocale.localeIdentifier);
 	
 	NSString		*phonesLanguage				= ( preferredLanguages.count > 0 ? preferredLanguages[0] : @"en" );
 	NSString		*phonesLocale				= ( [currentLocale objectForKey:NSLocaleCountryCode] ? [currentLocale objectForKey:NSLocaleCountryCode] : @"" );
     NSString		*phonesLanguageWithLocale	= [phonesLanguage stringByAppendingFormat:@"_%@", phonesLocale];
-	
+     NSLog(@"phones language %@",phonesLanguage);
+    NSLog(@"phones language with locale: %@",phonesLanguageWithLocale);
 	if ([self isValidLanguageCode:phonesLanguageWithLocale]) {
 		
 		language	= phonesLanguageWithLocale;
@@ -94,7 +95,8 @@ NSString *const GTDefaultstranslatorAccessCode              = @"translator_acces
 		
 	} else {
 		
-		language	= @"en";
+		//language	= @"en";
+        language = nil;
 		
 	}
 
