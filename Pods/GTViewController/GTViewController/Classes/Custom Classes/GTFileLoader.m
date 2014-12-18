@@ -102,8 +102,9 @@
 - (UIImage *)imageWithFilename:(NSString *)filename {
 	
 	NSString	*path	= [self pathOfFileWithFilename:filename];
+    if(!path)
+        return nil;
 	UIImage		*image	= self.imageCache[path];
-	
 	if (!image) {
 		image = [UIImage imageWithContentsOfFile:path];
 		self.imageCache[path]	= image;
