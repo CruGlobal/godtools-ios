@@ -24,15 +24,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [[GTDataImporter sharedImporter]updateMenuInfo];
     [self setData];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(setData)
                                                  name: GTDataImporterNotificationAuthTokenUpdateStarted
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(goToHome)
+                                                 name: GTDataImporterNotificationLanguageDownloadProgressMade
+                                               object:nil];
+}
 
-    
+- (void)goToHome{
+    [self.navigationController popToViewController:[[self.navigationController viewControllers] objectAtIndex:1] animated:YES];
 }
 
 - (void)setData{
@@ -120,7 +125,6 @@
                                                               userInfo:nil];
         //NSLog(@"DOWNLOAD %@",[(GTLanguage*)[self.languages objectAtIndex:indexPath.row] code]);
             [[GTDataImporter sharedImporter]downloadPackagesForLanguage:[self.languages objectAtIndex:indexPath.row]];
-            [self.navigationController popToViewController:[[self.navigationController viewControllers] objectAtIndex:1] animated:YES];
          //}else{
             //ALERT NO INTERNET
          //}*/

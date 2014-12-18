@@ -268,13 +268,15 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
 		//update language
 		NSString *languageCode		= [languageElement attribute:GTDataImporterLanguageMetaXmlAttributeNameCode];
 		GTLanguage *language		= languageObjects[languageCode];
-
+        
 		if (!language) {
 			language						= [GTLanguage languageWithCode:languageCode inContext:self.storage.backgroundObjectContext];
             language.name                   = [languageElement attribute:@"name"];
 			languageObjects[languageCode]	= language;
-		}
-        
+            //NSLog(@"Language %@ created",language.name);
+        }else{
+            //NSLog(@"got %@ with %i packages",language.name, language.packages.count);
+        }
 		[self updateOrCreatePackageObjectsForXmlElement:languageElement
 										 languageObject:language
 							   packageObjectsDictionary:packageObjects];
@@ -291,8 +293,9 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
     //NSLog(@"packageObjects: %@",packageObjects);
 
     if([[[languageElement child:@"packages"] children:@"package"]count] > 0){
+        __block NSNumber* latestVersion;
+        //NSLog(@"will check for %d packages",[[[languageElement child:@"packages"] children:@"package"]count]);
         [languageElement iterate:GTDataImporterPackageMetaXmlPathRelativeToLanguage usingBlock:^(RXMLElement *packageElement) {
-
             //update package
             NSString *packageCode	= [packageElement attribute:GTDataImporterPackageMetaXmlAttributeNameCode];
            
@@ -300,19 +303,24 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
 
             NSNumber *version		= @([[packageElement attribute:GTDataImporterPackageMetaXmlAttributeNameVersion] integerValue]);
             
-            GTPackage *package		= packageObjects[identifier];
-            //NSLog(@"package: %@",package.identifier);
+            latestVersion = latestVersion && latestVersion>version ?latestVersion:version;
             
+            GTPackage *package		= packageObjects[identifier];
+
+            //NSLog(@"\tchecking for %@...",identifier);
             if (!package) {
                 package						= [GTPackage packageWithCode:packageCode language:language inContext:self.storage.backgroundObjectContext];
                 packageObjects[identifier]	= package;
+                //NSLog(@"\t\t %@ created",package.identifier);
                 
             }else{
-                NSLog(@"update %@ - %@",identifier, package.status);
+                //NSLog(@"\t\tGot %@ - %@",identifier, package.status);
                 if(![package.status isEqualToString:[packageElement attribute:GTDataImporterPackageMetaXmlAttributeNameStatus]]){
-                    NSLog(@"create new for %@", [packageElement attribute:GTDataImporterPackageMetaXmlAttributeNameStatus]);
+                    //NSLog(@"\t\t ==create %@", [packageElement attribute:GTDataImporterPackageMetaXmlAttributeNameStatus]);
                     package						= [GTPackage packageWithCode:packageCode language:language inContext:self.storage.backgroundObjectContext];
                     packageObjects[identifier]	= package;
+                }else{
+                    //NSLog(@"\t\t ==update only");
                 }
             }
             
@@ -326,7 +334,7 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
 
             package.status			= [packageElement attribute:GTDataImporterPackageMetaXmlAttributeNameStatus];
             package.type			= [packageElement attribute:GTDataImporterPackageMetaXmlAttributeNameType];
-            package.latestVersion	= version;
+            package.latestVersion	= latestVersion;
             package.localVersion    = version;
             
             [packageObjects removeObjectForKey:identifier];

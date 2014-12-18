@@ -50,24 +50,19 @@
 
     //check if first launch
     if([[GTDefaults sharedDefaults]isFirstLaunch] == [NSNumber numberWithBool:YES]){
-        //NSLog(@"FIRST LAUNCH");
         //prepare initial content
         [self extractBundle];
         [self extractMetaData];
         [[GTDefaults sharedDefaults]setIsFirstLaunch:[NSNumber numberWithBool:NO]];
-        //[defaults setBool:YES forKey:@"isDoneWithFirstLaunch"];
-    }else{
-        //NSLog(@"NOT FIRST LAUNCH");
     }
 
     if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]){
         [[GTDataImporter sharedImporter] authorizeTranslator];
     }
     
-    
-    //if([AFNetworkReachabilityManager sharedManager].reachable){
-    if(YES){
-        NSLog(@"REACHABLE");
+    if([AFNetworkReachabilityManager sharedManager].reachable){
+    //if(YES){
+        //NSLog(@"REACHABLE with token: %@",[[GTAPI sharedAPI]authToken]);
         [[GTDataImporter sharedImporter] updateMenuInfo];
     }else{
         NSLog(@"NOT REACHABLE");
