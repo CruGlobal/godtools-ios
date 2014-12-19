@@ -80,6 +80,9 @@
 		B7D2AF821A414D2E009B7D5B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68740D2418D24F9A00D36C0E /* Main.storyboard */; };
 		B7D2AF851A415419009B7D5B /* NotoSansEthiopic-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B7D2AF831A415419009B7D5B /* NotoSansEthiopic-Bold.ttf */; };
 		B7D2AF861A415419009B7D5B /* NotoSansEthiopic-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B7D2AF841A415419009B7D5B /* NotoSansEthiopic-Regular.ttf */; };
+		B7D2AF881A43D2D4009B7D5B /* GTSettingsAboutGodToolsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7D2AF871A43D2D4009B7D5B /* GTSettingsAboutGodToolsView.xib */; };
+		B7D2AF8B1A43EEAC009B7D5B /* GTSettingsAboutGodToolsView.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D2AF8A1A43EEAC009B7D5B /* GTSettingsAboutGodToolsView.m */; };
+		B7D2AF8E1A43F131009B7D5B /* GTSettingsAboutGodToolsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D2AF8D1A43F131009B7D5B /* GTSettingsAboutGodToolsViewController.m */; };
 		B7E472801A15A1F8002DF715 /* GTHomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7E4727F1A15A1F8002DF715 /* GTHomeView.xib */; };
 		B7E472831A15A210002DF715 /* GTHomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E472821A15A210002DF715 /* GTHomeView.m */; };
 		B7E472881A19FE90002DF715 /* GTBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E472871A19FE90002DF715 /* GTBaseView.m */; };
@@ -183,6 +186,11 @@
 		B7C6B60F1A2EEE73000DD4C6 /* GTViewController+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GTViewController+Helper.m"; path = "Controllers/GTViewController+Helper.m"; sourceTree = "<group>"; };
 		B7D2AF831A415419009B7D5B /* NotoSansEthiopic-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansEthiopic-Bold.ttf"; sourceTree = "<group>"; };
 		B7D2AF841A415419009B7D5B /* NotoSansEthiopic-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansEthiopic-Regular.ttf"; sourceTree = "<group>"; };
+		B7D2AF871A43D2D4009B7D5B /* GTSettingsAboutGodToolsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GTSettingsAboutGodToolsView.xib; path = Views/GTSettingsAboutGodToolsView.xib; sourceTree = "<group>"; };
+		B7D2AF891A43EEAC009B7D5B /* GTSettingsAboutGodToolsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTSettingsAboutGodToolsView.h; path = Views/GTSettingsAboutGodToolsView.h; sourceTree = "<group>"; };
+		B7D2AF8A1A43EEAC009B7D5B /* GTSettingsAboutGodToolsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTSettingsAboutGodToolsView.m; path = Views/GTSettingsAboutGodToolsView.m; sourceTree = "<group>"; };
+		B7D2AF8C1A43F131009B7D5B /* GTSettingsAboutGodToolsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTSettingsAboutGodToolsViewController.h; path = Controllers/GTSettingsAboutGodToolsViewController.h; sourceTree = "<group>"; };
+		B7D2AF8D1A43F131009B7D5B /* GTSettingsAboutGodToolsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTSettingsAboutGodToolsViewController.m; path = Controllers/GTSettingsAboutGodToolsViewController.m; sourceTree = "<group>"; };
 		B7E4727E1A1450E6002DF715 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		B7E4727F1A15A1F8002DF715 /* GTHomeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GTHomeView.xib; path = Views/GTHomeView.xib; sourceTree = "<group>"; };
 		B7E472811A15A210002DF715 /* GTHomeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTHomeView.h; path = Views/GTHomeView.h; sourceTree = "<group>"; };
@@ -245,6 +253,8 @@
 				B76536D61A0CD1AC001C3FC3 /* GTLanguagesViewController.m */,
 				B7C6B60E1A2EEE73000DD4C6 /* GTViewController+Helper.h */,
 				B7C6B60F1A2EEE73000DD4C6 /* GTViewController+Helper.m */,
+				B7D2AF8C1A43F131009B7D5B /* GTSettingsAboutGodToolsViewController.h */,
+				B7D2AF8D1A43F131009B7D5B /* GTSettingsAboutGodToolsViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -427,6 +437,9 @@
 				B7EA1B421A38097D0098890F /* GTSplashScreenView.xib */,
 				B7EA1B441A3826070098890F /* GTSplashScreenView.h */,
 				B7EA1B451A3826070098890F /* GTSplashScreenView.m */,
+				B7D2AF871A43D2D4009B7D5B /* GTSettingsAboutGodToolsView.xib */,
+				B7D2AF891A43EEAC009B7D5B /* GTSettingsAboutGodToolsView.h */,
+				B7D2AF8A1A43EEAC009B7D5B /* GTSettingsAboutGodToolsView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -529,6 +542,7 @@
 				B7D2AF861A415419009B7D5B /* NotoSansEthiopic-Regular.ttf in Resources */,
 				66D1D7021A09F40F00AC4E48 /* meta.xml in Resources */,
 				684D0A5318E38731004F51EE /* Localizable.strings in Resources */,
+				B7D2AF881A43D2D4009B7D5B /* GTSettingsAboutGodToolsView.xib in Resources */,
 				B76536DC1A0CD2E1001C3FC3 /* GTLanguageViewCell.xib in Resources */,
 				682F0E9018D8FBE100FBE3E0 /* config.plist in Resources */,
 				B76536D11A0CCBFB001C3FC3 /* GTSettingsViewCell.xib in Resources */,
@@ -624,6 +638,7 @@
 				B7E472881A19FE90002DF715 /* GTBaseView.m in Sources */,
 				6692BB1C1A072B0C00B15355 /* GTDataImporter.m in Sources */,
 				6878F01518E4AC2D007D1B5B /* GTPackage.m in Sources */,
+				B7D2AF8B1A43EEAC009B7D5B /* GTSettingsAboutGodToolsView.m in Sources */,
 				68464FCF18E1CE4E00D14C2B /* GTStorageErrorHandler.m in Sources */,
 				B76536C11A0CC677001C3FC3 /* GTMainViewController.m in Sources */,
 				B76536C01A0CC677001C3FC3 /* GTHomeViewController.m in Sources */,
@@ -631,6 +646,7 @@
 				B7C6B6101A2EEE73000DD4C6 /* GTViewController+Helper.m in Sources */,
 				68A1CBFD18DB6C3B00D84F12 /* GTDefaults.m in Sources */,
 				68E6067A18D3947600844377 /* GTLanguage+Helper.m in Sources */,
+				B7D2AF8E1A43F131009B7D5B /* GTSettingsAboutGodToolsViewController.m in Sources */,
 				B76536D41A0CCC17001C3FC3 /* GTSettingsViewCell.m in Sources */,
 				B7E472831A15A210002DF715 /* GTHomeView.m in Sources */,
 				B76536DA1A0CD2CF001C3FC3 /* GTLanguageViewCell.m in Sources */,
@@ -794,7 +810,6 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Claudine Bael (BKHE62CR3F)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Claudine Bael (BKHE62CR3F)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;

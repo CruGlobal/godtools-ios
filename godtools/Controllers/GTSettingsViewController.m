@@ -35,6 +35,9 @@
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.tableView reloadData];
     
+    [self.navigationController setModalPresentationStyle:UIModalPresentationCurrentContext];
+    [self setModalPresentationStyle:UIModalPresentationCurrentContext];
+    
     self.settingsOptions = [[NSMutableArray alloc]initWithArray:@[
                                   NSLocalizedString(@"GTSettings_mainLanguage_label", nil),
                                   @"English",
@@ -216,13 +219,15 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    UIViewController *aboutViewController;
     switch (indexPath.row) {
         case 1:
             [self performSegueWithIdentifier:@"settingsToLanguageViewSegue" sender:self];
             break;
         case 3:
             [self performSegueWithIdentifier:@"settingsToLanguageViewSegue" sender:self];
+            break;
+        case 7:
+            [self performSegueWithIdentifier:@"settingsToAboutViewSegue" sender:self];
             break;
         default:
             break;
@@ -327,6 +332,22 @@
             GTLanguage *current = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:YES]objectAtIndex:0];
             [[GTDataImporter sharedImporter]downloadDraftsForLanguage:current];
         }
+    }
+}
+
+- (void)setPresentationStyleForSelfController:(UIViewController *)selfController presentingController:(UIViewController *)presentingController
+{
+    if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0" options:NSNumericSearch] != NSOrderedAscending)
+    {
+        presentingController.providesPresentationContextTransitionStyle = YES;
+        presentingController.definesPresentationContext = YES;
+        
+        [presentingController setModalPresentationStyle:UIModalPresentationOverCurrentContext];
+    }
+    else
+    {
+        [selfController setModalPresentationStyle:UIModalPresentationCurrentContext];
+        [selfController.navigationController setModalPresentationStyle:UIModalPresentationCurrentContext];
     }
 }
 

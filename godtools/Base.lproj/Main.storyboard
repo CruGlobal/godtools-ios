@@ -81,11 +81,30 @@
                     <navigationItem key="navigationItem" id="p7Y-VJ-YIz"/>
                     <connections>
                         <segue destination="YJa-Gt-v9R" kind="push" identifier="settingsToLanguageViewSegue" id="MQB-lm-Ula"/>
+                        <segue destination="eUe-NG-066" kind="modal" identifier="settingsToAboutViewSegue" id="hQ6-fH-U1h"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zqH-NW-CPJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="735" y="125"/>
+        </scene>
+        <!--Settings About God Tools View Controller-->
+        <scene sceneID="jyS-lA-FPz">
+            <objects>
+                <viewController id="eUe-NG-066" customClass="GTSettingsAboutGodToolsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="rgB-CB-ktI"/>
+                        <viewControllerLayoutGuide type="bottom" id="go3-at-bIy"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="0Nm-4R-kBW">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9oO-BD-Xvn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1169" y="509"/>
         </scene>
         <!--Languages View Controller-->
         <scene sceneID="RDo-IJ-h67">
@@ -104,7 +123,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VqI-v3-edI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1170" y="-75"/>
+            <point key="canvasLocation" x="1170" y="-149"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
