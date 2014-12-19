@@ -224,20 +224,6 @@
         case 3:
             [self performSegueWithIdentifier:@"settingsToLanguageViewSegue" sender:self];
             break;
-        case 7:
-            /*
-            aboutViewController = [[UIViewController alloc] initWithNibName:@"GTAboutView" bundle:nil];
-            /*self.poc = [[UIPopoverController alloc] initWithContentViewController:aboutViewController];
-            [self.poc setDelegate:self];
-            [self.poc presentPopoverFromRect:self.view.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
-            
-            aboutViewController.modalPresentationStyle = UIModalPresentationFormSheet;
-            aboutViewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-            [self presentModalViewController:aboutViewController animated:YES];
-            aboutViewController.view.superview.frame = CGRectMake(0, 0, 540, 620); //it's important to do this after presentModalViewController
-            aboutViewController.view.superview.center = self.view.center;
-            */
-            break;
         default:
             break;
     }
