@@ -551,14 +551,17 @@ NSString * const kAttr_filename		= @"filename";
 
 -(IBAction)navToolbarShareSelector:(id)sender {
     
+    NSLog(@"navtoolbarShareselector");
     [self hideNavToolbar];
     
-    if (self.shareSheet) {
-        
+    //if (self.shareSheet) {
+    
+        self.shareSheet = [[GTShareViewController alloc]init];
+
         [self presentViewController:self.shareSheet animated:YES completion:nil];
         self.childViewControllerWasShown = YES;
         
-    }
+    //}
 }
 
 -(IBAction)navToolbarAboutSelector:(id)sender {
@@ -1948,6 +1951,8 @@ NSString * const kAttr_filename		= @"filename";
 - (void)viewDidAppear:(BOOL)animated {
     
     [super viewDidAppear:animated];
+    
+    NSLog(@"gtviewcontroller viewdidappear");
     
     if (self.isFirstRunSinceCreation) {
         

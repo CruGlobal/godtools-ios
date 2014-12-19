@@ -26,7 +26,7 @@
     self.aboutView.frame = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, self.view.frame.size.height);
     self.view = self.aboutView;
     
-    self.tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(dismissAbout)];
+    self.tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(dismissAbout:)];
     
     self.tap.delegate = self;
     
@@ -38,10 +38,12 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
--(void)dismissAbout{
-    NSLog(@"dismiss");
-    
-    [self dismissViewControllerAnimated:YES completion:Nil];
+-(void)dismissAbout:(UITapGestureRecognizer*)sender{
+    //NSLog(@"dismiss=========");
+    //if(sender.view == self.aboutView.backgroundGradientImage){
+       // NSLog(@"gradient background was tapped");
+        [self dismissViewControllerAnimated:NO completion:Nil];
+    //}
 }
 
 #pragma mark - UIGestureRecognizer Delegate
@@ -55,7 +57,9 @@
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-    return YES;
+    //NSLog(@"touch %@",touch.view);
+    //NSLog(@"image %@",self.aboutView);
+    return touch.view == self.aboutView;
 }
 
 

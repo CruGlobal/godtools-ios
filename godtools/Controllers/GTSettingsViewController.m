@@ -280,6 +280,9 @@
                 [[GTDataImporter sharedImporter]authorizeTranslator];
                 [self addNotificationObservers];
             }else{
+                self.buttonLessAlert.message = NSLocalizedString(@"AlertMesssage_invalidAccessCode", nil);
+                [self.buttonLessAlert show];
+                [self performSelector:@selector(dismissAlertView:) withObject:self.buttonLessAlert afterDelay:2.0];
                 [self.translatorSwitch setOn:NO animated:YES];
             }
         }else{
