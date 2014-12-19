@@ -57,8 +57,6 @@
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-    //NSLog(@"touch %@",touch.view);
-    //NSLog(@"image %@",self.aboutView);
     return touch.view == self.aboutView;
 }
 

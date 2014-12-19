@@ -31,18 +31,8 @@
                             </subviews>
                             <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                         </view>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="God Tools" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H9U-bh-AcX">
-                            <rect key="frame" x="148" y="70" width="110" height="21"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="21" id="FHO-ep-uNF"/>
-                                <constraint firstAttribute="width" constant="110" id="rH1-dU-iPJ"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4.0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RAS-a6-3S1">
-                            <rect key="frame" x="153" y="99" width="42" height="21"/>
+                            <rect key="frame" x="101" y="99" width="42" height="21"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="42" id="Cam-u0-RKm"/>
                             </constraints>
@@ -80,6 +70,16 @@
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="God Tools" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H9U-bh-AcX">
+                            <rect key="frame" x="101" y="70" width="110" height="21"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="21" id="FHO-ep-uNF"/>
+                                <constraint firstAttribute="width" constant="110" id="rH1-dU-iPJ"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -89,7 +89,7 @@
                         <constraint firstAttribute="trailingMargin" secondItem="X98-VF-k85" secondAttribute="trailing" constant="8" id="6ES-0n-Pta"/>
                         <constraint firstItem="brN-2w-L0v" firstAttribute="centerX" secondItem="5rY-Sc-kGr" secondAttribute="centerX" id="7Ch-fr-f0J"/>
                         <constraint firstItem="kIO-xX-2pj" firstAttribute="leading" secondItem="lbK-fM-HPl" secondAttribute="leadingMargin" constant="16" id="85y-sw-m4O"/>
-                        <constraint firstItem="H9U-bh-AcX" firstAttribute="leading" secondItem="lbK-fM-HPl" secondAttribute="leading" constant="148" id="8cZ-Ga-ATc"/>
+                        <constraint firstItem="H9U-bh-AcX" firstAttribute="leading" secondItem="lbK-fM-HPl" secondAttribute="leading" constant="101" id="8cZ-Ga-ATc"/>
                         <constraint firstAttribute="trailingMargin" secondItem="brN-2w-L0v" secondAttribute="trailing" constant="8" id="EQb-sp-y7C"/>
                         <constraint firstItem="X98-VF-k85" firstAttribute="top" secondItem="Y6e-G9-k1U" secondAttribute="bottom" constant="17" id="MgN-vO-rMU"/>
                         <constraint firstAttribute="trailing" secondItem="5rY-Sc-kGr" secondAttribute="trailing" id="PCs-jz-Wbf"/>
@@ -103,7 +103,7 @@
                         <constraint firstItem="Y6e-G9-k1U" firstAttribute="centerX" secondItem="5rY-Sc-kGr" secondAttribute="centerX" id="cXv-3h-xhv"/>
                         <constraint firstItem="RAS-a6-3S1" firstAttribute="top" secondItem="H9U-bh-AcX" secondAttribute="bottom" constant="8" symbolic="YES" id="ckk-1O-uGF"/>
                         <constraint firstAttribute="height" constant="323" id="gNt-Hv-Q52"/>
-                        <constraint firstItem="RAS-a6-3S1" firstAttribute="leading" secondItem="lbK-fM-HPl" secondAttribute="leading" constant="153" id="hN2-ep-zMe"/>
+                        <constraint firstItem="RAS-a6-3S1" firstAttribute="leading" secondItem="lbK-fM-HPl" secondAttribute="leading" constant="101" id="hN2-ep-zMe"/>
                         <constraint firstItem="brN-2w-L0v" firstAttribute="top" secondItem="RAS-a6-3S1" secondAttribute="bottom" constant="61" id="hgQ-l1-lbJ"/>
                         <constraint firstAttribute="trailingMargin" secondItem="kIO-xX-2pj" secondAttribute="trailing" constant="9" id="krh-hA-jRF"/>
                         <constraint firstAttribute="trailing" secondItem="5rY-Sc-kGr" secondAttribute="trailing" id="la1-lu-kJX"/>
