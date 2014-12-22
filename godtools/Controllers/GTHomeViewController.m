@@ -73,7 +73,16 @@
         [self.phonesLanguageAlert addButtonWithTitle:@"YES"];
     }
     self.draftsAlert = [[UIAlertView alloc]initWithTitle:nil message:@"Do you want to publish this draft?" delegate:self cancelButtonTitle:@"No, I just need to see it." otherButtonTitles:@"Yes, it's ready!", nil];
-            
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                                selector:@selector(downloadFinished:)
+                                                 name:GTDataImporterNotificationMenuUpdateFinished
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(showDownloadIndicator:)
+                                                 name:GTDataImporterNotificationMenuUpdateStarted
+                                                  object:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(downloadFinished:)
                                                  name: GTDataImporterNotificationLanguageDownloadFinished
@@ -149,14 +158,16 @@
     
     if([notification.name isEqualToString: GTDataImporterNotificationPublishDraftSuccessful]){
         [self refreshButtonPressed];
+    }else if ([notification.name isEqualToString:GTDataImporterNotificationLanguageDraftsDownloadFinished]){
+        [[GTDataImporter sharedImporter]updateMenuInfo];
     }
 
-    [self.homeView.tableView setUserInteractionEnabled:YES];
+    [self.homeView setUserInteractionEnabled:YES];
 }
 
 -(void)showDownloadIndicator:(NSNotification *) notification{
 
-    [self.homeView.tableView setUserInteractionEnabled:NO];
+    [self.homeView setUserInteractionEnabled:NO];
 
 #warning Optimize after all the features are done. Use userInfo.
 
@@ -168,6 +179,8 @@
         [self.homeView showDownloadIndicatorWithLabel: NSLocalizedString(@"GTHome_status_creatingDrafts", nil)];
     }else if([notification.name isEqualToString:GTDataImporterNotificationPublishDraftStarted]){
         [self.homeView showDownloadIndicatorWithLabel: NSLocalizedString(@"GTHome_status_publishingDrafts", nil)];
+    }else if([notification.name isEqualToString:GTDataImporterNotificationMenuUpdateStarted]){
+        [self.homeView showDownloadIndicatorWithLabel:[NSString stringWithFormat: NSLocalizedString(@"GTHome_status_updatingResources", @"update resources (with menu)"),@""]];
     }
 }
 

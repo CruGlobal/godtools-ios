@@ -33,11 +33,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    if([AFNetworkReachabilityManager sharedManager].reachable){
-    //if(YES){
-        [[GTDataImporter sharedImporter] updateMenuInfo];
-    }
-    
     [self.tableView setBounces:NO];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.tableView reloadData];
