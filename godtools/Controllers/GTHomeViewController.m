@@ -155,11 +155,11 @@
 }
 
 -(void)showDownloadIndicator:(NSNotification *) notification{
+
     [self.homeView.tableView setUserInteractionEnabled:NO];
-    NSLog(@"NOTIFICATION: %@",notification.name);
-    //NSDictionary *userInfo = notification.userInfo;
+
 #warning Optimize after all the features are done. Use userInfo.
-    //NSLog(@" downloading %@",[userInfo objectForKey:GTDataImporterNotificationLanguageDownloadPercentageKey]);
+
     if([notification.name isEqualToString: GTDataImporterNotificationLanguageDownloadProgressMade]){
         [self.homeView showDownloadIndicatorWithLabel: [NSString stringWithFormat: NSLocalizedString(@"GTHome_status_updatingResources", nil),@""]];
     }else if([notification.name isEqualToString:GTDataImporterNotificationLanguageDraftsDownloadStarted]){
@@ -188,7 +188,7 @@
 -(void)refreshButtonPressed{
     [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDraftsDownloadStarted object:self];
     GTLanguage *current = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:YES]objectAtIndex:0];
-    [[GTDataImporter sharedImporter]downloadDraftsForLanguage:current];
+    [[GTDataImporter sharedImporter]downloadPackagesForLanguage:current];
 }
 
 #pragma mark - Table view data source

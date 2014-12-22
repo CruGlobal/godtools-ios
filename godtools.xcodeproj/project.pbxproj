@@ -825,6 +825,7 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_GENERATE_MAP_FILE = NO;
+				PROVISIONING_PROFILE = "2eb460f3-ddac-43b6-babd-34d2a3ce292e";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = iphoneos;
 				"USER_HEADER_SEARCH_PATHS[arch=*]" = "$(inherited)";

@@ -198,7 +198,7 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
             currentCodes = @[self.defaults.currentLanguageCode];
         }
         
-		//[self checkForPackagesWithNewVersionsForLanguageCodes:currentCodes];
+		[self checkForPackagesWithNewVersionsForLanguageCodes:currentCodes];
 		
 	}
 	
@@ -335,7 +335,7 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
             package.status			= [packageElement attribute:GTDataImporterPackageMetaXmlAttributeNameStatus];
             package.type			= [packageElement attribute:GTDataImporterPackageMetaXmlAttributeNameType];
             package.latestVersion	= latestVersion;
-            package.localVersion    = version;
+            //package.localVersion    = version;
             
             [packageObjects removeObjectForKey:identifier];
             
@@ -692,6 +692,7 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
                                      }
                                      
                                      [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDraftsDownloadFinished object:self];
+                                     
                                  }
                                 }else{
                                     NSLog(@"error. response is: %@",response);

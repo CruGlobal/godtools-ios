@@ -34,6 +34,11 @@
                                              selector:@selector(goToHome)
                                                  name: GTDataImporterNotificationLanguageDownloadProgressMade
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(setData)
+                                                 name:GTDataImporterNotificationMenuUpdateFinished
+                                               object:nil];
+    
 }
 
 - (void)goToHome{

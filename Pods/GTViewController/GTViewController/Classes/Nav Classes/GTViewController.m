@@ -668,10 +668,12 @@ NSString * const kAttr_filename		= @"filename";
     //if button not already there then add button
     if (self.switchButton == nil && self.isDraft) {
         
-        UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Package_PopUpToolBar_Icon_Switch"]
+        UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refreshCurrentPage)];
+        
+       /* [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Package_PopUpToolBar_Icon_Switch"]
                                                                           style:UIBarButtonItemStyleBordered
                                                                          target:self
-                                                                         action:@selector(refreshCurrentPage)];
+                                                                         action:@selector(refreshCurrentPage)];*/
         
         self.refreshButton = refreshButton;
         

@@ -91,7 +91,7 @@
         <!--Settings About God Tools View Controller-->
         <scene sceneID="jyS-lA-FPz">
             <objects>
-                <viewController id="eUe-NG-066" customClass="GTSettingsAboutGodToolsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GTSettingsAboutGodToolsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="eUe-NG-066" customClass="GTSettingsAboutGodToolsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="rgB-CB-ktI"/>
                         <viewControllerLayoutGuide type="bottom" id="go3-at-bIy"/>
