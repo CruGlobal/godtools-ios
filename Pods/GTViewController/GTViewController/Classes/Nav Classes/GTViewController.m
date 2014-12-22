@@ -556,11 +556,11 @@ NSString * const kAttr_filename		= @"filename";
     
     //if (self.shareSheet) {
     
-        self.shareSheet = [[GTShareViewController alloc]init];
-
-        [self presentViewController:self.shareSheet animated:YES completion:nil];
-        self.childViewControllerWasShown = YES;
-        
+    self.shareSheet = [[GTShareViewController alloc]init];
+    
+    [self presentViewController:self.shareSheet animated:YES completion:nil];
+    self.childViewControllerWasShown = YES;
+    
     //}
 }
 
@@ -670,10 +670,10 @@ NSString * const kAttr_filename		= @"filename";
         
         UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refreshCurrentPage)];
         
-       /* [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Package_PopUpToolBar_Icon_Switch"]
-                                                                          style:UIBarButtonItemStyleBordered
-                                                                         target:self
-                                                                         action:@selector(refreshCurrentPage)];*/
+        /* [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Package_PopUpToolBar_Icon_Switch"]
+         style:UIBarButtonItemStyleBordered
+         target:self
+         action:@selector(refreshCurrentPage)];*/
         
         self.refreshButton = refreshButton;
         
