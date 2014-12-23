@@ -271,7 +271,15 @@
 
 -(void)translatorSwitchToggled{
     if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:NO]){
-        [self.translatorModeAlert show];
+        //if([AFNetworkReachabilityManager sharedManager].reachable){
+        if(YES){
+            [self.translatorModeAlert show];
+        }else{
+            self.buttonLessAlert.message = NSLocalizedString(@"You need to be online to proceed", nil);
+            [self.buttonLessAlert show];
+            [self performSelector:@selector(dismissAlertView:) withObject:self.buttonLessAlert afterDelay:2.0];
+            [self.translatorSwitch setOn:NO animated:YES];
+        }
     }else{
         [self.exitTranslatorModeAlert show];
     }
@@ -287,11 +295,11 @@
         }
     }else if(alertView == self.translatorModeAlert){
         if(buttonIndex == 1){
+            [self addNotificationObservers];
             if([self.translatorModeAlert  textFieldAtIndex:0].text.length > 0){
                 NSString *accessCode = [self.translatorModeAlert  textFieldAtIndex:0].text;
                 [[GTDefaults sharedDefaults]setTranslatorAccessCode:accessCode];
                 [[GTDataImporter sharedImporter]authorizeTranslator];
-                [self addNotificationObservers];
             }else{
                 self.buttonLessAlert.message = NSLocalizedString(@"AlertMesssage_invalidAccessCode", nil);
                 [self.buttonLessAlert show];
@@ -317,21 +325,25 @@
     NSLog(@"notif %@", notification.name);
 
     if([notification.name isEqualToString:GTDataImporterNotificationAuthTokenUpdateStarted]){
-        UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        NSLog(@"AUTHENTICATING_____++++++");
+        /*UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         
         indicator.center = CGPointMake(self.buttonLessAlert.bounds.size.width / 2, self.buttonLessAlert.bounds.size.height - 50);
         [indicator startAnimating];
-        [self.buttonLessAlert addSubview:indicator];
-        
-        self.buttonLessAlert.message = NSLocalizedString(@"AlertMessage_authenticatingAccessCode", nil);
-        [self.buttonLessAlert show];
-        
+        [self.buttonLessAlert addSubview:indicator];*/
+        //if([AFNetworkReachabilityManager sharedManager].reachable){
+            NSLog(@"reachable");
+            self.buttonLessAlert.message = NSLocalizedString(@"AlertMessage_authenticatingAccessCode", nil);
+            [self.buttonLessAlert show];
+        //}
     }else if([notification.name isEqualToString:GTDataImporterNotificationAuthTokenUpdateFail]){
-        
-        self.buttonLessAlert.message = NSLocalizedString(@"AlertMesssage_invalidAccessCode", nil);
-        [self.buttonLessAlert show];
-        
-        [self performSelector:@selector(dismissAlertView:) withObject:self.buttonLessAlert afterDelay:2.0];
+        if(notification.userInfo != nil){
+            NSError *error = (NSError*)[notification.userInfo objectForKey:@"Error"];
+            self.buttonLessAlert.message = [error.userInfo objectForKey:@"NSLocalizedDescription"];
+            [self.buttonLessAlert show];
+            
+            [self performSelector:@selector(dismissAlertView:) withObject:self.buttonLessAlert afterDelay:2.0];
+        }
         [self.translatorSwitch setOn:NO animated:YES];
         
         [self.translatorModeAlert textFieldAtIndex:0].text = nil;
@@ -346,6 +358,7 @@
             [self.translatorSwitch setOn:YES animated:YES];
             
             GTLanguage *current = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:YES]objectAtIndex:0];
+            [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:[NSNumber numberWithBool:YES]];
             [[GTDataImporter sharedImporter]downloadPackagesForLanguage:current];
         }
     }

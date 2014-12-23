@@ -127,12 +127,9 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
     
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]initWithRequest:request];
     
-    NSLog(@"operation request: %@",operation.request);
-    
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         success(operation.request, operation.response,[operation.response.allHeaderFields objectForKey:@"Authorization"]);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"request %@, response: %@", operation.request, operation.response);
         failure(operation.request, operation.response, error);
     }];
     

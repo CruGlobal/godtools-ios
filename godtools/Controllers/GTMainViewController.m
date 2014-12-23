@@ -55,9 +55,11 @@
         [self extractMetaData];
         [[GTDefaults sharedDefaults]setIsFirstLaunch:[NSNumber numberWithBool:NO]];
     }
-
-    if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]){
+    
+    if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES] && [AFNetworkReachabilityManager sharedManager].reachable){
         [[GTDataImporter sharedImporter] authorizeTranslator];
+    }else{
+        [[GTDefaults sharedDefaults]setIsInTranslatorMode:[NSNumber numberWithBool:NO]];
     }
     
     if([AFNetworkReachabilityManager sharedManager].reachable){

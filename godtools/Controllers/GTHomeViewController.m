@@ -27,6 +27,8 @@
 @property (strong, nonatomic) UIAlertView *draftsAlert;
 @property (strong, nonatomic) UIAlertView *createDraftsAlert;
 
+@property  BOOL isRefreshing;
+
 
 @end
 
@@ -57,6 +59,8 @@
     [self.homeView.tableView.layer setCornerRadius:8.0f];
 
     [self.homeView initDownloadIndicator];
+    
+    self.isRefreshing = NO;
     
     self.articles = [[NSMutableArray alloc]init];
     self.languageCode = [[GTDefaults sharedDefaults]currentLanguageCode];
@@ -160,9 +164,15 @@
         [self refreshButtonPressed];
     }else if ([notification.name isEqualToString:GTDataImporterNotificationLanguageDraftsDownloadFinished]){
         [[GTDataImporter sharedImporter]updateMenuInfo];
+    }else if([notification.name isEqualToString:GTDataImporterNotificationMenuUpdateFinished]){
+        //to avoid split seconds gap to enabling user interaction when downloading drafts
+        //note: after downloading drafts, the menu is also downloaded
+        if(self.isRefreshing)
+            self.isRefreshing = NO;
     }
-
-    [self.homeView setUserInteractionEnabled:YES];
+    //if(!self.isRefreshing){
+        [self.homeView setUserInteractionEnabled:YES];
+    //}
 }
 
 -(void)showDownloadIndicator:(NSNotification *) notification{
@@ -170,7 +180,9 @@
     [self.homeView setUserInteractionEnabled:NO];
 
 #warning Optimize after all the features are done. Use userInfo.
-
+    if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]){
+        self.isRefreshing = YES;
+    }
     if([notification.name isEqualToString: GTDataImporterNotificationLanguageDownloadProgressMade]){
         [self.homeView showDownloadIndicatorWithLabel: [NSString stringWithFormat: NSLocalizedString(@"GTHome_status_updatingResources", nil),@""]];
     }else if([notification.name isEqualToString:GTDataImporterNotificationLanguageDraftsDownloadStarted]){
@@ -180,7 +192,7 @@
     }else if([notification.name isEqualToString:GTDataImporterNotificationPublishDraftStarted]){
         [self.homeView showDownloadIndicatorWithLabel: NSLocalizedString(@"GTHome_status_publishingDrafts", nil)];
     }else if([notification.name isEqualToString:GTDataImporterNotificationMenuUpdateStarted]){
-        [self.homeView showDownloadIndicatorWithLabel:[NSString stringWithFormat: NSLocalizedString(@"GTHome_status_updatingResources", @"update resources (with menu)"),@""]];
+        [self.homeView showDownloadIndicatorWithLabel:[NSString stringWithFormat: NSLocalizedString(@"Updating menu...", @"update resources (with menu)")]];
     }
 }
 
@@ -201,6 +213,7 @@
 -(void)refreshButtonPressed{
     [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDraftsDownloadStarted object:self];
     GTLanguage *current = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:YES]objectAtIndex:0];
+    [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:[NSNumber numberWithBool:YES]];
     [[GTDataImporter sharedImporter]downloadPackagesForLanguage:current];
 }
 

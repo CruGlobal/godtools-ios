@@ -26,10 +26,10 @@
     
     [self setData];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
+    /*[[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(setData)
                                                  name: GTDataImporterNotificationAuthTokenUpdateStarted
-                                               object:nil];
+                                               object:nil];*/
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(goToHome)
                                                  name: GTDataImporterNotificationLanguageDownloadProgressMade

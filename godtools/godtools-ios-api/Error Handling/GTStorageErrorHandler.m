@@ -12,7 +12,7 @@
 
 - (void)displayError:(NSError *)error {
 	
-    NSLog(@"error============== %@",error.description);
+   // NSLog(@"error============== %@",error.description);
 
 #warning incomplete impelementation. Error specific handling should go here to catch general storage errors like cannot open.
 	
