@@ -16,6 +16,7 @@
 
 @interface GTLanguagesViewController ()
     @property (strong,nonatomic) NSMutableArray *languages;
+    @property (strong, nonatomic) UIAlertView *buttonLessAlert;
 @end
 
 @implementation GTLanguagesViewController
@@ -38,6 +39,13 @@
                                              selector:@selector(setData)
                                                  name:GTDataImporterNotificationMenuUpdateFinished
                                                object:nil];
+    
+    self.buttonLessAlert        = [[UIAlertView alloc]
+                                   initWithTitle:@""
+                                   message:@""
+                                   delegate:self
+                                   cancelButtonTitle:nil
+                                   otherButtonTitles:nil, nil];
     
 }
 
@@ -123,16 +131,20 @@
     GTLanguage *chosen = (GTLanguage*)[self.languages objectAtIndex:indexPath.row];
     
     if(![chosen downloaded]){
-        //if([AFNetworkReachabilityManager sharedManager].reachable){
-             //NSLog(@"REACHABLE");
+        if([AFNetworkReachabilityManager sharedManager].reachable){
+
             [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadProgressMade
                                                                 object:self
                                                               userInfo:nil];
-        //NSLog(@"DOWNLOAD %@",[(GTLanguage*)[self.languages objectAtIndex:indexPath.row] code]);
+        
             [[GTDataImporter sharedImporter]downloadPackagesForLanguage:[self.languages objectAtIndex:indexPath.row]];
-         //}else{
-            //ALERT NO INTERNET
-         //}*/
+        }else{
+            self.buttonLessAlert.message = NSLocalizedString(@"You need to be online to proceed", nil);
+            [self.buttonLessAlert show];
+            [self performSelector:@selector(dismissAlertView:) withObject:self.buttonLessAlert afterDelay:2.0];
+
+         }
+        
     }else{
         if([[GTDefaults sharedDefaults] isChoosingForMainLanguage] == [NSNumber numberWithBool:YES]){
             [[GTDefaults sharedDefaults]setCurrentLanguageCode:chosen.code];
@@ -142,6 +154,10 @@
         }
         [self.navigationController popViewControllerAnimated:YES];
     }
+}
+
+-(void)dismissAlertView:(UIAlertView *)alertView{
+    [alertView dismissWithClickedButtonIndex:0 animated:YES];
 }
 
 

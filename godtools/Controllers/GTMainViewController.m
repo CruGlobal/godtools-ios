@@ -104,7 +104,6 @@
 
 -(void)extractBundle{
     //WILL ONLY BE TRIGERRED AT FRESH INSTALL
-    //NSLog(@"extract english bundle");
     [self.splashScreen showDownloadIndicatorWithLabel:[NSString stringWithFormat:(NSLocalizedString(@"GTHome_status_updatingResources", nil)),@"English"]];
    
     NSError *error;

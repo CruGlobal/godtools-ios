@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -24,9 +24,12 @@
                         <constraint firstAttribute="height" constant="105" id="t3r-MN-QrC"/>
                     </constraints>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rI0-rz-YTH">
-                    <rect key="frame" x="268" y="498" width="65" height="30"/>
-                    <state key="normal" title="Add draft">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rI0-rz-YTH">
+                    <rect key="frame" x="265" y="498" width="71" height="48"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="YOC-ak-L7H"/>
+                    </constraints>
+                    <state key="normal" image="homescreen_add_button">
                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -34,9 +37,9 @@
                         <action selector="addDraftButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="9ks-qd-yAH"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vUk-VE-nXf">
-                    <rect key="frame" x="28" y="498" width="53" height="30"/>
-                    <state key="normal" title="Refresh">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vUk-VE-nXf">
+                    <rect key="frame" x="13" y="498" width="71" height="48"/>
+                    <state key="normal" image="homescreen_refresh_button">
                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -45,7 +48,7 @@
                     </connections>
                 </button>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="K6k-oN-bLy">
-                    <rect key="frame" x="15" y="156" width="570" height="324"/>
+                    <rect key="frame" x="13" y="156" width="574" height="324"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" relation="lessThanOrEqual" constant="324" id="ttB-K3-iPu"/>
@@ -53,13 +56,13 @@
                     <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </tableView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eMI-zH-hMh">
-                    <rect key="frame" x="498" y="493" width="75" height="45"/>
+                    <rect key="frame" x="518" y="500" width="69" height="50"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="eMI-zH-hMh" secondAttribute="height" multiplier="2:1" id="9e7-PY-FWw"/>
-                        <constraint firstAttribute="height" constant="45" id="DhV-E9-YLw"/>
                         <constraint firstAttribute="width" constant="80" id="HNg-d8-Etx"/>
-                        <constraint firstAttribute="width" secondItem="eMI-zH-hMh" secondAttribute="height" multiplier="5:3" id="YSo-I1-gzN"/>
-                        <constraint firstAttribute="width" constant="75" id="rZD-Ps-S7Q"/>
+                        <constraint firstAttribute="width" constant="69" id="KCB-zs-Uxw"/>
+                        <constraint firstAttribute="width" secondItem="eMI-zH-hMh" secondAttribute="height" multiplier="5:3" constant="-9" id="YSo-I1-gzN"/>
+                        <constraint firstAttribute="width" constant="71" id="rZD-Ps-S7Q"/>
                     </constraints>
                     <state key="normal" image="settings_button">
                         <color key="titleColor" red="0.99933016975532596" green="1" blue="0.99359994484633574" alpha="1" colorSpace="calibratedRGB"/>
@@ -69,6 +72,8 @@
                         <mask key="constraints">
                             <exclude reference="9e7-PY-FWw"/>
                             <exclude reference="HNg-d8-Etx"/>
+                            <exclude reference="YSo-I1-gzN"/>
+                            <exclude reference="rZD-Ps-S7Q"/>
                         </mask>
                     </variation>
                     <connections>
@@ -77,22 +82,23 @@
                 </button>
             </subviews>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="eMI-zH-hMh" secondAttribute="bottom" constant="62" id="1op-Iy-y6H"/>
+                <constraint firstItem="eMI-zH-hMh" firstAttribute="top" secondItem="K6k-oN-bLy" secondAttribute="bottom" constant="20" id="0AT-LA-T5m"/>
                 <constraint firstItem="K6k-oN-bLy" firstAttribute="centerX" secondItem="zQA-Ub-gch" secondAttribute="centerX" id="64f-2T-pGe"/>
-                <constraint firstItem="K6k-oN-bLy" firstAttribute="trailing" secondItem="eMI-zH-hMh" secondAttribute="trailing" priority="750" constant="12" id="7Nw-1d-44f"/>
+                <constraint firstItem="rI0-rz-YTH" firstAttribute="top" secondItem="vUk-VE-nXf" secondAttribute="top" id="6Ei-OL-rzC"/>
+                <constraint firstAttribute="bottom" secondItem="rI0-rz-YTH" secondAttribute="bottom" constant="54" id="DO5-SW-IpT"/>
                 <constraint firstItem="zQA-Ub-gch" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Dex-Ix-kGF"/>
+                <constraint firstAttribute="bottom" secondItem="eMI-zH-hMh" secondAttribute="bottom" constant="50" id="FgD-Gq-TC3"/>
                 <constraint firstItem="ICs-RI-grR" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="topMargin" id="IYC-SS-kNx"/>
-                <constraint firstItem="eMI-zH-hMh" firstAttribute="centerY" secondItem="rI0-rz-YTH" secondAttribute="centerY" constant="2.5" id="Kd1-6G-CO8"/>
                 <constraint firstItem="K6k-oN-bLy" firstAttribute="top" secondItem="ICs-RI-grR" secondAttribute="bottom" constant="43" id="KgW-f9-LAh"/>
-                <constraint firstItem="K6k-oN-bLy" firstAttribute="centerX" secondItem="rI0-rz-YTH" secondAttribute="centerX" id="LC0-Lo-wbB"/>
-                <constraint firstItem="eMI-zH-hMh" firstAttribute="top" secondItem="K6k-oN-bLy" secondAttribute="bottom" constant="13" id="Nvq-cB-z2f"/>
-                <constraint firstItem="rI0-rz-YTH" firstAttribute="baseline" secondItem="vUk-VE-nXf" secondAttribute="baseline" id="QCD-6j-1OI"/>
+                <constraint firstItem="rI0-rz-YTH" firstAttribute="centerX" secondItem="K6k-oN-bLy" secondAttribute="centerX" id="Kun-Jb-IW5"/>
+                <constraint firstAttribute="trailing" secondItem="eMI-zH-hMh" secondAttribute="trailing" constant="13" id="LWr-nE-Mn2"/>
                 <constraint firstItem="zQA-Ub-gch" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="VM7-Ag-J4d"/>
                 <constraint firstItem="K6k-oN-bLy" firstAttribute="centerX" secondItem="ICs-RI-grR" secondAttribute="centerX" id="cQP-z2-XLM"/>
-                <constraint firstAttribute="trailing" secondItem="eMI-zH-hMh" secondAttribute="trailing" constant="27" id="o6R-gW-EJp"/>
+                <constraint firstItem="rI0-rz-YTH" firstAttribute="top" secondItem="K6k-oN-bLy" secondAttribute="bottom" constant="18" id="dA1-Fa-LXK"/>
+                <constraint firstItem="eMI-zH-hMh" firstAttribute="trailing" secondItem="K6k-oN-bLy" secondAttribute="trailing" id="j2S-J7-vzx"/>
                 <constraint firstItem="K6k-oN-bLy" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="tbb-6g-IFa"/>
                 <constraint firstAttribute="bottom" secondItem="zQA-Ub-gch" secondAttribute="bottom" id="vsZ-lU-4cu"/>
-                <constraint firstItem="K6k-oN-bLy" firstAttribute="leading" secondItem="vUk-VE-nXf" secondAttribute="leading" constant="-13" id="x9b-PT-QyV"/>
+                <constraint firstItem="K6k-oN-bLy" firstAttribute="leading" secondItem="vUk-VE-nXf" secondAttribute="leading" id="x9b-PT-QyV"/>
             </constraints>
             <connections>
                 <outlet property="addDraftButton" destination="rI0-rz-YTH" id="UIj-kD-zvO"/>
@@ -100,12 +106,14 @@
                 <outlet property="settingsButton" destination="eMI-zH-hMh" id="iRJ-1O-gXY"/>
                 <outlet property="tableView" destination="K6k-oN-bLy" id="jyd-dZ-g1e"/>
             </connections>
-            <point key="canvasLocation" x="154" y="146"/>
+            <point key="canvasLocation" x="147" y="142"/>
         </view>
     </objects>
     <resources>
-        <image name="background" width="750" height="1334"/>
-        <image name="gt_logo" width="257" height="199"/>
-        <image name="settings_button" width="151" height="103"/>
+        <image name="background" width="320" height="480"/>
+        <image name="gt_logo" width="155" height="120"/>
+        <image name="homescreen_add_button" width="71" height="48"/>
+        <image name="homescreen_refresh_button" width="71" height="48"/>
+        <image name="settings_button" width="91" height="62"/>
     </resources>
 </document>
