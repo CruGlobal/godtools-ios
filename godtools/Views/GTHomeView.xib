@@ -16,14 +16,6 @@
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="zQA-Ub-gch">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gt_logo" translatesAutoresizingMaskIntoConstraints="NO" id="ICs-RI-grR">
-                    <rect key="frame" x="230" y="8" width="140" height="105"/>
-                    <constraints>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="140" id="ACK-sI-pTA"/>
-                        <constraint firstAttribute="width" constant="140" id="Cov-QT-DnY"/>
-                        <constraint firstAttribute="height" constant="105" id="t3r-MN-QrC"/>
-                    </constraints>
-                </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rI0-rz-YTH">
                     <rect key="frame" x="265" y="498" width="71" height="48"/>
                     <constraints>
@@ -80,6 +72,14 @@
                         <action selector="settingsButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="XcJ-vI-5cw"/>
                     </connections>
                 </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gt_logo" translatesAutoresizingMaskIntoConstraints="NO" id="ICs-RI-grR">
+                    <rect key="frame" x="230" y="25" width="140" height="105"/>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="140" id="ACK-sI-pTA"/>
+                        <constraint firstAttribute="width" constant="140" id="Cov-QT-DnY"/>
+                        <constraint firstAttribute="height" constant="105" id="t3r-MN-QrC"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <constraints>
                 <constraint firstItem="eMI-zH-hMh" firstAttribute="top" secondItem="K6k-oN-bLy" secondAttribute="bottom" constant="20" id="0AT-LA-T5m"/>
@@ -88,8 +88,8 @@
                 <constraint firstAttribute="bottom" secondItem="rI0-rz-YTH" secondAttribute="bottom" constant="54" id="DO5-SW-IpT"/>
                 <constraint firstItem="zQA-Ub-gch" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Dex-Ix-kGF"/>
                 <constraint firstAttribute="bottom" secondItem="eMI-zH-hMh" secondAttribute="bottom" constant="50" id="FgD-Gq-TC3"/>
-                <constraint firstItem="ICs-RI-grR" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="topMargin" id="IYC-SS-kNx"/>
-                <constraint firstItem="K6k-oN-bLy" firstAttribute="top" secondItem="ICs-RI-grR" secondAttribute="bottom" constant="43" id="KgW-f9-LAh"/>
+                <constraint firstItem="ICs-RI-grR" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="topMargin" constant="17" id="IYC-SS-kNx"/>
+                <constraint firstItem="K6k-oN-bLy" firstAttribute="top" secondItem="ICs-RI-grR" secondAttribute="bottom" constant="26" id="KgW-f9-LAh"/>
                 <constraint firstItem="rI0-rz-YTH" firstAttribute="centerX" secondItem="K6k-oN-bLy" secondAttribute="centerX" id="Kun-Jb-IW5"/>
                 <constraint firstAttribute="trailing" secondItem="eMI-zH-hMh" secondAttribute="trailing" constant="13" id="LWr-nE-Mn2"/>
                 <constraint firstItem="zQA-Ub-gch" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="VM7-Ag-J4d"/>

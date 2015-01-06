@@ -420,26 +420,26 @@
 		B76536BB1A0CC616001C3FC3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B7E472861A19FE90002DF715 /* GTBaseView.h */,
+				B7E472871A19FE90002DF715 /* GTBaseView.m */,
+				B7E472811A15A210002DF715 /* GTHomeView.h */,
+				B7E472821A15A210002DF715 /* GTHomeView.m */,
+				B7E4727F1A15A1F8002DF715 /* GTHomeView.xib */,
 				B76536C21A0CC6C2001C3FC3 /* GTHomeViewCell.h */,
 				B76536C31A0CC6CB001C3FC3 /* GTHomeViewCell.m */,
 				B76536C41A0CC6CB001C3FC3 /* GTHomeViewCell.xib */,
-				B76536D01A0CCBFB001C3FC3 /* GTSettingsViewCell.xib */,
-				B76536D21A0CCC17001C3FC3 /* GTSettingsViewCell.h */,
-				B76536D31A0CCC17001C3FC3 /* GTSettingsViewCell.m */,
 				B76536D81A0CD2CF001C3FC3 /* GTLanguageViewCell.h */,
 				B76536D91A0CD2CF001C3FC3 /* GTLanguageViewCell.m */,
 				B76536DB1A0CD2E1001C3FC3 /* GTLanguageViewCell.xib */,
-				B7E4727F1A15A1F8002DF715 /* GTHomeView.xib */,
-				B7E472811A15A210002DF715 /* GTHomeView.h */,
-				B7E472821A15A210002DF715 /* GTHomeView.m */,
-				B7E472861A19FE90002DF715 /* GTBaseView.h */,
-				B7E472871A19FE90002DF715 /* GTBaseView.m */,
-				B7EA1B421A38097D0098890F /* GTSplashScreenView.xib */,
-				B7EA1B441A3826070098890F /* GTSplashScreenView.h */,
-				B7EA1B451A3826070098890F /* GTSplashScreenView.m */,
-				B7D2AF871A43D2D4009B7D5B /* GTSettingsAboutGodToolsView.xib */,
 				B7D2AF891A43EEAC009B7D5B /* GTSettingsAboutGodToolsView.h */,
 				B7D2AF8A1A43EEAC009B7D5B /* GTSettingsAboutGodToolsView.m */,
+				B7D2AF871A43D2D4009B7D5B /* GTSettingsAboutGodToolsView.xib */,
+				B76536D21A0CCC17001C3FC3 /* GTSettingsViewCell.h */,
+				B76536D31A0CCC17001C3FC3 /* GTSettingsViewCell.m */,
+				B76536D01A0CCBFB001C3FC3 /* GTSettingsViewCell.xib */,
+				B7EA1B441A3826070098890F /* GTSplashScreenView.h */,
+				B7EA1B451A3826070098890F /* GTSplashScreenView.m */,
+				B7EA1B421A38097D0098890F /* GTSplashScreenView.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -784,7 +784,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_GENERATE_MAP_FILE = NO;
 				ONLY_ACTIVE_ARCH = YES;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
@@ -823,7 +823,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_GENERATE_MAP_FILE = NO;
 				PROVISIONING_PROFILE = "2eb460f3-ddac-43b6-babd-34d2a3ce292e";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
@@ -864,6 +864,7 @@
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				"USER_HEADER_SEARCH_PATHS[arch=*]" = "$(inherited)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -900,6 +901,7 @@
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				"USER_HEADER_SEARCH_PATHS[arch=*]" = "$(inherited)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -922,6 +924,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "godtoolsTests/godtoolsTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -941,6 +944,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "godtools/godtools-Prefix.pch";
 				INFOPLIST_FILE = "godtoolsTests/godtoolsTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;

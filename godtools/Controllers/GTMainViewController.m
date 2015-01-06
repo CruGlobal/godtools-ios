@@ -21,6 +21,7 @@
     @property (nonatomic, strong) GTViewController *godtoolsViewController;
     @property (nonatomic, strong) NSArray *resources;
     @property (nonatomic, strong) GTSplashScreenView *splashScreen;
+    @property AFNetworkReachabilityManager *afReachability;
 @end
 
 @implementation GTMainViewController
@@ -47,6 +48,15 @@
                                              selector:@selector(showLoadingIndicator:)
                                                  name: GTDataImporterNotificationMenuUpdateStarted
                                                object:nil];
+    
+    self.afReachability = [AFNetworkReachabilityManager managerForDomain:@"www.google.com"];
+    [self.afReachability setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        if (status < AFNetworkReachabilityStatusReachableViaWWAN) {
+            NSLog(@"No internet connection!");
+        }
+    }];
+    
+    [self.afReachability startMonitoring];
 
     //check if first launch
     if([[GTDefaults sharedDefaults]isFirstLaunch] == [NSNumber numberWithBool:YES]){
@@ -56,15 +66,15 @@
         [[GTDefaults sharedDefaults]setIsFirstLaunch:[NSNumber numberWithBool:NO]];
     }
     
-    if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES] && [AFNetworkReachabilityManager sharedManager].reachable){
+    if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES] && self.afReachability.reachable){
         [[GTDataImporter sharedImporter] authorizeTranslator];
     }else{
         [[GTDefaults sharedDefaults]setIsInTranslatorMode:[NSNumber numberWithBool:NO]];
     }
     
-    if([AFNetworkReachabilityManager sharedManager].reachable){
+    
+    if(self.afReachability.reachable){
     //if(YES){
-        //NSLog(@"REACHABLE with token: %@",[[GTAPI sharedAPI]authToken]);
         [[GTDataImporter sharedImporter] updateMenuInfo];
     }else{
         NSLog(@"NOT REACHABLE");

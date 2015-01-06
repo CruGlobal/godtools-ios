@@ -17,6 +17,7 @@
 @interface GTLanguagesViewController ()
     @property (strong,nonatomic) NSMutableArray *languages;
     @property (strong, nonatomic) UIAlertView *buttonLessAlert;
+    @property AFNetworkReachabilityManager *afReachability;
 @end
 
 @implementation GTLanguagesViewController
@@ -47,6 +48,26 @@
                                    cancelButtonTitle:nil
                                    otherButtonTitles:nil, nil];
     
+
+    
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    
+    self.afReachability = [AFNetworkReachabilityManager managerForDomain:@"www.google.com"];
+    [self.afReachability setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        if (status < AFNetworkReachabilityStatusReachableViaWWAN) {
+            NSLog(@"No internet connection!");
+        }
+    }];
+    
+    [self.afReachability startMonitoring];
+}
+
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    [self.afReachability stopMonitoring];
 }
 
 - (void)goToHome{
@@ -131,7 +152,8 @@
     GTLanguage *chosen = (GTLanguage*)[self.languages objectAtIndex:indexPath.row];
     
     if(![chosen downloaded]){
-        if([AFNetworkReachabilityManager sharedManager].reachable){
+        
+        if(self.afReachability.reachable){
 
             [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadProgressMade
                                                                 object:self

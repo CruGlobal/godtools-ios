@@ -25,11 +25,14 @@
 @property (strong, nonatomic) UIAlertView *exitTranslatorModeAlert;
 @property (strong, nonatomic) UIAlertView *buttonLessAlert;
 @property (strong, nonatomic) NSMutableArray *settingsOptions;
+@property AFNetworkReachabilityManager *afReachability;
+@property BOOL shouldGoBackToHome;
 
 @end
 
 @implementation GTSettingsViewController
 
+#pragma mark - View Controller Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -77,23 +80,45 @@
     self.translatorSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
     [self.translatorSwitch addTarget:self action:@selector(translatorSwitchToggled) forControlEvents:UIControlEventTouchUpInside];
     
-    if([AFNetworkReachabilityManager sharedManager].reachable){
-        [[GTDataImporter sharedImporter]updateMenuInfo];
-    }
+//updated when there are changes in drafts, might not be necessarily needed here
+//    if([AFNetworkReachabilityManager sharedManager].reachable){
+//        [[GTDataImporter sharedImporter]updateMenuInfo];
+//    }
     
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    self.shouldGoBackToHome = NO;
     [self.navigationController setNavigationBarHidden:NO];
     [self.tableView reloadData];
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    self.afReachability = [AFNetworkReachabilityManager managerForDomain:@"www.google.com"];
+    [self.afReachability setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        if (status < AFNetworkReachabilityStatusReachableViaWWAN) {
+            NSLog(@"No internet connection!");
+        }
+    }];
+    
+    [self.afReachability startMonitoring];
+    
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
     [self removeNotificationObservers];
+    [self.afReachability stopMonitoring];
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Notification Observers
 -(void)addNotificationObservers{
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(authorizeTranslatorAlert:)
@@ -121,6 +146,7 @@
                                                   object:nil];
 }
 
+#pragma mark - Property getters
 -(GTLanguage *)mainLanguage{
     
     NSString *mainLanguageCode = [[GTDefaults sharedDefaults] currentLanguageCode];
@@ -139,11 +165,6 @@
     }else{
         return nil;
     }
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view delegates
@@ -272,7 +293,8 @@
 -(void)translatorSwitchToggled{
     if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:NO]){
         //if([AFNetworkReachabilityManager sharedManager].reachable){
-        if(YES){
+        if(self.afReachability.reachable){
+        //if(YES){
             [self.translatorModeAlert show];
         }else{
             self.buttonLessAlert.message = NSLocalizedString(@"You need to be online to proceed", nil);
@@ -316,6 +338,7 @@
 -(void)dismissAlertView:(UIAlertView *)alertView{
     [alertView dismissWithClickedButtonIndex:0 animated:YES];
     if(alertView == self.buttonLessAlert && [[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]){
+    //if(alertView == self.buttonLessAlert && self.shouldGoBackToHome){
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
@@ -326,11 +349,6 @@
 
     if([notification.name isEqualToString:GTDataImporterNotificationAuthTokenUpdateStarted]){
         NSLog(@"AUTHENTICATING_____++++++");
-        /*UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        
-        indicator.center = CGPointMake(self.buttonLessAlert.bounds.size.width / 2, self.buttonLessAlert.bounds.size.height - 50);
-        [indicator startAnimating];
-        [self.buttonLessAlert addSubview:indicator];*/
         //if([AFNetworkReachabilityManager sharedManager].reachable){
             NSLog(@"reachable");
             self.buttonLessAlert.message = NSLocalizedString(@"AlertMessage_authenticatingAccessCode", nil);
@@ -353,7 +371,7 @@
         if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]){
             self.buttonLessAlert.message = NSLocalizedString(@"AlertMessage_previewModeEnabled", nil);
             [self.buttonLessAlert show];
-            
+            self.shouldGoBackToHome = YES;
             [self performSelector:@selector(dismissAlertView:) withObject:self.buttonLessAlert afterDelay:2.0];
             [self.translatorSwitch setOn:YES animated:YES];
             
