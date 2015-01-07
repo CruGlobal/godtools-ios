@@ -47,7 +47,7 @@
     self.homeView.delegate = self;
     self.homeView.tableView.delegate = self;
     self.homeView.tableView.dataSource = self;
-    self.homeView.tableView.estimatedRowHeight = UITableViewAutomaticDimension;
+    //self.homeView.tableView.estimatedRowHeight = UITableViewAutomaticDimension;
     self.homeView.tableView.contentInset = UIEdgeInsetsZero;
     self.homeView.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.homeView.tableView.bounds.size.width, 0.01f)];
     self.homeView.tableView.tableFooterView = nil;
@@ -318,7 +318,7 @@
 
     //phone's language is not the current main language of the app
     if(![[[GTDefaults sharedDefaults]phonesLanguageCode] isEqualToString:[[GTDefaults sharedDefaults] currentLanguageCode]] && [[GTDefaults sharedDefaults]phonesLanguageCode]!=nil){
-        if ([UIAlertController class]){
+    /*    if ([UIAlertController class]){
             
             UIAlertController *languageAlert =[UIAlertController alertControllerWithTitle:      NSLocalizedString(@"AlertTitle_updateLanguageToPhonesLanguage", nil)
                                         message:[NSString stringWithFormat: NSLocalizedString(@"AlertMessage_updateLanguageToPhonesLanguage", nil),self.phonesLanguage.name]
@@ -343,10 +343,10 @@
             [languageAlert addAction:cancel];
             
             [self presentViewController:languageAlert animated:YES completion:nil];
-        }else{
+        }else{*/
             //NSLog(@"!controller");
             [self.phonesLanguageAlert show];
-        }
+        //}
     }
 }
 
@@ -419,7 +419,7 @@
             GTLanguage *parallelLanguage = [languages objectAtIndex:0];
             for(GTPackage *parallelPackage in parallelLanguage.packages){
                 if ([parallelPackage.code isEqualToString:package.code] && [parallelPackage.status isEqualToString:package.status]) {
-                #warning workaround to pass a parallel  config file that is not nil. this is due to packages created with no config file
+                // workaround to pass a parallel  config file that is not nil. this is due to packages created with no config file
                     if(parallelPackage.configFile)
                         parallelConfigFile = parallelPackage.configFile;
                 }

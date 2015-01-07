@@ -3,8 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GTSettingsAboutGodToolsViewController"/>
@@ -17,10 +15,10 @@
                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lbK-fM-HPl">
-                    <rect key="frame" x="14" y="99" width="573" height="323"/>
+                    <rect key="frame" x="14" y="99" width="581" height="323"/>
                     <subviews>
                         <view alpha="0.89999999999999991" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5rY-Sc-kGr">
-                            <rect key="frame" x="0.0" y="0.0" width="573" height="50"/>
+                            <rect key="frame" x="0.0" y="0.0" width="581" height="50"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="About God Tools" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qfV-8u-co4">
                                     <rect key="frame" x="18" y="14" width="421" height="21"/>
@@ -51,7 +49,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Would You Like to Know God Personally? ©1995-2010 Cru and Bright Media-Foundation (BMF). All rights reserved." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X98-VF-k85">
-                            <rect key="frame" x="8" y="198" width="552" height="48"/>
+                            <rect key="frame" x="8" y="198" width="568" height="48"/>
                             <constraints>
                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="42" id="yx1-VE-O0O"/>
                             </constraints>
@@ -68,7 +66,7 @@
                             <rect key="frame" x="8" y="58" width="48" height="48"/>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Please email us at support@godtoolsapp.com with any questions or suggestions on how to make this app better." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y6e-G9-k1U">
-                            <rect key="frame" x="8" y="112" width="552" height="49"/>
+                            <rect key="frame" x="8" y="112" width="568" height="49"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="49" id="41A-1z-sjQ"/>
                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="59" id="r3h-2E-Jca"/>
@@ -83,7 +81,7 @@
                             </variation>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright Information" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="brN-2w-L0v">
-                            <rect key="frame" x="8" y="169" width="533" height="21"/>
+                            <rect key="frame" x="8" y="169" width="541" height="21"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="21" id="6g8-42-IsM"/>
                             </constraints>
@@ -92,7 +90,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Satisfied? ©2001-2010 Cru and Bright Media Foundation(BMF). All rights reserved. " lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kIO-xX-2pj">
-                            <rect key="frame" x="8" y="246" width="552" height="54"/>
+                            <rect key="frame" x="8" y="246" width="568" height="54"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="54" id="bWS-mt-see"/>
                             </constraints>
@@ -113,7 +111,7 @@
                         <constraint firstAttribute="trailing" secondItem="5rY-Sc-kGr" secondAttribute="trailing" id="PCs-jz-Wbf"/>
                         <constraint firstItem="I0q-wV-Vxi" firstAttribute="top" secondItem="lbK-fM-HPl" secondAttribute="top" constant="58" id="QDC-SA-EqF"/>
                         <constraint firstItem="X98-VF-k85" firstAttribute="top" secondItem="brN-2w-L0v" secondAttribute="bottom" constant="8" id="Smy-g5-peN"/>
-                        <constraint firstItem="Y6e-G9-k1U" firstAttribute="trailing" secondItem="lbK-fM-HPl" secondAttribute="trailingMargin" constant="-5" id="TsH-fX-1na"/>
+                        <constraint firstItem="Y6e-G9-k1U" firstAttribute="trailing" secondItem="lbK-fM-HPl" secondAttribute="trailing" constant="-5" id="TsH-fX-1na"/>
                         <constraint firstAttribute="width" secondItem="lbK-fM-HPl" secondAttribute="height" multiplier="580:323" id="Wic-Yr-mhg"/>
                         <constraint firstItem="Y6e-G9-k1U" firstAttribute="centerX" secondItem="5rY-Sc-kGr" secondAttribute="centerX" id="cXv-3h-xhv"/>
                         <constraint firstAttribute="bottom" secondItem="5rY-Sc-kGr" secondAttribute="bottom" constant="273" id="cYk-Fn-sSE"/>
@@ -150,7 +148,7 @@
                 <constraint firstItem="ENs-tZ-RIp" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="4Yf-UI-r3w"/>
                 <constraint firstAttribute="trailing" secondItem="ENs-tZ-RIp" secondAttribute="trailing" id="BVK-G1-7sK"/>
                 <constraint firstItem="ENs-tZ-RIp" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="HiA-Vw-v9U"/>
-                <constraint firstAttribute="trailingMargin" secondItem="lbK-fM-HPl" secondAttribute="trailing" constant="5" id="KDr-E7-Qq5"/>
+                <constraint firstAttribute="trailing" secondItem="lbK-fM-HPl" secondAttribute="trailing" constant="5" id="KDr-E7-Qq5"/>
                 <constraint firstAttribute="bottom" secondItem="ENs-tZ-RIp" secondAttribute="bottom" id="ZAV-1V-LVH"/>
                 <constraint firstItem="lbK-fM-HPl" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" constant="6" id="aSd-GE-Exu"/>
                 <constraint firstAttribute="centerX" secondItem="lbK-fM-HPl" secondAttribute="centerX" id="ag8-XY-sYx"/>

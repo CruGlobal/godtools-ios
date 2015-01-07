@@ -27,10 +27,10 @@ NSString *const GTShareViewControllerCampaignLinkCampaignName          = @"app-s
 	SSCWhatsAppActivity *whatsAppActivity	= [[SSCWhatsAppActivity alloc] init];
 	
 	self = [super initWithActivityItems:@[[NSURL URLWithString:campaignLink]] applicationActivities:@[whatsAppActivity]];
+    self.excludedActivityTypes = [[NSArray alloc]init];
 	if (self) {
-		
-		self.excludedActivityTypes	= @[
-										//UIActivityTypePostToFacebook,
+
+		self.excludedActivityTypes	= @[//UIActivityTypePostToFacebook,
 										//UIActivityTypePostToTwitter,
 										//UIActivityTypePostToWeibo,
 										//UIActivityTypeMessage,
@@ -39,12 +39,24 @@ NSString *const GTShareViewControllerCampaignLinkCampaignName          = @"app-s
 										//UIActivityTypeCopyToPasteboard,
 										//UIActivityTypeAssignToContact,
 										//UIActivityTypeSaveToCameraRoll,
-										UIActivityTypeAddToReadingList,
-										UIActivityTypePostToFlickr,
-										UIActivityTypePostToVimeo,
-										//UIActivityTypePostToTencentWeibo,
-										UIActivityTypeAirDrop
+										/////////UIActivityTypeAddToReadingList,    //iOS7
+										/////////UIActivityTypePostToFlickr,        //iOS7
+										////////UIActivityTypePostToVimeo,          //iOS7
+										//UIActivityTypePostToTencentWeibo,         //iOS7
+										/////////UIActivityTypeAirDrop              //iOS7
 										];
+        if(([[[UIDevice currentDevice] systemVersion] compare:@"7.0" options:NSNumericSearch] != NSOrderedAscending)){//if version is greater than or equal to 7.0
+            
+             NSMutableArray* excludedActivityForEqualOrGreaterThaniOS7 = [[NSMutableArray alloc]initWithArray:@[
+                                                                                                                UIActivityTypeAddToReadingList,
+                                                                                                                UIActivityTypePostToFlickr,UIActivityTypePostToVimeo,
+                                                                                                                //UIActivityTypePostToTencentWeibo,
+                                                                                                                UIActivityTypeAirDrop]];
+
+            
+            [excludedActivityForEqualOrGreaterThaniOS7 addObjectsFromArray:self.excludedActivityTypes];
+            self.excludedActivityTypes = [NSArray arrayWithArray:excludedActivityForEqualOrGreaterThaniOS7];
+        }
 		
 	}
 	

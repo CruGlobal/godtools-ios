@@ -32,8 +32,6 @@
                                              otherButtonTitles:nil];
     [errorAlert show];
     
-#warning incomplete impelementation of displayError
-	
 }
 
 @end
