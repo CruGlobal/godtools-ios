@@ -78,7 +78,7 @@
         [[GTDefaults sharedDefaults]setIsFirstLaunch:[NSNumber numberWithBool:NO]];
     }
     
-    if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES] && self.afReachability.reachable){
+    if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]){// && self.afReachability.reachable){
         [[GTDataImporter sharedImporter] authorizeTranslator];
     }//else{
     //    [[GTDefaults sharedDefaults]setIsInTranslatorMode:[NSNumber numberWithBool:NO]];
