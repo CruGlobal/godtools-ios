@@ -18,7 +18,6 @@
 #import "GTSplashScreenView.h"
 
 @interface GTMainViewController ()
-    @property (nonatomic, strong) GTViewController *godtoolsViewController;
     @property (nonatomic, strong) NSArray *resources;
     @property (nonatomic, strong) GTSplashScreenView *splashScreen;
     @property AFNetworkReachabilityManager *afReachability;
@@ -49,6 +48,19 @@
                                                  name: GTDataImporterNotificationMenuUpdateStarted
                                                object:nil];
     
+   /* [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(authorizeTranslatorAlert:)
+                                                 name: GTDataImporterNotificationAuthTokenUpdateStarted
+                                               object:nil];*/
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateMenu)
+                                                 name: GTDataImporterNotificationAuthTokenUpdateSuccessful
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateMenu)
+                                                 name: GTDataImporterNotificationAuthTokenUpdateFail
+                                               object:nil];
+    
     self.afReachability = [AFNetworkReachabilityManager managerForDomain:@"www.google.com"];
     [self.afReachability setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
         if (status < AFNetworkReachabilityStatusReachableViaWWAN) {
@@ -68,18 +80,14 @@
     
     if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES] && self.afReachability.reachable){
         [[GTDataImporter sharedImporter] authorizeTranslator];
-    }else{
-        [[GTDefaults sharedDefaults]setIsInTranslatorMode:[NSNumber numberWithBool:NO]];
+    }//else{
+    //    [[GTDefaults sharedDefaults]setIsInTranslatorMode:[NSNumber numberWithBool:NO]];
+    //}
+    else{
+        [self updateMenu];
     }
     
     
-    if(self.afReachability.reachable){
-    //if(YES){
-        [[GTDataImporter sharedImporter] updateMenuInfo];
-    }else{
-        NSLog(@"NOT REACHABLE");
-        [self performSelector:@selector(goToHome) withObject:nil afterDelay:1.0];
-    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -95,7 +103,22 @@
 }
 
 -(void)goToHome{
-    [self performSegueWithIdentifier:@"splashToHomeViewSegue" sender:self];
+    NSLog(@"go to home");
+    [self performSelector:@selector(performSegueToHome) withObject:nil afterDelay:1.0];
+
+}
+
+-(void)performSegueToHome{
+     [self performSegueWithIdentifier:@"splashToHomeViewSegue" sender:self];
+}
+
+-(void)updateMenu{
+    if(self.afReachability.reachable){
+        [[GTDataImporter sharedImporter] updateMenuInfo];
+    }else{
+        NSLog(@"NOT REACHABLE");
+        [self goToHome];
+    }
 }
 
 -(void)showLoadingIndicator:(NSNotification *) notification{

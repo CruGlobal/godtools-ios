@@ -66,7 +66,9 @@
     self.languageCode = [[GTDefaults sharedDefaults]currentLanguageCode];
     [self setData];
     [self.homeView.tableView reloadData];
+    
     NSLog(@"phone's :%@",[[GTDefaults sharedDefaults]phonesLanguageCode]);
+    
     if([[GTDefaults sharedDefaults]phonesLanguageCode]){
         self.phonesLanguage = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults]phonesLanguageCode] inBackground:YES]objectAtIndex:0];
         self.phonesLanguageAlert = [[UIAlertView alloc] initWithTitle:@"Language Settings"
@@ -315,38 +317,28 @@
 
 #pragma mark - Language Methods
 -(void)checkPhonesLanguage{
+    
+    GTLanguage *language = [[[GTStorage sharedStorage] fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] phonesLanguageCode] inBackground:YES]objectAtIndex:0];
+    
+    BOOL shouldSetPhonesLanguageAsMainLanguage = ![[[GTDefaults sharedDefaults]phonesLanguageCode] isEqualToString:[[GTDefaults sharedDefaults] currentLanguageCode]];
+    
+    shouldSetPhonesLanguageAsMainLanguage = shouldSetPhonesLanguageAsMainLanguage && [[GTDefaults sharedDefaults]phonesLanguageCode]!=nil ;
 
+    
+    if([[GTDefaults sharedDefaults] isInTranslatorMode] == [NSNumber numberWithBool:NO]){
+        
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"status == %@ and configFile != nil",@"live"];
+        NSArray *livePackages = [[language.packages allObjects] filteredArrayUsingPredicate:predicate];
+
+        shouldSetPhonesLanguageAsMainLanguage = shouldSetPhonesLanguageAsMainLanguage && livePackages.count>0;
+    }else if([[GTDefaults sharedDefaults] isInTranslatorMode] == [NSNumber numberWithBool:YES]){
+        shouldSetPhonesLanguageAsMainLanguage = shouldSetPhonesLanguageAsMainLanguage && language.packages.count>0;
+    }
+    
     //phone's language is not the current main language of the app
-    if(![[[GTDefaults sharedDefaults]phonesLanguageCode] isEqualToString:[[GTDefaults sharedDefaults] currentLanguageCode]] && [[GTDefaults sharedDefaults]phonesLanguageCode]!=nil){
-    /*    if ([UIAlertController class]){
-            
-            UIAlertController *languageAlert =[UIAlertController alertControllerWithTitle:      NSLocalizedString(@"AlertTitle_updateLanguageToPhonesLanguage", nil)
-                                        message:[NSString stringWithFormat: NSLocalizedString(@"AlertMessage_updateLanguageToPhonesLanguage", nil),self.phonesLanguage.name]
-                                        preferredStyle: UIAlertControllerStyleAlert];
-            
-            UIAlertAction* ok = [UIAlertAction
-                                    actionWithTitle: NSLocalizedString(@"Yes", nil)
-                                    style:UIAlertActionStyleDefault
-                                    handler:^(UIAlertAction * action){
-                                        [self setMainLanguageToPhonesLanguage];
-                                        [languageAlert dismissViewControllerAnimated:YES completion:nil];
-                                 }];
-            
-            UIAlertAction* cancel = [UIAlertAction
-                                     actionWithTitle: NSLocalizedString(@"No", nil)
-                                     style:UIAlertActionStyleDefault
-                                     handler:^(UIAlertAction * action){
-                                         [languageAlert dismissViewControllerAnimated:YES completion:nil];
-                                     }];
-            
-            [languageAlert addAction:ok];
-            [languageAlert addAction:cancel];
-            
-            [self presentViewController:languageAlert animated:YES completion:nil];
-        }else{*/
-            //NSLog(@"!controller");
+    if(shouldSetPhonesLanguageAsMainLanguage){
+            [self.homeView setUserInteractionEnabled:YES];
             [self.phonesLanguageAlert show];
-        //}
     }
 }
 
@@ -399,7 +391,6 @@
     }else if(alertView == self.createDraftsAlert){
         if(buttonIndex > 0){
             GTPackage *selectedPackage = [[self packagesWithNoDrafts]objectAtIndex:buttonIndex-1];
-            //NSLog(@"%@ chosen",selectedPackage.name);
             [[GTDataImporter sharedImporter]createDraftsForLanguage:selectedPackage.language package:selectedPackage];
         }
     }
@@ -410,10 +401,10 @@
    
     NSString *parallelConfigFile;
     BOOL isDraft = [package.status isEqualToString:@"draft"]? YES: NO;
-    NSLog(@"parallel: %@",[[GTDefaults sharedDefaults]currentParallelLanguageCode]);
+    
     //add checker if parallel language has a package
     if([[GTDefaults sharedDefaults]currentParallelLanguageCode] != nil ){
-        NSLog(@"parallel is %@",[[GTDefaults sharedDefaults]currentParallelLanguageCode] );
+        
         NSArray *languages = [[GTStorage sharedStorage]fetchArrayOfModels:[GTLanguage class] usingKey:@"code" forValues:@[[[GTDefaults sharedDefaults]currentParallelLanguageCode]] inBackground:NO];
         if(languages){
             GTLanguage *parallelLanguage = [languages objectAtIndex:0];
