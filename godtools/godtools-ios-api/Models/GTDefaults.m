@@ -38,6 +38,7 @@ NSString *const GTDefaultstranslatorAccessCode              = @"translator_acces
 @synthesize isInTranslatorMode          = _isInTranslatorMode;
 
 @synthesize translatorAccessCode        = _translatorAccessCode;
+@synthesize authToken                   = _authToken;
 
 
 #pragma mark - initialization
@@ -83,8 +84,8 @@ NSString *const GTDefaultstranslatorAccessCode              = @"translator_acces
 	NSString		*phonesLanguage				= ( preferredLanguages.count > 0 ? preferredLanguages[0] : @"en" );
 	NSString		*phonesLocale				= ( [currentLocale objectForKey:NSLocaleCountryCode] ? [currentLocale objectForKey:NSLocaleCountryCode] : @"" );
     NSString		*phonesLanguageWithLocale	= [phonesLanguage stringByAppendingFormat:@"_%@", phonesLocale];
-     NSLog(@"phones language %@",phonesLanguage);
-    NSLog(@"phones language with locale: %@",phonesLanguageWithLocale);
+    
+    
 	if ([self isValidLanguageCode:phonesLanguageWithLocale]) {
 		
 		language	= phonesLanguageWithLocale;
@@ -93,7 +94,10 @@ NSString *const GTDefaultstranslatorAccessCode              = @"translator_acces
 		
 		language	= phonesLanguage;
 		
-	} else {
+    }else if([self checkIfChinese:phonesLanguage]){
+        language    = @"zh";
+    
+    }else {
 		
 		//language	= @"en";
         language = nil;
@@ -101,6 +105,10 @@ NSString *const GTDefaultstranslatorAccessCode              = @"translator_acces
 	}
 
 	return language;
+}
+
+-(BOOL)checkIfChinese:(NSString *)languageCode{
+    return [languageCode isEqualToString:@"zh-Hans"] || [languageCode isEqualToString:@"zh-Hant"];
 }
 
 - (BOOL)isValidLanguageCode:(NSString *)languageCode {
