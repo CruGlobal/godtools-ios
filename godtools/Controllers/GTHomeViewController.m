@@ -327,7 +327,7 @@
     
     if([[GTDefaults sharedDefaults] isInTranslatorMode] == [NSNumber numberWithBool:NO]){
         
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"status == %@ and configFile != nil",@"live"];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"status == %@",@"live"];
         NSArray *livePackages = [[language.packages allObjects] filteredArrayUsingPredicate:predicate];
 
         shouldSetPhonesLanguageAsMainLanguage = shouldSetPhonesLanguageAsMainLanguage && livePackages.count>0;
