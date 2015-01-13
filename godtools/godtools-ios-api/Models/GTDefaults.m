@@ -302,30 +302,4 @@ NSString *const GTDefaultstranslatorAccessCode              = @"translator_acces
     return _translatorAccessCode;
 }
 
-#pragma mark - translatorAccessCode
-
-- (void)setAuthToken:(NSString *)authToken{
-    
-    [self willChangeValueForKey:@"authToken"];
-    
-    _authToken	= authToken;
-    [self didChangeValueForKey:@"authToken"];
-    
-    [[NSUserDefaults standardUserDefaults] setObject:authToken forKey:GTDefaultsauthToken];
-    
-}
-
-- (NSString *)authToken {
-    
-    if (!_authToken) {
-        
-        [self willChangeValueForKey:@"authToken"];
-        _authToken = [[NSUserDefaults standardUserDefaults] stringForKey:GTDefaultsauthToken];
-        [self didChangeValueForKey:@"authToken"];
-        
-    }
-    
-    return _authToken;
-}
-
 @end
