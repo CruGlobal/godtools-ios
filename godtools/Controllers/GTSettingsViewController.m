@@ -40,6 +40,7 @@
 @implementation GTSettingsViewController
 
 #pragma mark - View Controller Life Cycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -55,6 +56,7 @@
     self.view = self.settingsView;
     
     self.settingsView.delegate = self;
+    
     UILabel *mainLanguagelabel =  [[UILabel alloc] initWithFrame: CGRectMake(30,244,280,21)];
     mainLanguagelabel.text = NSLocalizedString(@"GTSettings_mainLanguage_label", nil);
     mainLanguagelabel.textColor = [UIColor whiteColor];
@@ -75,26 +77,10 @@
     previewModeInstructions.textColor = [UIColor whiteColor];
     previewModeInstructions.numberOfLines = 0;
     [self.view addSubview:previewModeInstructions];
-
-    UILabel *mainLanguageNameLabel =  [[UILabel alloc] initWithFrame: CGRectMake(30,289,145,21)];
-    mainLanguageNameLabel.text = [[self mainLanguage].name uppercaseString];
-    mainLanguageNameLabel.textColor = [UIColor whiteColor];
-    [self.view addSubview:mainLanguageNameLabel];
-
-    UILabel *parallelLanguageNameLabel =  [[UILabel alloc] initWithFrame: CGRectMake(30,394,145,21)];
-
-    GTLanguage *parallelLanguage = [self parallelLanguage];
     
-    if(parallelLanguage == nil) {
-       parallelLanguageNameLabel.text = @"None Selected";
-    }
-    else {
-        parallelLanguageNameLabel.text = [parallelLanguage.name uppercaseString];
-    }
-    
-    parallelLanguageNameLabel.textColor = [UIColor whiteColor];
-    [self.view addSubview:parallelLanguageNameLabel];
-    
+    [self addLanguageNameLabel];
+    [self addParallelLanguageNameLabel];
+
     self.settingsOptions = [[NSMutableArray alloc]initWithArray:@[
                                   NSLocalizedString(@"GTSettings_mainLanguage_label", nil),
                                   @"English",
@@ -140,10 +126,12 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.shouldGoBackToHome = NO;
+    
+    [self setLanguageNameLabelValues];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [super viewDidDisappear:animated];
+    [super viewDidAppear:animated];
     self.afReachability = [AFNetworkReachabilityManager managerForDomain:@"www.google.com"];
     [self.afReachability setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
         if (status < AFNetworkReachabilityStatusReachableViaWWAN) {
@@ -152,7 +140,6 @@
     }];
     
     [self.afReachability startMonitoring];
-    
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
@@ -217,15 +204,13 @@
 
 #pragma mark - Settings view delegates
 
--(void)doneButtonPressed {
-    [self performSegueWithIdentifier:@"settingsToHomeViewSegue" sender:self];
-}
-
 -(void)chooseLanguageButtonPressed {
+    [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:[NSNumber numberWithBool: YES]];
     [self performSegueWithIdentifier:@"settingsToLanguageViewSegue" sender:self];
 }
 
 -(void)chooseParallelLanguageButtonPressed{
+    [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:[NSNumber numberWithBool: NO]];
     [self performSegueWithIdentifier:@"settingsToLanguageViewSegue" sender:self];
 }
 
@@ -323,25 +308,6 @@
     
 }
 
-#pragma mark - Navigation
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"settingsToLanguageViewSegue"]){
-
-//        if([self.tableView indexPathForSelectedRow].row == 1){
-//            
-//            [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:[NSNumber numberWithBool: YES]];
-//            
-//        }else if([self.tableView indexPathForSelectedRow].row == 3){
-//            
-//            [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:[NSNumber numberWithBool: NO]];
-//        
-//        }
-        
-    }
-}
-
 #pragma mark - UI Utilities
 
 -(void)translatorSwitchToggled{
@@ -436,5 +402,27 @@
     }
 }
 
+- (void)addLanguageNameLabel {
+    self.settingsView.languageNameLabel = [[UILabel alloc] initWithFrame: CGRectMake(30,289,145,21)];
+    self.settingsView.languageNameLabel.textColor = [UIColor whiteColor];
+    [self.view addSubview:self.settingsView.languageNameLabel];
+}
+
+- (void)addParallelLanguageNameLabel {
+    self.settingsView.parallelLanguageNameLabel = [[UILabel alloc] initWithFrame: CGRectMake(30,394,145,21)];
+    self.settingsView.parallelLanguageNameLabel.textColor = [UIColor whiteColor];
+    [self.view addSubview:self.settingsView.parallelLanguageNameLabel];
+}
+
+- (void)setLanguageNameLabelValues {
+    self.settingsView.languageNameLabel.text = [[self mainLanguage].name uppercaseString];
+    
+    if([self parallelLanguage] == nil) {
+        self.settingsView.parallelLanguageNameLabel.text = @"None Selected";
+    }
+    else {
+        self.settingsView.parallelLanguageNameLabel.text = [[self parallelLanguage].name uppercaseString];
+    }
+}
 
 @end

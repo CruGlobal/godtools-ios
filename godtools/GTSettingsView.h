@@ -10,7 +10,6 @@
 #import "GTBaseView.h"
 @protocol GTSettingsViewDelegate <NSObject>
 @required
--(void)doneButtonPressed;
 -(void)chooseLanguageButtonPressed;
 -(void)chooseParallelLanguageButtonPressed;
 @end
@@ -19,11 +18,12 @@
 
 @property (strong,nonatomic) id<GTSettingsViewDelegate> delegate;
 
-@property (weak, nonatomic) IBOutlet UIButton *doneButton;
 @property (weak, nonatomic) IBOutlet UIButton *chooseLanguageButton;
 @property (weak, nonatomic) IBOutlet UIButton *chooseParallelLanguageButton;
 
-- (IBAction)doneButtonPressed:(id)sender;
+@property (strong, nonatomic) UILabel *languageNameLabel;
+@property (strong, nonatomic) UILabel *parallelLanguageNameLabel;
+
 - (IBAction)chooseLanguageButtonPressed:(id)sender;
 - (IBAction)chooseParallelLanguageButtonPressed:(id)sender;
 
