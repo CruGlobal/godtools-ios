@@ -48,7 +48,7 @@
                                    cancelButtonTitle:nil
                                    otherButtonTitles:nil, nil];
     
-    // set navigation bar title color
+    // set navigation bar title color for title set from story board
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:UITextAttributeTextColor]];
 }
 
