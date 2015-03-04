@@ -8,3 +8,6 @@
 
 #import "GTSettingsView.h"
 
+@implementation GTSettingsView
+
+@end

@@ -20,14 +20,19 @@
 @interface GTSettingsViewController ()
 
 @property (strong, nonatomic) GTSettingsView *settingsView;
+
 @property (strong, nonatomic) GTLanguage *mainLanguage;
 @property (strong, nonatomic) GTLanguage *parallelLanguage;
+
 @property (strong, nonatomic) UISwitch *translatorSwitch;
 @property (strong, nonatomic) UIAlertView *translatorModeAlert;
 @property (strong, nonatomic) UIAlertView *exitTranslatorModeAlert;
 @property (strong, nonatomic) UIAlertView *buttonLessAlert;
+
 @property (strong, nonatomic) NSMutableArray *settingsOptions;
+
 @property AFNetworkReachabilityManager *afReachability;
+
 @property BOOL shouldGoBackToHome;
 
 @end
@@ -43,10 +48,6 @@
     self.settingsView = (GTSettingsView*) [[[NSBundle mainBundle] loadNibNamed:@"GTSettingsView" owner:nil options:nil] objectAtIndex:0];
 
     self.view = self.settingsView;
-    
-    [self.tableView setBounces:NO];
-    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    [self.tableView reloadData];
     
     self.settingsOptions = [[NSMutableArray alloc]initWithArray:@[
                                   NSLocalizedString(@"GTSettings_mainLanguage_label", nil),
