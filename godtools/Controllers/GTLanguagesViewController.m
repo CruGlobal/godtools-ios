@@ -47,6 +47,9 @@
                                    delegate:self
                                    cancelButtonTitle:nil
                                    otherButtonTitles:nil, nil];
+    
+    // set navigation bar title color
+    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:UITextAttributeTextColor]];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
