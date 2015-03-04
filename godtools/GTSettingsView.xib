@@ -14,25 +14,6 @@
                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="GT4_HomeScreen_Background_" translatesAutoresizingMaskIntoConstraints="NO" id="LN9-0E-Xse">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                 </imageView>
-                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="GT4_HomeScreen_NavBar_" translatesAutoresizingMaskIntoConstraints="NO" id="JZs-F9-oVV">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="46"/>
-                </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Settings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U1m-5x-K7q">
-                    <rect key="frame" x="124" y="12" width="73" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Jd-HH-Pdp">
-                    <rect key="frame" x="263" y="8" width="37" height="30"/>
-                    <state key="normal" title="Done">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="doneButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="Reg-Nl-oIH"/>
-                    </connections>
-                </button>
                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="GT4_SettingsScreen_ButtonBar15%_Orange_" translatesAutoresizingMaskIntoConstraints="NO" id="3L6-Tt-4ii">
                     <rect key="frame" x="0.0" y="138" width="375" height="52"/>
                 </imageView>
@@ -53,15 +34,11 @@
                 </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-            <connections>
-                <outlet property="doneButton" destination="3Jd-HH-Pdp" id="1V2-28-X86"/>
-            </connections>
             <point key="canvasLocation" x="43" y="106"/>
         </view>
     </objects>
     <resources>
         <image name="GT4_HomeScreen_Background_" width="320" height="568"/>
-        <image name="GT4_HomeScreen_NavBar_" width="320" height="46"/>
         <image name="GT4_SettingsScreen_ButtonBar15%_Orange_" width="375" height="52"/>
         <image name="GT4_SettingsScreen_ButtonBar15%_Teal_" width="375" height="52"/>
         <image name="GT4_SettingsScreen_RightArrow_" width="10" height="18"/>
