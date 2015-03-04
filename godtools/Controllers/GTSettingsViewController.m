@@ -48,6 +48,16 @@
     self.settingsView = (GTSettingsView*) [[[NSBundle mainBundle] loadNibNamed:@"GTSettingsView" owner:nil options:nil] objectAtIndex:0];
 
     self.view = self.settingsView;
+
+    UILabel *mainLanguagelabel =  [[UILabel alloc] initWithFrame: CGRectMake(24,244,484,21)];
+    mainLanguagelabel.text = NSLocalizedString(@"GTSettings_mainLanguage_label", nil);
+    mainLanguagelabel.textColor = [UIColor whiteColor];
+    [self.view addSubview:mainLanguagelabel];
+
+    UILabel *parallelLanguagelabel =  [[UILabel alloc] initWithFrame: CGRectMake(24,349,484,21)];
+    parallelLanguagelabel.text = NSLocalizedString(@"GTSettings_parallelLanguage_label", nil);
+    parallelLanguagelabel.textColor = [UIColor whiteColor];
+    [self.view addSubview:parallelLanguagelabel];
     
     self.settingsOptions = [[NSMutableArray alloc]initWithArray:@[
                                   NSLocalizedString(@"GTSettings_mainLanguage_label", nil),
@@ -89,6 +99,10 @@
     self.translatorSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
     [self.translatorSwitch addTarget:self action:@selector(translatorSwitchToggled) forControlEvents:UIControlEventTouchUpInside];
     
+}
+
+-(NSString*)getMainLanguageLabel {
+    return NSLocalizedString(@"GTSettings_mainLanguage_label", nil);
 }
 
 -(void)viewWillAppear:(BOOL)animated{

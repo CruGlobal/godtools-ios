@@ -12,8 +12,8 @@
 "GTDataImporter_unzipPackages_error"    = "There was an error extracting the files";
 
 
-"GTSettings_mainLanguage_label"         = "Main Language";
-"GTSettings_parallelLanguage_label"     = "Parallel Language";
+"GTSettings_mainLanguage_label"         = "Main Language:";
+"GTSettings_parallelLanguage_label"     = "Parallel Language*:";
 "GTSettings_parallelLanguage_default"   = "None";
 "GTSettings_languageInstructions"       = "You can select a primary and parallel language that you can switch to at any time";
 "GTSettings_previewModeInstructions"    = "If you are a GodTools translator wanting to see your latest translations, enable Preview Mode";

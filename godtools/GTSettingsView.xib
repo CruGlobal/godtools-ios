@@ -34,7 +34,7 @@
                     <rect key="frame" x="0.0" y="138" width="375" height="52"/>
                 </imageView>
                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="GT4_SettingsScreen_ButtonBar15%_Teal_" translatesAutoresizingMaskIntoConstraints="NO" id="5rh-mB-Bcj">
-                    <rect key="frame" x="0.0" y="280" width="375" height="52"/>
+                    <rect key="frame" x="0.0" y="273" width="375" height="52"/>
                 </imageView>
                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="GT4_SettingsScreen_ButtonBar15%_Teal_" translatesAutoresizingMaskIntoConstraints="NO" id="Y8O-ER-ARs">
                     <rect key="frame" x="0.0" y="378" width="375" height="52"/>
