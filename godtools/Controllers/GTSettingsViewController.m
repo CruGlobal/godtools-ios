@@ -95,7 +95,6 @@
     [super viewWillAppear:animated];
     self.shouldGoBackToHome = NO;
     [self.navigationController setNavigationBarHidden:YES];
-    [self.tableView reloadData];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -172,14 +171,6 @@
 }
 
 #pragma mark - Table view delegates
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.settingsOptions.count;
-}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
@@ -279,15 +270,15 @@
 {
     if ([[segue identifier] isEqualToString:@"settingsToLanguageViewSegue"]){
 
-        if([self.tableView indexPathForSelectedRow].row == 1){
-            
-            [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:[NSNumber numberWithBool: YES]];
-            
-        }else if([self.tableView indexPathForSelectedRow].row == 3){
-            
-            [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:[NSNumber numberWithBool: NO]];
-        
-        }
+//        if([self.tableView indexPathForSelectedRow].row == 1){
+//            
+//            [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:[NSNumber numberWithBool: YES]];
+//            
+//        }else if([self.tableView indexPathForSelectedRow].row == 3){
+//            
+//            [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:[NSNumber numberWithBool: NO]];
+//        
+//        }
         
     }
 }

@@ -14,6 +14,5 @@
 @end
 
 @interface GTSettingsView : GTBaseView
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end

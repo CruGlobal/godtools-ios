@@ -58,7 +58,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="HrM-js-DUe"/>
                     <connections>
-                        <segue destination="Fem-Oz-R52" kind="push" identifier="homeToSettingsViewSegue" id="bLH-gm-hRR"/>
+                        <segue destination="oIQ-32-exZ" kind="push" identifier="homeToSettingsViewSegue" id="XAs-gy-8U5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fS8-yb-hUp" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -66,27 +66,27 @@
             <point key="canvasLocation" x="345" y="119"/>
         </scene>
         <!--Settings View Controller-->
-        <scene sceneID="wQJ-mz-8l0">
+        <scene sceneID="Ha2-eP-Dl9">
             <objects>
-                <tableViewController id="Fem-Oz-R52" customClass="GTSettingsViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="7ky-vu-k7U">
+                <viewController id="oIQ-32-exZ" customClass="GTSettingsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="VMF-Qq-7PC"/>
+                        <viewControllerLayoutGuide type="bottom" id="JKp-5o-V3H"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dbd-kT-ndl">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <connections>
-                            <outlet property="dataSource" destination="Fem-Oz-R52" id="aPf-F4-RBy"/>
-                            <outlet property="delegate" destination="Fem-Oz-R52" id="QDg-oh-R6q"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="p7Y-VJ-YIz"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="5kU-if-Z1Q"/>
                     <connections>
-                        <segue destination="YJa-Gt-v9R" kind="push" identifier="settingsToLanguageViewSegue" id="MQB-lm-Ula"/>
-                        <segue destination="eUe-NG-066" kind="modal" identifier="settingsToAboutViewSegue" id="hQ6-fH-U1h"/>
+                        <segue destination="YJa-Gt-v9R" kind="push" id="Qqk-3p-fFz"/>
+                        <segue destination="eUe-NG-066" kind="push" id="PlZ-Mg-hcL"/>
                     </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="zqH-NW-CPJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ysl-rJ-b5c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="735" y="125"/>
+            <point key="canvasLocation" x="764" y="119"/>
         </scene>
         <!--Settings About God Tools View Controller-->
         <scene sceneID="jyS-lA-FPz">
@@ -101,6 +101,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="3qe-rS-S2p"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9oO-BD-Xvn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
