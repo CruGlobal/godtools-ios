@@ -17,6 +17,7 @@
 "GTSettings_parallelLanguage_default"   = "None";
 "GTSettings_languageInstructions"       = "You can select a primary and parallel language that you can switch to at any time";
 "GTSettings_previewModeInstructions"    = "If you are a GodTools translator wanting to see your latest translations, enable Preview Mode";
+"GTSettings_parallelModeInstructions"   = "*If you are interacting with someone who has a different native language than yours, select it here then tap the [] button in the booklet to switch between the two languages.";
 "GTSettings_previewMode_label"          = "Preview Mode";
 "GTSettings_aboutGodTools"              = "About God Tools";
 

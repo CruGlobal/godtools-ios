@@ -45,8 +45,8 @@
                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="GT4_SettingsScreen_RightArrow_" translatesAutoresizingMaskIntoConstraints="NO" id="rEM-y1-nzO">
                     <rect key="frame" x="295" y="290" width="10" height="18"/>
                 </imageView>
-                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="GT4_SettingsScreen_RightArrow_" translatesAutoresizingMaskIntoConstraints="NO" id="TL6-ya-KbG">
-                    <rect key="frame" x="290" y="155" width="10" height="18"/>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="GT4_SettingsScreen_SwitchOff_" translatesAutoresizingMaskIntoConstraints="NO" id="v7l-tf-TsT">
+                    <rect key="frame" x="246" y="148" width="62" height="31"/>
                 </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -58,5 +58,6 @@
         <image name="GT4_SettingsScreen_ButtonBar15%_Orange_" width="375" height="52"/>
         <image name="GT4_SettingsScreen_ButtonBar15%_Teal_" width="375" height="52"/>
         <image name="GT4_SettingsScreen_RightArrow_" width="10" height="18"/>
+        <image name="GT4_SettingsScreen_SwitchOff_" width="62" height="31"/>
     </resources>
 </document>
