@@ -80,6 +80,13 @@
     self.translatorSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
     [self.translatorSwitch addTarget:self action:@selector(translatorSwitchToggled) forControlEvents:UIControlEventTouchUpInside];
     
+    // remove text from next view controllers back bar button
+    self.navigationItem.backBarButtonItem =
+    [[UIBarButtonItem alloc] initWithTitle:@""
+                                     style:UIBarButtonItemStyleBordered
+                                    target:nil
+                                    action:nil];
+
 //updated when there are changes in drafts, might not be necessarily needed here
 //    if([AFNetworkReachabilityManager sharedManager].reachable){
 //        [[GTDataImporter sharedImporter]updateMenuInfo];
