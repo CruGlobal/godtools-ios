@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Michael Harrison. All rights reserved.
 //
 
+#import "GTSettingsView.h"
 #import "GTSettingsViewController.h"
 #import "GTLanguagesViewController.h"
 #import "GTSettingsViewCell.h"
@@ -18,6 +19,7 @@
 
 @interface GTSettingsViewController ()
 
+@property (strong, nonatomic) GTSettingsView *settingsView;
 @property (strong, nonatomic) GTLanguage *mainLanguage;
 @property (strong, nonatomic) GTLanguage *parallelLanguage;
 @property (strong, nonatomic) UISwitch *translatorSwitch;
@@ -35,6 +37,12 @@
 #pragma mark - View Controller Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.navigationController setNavigationBarHidden:YES];
+    
+    self.settingsView = (GTSettingsView*) [[[NSBundle mainBundle] loadNibNamed:@"GTSettingsView" owner:nil options:nil] objectAtIndex:0];
+
+    self.view = self.settingsView;
     
     [self.tableView setBounces:NO];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
@@ -80,17 +88,12 @@
     self.translatorSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
     [self.translatorSwitch addTarget:self action:@selector(translatorSwitchToggled) forControlEvents:UIControlEventTouchUpInside];
     
-//updated when there are changes in drafts, might not be necessarily needed here
-//    if([AFNetworkReachabilityManager sharedManager].reachable){
-//        [[GTDataImporter sharedImporter]updateMenuInfo];
-//    }
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.shouldGoBackToHome = NO;
-    [self.navigationController setNavigationBarHidden:NO];
+    [self.navigationController setNavigationBarHidden:YES];
     [self.tableView reloadData];
 }
 

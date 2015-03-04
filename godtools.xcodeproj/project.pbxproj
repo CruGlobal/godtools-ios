@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		498E2278AF98C76BDF632C70 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74F8066D3A00B27C587FD9D9 /* libPods.a */; };
+		4FB17C461AA649CC0027C84E /* GTSettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4FB17C451AA649CC0027C84E /* GTSettingsView.xib */; };
+		4FB17C491AA64B250027C84E /* GTSettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB17C481AA64B250027C84E /* GTSettingsView.m */; };
 		6692BB1C1A072B0C00B15355 /* GTDataImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 68464FD218E1CEBE00D14C2B /* GTDataImporter.m */; };
 		66D1D7011A09F40F00AC4E48 /* en.zip in Resources */ = {isa = PBXBuildFile; fileRef = 66D1D6AB1A09F40F00AC4E48 /* en.zip */; };
 		66D1D7021A09F40F00AC4E48 /* meta.xml in Resources */ = {isa = PBXBuildFile; fileRef = 66D1D6AC1A09F40F00AC4E48 /* meta.xml */; };
@@ -103,6 +105,9 @@
 
 /* Begin PBXFileReference section */
 		368D2F901C18B173F9C84776 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		4FB17C451AA649CC0027C84E /* GTSettingsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GTSettingsView.xib; sourceTree = "<group>"; };
+		4FB17C471AA64A7C0027C84E /* GTSettingsView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GTSettingsView.h; sourceTree = "<group>"; };
+		4FB17C481AA64B250027C84E /* GTSettingsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTSettingsView.m; sourceTree = "<group>"; };
 		66D1D6AB1A09F40F00AC4E48 /* en.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = en.zip; sourceTree = "<group>"; };
 		66D1D6AC1A09F40F00AC4E48 /* meta.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = meta.xml; sourceTree = "<group>"; };
 		66D1D71B1A0B74EA00AC4E48 /* GTLanguage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTLanguage.h; path = "godtools-ios-api/Models/GTLanguage.h"; sourceTree = "<group>"; };
@@ -440,6 +445,9 @@
 				B7EA1B441A3826070098890F /* GTSplashScreenView.h */,
 				B7EA1B451A3826070098890F /* GTSplashScreenView.m */,
 				B7EA1B421A38097D0098890F /* GTSplashScreenView.xib */,
+				4FB17C451AA649CC0027C84E /* GTSettingsView.xib */,
+				4FB17C471AA64A7C0027C84E /* GTSettingsView.h */,
+				4FB17C481AA64B250027C84E /* GTSettingsView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -547,6 +555,7 @@
 				682F0E9018D8FBE100FBE3E0 /* config.plist in Resources */,
 				B76536D11A0CCBFB001C3FC3 /* GTSettingsViewCell.xib in Resources */,
 				68740D2B18D24F9A00D36C0E /* Images.xcassets in Resources */,
+				4FB17C461AA649CC0027C84E /* GTSettingsView.xib in Resources */,
 				B7D2AF851A415419009B7D5B /* NotoSansEthiopic-Bold.ttf in Resources */,
 				68740D1D18D24F9A00D36C0E /* InfoPlist.strings in Resources */,
 				B7EA1B431A38097D0098890F /* GTSplashScreenView.xib in Resources */,
@@ -646,6 +655,7 @@
 				B7C6B6101A2EEE73000DD4C6 /* GTViewController+Helper.m in Sources */,
 				68A1CBFD18DB6C3B00D84F12 /* GTDefaults.m in Sources */,
 				68E6067A18D3947600844377 /* GTLanguage+Helper.m in Sources */,
+				4FB17C491AA64B250027C84E /* GTSettingsView.m in Sources */,
 				B7D2AF8E1A43F131009B7D5B /* GTSettingsAboutGodToolsViewController.m in Sources */,
 				B76536D41A0CCC17001C3FC3 /* GTSettingsViewCell.m in Sources */,
 				B7E472831A15A210002DF715 /* GTHomeView.m in Sources */,
