@@ -47,9 +47,6 @@
                                    delegate:self
                                    cancelButtonTitle:nil
                                    otherButtonTitles:nil, nil];
-    
-    // set navigation bar tint color - this changes back button chevron and any text
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
