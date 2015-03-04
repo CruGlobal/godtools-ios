@@ -49,17 +49,17 @@
 
     self.view = self.settingsView;
 
-    UILabel *mainLanguagelabel =  [[UILabel alloc] initWithFrame: CGRectMake(30,244,484,21)];
+    UILabel *mainLanguagelabel =  [[UILabel alloc] initWithFrame: CGRectMake(30,244,280,21)];
     mainLanguagelabel.text = NSLocalizedString(@"GTSettings_mainLanguage_label", nil);
     mainLanguagelabel.textColor = [UIColor whiteColor];
     [self.view addSubview:mainLanguagelabel];
 
-    UILabel *parallelLanguagelabel =  [[UILabel alloc] initWithFrame: CGRectMake(30,349,484,21)];
+    UILabel *parallelLanguagelabel =  [[UILabel alloc] initWithFrame: CGRectMake(30,349,280,21)];
     parallelLanguagelabel.text = NSLocalizedString(@"GTSettings_parallelLanguage_label", nil);
     parallelLanguagelabel.textColor = [UIColor whiteColor];
     [self.view addSubview:parallelLanguagelabel];
     
-    UILabel *previewModelabel =  [[UILabel alloc] initWithFrame: CGRectMake(30,153,484,21)];
+    UILabel *previewModelabel =  [[UILabel alloc] initWithFrame: CGRectMake(30,153,280,21)];
     previewModelabel.text = NSLocalizedString(@"GTSettings_previewMode_label", nil);
     previewModelabel.textColor = [UIColor whiteColor];
     [self.view addSubview:previewModelabel];
@@ -69,6 +69,25 @@
     previewModeInstructions.textColor = [UIColor whiteColor];
     previewModeInstructions.numberOfLines = 0;
     [self.view addSubview:previewModeInstructions];
+
+    UILabel *mainLanguageNameLabel =  [[UILabel alloc] initWithFrame: CGRectMake(30,289,145,21)];
+    mainLanguageNameLabel.text = [[self mainLanguage].name uppercaseString];
+    mainLanguageNameLabel.textColor = [UIColor whiteColor];
+    [self.view addSubview:mainLanguageNameLabel];
+
+    UILabel *parallelLanguageNameLabel =  [[UILabel alloc] initWithFrame: CGRectMake(30,394,145,21)];
+
+    GTLanguage *parallelLanguage = [self parallelLanguage];
+    
+    if(parallelLanguage == nil) {
+       parallelLanguageNameLabel.text = @"None Selected";
+    }
+    else {
+        parallelLanguageNameLabel.text = [parallelLanguage.name uppercaseString];
+    }
+    
+    parallelLanguageNameLabel.textColor = [UIColor whiteColor];
+    [self.view addSubview:parallelLanguageNameLabel];
     
     self.settingsOptions = [[NSMutableArray alloc]initWithArray:@[
                                   NSLocalizedString(@"GTSettings_mainLanguage_label", nil),
@@ -110,10 +129,6 @@
     self.translatorSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
     [self.translatorSwitch addTarget:self action:@selector(translatorSwitchToggled) forControlEvents:UIControlEventTouchUpInside];
     
-}
-
--(NSString*)getMainLanguageLabel {
-    return NSLocalizedString(@"GTSettings_mainLanguage_label", nil);
 }
 
 -(void)viewWillAppear:(BOOL)animated{
