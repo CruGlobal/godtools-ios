@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GTSettingsView.h"
 
-@interface GTSettingsViewController : UIViewController <UIAlertViewDelegate, UITextFieldDelegate>
+@interface GTSettingsViewController : UIViewController <GTSettingsViewDelegate, UIAlertViewDelegate, UITextFieldDelegate>
 
 @end

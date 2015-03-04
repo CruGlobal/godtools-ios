@@ -10,9 +10,15 @@
 #import "GTBaseView.h"
 @protocol GTSettingsViewDelegate <NSObject>
 @required
-
+-(void)doneButtonPressed;
 @end
 
 @interface GTSettingsView : GTBaseView
+
+@property (strong,nonatomic) id<GTSettingsViewDelegate> delegate;
+
+@property (weak, nonatomic) IBOutlet UIButton *doneButton;
+
+- (IBAction)doneButtonPressed:(id)sender;
 
 @end

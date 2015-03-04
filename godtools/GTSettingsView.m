@@ -10,4 +10,11 @@
 
 @implementation GTSettingsView
 
+- (IBAction)doneButtonPressed:(id)sender {
+    if(self.delegate){
+        if([self.delegate respondsToSelector:@selector(doneButtonPressed)]){
+            [self.delegate doneButtonPressed];
+        }
+    }
+}
 @end

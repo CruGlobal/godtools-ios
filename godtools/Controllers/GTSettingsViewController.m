@@ -44,11 +44,13 @@
     [super viewDidLoad];
     
     [self.navigationController setNavigationBarHidden:YES];
-    
+
     self.settingsView = (GTSettingsView*) [[[NSBundle mainBundle] loadNibNamed:@"GTSettingsView" owner:nil options:nil] objectAtIndex:0];
-
+    self.settingsView.frame = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, self.view.frame.size.height);
     self.view = self.settingsView;
-
+    
+    self.settingsView.delegate = self;
+    
     UILabel *mainLanguagelabel =  [[UILabel alloc] initWithFrame: CGRectMake(30,244,280,21)];
     mainLanguagelabel.text = NSLocalizedString(@"GTSettings_mainLanguage_label", nil);
     mainLanguagelabel.textColor = [UIColor whiteColor];
@@ -208,6 +210,12 @@
     }else{
         return nil;
     }
+}
+
+#pragma mark - Settings view delegates
+
+-(void)doneButtonPressed {
+    [self performSegueWithIdentifier:@"settingsToHomeViewSegue" sender:self];
 }
 
 #pragma mark - Table view delegates

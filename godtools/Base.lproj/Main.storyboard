@@ -82,6 +82,7 @@
                     <connections>
                         <segue destination="YJa-Gt-v9R" kind="push" id="Qqk-3p-fFz"/>
                         <segue destination="eUe-NG-066" kind="push" id="PlZ-Mg-hcL"/>
+                        <segue destination="8oq-uF-jDf" kind="push" identifier="settingsToHomeViewSegue" id="CDJ-wY-Xuo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ysl-rJ-b5c" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -132,4 +133,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="CDJ-wY-Xuo"/>
+    </inferredMetricsTieBreakers>
 </document>
