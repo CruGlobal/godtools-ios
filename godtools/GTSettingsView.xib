@@ -15,25 +15,25 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                 </imageView>
                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="GT4_SettingsScreen_ButtonBar15%_Orange_" translatesAutoresizingMaskIntoConstraints="NO" id="3L6-Tt-4ii">
-                    <rect key="frame" x="0.0" y="138" width="375" height="52"/>
+                    <rect key="frame" x="0.0" y="91" width="375" height="52"/>
                 </imageView>
                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="GT4_SettingsScreen_ButtonBar15%_Teal_" translatesAutoresizingMaskIntoConstraints="NO" id="5rh-mB-Bcj">
-                    <rect key="frame" x="0.0" y="273" width="375" height="52"/>
+                    <rect key="frame" x="0.0" y="226" width="375" height="52"/>
                 </imageView>
                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="GT4_SettingsScreen_ButtonBar15%_Teal_" translatesAutoresizingMaskIntoConstraints="NO" id="Y8O-ER-ARs">
-                    <rect key="frame" x="0.0" y="378" width="375" height="52"/>
+                    <rect key="frame" x="0.0" y="331" width="375" height="52"/>
                 </imageView>
                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="GT4_SettingsScreen_RightArrow_" translatesAutoresizingMaskIntoConstraints="NO" id="Q6i-Hs-SH0">
-                    <rect key="frame" x="295" y="395" width="10" height="18"/>
+                    <rect key="frame" x="295" y="348" width="10" height="18"/>
                 </imageView>
                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="GT4_SettingsScreen_RightArrow_" translatesAutoresizingMaskIntoConstraints="NO" id="rEM-y1-nzO">
-                    <rect key="frame" x="295" y="290" width="10" height="18"/>
+                    <rect key="frame" x="295" y="243" width="10" height="18"/>
                 </imageView>
                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="GT4_SettingsScreen_SwitchOff_" translatesAutoresizingMaskIntoConstraints="NO" id="v7l-tf-TsT">
-                    <rect key="frame" x="246" y="148" width="62" height="31"/>
+                    <rect key="frame" x="246" y="101" width="62" height="31"/>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dml-cR-lhq">
-                    <rect key="frame" x="265" y="378" width="50" height="52"/>
+                    <rect key="frame" x="265" y="331" width="50" height="52"/>
                     <state key="normal">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -42,7 +42,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e4r-uQ-0e6">
-                    <rect key="frame" x="265" y="273" width="50" height="52"/>
+                    <rect key="frame" x="265" y="226" width="50" height="52"/>
                     <state key="normal">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>

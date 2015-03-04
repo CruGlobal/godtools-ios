@@ -57,22 +57,22 @@
     
     self.settingsView.delegate = self;
     
-    UILabel *mainLanguagelabel =  [[UILabel alloc] initWithFrame: CGRectMake(30,244,280,21)];
+    UILabel *mainLanguagelabel =  [[UILabel alloc] initWithFrame: CGRectMake(30,197,280,21)];
     mainLanguagelabel.text = NSLocalizedString(@"GTSettings_mainLanguage_label", nil);
     mainLanguagelabel.textColor = [UIColor whiteColor];
     [self.view addSubview:mainLanguagelabel];
 
-    UILabel *parallelLanguagelabel =  [[UILabel alloc] initWithFrame: CGRectMake(30,349,280,21)];
+    UILabel *parallelLanguagelabel =  [[UILabel alloc] initWithFrame: CGRectMake(30,302,280,21)];
     parallelLanguagelabel.text = NSLocalizedString(@"GTSettings_parallelLanguage_label", nil);
     parallelLanguagelabel.textColor = [UIColor whiteColor];
     [self.view addSubview:parallelLanguagelabel];
     
-    UILabel *previewModelabel =  [[UILabel alloc] initWithFrame: CGRectMake(30,153,280,21)];
+    UILabel *previewModelabel =  [[UILabel alloc] initWithFrame: CGRectMake(30,106,280,21)];
     previewModelabel.text = NSLocalizedString(@"GTSettings_previewMode_label", nil);
     previewModelabel.textColor = [UIColor whiteColor];
     [self.view addSubview:previewModelabel];
     
-    UILabel *previewModeInstructions =  [[UILabel alloc] initWithFrame: CGRectMake(30,440,280,106)];
+    UILabel *previewModeInstructions =  [[UILabel alloc] initWithFrame: CGRectMake(30,400,280,106)];
     previewModeInstructions.text = NSLocalizedString(@"GTSettings_parallelModeInstructions", nil);
     previewModeInstructions.textColor = [UIColor whiteColor];
     previewModeInstructions.numberOfLines = 0;
@@ -309,13 +309,13 @@
 }
 
 - (void)addLanguageNameLabel {
-    self.settingsView.languageNameLabel = [[UILabel alloc] initWithFrame: CGRectMake(30,289,145,21)];
+    self.settingsView.languageNameLabel = [[UILabel alloc] initWithFrame: CGRectMake(30,242,200,21)];
     self.settingsView.languageNameLabel.textColor = [UIColor whiteColor];
     [self.view addSubview:self.settingsView.languageNameLabel];
 }
 
 - (void)addParallelLanguageNameLabel {
-    self.settingsView.parallelLanguageNameLabel = [[UILabel alloc] initWithFrame: CGRectMake(30,394,145,21)];
+    self.settingsView.parallelLanguageNameLabel = [[UILabel alloc] initWithFrame: CGRectMake(30,347,200,21)];
     self.settingsView.parallelLanguageNameLabel.textColor = [UIColor whiteColor];
     [self.view addSubview:self.settingsView.parallelLanguageNameLabel];
 }
