@@ -39,6 +39,15 @@
                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="GT4_SettingsScreen_ButtonBar15%_Teal_" translatesAutoresizingMaskIntoConstraints="NO" id="Y8O-ER-ARs">
                     <rect key="frame" x="0.0" y="378" width="375" height="52"/>
                 </imageView>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="GT4_SettingsScreen_RightArrow_" translatesAutoresizingMaskIntoConstraints="NO" id="Q6i-Hs-SH0">
+                    <rect key="frame" x="295" y="395" width="10" height="18"/>
+                </imageView>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="GT4_SettingsScreen_RightArrow_" translatesAutoresizingMaskIntoConstraints="NO" id="rEM-y1-nzO">
+                    <rect key="frame" x="295" y="290" width="10" height="18"/>
+                </imageView>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="GT4_SettingsScreen_RightArrow_" translatesAutoresizingMaskIntoConstraints="NO" id="TL6-ya-KbG">
+                    <rect key="frame" x="290" y="155" width="10" height="18"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
         </view>
@@ -48,5 +57,6 @@
         <image name="GT4_HomeScreen_NavBar_" width="320" height="46"/>
         <image name="GT4_SettingsScreen_ButtonBar15%_Orange_" width="375" height="52"/>
         <image name="GT4_SettingsScreen_ButtonBar15%_Teal_" width="375" height="52"/>
+        <image name="GT4_SettingsScreen_RightArrow_" width="10" height="18"/>
     </resources>
 </document>
