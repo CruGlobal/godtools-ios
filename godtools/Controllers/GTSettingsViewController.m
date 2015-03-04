@@ -221,6 +221,14 @@
     [self performSegueWithIdentifier:@"settingsToHomeViewSegue" sender:self];
 }
 
+-(void)chooseLanguageButtonPressed {
+    [self performSegueWithIdentifier:@"settingsToLanguageViewSegue" sender:self];
+}
+
+-(void)chooseParallelLanguageButtonPressed{
+    [self performSegueWithIdentifier:@"settingsToLanguageViewSegue" sender:self];
+}
+
 #pragma mark - Table view delegates
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;

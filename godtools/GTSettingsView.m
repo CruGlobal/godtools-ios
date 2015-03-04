@@ -11,10 +11,21 @@
 @implementation GTSettingsView
 
 - (IBAction)doneButtonPressed:(id)sender {
-    if(self.delegate){
-        if([self.delegate respondsToSelector:@selector(doneButtonPressed)]){
-            [self.delegate doneButtonPressed];
-        }
+    if(self.delegate && [self.delegate respondsToSelector:@selector(doneButtonPressed)]){
+        [self.delegate doneButtonPressed];
+    }
+}
+
+
+- (IBAction)chooseLanguageButtonPressed:(id)sender {
+    if(self.delegate && [self.delegate respondsToSelector:@selector(chooseLanguageButtonPressed)]) {
+        [self.delegate chooseLanguageButtonPressed];
+    }
+}
+
+- (IBAction)chooseParallelLanguageButtonPressed:(id)sender {
+    if(self.delegate && [self.delegate respondsToSelector:@selector(chooseParallelLanguageButtonPressed)]) {
+        [self.delegate chooseParallelLanguageButtonPressed];
     }
 }
 @end

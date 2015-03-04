@@ -32,9 +32,31 @@
                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="GT4_SettingsScreen_SwitchOff_" translatesAutoresizingMaskIntoConstraints="NO" id="v7l-tf-TsT">
                     <rect key="frame" x="246" y="148" width="62" height="31"/>
                 </imageView>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dml-cR-lhq">
+                    <rect key="frame" x="265" y="378" width="50" height="52"/>
+                    <state key="normal">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="chooseParallelLanguageButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="uDM-FM-VnP"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e4r-uQ-0e6">
+                    <rect key="frame" x="265" y="273" width="50" height="52"/>
+                    <state key="normal">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="chooseLanguageButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="Cg5-2V-JNU"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-            <point key="canvasLocation" x="43" y="106"/>
+            <connections>
+                <outlet property="chooseLanguageButton" destination="e4r-uQ-0e6" id="yRn-5i-Soj"/>
+                <outlet property="chooseParallelLanguageButton" destination="dml-cR-lhq" id="yzN-0g-WKj"/>
+            </connections>
+            <point key="canvasLocation" x="43" y="29"/>
         </view>
     </objects>
     <resources>

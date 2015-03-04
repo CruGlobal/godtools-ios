@@ -80,7 +80,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="5kU-if-Z1Q"/>
                     <connections>
-                        <segue destination="YJa-Gt-v9R" kind="push" id="Qqk-3p-fFz"/>
+                        <segue destination="YJa-Gt-v9R" kind="push" identifier="settingsToLanguageViewSegue" id="Qqk-3p-fFz"/>
                         <segue destination="eUe-NG-066" kind="push" id="PlZ-Mg-hcL"/>
                         <segue destination="8oq-uF-jDf" kind="push" identifier="settingsToHomeViewSegue" id="CDJ-wY-Xuo"/>
                     </connections>
