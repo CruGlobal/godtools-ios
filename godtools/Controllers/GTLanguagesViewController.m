@@ -140,13 +140,17 @@
         || ([[GTDefaults sharedDefaults] isChoosingForMainLanguage] == [NSNumber numberWithBool:NO]
             && [language.code isEqual:[[GTDefaults sharedDefaults]currentParallelLanguageCode]]);
     
+    cell.checkBox.hidden = TRUE;
     if(textShouldBeHighlighted){
-           cell.languageName.textColor = [UIColor blueColor];
+        NSLog(@"text should be highlighted for language %@", language.name);
+
+        cell.checkBox.hidden = FALSE;
+//           cell.languageName.textColor = [UIColor blueColor];
     }
     
-    if(language.downloaded){
-        [cell.downloadIcon setHidden:YES];
-    }
+//    if(language.downloaded){
+//        [cell.downloadIcon setHidden:YES];
+//    }
     
     
     return cell;
@@ -158,30 +162,36 @@
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     GTLanguage *chosen = (GTLanguage*)[self.languages objectAtIndex:indexPath.row];
     
-    if(![chosen downloaded]){
-        
-        if(self.afReachability.reachable){
-
-            [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadProgressMade
-                                                                object:self
-                                                              userInfo:nil];
-        
-            [[GTDataImporter sharedImporter]downloadPackagesForLanguage:[self.languages objectAtIndex:indexPath.row]];
-        }else{
-            self.buttonLessAlert.message = NSLocalizedString(@"You need to be online to proceed", nil);
-            [self.buttonLessAlert show];
-            [self performSelector:@selector(dismissAlertView:) withObject:self.buttonLessAlert afterDelay:2.0];
-
-         }
-        
+//    if(![chosen downloaded]){
+//        
+//        if(self.afReachability.reachable){
+//
+//            [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadProgressMade
+//                                                                object:self
+//                                                              userInfo:nil];
+//        
+//            [[GTDataImporter sharedImporter]downloadPackagesForLanguage:[self.languages objectAtIndex:indexPath.row]];
+//        }else{
+//            self.buttonLessAlert.message = NSLocalizedString(@"You need to be online to proceed", nil);
+//            [self.buttonLessAlert show];
+//            [self performSelector:@selector(dismissAlertView:) withObject:self.buttonLessAlert afterDelay:2.0];
+//
+//         }
+//        
+//    }else{
+    
+    
+    // set the current language selected
+    if([[GTDefaults sharedDefaults] isChoosingForMainLanguage] == [NSNumber numberWithBool:YES]){            [[GTDefaults sharedDefaults]setCurrentLanguageCode:chosen.code];
     }else{
-        if([[GTDefaults sharedDefaults] isChoosingForMainLanguage] == [NSNumber numberWithBool:YES]){
-            [[GTDefaults sharedDefaults]setCurrentLanguageCode:chosen.code];
-        }else{
-            NSLog(@"set as parallel: %@",chosen.code);
-            [[GTDefaults sharedDefaults]setCurrentParallelLanguageCode:chosen.code];
-        }
+        NSLog(@"set as parallel: %@",chosen.code);
+        [[GTDefaults sharedDefaults]setCurrentParallelLanguageCode:chosen.code];
     }
+   
+    // so as to check selected language
+    [tableView reloadData];
+
+//    }
 }
 
 -(void)dismissAlertView:(UIAlertView *)alertView{
