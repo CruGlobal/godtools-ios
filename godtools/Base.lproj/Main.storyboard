@@ -106,7 +106,7 @@
             </objects>
             <point key="canvasLocation" x="1169" y="509"/>
         </scene>
-        <!--Language-->
+        <!--Languages View Controller-->
         <scene sceneID="RDo-IJ-h67">
             <objects>
                 <tableViewController id="YJa-Gt-v9R" customClass="GTLanguagesViewController" sceneMemberID="viewController">
@@ -119,7 +119,7 @@
                             <outlet property="delegate" destination="YJa-Gt-v9R" id="TSt-AU-olI"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Language" id="Cq2-Vf-NsW"/>
+                    <navigationItem key="navigationItem" id="Cq2-Vf-NsW"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VqI-v3-edI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
