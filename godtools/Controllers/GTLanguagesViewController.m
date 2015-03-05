@@ -176,7 +176,6 @@
             NSLog(@"set as parallel: %@",chosen.code);
             [[GTDefaults sharedDefaults]setCurrentParallelLanguageCode:chosen.code];
         }
-        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 
