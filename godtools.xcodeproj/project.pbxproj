@@ -514,9 +514,10 @@
 				ORGANIZATIONNAME = "Michael Harrison";
 				TargetAttributes = {
 					68740D0E18D24F9A00D36C0E = {
-						DevelopmentTeam = 5F5KU23F35;
+						DevelopmentTeam = DQ48D9BF2V;
 					};
 					68740D2F18D24F9A00D36C0E = {
+						DevelopmentTeam = DQ48D9BF2V;
 						TestTargetID = 68740D0E18D24F9A00D36C0E;
 					};
 				};
@@ -849,8 +850,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Elementz Interactive LLC (5F5KU23F35)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Elementz Interactive LLC (5F5KU23F35)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "godtools/godtools-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -886,8 +887,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Elementz Interactive LLC (5F5KU23F35)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Elementz Interactive LLC (5F5KU23F35)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "godtools/godtools-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -922,6 +923,8 @@
 			baseConfigurationReference = 9537C6E0A54FC8D76DE342FC /* Pods.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/godtools.app/godtools";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -936,6 +939,7 @@
 				INFOPLIST_FILE = "godtoolsTests/godtoolsTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -946,6 +950,8 @@
 			baseConfigurationReference = 368D2F901C18B173F9C84776 /* Pods.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/godtools.app/godtools";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -956,6 +962,7 @@
 				INFOPLIST_FILE = "godtoolsTests/godtoolsTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
