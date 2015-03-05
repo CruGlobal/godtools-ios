@@ -148,6 +148,10 @@
 //           cell.languageName.textColor = [UIColor blueColor];
     }
     
+    cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"GT4_HomeScreen_Background_ip5.png"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+    
+    cell.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"GT4_HomeScreen_Background_ip5.png"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+    
 //    if(language.downloaded){
 //        [cell.downloadIcon setHidden:YES];
 //    }
