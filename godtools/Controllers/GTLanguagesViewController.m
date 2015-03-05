@@ -130,6 +130,9 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSLog(@"tableViewcellForRowAtIndexPath() start ...");
+
     GTLanguageViewCell *cell = (GTLanguageViewCell*)[tableView dequeueReusableCellWithIdentifier:@"GTLanguageViewCell"];
     
     if (cell == nil)
@@ -137,7 +140,9 @@
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"GTLanguageViewCell" owner:self options:nil];
         cell = [nib objectAtIndex:0];
     }
+    
     GTLanguage *language = [self.languages objectAtIndex:indexPath.row];
+    
     cell.languageName.text = language.name;
     cell.languageName.textColor = [UIColor whiteColor];
     BOOL textShouldBeHighlighted = ([[GTDefaults sharedDefaults] isChoosingForMainLanguage] == [NSNumber numberWithBool:YES] && [language.code isEqual:[[GTDefaults sharedDefaults]currentLanguageCode]])
@@ -186,12 +191,19 @@
 }
 
 - (void) languageAction:(id)paramSender{
-    NSLog(@"start ...");
+    NSLog(@"languageAction() start ...");
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+
+    GTLanguage *language = [self.languages objectAtIndex:indexPath.row];
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+
+    // don't select language if not yet downloaded
+    if(!language.downloaded){
+        return;
+    }
+
     GTLanguage *chosen = (GTLanguage*)[self.languages objectAtIndex:indexPath.row];
     
 //    if(![chosen downloaded]){
@@ -220,7 +232,7 @@
         [[GTDefaults sharedDefaults]setCurrentParallelLanguageCode:chosen.code];
     }
    
-    // so as to check selected language
+    // so as to show check mark on selected language
     [tableView reloadData];
 
 //    }
