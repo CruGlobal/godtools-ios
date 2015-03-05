@@ -12,6 +12,7 @@
 @required
 -(void)chooseLanguageButtonPressed;
 -(void)chooseParallelLanguageButtonPressed;
+-(void)previewModeSwitchPressed;
 @end
 
 @interface GTSettingsView : GTBaseView
@@ -20,11 +21,13 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *chooseLanguageButton;
 @property (weak, nonatomic) IBOutlet UIButton *chooseParallelLanguageButton;
+@property (weak, nonatomic) IBOutlet UIButton *previewModeSwitchButton;
 
 @property (strong, nonatomic) UILabel *languageNameLabel;
 @property (strong, nonatomic) UILabel *parallelLanguageNameLabel;
 
 - (IBAction)chooseLanguageButtonPressed:(id)sender;
 - (IBAction)chooseParallelLanguageButtonPressed:(id)sender;
+- (IBAction)previewModeSwitchButtonPressed:(id)sender;
 
 @end

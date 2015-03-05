@@ -21,4 +21,10 @@
         [self.delegate chooseParallelLanguageButtonPressed];
     }
 }
+
+- (IBAction)previewModeSwitchButtonPressed:(id)sender {
+    if(self.delegate && [self.delegate respondsToSelector:@selector(previewModeSwitchPressed)]) {
+        [self.delegate previewModeSwitchPressed];
+    }
+}
 @end

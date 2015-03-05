@@ -82,11 +82,46 @@
                     <connections>
                         <segue destination="YJa-Gt-v9R" kind="push" identifier="settingsToLanguageViewSegue" id="Qqk-3p-fFz"/>
                         <segue destination="eUe-NG-066" kind="push" id="PlZ-Mg-hcL"/>
+                        <segue destination="bg8-8O-T0Y" kind="push" identifier="settingsToAccessCodeScreenSegue" id="Jp3-wq-ZDc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ysl-rJ-b5c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="764" y="119"/>
+        </scene>
+        <!--Enter Passcode-->
+        <scene sceneID="ZH8-bc-7K6">
+            <objects>
+                <viewController id="bg8-8O-T0Y" customClass="GTAccessCodeController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ejz-wI-n7t"/>
+                        <viewControllerLayoutGuide type="bottom" id="9ys-PG-CTe"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="rqz-vU-CUN">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="   Passcode" minimumFontSize="19" translatesAutoresizingMaskIntoConstraints="NO" id="DPa-cg-wGX">
+                                <rect key="frame" x="0.0" y="72" width="326" height="39"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="send"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Enter Passcode" id="vXJ-Nv-6Xi">
+                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="cancel" id="ND8-EI-07E">
+                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="done" id="m7a-51-udq">
+                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="COK-jC-sER" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="764" y="802"/>
         </scene>
         <!--Settings About God Tools View Controller-->
         <scene sceneID="jyS-lA-FPz">

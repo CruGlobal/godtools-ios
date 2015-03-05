@@ -43,13 +43,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.navigationController setNavigationBarHidden:NO];
-    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:0.44 green:0.84 blue:0.88 alpha:1.0]];
-    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
-    [self.navigationController.navigationBar setTranslucent:NO]; // required for iOS7
-    self.navigationController.navigationBar.topItem.title = @"Settings";
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
-    
     self.settingsView = (GTSettingsView*) [[[NSBundle mainBundle] loadNibNamed:@"GTSettingsView" owner:nil options:nil] objectAtIndex:0];
     self.settingsView.frame = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, self.view.frame.size.height);
     self.view = self.settingsView;
@@ -117,6 +110,13 @@
     self.shouldGoBackToHome = NO;
     
     [self setLanguageNameLabelValues];
+    
+    [self.navigationController setNavigationBarHidden:NO];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:0.44 green:0.84 blue:0.88 alpha:1.0]];
+    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+    [self.navigationController.navigationBar setTranslucent:NO]; // required for iOS7
+    self.navigationController.navigationBar.topItem.title = @"Settings";
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -201,6 +201,10 @@
 -(void)chooseParallelLanguageButtonPressed{
     [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:[NSNumber numberWithBool: NO]];
     [self performSegueWithIdentifier:@"settingsToLanguageViewSegue" sender:self];
+}
+
+-(void)previewModeSwitchPressed{
+    [self performSegueWithIdentifier:@"settingsToAccessCodeScreenSegue" sender:self];
 }
 
 #pragma mark - UI Utilities
