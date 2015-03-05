@@ -28,7 +28,12 @@
     
     [self setData];
     
-    [self setTitle : @"Language"];
+    if([[GTDefaults sharedDefaults] isChoosingForMainLanguage] == [NSNumber numberWithBool:YES]){
+        [self setTitle : @"Language"];
+    }else{
+        [self setTitle : @"Parallel Language"];
+    }
+
     
     /*[[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(setData)
