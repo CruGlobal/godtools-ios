@@ -25,7 +25,6 @@
 @property (strong, nonatomic) GTLanguage *parallelLanguage;
 
 @property (strong, nonatomic) UISwitch *translatorSwitch;
-@property (strong, nonatomic) UIAlertView *translatorModeAlert;
 @property (strong, nonatomic) UIAlertView *exitTranslatorModeAlert;
 @property (strong, nonatomic) UIAlertView *buttonLessAlert;
 
@@ -92,16 +91,6 @@
                                   NSLocalizedString(@"GTSettings_aboutGodTools", nil),
                               ]];
     
-    self.translatorModeAlert    = [[UIAlertView alloc]
-                                        initWithTitle:@""
-                                        message:NSLocalizedString(@"AlertMessage_enterAccessCode", nil)
-                                        delegate:self
-                                        cancelButtonTitle:@"Cancel"
-                                        otherButtonTitles:@"Send", nil];
-    
-    self.translatorModeAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
-    [self.translatorModeAlert textFieldAtIndex:0].delegate = self;
-    [self.translatorModeAlert textFieldAtIndex:0].keyboardType = UIKeyboardTypeDecimalPad;
     
     self.exitTranslatorModeAlert = [[UIAlertView alloc]
                                         initWithTitle:NSLocalizedString(@"AlertTitle_exitPreviewMode", nil)
@@ -220,8 +209,7 @@
     if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:NO]){
         //if([AFNetworkReachabilityManager sharedManager].reachable){
         if(self.afReachability.reachable){
-        //if(YES){
-            [self.translatorModeAlert show];
+
         }else{
             self.buttonLessAlert.message = NSLocalizedString(@"You need to be online to proceed", nil);
             [self.buttonLessAlert show];
@@ -240,23 +228,6 @@
             [self.translatorSwitch setOn:NO animated:YES];
         }else{
             [self.translatorSwitch setOn:YES animated:YES];
-        }
-    }else if(alertView == self.translatorModeAlert){
-        if(buttonIndex == 1){
-            [self addNotificationObservers];
-            if([self.translatorModeAlert  textFieldAtIndex:0].text.length > 0){
-                NSString *accessCode = [self.translatorModeAlert  textFieldAtIndex:0].text;
-                [[GTDefaults sharedDefaults]setTranslatorAccessCode:accessCode];
-                [[GTDataImporter sharedImporter]authorizeTranslator];
-            }else{
-                self.buttonLessAlert.message = NSLocalizedString(@"AlertMesssage_invalidAccessCode", nil);
-                [self.buttonLessAlert show];
-                [self performSelector:@selector(dismissAlertView:) withObject:self.buttonLessAlert afterDelay:2.0];
-                [self.translatorSwitch setOn:NO animated:YES];
-            }
-        }else{
-            [self.translatorSwitch setOn:NO animated:YES];
-            [self.translatorModeAlert textFieldAtIndex:0].text = nil;
         }
     }
 }
@@ -289,9 +260,7 @@
             [self performSelector:@selector(dismissAlertView:) withObject:self.buttonLessAlert afterDelay:2.0];
         }
         [self.translatorSwitch setOn:NO animated:YES];
-        
-        [self.translatorModeAlert textFieldAtIndex:0].text = nil;
-        
+                
     }else if([notification.name isEqualToString:GTDataImporterNotificationAuthTokenUpdateSuccessful]){
         
         if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]){
