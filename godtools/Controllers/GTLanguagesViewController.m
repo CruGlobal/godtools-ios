@@ -139,6 +139,7 @@
     }
     GTLanguage *language = [self.languages objectAtIndex:indexPath.row];
     cell.languageName.text = language.name;
+    cell.languageName.textColor = [UIColor whiteColor];
     BOOL textShouldBeHighlighted = ([[GTDefaults sharedDefaults] isChoosingForMainLanguage] == [NSNumber numberWithBool:YES] && [language.code isEqual:[[GTDefaults sharedDefaults]currentLanguageCode]])
         || ([[GTDefaults sharedDefaults] isChoosingForMainLanguage] == [NSNumber numberWithBool:NO]
             && [language.code isEqual:[[GTDefaults sharedDefaults]currentParallelLanguageCode]]);
