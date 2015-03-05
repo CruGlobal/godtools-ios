@@ -57,6 +57,9 @@
     
     // set navigation bar title color for title set from story board
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:UITextAttributeTextColor]];
+    
+    [self.tableView setBackgroundView:nil];
+    [self.tableView setBackgroundView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GT4_HomeScreen_Background_ip5.png"]] ];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -147,10 +150,6 @@
         cell.checkBox.hidden = FALSE;
 //           cell.languageName.textColor = [UIColor blueColor];
     }
-    
-    cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"GT4_HomeScreen_Background_ip5.png"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
-    
-    cell.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"GT4_HomeScreen_Background_ip5.png"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
     
 //    if(language.downloaded){
 //        [cell.downloadIcon setHidden:YES];

@@ -24,6 +24,7 @@
                     </imageView>
                 </subviews>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="checkBox" destination="f9C-HA-QFg" id="mY7-x1-rrL"/>
                 <outlet property="languageName" destination="KFe-mW-0Q8" id="dZt-fh-iai"/>
