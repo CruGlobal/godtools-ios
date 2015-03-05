@@ -156,10 +156,38 @@
 //        [cell.downloadIcon setHidden:YES];
 //    }
     
+    /*
+     ** Create custom accessory view with action selector
+     */
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    button.frame = CGRectMake(0.0f, 0.0f, 150.0f, 25.0f);
+    
+
+    NSString *buttonTitle = @"Download";
+    if(language.downloaded) {
+        buttonTitle = @"Delete";
+    }
+
+    [button setTitle:buttonTitle
+            forState:UIControlStateNormal];
+    
+    [button setTitleColor: [UIColor whiteColor]
+            forState:UIControlStateNormal];
+    
+    [button addTarget:self
+               action:@selector(languageAction:)
+     forControlEvents:UIControlEventTouchUpInside];
+    
+    cell.accessoryView = button;
+    
+    // end custom accessory view
     
     return cell;
 }
 
+- (void) languageAction:(id)paramSender{
+    NSLog(@"start ...");
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
