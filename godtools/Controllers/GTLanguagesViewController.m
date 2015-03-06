@@ -190,12 +190,24 @@
     return cell;
 }
 
-- (void) languageAction:(id)paramSender{
+- (void) languageAction:(UIButton *)paramSender{
     NSLog(@"languageAction() start ...");
+
+    UITableViewCell *tableCell = (UITableViewCell*)paramSender.superview;
+
+    GTLanguageViewCell *cell = ((GTLanguageViewCell*)tableCell);
+    
+    if(cell != nil) {
+        NSLog(@"languageAction() language name %@", cell.languageName);
+        
+    }
+    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
+    NSLog(@"tableViewdidSelectRowAtIndexPath()");
+    
     GTLanguage *language = [self.languages objectAtIndex:indexPath.row];
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 
