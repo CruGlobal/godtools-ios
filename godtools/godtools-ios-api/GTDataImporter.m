@@ -352,16 +352,22 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
 }
 
 - (void)downloadPackagesForLanguage:(GTLanguage *)language forImporter:(NSString *) importer {
-    NSLog(@"downloadPackagesForLanguageForImporter() ...");
+    NSLog(@"downloadPackagesForLanguageForImporter(%@) ...", importer);
 
    	NSParameterAssert(language);
     NSLog(@"will download %@",language.name);
 	__weak typeof(self)weakSelf = self;
 	[self.api getResourcesForLanguage:language
 							 progress:^(NSNumber *percentage) {
-                                 
+                                 NSLog(@"progress ...");
                                  if ([importer isEqualToString: @"default"]) {
                                      [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadProgressMade
+                                                                                         object:weakSelf
+                                                                                       userInfo:@{GTDataImporterNotificationLanguageDownloadPercentageKey: percentage}];
+                                 }
+                                 else if ([importer isEqualToString: @"languageImporter"]) {
+                                     NSLog(@"progress ... language view importer");
+                                     [[NSNotificationCenter defaultCenter] postNotificationName:GTLanguageViewDataImporterNotificationLanguageDownloadProgressMade
                                                                                          object:weakSelf
                                                                                        userInfo:@{GTDataImporterNotificationLanguageDownloadPercentageKey: percentage}];
                                  }
