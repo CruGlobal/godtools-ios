@@ -29,9 +29,6 @@
                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="GT4_SettingsScreen_RightArrow_" translatesAutoresizingMaskIntoConstraints="NO" id="rEM-y1-nzO">
                     <rect key="frame" x="295" y="243" width="10" height="18"/>
                 </imageView>
-                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="GT4_SettingsScreen_SwitchOff_" translatesAutoresizingMaskIntoConstraints="NO" id="v7l-tf-TsT">
-                    <rect key="frame" x="246" y="101" width="62" height="31"/>
-                </imageView>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dml-cR-lhq">
                     <rect key="frame" x="0.0" y="331" width="320" height="52"/>
                     <state key="normal">
@@ -50,21 +47,18 @@
                         <action selector="chooseLanguageButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="Cg5-2V-JNU"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s5f-RW-EMD">
-                    <rect key="frame" x="246" y="101" width="62" height="30"/>
-                    <state key="normal">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
+                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZMP-TI-EkI">
+                    <rect key="frame" x="256" y="101" width="51" height="31"/>
                     <connections>
-                        <action selector="previewModeSwitchButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="e0r-8o-XRF"/>
+                        <action selector="previewModeSwitchPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="8j4-RY-HR1"/>
                     </connections>
-                </button>
+                </switch>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="chooseLanguageButton" destination="e4r-uQ-0e6" id="yRn-5i-Soj"/>
                 <outlet property="chooseParallelLanguageButton" destination="dml-cR-lhq" id="yzN-0g-WKj"/>
-                <outlet property="previewModeSwitchButton" destination="s5f-RW-EMD" id="AB7-aA-HXP"/>
+                <outlet property="previewModeSwitch" destination="ZMP-TI-EkI" id="ET9-cQ-P3Q"/>
             </connections>
             <point key="canvasLocation" x="43" y="29"/>
         </view>
@@ -74,6 +68,5 @@
         <image name="GT4_SettingsScreen_ButtonBar15%_Orange_" width="375" height="52"/>
         <image name="GT4_SettingsScreen_ButtonBar15%_Teal_" width="375" height="52"/>
         <image name="GT4_SettingsScreen_RightArrow_" width="10" height="18"/>
-        <image name="GT4_SettingsScreen_SwitchOff_" width="62" height="31"/>
     </resources>
 </document>

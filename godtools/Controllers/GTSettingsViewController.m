@@ -24,15 +24,12 @@
 @property (strong, nonatomic) GTLanguage *mainLanguage;
 @property (strong, nonatomic) GTLanguage *parallelLanguage;
 
-@property (strong, nonatomic) UISwitch *translatorSwitch;
 @property (strong, nonatomic) UIAlertView *exitTranslatorModeAlert;
 @property (strong, nonatomic) UIAlertView *buttonLessAlert;
 
 @property (strong, nonatomic) NSMutableArray *settingsOptions;
 
 @property AFNetworkReachabilityManager *afReachability;
-
-@property BOOL shouldGoBackToHome;
 
 @end
 
@@ -45,6 +42,7 @@
     
     self.settingsView = (GTSettingsView*) [[[NSBundle mainBundle] loadNibNamed:@"GTSettingsView" owner:nil options:nil] objectAtIndex:0];
     self.settingsView.frame = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, self.view.frame.size.height);
+    
     self.view = self.settingsView;
     
     self.settingsView.delegate = self;
@@ -99,15 +97,10 @@
                                         cancelButtonTitle:nil
                                         otherButtonTitles:nil, nil];
     
-    
-    self.translatorSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
-    [self.translatorSwitch addTarget:self action:@selector(translatorSwitchToggled) forControlEvents:UIControlEventTouchUpInside];
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.shouldGoBackToHome = NO;
     
     [self setLanguageNameLabelValues];
     
@@ -117,6 +110,9 @@
     [self.navigationController.navigationBar setTranslucent:NO]; // required for iOS7
     self.navigationController.navigationBar.topItem.title = @"Settings";
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+    
+    [self.settingsView.previewModeSwitch setOn: [[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]];
+
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -203,85 +199,28 @@
     [self performSegueWithIdentifier:@"settingsToLanguageViewSegue" sender:self];
 }
 
--(void)chooseParallelLanguageButtonPressed{
+-(void)chooseParallelLanguageButtonPressed {
     [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:[NSNumber numberWithBool: NO]];
     [self performSegueWithIdentifier:@"settingsToLanguageViewSegue" sender:self];
 }
 
--(void)previewModeSwitchPressed{
-    [self performSegueWithIdentifier:@"settingsToAccessCodeScreenSegue" sender:self];
-}
-
-#pragma mark - UI Utilities
-
--(void)translatorSwitchToggled{
+-(void)previewModeSwitchPressed {
     if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:NO]){
-        //if([AFNetworkReachabilityManager sharedManager].reachable){
-        if(self.afReachability.reachable){
-
-        }else{
-            self.buttonLessAlert.message = NSLocalizedString(@"You need to be online to proceed", nil);
-            [self.buttonLessAlert show];
-            [self performSelector:@selector(dismissAlertView:) withObject:self.buttonLessAlert afterDelay:2.0];
-            [self.translatorSwitch setOn:NO animated:YES];
-        }
+        [self performSegueWithIdentifier:@"settingsToAccessCodeScreenSegue" sender:self];
     }else{
         [self.exitTranslatorModeAlert show];
     }
 }
 
+#pragma mark - UI Utilities
+
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if(alertView == self.exitTranslatorModeAlert){
         if(buttonIndex == 1){
             [[GTDefaults sharedDefaults]setIsInTranslatorMode:[NSNumber numberWithBool:NO]];
-            [self.translatorSwitch setOn:NO animated:YES];
+            [self.settingsView.previewModeSwitch setOn:NO animated:YES];
         }else{
-            [self.translatorSwitch setOn:YES animated:YES];
-        }
-    }
-}
-
--(void)dismissAlertView:(UIAlertView *)alertView{
-    [alertView dismissWithClickedButtonIndex:0 animated:YES];
-    if(alertView == self.buttonLessAlert && [[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]){
-    //if(alertView == self.buttonLessAlert && self.shouldGoBackToHome){
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-}
-
--(void)authorizeTranslatorAlert:(NSNotification *) notification{
-    
-    NSLog(@"notif %@", notification.name);
-
-    if([notification.name isEqualToString:GTDataImporterNotificationAuthTokenUpdateStarted]){
-        NSLog(@"AUTHENTICATING_____++++++");
-        //if([AFNetworkReachabilityManager sharedManager].reachable){
-            NSLog(@"reachable");
-            self.buttonLessAlert.message = NSLocalizedString(@"AlertMessage_authenticatingAccessCode", nil);
-            [self.buttonLessAlert show];
-        //}
-    }else if([notification.name isEqualToString:GTDataImporterNotificationAuthTokenUpdateFail]){
-        if(notification.userInfo != nil){
-            NSError *error = (NSError*)[notification.userInfo objectForKey:@"Error"];
-            self.buttonLessAlert.message = [error.userInfo objectForKey:@"NSLocalizedDescription"];
-            [self.buttonLessAlert show];
-            
-            [self performSelector:@selector(dismissAlertView:) withObject:self.buttonLessAlert afterDelay:2.0];
-        }
-        [self.translatorSwitch setOn:NO animated:YES];
-                
-    }else if([notification.name isEqualToString:GTDataImporterNotificationAuthTokenUpdateSuccessful]){
-        
-        if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]){
-            self.buttonLessAlert.message = NSLocalizedString(@"AlertMessage_previewModeEnabled", nil);
-            [self.buttonLessAlert show];
-            self.shouldGoBackToHome = YES;
-            [self performSelector:@selector(dismissAlertView:) withObject:self.buttonLessAlert afterDelay:2.0];
-            [self.translatorSwitch setOn:YES animated:YES];
-            
-            GTLanguage *current = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:YES]objectAtIndex:0];
-            [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:[NSNumber numberWithBool:YES]];
-            [[GTDataImporter sharedImporter]downloadPackagesForLanguage:current];
+            [self.settingsView.previewModeSwitch setOn:YES animated:YES];
         }
     }
 }
