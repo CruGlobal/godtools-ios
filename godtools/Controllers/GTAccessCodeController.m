@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "GTAccessCodeController.h"
 #import "GTDataImporter.h"
+#import "GTHomeViewController.h"
 
 @interface GTAccessCodeController()
 
@@ -153,7 +154,6 @@
             
             [self performSelector:@selector(dismissAlertView:) withObject:self.accessCodeStatusAlert afterDelay:2.0];
         }
-//        [self.translatorSwitch setOn:NO animated:YES];
         
         self.accessCodeTextField.text = nil;
         
@@ -162,9 +162,7 @@
         if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]){
             self.accessCodeStatusAlert.message = NSLocalizedString(@"AlertMessage_previewModeEnabled", nil);
             [self.accessCodeStatusAlert show];
-//            self.shouldGoBackToHome = YES;
             [self performSelector:@selector(dismissAlertView:) withObject:self.accessCodeStatusAlert afterDelay:2.0];
-//            [self.translatorSwitch setOn:YES animated:YES];
             
             GTLanguage *current = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:YES]objectAtIndex:0];
             [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:[NSNumber numberWithBool:YES]];
@@ -176,7 +174,13 @@
 -(void)dismissAlertView:(UIAlertView *)alertView{
     [alertView dismissWithClickedButtonIndex:0 animated:YES];
     if(alertView == self.accessCodeStatusAlert && [[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]){
-        [self.navigationController popViewControllerAnimated:YES];
+        
+        NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
+        for (UIViewController *viewController in allViewControllers) {
+            if ([viewController isKindOfClass:[GTHomeViewController class]]) {
+                [self.navigationController popToViewController:viewController animated:NO];
+            }
+        }
     }
 }
 
