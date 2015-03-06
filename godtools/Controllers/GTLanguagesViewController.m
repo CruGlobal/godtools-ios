@@ -81,7 +81,8 @@
 }
 
 - (void)goToHome{
-    [self.navigationController popToViewController:[[self.navigationController viewControllers] objectAtIndex:1] animated:YES];
+
+//    [self.navigationController popToViewController:[[self.navigationController viewControllers] objectAtIndex:1] animated:YES];
 }
 
 - (void)setData{
@@ -167,12 +168,11 @@
     UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     button.frame = CGRectMake(0.0f, 0.0f, 150.0f, 25.0f);
     
-
     NSString *buttonTitle = @"Download";
     if(language.downloaded) {
         buttonTitle = @"Delete";
     }
-
+    
     [button setTitle:buttonTitle
             forState:UIControlStateNormal];
     
@@ -190,23 +190,55 @@
     return cell;
 }
 
-- (void) languageAction:(UIButton *)paramSender{
+- (void) languageAction:(UIButton *)button{
     NSLog(@"languageAction() start ...");
 
-    UITableViewCell *tableCell = (UITableViewCell*)paramSender.superview;
-
-    GTLanguageViewCell *cell = ((GTLanguageViewCell*)tableCell);
+    GTLanguageViewCell *cell = ((GTLanguageViewCell*)(UITableViewCell*)button.superview);
     
     if(cell != nil) {
-        NSLog(@"languageAction() language name %@", cell.languageName);
+        NSLog(@"languageAction() language name %@", cell.languageName.text);
+        NSLog(@"languageAction() language action button item %@", button.titleLabel);
         
+        NSString *title = [button titleForState:UIControlStateNormal];
+        
+        if ([title isEqualToString:@"Download"]) {
+            
+            if(self.afReachability.reachable){
+                
+                GTLanguage *gtLanguage = nil;
+                for (GTLanguage *language in self.languages) {
+                    if([language.name isEqualToString:cell.languageName.text]) {
+                        gtLanguage = language;
+                    }
+                }
+
+                if(gtLanguage != nil) {
+                    NSLog(@"languageAction() got language %@", gtLanguage.name);
+                    
+//                    [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadProgressMade
+//                                                                        object:self
+//                                                                      userInfo:nil];
+
+                    if(![cell.activityIndicator isAnimating]) {
+                        [cell.activityIndicator startAnimating];
+                    }
+
+                    [[GTDataImporter sharedImporter]downloadPackagesForLanguage:gtLanguage];
+                }
+            }else{
+                self.buttonLessAlert.message = NSLocalizedString(@"You need to be online to proceed", nil);
+                [self.buttonLessAlert show];
+                [self performSelector:@selector(dismissAlertView:) withObject:self.buttonLessAlert afterDelay:2.0];
+            }
+        }
+        else if ([title isEqualToString:@"Delete"]) {
+        }
     }
-    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    NSLog(@"tableViewdidSelectRowAtIndexPath()");
+    NSLog(@"tableViewdidSelectRowAtIndexPath() start...");
     
     GTLanguage *language = [self.languages objectAtIndex:indexPath.row];
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
