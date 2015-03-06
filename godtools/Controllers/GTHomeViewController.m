@@ -221,7 +221,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
     if(tableView == self.homeView.tableView){
-        return 1;
+        return self.articles.count;
     }
     
     return 0;
@@ -229,10 +229,20 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if(tableView == self.homeView.tableView){
-        return self.articles.count;
+        return 1;
     }
     
     return 0;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 10.; // you can have your own choice, of course
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView *headerView = [[UIView alloc] init];
+    headerView.backgroundColor = [UIColor clearColor];
+    return headerView;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -245,13 +255,13 @@
             cell = [nib objectAtIndex:0];
         }
         
-        GTPackage *package = [self.articles objectAtIndex:indexPath.row];
+        GTPackage *package = [self.articles objectAtIndex:indexPath.section];
         cell.titleLabel.text = package.name;
         
         NSString *imageFilePath = [[GTFileLoader pathOfPackagesDirectory] stringByAppendingPathComponent:package.icon];
         
         cell.icon.image = [UIImage imageWithContentsOfFile: imageFilePath];
-        [cell setUpBackground:(indexPath.row % 2)];
+        [cell setUpBackground:(indexPath.section % 2)];
         
         if([self.languageCode isEqualToString:@"am-ET"]){
             cell.titleLabel.font = [UIFont fontWithName:@"NotoSansEthiopic" size:cell.titleLabel.font.pointSize];
@@ -265,14 +275,14 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if(tableView == self.homeView.tableView){
-        return 44;
+        return 53;
     }
     return 0;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if(tableView == self.homeView.tableView){
-        GTPackage *selectedPackage = [self.articles objectAtIndex:indexPath.row];
+        GTPackage *selectedPackage = [self.articles objectAtIndex:indexPath.section];
         if([selectedPackage.status isEqualToString: @"live"]){
             [self loadRendererWithPackage:selectedPackage];
         }else{
