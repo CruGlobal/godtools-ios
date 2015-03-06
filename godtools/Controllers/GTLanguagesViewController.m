@@ -22,6 +22,8 @@
 
 @implementation GTLanguagesViewController
 
+GTLanguageViewCell *languageActionCell;
+
 #pragma mark - View Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -39,10 +41,16 @@
                                              selector:@selector(setData)
                                                  name: GTDataImporterNotificationAuthTokenUpdateStarted
                                                object:nil];*/
-    [[NSNotificationCenter defaultCenter] addObserver:self
+    /* [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(goToHome)
                                                  name: GTDataImporterNotificationLanguageDownloadProgressMade
+                                               object:nil]; */
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(showLanguageDownloadIndicator)
+                                                 name: GTLanguageViewDataImporterNotificationLanguageDownloadProgressMade
                                                object:nil];
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(setData)
                                                  name:GTDataImporterNotificationMenuUpdateFinished
@@ -80,6 +88,13 @@
     [self.afReachability stopMonitoring];
 }
 
+- (void)showLanguageDownloadIndicator{
+    NSLog(@"showLanguageDownloadIndicator() ... %@", languageActionCell.textLabel);
+    if(![languageActionCell.activityIndicator isAnimating]) {
+        NSLog(@"showLanguageDownloadIndicator() animating");
+        [languageActionCell.activityIndicator startAnimating];
+    }
+}
 - (void)goToHome{
 
 //    [self.navigationController popToViewController:[[self.navigationController viewControllers] objectAtIndex:1] animated:YES];
@@ -194,6 +209,7 @@
     NSLog(@"languageAction() start ...");
 
     GTLanguageViewCell *cell = ((GTLanguageViewCell*)(UITableViewCell*)button.superview);
+    languageActionCell = cell;
     
     if(cell != nil) {
         NSLog(@"languageAction() language name %@", cell.languageName.text);
@@ -215,15 +231,11 @@
                 if(gtLanguage != nil) {
                     NSLog(@"languageAction() got language %@", gtLanguage.name);
                     
-//                    [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadProgressMade
-//                                                                        object:self
-//                                                                      userInfo:nil];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:GTLanguageViewDataImporterNotificationLanguageDownloadProgressMade
+                                                                        object:self
+                                                                      userInfo:nil];
 
-                    if(![cell.activityIndicator isAnimating]) {
-                        [cell.activityIndicator startAnimating];
-                    }
-
-                    [[GTDataImporter sharedImporter]downloadPackagesForLanguage:gtLanguage];
+                    [[GTDataImporter sharedImporter]downloadPackagesForLanguage:gtLanguage forImporter:@"languageImporter"];
                 }
             }else{
                 self.buttonLessAlert.message = NSLocalizedString(@"You need to be online to proceed", nil);
