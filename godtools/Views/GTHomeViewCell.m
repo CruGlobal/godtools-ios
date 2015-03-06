@@ -29,7 +29,10 @@
 
 -(void) setUpBackground:(int)isEven{
     if(isEven){
-        self.backgroundColor = [UIColor colorWithRed:0.88 green:0.88 blue:0.88 alpha:0.5];    }
+        self.backgroundColor = [UIColor colorWithRed:0.88 green:0.88 blue:0.88 alpha:0.65];
+    } else {
+        self.backgroundColor = [UIColor colorWithRed:0.88 green:0.88 blue:0.88 alpha:0.45];
+    }
 }
 
 @end

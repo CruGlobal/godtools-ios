@@ -250,7 +250,6 @@
         
         GTPackage *package = [self.articles objectAtIndex:indexPath.row];
         cell.titleLabel.text = package.name;
-        cell.statusLabel.text = package.status;
         
         NSString *imageFilePath = [[GTFileLoader pathOfPackagesDirectory] stringByAppendingPathComponent:package.icon];
         

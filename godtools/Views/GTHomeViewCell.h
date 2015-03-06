@@ -12,7 +12,6 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *icon;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 
 -(void) addSeparator;
 -(void) setUpBackground:(int)isEven;
