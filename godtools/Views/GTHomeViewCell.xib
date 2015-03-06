@@ -4,7 +4,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -15,8 +14,8 @@
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IOb-6t-RhA" id="xhQ-1F-7kA">
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="poS-Zh-dm8">
-                        <rect key="frame" x="10" y="6" width="35" height="35"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="poS-Zh-dm8">
+                        <rect key="frame" x="-1" y="5" width="35" height="35"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="poS-Zh-dm8" secondAttribute="height" multiplier="1:1" id="SFN-rJ-OYG"/>
                             <constraint firstAttribute="width" secondItem="poS-Zh-dm8" secondAttribute="height" multiplier="1:1" id="fPc-8u-V7o"/>
@@ -30,42 +29,20 @@
                             </mask>
                         </variation>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UeF-AY-tJc">
-                        <rect key="frame" x="53" y="16" width="257" height="20"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UeF-AY-tJc">
+                        <rect key="frame" x="53" y="4" width="257" height="35"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="257" id="aO5-Ol-cth"/>
+                        </constraints>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                         <color key="textColor" red="0.25490196078431371" green="0.25490196078431371" blue="0.25490196078431371" alpha="0.65000000000000002" colorSpace="deviceRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="poS-Zh-dm8" firstAttribute="top" secondItem="xhQ-1F-7kA" secondAttribute="top" constant="6" id="56a-26-xna"/>
-                    <constraint firstItem="poS-Zh-dm8" firstAttribute="top" secondItem="xhQ-1F-7kA" secondAttribute="topMargin" constant="-2" id="EgZ-Pm-AmL"/>
-                    <constraint firstItem="poS-Zh-dm8" firstAttribute="top" secondItem="xhQ-1F-7kA" secondAttribute="topMargin" constant="5" id="F9N-xo-k9E"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="UeF-AY-tJc" secondAttribute="trailing" constant="2" id="IBd-Pq-FaR"/>
-                    <constraint firstItem="poS-Zh-dm8" firstAttribute="leading" secondItem="xhQ-1F-7kA" secondAttribute="leadingMargin" constant="2" id="Iji-FJ-ett"/>
-                    <constraint firstItem="poS-Zh-dm8" firstAttribute="top" secondItem="xhQ-1F-7kA" secondAttribute="topMargin" constant="-2" id="Ivc-y0-ZRX"/>
-                    <constraint firstItem="UeF-AY-tJc" firstAttribute="top" secondItem="xhQ-1F-7kA" secondAttribute="top" constant="12" id="MT8-Ve-4tz"/>
-                    <constraint firstItem="poS-Zh-dm8" firstAttribute="leading" secondItem="xhQ-1F-7kA" secondAttribute="leading" constant="10" id="RKg-aH-Qop"/>
-                    <constraint firstItem="poS-Zh-dm8" firstAttribute="leading" secondItem="xhQ-1F-7kA" secondAttribute="leading" constant="10" id="SMr-uz-axb"/>
-                    <constraint firstItem="UeF-AY-tJc" firstAttribute="leading" secondItem="poS-Zh-dm8" secondAttribute="trailing" constant="8" id="dxP-qC-6jr"/>
-                    <constraint firstAttribute="trailing" secondItem="UeF-AY-tJc" secondAttribute="trailing" constant="10" id="i2f-Kz-9wP"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="UeF-AY-tJc" secondAttribute="bottom" constant="9" id="iKy-bM-TIl"/>
-                    <constraint firstItem="poS-Zh-dm8" firstAttribute="top" secondItem="xhQ-1F-7kA" secondAttribute="top" constant="6" id="lrg-IW-kqT"/>
-                    <constraint firstItem="poS-Zh-dm8" firstAttribute="leading" secondItem="xhQ-1F-7kA" secondAttribute="leadingMargin" constant="2" id="oPS-Cs-9sp"/>
+                    <constraint firstAttribute="centerY" secondItem="UeF-AY-tJc" secondAttribute="centerY" constant="-1.25" id="Dav-iP-mGK"/>
+                    <constraint firstItem="UeF-AY-tJc" firstAttribute="leading" secondItem="poS-Zh-dm8" secondAttribute="trailing" constant="19" id="f8f-Zm-7Qy"/>
                 </constraints>
-                <variation key="default">
-                    <mask key="constraints">
-                        <exclude reference="EgZ-Pm-AmL"/>
-                        <exclude reference="F9N-xo-k9E"/>
-                        <exclude reference="Iji-FJ-ett"/>
-                        <exclude reference="Ivc-y0-ZRX"/>
-                        <exclude reference="RKg-aH-Qop"/>
-                        <exclude reference="lrg-IW-kqT"/>
-                        <exclude reference="oPS-Cs-9sp"/>
-                        <exclude reference="IBd-Pq-FaR"/>
-                        <exclude reference="iKy-bM-TIl"/>
-                    </mask>
-                </variation>
             </tableViewCellContentView>
             <connections>
                 <outlet property="icon" destination="poS-Zh-dm8" id="8fp-IB-cxk"/>
