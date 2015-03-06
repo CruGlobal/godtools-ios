@@ -32,8 +32,8 @@
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UeF-AY-tJc">
                         <rect key="frame" x="53" y="14" width="257" height="20"/>
-                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
-                        <color key="textColor" red="0.25490196078431371" green="0.25490196078431371" blue="0.25490196078431371" alpha="1" colorSpace="deviceRGB"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                        <color key="textColor" red="0.25490196078431371" green="0.25490196078431371" blue="0.25490196078431371" alpha="0.65000000000000002" colorSpace="deviceRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
@@ -44,7 +44,7 @@
                     <constraint firstAttribute="trailingMargin" secondItem="UeF-AY-tJc" secondAttribute="trailing" constant="2" id="IBd-Pq-FaR"/>
                     <constraint firstItem="poS-Zh-dm8" firstAttribute="leading" secondItem="xhQ-1F-7kA" secondAttribute="leadingMargin" constant="2" id="Iji-FJ-ett"/>
                     <constraint firstItem="poS-Zh-dm8" firstAttribute="top" secondItem="xhQ-1F-7kA" secondAttribute="topMargin" constant="-2" id="Ivc-y0-ZRX"/>
-                    <constraint firstItem="UeF-AY-tJc" firstAttribute="top" secondItem="xhQ-1F-7kA" secondAttribute="top" constant="6" id="MT8-Ve-4tz"/>
+                    <constraint firstItem="UeF-AY-tJc" firstAttribute="top" secondItem="xhQ-1F-7kA" secondAttribute="top" constant="12" id="MT8-Ve-4tz"/>
                     <constraint firstItem="poS-Zh-dm8" firstAttribute="leading" secondItem="xhQ-1F-7kA" secondAttribute="leading" constant="10" id="RKg-aH-Qop"/>
                     <constraint firstItem="poS-Zh-dm8" firstAttribute="leading" secondItem="xhQ-1F-7kA" secondAttribute="leading" constant="10" id="SMr-uz-axb"/>
                     <constraint firstItem="UeF-AY-tJc" firstAttribute="leading" secondItem="poS-Zh-dm8" secondAttribute="trailing" constant="8" id="dxP-qC-6jr"/>
