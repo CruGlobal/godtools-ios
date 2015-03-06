@@ -347,17 +347,25 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
 #pragma mark - Package downloading
 
 - (void)downloadPackagesForLanguage:(GTLanguage *)language {
+    NSLog(@"downloadPackagesForLanguage() ...");
+    [self downloadPackagesForLanguage:language forImporter:@"default"];
+}
+
+- (void)downloadPackagesForLanguage:(GTLanguage *)language forImporter:(NSString *) importer {
+    NSLog(@"downloadPackagesForLanguageForImporter() ...");
 
    	NSParameterAssert(language);
     NSLog(@"will download %@",language.name);
 	__weak typeof(self)weakSelf = self;
 	[self.api getResourcesForLanguage:language
 							 progress:^(NSNumber *percentage) {
-								 
-								 [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadProgressMade
-																					 object:weakSelf
-																				   userInfo:@{GTDataImporterNotificationLanguageDownloadPercentageKey: percentage}];
-								 
+                                 
+                                 if ([importer isEqualToString: @"default"]) {
+                                     [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadProgressMade
+                                                                                         object:weakSelf
+                                                                                       userInfo:@{GTDataImporterNotificationLanguageDownloadPercentageKey: percentage}];
+                                 }
+
 							 } success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSURL *targetPath) {
                                  if(response.statusCode == 200){
                                      RXMLElement *contents =[weakSelf unzipResourcesAtTarget:targetPath forLanguage:language package:nil];
@@ -424,13 +432,16 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
                                  if([[GTDefaults sharedDefaults] isInTranslatorMode] == [NSNumber numberWithBool:YES]){
                                      [self downloadDraftsForLanguage:language];
                                  }else{
-                                     [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadFinished object:self];
+                                     if ([importer isEqualToString: @"default"]) {
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadFinished object:self];
+                                     }
                                  }
 							 } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
                                  
 								 [weakSelf displayDownloadPackagesRequestError:error];
-                                 [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadFinished object:self];
-								 
+                                 if ([importer isEqualToString: @"default"]) {
+                                     [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadFinished object:self];
+                                 }
 							 }];
 
 	
