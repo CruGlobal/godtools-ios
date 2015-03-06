@@ -26,7 +26,7 @@
     self.navigationItem.rightBarButtonItem.target = self;
     self.navigationItem.rightBarButtonItem.action = @selector(doneButtonPressed);
     
-
+    self.accessCodeTextField.delegate = self;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -49,7 +49,12 @@
 }
 
 -(void) doneButtonPressed {
-    
+    [self.accessCodeTextField resignFirstResponder];
+}
+
+-(BOOL) textFieldShouldReturn:(UITextField *)textField{
+    [self.accessCodeTextField resignFirstResponder];
+    return YES;
 }
 
 @end

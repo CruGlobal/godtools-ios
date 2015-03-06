@@ -106,6 +106,9 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="send"/>
+                                <connections>
+                                    <outlet property="delegate" destination="rqz-vU-CUN" id="BBN-O2-XLz"/>
+                                </connections>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>

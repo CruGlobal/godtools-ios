@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GTAccessCodeController : UIViewController
+@interface GTAccessCodeController : UIViewController<UITextFieldDelegate>
 
 
 
