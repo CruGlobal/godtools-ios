@@ -22,10 +22,14 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="svf-Xr-Qzt">
+                        <rect key="frame" x="16" y="11" width="20" height="20"/>
+                    </activityIndicatorView>
                 </subviews>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
+                <outlet property="activityIndicator" destination="svf-Xr-Qzt" id="YJa-gA-fkO"/>
                 <outlet property="checkBox" destination="f9C-HA-QFg" id="mY7-x1-rrL"/>
                 <outlet property="languageName" destination="KFe-mW-0Q8" id="dZt-fh-iai"/>
             </connections>
