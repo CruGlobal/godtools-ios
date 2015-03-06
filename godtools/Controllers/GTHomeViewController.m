@@ -136,6 +136,12 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    
+    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0]];
+    [self.navigationController.navigationBar setTintColor:[UIColor colorWithRed: 0.0 green:0.5 blue:1.0 alpha:1.0]];
+    [self.navigationController.navigationBar setTranslucent:YES]; // required for iOS7
+    self.navigationController.navigationBar.topItem.title = nil;
+    
     [self.navigationController setNavigationBarHidden:YES];
     
     [self setData];
@@ -426,7 +432,7 @@
 
     self.godtoolsViewController.currentPackage = package;
     [self.godtoolsViewController addNotificationObservers];
-    
+        
     [self.godtoolsViewController loadResourceWithConfigFilename:package.configFile parallelConfigFileName:parallelConfigFile isDraft:isDraft];
     [self.navigationController pushViewController:self.godtoolsViewController animated:YES];
     
