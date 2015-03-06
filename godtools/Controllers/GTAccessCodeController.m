@@ -44,6 +44,39 @@
     [self.accessCodeTextField becomeFirstResponder];
 }
 
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:<#animated#>];
+    [self removeNotificationObservers];
+}
+
+#pragma mark - Notification Observers
+-(void)addNotificationObservers{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(authorizeTranslatorAlert:)
+                                                 name: GTDataImporterNotificationAuthTokenUpdateStarted
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(authorizeTranslatorAlert:)
+                                                 name: GTDataImporterNotificationAuthTokenUpdateSuccessful
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(authorizeTranslatorAlert:)
+                                                 name: GTDataImporterNotificationAuthTokenUpdateFail
+                                               object:nil];
+}
+
+-(void)removeNotificationObservers{
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:GTDataImporterNotificationAuthTokenUpdateStarted
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:GTDataImporterNotificationAuthTokenUpdateSuccessful
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:GTDataImporterNotificationAuthTokenUpdateFail
+                                                  object:nil];
+}
+
 //-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
 //    if(alertView == self.exitTranslatorModeAlert){
 //        if(buttonIndex == 1){
@@ -83,6 +116,8 @@
 
 -(BOOL) textFieldShouldReturn:(UITextField *)textField{
     [self.accessCodeTextField resignFirstResponder];
+    [self addNotificationObservers];
+    
     NSString *accessCode = self.accessCodeTextField.text;
     
     [[GTDefaults sharedDefaults]setTranslatorAccessCode:accessCode];
