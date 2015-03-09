@@ -52,6 +52,11 @@ GTLanguageViewCell *languageActionCell;
                                                  name:GTDataImporterNotificationMenuUpdateFinished
                                                object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(setData)
+                                                 name:GTLanguageViewDataImporterNotificationLanguageDownloadFinished
+                                               object:nil];
+    
     self.buttonLessAlert        = [[UIAlertView alloc]
                                    initWithTitle:@""
                                    message:@""
