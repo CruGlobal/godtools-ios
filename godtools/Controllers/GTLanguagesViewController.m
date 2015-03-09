@@ -249,7 +249,10 @@ GTLanguageViewCell *languageActionCell;
                                                                         object:self
                                                                       userInfo:nil];
 
-                    [[GTDataImporter sharedImporter]downloadPackagesForLanguage:gtLanguage forImporter:@"languageImporter"];
+                    [[GTDataImporter sharedImporter] downloadPackagesForLanguage:gtLanguage
+                                                            withProgressNotifier:GTLanguageViewDataImporterNotificationLanguageDownloadProgressMade
+                                                             withSuccessNotifier:GTLanguageViewDataImporterNotificationLanguageDownloadFinished
+                                                             withFailureNotifier:GTLanguageViewDataImporterNotificationLanguageDownloadFinished];
                 }
             }else{
                 self.buttonLessAlert.message = NSLocalizedString(@"You need to be online to proceed", nil);
