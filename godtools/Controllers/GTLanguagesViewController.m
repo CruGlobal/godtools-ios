@@ -37,15 +37,6 @@ GTLanguageViewCell *languageActionCell;
     }
 
     
-    /*[[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(setData)
-                                                 name: GTDataImporterNotificationAuthTokenUpdateStarted
-                                               object:nil];*/
-    /* [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(goToHome)
-                                                 name: GTDataImporterNotificationLanguageDownloadProgressMade
-                                               object:nil]; */
-
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(showLanguageDownloadIndicator)
                                                  name: GTLanguageViewDataImporterNotificationLanguageDownloadProgressMade
@@ -107,11 +98,6 @@ GTLanguageViewCell *languageActionCell;
         NSLog(@"hideLanguageDownloadIndicator() stop animating");
         [languageActionCell.activityIndicator stopAnimating];
     }
-}
-
-- (void)goToHome{
-
-//    [self.navigationController popToViewController:[[self.navigationController viewControllers] objectAtIndex:1] animated:YES];
 }
 
 - (void)setData{
@@ -184,12 +170,7 @@ GTLanguageViewCell *languageActionCell;
         NSLog(@"text should be highlighted for language %@", language.name);
 
         cell.checkBox.hidden = FALSE;
-//           cell.languageName.textColor = [UIColor blueColor];
     }
-    
-//    if(language.downloaded){
-//        [cell.downloadIcon setHidden:YES];
-//    }
     
     /*
      ** Create custom accessory view with action selector
