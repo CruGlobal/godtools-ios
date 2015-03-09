@@ -3,6 +3,7 @@
 //  godtools
 //
 //  Created by Claudine Bael on 11/7/14.
+//  Updated by Lee Braddock
 //  Copyright (c) 2014 Michael Harrison. All rights reserved.
 //
 
@@ -120,8 +121,6 @@ GTLanguageViewCell *languageActionCell;
         
         [self.languages removeObject:main];
     }
-    
-    // NSMutableArray *filteredArray = [[NSMutableArray alloc]init];
     
     NSPredicate *predicate = [[NSPredicate alloc]init];
     
@@ -264,25 +263,6 @@ GTLanguageViewCell *languageActionCell;
     }
 
     GTLanguage *chosen = (GTLanguage*)[self.languages objectAtIndex:indexPath.row];
-    
-//    if(![chosen downloaded]){
-//        
-//        if(self.afReachability.reachable){
-//
-//            [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadProgressMade
-//                                                                object:self
-//                                                              userInfo:nil];
-//        
-//            [[GTDataImporter sharedImporter]downloadPackagesForLanguage:[self.languages objectAtIndex:indexPath.row]];
-//        }else{
-//            self.buttonLessAlert.message = NSLocalizedString(@"You need to be online to proceed", nil);
-//            [self.buttonLessAlert show];
-//            [self performSelector:@selector(dismissAlertView:) withObject:self.buttonLessAlert afterDelay:2.0];
-//
-//         }
-//        
-//    }else{
-    
     
     // set the current language selected
     if([[GTDefaults sharedDefaults] isChoosingForMainLanguage] == [NSNumber numberWithBool:YES]){            [[GTDefaults sharedDefaults]setCurrentLanguageCode:chosen.code];
