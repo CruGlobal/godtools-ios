@@ -441,12 +441,18 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
                                      if ([importer isEqualToString: @"default"]) {
                                          [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadFinished object:self];
                                      }
+                                     else if ([importer isEqualToString: @"languageImporter"]) {
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:GTLanguageViewDataImporterNotificationLanguageDownloadFinished object:self];
+                                     }
                                  }
 							 } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
                                  
 								 [weakSelf displayDownloadPackagesRequestError:error];
                                  if ([importer isEqualToString: @"default"]) {
                                      [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadFinished object:self];
+                                 }
+                                 else if ([importer isEqualToString: @"languageImporter"]) {
+                                     [[NSNotificationCenter defaultCenter] postNotificationName:GTLanguageViewDataImporterNotificationLanguageDownloadFinished object:self];
                                  }
 							 }];
 

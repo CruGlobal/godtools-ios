@@ -50,7 +50,12 @@ GTLanguageViewCell *languageActionCell;
                                              selector:@selector(showLanguageDownloadIndicator)
                                                  name: GTLanguageViewDataImporterNotificationLanguageDownloadProgressMade
                                                object:nil];
-
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(hideLanguageDownloadIndicator)
+                                                 name: GTLanguageViewDataImporterNotificationLanguageDownloadFinished
+                                               object:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(setData)
                                                  name:GTDataImporterNotificationMenuUpdateFinished
@@ -95,6 +100,15 @@ GTLanguageViewCell *languageActionCell;
         [languageActionCell.activityIndicator startAnimating];
     }
 }
+
+- (void)hideLanguageDownloadIndicator{
+    NSLog(@"hideLanguageDownloadIndicator() ... %@", languageActionCell.textLabel);
+    if([languageActionCell.activityIndicator isAnimating]) {
+        NSLog(@"hideLanguageDownloadIndicator() stop animating");
+        [languageActionCell.activityIndicator stopAnimating];
+    }
+}
+
 - (void)goToHome{
 
 //    [self.navigationController popToViewController:[[self.navigationController viewControllers] objectAtIndex:1] animated:YES];
