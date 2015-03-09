@@ -142,11 +142,15 @@ GTLanguageViewCell *languageActionCell;
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return self.languages.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.languages.count;
+    return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 10.;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -161,7 +165,7 @@ GTLanguageViewCell *languageActionCell;
         cell = [nib objectAtIndex:0];
     }
     
-    GTLanguage *language = [self.languages objectAtIndex:indexPath.row];
+    GTLanguage *language = [self.languages objectAtIndex:indexPath.section];
     
     cell.languageName.text = language.name;
     cell.languageName.textColor = [UIColor whiteColor];
@@ -254,7 +258,7 @@ GTLanguageViewCell *languageActionCell;
 
     NSLog(@"tableViewdidSelectRowAtIndexPath() start...");
     
-    GTLanguage *language = [self.languages objectAtIndex:indexPath.row];
+    GTLanguage *language = [self.languages objectAtIndex:indexPath.section];
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 
     // don't select language if not yet downloaded
@@ -262,7 +266,7 @@ GTLanguageViewCell *languageActionCell;
         return;
     }
 
-    GTLanguage *chosen = (GTLanguage*)[self.languages objectAtIndex:indexPath.row];
+    GTLanguage *chosen = (GTLanguage*)[self.languages objectAtIndex:indexPath.section];
     
     // set the current language selected
     if([[GTDefaults sharedDefaults] isChoosingForMainLanguage] == [NSNumber numberWithBool:YES]){            [[GTDefaults sharedDefaults]setCurrentLanguageCode:chosen.code];
