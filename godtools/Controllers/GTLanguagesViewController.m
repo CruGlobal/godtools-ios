@@ -182,6 +182,9 @@ CGFloat cellSpacingHeight = 10.;
         || ([[GTDefaults sharedDefaults] isChoosingForMainLanguage] == [NSNumber numberWithBool:NO]
             && [language.code isEqual:[[GTDefaults sharedDefaults]currentParallelLanguageCode]]);
     
+    UIColor *semiTransparentColor = [UIColor colorWithRed:255 green:255 blue:255 alpha: .2];
+    cell.backgroundColor = semiTransparentColor;
+    
     cell.checkBox.hidden = TRUE;
     if(textShouldBeHighlighted){
         NSLog(@"text should be highlighted for language %@", language.name);
