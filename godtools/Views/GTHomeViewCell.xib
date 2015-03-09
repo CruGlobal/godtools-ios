@@ -14,21 +14,6 @@
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IOb-6t-RhA" id="xhQ-1F-7kA">
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="poS-Zh-dm8">
-                        <rect key="frame" x="-1" y="5" width="35" height="35"/>
-                        <constraints>
-                            <constraint firstAttribute="width" secondItem="poS-Zh-dm8" secondAttribute="height" multiplier="1:1" id="SFN-rJ-OYG"/>
-                            <constraint firstAttribute="width" secondItem="poS-Zh-dm8" secondAttribute="height" multiplier="1:1" id="fPc-8u-V7o"/>
-                            <constraint firstAttribute="height" constant="35" id="gEp-tX-qOb"/>
-                            <constraint firstAttribute="width" constant="35" id="yRQ-kh-xtO"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="SFN-rJ-OYG"/>
-                                <exclude reference="fPc-8u-V7o"/>
-                            </mask>
-                        </variation>
-                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UeF-AY-tJc">
                         <rect key="frame" x="53" y="4" width="257" height="35"/>
                         <constraints>
@@ -38,9 +23,24 @@
                         <color key="textColor" red="0.25490196078431371" green="0.25490196078431371" blue="0.25490196078431371" alpha="0.65000000000000002" colorSpace="deviceRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="poS-Zh-dm8">
+                        <rect key="frame" x="0.0" y="0.0" width="53" height="53"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="53" id="LbI-r6-1uC"/>
+                            <constraint firstAttribute="width" secondItem="poS-Zh-dm8" secondAttribute="height" multiplier="1:1" id="SFN-rJ-OYG"/>
+                            <constraint firstAttribute="width" secondItem="poS-Zh-dm8" secondAttribute="height" multiplier="1:1" id="fPc-8u-V7o"/>
+                            <constraint firstAttribute="height" constant="53" id="wpg-LC-TT2"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="SFN-rJ-OYG"/>
+                                <exclude reference="fPc-8u-V7o"/>
+                            </mask>
+                        </variation>
+                    </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="centerY" secondItem="UeF-AY-tJc" secondAttribute="centerY" constant="-1.25" id="Dav-iP-mGK"/>
+                    <constraint firstAttribute="centerY" secondItem="UeF-AY-tJc" secondAttribute="centerY" constant="-1" id="Dav-iP-mGK"/>
                     <constraint firstItem="UeF-AY-tJc" firstAttribute="leading" secondItem="poS-Zh-dm8" secondAttribute="trailing" constant="19" id="f8f-Zm-7Qy"/>
                 </constraints>
             </tableViewCellContentView>
@@ -48,7 +48,7 @@
                 <outlet property="icon" destination="poS-Zh-dm8" id="8fp-IB-cxk"/>
                 <outlet property="titleLabel" destination="UeF-AY-tJc" id="CBd-os-ZfH"/>
             </connections>
-            <point key="canvasLocation" x="449" y="317"/>
+            <point key="canvasLocation" x="411" y="189"/>
         </tableViewCell>
     </objects>
 </document>
