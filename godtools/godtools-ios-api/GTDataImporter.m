@@ -351,6 +351,10 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
      [self downloadPackagesForLanguage:language withProgressNotifier:GTDataImporterNotificationLanguageDownloadProgressMade withSuccessNotifier:GTDataImporterNotificationLanguageDownloadFinished withFailureNotifier:GTDataImporterNotificationLanguageDownloadFinished];
 }
 
+- (void)cancelDownloadPackagesForLanguage {
+    [self.api cancelGetResourcesForLanguage];
+}
+
 - (void)downloadPackagesForLanguage:(GTLanguage *)language withProgressNotifier:(NSString *) progressNotificationName withSuccessNotifier:(NSString *) successNotificationName withFailureNotifier:(NSString *) failureNotificationName {
     NSLog(@"downloadPackagesForLanguageForImporter() ...");
 

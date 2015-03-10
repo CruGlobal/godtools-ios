@@ -112,6 +112,11 @@
 						failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure;
 
 /**
+ * Cancels the most recent getResourcesForLanguageRequest
+ **/
+- (void)cancelGetResourcesForLanguage;
+
+/**
  *  Retrieves only the xml files for all resources associated with the language passed to this method. This should be used to update a resource.
  *  @note getResourcesForLanguage:progress:success:failure: should be used when the major version number increases (eg version-number-on-device = 3.2 version-number-in-meta-data = 4.0)
  *

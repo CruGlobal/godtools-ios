@@ -78,6 +78,11 @@
 - (void)downloadPackagesForLanguage:(GTLanguage *)language withProgressNotifier:(NSString *) progressNotificationName withSuccessNotifier:(NSString *) successNotificationName withFailureNotifier:(NSString *) failureNotificationName;
 
 /**
+ * Cancels most recent downloadPackagesForLanguage request
+ */
+- (void)cancelDownloadPackagesForLanguage;
+
+/**
  *  Compares local version number with the version number on the web server. It does this for every resource written in the languages listed in languageCodes.
  *  If the web server is newer it will record it as being in need of an update. If there are one or more resources in
  *  need of an update this method will post a notification with the name GTDataImporterNotificationNameUpdateNeeded.
