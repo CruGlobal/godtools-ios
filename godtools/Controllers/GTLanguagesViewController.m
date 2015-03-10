@@ -227,11 +227,10 @@ CGFloat cellSpacingHeight = 10.;
     languageActionCell = cell;
     
     if(cell != nil) {
-        NSLog(@"languageAction() language name %@", cell.languageName.text);
-        NSLog(@"languageAction() language action button item %@", button.titleLabel);
-        
         NSString *title = [button titleForState:UIControlStateNormal];
         
+        NSLog(@"languageAction() language name %@, title label %@, title %@", cell.languageName.text, button.titleLabel, title);
+
         if ([title isEqualToString:@"Download"]) {
             
             if(self.afReachability.reachable){
@@ -254,6 +253,9 @@ CGFloat cellSpacingHeight = 10.;
                                                             withProgressNotifier:GTLanguageViewDataImporterNotificationLanguageDownloadProgressMade
                                                              withSuccessNotifier:GTLanguageViewDataImporterNotificationLanguageDownloadFinished
                                                              withFailureNotifier:GTLanguageViewDataImporterNotificationLanguageDownloadFinished];
+                    
+                    [(UIButton *) cell.accessoryView setTitle:@"Cancel"
+                            forState:UIControlStateNormal];
                 }
             }else{
                 self.buttonLessAlert.message = NSLocalizedString(@"You need to be online to proceed", nil);
@@ -261,7 +263,8 @@ CGFloat cellSpacingHeight = 10.;
                 [self performSelector:@selector(dismissAlertView:) withObject:self.buttonLessAlert afterDelay:2.0];
             }
         }
-        else if ([title isEqualToString:@"Delete"]) {
+        else if ([title isEqualToString:@"Cancel"]) {
+            [[GTDataImporter sharedImporter] cancelDownloadPackagesForLanguage];
         }
     }
 }
