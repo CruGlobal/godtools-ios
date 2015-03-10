@@ -30,6 +30,7 @@ NSString *const GTDataImporterPackageMetaXmlAttributeNameStatus			= @"status";
 NSString *const GTDataImporterPackageMetaXmlAttributeNameType			= @"type";
 NSString *const GTDataImporterPackageMetaXmlAttributeNameVersion		= @"version";
 NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
+BOOL gtLanguageDownloadUserCancellation                                 = FALSE;
 
 @interface GTDataImporter ()
 
@@ -351,10 +352,6 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
      [self downloadPackagesForLanguage:language withProgressNotifier:GTDataImporterNotificationLanguageDownloadProgressMade withSuccessNotifier:GTDataImporterNotificationLanguageDownloadFinished withFailureNotifier:GTDataImporterNotificationLanguageDownloadFinished];
 }
 
-- (void)cancelDownloadPackagesForLanguage {
-    [self.api cancelGetResourcesForLanguage];
-}
-
 - (void)downloadPackagesForLanguage:(GTLanguage *)language withProgressNotifier:(NSString *) progressNotificationName withSuccessNotifier:(NSString *) successNotificationName withFailureNotifier:(NSString *) failureNotificationName {
     NSLog(@"downloadPackagesForLanguageForImporter() ...");
 
@@ -436,13 +433,21 @@ NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
                                      [[NSNotificationCenter defaultCenter] postNotificationName:successNotificationName object:self];
                                  }
 							 } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                 
-								 [weakSelf displayDownloadPackagesRequestError:error];
+                                 if(!gtLanguageDownloadUserCancellation) {
+                                     [weakSelf displayDownloadPackagesRequestError:error];
+                                 }
+                                 gtLanguageDownloadUserCancellation = FALSE;
                                  [[NSNotificationCenter defaultCenter] postNotificationName:failureNotificationName object:self];
 							 }];
 
 	
 }
+
+- (void)cancelDownloadPackagesForLanguage {
+    gtLanguageDownloadUserCancellation = TRUE;
+    [self.api cancelGetResourcesForLanguage];
+}
+
 
 - (RXMLElement *)unzipResourcesAtTarget:(NSURL *)targetPath forLanguage:(GTLanguage *)language package:(GTPackage *)package {
     
