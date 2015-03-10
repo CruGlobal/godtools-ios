@@ -93,17 +93,13 @@ CGFloat cellSpacingHeight = 10.;
 }
 
 - (void)showLanguageDownloadIndicator{
-    NSLog(@"showLanguageDownloadIndicator() ... %@", languageActionCell.textLabel);
     if(![languageActionCell.activityIndicator isAnimating]) {
-        NSLog(@"showLanguageDownloadIndicator() animating");
         [languageActionCell.activityIndicator startAnimating];
     }
 }
 
 - (void)hideLanguageDownloadIndicator{
-    NSLog(@"hideLanguageDownloadIndicator() ... %@", languageActionCell.textLabel);
     if([languageActionCell.activityIndicator isAnimating]) {
-        NSLog(@"hideLanguageDownloadIndicator() stop animating");
         [languageActionCell.activityIndicator stopAnimating];
     }
 }
@@ -163,8 +159,6 @@ CGFloat cellSpacingHeight = 10.;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    NSLog(@"tableViewcellForRowAtIndexPath() start ...");
 
     GTLanguageViewCell *cell = (GTLanguageViewCell*)[tableView dequeueReusableCellWithIdentifier:@"GTLanguageViewCell"];
     
@@ -192,10 +186,8 @@ CGFloat cellSpacingHeight = 10.;
         cell.checkBox.hidden = FALSE;
     }
     
+    // Create custom accessory view with action selector
     if(!language.downloaded) {
-        /*
-         ** Create custom accessory view with action selector
-         */
         UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         button.frame = CGRectMake(0.0f, 0.0f, 150.0f, 25.0f);
         
@@ -213,9 +205,7 @@ CGFloat cellSpacingHeight = 10.;
          forControlEvents:UIControlEventTouchUpInside];
         
         cell.accessoryView = button;
-        // end custom accessory view
     }
-    
     
     return cell;
 }
@@ -270,10 +260,11 @@ CGFloat cellSpacingHeight = 10.;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-
-    NSLog(@"tableViewdidSelectRowAtIndexPath() start...");
     
     GTLanguage *language = [self.languages objectAtIndex:indexPath.section];
+    
+    NSLog(@"tableViewdidSelectRowAtIndexPath() language %@", language.name);
+
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 
     // don't select language if not yet downloaded
@@ -284,16 +275,15 @@ CGFloat cellSpacingHeight = 10.;
     GTLanguage *chosen = (GTLanguage*)[self.languages objectAtIndex:indexPath.section];
     
     // set the current language selected
-    if([[GTDefaults sharedDefaults] isChoosingForMainLanguage] == [NSNumber numberWithBool:YES]){            [[GTDefaults sharedDefaults]setCurrentLanguageCode:chosen.code];
-    }else{
+    if([[GTDefaults sharedDefaults] isChoosingForMainLanguage] == [NSNumber numberWithBool:YES]) {
+        [[GTDefaults sharedDefaults]setCurrentLanguageCode:chosen.code];
+    }else {
         NSLog(@"set as parallel: %@",chosen.code);
         [[GTDefaults sharedDefaults]setCurrentParallelLanguageCode:chosen.code];
     }
    
     // so as to show check mark on selected language
     [tableView reloadData];
-
-//    }
 }
 
 -(void)dismissAlertView:(UIAlertView *)alertView{
