@@ -3,7 +3,7 @@
 //  godtools
 //
 //  Created by Claudine Bael on 11/7/14.
-//  Updated by Lee Braddock
+//  Modified by Lee Braddock
 //  Copyright (c) 2014 Michael Harrison. All rights reserved.
 //
 
