@@ -230,36 +230,9 @@ NSString *languageDownloading = nil;
 
         if ([title isEqualToString:@"Download"]) {
             
-            if(self.afReachability.reachable){
-                
-                GTLanguage *gtLanguage = nil;
-                for (GTLanguage *language in self.languages) {
-                    if([language.name isEqualToString:cell.languageName.text]) {
-                        gtLanguage = language;
-                    }
-                }
-
-                if(gtLanguage != nil) {
-                    NSLog(@"languageAction() got language %@", gtLanguage.name);
-                    
-                    [[NSNotificationCenter defaultCenter] postNotificationName:GTLanguageViewDataImporterNotificationLanguageDownloadProgressMade
-                                                                        object:self
-                                                                      userInfo:nil];
-
-                    [[GTDataImporter sharedImporter] downloadPackagesForLanguage:gtLanguage
-                                                            withProgressNotifier:GTLanguageViewDataImporterNotificationLanguageDownloadProgressMade
-                                                             withSuccessNotifier:GTLanguageViewDataImporterNotificationLanguageDownloadFinished
-                                                             withFailureNotifier:GTLanguageViewDataImporterNotificationLanguageDownloadFinished];
-                    
-                    [(UIButton *) cell.accessoryView setTitle:@"Cancel"
-                            forState:UIControlStateNormal];
-                    
-                    languageDownloading = cell.languageName.text;
-                }
-            }else{
-                self.buttonLessAlert.message = NSLocalizedString(@"You need to be online to proceed", nil);
-                [self.buttonLessAlert show];
-                [self performSelector:@selector(dismissAlertView:) withObject:self.buttonLessAlert afterDelay:2.0];
+            if([self downloadLanguage:cell.languageName.text]) {
+                [(UIButton *) cell.accessoryView setTitle:@"Cancel" forState:UIControlStateNormal];
+                languageDownloading = cell.languageName.text;
             }
         }
         else if ([title isEqualToString:@"Cancel"]) {
@@ -267,6 +240,44 @@ NSString *languageDownloading = nil;
             [[GTDataImporter sharedImporter] cancelDownloadPackagesForLanguage];
         }
     }
+}
+
+- (BOOL)downloadLanguage:(NSString *)languageName {
+    
+    BOOL result = FALSE;
+    
+    if(self.afReachability.reachable) {
+        
+        // get GTLanguage from name
+        GTLanguage *gtLanguage = nil;
+        for (GTLanguage *language in self.languages) {
+            if([language.name isEqualToString:languageName]) {
+                gtLanguage = language;
+            }
+        }
+        
+        if(gtLanguage != nil) {
+            NSLog(@"languageAction() got language %@", gtLanguage.name);
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:GTLanguageViewDataImporterNotificationLanguageDownloadProgressMade
+                                                                object:self
+                                                              userInfo:nil];
+            
+            [[GTDataImporter sharedImporter] downloadPackagesForLanguage:gtLanguage
+                                                    withProgressNotifier:GTLanguageViewDataImporterNotificationLanguageDownloadProgressMade
+                                                     withSuccessNotifier:GTLanguageViewDataImporterNotificationLanguageDownloadFinished
+                                                     withFailureNotifier:GTLanguageViewDataImporterNotificationLanguageDownloadFinished];
+
+            result = TRUE;
+        }
+        
+    } else {
+        self.buttonLessAlert.message = NSLocalizedString(@"You need to be online to proceed", nil);
+        [self.buttonLessAlert show];
+        [self performSelector:@selector(dismissAlertView:) withObject:self.buttonLessAlert afterDelay:2.0];
+    }
+    
+    return result;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
