@@ -25,12 +25,16 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="GT4_DownloadsScreen_ErrorIcon_" highlightedImage="GT4_DownloadsScreen_ErrorIcon_" translatesAutoresizingMaskIntoConstraints="NO" id="tWR-e5-eLj">
+                        <rect key="frame" x="8" y="5" width="37" height="33"/>
+                    </imageView>
                 </subviews>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="activityIndicator" destination="svf-Xr-Qzt" id="YJa-gA-fkO"/>
                 <outlet property="checkBox" destination="f9C-HA-QFg" id="mY7-x1-rrL"/>
+                <outlet property="errorIcon" destination="tWR-e5-eLj" id="l7u-rh-E4X"/>
                 <outlet property="languageName" destination="KFe-mW-0Q8" id="dZt-fh-iai"/>
             </connections>
             <point key="canvasLocation" x="250" y="273"/>
@@ -38,5 +42,6 @@
     </objects>
     <resources>
         <image name="GT4_DownloadsScreen_CheckMark_" width="24" height="18"/>
+        <image name="GT4_DownloadsScreen_ErrorIcon_" width="5" height="20"/>
     </resources>
 </document>

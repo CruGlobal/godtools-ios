@@ -13,5 +13,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *languageName;
 @property (weak, nonatomic) IBOutlet UIImageView *checkBox;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (weak, nonatomic) IBOutlet UIImageView *errorIcon;
 
 @end
