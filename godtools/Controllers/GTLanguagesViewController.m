@@ -190,26 +190,31 @@ NSString *languageDownloading = nil;
 
     // Create custom accessory view with action selector
     if(!language.downloaded) {
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        button.frame = CGRectMake(0.0f, 0.0f, 150.0f, 25.0f);
-        
-        NSString *buttonTitle = @"Download";
-        cell.accessoryView = nil;
-        
-        [button setTitle:buttonTitle
-                forState:UIControlStateNormal];
-        
-        [button setTitleColor: [UIColor whiteColor]
-                     forState:UIControlStateNormal];
-        
-        [button addTarget:self
-                   action:@selector(languageAction:)
-         forControlEvents:UIControlEventTouchUpInside];
-        
-        cell.accessoryView = button;
+        [self addAccessoryView:cell];
     }
     
     return cell;
+}
+
+- (void)addAccessoryView:(GTLanguageViewCell *)cell {
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    button.frame = CGRectMake(0.0f, 0.0f, 150.0f, 25.0f);
+    
+    NSString *buttonTitle = @"Download";
+    cell.accessoryView = nil;
+    
+    [button setTitle:buttonTitle
+            forState:UIControlStateNormal];
+    
+    [button setTitleColor: [UIColor whiteColor]
+                 forState:UIControlStateNormal];
+    
+    [button addTarget:self
+               action:@selector(languageAction:)
+     forControlEvents:UIControlEventTouchUpInside];
+    
+    cell.accessoryView = button;
 }
 
 - (void) languageAction:(UIButton *)button{
