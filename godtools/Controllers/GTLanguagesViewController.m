@@ -180,7 +180,7 @@ NSString *languageDownloading = nil;
         || ([[GTDefaults sharedDefaults] isChoosingForMainLanguage] == [NSNumber numberWithBool:NO]
             && [language.code isEqual:[[GTDefaults sharedDefaults]currentParallelLanguageCode]]);
     
-    UIColor *semiTransparentColor = [UIColor colorWithRed:255 green:255 blue:255 alpha: .2];
+    UIColor *semiTransparentColor = [UIColor colorWithRed:255 green:255 blue:255 alpha: .1];
     cell.backgroundColor = semiTransparentColor;
     
     cell.checkBox.hidden = TRUE;
