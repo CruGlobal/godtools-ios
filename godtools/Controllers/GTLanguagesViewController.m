@@ -184,6 +184,7 @@ NSString *languageDownloading = nil;
     cell.backgroundColor = semiTransparentColor;
     
     cell.checkBox.hidden = TRUE;
+    cell.errorIcon.hidden = TRUE;
     if(isSelectedLanguage) {
         cell.checkBox.hidden = FALSE;
     }
