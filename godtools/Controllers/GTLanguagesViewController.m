@@ -293,8 +293,13 @@ NSString *languageDownloading = nil;
 
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 
-    // don't select language if not yet downloaded
-    if(!language.downloaded){
+    // download language if not yet downloaded
+    if(!language.downloaded) {
+        languageActionCell = (GTLanguageViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+        if([self downloadLanguage:languageActionCell.languageName.text]) {
+            [(UIButton *) languageActionCell.accessoryView setTitle:@"Cancel" forState:UIControlStateNormal];
+            languageDownloading = languageActionCell.languageName.text;
+        }
         return;
     }
 
