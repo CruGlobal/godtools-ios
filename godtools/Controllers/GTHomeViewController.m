@@ -307,11 +307,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if(tableView == self.homeView.tableView){
         GTPackage *selectedPackage = [self.articles objectAtIndex:indexPath.section];
-        if([selectedPackage.status isEqualToString: @"live"]){
-            [self loadRendererWithPackage:selectedPackage];
-        }else{
-            [self.draftsAlert show];
-        }
+        [self loadRendererWithPackage:selectedPackage];
     }
 }
 
