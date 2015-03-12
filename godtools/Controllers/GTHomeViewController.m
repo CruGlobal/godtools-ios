@@ -144,9 +144,15 @@
     
     [self.navigationController setNavigationBarHidden:YES];
     
+    if([self isTranslatorMode]) {
+        self.homeView.iconImageView.image = [UIImage imageNamed:@"GT4_Home_BookIcon_PreviewMode_"];
+        self.homeView.translatorModeLabel.hidden = NO;
+    } else {
+        self.homeView.iconImageView.image = [UIImage imageNamed:@"GT4_Home_BookIcon_"];
+        self.homeView.translatorModeLabel.hidden = YES;
+    }
     [self setData];
     [self.homeView.tableView reloadData];
-
 }
 
 #pragma mark - Download packages methods
@@ -268,7 +274,7 @@
         NSString *imageFilePath = [[GTFileLoader pathOfPackagesDirectory] stringByAppendingPathComponent:package.icon];
         
         cell.icon.image = [UIImage imageWithContentsOfFile: imageFilePath];
-        [cell setUpBackground:(indexPath.section % 2)];
+        [cell setUpBackground:(indexPath.section % 2) :[self isTranslatorMode]];
         
         if([self.languageCode isEqualToString:@"am-ET"]){
             cell.titleLabel.font = [UIFont fontWithName:@"NotoSansEthiopic" size:cell.titleLabel.font.pointSize];
@@ -401,7 +407,6 @@
     NSArray *filteredArray = [self.articles filteredArrayUsingPredicate:predicate];
     
     return [filteredArray mutableCopy];
-
 }
 
 #pragma mark - Utility methods
@@ -411,11 +416,9 @@
             [self setMainLanguageToPhonesLanguage];
         }
     }else if(alertView == self.draftsAlert){
-        GTPackage *selectedPackage = [self.articles objectAtIndex:self.homeView.tableView.indexPathForSelectedRow.row];
-        if(buttonIndex == 0){
-            [self loadRendererWithPackage:selectedPackage];
-        }else if(buttonIndex == 1){
+        if(buttonIndex == 1){
             //publish draft
+            GTPackage *selectedPackage = [self.articles objectAtIndex:[self.selectedSectionNumber intValue]];
             [[GTDataImporter sharedImporter] publishDraftForLanguage:selectedPackage.language package:selectedPackage];
         }
     }else if(alertView == self.createDraftsAlert){

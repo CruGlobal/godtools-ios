@@ -18,6 +18,9 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong,nonatomic) id<GTHomeViewDelegate> delegate;
+
+@property (weak, nonatomic) IBOutlet UILabel *translatorModeLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
 @property (weak, nonatomic) IBOutlet UIButton *settingsButton;
 
 - (IBAction)settingsButtonPressed:(id)sender;

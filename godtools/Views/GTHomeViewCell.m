@@ -21,8 +21,10 @@
     // Configure the view for the selected state
 }
 
--(void) setUpBackground:(int)isEven{
-    if(isEven){
+-(void) setUpBackground:(int)isEven :(int)isTranslatorMode{
+    if(isTranslatorMode) {
+        self.backgroundColor = [UIColor colorWithRed:0.88 green:0.88 blue:0.88 alpha:0.85];
+    } else if(isEven){
         self.backgroundColor = [UIColor colorWithRed:0.88 green:0.88 blue:0.88 alpha:0.45];
     } else {
         self.backgroundColor = [UIColor colorWithRed:0.88 green:0.88 blue:0.88 alpha:0.65];

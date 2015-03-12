@@ -14,11 +14,8 @@
                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="GT4_HomeScreen_Background_" translatesAutoresizingMaskIntoConstraints="NO" id="w57-2V-tqL">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                 </imageView>
-                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="GT4_Home_BookIcon_" translatesAutoresizingMaskIntoConstraints="NO" id="6xe-kG-GqL">
-                    <rect key="frame" x="120" y="93" width="80" height="75"/>
-                </imageView>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="none" rowHeight="53" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="K6k-oN-bLy">
-                    <rect key="frame" x="0.0" y="242" width="320" height="258"/>
+                    <rect key="frame" x="0.0" y="235" width="320" height="258"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" relation="lessThanOrEqual" constant="324" id="ttB-K3-iPu"/>
@@ -37,13 +34,24 @@
                         <action selector="settingsButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="8N5-pI-EwH"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="[Translator Mode]" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aHU-fT-gkv">
+                    <rect key="frame" x="204" y="56" width="107" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="GT4_Home_BookIcon_" translatesAutoresizingMaskIntoConstraints="NO" id="jLQ-YV-T02">
+                    <rect key="frame" x="120" y="99" width="80" height="75"/>
+                </imageView>
             </subviews>
             <constraints>
                 <constraint firstItem="K6k-oN-bLy" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="tbb-6g-IFa"/>
             </constraints>
             <connections>
+                <outlet property="iconImageView" destination="jLQ-YV-T02" id="ulA-Nk-cy1"/>
                 <outlet property="settingsButton" destination="hK1-HD-VKf" id="FXU-88-hBW"/>
                 <outlet property="tableView" destination="K6k-oN-bLy" id="jyd-dZ-g1e"/>
+                <outlet property="translatorModeLabel" destination="aHU-fT-gkv" id="ejf-Ef-bBv"/>
             </connections>
             <point key="canvasLocation" x="147" y="142"/>
         </view>
