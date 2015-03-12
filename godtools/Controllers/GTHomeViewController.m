@@ -158,7 +158,7 @@
     [self.homeView.tableView reloadData];
     
     if([notification.name isEqualToString: GTDataImporterNotificationPublishDraftSuccessful]){
-        [self refreshButtonPressed];
+//        [self refreshButtonPressed];
     }else if ([notification.name isEqualToString:GTDataImporterNotificationLanguageDraftsDownloadFinished]){
         [[GTDataImporter sharedImporter]updateMenuInfo];
     }else if([notification.name isEqualToString:GTDataImporterNotificationMenuUpdateFinished]){
