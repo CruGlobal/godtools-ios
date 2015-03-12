@@ -11,8 +11,6 @@
 @protocol GTHomeViewDelegate <NSObject>
 @required
 -(void)settingsButtonPressed;
--(void)addDraftButtonPressed;
--(void)refreshButtonPressed;
 @end
 
 
@@ -21,11 +19,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong,nonatomic) id<GTHomeViewDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UIButton *settingsButton;
-@property (weak, nonatomic) IBOutlet UIButton *addDraftButton;
-@property (weak, nonatomic) IBOutlet UIButton *refreshButton;
-- (IBAction)settingsButtonPressed:(id)sender;
-- (IBAction)addDraftButtonPressed:(id)sender;
-- (IBAction)refreshButtonPressed:(id)sender;
 
+- (IBAction)settingsButtonPressed:(id)sender;
 
 @end

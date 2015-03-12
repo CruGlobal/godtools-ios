@@ -199,21 +199,6 @@
     [self performSegueWithIdentifier:@"homeToSettingsViewSegue" sender:self];
 }
 
--(void)addDraftButtonPressed{
-    self.createDraftsAlert = [[UIAlertView alloc]initWithTitle:nil message:@"Add draft?" delegate:self cancelButtonTitle:@"None" otherButtonTitles:nil, nil];
-    for (GTPackage *package in [self packagesWithNoDrafts]) {
-        [self.createDraftsAlert addButtonWithTitle:package.name];
-    }
-    [self.createDraftsAlert show];
-}
-
--(void)refreshButtonPressed{
-    [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDraftsDownloadStarted object:self];
-    GTLanguage *current = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:YES]objectAtIndex:0];
-    [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:[NSNumber numberWithBool:YES]];
-    [[GTDataImporter sharedImporter]downloadPackagesForLanguage:current];
-}
-
 #pragma mark - Home View Cell Delegates
 
 -(void) showTranslatorOptionsButtonPressed:(NSString *)sectionIdentifier{
