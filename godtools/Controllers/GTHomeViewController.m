@@ -75,7 +75,7 @@
                                                       otherButtonTitles:nil];
         [self.phonesLanguageAlert addButtonWithTitle:@"YES"];
     }
-    self.draftsAlert = [[UIAlertView alloc]initWithTitle:nil message:@"Do you want to publish this draft?" delegate:self cancelButtonTitle:@"No, I just need to see it." otherButtonTitles:@"Yes, it's ready!", nil];
+    self.draftsAlert = [[UIAlertView alloc]initWithTitle:nil message:@"Do you want to publish this draft?" delegate:self cancelButtonTitle:@"No, not yet." otherButtonTitles:@"Yes, it's ready!", nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                                 selector:@selector(downloadFinished:)
@@ -212,6 +212,7 @@
 
 -(void) publishDraftButtonPressed:(NSString *)sectionIdentifier{
     self.selectedSectionNumber = sectionIdentifier;
+    [self.draftsAlert show];
 }
 
 -(void) deleteDraftButtonPressed:(NSString *)sectionIdentifier{

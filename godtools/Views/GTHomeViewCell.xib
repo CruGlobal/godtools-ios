@@ -61,6 +61,9 @@
                                 <state key="normal" image="GT4_HomeScreen_PublishDraftIcon_">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="publishDraftButtonPressed:" destination="IOb-6t-RhA" eventType="touchUpInside" id="dk8-65-Ypu"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
