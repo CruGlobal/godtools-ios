@@ -28,7 +28,7 @@
 @property (strong, nonatomic) UIAlertView *createDraftsAlert;
 
 @property  BOOL isRefreshing;
-
+@property (strong, nonatomic) NSString *selectedSectionNumber;
 
 @end
 
@@ -147,14 +147,6 @@
     [self setData];
     [self.homeView.tableView reloadData];
 
-    if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:NO]){
-        self.homeView.refreshButton.hidden = YES;
-        self.homeView.addDraftButton.hidden = YES;
-    }else if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]){
-        self.homeView.refreshButton.hidden = NO;
-        self.homeView.addDraftButton.hidden = NO;
-        //[self refreshButtonPressed];
-    }
 }
 
 #pragma mark - Download packages methods
@@ -222,6 +214,29 @@
     [[GTDataImporter sharedImporter]downloadPackagesForLanguage:current];
 }
 
+#pragma mark - Home View Cell Delegates
+
+-(void) showTranslatorOptionsButtonPressed:(NSString *)sectionIdentifier{
+    if([self.selectedSectionNumber isEqualToString:sectionIdentifier]){
+        self.selectedSectionNumber = nil;
+    } else {
+        self.selectedSectionNumber = sectionIdentifier;
+    }
+    [self.homeView.tableView reloadData];
+}
+
+-(void) publishDraftButtonPressed:(NSString *)sectionIdentifier{
+    self.selectedSectionNumber = sectionIdentifier;
+}
+
+-(void) deleteDraftButtonPressed:(NSString *)sectionIdentifier{
+    self.selectedSectionNumber = sectionIdentifier;
+}
+
+-(void) createDraftButtonPressed:(NSString *)sectionIdentifier{
+    self.selectedSectionNumber = sectionIdentifier;
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -273,6 +288,17 @@
             cell.titleLabel.font = [UIFont fontWithName:@"NotoSansEthiopic" size:cell.titleLabel.font.pointSize];
         }
         
+        if([self isTranslatorMode] && self.selectedSectionNumber != nil && [self.selectedSectionNumber intValue] == indexPath.section) {
+            cell.publishDeleteOptionsView.hidden = NO;
+            [cell.showTranslatorOptionsButton.imageView setImage:[UIImage imageNamed:@"GT4_HomeScreen_DraftGripD_"]];
+        } else {
+            cell.publishDeleteOptionsView.hidden = YES;
+        }
+        
+        cell.showTranslatorOptionsButton.hidden = ![self isTranslatorMode];
+        cell.delegate = self;
+        cell.sectionIdentifier = [@(indexPath.section) stringValue];
+        
         return cell;
     }
     return nil;
@@ -281,7 +307,14 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if(tableView == self.homeView.tableView){
-        return 53;
+        if([self isTranslatorMode] &&
+           self.selectedSectionNumber != nil &&
+           [self.selectedSectionNumber intValue] == indexPath.section) {
+         return 115;
+        }
+        else{
+         return 53;
+        }
     }
     return 0;
 }
@@ -307,16 +340,19 @@
     GTLanguage* mainLanguage = (GTLanguage*)[languages objectAtIndex:0];
     
     self.articles = [[mainLanguage.packages allObjects]mutableCopy];
-    //NSLog(@"mainlanguages packages: %@",self.articles);
+
     NSPredicate *predicate;
-    if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:NO]){
-        NSLog(@"not in translator mode");
+    
+    if(![self isTranslatorMode]){
         predicate = [NSPredicate predicateWithFormat:@"status == %@",@"live"];
         
-        NSArray *filteredArray = [self.articles filteredArrayUsingPredicate:predicate];
-        self.articles =  filteredArray.count > 0 ? [filteredArray mutableCopy] : nil;
+    } else {
+       predicate = [NSPredicate predicateWithFormat:@"status == %@",@"draft"];
     }
-    
+
+    NSArray *filteredArray = [self.articles filteredArrayUsingPredicate:predicate];
+    self.articles =  filteredArray.count > 0 ? [filteredArray mutableCopy] : nil;
+
     predicate = [NSPredicate predicateWithFormat:@"configFile != nil"];
     self.articles = [[self.articles filteredArrayUsingPredicate:predicate]mutableCopy];
     
@@ -406,6 +442,10 @@
             [[GTDataImporter sharedImporter]createDraftsForLanguage:selectedPackage.language package:selectedPackage];
         }
     }
+}
+
+- (BOOL) isTranslatorMode {
+    return [[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES];
 }
 
 #pragma mark - Renderer methods

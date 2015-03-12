@@ -8,11 +8,29 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol GTHomeViewCellDelegate
+@required
+-(void) showTranslatorOptionsButtonPressed:NSString;
+-(void) publishDraftButtonPressed:NSString;
+-(void) deleteDraftButtonPressed:NSString;
+-(void) createDraftButtonPressed:NSString;
+@end
+
 @interface GTHomeViewCell : UITableViewCell
+
+@property (strong, nonatomic) id<GTHomeViewCellDelegate> delegate;
+@property (strong, nonatomic) NSString *sectionIdentifier;
 
 @property (weak, nonatomic) IBOutlet UIImageView *icon;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
--(void) addSeparator;
+@property (weak, nonatomic) IBOutlet UIButton *showTranslatorOptionsButton;
+@property (weak, nonatomic) IBOutlet UIView *publishDeleteOptionsView;
+
 -(void) setUpBackground:(int)isEven;
+
+-(IBAction)showTranslatorOptionsButtonPressed:(id)sender;
+-(IBAction)publishDraftButtonPressed:(id)sender;
+-(IBAction)deleteDraftButtonPressed:(id)sender;
+-(IBAction)createDraftButtonPressed:(id)sender;
 @end

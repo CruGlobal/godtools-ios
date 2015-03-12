@@ -21,18 +21,28 @@
     // Configure the view for the selected state
 }
 
--(void) addSeparator{
-    UIView* separatorLineView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height-1, self.frame.size.width, 1)];
-    separatorLineView.backgroundColor = [UIColor blackColor];
-    [self.contentView addSubview:separatorLineView];
-}
-
 -(void) setUpBackground:(int)isEven{
     if(isEven){
         self.backgroundColor = [UIColor colorWithRed:0.88 green:0.88 blue:0.88 alpha:0.45];
     } else {
         self.backgroundColor = [UIColor colorWithRed:0.88 green:0.88 blue:0.88 alpha:0.65];
     }
+}
+
+-(void) showTranslatorOptionsButtonPressed:(id)sender {
+    [self.delegate showTranslatorOptionsButtonPressed:self.sectionIdentifier];
+}
+
+-(void) publishDraftButtonPressed:(id)sender {
+    [self.delegate publishDraftButtonPressed:self.sectionIdentifier];
+}
+
+-(void) deleteDraftButtonPressed:(id)sender {
+    [self.delegate deleteDraftButtonPressed:self.sectionIdentifier];
+}
+
+-(void) createDraftButtonPressed:(id)sender {
+    [self.delegate createDraftButtonPressed:self.sectionIdentifier];
 }
 
 @end
