@@ -47,7 +47,7 @@ BOOL languageDownloadCancelled = FALSE;
 
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(showLanguageDownloadIndicator)
+                                             selector:@selector(languageDownloadProgressMade)
                                                  name: GTLanguageViewDataImporterNotificationLanguageDownloadProgressMade
                                                object:nil];
     
@@ -96,6 +96,10 @@ BOOL languageDownloadCancelled = FALSE;
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
     [self.afReachability stopMonitoring];
+}
+
+-(void)languageDownloadProgressMade{
+    [self showLanguageDownloadIndicator];
 }
 
 - (void)languageDownloadFinished {
@@ -210,7 +214,7 @@ BOOL languageDownloadCancelled = FALSE;
         cell.checkBox.hidden = FALSE;
     }
 
-    // show error icon if language download failed is this language and this is the selected language
+    // show error icon if language download failed is this language, and this is the selected language, and we are not downloading now, and this was not a cancelled download
     if([languageDownloadFailed isEqualToString:language.name] && [selectedLanguage.name isEqualToString:language.name] && ([languageDownloading length] == 0) && !languageDownloadCancelled) {
         cell.checkBox.hidden = TRUE;
         cell.errorIcon.hidden = FALSE;
