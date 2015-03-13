@@ -28,6 +28,10 @@ GTLanguageViewCell *languageActionCell;
 CGFloat cellSpacingHeight = 10.;
 
 NSString *languageDownloading = nil;
+NSString *languageDownloadFailed = nil;
+GTLanguage *selectedLanguage = nil;
+
+BOOL languageDownloadCancelled = FALSE;
 
 #pragma mark - View Life Cycle
 - (void)viewDidLoad {
@@ -48,18 +52,18 @@ NSString *languageDownloading = nil;
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(hideLanguageDownloadIndicator)
+                                             selector:@selector(languageDownloadFinished)
                                                  name: GTLanguageViewDataImporterNotificationLanguageDownloadFinished
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(languageDownloadFailed)
+                                                 name: GTLanguageViewDataImporterNotificationLanguageDownloadFailed
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(setData)
                                                  name:GTDataImporterNotificationMenuUpdateFinished
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(setData)
-                                                 name:GTLanguageViewDataImporterNotificationLanguageDownloadFinished
                                                object:nil];
     
     self.buttonLessAlert        = [[UIAlertView alloc]
@@ -94,6 +98,20 @@ NSString *languageDownloading = nil;
     [self.afReachability stopMonitoring];
 }
 
+- (void)languageDownloadFinished {
+    languageDownloading = nil;
+    languageDownloadFailed = nil;
+    [self hideLanguageDownloadIndicator];
+    [self setData];
+}
+
+- (void)languageDownloadFailed {
+    languageDownloadFailed = selectedLanguage.name.copy;
+    languageDownloading = nil;
+    [self hideLanguageDownloadIndicator];
+    [self setData];
+}
+
 - (void)showLanguageDownloadIndicator{
     if(![languageActionCell.activityIndicator isAnimating]) {
         [languageActionCell.activityIndicator startAnimating];
@@ -101,8 +119,6 @@ NSString *languageDownloading = nil;
 }
 
 - (void)hideLanguageDownloadIndicator{
-    languageDownloading = nil;
-
     if([languageActionCell.activityIndicator isAnimating]) {
         [languageActionCell.activityIndicator stopAnimating];
     }
@@ -162,6 +178,14 @@ NSString *languageDownloading = nil;
     return v;
 }
 
+- (BOOL) isSelectedLanguage:(GTLanguage *)language {
+    return ([[GTDefaults sharedDefaults] isChoosingForMainLanguage] == [NSNumber numberWithBool:YES]
+            && [language.code isEqual:[[GTDefaults sharedDefaults]currentLanguageCode]])
+            ||
+            ([[GTDefaults sharedDefaults] isChoosingForMainLanguage] == [NSNumber numberWithBool:NO]
+             && [language.code isEqual:[[GTDefaults sharedDefaults]currentParallelLanguageCode]]);
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
     GTLanguageViewCell *cell = (GTLanguageViewCell*)[tableView dequeueReusableCellWithIdentifier:@"GTLanguageViewCell"];
@@ -176,19 +200,22 @@ NSString *languageDownloading = nil;
     
     cell.languageName.text = language.name;
     cell.languageName.textColor = [UIColor whiteColor];
-    BOOL isSelectedLanguage = ([[GTDefaults sharedDefaults] isChoosingForMainLanguage] == [NSNumber numberWithBool:YES] && [language.code isEqual:[[GTDefaults sharedDefaults]currentLanguageCode]])
-        || ([[GTDefaults sharedDefaults] isChoosingForMainLanguage] == [NSNumber numberWithBool:NO]
-            && [language.code isEqual:[[GTDefaults sharedDefaults]currentParallelLanguageCode]]);
     
     UIColor *semiTransparentColor = [UIColor colorWithRed:255 green:255 blue:255 alpha: .1];
     cell.backgroundColor = semiTransparentColor;
     
     cell.checkBox.hidden = TRUE;
     cell.errorIcon.hidden = TRUE;
-    if(isSelectedLanguage) {
+    if([self isSelectedLanguage:language]) {
         cell.checkBox.hidden = FALSE;
     }
 
+    // show error icon if language download failed is this language and this is the selected language
+    if([languageDownloadFailed isEqualToString:language.name] && [selectedLanguage.name isEqualToString:language.name] && ([languageDownloading length] == 0) && !languageDownloadCancelled) {
+        cell.checkBox.hidden = TRUE;
+        cell.errorIcon.hidden = FALSE;
+    }
+    
     // Create custom accessory view with action selector
     if(!language.downloaded) {
         [self addAccessoryView:cell];
@@ -229,6 +256,8 @@ NSString *languageDownloading = nil;
         return;
     }
 
+    selectedLanguage = [self gtLanguageFromName:cell.languageName.text];
+
     if(cell != nil) {
         NSString *title = [button titleForState:UIControlStateNormal];
         
@@ -238,14 +267,24 @@ NSString *languageDownloading = nil;
             
             if([self downloadLanguage:cell.languageName.text]) {
                 [(UIButton *) cell.accessoryView setTitle:@"Cancel" forState:UIControlStateNormal];
-                languageDownloading = cell.languageName.text;
+                languageActionCell.checkBox.hidden = TRUE;
+                languageActionCell.errorIcon.hidden = TRUE;
             }
         }
         else if ([title isEqualToString:@"Cancel"]) {
-            languageDownloading = nil;
             [[GTDataImporter sharedImporter] cancelDownloadPackagesForLanguage];
+            languageDownloadCancelled = TRUE;
         }
     }
+}
+
+- (GTLanguage *)gtLanguageFromName:(NSString *)languageName {
+    for (GTLanguage *language in self.languages) {
+        if([language.name isEqualToString:languageName]) {
+            return language;
+        }
+    }
+    return nil;
 }
 
 - (BOOL)downloadLanguage:(NSString *)languageName {
@@ -255,13 +294,7 @@ NSString *languageDownloading = nil;
     if(self.afReachability.reachable) {
         
         // get GTLanguage from name
-        GTLanguage *gtLanguage = nil;
-        for (GTLanguage *language in self.languages) {
-            if([language.name isEqualToString:languageName]) {
-                gtLanguage = language;
-            }
-        }
-        
+        GTLanguage *gtLanguage = [self gtLanguageFromName:languageName];
         if(gtLanguage != nil) {
             NSLog(@"languageAction() got language %@", gtLanguage.name);
             
@@ -272,7 +305,11 @@ NSString *languageDownloading = nil;
             [[GTDataImporter sharedImporter] downloadPackagesForLanguage:gtLanguage
                                                     withProgressNotifier:GTLanguageViewDataImporterNotificationLanguageDownloadProgressMade
                                                      withSuccessNotifier:GTLanguageViewDataImporterNotificationLanguageDownloadFinished
-                                                     withFailureNotifier:GTLanguageViewDataImporterNotificationLanguageDownloadFinished];
+                                                     withFailureNotifier:GTLanguageViewDataImporterNotificationLanguageDownloadFailed];
+
+            languageDownloading = languageName.copy;
+
+            languageDownloadCancelled = FALSE;
 
             result = TRUE;
         }
@@ -287,24 +324,26 @@ NSString *languageDownloading = nil;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+
+    NSLog(@"tableViewdidSelectRowAtIndexPath() language %@, %@", selectedLanguage.name, languageDownloading);
+
     // don't allow row selection during download
     if([languageDownloading length] != 0) {
         return;
     }
     
-    GTLanguage *language = [self.languages objectAtIndex:indexPath.section];
+    selectedLanguage = [self.languages objectAtIndex:indexPath.section];
     
-    NSLog(@"tableViewdidSelectRowAtIndexPath() language %@", language.name);
-
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 
     // download language if not yet downloaded
-    if(!language.downloaded) {
+    if(!selectedLanguage.downloaded) {
         languageActionCell = (GTLanguageViewCell *)[tableView cellForRowAtIndexPath:indexPath];
         if([self downloadLanguage:languageActionCell.languageName.text]) {
             [(UIButton *) languageActionCell.accessoryView setTitle:@"Cancel" forState:UIControlStateNormal];
-            languageDownloading = languageActionCell.languageName.text;
+            
+            languageActionCell.checkBox.hidden = TRUE;
+            languageActionCell.errorIcon.hidden = TRUE;
         }
         return;
     }
