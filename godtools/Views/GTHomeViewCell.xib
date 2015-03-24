@@ -9,15 +9,15 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="GTHomeViewCell" rowHeight="115" id="IOb-6t-RhA" customClass="GTHomeViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="115"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="GTHomeViewCell" rowHeight="53" id="IOb-6t-RhA" customClass="GTHomeViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="53"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IOb-6t-RhA" id="xhQ-1F-7kA">
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UeF-AY-tJc">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UeF-AY-tJc">
                         <rect key="frame" x="57" y="7" width="212" height="35"/>
-                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="19"/>
                         <color key="textColor" red="0.25490196078431371" green="0.25490196078431371" blue="0.25490196078431371" alpha="0.65000000000000002" colorSpace="deviceRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -90,6 +90,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailingMargin" secondItem="UeF-AY-tJc" secondAttribute="trailing" constant="43" id="5XK-x5-aMC"/>
+                    <constraint firstAttribute="centerY" secondItem="UeF-AY-tJc" secondAttribute="centerY" constant="2" id="PzW-Ap-2gz"/>
                     <constraint firstItem="UeF-AY-tJc" firstAttribute="leading" secondItem="poS-Zh-dm8" secondAttribute="trailing" constant="4" id="QD8-9d-P3V"/>
                     <constraint firstAttribute="trailingMargin" secondItem="PjV-YV-I0C" secondAttribute="trailing" constant="2" id="T3y-fg-C4u"/>
                     <constraint firstItem="poS-Zh-dm8" firstAttribute="top" secondItem="xhQ-1F-7kA" secondAttribute="topMargin" constant="-8" id="UUe-JE-0Wk"/>
@@ -103,8 +104,9 @@
                 <outlet property="publishDeleteOptionsView" destination="gdm-PF-AH9" id="EFw-zf-Mz6"/>
                 <outlet property="showTranslatorOptionsButton" destination="PjV-YV-I0C" id="Mkp-0C-RBk"/>
                 <outlet property="titleLabel" destination="UeF-AY-tJc" id="CBd-os-ZfH"/>
+                <outlet property="verticalLayoutConstraint" destination="PzW-Ap-2gz" id="Tyx-4M-ygy"/>
             </connections>
-            <point key="canvasLocation" x="356" y="224.5"/>
+            <point key="canvasLocation" x="356" y="193.5"/>
         </tableViewCell>
     </objects>
     <resources>

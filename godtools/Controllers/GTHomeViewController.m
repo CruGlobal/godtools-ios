@@ -332,9 +332,11 @@
             } else {
                 cell.publishDeleteOptionsView.hidden = NO;
             }
+            cell.verticalLayoutConstraint.constant = 33.0;
         } else {
             cell.publishDeleteOptionsView.hidden = YES;
             cell.createOptionsView.hidden = YES;
+            cell.verticalLayoutConstraint.constant = 2.0;
         }
         
         cell.showTranslatorOptionsButton.hidden = ![self isTranslatorMode];
