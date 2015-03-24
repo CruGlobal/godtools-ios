@@ -19,7 +19,6 @@
 @interface GTHomeViewController ()
 
 @property (strong, nonatomic) NSString *languageCode;
-@property (strong, nonatomic) NSMutableArray *packagesWithNoDrafts;
 @property (strong, nonatomic) GTViewController *godtoolsViewController;
 @property (strong, nonatomic) GTHomeView *homeView;
 @property (strong, nonatomic) GTLanguage *phonesLanguage;
@@ -60,6 +59,8 @@
     self.isRefreshing = NO;
     
     self.articles = [[NSMutableArray alloc]init];
+    self.packagesWithNoDrafts = [[NSMutableArray alloc]init];
+    
     self.languageCode = [[GTDefaults sharedDefaults]currentLanguageCode];
     [self setData];
     [self.homeView.tableView reloadData];
@@ -234,7 +235,15 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
     if(tableView == self.homeView.tableView){
-        return self.articles.count;
+        if(![self isTranslatorMode]) {
+            return self.articles.count;
+        }
+        else {
+            NSInteger articlesCount = self.articles.count;
+            NSInteger missingDraftsCount = self.packagesWithNoDrafts.count;
+            NSInteger total = articlesCount + missingDraftsCount;
+            return total;
+        }
     }
     
     return 0;
@@ -249,7 +258,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 10.; // you can have your own choice, of course
+    return 10.;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -268,23 +277,60 @@
             cell = [nib objectAtIndex:0];
         }
         
-        GTPackage *package = [self.articles objectAtIndex:indexPath.section];
-        cell.titleLabel.text = package.name;
+        //rendering a missing package
+        NSInteger currentSection = indexPath.section;
         
-        NSString *imageFilePath = [[GTFileLoader pathOfPackagesDirectory] stringByAppendingPathComponent:package.icon];
+        if([self isTranslatorMode] && currentSection >= self.articles.count) {
+            GTPackage *package = [self.packagesWithNoDrafts objectAtIndex:(indexPath.section - self.articles.count)];
+            cell.titleLabel.text = package.name;
+            cell.titleLabel.textColor = [UIColor lightTextColor];
+
+            NSString *imageFilePath = [[GTFileLoader pathOfPackagesDirectory] stringByAppendingPathComponent:package.icon];
+            
+            cell.icon.image = [UIImage imageWithContentsOfFile: imageFilePath];
+            [cell setUpBackground:(indexPath.section % 2) :YES :YES];
+            
+            [cell.contentView.layer setBorderColor:[UIColor lightTextColor].CGColor];
+            [cell.contentView.layer setBorderWidth:1.0f];
+        } else if([self isTranslatorMode]){
+            GTPackage *package = [self.articles objectAtIndex:indexPath.section];
+            cell.titleLabel.text = package.name;
+            cell.titleLabel.textColor = [UIColor colorWithRed:.65 green:.65 blue:.65 alpha: 1.0];
+            
+            NSString *imageFilePath = [[GTFileLoader pathOfPackagesDirectory] stringByAppendingPathComponent:package.icon];
         
-        cell.icon.image = [UIImage imageWithContentsOfFile: imageFilePath];
-        [cell setUpBackground:(indexPath.section % 2) :[self isTranslatorMode]];
+            cell.icon.image = [UIImage imageWithContentsOfFile: imageFilePath];
+            [cell setUpBackground:(indexPath.section % 2) :YES :NO];
+            
+            [cell.contentView.layer setBorderColor:nil];
+            [cell.contentView.layer setBorderWidth:0.0];
+        } else {
+            GTPackage *package = [self.articles objectAtIndex:indexPath.section];
+            cell.titleLabel.text = package.name;
+//            cell.titleLabel.textColor = [UIColor colorWithRed:.65 green:.65 blue:.65 alpha: 1.0];
+            
+            NSString *imageFilePath = [[GTFileLoader pathOfPackagesDirectory] stringByAppendingPathComponent:package.icon];
+            
+            cell.icon.image = [UIImage imageWithContentsOfFile: imageFilePath];
+            [cell setUpBackground:(indexPath.section % 2) :NO :NO];
+            
+            [cell.contentView.layer setBorderColor:nil];
+            [cell.contentView.layer setBorderWidth:0.0];
+        }
         
         if([self.languageCode isEqualToString:@"am-ET"]){
             cell.titleLabel.font = [UIFont fontWithName:@"NotoSansEthiopic" size:cell.titleLabel.font.pointSize];
         }
         
         if([self isTranslatorMode] && self.selectedSectionNumber != nil && [self.selectedSectionNumber intValue] == indexPath.section) {
-            cell.publishDeleteOptionsView.hidden = NO;
-            [cell.showTranslatorOptionsButton.imageView setImage:[UIImage imageNamed:@"GT4_HomeScreen_DraftGripD_"]];
+            if([self.selectedSectionNumber intValue] >= self.articles.count) {
+                cell.createOptionsView.hidden = NO;
+            } else {
+                cell.publishDeleteOptionsView.hidden = NO;
+            }
         } else {
             cell.publishDeleteOptionsView.hidden = YES;
+            cell.createOptionsView.hidden = YES;
         }
         
         cell.showTranslatorOptionsButton.hidden = ![self isTranslatorMode];
@@ -313,8 +359,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if(tableView == self.homeView.tableView){
-        GTPackage *selectedPackage = [self.articles objectAtIndex:indexPath.section];
-        [self loadRendererWithPackage:selectedPackage];
+        if(indexPath.section < self.articles.count) {
+            GTPackage *selectedPackage = [self.articles objectAtIndex:indexPath.section];
+            [self loadRendererWithPackage:selectedPackage];
+        }
     }
 }
 
@@ -328,6 +376,13 @@
     GTLanguage* mainLanguage = (GTLanguage*)[languages objectAtIndex:0];
     
     self.articles = [[mainLanguage.packages allObjects]mutableCopy];
+    
+    NSPredicate *missingDraftsPredicate = [NSPredicate predicateWithFormat:@"status == %@",@"draft"];
+    NSArray *draftsCodes = [[self.articles filteredArrayUsingPredicate:missingDraftsPredicate]valueForKeyPath:@"code"];
+    
+    missingDraftsPredicate = [NSPredicate predicateWithFormat:@"status == %@ AND NOT (code IN %@)",@"live",draftsCodes];
+    
+    self.packagesWithNoDrafts = [[self.articles filteredArrayUsingPredicate:missingDraftsPredicate] mutableCopy];
 
     NSPredicate *predicate;
     
@@ -397,17 +452,6 @@
     }
 }
 
-- (NSMutableArray *)packagesWithNoDrafts{
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"status == %@",@"draft"];
-    NSArray *draftsCodes = [[self.articles filteredArrayUsingPredicate:predicate]valueForKeyPath:@"code"];
-    
-    predicate = [NSPredicate predicateWithFormat:@"status == %@ AND NOT (code IN %@)",@"live",draftsCodes];
-    
-    NSArray *filteredArray = [self.articles filteredArrayUsingPredicate:predicate];
-    
-    return [filteredArray mutableCopy];
-}
 
 #pragma mark - Utility methods
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{

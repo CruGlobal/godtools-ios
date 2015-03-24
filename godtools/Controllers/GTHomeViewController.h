@@ -18,5 +18,6 @@
 @interface GTHomeViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, GTViewControllerMenuDelegate, GTAboutViewControllerDelegate, GTHomeViewDelegate, GTHomeViewCellDelegate >
 
 @property (strong, nonatomic) NSMutableArray* articles;
+@property (strong, nonatomic) NSMutableArray* packagesWithNoDrafts;
 
 @end

@@ -26,8 +26,9 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *showTranslatorOptionsButton;
 @property (weak, nonatomic) IBOutlet UIView *publishDeleteOptionsView;
+@property (weak, nonatomic) IBOutlet UIView *createOptionsView;
 
--(void) setUpBackground:(int)isEven :(int)isTranslatorMode;
+-(void) setUpBackground:(int)isEven :(int)isTranslatorMode :(int)isMissingDraft;
 
 -(IBAction)showTranslatorOptionsButtonPressed:(id)sender;
 -(IBAction)publishDraftButtonPressed:(id)sender;
