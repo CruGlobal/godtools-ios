@@ -277,6 +277,10 @@
             cell = [nib objectAtIndex:0];
         }
         
+        cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        cell.textLabel.numberOfLines = 0;
+        cell.textLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+        
         //rendering a missing package
         NSInteger currentSection = indexPath.section;
         
