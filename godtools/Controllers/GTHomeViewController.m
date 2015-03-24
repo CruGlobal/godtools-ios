@@ -333,10 +333,22 @@
                 cell.publishDeleteOptionsView.hidden = NO;
             }
             cell.verticalLayoutConstraint.constant = 33.0;
+            if([self.selectedSectionNumber intValue] >= self.articles.count) {
+                cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GT4_HomeScreen_PreviewCell_Missing_Bkgd.png"]];
+            } else {
+                cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GT4_HomeScreen_PreviewCell_Bkgd.png"]];
+            }
+            cell.backgroundColor = [UIColor clearColor];
+        } else if([self isTranslatorMode]){
+            cell.publishDeleteOptionsView.hidden = YES;
+            cell.createOptionsView.hidden = YES;
+            cell.verticalLayoutConstraint.constant = 2.0;
+            cell.backgroundView = nil;
         } else {
             cell.publishDeleteOptionsView.hidden = YES;
             cell.createOptionsView.hidden = YES;
             cell.verticalLayoutConstraint.constant = 2.0;
+            cell.backgroundView = nil;
         }
         
         cell.showTranslatorOptionsButton.hidden = ![self isTranslatorMode];
