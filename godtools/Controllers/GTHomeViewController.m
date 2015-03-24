@@ -295,7 +295,7 @@
         } else if([self isTranslatorMode]){
             GTPackage *package = [self.articles objectAtIndex:indexPath.section];
             cell.titleLabel.text = package.name;
-            cell.titleLabel.textColor = [UIColor colorWithRed:.65 green:.65 blue:.65 alpha: 1.0];
+            cell.titleLabel.textColor = [UIColor colorWithRed:.25 green:.25 blue:.25 alpha: .65];
             
             NSString *imageFilePath = [[GTFileLoader pathOfPackagesDirectory] stringByAppendingPathComponent:package.icon];
         
@@ -307,7 +307,7 @@
         } else {
             GTPackage *package = [self.articles objectAtIndex:indexPath.section];
             cell.titleLabel.text = package.name;
-//            cell.titleLabel.textColor = [UIColor colorWithRed:.65 green:.65 blue:.65 alpha: 1.0];
+            cell.titleLabel.textColor = [UIColor colorWithRed:.25 green:.25 blue:.25 alpha: .65];
             
             NSString *imageFilePath = [[GTFileLoader pathOfPackagesDirectory] stringByAppendingPathComponent:package.icon];
             
