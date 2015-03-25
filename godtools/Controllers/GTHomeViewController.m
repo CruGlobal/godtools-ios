@@ -239,6 +239,11 @@
 
 -(void) createDraftButtonPressed:(NSString *)sectionIdentifier{
     self.selectedSectionNumber = sectionIdentifier;
+    GTPackage *selectedPackage = [self.packagesWithNoDrafts objectAtIndex:([sectionIdentifier intValue] - self.articles.count)];
+    NSString *selectedPackageTitle = selectedPackage.name;
+    self.createDraftsAlert = [[UIAlertView alloc]initWithTitle:selectedPackageTitle message:@"Create new draft?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
+
+    [self.createDraftsAlert show];
 }
 
 #pragma mark - Table view data source
@@ -301,6 +306,8 @@
             cell.titleLabel.textColor = [UIColor lightTextColor];
 
             [cell setUpBackground:(indexPath.section % 2) :YES :YES];
+            
+            cell.icon = nil;
             
             [cell.contentView.layer setBorderColor:[UIColor lightTextColor].CGColor];
             [cell.contentView.layer setBorderWidth:1.0f];
@@ -493,7 +500,7 @@
         }
     }else if(alertView == self.createDraftsAlert){
         if(buttonIndex > 0){
-            GTPackage *selectedPackage = [[self packagesWithNoDrafts]objectAtIndex:buttonIndex-1];
+            GTPackage *selectedPackage = [[self packagesWithNoDrafts]objectAtIndex:([self.selectedSectionNumber intValue] - self.articles.count)];
             [[GTDataImporter sharedImporter]createDraftsForLanguage:selectedPackage.language package:selectedPackage];
         }
     }
