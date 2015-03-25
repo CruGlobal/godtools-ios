@@ -1,0 +1,1 @@
+PODS_GTVIEWCONTROLLER_OTHER_LDFLAGS = -l"z" -framework "AVFoundation" -framework "QuartzCore"

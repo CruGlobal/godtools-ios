@@ -15,6 +15,8 @@
 @dynamic code;
 @dynamic downloaded;
 @dynamic status;
+
+@dynamic name;
 @dynamic packages;
 
 @end

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GTSettingsAboutGodToolsViewController"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="GTSettingsAboutGodToolsView">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_gradient" translatesAutoresizingMaskIntoConstraints="NO" id="ENs-tZ-RIp">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lbK-fM-HPl">
+                    <rect key="frame" x="14" y="99" width="581" height="323"/>
+                    <subviews>
+                        <view alpha="0.89999999999999991" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5rY-Sc-kGr">
+                            <rect key="frame" x="0.0" y="0.0" width="581" height="50"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="About God Tools" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qfV-8u-co4">
+                                    <rect key="frame" x="18" y="14" width="421" height="21"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                        </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="God Tools" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H9U-bh-AcX">
+                            <rect key="frame" x="64" y="58" width="110" height="21"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="21" id="FHO-ep-uNF"/>
+                                <constraint firstAttribute="width" constant="110" id="rH1-dU-iPJ"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4.0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RAS-a6-3S1">
+                            <rect key="frame" x="64" y="87" width="42" height="17"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="42" id="Cam-u0-RKm"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Would You Like to Know God Personally? ©1995-2010 Cru and Bright Media-Foundation (BMF). All rights reserved." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X98-VF-k85">
+                            <rect key="frame" x="8" y="198" width="568" height="48"/>
+                            <constraints>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="42" id="yx1-VE-O0O"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="yx1-VE-O0O"/>
+                                </mask>
+                            </variation>
+                        </label>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gt_icon" translatesAutoresizingMaskIntoConstraints="NO" id="I0q-wV-Vxi">
+                            <rect key="frame" x="8" y="58" width="48" height="48"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Please email us at support@godtoolsapp.com with any questions or suggestions on how to make this app better." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y6e-G9-k1U">
+                            <rect key="frame" x="8" y="112" width="568" height="49"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="49" id="41A-1z-sjQ"/>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="59" id="r3h-2E-Jca"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="r3h-2E-Jca"/>
+                                </mask>
+                            </variation>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright Information" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="brN-2w-L0v">
+                            <rect key="frame" x="8" y="169" width="541" height="21"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="21" id="6g8-42-IsM"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Satisfied? ©2001-2010 Cru and Bright Media Foundation(BMF). All rights reserved. " lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kIO-xX-2pj">
+                            <rect key="frame" x="8" y="246" width="568" height="54"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="54" id="bWS-mt-see"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="brN-2w-L0v" firstAttribute="leading" secondItem="Y6e-G9-k1U" secondAttribute="leading" id="0OM-uU-I7p"/>
+                        <constraint firstAttribute="width" secondItem="lbK-fM-HPl" secondAttribute="height" multiplier="573:323" id="1eA-si-3Ra"/>
+                        <constraint firstItem="kIO-xX-2pj" firstAttribute="trailing" secondItem="X98-VF-k85" secondAttribute="trailing" id="7Xz-hB-D6P"/>
+                        <constraint firstItem="H9U-bh-AcX" firstAttribute="leading" secondItem="lbK-fM-HPl" secondAttribute="leading" constant="64" id="8cZ-Ga-ATc"/>
+                        <constraint firstItem="kIO-xX-2pj" firstAttribute="top" secondItem="X98-VF-k85" secondAttribute="bottom" id="Bsi-59-r1V"/>
+                        <constraint firstItem="X98-VF-k85" firstAttribute="leading" secondItem="lbK-fM-HPl" secondAttribute="leading" constant="8" id="Drb-FF-u5e"/>
+                        <constraint firstItem="Y6e-G9-k1U" firstAttribute="trailing" secondItem="X98-VF-k85" secondAttribute="trailing" id="JtR-Na-uyC"/>
+                        <constraint firstAttribute="trailing" secondItem="5rY-Sc-kGr" secondAttribute="trailing" id="PCs-jz-Wbf"/>
+                        <constraint firstItem="I0q-wV-Vxi" firstAttribute="top" secondItem="lbK-fM-HPl" secondAttribute="top" constant="58" id="QDC-SA-EqF"/>
+                        <constraint firstItem="X98-VF-k85" firstAttribute="top" secondItem="brN-2w-L0v" secondAttribute="bottom" constant="8" id="Smy-g5-peN"/>
+                        <constraint firstItem="Y6e-G9-k1U" firstAttribute="trailing" secondItem="lbK-fM-HPl" secondAttribute="trailing" constant="-5" id="TsH-fX-1na"/>
+                        <constraint firstAttribute="width" secondItem="lbK-fM-HPl" secondAttribute="height" multiplier="580:323" id="Wic-Yr-mhg"/>
+                        <constraint firstItem="Y6e-G9-k1U" firstAttribute="centerX" secondItem="5rY-Sc-kGr" secondAttribute="centerX" id="cXv-3h-xhv"/>
+                        <constraint firstAttribute="bottom" secondItem="5rY-Sc-kGr" secondAttribute="bottom" constant="273" id="cYk-Fn-sSE"/>
+                        <constraint firstItem="RAS-a6-3S1" firstAttribute="top" secondItem="H9U-bh-AcX" secondAttribute="bottom" constant="8" symbolic="YES" id="ckk-1O-uGF"/>
+                        <constraint firstItem="Y6e-G9-k1U" firstAttribute="leading" secondItem="lbK-fM-HPl" secondAttribute="leading" constant="8" id="fSc-az-8fA"/>
+                        <constraint firstAttribute="height" constant="323" id="gNt-Hv-Q52"/>
+                        <constraint firstItem="I0q-wV-Vxi" firstAttribute="leading" secondItem="lbK-fM-HPl" secondAttribute="leading" constant="8" id="gqO-oV-KIc"/>
+                        <constraint firstItem="RAS-a6-3S1" firstAttribute="leading" secondItem="lbK-fM-HPl" secondAttribute="leading" constant="64" id="hN2-ep-zMe"/>
+                        <constraint firstItem="brN-2w-L0v" firstAttribute="top" secondItem="Y6e-G9-k1U" secondAttribute="bottom" constant="8" symbolic="YES" id="ibA-Jx-kft"/>
+                        <constraint firstAttribute="trailing" secondItem="brN-2w-L0v" secondAttribute="trailing" constant="32" id="j7h-cN-nkQ"/>
+                        <constraint firstAttribute="trailing" secondItem="5rY-Sc-kGr" secondAttribute="trailing" id="la1-lu-kJX"/>
+                        <constraint firstItem="brN-2w-L0v" firstAttribute="leading" secondItem="lbK-fM-HPl" secondAttribute="leading" constant="8" id="m4W-He-9nH"/>
+                        <constraint firstItem="5rY-Sc-kGr" firstAttribute="top" secondItem="lbK-fM-HPl" secondAttribute="top" id="mdv-nx-9W8"/>
+                        <constraint firstItem="5rY-Sc-kGr" firstAttribute="leading" secondItem="lbK-fM-HPl" secondAttribute="leading" id="nWH-Ql-9rv"/>
+                        <constraint firstItem="kIO-xX-2pj" firstAttribute="leading" secondItem="X98-VF-k85" secondAttribute="leading" id="oYI-xQ-uSw"/>
+                        <constraint firstAttribute="bottom" secondItem="X98-VF-k85" secondAttribute="bottom" constant="77" id="ofJ-jk-VmH"/>
+                        <constraint firstItem="kIO-xX-2pj" firstAttribute="leading" secondItem="lbK-fM-HPl" secondAttribute="leading" constant="8" id="ova-K5-KFQ"/>
+                        <constraint firstItem="H9U-bh-AcX" firstAttribute="top" secondItem="5rY-Sc-kGr" secondAttribute="bottom" constant="8" id="qUd-YF-2Ny"/>
+                        <constraint firstItem="brN-2w-L0v" firstAttribute="leading" secondItem="X98-VF-k85" secondAttribute="leading" id="urX-5a-SCW"/>
+                        <constraint firstItem="Y6e-G9-k1U" firstAttribute="top" secondItem="lbK-fM-HPl" secondAttribute="top" constant="112" id="wTp-5b-Otr"/>
+                        <constraint firstItem="5rY-Sc-kGr" firstAttribute="top" secondItem="lbK-fM-HPl" secondAttribute="top" id="y8a-VE-rZV"/>
+                    </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="1eA-si-3Ra"/>
+                            <exclude reference="Wic-Yr-mhg"/>
+                            <exclude reference="cXv-3h-xhv"/>
+                        </mask>
+                    </variation>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="ENs-tZ-RIp" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="4Yf-UI-r3w"/>
+                <constraint firstAttribute="trailing" secondItem="ENs-tZ-RIp" secondAttribute="trailing" id="BVK-G1-7sK"/>
+                <constraint firstItem="ENs-tZ-RIp" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="HiA-Vw-v9U"/>
+                <constraint firstAttribute="trailing" secondItem="lbK-fM-HPl" secondAttribute="trailing" constant="5" id="KDr-E7-Qq5"/>
+                <constraint firstAttribute="bottom" secondItem="ENs-tZ-RIp" secondAttribute="bottom" id="ZAV-1V-LVH"/>
+                <constraint firstItem="lbK-fM-HPl" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" constant="6" id="aSd-GE-Exu"/>
+                <constraint firstAttribute="centerX" secondItem="lbK-fM-HPl" secondAttribute="centerX" id="ag8-XY-sYx"/>
+                <constraint firstAttribute="centerY" secondItem="lbK-fM-HPl" secondAttribute="centerY" constant="39.5" id="bNT-Gi-mlj"/>
+            </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="ag8-XY-sYx"/>
+                </mask>
+            </variation>
+            <connections>
+                <outlet property="backgroundGradientImage" destination="ENs-tZ-RIp" id="JLJ-Mo-Slm"/>
+                <outlet property="copyrightTitleLabel" destination="brN-2w-L0v" id="nom-WJ-lch"/>
+                <outlet property="emailMessageLabel" destination="Y6e-G9-k1U" id="3bP-1P-CPZ"/>
+                <outlet property="gotToolsTitleLabel" destination="H9U-bh-AcX" id="69e-Ez-86h"/>
+                <outlet property="headerTitleLabel" destination="qfV-8u-co4" id="yw0-wG-ifg"/>
+                <outlet property="headerView" destination="5rY-Sc-kGr" id="Wnb-kX-Gdg"/>
+                <outlet property="kgpCopyrightLabel" destination="X98-VF-k85" id="5A3-6b-QGC"/>
+                <outlet property="satisfiedCopyrightLabel" destination="kIO-xX-2pj" id="UXF-e2-Oba"/>
+                <outlet property="versionLabel" destination="RAS-a6-3S1" id="fea-De-Fqg"/>
+            </connections>
+            <point key="canvasLocation" x="150" y="168"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="background_gradient" width="320" height="460"/>
+        <image name="gt_icon" width="48" height="48"/>
+    </resources>
+</document>

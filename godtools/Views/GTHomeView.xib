@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="GTHomeView">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="zQA-Ub-gch">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rI0-rz-YTH">
+                    <rect key="frame" x="265" y="498" width="71" height="48"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="YOC-ak-L7H"/>
+                    </constraints>
+                    <state key="normal" image="homescreen_add_button">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="addDraftButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="9ks-qd-yAH"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vUk-VE-nXf">
+                    <rect key="frame" x="13" y="498" width="71" height="48"/>
+                    <state key="normal" image="homescreen_refresh_button">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="refreshButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="Qkh-CJ-DWI"/>
+                    </connections>
+                </button>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="K6k-oN-bLy">
+                    <rect key="frame" x="13" y="156" width="574" height="324"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="324" id="ttB-K3-iPu"/>
+                    </constraints>
+                    <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eMI-zH-hMh">
+                    <rect key="frame" x="518" y="500" width="69" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="eMI-zH-hMh" secondAttribute="height" multiplier="2:1" id="9e7-PY-FWw"/>
+                        <constraint firstAttribute="width" constant="80" id="HNg-d8-Etx"/>
+                        <constraint firstAttribute="width" constant="69" id="KCB-zs-Uxw"/>
+                        <constraint firstAttribute="width" secondItem="eMI-zH-hMh" secondAttribute="height" multiplier="5:3" constant="-9" id="YSo-I1-gzN"/>
+                        <constraint firstAttribute="width" constant="71" id="rZD-Ps-S7Q"/>
+                    </constraints>
+                    <state key="normal" image="settings_button">
+                        <color key="titleColor" red="0.99933016975532596" green="1" blue="0.99359994484633574" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="9e7-PY-FWw"/>
+                            <exclude reference="HNg-d8-Etx"/>
+                            <exclude reference="YSo-I1-gzN"/>
+                            <exclude reference="rZD-Ps-S7Q"/>
+                        </mask>
+                    </variation>
+                    <connections>
+                        <action selector="settingsButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="XcJ-vI-5cw"/>
+                    </connections>
+                </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gt_logo" translatesAutoresizingMaskIntoConstraints="NO" id="ICs-RI-grR">
+                    <rect key="frame" x="230" y="25" width="140" height="105"/>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="140" id="ACK-sI-pTA"/>
+                        <constraint firstAttribute="width" constant="140" id="Cov-QT-DnY"/>
+                        <constraint firstAttribute="height" constant="105" id="t3r-MN-QrC"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="eMI-zH-hMh" firstAttribute="top" secondItem="K6k-oN-bLy" secondAttribute="bottom" constant="20" id="0AT-LA-T5m"/>
+                <constraint firstItem="K6k-oN-bLy" firstAttribute="centerX" secondItem="zQA-Ub-gch" secondAttribute="centerX" id="64f-2T-pGe"/>
+                <constraint firstItem="rI0-rz-YTH" firstAttribute="top" secondItem="vUk-VE-nXf" secondAttribute="top" id="6Ei-OL-rzC"/>
+                <constraint firstAttribute="bottom" secondItem="rI0-rz-YTH" secondAttribute="bottom" constant="54" id="DO5-SW-IpT"/>
+                <constraint firstItem="zQA-Ub-gch" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Dex-Ix-kGF"/>
+                <constraint firstAttribute="bottom" secondItem="eMI-zH-hMh" secondAttribute="bottom" constant="50" id="FgD-Gq-TC3"/>
+                <constraint firstItem="ICs-RI-grR" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="topMargin" constant="17" id="IYC-SS-kNx"/>
+                <constraint firstItem="K6k-oN-bLy" firstAttribute="top" secondItem="ICs-RI-grR" secondAttribute="bottom" constant="26" id="KgW-f9-LAh"/>
+                <constraint firstItem="rI0-rz-YTH" firstAttribute="centerX" secondItem="K6k-oN-bLy" secondAttribute="centerX" id="Kun-Jb-IW5"/>
+                <constraint firstAttribute="trailing" secondItem="eMI-zH-hMh" secondAttribute="trailing" constant="13" id="LWr-nE-Mn2"/>
+                <constraint firstItem="zQA-Ub-gch" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="VM7-Ag-J4d"/>
+                <constraint firstItem="K6k-oN-bLy" firstAttribute="centerX" secondItem="ICs-RI-grR" secondAttribute="centerX" id="cQP-z2-XLM"/>
+                <constraint firstItem="rI0-rz-YTH" firstAttribute="top" secondItem="K6k-oN-bLy" secondAttribute="bottom" constant="18" id="dA1-Fa-LXK"/>
+                <constraint firstItem="eMI-zH-hMh" firstAttribute="trailing" secondItem="K6k-oN-bLy" secondAttribute="trailing" id="j2S-J7-vzx"/>
+                <constraint firstItem="K6k-oN-bLy" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="tbb-6g-IFa"/>
+                <constraint firstAttribute="bottom" secondItem="zQA-Ub-gch" secondAttribute="bottom" id="vsZ-lU-4cu"/>
+                <constraint firstItem="K6k-oN-bLy" firstAttribute="leading" secondItem="vUk-VE-nXf" secondAttribute="leading" id="x9b-PT-QyV"/>
+            </constraints>
+            <connections>
+                <outlet property="addDraftButton" destination="rI0-rz-YTH" id="UIj-kD-zvO"/>
+                <outlet property="refreshButton" destination="vUk-VE-nXf" id="crZ-vz-IJI"/>
+                <outlet property="settingsButton" destination="eMI-zH-hMh" id="iRJ-1O-gXY"/>
+                <outlet property="tableView" destination="K6k-oN-bLy" id="jyd-dZ-g1e"/>
+            </connections>
+            <point key="canvasLocation" x="147" y="142"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="background" width="320" height="480"/>
+        <image name="gt_logo" width="155" height="120"/>
+        <image name="homescreen_add_button" width="71" height="48"/>
+        <image name="homescreen_refresh_button" width="71" height="48"/>
+        <image name="settings_button" width="91" height="62"/>
+    </resources>
+</document>

@@ -3,6 +3,7 @@
 //  godtools
 //
 //  Created by Michael Harrison on 3/18/14.
+//  Modified by Lee Braddock.
 //  Copyright (c) 2014 Michael Harrison. All rights reserved.
 //
 
@@ -10,13 +11,14 @@
 #import "GTAPI.h"
 #import "GTStorage.h"
 #import "GTDefaults.h"
+#import "RXMLElement.h"
 
 /**
  *  Class used to download content from the God Tools API and save it locally. This is the main class you should use.
  */
 @interface GTDataImporter : NSObject\
 
-#error This is the main class you should use with the apps logic. Start by reading this documentation
+#warning This is the main class you should use with the apps logic. Start by reading this documentation
 
 /**
  *  Singleton for God Tools Data Importer
@@ -74,6 +76,12 @@
  *  @param language All resources in this language will be downloaded and made available for use.
  */
 - (void)downloadPackagesForLanguage:(GTLanguage *)language;
+- (void)downloadPackagesForLanguage:(GTLanguage *)language withProgressNotifier:(NSString *) progressNotificationName withSuccessNotifier:(NSString *) successNotificationName withFailureNotifier:(NSString *) failureNotificationName;
+
+/**
+ * Cancels most recent downloadPackagesForLanguage request
+ */
+- (void)cancelDownloadPackagesForLanguage;
 
 /**
  *  Compares local version number with the version number on the web server. It does this for every resource written in the languages listed in languageCodes.
@@ -89,5 +97,21 @@
  *  @param languageCodes An array of the language code for languages you want to check for updates. Cannot be nil or empty.
  */
 - (void)checkForPackagesWithNewVersionsForLanguageCodes:(NSArray *)languageCodes;
+
+
+- (void)downloadPageForLanguage:(GTLanguage*)language package:(GTPackage*)package pageID:(NSString*)pageID ;
+
+
+- (void)authorizeTranslator;
+
+- (void)persistMenuInfoFromXMLElement:(RXMLElement *)rootElement;
+
+- (void)downloadDraftsForLanguage:(GTLanguage *)language;
+
+- (void)createDraftsForLanguage:(GTLanguage *)language package:(GTPackage *)package;
+
+- (void)publishDraftForLanguage: (GTLanguage *)language package:(GTPackage *)package;
+
+
 
 @end
