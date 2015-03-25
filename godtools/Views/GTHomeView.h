@@ -23,8 +23,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *translatorModeLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
 @property (weak, nonatomic) IBOutlet UIButton *settingsButton;
-@property (weak, nonatomic) IBOutlet UILabel *refreshDraftsLabel;
-@property (weak, nonatomic) IBOutlet UIButton *refreshDraftsButton;
+@property (weak, nonatomic) IBOutlet UIView *refreshDraftsView;
 
 - (IBAction)settingsButtonPressed:(id)sender;
 - (IBAction)refreshDraftsButtonDragged:(id)sender;

@@ -150,9 +150,11 @@
     if([self isTranslatorMode]) {
         self.homeView.iconImageView.image = [UIImage imageNamed:@"GT4_Home_BookIcon_PreviewMode_"];
         self.homeView.translatorModeLabel.hidden = NO;
+        self.homeView.refreshDraftsView.hidden = NO;
     } else {
         self.homeView.iconImageView.image = [UIImage imageNamed:@"GT4_Home_BookIcon_"];
         self.homeView.translatorModeLabel.hidden = YES;
+        self.homeView.refreshDraftsView.hidden = YES;
     }
     [self setData];
     [self.homeView.tableView reloadData];
