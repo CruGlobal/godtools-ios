@@ -313,7 +313,7 @@
 
             [cell setUpBackground:(indexPath.section % 2) :YES :YES];
             
-            cell.icon = nil;
+            cell.icon.image = nil;
             
             [cell.contentView.layer setBorderColor:[UIColor lightTextColor].CGColor];
             [cell.contentView.layer setBorderWidth:1.0f];
