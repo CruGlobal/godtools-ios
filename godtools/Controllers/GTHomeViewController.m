@@ -298,9 +298,6 @@
             cell.titleLabel.text = package.name;
             cell.titleLabel.textColor = [UIColor lightTextColor];
 
-            NSString *imageFilePath = [[GTFileLoader pathOfPackagesDirectory] stringByAppendingPathComponent:package.icon];
-            
-            cell.icon.image = [UIImage imageWithContentsOfFile: imageFilePath];
             [cell setUpBackground:(indexPath.section % 2) :YES :YES];
             
             [cell.contentView.layer setBorderColor:[UIColor lightTextColor].CGColor];
