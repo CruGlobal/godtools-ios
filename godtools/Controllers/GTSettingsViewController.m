@@ -96,7 +96,6 @@
                                         delegate:self
                                         cancelButtonTitle:nil
                                         otherButtonTitles:nil, nil];
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
