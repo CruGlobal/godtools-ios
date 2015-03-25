@@ -25,6 +25,7 @@
 @property (strong, nonatomic) UIAlertView *phonesLanguageAlert;
 @property (strong, nonatomic) UIAlertView *draftsAlert;
 @property (strong, nonatomic) UIAlertView *createDraftsAlert;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @property  BOOL isRefreshing;
 @property (strong, nonatomic) NSString *selectedSectionNumber;
@@ -46,14 +47,15 @@
     self.homeView.delegate = self;
     self.homeView.tableView.delegate = self;
     self.homeView.tableView.dataSource = self;
-    //self.homeView.tableView.estimatedRowHeight = UITableViewAutomaticDimension;
-    self.homeView.tableView.contentInset = UIEdgeInsetsZero;
-    self.homeView.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.homeView.tableView.bounds.size.width, 0.01f)];
-    self.homeView.tableView.tableFooterView = nil;
-    
-    [self.homeView.tableView setBounces:NO];
-    [self.homeView.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    self.refreshControl.backgroundColor = [UIColor greenColor];
+    self.refreshControl.hidden = NO;
+    self.refreshControl.layer.zPosition = 1000;
+    [self.refreshControl addTarget:self.homeView.tableView action:@selector(setData) forControlEvents:UIControlEventValueChanged];
+    
+    [self.homeView.tableView addSubview:self.refreshControl];
+    
     [self.homeView initDownloadIndicator];
     
     self.isRefreshing = NO;
@@ -205,6 +207,13 @@
 -(void)settingsButtonPressed{
     [self performSegueWithIdentifier:@"homeToSettingsViewSegue" sender:self];
 }
+
+-(void)refreshDraftsButtonDragged {
+    [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDraftsDownloadStarted object:self];
+    GTLanguage *current = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:YES]objectAtIndex:0];
+    [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:[NSNumber numberWithBool:YES]];
+    [[GTDataImporter sharedImporter]downloadPackagesForLanguage:current];
+};
 
 #pragma mark - Home View Cell Delegates
 

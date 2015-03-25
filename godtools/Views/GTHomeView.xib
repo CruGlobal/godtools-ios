@@ -43,12 +43,29 @@
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="GT4_Home_BookIcon_" translatesAutoresizingMaskIntoConstraints="NO" id="jLQ-YV-T02">
                     <rect key="frame" x="120" y="99" width="80" height="75"/>
                 </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="pull to refresh drafts" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Luj-8H-553">
+                    <rect key="frame" x="11" y="56" width="125" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4aU-XN-vmw">
+                    <rect key="frame" x="68" y="80" width="11" height="22"/>
+                    <state key="normal" image="GT4_HomeScreen_Pull_Icon_">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="refreshDraftsButtonDragged:" destination="iN0-l3-epB" eventType="touchDragExit" id="A1b-75-ojf"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstItem="K6k-oN-bLy" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="tbb-6g-IFa"/>
             </constraints>
             <connections>
                 <outlet property="iconImageView" destination="jLQ-YV-T02" id="ulA-Nk-cy1"/>
+                <outlet property="refreshDraftsButton" destination="4aU-XN-vmw" id="YUM-uQ-oKM"/>
+                <outlet property="refreshDraftsLabel" destination="Luj-8H-553" id="y9Q-SA-MeH"/>
                 <outlet property="settingsButton" destination="hK1-HD-VKf" id="FXU-88-hBW"/>
                 <outlet property="tableView" destination="K6k-oN-bLy" id="jyd-dZ-g1e"/>
                 <outlet property="translatorModeLabel" destination="aHU-fT-gkv" id="ejf-Ef-bBv"/>
@@ -59,6 +76,7 @@
     <resources>
         <image name="GT4_HomeScreen_Background_" width="320" height="568"/>
         <image name="GT4_HomeScreen_NavBar_" width="320" height="46"/>
+        <image name="GT4_HomeScreen_Pull_Icon_" width="11" height="14"/>
         <image name="GT4_HomeScreen_SettingsIcon_" width="24" height="24"/>
         <image name="GT4_Home_BookIcon_" width="80" height="75"/>
     </resources>

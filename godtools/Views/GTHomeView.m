@@ -16,4 +16,8 @@
     }
 }
 
+- (IBAction)refreshDraftsButtonDragged:(id)sender {
+    [self.delegate refreshDraftsButtonDragged];
+}
+
 @end
