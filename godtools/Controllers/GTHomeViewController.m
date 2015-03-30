@@ -172,25 +172,22 @@
     [self.homeView.tableView reloadData];
     
     if([notification.name isEqualToString: GTDataImporterNotificationPublishDraftSuccessful]){
-//        [self refreshButtonPressed];
+        [self refreshDrafts];
     }else if ([notification.name isEqualToString:GTDataImporterNotificationLanguageDraftsDownloadFinished]){
-        [[GTDataImporter sharedImporter]updateMenuInfo];
+        [[GTDataImporter sharedImporter] updateMenuInfo];
     }else if([notification.name isEqualToString:GTDataImporterNotificationMenuUpdateFinished]){
-        //to avoid split seconds gap to enabling user interaction when downloading drafts
-        //note: after downloading drafts, the menu is also downloaded
-        if(self.isRefreshing)
-            self.isRefreshing = NO;
+        self.isRefreshing = NO;
     }
-    //if(!self.isRefreshing){
+    
+    if(!self.isRefreshing) {
         [self.homeView setUserInteractionEnabled:YES];
-    //}
+    }
 }
 
 -(void)showDownloadIndicator:(NSNotification *) notification{
 
     [self.homeView setUserInteractionEnabled:NO];
 
-#warning Optimize after all the features are done. Use userInfo.
     if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]){
         self.isRefreshing = YES;
     }
@@ -214,10 +211,7 @@
 }
 
 -(void)refreshDraftsButtonDragged {
-    [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDraftsDownloadStarted object:self];
-    GTLanguage *current = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:YES]objectAtIndex:0];
-    [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:[NSNumber numberWithBool:YES]];
-    [[GTDataImporter sharedImporter]downloadPackagesForLanguage:current];
+    [self refreshDrafts];
 };
 
 #pragma mark - Home View Cell Delegates
@@ -528,6 +522,12 @@
     return [[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES];
 }
 
+-(void) refreshDrafts {
+    [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDraftsDownloadStarted object:self];
+    GTLanguage *current = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:YES]objectAtIndex:0];
+    [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:[NSNumber numberWithBool:YES]];
+    [[GTDataImporter sharedImporter]downloadPackagesForLanguage:current];
+}
 #pragma mark - Renderer methods
 -(void)loadRendererWithPackage: (GTPackage *)package{
    
