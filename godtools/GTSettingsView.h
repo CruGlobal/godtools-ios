@@ -23,8 +23,14 @@
 @property (weak, nonatomic) IBOutlet UIButton *chooseParallelLanguageButton;
 @property (weak, nonatomic) IBOutlet UISwitch *previewModeSwitch;
 
-@property (strong, nonatomic) UILabel *languageNameLabel;
-@property (strong, nonatomic) UILabel *parallelLanguageNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *previewModeLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *parallelModeInstructionsLabel;
+@property (weak, nonatomic) IBOutlet UILabel *languageLabel;
+@property (weak, nonatomic) IBOutlet UILabel *parallelLanguageLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *languageNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *parallelLanguageNameLabel;
 
 - (IBAction)chooseLanguageButtonPressed:(id)sender;
 - (IBAction)chooseParallelLanguageButtonPressed:(id)sender;
