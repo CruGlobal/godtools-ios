@@ -401,6 +401,8 @@
         if(indexPath.section < self.articles.count) {
             GTPackage *selectedPackage = [self.articles objectAtIndex:indexPath.section];
             [self loadRendererWithPackage:selectedPackage];
+        } else if(![self isTranslatorMode] && indexPath.section == self.articles.count) {
+            // every student
         }
     }
 }
