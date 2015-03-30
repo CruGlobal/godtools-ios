@@ -252,6 +252,10 @@
     
     if(tableView == self.homeView.tableView){
         if(![self isTranslatorMode]) {
+            //every student is included for english only when not in translator mode, so add a cell
+            if([self.languageCode isEqualToString:@"en"]) {
+                return self.articles.count + 1;
+            }
             return self.articles.count;
         }
         else {
@@ -321,6 +325,11 @@
             
             [cell.contentView.layer setBorderColor:nil];
             [cell.contentView.layer setBorderWidth:0.0];
+        } else if(currentSection >= self.articles.count){
+            //block for every student cell
+            cell.titleLabel.text = @"Every Student";
+            [cell setUpBackground:(indexPath.section % 2) :NO :NO];
+            cell.icon.image = [UIImage imageNamed:@"GT4_HomeScreen_ESIcon_.png"];
         } else {
             GTPackage *package = [self.articles objectAtIndex:indexPath.section];
             cell.titleLabel.text = package.name;
