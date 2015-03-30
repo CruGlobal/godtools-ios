@@ -309,7 +309,6 @@
         if([self isTranslatorMode] && currentSection >= self.articles.count) {
             GTPackage *package = [self.packagesWithNoDrafts objectAtIndex:(indexPath.section - self.articles.count)];
             cell.titleLabel.text = package.name;
-            cell.titleLabel.textColor = [UIColor lightTextColor];
 
             [cell setUpBackground:(indexPath.section % 2) :YES :YES];
             
@@ -320,7 +319,6 @@
         } else if([self isTranslatorMode]){
             GTPackage *package = [self.articles objectAtIndex:indexPath.section];
             cell.titleLabel.text = package.name;
-            cell.titleLabel.textColor = [UIColor colorWithRed:.25 green:.25 blue:.25 alpha: .65];
             
             NSString *imageFilePath = [[GTFileLoader pathOfPackagesDirectory] stringByAppendingPathComponent:package.icon];
         
@@ -332,7 +330,6 @@
         } else {
             GTPackage *package = [self.articles objectAtIndex:indexPath.section];
             cell.titleLabel.text = package.name;
-            cell.titleLabel.textColor = [UIColor colorWithRed:.25 green:.25 blue:.25 alpha: .65];
             
             NSString *imageFilePath = [[GTFileLoader pathOfPackagesDirectory] stringByAppendingPathComponent:package.icon];
             
