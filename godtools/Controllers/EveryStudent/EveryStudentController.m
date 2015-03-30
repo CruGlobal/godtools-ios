@@ -12,7 +12,7 @@
 #import "EveryStudentSearchCell.h"
 #import "EveryStudentArticleView.h"
 #import "TBXML.h"
-#import "GTTrackerNotifications.h"
+//#import "GTTrackerNotifications.h"
 
 @interface EveryStudentController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -45,14 +45,13 @@
 	
     if (self) {
 		
-		UIColor		*backgroundColor	= [UIColor colorWithPatternImage:[UIImage imageNamed:@"HomeScreen_Background_Linen_Tile_Light"]];
+		UIColor		*backgroundColor	= [UIColor colorWithPatternImage:[UIImage imageNamed:@"GT4_HomeScreen_Background_"]];
 		self.view.backgroundColor		= backgroundColor;
 		
 		[self setTitle:@"Topics"];
 		self.searchBar.autocorrectionType = UITextAutocorrectionTypeYes;
-		
-		NSString *filePath	= [[NSBundle mainBundle] pathForResource:@"EveryStudent" ofType:@"xml"];
-		TBXML	*parser		= [[TBXML alloc] initWithXMLPath:filePath];
+        
+        TBXML	*parser		= [[TBXML alloc] initWithXMLFile:@"EveryStudent.xml"];
         [self loadEveryStudentXMLFromElement:parser.rootXMLElement];
 		
 		[self.navigationController setNavigationBarHidden:NO animated:YES];
@@ -338,13 +337,13 @@
 	
 	if (self.searchTerm.length > 0 && ![self.searchTerm isEqualToString:self.searchTermAtLastPost]) {
 		
-		[[NSNotificationCenter defaultCenter] postNotificationName:GTTrackerNotificationEverystudentDidSearch
-															object:self
-														  userInfo:@{GTTrackerNotificationUserInfoLanguageKey:	self.language,
-																	 GTTrackerNotificationUserInfoPackageKey:	self.package,
-																	 GTTrackerNotificationUserInfoVersionKey:	@1,
-																	 GTTrackerNotificationEverystudentDidSearchUserInfoSearchTerm: self.searchTerm }];
-		
+//		[[NSNotificationCenter defaultCenter] postNotificationName:GTTrackerNotificationEverystudentDidSearch
+//															object:self
+//														  userInfo:@{GTTrackerNotificationUserInfoLanguageKey:	self.language,
+//																	 GTTrackerNotificationUserInfoPackageKey:	self.package,
+//																	 GTTrackerNotificationUserInfoVersionKey:	@1,
+//																	 GTTrackerNotificationEverystudentDidSearchUserInfoSearchTerm: self.searchTerm }];
+//		
 		self.searchTermAtLastPost	= self.searchTerm;
 	}
 	

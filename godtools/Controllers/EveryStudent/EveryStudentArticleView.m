@@ -8,8 +8,6 @@
 
 #import "EveryStudentArticleView.h"
 
-#import "GTTrackerNotifications.h"
-
 @interface EveryStudentArticleView ()
 
 @property (nonatomic, weak) IBOutlet UITextView *content;
@@ -55,12 +53,12 @@
 	
 	self.backgroundImage.frame		= self.view.frame;
 	
-	[[NSNotificationCenter defaultCenter] postNotificationName:GTTrackerNotificationEverystudentDidOpenArticle
-														object:self
-													  userInfo:@{GTTrackerNotificationUserInfoLanguageKey:	self.language,
-																 GTTrackerNotificationUserInfoPackageKey:	self.package,
-																 GTTrackerNotificationUserInfoVersionKey:	@1,
-																 GTTrackerNotificationEverystudentDidOpenArticleUserInfoArticleName: self.title}];
+//	[[NSNotificationCenter defaultCenter] postNotificationName:GTTrackerNotificationEverystudentDidOpenArticle
+//														object:self
+//													  userInfo:@{GTTrackerNotificationUserInfoLanguageKey:	self.language,
+//																 GTTrackerNotificationUserInfoPackageKey:	self.package,
+//																 GTTrackerNotificationUserInfoVersionKey:	@1,
+//																 GTTrackerNotificationEverystudentDidOpenArticleUserInfoArticleName: self.title}];
 	
 }
 

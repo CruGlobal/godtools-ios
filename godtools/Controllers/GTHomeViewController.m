@@ -14,6 +14,7 @@
 #import "GTStorage.h"
 #import "GTDataImporter.h"
 #import "GTDefaults.h"
+#import "EveryStudentController.h"
 
 
 @interface GTHomeViewController ()
@@ -26,6 +27,8 @@
 @property (strong, nonatomic) UIAlertView *draftsAlert;
 @property (strong, nonatomic) UIAlertView *createDraftsAlert;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
+
+@property (strong, nonatomic) EveryStudentController *everyStudentViewController;
 
 @property  BOOL isRefreshing;
 @property (strong, nonatomic) NSString *selectedSectionNumber;
@@ -402,7 +405,14 @@
             GTPackage *selectedPackage = [self.articles objectAtIndex:indexPath.section];
             [self loadRendererWithPackage:selectedPackage];
         } else if(![self isTranslatorMode] && indexPath.section == self.articles.count) {
-            // every student
+            [self everyStudentViewController];
+            
+            self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+            
+            [self.navigationController setNavigationBarHidden:NO animated:YES];
+            self.everyStudentViewController.language = @"en"; // for now, always English
+            self.everyStudentViewController.package = @"EveryStudent"; // for lack of knowing what else to put
+            [self.navigationController pushViewController:self.everyStudentViewController animated:YES];
         }
     }
 }
@@ -572,6 +582,19 @@
     }
     
     return _godtoolsViewController;
+}
+
+#pragma  mark - EveryStudentController
+- (EveryStudentController *)everyStudentViewController {
+    
+    if (!_everyStudentViewController) {
+        [self willChangeValueForKey:@"everyStudentViewController"];
+        _everyStudentViewController	= [[EveryStudentController alloc] initWithNibName:@"EveryStudentController" bundle:nil];
+        [self didChangeValueForKey:@"everyStudentViewController"];
+        
+    }
+    
+    return _everyStudentViewController;
 }
 
 #pragma mark - GTAboutViewController Delegate
