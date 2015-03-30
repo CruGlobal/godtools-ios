@@ -100,6 +100,15 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:GTDataImporterNotificationMenuUpdateStarted
                                                   object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                 name: GTDataImporterNotificationAuthTokenUpdateSuccessful
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                 name: GTDataImporterNotificationAuthTokenUpdateFail
+                                               object:nil];
+
 }
 
 -(void)goToHome{

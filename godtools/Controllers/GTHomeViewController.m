@@ -14,6 +14,7 @@
 #import "GTStorage.h"
 #import "GTDataImporter.h"
 #import "GTDefaults.h"
+#import "EveryStudentController.h"
 
 
 @interface GTHomeViewController ()
@@ -26,6 +27,8 @@
 @property (strong, nonatomic) UIAlertView *draftsAlert;
 @property (strong, nonatomic) UIAlertView *createDraftsAlert;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
+
+@property (strong, nonatomic) EveryStudentController *everyStudentViewController;
 
 @property  BOOL isRefreshing;
 @property (strong, nonatomic) NSString *selectedSectionNumber;
@@ -175,25 +178,22 @@
     [self.homeView.tableView reloadData];
     
     if([notification.name isEqualToString: GTDataImporterNotificationPublishDraftSuccessful]){
-//        [self refreshButtonPressed];
+        [self refreshDrafts];
     }else if ([notification.name isEqualToString:GTDataImporterNotificationLanguageDraftsDownloadFinished]){
-        [[GTDataImporter sharedImporter]updateMenuInfo];
+        [[GTDataImporter sharedImporter] updateMenuInfo];
     }else if([notification.name isEqualToString:GTDataImporterNotificationMenuUpdateFinished]){
-        //to avoid split seconds gap to enabling user interaction when downloading drafts
-        //note: after downloading drafts, the menu is also downloaded
-        if(self.isRefreshing)
-            self.isRefreshing = NO;
+        self.isRefreshing = NO;
     }
-    //if(!self.isRefreshing){
+    
+    if(!self.isRefreshing) {
         [self.homeView setUserInteractionEnabled:YES];
-    //}
+    }
 }
 
 -(void)showDownloadIndicator:(NSNotification *) notification{
 
     [self.homeView setUserInteractionEnabled:NO];
 
-#warning Optimize after all the features are done. Use userInfo.
     if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]){
         self.isRefreshing = YES;
     }
@@ -217,10 +217,7 @@
 }
 
 -(void)refreshDraftsButtonDragged {
-    [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDraftsDownloadStarted object:self];
-    GTLanguage *current = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:YES]objectAtIndex:0];
-    [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:[NSNumber numberWithBool:YES]];
-    [[GTDataImporter sharedImporter]downloadPackagesForLanguage:current];
+    [self refreshDrafts];
 };
 
 #pragma mark - Home View Cell Delegates
@@ -258,6 +255,10 @@
     
     if(tableView == self.homeView.tableView){
         if(![self isTranslatorMode]) {
+            //every student is included for english only when not in translator mode, so add a cell
+            if([self.languageCode isEqualToString:@"en"]) {
+                return self.articles.count + 1;
+            }
             return self.articles.count;
         }
         else {
@@ -327,6 +328,11 @@
             
             [cell.contentView.layer setBorderColor:nil];
             [cell.contentView.layer setBorderWidth:0.0];
+        } else if(currentSection >= self.articles.count){
+            //block for every student cell
+            cell.titleLabel.text = @"Every Student";
+            [cell setUpBackground:(indexPath.section % 2) :NO :NO];
+            cell.icon.image = [UIImage imageNamed:@"GT4_HomeScreen_ESIcon_.png"];
         } else {
             GTPackage *package = [self.articles objectAtIndex:indexPath.section];
             cell.titleLabel.text = package.name;
@@ -398,6 +404,15 @@
         if(indexPath.section < self.articles.count) {
             GTPackage *selectedPackage = [self.articles objectAtIndex:indexPath.section];
             [self loadRendererWithPackage:selectedPackage];
+        } else if(![self isTranslatorMode] && indexPath.section == self.articles.count) {
+            [self everyStudentViewController];
+            
+            self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+            
+            [self.navigationController setNavigationBarHidden:NO animated:YES];
+            self.everyStudentViewController.language = @"en"; // for now, always English
+            self.everyStudentViewController.package = @"EveryStudent"; // for lack of knowing what else to put
+            [self.navigationController pushViewController:self.everyStudentViewController animated:YES];
         }
     }
 }
@@ -513,6 +528,12 @@
     return [[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES];
 }
 
+-(void) refreshDrafts {
+    [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDraftsDownloadStarted object:self];
+    GTLanguage *current = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:YES]objectAtIndex:0];
+    [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:[NSNumber numberWithBool:YES]];
+    [[GTDataImporter sharedImporter]downloadPackagesForLanguage:current];
+}
 #pragma mark - Renderer methods
 -(void)loadRendererWithPackage: (GTPackage *)package{
    
@@ -567,6 +588,19 @@
     }
     
     return _godtoolsViewController;
+}
+
+#pragma  mark - EveryStudentController
+- (EveryStudentController *)everyStudentViewController {
+    
+    if (!_everyStudentViewController) {
+        [self willChangeValueForKey:@"everyStudentViewController"];
+        _everyStudentViewController	= [[EveryStudentController alloc] initWithNibName:@"EveryStudentController" bundle:nil];
+        [self didChangeValueForKey:@"everyStudentViewController"];
+        
+    }
+    
+    return _everyStudentViewController;
 }
 
 #pragma mark - GTAboutViewController Delegate
