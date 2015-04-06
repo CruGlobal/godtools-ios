@@ -16,11 +16,14 @@ NSString *const GTShareViewControllerCampaignLinkCampaignName          = @"app-s
 
 @interface GTShareViewController ()
 
+@property (weak, nonatomic) NSString *packageCode;
+@property (weak, nonatomic) NSString *languageCode;
+
 @end
 
 @implementation GTShareViewController
 
-- (instancetype)init {
+- (instancetype)init{
 	
 	NSString *campaignLink				= [self produceLinkForCampaign: GTShareViewControllerCampaignLinkCampaignName source:GTShareViewControllerCampaignLinkCampaignSource medium:GTShareViewControllerCampaignLinkCampaignMedium];
 	
@@ -63,6 +66,13 @@ NSString *const GTShareViewControllerCampaignLinkCampaignName          = @"app-s
 	return self;
 }
 
+- (id)initWithPackageCode:(NSString *)packageCode languageCode:(NSString *)languageCode{
+    self.packageCode = packageCode;
+    self.languageCode = languageCode;
+    
+    return [self init];
+}
+
 - (NSString *)produceShareLink {
 	
 	return [NSString stringWithFormat:@"http://www.godtoolsapp.com"];
@@ -72,7 +82,11 @@ NSString *const GTShareViewControllerCampaignLinkCampaignName          = @"app-s
 	
 	NSString *appVersionNumber	= [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
 	
-	return [self.produceShareLink stringByAppendingFormat:@"?utm_source=%@&utm_medium=%@&utm_content=%@&utm_campaign=%@", source, medium, appVersionNumber, campaign];
+    if(self.packageCode && self.languageCode) {
+        return [self.produceShareLink stringByAppendingFormat:@"?utm_source=%@&utm_medium=%@&utm_content=%@&utm_campaign=%@&package=%@&language=%@", source, medium, appVersionNumber, campaign, self.packageCode, self.languageCode];
+    } else {
+        return [self.produceShareLink stringByAppendingFormat:@"?utm_source=%@&utm_medium=%@&utm_content=%@&utm_campaign=%@", source, medium, appVersionNumber, campaign];
+    }
 }
 
 - (void)viewDidLoad
@@ -86,16 +100,4 @@ NSString *const GTShareViewControllerCampaignLinkCampaignName          = @"app-s
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end

@@ -82,6 +82,8 @@ NSString * const kAttr_filename		= @"filename";
 
 @property (nonatomic, strong)	NSString *aboutFilename;
 @property (nonatomic, strong)	NSString *packageName;
+@property (nonatomic, strong)	NSString *languageCode;
+@property (nonatomic, strong)	NSString *packageCode;
 
 @property (nonatomic, strong)	NSArray *packageArray;
 @property (nonatomic, strong)	NSMutableArray *pageArray;
@@ -554,14 +556,10 @@ NSString * const kAttr_filename		= @"filename";
     NSLog(@"navtoolbarShareselector");
     [self hideNavToolbar];
     
-    //if (self.shareSheet) {
-    
-    self.shareSheet = [[GTShareViewController alloc]init];
+    self.shareSheet = [[GTShareViewController alloc]initWithPackageCode: self.packageCode languageCode:self.languageCode];
     
     [self presentViewController:self.shareSheet animated:YES completion:nil];
     self.childViewControllerWasShown = YES;
-    
-    //}
 }
 
 -(IBAction)navToolbarAboutSelector:(id)sender {
@@ -807,6 +805,11 @@ NSString * const kAttr_filename		= @"filename";
     } else {
         [self showNavToolbar];
     }
+}
+
+-(void)setCodes :packageCode :languageCode {
+    self.packageCode = packageCode;
+    self.languageCode = languageCode;
 }
 
 #pragma mark - easter egg
