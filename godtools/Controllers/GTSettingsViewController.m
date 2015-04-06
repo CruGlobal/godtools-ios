@@ -27,8 +27,6 @@
 @property (strong, nonatomic) UIAlertView *exitTranslatorModeAlert;
 @property (strong, nonatomic) UIAlertView *buttonLessAlert;
 
-@property (strong, nonatomic) NSMutableArray *settingsOptions;
-
 @property AFNetworkReachabilityManager *afReachability;
 
 @end
@@ -50,21 +48,7 @@
     self.settingsView.previewModeLabel.text = NSLocalizedString(@"GTSettings_previewMode_label", nil);
     self.settingsView.languageLabel.text = NSLocalizedString(@"GTSettings_mainLanguage_label", nil);
     self.settingsView.parallelLanguageLabel.text = NSLocalizedString(@"GTSettings_parallelLanguage_label", nil);
-    self.settingsView.parallelModeInstructionsLabel.text = NSLocalizedString(@"GTSettings_parallelModeInstructions", nil);
-    
     [self setLanguageNameLabelValues];
-
-    self.settingsOptions = [[NSMutableArray alloc]initWithArray:@[
-                                  NSLocalizedString(@"GTSettings_mainLanguage_label", nil),
-                                  @"English",
-                                  NSLocalizedString(@"GTSettings_parallelLanguage_label", nil),
-                                  NSLocalizedString(@"GTSettings_parallelLanguage_default", nil),
-                                  NSLocalizedString(@"GTSettings_languageInstructions", nil),
-                                  NSLocalizedString(@"GTSettings_previewModeInstructions", nil),
-                                  NSLocalizedString(@"GTSettings_previewMode_label", nil),
-                                  NSLocalizedString(@"GTSettings_aboutGodTools", nil),
-                              ]];
-    
     
     self.exitTranslatorModeAlert = [[UIAlertView alloc]
                                         initWithTitle:NSLocalizedString(@"AlertTitle_exitPreviewMode", nil)
@@ -195,17 +179,6 @@
 }
 
 #pragma mark - UI Utilities
-
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if(alertView == self.exitTranslatorModeAlert){
-        if(buttonIndex == 1){
-            [[GTDefaults sharedDefaults]setIsInTranslatorMode:[NSNumber numberWithBool:NO]];
-            [self.settingsView.previewModeSwitch setOn:NO animated:YES];
-        }else{
-            [self.settingsView.previewModeSwitch setOn:YES animated:YES];
-        }
-    }
-}
 
 - (void)setLanguageNameLabelValues {
     self.settingsView.languageNameLabel.text = [[self mainLanguage].name uppercaseString];
