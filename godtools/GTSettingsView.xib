@@ -12,34 +12,25 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="GT4_HomeScreen_Background_" translatesAutoresizingMaskIntoConstraints="NO" id="LN9-0E-Xse">
-                    <rect key="frame" x="0.0" y="-25" width="320" height="568"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                 </imageView>
                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="GT4_SettingsScreen_ButtonBar15%_Orange_" translatesAutoresizingMaskIntoConstraints="NO" id="3L6-Tt-4ii">
-                    <rect key="frame" x="0.0" y="76" width="375" height="52"/>
+                    <rect key="frame" x="0.0" y="321" width="375" height="51"/>
                 </imageView>
                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="GT4_SettingsScreen_ButtonBar15%_Teal_" translatesAutoresizingMaskIntoConstraints="NO" id="5rh-mB-Bcj">
-                    <rect key="frame" x="0.0" y="211" width="375" height="52"/>
+                    <rect key="frame" x="0.0" y="64" width="375" height="52"/>
                 </imageView>
                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="GT4_SettingsScreen_ButtonBar15%_Teal_" translatesAutoresizingMaskIntoConstraints="NO" id="Y8O-ER-ARs">
-                    <rect key="frame" x="0.0" y="316" width="375" height="52"/>
+                    <rect key="frame" x="0.0" y="169" width="375" height="52"/>
                 </imageView>
                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="GT4_SettingsScreen_RightArrow_" translatesAutoresizingMaskIntoConstraints="NO" id="Q6i-Hs-SH0">
-                    <rect key="frame" x="295" y="333" width="10" height="18"/>
+                    <rect key="frame" x="295" y="186" width="10" height="18"/>
                 </imageView>
                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="GT4_SettingsScreen_RightArrow_" translatesAutoresizingMaskIntoConstraints="NO" id="rEM-y1-nzO">
-                    <rect key="frame" x="295" y="228" width="10" height="18"/>
+                    <rect key="frame" x="295" y="81" width="10" height="18"/>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dml-cR-lhq">
-                    <rect key="frame" x="0.0" y="316" width="320" height="52"/>
-                    <state key="normal">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="chooseParallelLanguageButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="uDM-FM-VnP"/>
-                    </connections>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e4r-uQ-0e6">
-                    <rect key="frame" x="0.0" y="211" width="320" height="52"/>
+                    <rect key="frame" x="0.0" y="64" width="320" height="52"/>
                     <state key="normal">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -48,49 +39,58 @@
                     </connections>
                 </button>
                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZMP-TI-EkI">
-                    <rect key="frame" x="256" y="86" width="51" height="31"/>
+                    <rect key="frame" x="256" y="331" width="51" height="31"/>
                     <connections>
                         <action selector="previewModeSwitchPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="8j4-RY-HR1"/>
                     </connections>
                 </switch>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Language:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tu0-rd-nkx">
-                    <rect key="frame" x="22" y="174" width="129" height="39"/>
+                    <rect key="frame" x="22" y="27" width="129" height="39"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Parallel Language Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gDm-sT-8kz">
-                    <rect key="frame" x="22" y="331" width="257" height="21"/>
+                    <rect key="frame" x="22" y="184" width="257" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Language Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oUl-Aq-b1i">
-                    <rect key="frame" x="22" y="226" width="257" height="21"/>
+                    <rect key="frame" x="22" y="79" width="257" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Preview Mode:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ldw-MV-rHp">
-                    <rect key="frame" x="22" y="91" width="226" height="21"/>
+                    <rect key="frame" x="22" y="337" width="226" height="20"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Parallel Language*:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H08-P1-tXR">
-                    <rect key="frame" x="22" y="278" width="148" height="39"/>
+                    <rect key="frame" x="22" y="131" width="148" height="39"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="ndN-jS-pVx">
-                    <rect key="frame" x="-1" y="377" width="283" height="65"/>
+                    <rect key="frame" x="-1" y="223" width="283" height="65"/>
                     <inset key="contentEdgeInsets" minX="-9" minY="0.0" maxX="0.0" maxY="0.0"/>
                     <inset key="titleEdgeInsets" minX="-3" minY="0.0" maxX="0.0" maxY="0.0"/>
                     <inset key="imageEdgeInsets" minX="98" minY="20" maxX="0.0" maxY="0.0"/>
                     <state key="normal" title="*Tap screen during presentation and use       to toggle language." image="Package_PopUpToolBar_Icon_Switch">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dml-cR-lhq">
+                    <rect key="frame" x="0.0" y="169" width="320" height="52"/>
+                    <state key="normal">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="chooseParallelLanguageButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="uDM-FM-VnP"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
