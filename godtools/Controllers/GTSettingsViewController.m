@@ -48,8 +48,6 @@
     self.settingsView.previewModeLabel.text = NSLocalizedString(@"GTSettings_previewMode_label", nil);
     self.settingsView.languageLabel.text = NSLocalizedString(@"GTSettings_mainLanguage_label", nil);
     self.settingsView.parallelLanguageLabel.text = NSLocalizedString(@"GTSettings_parallelLanguage_label", nil);
-    self.settingsView.parallelModeInstructionsLabel.text = NSLocalizedString(@"GTSettings_parallelModeInstructions", nil);
-    
     [self setLanguageNameLabelValues];
     
     self.exitTranslatorModeAlert = [[UIAlertView alloc]

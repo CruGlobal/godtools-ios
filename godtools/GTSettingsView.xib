@@ -53,12 +53,6 @@
                         <action selector="previewModeSwitchPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="8j4-RY-HR1"/>
                     </connections>
                 </switch>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="*Tap screen during presentation to change language." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="du0-Vz-4m1">
-                    <rect key="frame" x="14" y="381" width="296" height="59"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Language:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tu0-rd-nkx">
                     <rect key="frame" x="22" y="174" width="129" height="39"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -89,6 +83,15 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="ndN-jS-pVx">
+                    <rect key="frame" x="-1" y="377" width="283" height="65"/>
+                    <inset key="contentEdgeInsets" minX="-9" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <inset key="titleEdgeInsets" minX="-3" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <inset key="imageEdgeInsets" minX="98" minY="20" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="*Tap screen during presentation and use       to toggle language." image="Package_PopUpToolBar_Icon_Switch">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <connections>
@@ -98,7 +101,6 @@
                 <outlet property="languageNameLabel" destination="oUl-Aq-b1i" id="R84-3Z-qeD"/>
                 <outlet property="parallelLanguageLabel" destination="H08-P1-tXR" id="cfo-0h-yX0"/>
                 <outlet property="parallelLanguageNameLabel" destination="gDm-sT-8kz" id="ia6-Vk-qYU"/>
-                <outlet property="parallelModeInstructionsLabel" destination="du0-Vz-4m1" id="Zpt-vN-BfY"/>
                 <outlet property="previewModeLabel" destination="Ldw-MV-rHp" id="xhp-36-LE7"/>
                 <outlet property="previewModeSwitch" destination="ZMP-TI-EkI" id="ET9-cQ-P3Q"/>
             </connections>
@@ -110,5 +112,6 @@
         <image name="GT4_SettingsScreen_ButtonBar15%_Orange_" width="375" height="52"/>
         <image name="GT4_SettingsScreen_ButtonBar15%_Teal_" width="375" height="52"/>
         <image name="GT4_SettingsScreen_RightArrow_" width="10" height="18"/>
+        <image name="Package_PopUpToolBar_Icon_Switch" width="24" height="24"/>
     </resources>
 </document>
