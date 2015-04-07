@@ -75,7 +75,6 @@
         //prepare initial content
         [self extractBundle];
         [self extractMetaData];
-        [[GTDefaults sharedDefaults]setIsFirstLaunch:[NSNumber numberWithBool:NO]];
     }
     
     if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]){// && self.afReachability.reachable){

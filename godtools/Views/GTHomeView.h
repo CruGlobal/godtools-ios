@@ -24,6 +24,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
 @property (weak, nonatomic) IBOutlet UIButton *settingsButton;
 @property (weak, nonatomic) IBOutlet UIView *refreshDraftsView;
+@property (weak, nonatomic) IBOutlet UIImageView *setLanguageImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *pickToolImageView;
 
 - (IBAction)settingsButtonPressed:(id)sender;
 - (IBAction)refreshDraftsButtonDragged:(id)sender;
