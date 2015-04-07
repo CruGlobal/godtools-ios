@@ -191,4 +191,15 @@
     }
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if(alertView == self.exitTranslatorModeAlert){
+        if(buttonIndex == 1){
+                [[GTDefaults sharedDefaults]setIsInTranslatorMode:[NSNumber numberWithBool:NO]];
+                [self.settingsView.previewModeSwitch setOn:NO animated:YES];
+        }else{
+                [self.settingsView.previewModeSwitch setOn:YES animated:YES];
+        }
+    }
+}
+
 @end
