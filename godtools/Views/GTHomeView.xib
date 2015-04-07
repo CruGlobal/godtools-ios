@@ -23,7 +23,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="46"/>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hK1-HD-VKf">
-                    <rect key="frame" x="279" y="11" width="24" height="24"/>
+                    <rect key="frame" x="247" y="-8" width="80" height="62"/>
                     <state key="normal" image="GT4_HomeScreen_SettingsIcon_">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -67,10 +67,18 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="GT4_HomeScreen_SetLanguage" translatesAutoresizingMaskIntoConstraints="NO" id="ESA-OQ-L88">
+                    <rect key="frame" x="40" y="3" width="282" height="91"/>
+                </imageView>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="GT4_HomeScreen_PickTool" translatesAutoresizingMaskIntoConstraints="NO" id="KqV-sW-gO4">
+                    <rect key="frame" x="-47" y="180" width="240" height="95"/>
+                </imageView>
             </subviews>
             <connections>
                 <outlet property="iconImageView" destination="jLQ-YV-T02" id="ulA-Nk-cy1"/>
+                <outlet property="pickToolImageView" destination="KqV-sW-gO4" id="8p1-lZ-XUl"/>
                 <outlet property="refreshDraftsView" destination="PkX-j3-M1e" id="Utx-sp-9jc"/>
+                <outlet property="setLanguageImageView" destination="ESA-OQ-L88" id="Efo-qD-hme"/>
                 <outlet property="settingsButton" destination="hK1-HD-VKf" id="FXU-88-hBW"/>
                 <outlet property="tableView" destination="K6k-oN-bLy" id="jyd-dZ-g1e"/>
                 <outlet property="translatorModeLabel" destination="aHU-fT-gkv" id="ejf-Ef-bBv"/>
@@ -81,7 +89,9 @@
     <resources>
         <image name="GT4_HomeScreen_Background_" width="320" height="568"/>
         <image name="GT4_HomeScreen_NavBar_" width="320" height="46"/>
+        <image name="GT4_HomeScreen_PickTool" width="240" height="95"/>
         <image name="GT4_HomeScreen_Pull_Icon_" width="11" height="14"/>
+        <image name="GT4_HomeScreen_SetLanguage" width="282" height="91"/>
         <image name="GT4_HomeScreen_SettingsIcon_" width="24" height="24"/>
         <image name="GT4_Home_BookIcon_" width="80" height="75"/>
     </resources>

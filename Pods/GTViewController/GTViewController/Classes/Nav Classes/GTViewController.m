@@ -626,41 +626,6 @@ NSString * const kAttr_filename		= @"filename";
     
 }
 
-//-(void)navToolbarAddRemoveSwitchButtonForPackage:(NSString *)package andLanguage:(NSString *)language {
-//
-//	if ( [package isEqualToString:@"kgp"] && ( [language isEqualToString:@"en_heartbeat"] || [language isEqualToString:@"et_heartbeat"] ) ) {
-//
-//		//if button not already there then add button
-//		if (self.switchButton == nil) {
-//
-//			UIBarButtonItem *switchButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Package_PopUpToolBar_Icon_Switch"]
-//																			 style:UIBarButtonItemStyleBordered
-//																			target:self
-//																			action:@selector(navToolbarHeartbeatSwitch)];
-//
-//			self.switchButton = switchButton;
-//
-//			[self.navToolbar setItems:[NSArray arrayWithObjects:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], self.shareButton, self.menuButton, self.switchButton, self.aboutButton, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], nil] animated:YES];
-//
-//		}
-//
-//
-//	} else {
-//
-//		//if button already there then remove button
-//		if (self.switchButton != nil) {
-//
-//			[self.navToolbar setItems:[NSArray arrayWithObjects:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], self.shareButton, self.menuButton, self.aboutButton, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], nil] animated:YES];
-//
-//			self.switchButton	= nil;
-//
-//		}
-//
-//
-//	}
-//
-//}
-
 -(void)navToolbarAddRemoveRefreshButton{
     
     //if button not already there then add button
@@ -756,26 +721,10 @@ NSString * const kAttr_filename		= @"filename";
     //grab active index
     NSInteger currentIndex = self.activeView;
     //load the new page array
-    //[self loadResourceWithConfigFile:self.switchToConfigFile];
     
     //restore active index
     self.activeView = (NSInteger)fmin((double)[[[self pageArray] objectAtIndex:kPageArray_File] count] - 1, (double)currentIndex);
     [self skipTo:self.activeView];
-    
-    //	if ([[self language] isEqualToString:@"en_heartbeat"]) {
-    //
-    //		[self changeLanguageTo:@"et_heartbeat"];
-    //
-    //	} else if ([[self language] isEqualToString:@"et_heartbeat"]) {
-    //
-    //		[self changeLanguageTo:@"en_heartbeat"];
-    //
-    //	} else {
-    //
-    //		[self changeLanguageTo:@"en_heartbeat"];
-    //
-    //	}
-    
 }
 
 
@@ -974,21 +923,6 @@ NSString * const kAttr_filename		= @"filename";
 #pragma mark - GTPageDelegate
 
 - (void)page:(GTPage *)page didReceiveTapOnURL:(NSURL *)url {
-    
-    //	UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:@[[NSURL URLWithString:website]]
-    //																			 applicationActivities:nil];
-    //
-    //	controller.excludedActivityTypes	= @[UIActivityTypePostToWeibo,
-    //											UIActivityTypePrint,
-    //											UIActivityTypeAssignToContact,
-    //											UIActivityTypeSaveToCameraRoll,
-    //											UIActivityTypePostToFlickr,
-    //											UIActivityTypePostToVimeo,
-    //											UIActivityTypePostToTencentWeibo,
-    //											UIActivityTypeAirDrop];
-    //
-    //	[self.navigationController presentViewController:controller animated:YES completion:nil];
-    
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:url.absoluteString
                                                              delegate:self
                                                     cancelButtonTitle:@"Cancel"
