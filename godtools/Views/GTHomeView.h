@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UIView *refreshDraftsView;
 @property (weak, nonatomic) IBOutlet UIImageView *setLanguageImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *pickToolImageView;
+@property (weak, nonatomic) IBOutlet UIView *instructionsOverlayView;
 
 - (IBAction)settingsButtonPressed:(id)sender;
 - (IBAction)refreshDraftsButtonDragged:(id)sender;
