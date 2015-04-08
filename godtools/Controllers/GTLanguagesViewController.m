@@ -45,7 +45,6 @@ BOOL languageDownloadCancelled = FALSE;
         [self setTitle : @"Parallel Language"];
     }
 
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(languageDownloadProgressMade)
                                                  name: GTLanguageViewDataImporterNotificationLanguageDownloadProgressMade
@@ -89,6 +88,10 @@ BOOL languageDownloadCancelled = FALSE;
             NSLog(@"No internet connection!");
         }
     }];
+    
+    if([@"finished" isEqualToString:[[GTDefaults sharedDefaults] translationDownloadStatus]]) {
+        languageDownloading = nil;
+    }
     
     [self.afReachability startMonitoring];
 }
@@ -213,6 +216,11 @@ BOOL languageDownloadCancelled = FALSE;
     if([self isSelectedLanguage:language]) {
         cell.checkBox.hidden = FALSE;
     }
+    
+    if([language.name isEqualToString:languageDownloading]) {
+        languageActionCell = cell;
+        [self showLanguageDownloadIndicator];
+    }
 
     // show error icon if language download failed is this language, and this is the selected language, and we are not downloading now, and this was not a cancelled download
     if([languageDownloadFailed isEqualToString:language.name] && [selectedLanguage.name isEqualToString:language.name] && ([languageDownloading length] == 0) && !languageDownloadCancelled) {
@@ -313,6 +321,8 @@ BOOL languageDownloadCancelled = FALSE;
 
             languageDownloading = languageName.copy;
 
+            [[GTDefaults sharedDefaults] setTranslationDownloadStatus:@"running"];
+            
             languageDownloadCancelled = FALSE;
 
             result = TRUE;

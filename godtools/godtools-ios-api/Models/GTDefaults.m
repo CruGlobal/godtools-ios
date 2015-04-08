@@ -21,6 +21,8 @@ NSString *const GTDefaultsisInTranslatorMode                = @"is_in_translator
 
 NSString *const GTDefaultstranslatorAccessCode              = @"translator_access_code";
 
+NSString *const GTDefaultstranslationDownloadStatus         = @"translation_download_status";
+
 @interface GTDefaults ()
 
 @property (nonatomic, strong, readonly) NSString *phonesLanguageCode;
@@ -38,7 +40,7 @@ NSString *const GTDefaultstranslatorAccessCode              = @"translator_acces
 @synthesize isInTranslatorMode          = _isInTranslatorMode;
 
 @synthesize translatorAccessCode        = _translatorAccessCode;
-
+@synthesize translationDownloadStatus   = _translationDownloadStatus;
 
 
 #pragma mark - initialization
@@ -300,6 +302,28 @@ NSString *const GTDefaultstranslatorAccessCode              = @"translator_acces
     }
     
     return _translatorAccessCode;
+}
+
+#pragma mark - translationDownloadStatus
+
+-(void) setTranslationDownloadStatus :(NSString*) status{
+    [self willChangeValueForKey:@"translationDownloadStatus"];
+     
+    _translationDownloadStatus	= status;
+    [self didChangeValueForKey:@"translationDownloadStatus"];
+     
+    [[NSUserDefaults standardUserDefaults] setObject:status forKey:GTDefaultstranslationDownloadStatus];
+
+}
+- (NSString *)translationDownloadStatus {
+    if (!_translationDownloadStatus) {
+        
+        [self willChangeValueForKey:@"translationDownloadStatus"];
+        _translationDownloadStatus = [[NSUserDefaults standardUserDefaults] stringForKey:GTDefaultstranslationDownloadStatus];
+        [self didChangeValueForKey:@"translationDownloadStatus"];
+    }
+    
+    return _translationDownloadStatus;
 }
 
 @end

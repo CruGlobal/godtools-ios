@@ -418,6 +418,8 @@ BOOL gtLanguageDownloadUserCancellation                                 = FALSE;
                                                  [[GTDefaults sharedDefaults]setCurrentParallelLanguageCode:language.code];
                                              }
                                          }
+                                         
+                                         [[GTDefaults sharedDefaults] setTranslationDownloadStatus:@"finished"];
                                      }
                                  }else if(response.statusCode == 500){
                                     NSString *errorMessage	= NSLocalizedString(@"GTDataImporter_downloadPackages_error", @"Error message when package endpoint response is missing data.");

@@ -19,6 +19,7 @@
 @property (nonatomic) NSNumber *isFirstLaunch;
 @property (nonatomic) NSNumber *isInTranslatorMode;
 @property (nonatomic) NSString *translatorAccessCode;
+@property (nonatomic) NSString *translationDownloadStatus;
 
 + (instancetype)sharedDefaults;
 - (NSString *)phonesLanguageCode;
