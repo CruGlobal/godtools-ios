@@ -3,6 +3,7 @@
 //  godtools
 //
 //  Created by Michael Harrison on 3/14/14.
+//  Modified by Lee Braddock.
 //  Copyright (c) 2014 Michael Harrison. All rights reserved.
 //
 
@@ -110,6 +111,11 @@
 					   progress:(void (^)(NSNumber *percentage))progress
 						success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSURL *targetPath))success
 						failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure;
+
+/**
+ * Cancels the most recent getResourcesForLanguageRequest
+ **/
+- (void)cancelGetResourcesForLanguage;
 
 /**
  *  Retrieves only the xml files for all resources associated with the language passed to this method. This should be used to update a resource.

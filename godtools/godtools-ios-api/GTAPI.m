@@ -3,6 +3,7 @@
 //  godtools
 //
 //  Created by Michael Harrison on 3/14/14.
+//  Modified by Lee Braddock.
 //  Copyright (c) 2014 Michael Harrison. All rights reserved.
 //
 
@@ -26,8 +27,9 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
 
 @property (nonatomic, strong, readonly) NSString		*apiKey;
 @property (nonatomic, strong, readonly) NSNumber		*interpreterVersion;
+@property (nonatomic, strong) AFDownloadRequestOperation *languageAFDownloadRequestOperation;
 
-- (void)getFilesForRequest:(NSMutableURLRequest *)request progress:(void (^)(NSNumber *))progress success:(void (^)(NSURLRequest *, NSHTTPURLResponse *, NSURL *))success failure:(void (^)(NSURLRequest *, NSHTTPURLResponse *, NSError *))failure;
+- (AFDownloadRequestOperation *)getFilesForRequest:(NSMutableURLRequest *)request progress:(void (^)(NSNumber *))progress success:(void (^)(NSURLRequest *, NSHTTPURLResponse *, NSURL *))success failure:(void (^)(NSURLRequest *, NSHTTPURLResponse *, NSError *))failure;
 
 @end
 
@@ -154,6 +156,10 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
 
 #pragma mark - download resource methods
 
+- (void)cancelGetResourcesForLanguage {
+    [self.languageAFDownloadRequestOperation cancel];
+}
+
 - (void)getResourcesForLanguage:(GTLanguage *)language progress:(void (^)(NSNumber *percentage))progress success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSURL *targetPath))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure {
 	
 	NSParameterAssert(language.code);
@@ -164,7 +170,7 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
 																		   compressed:YES
 																				error:nil];
 	
-	[self getFilesForRequest:request progress:progress success:success failure:failure];
+	self.languageAFDownloadRequestOperation = [self getFilesForRequest:request progress:progress success:success failure:failure];
 }
 
 - (void)getXmlFilesForLanguage:(GTLanguage *)language progress:(void (^)(NSNumber *percentage))progress success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSURL *targetPath))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure {
@@ -180,7 +186,7 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
 	[self getFilesForRequest:request progress:progress success:success failure:failure];
 }
 
-- (void)getFilesForRequest:(NSMutableURLRequest *)request progress:(void (^)(NSNumber *))progress success:(void (^)(NSURLRequest *, NSHTTPURLResponse *, NSURL *))success failure:(void (^)(NSURLRequest *, NSHTTPURLResponse *, NSError *))failure {
+- (AFDownloadRequestOperation *)getFilesForRequest:(NSMutableURLRequest *)request progress:(void (^)(NSNumber *))progress success:(void (^)(NSURLRequest *, NSHTTPURLResponse *, NSURL *))success failure:(void (^)(NSURLRequest *, NSHTTPURLResponse *, NSError *))failure {
 
 	/*NSURL* documentsDirectory		= [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
 																		inDomain:NSUserDomainMask
@@ -216,6 +222,7 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
 
 	[self.operationQueue addOperation:operation];
 	
+    return operation;
 }
 
 #pragma mark - Drafts

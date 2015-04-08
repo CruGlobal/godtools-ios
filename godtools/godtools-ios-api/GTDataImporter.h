@@ -3,6 +3,7 @@
 //  godtools
 //
 //  Created by Michael Harrison on 3/18/14.
+//  Modified by Lee Braddock.
 //  Copyright (c) 2014 Michael Harrison. All rights reserved.
 //
 
@@ -75,6 +76,12 @@
  *  @param language All resources in this language will be downloaded and made available for use.
  */
 - (void)downloadPackagesForLanguage:(GTLanguage *)language;
+- (void)downloadPackagesForLanguage:(GTLanguage *)language withProgressNotifier:(NSString *) progressNotificationName withSuccessNotifier:(NSString *) successNotificationName withFailureNotifier:(NSString *) failureNotificationName;
+
+/**
+ * Cancels most recent downloadPackagesForLanguage request
+ */
+- (void)cancelDownloadPackagesForLanguage;
 
 /**
  *  Compares local version number with the version number on the web server. It does this for every resource written in the languages listed in languageCodes.
