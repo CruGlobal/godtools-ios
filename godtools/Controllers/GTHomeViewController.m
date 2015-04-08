@@ -70,19 +70,16 @@
     [self setData];
     [self.homeView.tableView reloadData];
     
-    if([[GTDefaults sharedDefaults] isFirstLaunch] == [NSNumber numberWithBool:NO]) {
-        self.homeView.pickToolImageView.hidden = YES;
-        self.homeView.setLanguageImageView.hidden = YES;
-    } else {
-        [UIView animateWithDuration: 1.0 delay:4.0 options:0 animations:^{
-            self.homeView.pickToolImageView.alpha = 0.0f;
-            self.homeView.setLanguageImageView.alpha = 0.0f;
+//    if([[GTDefaults sharedDefaults] isFirstLaunch] == [NSNumber numberWithBool:NO]) {
+//        self.homeView.instructionsOverlayView.hidden = YES;
+//    } else {
+        [UIView animateWithDuration: 1.0 delay:5.0 options:0 animations:^{
+            self.homeView.instructionsOverlayView.alpha = 0.0f;
         } completion:^(BOOL finished) {
-            self.homeView.pickToolImageView.hidden = YES;
-            self.homeView.setLanguageImageView.hidden = YES;
+            self.homeView.instructionsOverlayView.hidden = YES;
             [[GTDefaults sharedDefaults]setIsFirstLaunch:[NSNumber numberWithBool:NO]];
         }];
-    }
+//    }
     
     NSLog(@"phone's :%@",[[GTDefaults sharedDefaults]phonesLanguageCode]);
     
