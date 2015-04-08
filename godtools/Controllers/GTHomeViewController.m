@@ -176,7 +176,15 @@
         self.homeView.translatorModeLabel.hidden = YES;
         self.homeView.refreshDraftsView.hidden = YES;
     }
+    
     [self setData];
+
+    if(![self languageHasLivePackages:[self getCurrentPrimaryLanguage]]) {
+        self.languageCode = @"en";
+        [[GTDefaults sharedDefaults] setCurrentLanguageCode:@"en" ];
+        [self setData];
+    }
+        
     [self.homeView.tableView reloadData];
 }
 
@@ -429,13 +437,16 @@
 }
 
 #pragma mark - Data setter methods
-
+-(GTLanguage *) getCurrentPrimaryLanguage {
+    NSArray *languages = [[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:self.languageCode inBackground:YES];
+    return(GTLanguage*)[languages objectAtIndex:0];
+}
 -(void)setData{
     
     self.languageCode = [[GTDefaults sharedDefaults]currentLanguageCode];
     NSArray *languages = [[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:self.languageCode inBackground:YES];
     
-    GTLanguage* mainLanguage = (GTLanguage*)[languages objectAtIndex:0];
+    GTLanguage* mainLanguage = [self getCurrentPrimaryLanguage];
     
     self.articles = [[mainLanguage.packages allObjects]mutableCopy];
     
@@ -479,11 +490,7 @@
 
     
     if([[GTDefaults sharedDefaults] isInTranslatorMode] == [NSNumber numberWithBool:NO]){
-        
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"status == %@",@"live"];
-        NSArray *livePackages = [[language.packages allObjects] filteredArrayUsingPredicate:predicate];
-
-        shouldSetPhonesLanguageAsMainLanguage = shouldSetPhonesLanguageAsMainLanguage && livePackages.count>0;
+        shouldSetPhonesLanguageAsMainLanguage = shouldSetPhonesLanguageAsMainLanguage && [self languageHasLivePackages:language];
     }else if([[GTDefaults sharedDefaults] isInTranslatorMode] == [NSNumber numberWithBool:YES]){
         shouldSetPhonesLanguageAsMainLanguage = shouldSetPhonesLanguageAsMainLanguage && language.packages.count>0;
     }
@@ -493,6 +500,13 @@
             [self.homeView setUserInteractionEnabled:YES];
             [self.phonesLanguageAlert show];
     }
+}
+
+-(BOOL) languageHasLivePackages : (GTLanguage *)currentLanguage {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"status == %@",@"live"];
+    NSArray *livePackages = [[currentLanguage.packages allObjects] filteredArrayUsingPredicate:predicate];
+    
+    return livePackages.count>0;
 }
 
 -(void)setMainLanguageToPhonesLanguage{
