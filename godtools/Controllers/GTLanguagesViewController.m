@@ -53,6 +53,11 @@ NSString *languageDownloading = nil;
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(restoreBackButton)
+                                                 name: GTLanguageViewDataImporterNotificationLanguageDownloadFinished
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(setData)
                                                  name:GTDataImporterNotificationMenuUpdateFinished
                                                object:nil];
@@ -108,6 +113,10 @@ NSString *languageDownloading = nil;
     }
 }
 
+- (void)restoreBackButton{
+    self.navigationController.navigationItem.backBarButtonItem.enabled = NO;
+}
+
 - (void)setData{
     self.languages = [[[GTStorage sharedStorage]fetchArrayOfModels:[GTLanguage class] inBackground:YES]mutableCopy];
     
@@ -115,8 +124,6 @@ NSString *languageDownloading = nil;
     sortedArray = [self.languages sortedArrayUsingSelector:@selector(compare:)];
     
     self.languages = [sortedArray mutableCopy];
-    
-    
     
     if([[GTDefaults sharedDefaults] isChoosingForMainLanguage] == [NSNumber numberWithBool:NO]){
         GTLanguage *main = [[[GTStorage sharedStorage]fetchArrayOfModels:[GTLanguage class] usingKey:@"code" forValues:@[[[GTDefaults sharedDefaults] currentLanguageCode]] inBackground:YES] objectAtIndex:0];
@@ -239,10 +246,12 @@ NSString *languageDownloading = nil;
             if([self downloadLanguage:cell.languageName.text]) {
                 [(UIButton *) cell.accessoryView setTitle:@"Cancel" forState:UIControlStateNormal];
                 languageDownloading = cell.languageName.text;
+                self.navigationController.navigationItem.backBarButtonItem.enabled = NO;
             }
         }
         else if ([title isEqualToString:@"Cancel"]) {
             languageDownloading = nil;
+            [self restoreBackButton];
             [[GTDataImporter sharedImporter] cancelDownloadPackagesForLanguage];
         }
     }
