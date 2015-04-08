@@ -134,6 +134,8 @@ NSString *languageDownloading = nil;
     
     self.languages = [[self.languages filteredArrayUsingPredicate:predicate]mutableCopy];
     
+    self.view.userInteractionEnabled = YES;
+    
     [self.tableView reloadData];
 }
 
@@ -268,6 +270,8 @@ NSString *languageDownloading = nil;
             [[NSNotificationCenter defaultCenter] postNotificationName:GTLanguageViewDataImporterNotificationLanguageDownloadProgressMade
                                                                 object:self
                                                               userInfo:nil];
+            
+            self.view.userInteractionEnabled = NO;
             
             [[GTDataImporter sharedImporter] downloadPackagesForLanguage:gtLanguage
                                                     withProgressNotifier:GTLanguageViewDataImporterNotificationLanguageDownloadProgressMade
