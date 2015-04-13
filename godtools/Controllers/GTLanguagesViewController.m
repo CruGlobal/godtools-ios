@@ -260,7 +260,7 @@ BOOL languageDownloadCancelled = FALSE;
 - (void) languageAction:(UIButton *)button{
     NSLog(@"languageAction() start ...");
 
-    GTLanguageViewCell *cell = ((GTLanguageViewCell*)(UITableViewCell*)button.superview);
+    GTLanguageViewCell *cell = ((GTLanguageViewCell*) button.superview);
     languageActionCell = cell;
 
     // don't take any action if we are currently downloading some other language
