@@ -275,15 +275,16 @@ BOOL languageDownloadCancelled = FALSE;
         
         NSLog(@"languageAction() language name %@, title label %@, title %@", cell.languageName.text, button.titleLabel, title);
 
-        if ([title isEqualToString:@"Download"]) {
-            
+        if (!cell.isDownloading) {
+            [cell setDownloadingField:TRUE];
             if([self downloadLanguage:cell.languageName.text]) {
                 [(UIButton *) cell.accessoryView setTitle:@"Cancel" forState:UIControlStateNormal];
                 languageActionCell.checkBox.hidden = TRUE;
                 languageActionCell.errorIcon.hidden = TRUE;
             }
         }
-        else if ([title isEqualToString:@"Cancel"]) {
+        else {
+            [cell setDownloadingField:FALSE];
             [[GTDataImporter sharedImporter] cancelDownloadPackagesForLanguage];
             languageDownloadCancelled = TRUE;
         }

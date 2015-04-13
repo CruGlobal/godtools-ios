@@ -15,4 +15,6 @@
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (weak, nonatomic) IBOutlet UIImageView *errorIcon;
 
+-(BOOL) isDownloading;
+-(void) setDownloadingField: (BOOL)downloading;
 @end

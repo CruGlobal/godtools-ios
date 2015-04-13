@@ -8,6 +8,12 @@
 
 #import "GTLanguageViewCell.h"
 
+@interface GTLanguageViewCell()
+
+@property (nonatomic) BOOL downloading;
+
+@end
+
 @implementation GTLanguageViewCell
 
 - (void)awakeFromNib {
@@ -18,6 +24,14 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (BOOL)isDownloading{
+    return self.downloading;
+}
+
+- (void) setDownloadingField:(BOOL)downloading {
+    self.downloading = downloading;
 }
 
 @end
