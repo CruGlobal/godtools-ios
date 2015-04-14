@@ -6,10 +6,8 @@
 //  Copyright (c) 2014 Michael Harrison. All rights reserved.
 //
 
-#import "GTSettingsView.h"
 #import "GTSettingsViewController.h"
 #import "GTLanguagesViewController.h"
-#import "GTSettingsViewCell.h"
 #import "GTLanguage+Helper.h"
 #import "GTStorage.h"
 #import "GTDefaults.h"
@@ -19,13 +17,23 @@
 
 @interface GTSettingsViewController ()
 
-@property (strong, nonatomic) GTSettingsView *settingsView;
-
 @property (strong, nonatomic) GTLanguage *mainLanguage;
 @property (strong, nonatomic) GTLanguage *parallelLanguage;
 
 @property (strong, nonatomic) UIAlertView *exitTranslatorModeAlert;
 @property (strong, nonatomic) UIAlertView *buttonLessAlert;
+
+@property (strong, nonatomic) IBOutlet UIButton *primaryLanguageButton;
+@property (strong, nonatomic) IBOutlet UIButton *parallelLanguageButton;
+@property (strong, nonatomic) IBOutlet UILabel *primaryLanguageLabel;
+@property (strong, nonatomic) IBOutlet UILabel *parallelLanguageLabel;
+@property (strong, nonatomic) IBOutlet UILabel *previewModeLabel;
+@property (strong, nonatomic) IBOutlet UISwitch *previewModeSwitch;
+@property (strong, nonatomic) IBOutlet UILabel *parallelModeInstructions;
+
+- (IBAction)previewModeSwitchPressed;
+- (IBAction)changePrimaryLanguagePressed;
+- (IBAction)changeParallelLanguagePressed;
 
 @property AFNetworkReachabilityManager *afReachability;
 
@@ -37,17 +45,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.settingsView = (GTSettingsView*) [[[NSBundle mainBundle] loadNibNamed:@"GTSettingsView" owner:nil options:nil] objectAtIndex:0];
-    self.settingsView.frame = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, self.view.frame.size.height);
-    
-    self.view = self.settingsView;
-    
-    self.settingsView.delegate = self;
 
-    self.settingsView.previewModeLabel.text = NSLocalizedString(@"GTSettings_previewMode_label", nil);
-    self.settingsView.languageLabel.text = NSLocalizedString(@"GTSettings_mainLanguage_label", nil);
-    self.settingsView.parallelLanguageLabel.text = NSLocalizedString(@"GTSettings_parallelLanguage_label", nil);
+    self.previewModeLabel.text = NSLocalizedString(@"GTSettings_previewMode_label", nil);
+    self.primaryLanguageLabel.text = NSLocalizedString(@"GTSettings_mainLanguage_label", nil);
+    self.parallelLanguageLabel.text =NSLocalizedString(@"GTSettings_parallelLanguage_label", nil);
+    
     [self setLanguageNameLabelValues];
     
     self.exitTranslatorModeAlert = [[UIAlertView alloc]
@@ -77,8 +79,7 @@
     self.navigationController.navigationBar.topItem.title = @"Settings";
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     
-    [self.settingsView.previewModeSwitch setOn: [[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]];
-
+    [self.previewModeSwitch setOn: [[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -158,19 +159,14 @@
     }
 }
 
-#pragma mark - Settings view delegates
+#pragma mark - Outlets
 
--(void)chooseLanguageButtonPressed {
-    [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:[NSNumber numberWithBool: YES]];
-    [self performSegueWithIdentifier:@"settingsToLanguageViewSegue" sender:self];
-}
-
--(void)chooseParallelLanguageButtonPressed {
+- (IBAction)changeParallelLanguagePressed {
     [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:[NSNumber numberWithBool: NO]];
     [self performSegueWithIdentifier:@"settingsToLanguageViewSegue" sender:self];
 }
 
--(void)previewModeSwitchPressed {
+- (IBAction)previewModeSwitchPressed {
     if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:NO]){
         [self performSegueWithIdentifier:@"settingsToAccessCodeScreenSegue" sender:self];
     }else{
@@ -178,16 +174,21 @@
     }
 }
 
+- (IBAction)changePrimaryLanguagePressed {
+    [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:[NSNumber numberWithBool: YES]];
+    [self performSegueWithIdentifier:@"settingsToLanguageViewSegue" sender:self];
+}
+
 #pragma mark - UI Utilities
 
 - (void)setLanguageNameLabelValues {
-    self.settingsView.languageNameLabel.text = [[self mainLanguage].name uppercaseString];
-    
+    [self.primaryLanguageButton setTitle:[[self mainLanguage].name uppercaseString] forState:UIControlStateNormal];
+
     if([self parallelLanguage] == nil) {
-        self.settingsView.parallelLanguageNameLabel.text = @"None Selected";
+        [self.parallelLanguageButton setTitle: @"None Selected" forState:UIControlStateNormal];
     }
     else {
-        self.settingsView.parallelLanguageNameLabel.text = [[self parallelLanguage].name uppercaseString];
+        [self.parallelLanguageButton setTitle: [[self parallelLanguage].name uppercaseString] forState:UIControlStateNormal];
     }
 }
 
@@ -195,9 +196,9 @@
     if(alertView == self.exitTranslatorModeAlert){
         if(buttonIndex == 1){
                 [[GTDefaults sharedDefaults]setIsInTranslatorMode:[NSNumber numberWithBool:NO]];
-                [self.settingsView.previewModeSwitch setOn:NO animated:YES];
+                [self.previewModeSwitch setOn:NO animated:YES];
         }else{
-                [self.settingsView.previewModeSwitch setOn:YES animated:YES];
+                [self.previewModeSwitch setOn:YES animated:YES];
         }
     }
 }

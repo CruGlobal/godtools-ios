@@ -76,10 +76,87 @@
                     <view key="view" contentMode="scaleToFill" id="dbd-kT-ndl">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="GT4_HomeScreen_Background_" translatesAutoresizingMaskIntoConstraints="NO" id="ZcR-5w-JH4">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            </imageView>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="GT4_SettingsScreen_ButtonBar15%_Teal_" translatesAutoresizingMaskIntoConstraints="NO" id="B77-rt-eeN">
+                                <rect key="frame" x="0.0" y="94" width="375" height="52"/>
+                            </imageView>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="GT4_SettingsScreen_ButtonBar15%_Teal_" translatesAutoresizingMaskIntoConstraints="NO" id="yMd-4c-vb1">
+                                <rect key="frame" x="0.0" y="196" width="375" height="52"/>
+                            </imageView>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="GT4_SettingsScreen_ButtonBar15%_Orange_" translatesAutoresizingMaskIntoConstraints="NO" id="Hra-57-Rjx">
+                                <rect key="frame" x="0.0" y="404" width="375" height="52"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MsA-3e-8Np">
+                                <rect key="frame" x="30" y="65" width="274" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rdm-Ei-0uu">
+                                <rect key="frame" x="30" y="404" width="290" height="52"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3LE-oe-ngK">
+                                <rect key="frame" x="255" y="414" width="51" height="31"/>
+                                <connections>
+                                    <action selector="previewModeSwitchPressed" destination="oIQ-32-exZ" eventType="valueChanged" id="aP8-z8-q3d"/>
+                                </connections>
+                            </switch>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cW2-xI-6th">
+                                <rect key="frame" x="0.0" y="94" width="320" height="52"/>
+                                <inset key="titleEdgeInsets" minX="21" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="294" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Button" image="GT4_SettingsScreen_RightArrow_">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="changePrimaryLanguagePressed" destination="oIQ-32-exZ" eventType="touchUpInside" id="XLR-Iz-mT3"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CL7-HZ-wpT">
+                                <rect key="frame" x="0.0" y="196" width="320" height="52"/>
+                                <inset key="titleEdgeInsets" minX="21" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="294" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Button" image="GT4_SettingsScreen_RightArrow_">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="changeParallelLanguagePressed" destination="oIQ-32-exZ" eventType="touchUpInside" id="MKw-Wc-R2y"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yop-JO-bK0">
+                                <rect key="frame" x="30" y="167" width="274" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Zts-W6-ubl">
+                                <rect key="frame" x="6" y="251" width="265" height="89"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <inset key="imageEdgeInsets" minX="82" minY="0.0" maxX="0.0" maxY="15"/>
+                                <state key="normal" title="*Tap screen during presentation and use       to toggle language. Icon is not shown if booklet is not available." image="Package_PopUpToolBar_Icon_Switch.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="5kU-if-Z1Q"/>
                     <connections>
+                        <outlet property="parallelLanguageButton" destination="CL7-HZ-wpT" id="8RG-aL-bTQ"/>
+                        <outlet property="parallelLanguageLabel" destination="Yop-JO-bK0" id="aFA-hJ-xyc"/>
+                        <outlet property="previewModeLabel" destination="Rdm-Ei-0uu" id="GFX-h5-pZG"/>
+                        <outlet property="previewModeSwitch" destination="3LE-oe-ngK" id="EoD-hN-Bfb"/>
+                        <outlet property="primaryLanguageButton" destination="cW2-xI-6th" id="Icf-JV-Fzr"/>
+                        <outlet property="primaryLanguageLabel" destination="MsA-3e-8Np" id="Cr7-50-tMJ"/>
                         <segue destination="YJa-Gt-v9R" kind="push" identifier="settingsToLanguageViewSegue" id="Qqk-3p-fFz"/>
                         <segue destination="eUe-NG-066" kind="push" id="PlZ-Mg-hcL"/>
                         <segue destination="bg8-8O-T0Y" kind="push" identifier="settingsToAccessCodeScreenSegue" id="Jp3-wq-ZDc"/>
@@ -177,6 +254,13 @@
             <point key="canvasLocation" x="1170" y="-149"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="GT4_HomeScreen_Background_" width="320" height="568"/>
+        <image name="GT4_SettingsScreen_ButtonBar15%_Orange_" width="375" height="52"/>
+        <image name="GT4_SettingsScreen_ButtonBar15%_Teal_" width="375" height="52"/>
+        <image name="GT4_SettingsScreen_RightArrow_" width="10" height="18"/>
+        <image name="Package_PopUpToolBar_Icon_Switch.png" width="24" height="24"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
