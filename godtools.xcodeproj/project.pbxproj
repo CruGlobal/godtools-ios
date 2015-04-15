@@ -18,8 +18,6 @@
 		4F20B3DA1AC9A2F60026DC9E /* EveryStudentItemsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F20B3D01AC9A2F60026DC9E /* EveryStudentItemsController.xib */; };
 		4F20B3DB1AC9A2F60026DC9E /* EveryStudentSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F20B3D21AC9A2F60026DC9E /* EveryStudentSearchCell.m */; };
 		4F62978D1AA8E0CC003E1A1C /* GTAccessCodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F62978C1AA8E0CC003E1A1C /* GTAccessCodeController.m */; };
-		4FB17C461AA649CC0027C84E /* GTSettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4FB17C451AA649CC0027C84E /* GTSettingsView.xib */; };
-		4FB17C491AA64B250027C84E /* GTSettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB17C481AA64B250027C84E /* GTSettingsView.m */; };
 		6692BB1C1A072B0C00B15355 /* GTDataImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 68464FD218E1CEBE00D14C2B /* GTDataImporter.m */; };
 		66D1D7011A09F40F00AC4E48 /* en.zip in Resources */ = {isa = PBXBuildFile; fileRef = 66D1D6AB1A09F40F00AC4E48 /* en.zip */; };
 		66D1D7021A09F40F00AC4E48 /* meta.xml in Resources */ = {isa = PBXBuildFile; fileRef = 66D1D6AC1A09F40F00AC4E48 /* meta.xml */; };
@@ -83,8 +81,6 @@
 		B76536C51A0CC6CB001C3FC3 /* GTHomeViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B76536C31A0CC6CB001C3FC3 /* GTHomeViewCell.m */; };
 		B76536C61A0CC6CB001C3FC3 /* GTHomeViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B76536C41A0CC6CB001C3FC3 /* GTHomeViewCell.xib */; };
 		B76536CC1A0CCAE8001C3FC3 /* GTSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B76536CB1A0CCAE8001C3FC3 /* GTSettingsViewController.m */; };
-		B76536D11A0CCBFB001C3FC3 /* GTSettingsViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B76536D01A0CCBFB001C3FC3 /* GTSettingsViewCell.xib */; };
-		B76536D41A0CCC17001C3FC3 /* GTSettingsViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B76536D31A0CCC17001C3FC3 /* GTSettingsViewCell.m */; };
 		B76536D71A0CD1AC001C3FC3 /* GTLanguagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B76536D61A0CD1AC001C3FC3 /* GTLanguagesViewController.m */; };
 		B76536DA1A0CD2CF001C3FC3 /* GTLanguageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B76536D91A0CD2CF001C3FC3 /* GTLanguageViewCell.m */; };
 		B76536DC1A0CD2E1001C3FC3 /* GTLanguageViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B76536DB1A0CD2E1001C3FC3 /* GTLanguageViewCell.xib */; };
@@ -131,9 +127,6 @@
 		4F20B3D21AC9A2F60026DC9E /* EveryStudentSearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EveryStudentSearchCell.m; path = Controllers/EveryStudent/EveryStudentSearchCell.m; sourceTree = "<group>"; };
 		4F62978B1AA8E06B003E1A1C /* GTAccessCodeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GTAccessCodeController.h; sourceTree = "<group>"; };
 		4F62978C1AA8E0CC003E1A1C /* GTAccessCodeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTAccessCodeController.m; path = Controllers/GTAccessCodeController.m; sourceTree = "<group>"; };
-		4FB17C451AA649CC0027C84E /* GTSettingsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GTSettingsView.xib; sourceTree = "<group>"; };
-		4FB17C471AA64A7C0027C84E /* GTSettingsView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GTSettingsView.h; sourceTree = "<group>"; };
-		4FB17C481AA64B250027C84E /* GTSettingsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTSettingsView.m; sourceTree = "<group>"; };
 		66D1D6AB1A09F40F00AC4E48 /* en.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = en.zip; sourceTree = "<group>"; };
 		66D1D6AC1A09F40F00AC4E48 /* meta.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = meta.xml; sourceTree = "<group>"; };
 		66D1D71B1A0B74EA00AC4E48 /* GTLanguage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTLanguage.h; path = "godtools-ios-api/Models/GTLanguage.h"; sourceTree = "<group>"; };
@@ -205,9 +198,6 @@
 		B76536C41A0CC6CB001C3FC3 /* GTHomeViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GTHomeViewCell.xib; path = Views/GTHomeViewCell.xib; sourceTree = "<group>"; };
 		B76536CA1A0CCAE8001C3FC3 /* GTSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTSettingsViewController.h; path = Controllers/GTSettingsViewController.h; sourceTree = "<group>"; };
 		B76536CB1A0CCAE8001C3FC3 /* GTSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTSettingsViewController.m; path = Controllers/GTSettingsViewController.m; sourceTree = "<group>"; };
-		B76536D01A0CCBFB001C3FC3 /* GTSettingsViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GTSettingsViewCell.xib; path = Views/GTSettingsViewCell.xib; sourceTree = "<group>"; };
-		B76536D21A0CCC17001C3FC3 /* GTSettingsViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTSettingsViewCell.h; path = Views/GTSettingsViewCell.h; sourceTree = "<group>"; };
-		B76536D31A0CCC17001C3FC3 /* GTSettingsViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTSettingsViewCell.m; path = Views/GTSettingsViewCell.m; sourceTree = "<group>"; };
 		B76536D51A0CD1AC001C3FC3 /* GTLanguagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTLanguagesViewController.h; path = Controllers/GTLanguagesViewController.h; sourceTree = "<group>"; };
 		B76536D61A0CD1AC001C3FC3 /* GTLanguagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTLanguagesViewController.m; path = Controllers/GTLanguagesViewController.m; sourceTree = "<group>"; };
 		B76536D81A0CD2CF001C3FC3 /* GTLanguageViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTLanguageViewCell.h; path = Views/GTLanguageViewCell.h; sourceTree = "<group>"; };
@@ -489,15 +479,9 @@
 				B7D2AF891A43EEAC009B7D5B /* GTSettingsAboutGodToolsView.h */,
 				B7D2AF8A1A43EEAC009B7D5B /* GTSettingsAboutGodToolsView.m */,
 				B7D2AF871A43D2D4009B7D5B /* GTSettingsAboutGodToolsView.xib */,
-				B76536D21A0CCC17001C3FC3 /* GTSettingsViewCell.h */,
-				B76536D31A0CCC17001C3FC3 /* GTSettingsViewCell.m */,
-				B76536D01A0CCBFB001C3FC3 /* GTSettingsViewCell.xib */,
 				B7EA1B441A3826070098890F /* GTSplashScreenView.h */,
 				B7EA1B451A3826070098890F /* GTSplashScreenView.m */,
 				B7EA1B421A38097D0098890F /* GTSplashScreenView.xib */,
-				4FB17C451AA649CC0027C84E /* GTSettingsView.xib */,
-				4FB17C471AA64A7C0027C84E /* GTSettingsView.h */,
-				4FB17C481AA64B250027C84E /* GTSettingsView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -607,9 +591,7 @@
 				4F20B3D51AC9A2F60026DC9E /* EveryStudentArticleView.xib in Resources */,
 				B76536DC1A0CD2E1001C3FC3 /* GTLanguageViewCell.xib in Resources */,
 				682F0E9018D8FBE100FBE3E0 /* config.plist in Resources */,
-				B76536D11A0CCBFB001C3FC3 /* GTSettingsViewCell.xib in Resources */,
 				68740D2B18D24F9A00D36C0E /* Images.xcassets in Resources */,
-				4FB17C461AA649CC0027C84E /* GTSettingsView.xib in Resources */,
 				B7D2AF851A415419009B7D5B /* NotoSansEthiopic-Bold.ttf in Resources */,
 				68740D1D18D24F9A00D36C0E /* InfoPlist.strings in Resources */,
 				4F20B3DA1AC9A2F60026DC9E /* EveryStudentItemsController.xib in Resources */,
@@ -713,9 +695,7 @@
 				68A1CBFD18DB6C3B00D84F12 /* GTDefaults.m in Sources */,
 				4F20B3D91AC9A2F60026DC9E /* EveryStudentItemsController.m in Sources */,
 				68E6067A18D3947600844377 /* GTLanguage+Helper.m in Sources */,
-				4FB17C491AA64B250027C84E /* GTSettingsView.m in Sources */,
 				B7D2AF8E1A43F131009B7D5B /* GTSettingsAboutGodToolsViewController.m in Sources */,
-				B76536D41A0CCC17001C3FC3 /* GTSettingsViewCell.m in Sources */,
 				4F20B3DB1AC9A2F60026DC9E /* EveryStudentSearchCell.m in Sources */,
 				4F20B3D61AC9A2F60026DC9E /* EveryStudentCell.m in Sources */,
 				B7E472831A15A210002DF715 /* GTHomeView.m in Sources */,
