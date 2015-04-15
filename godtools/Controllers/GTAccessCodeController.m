@@ -129,8 +129,7 @@
     
     NSString *accessCode = self.accessCodeTextField.text;
     
-    [[GTDefaults sharedDefaults]setTranslatorAccessCode:accessCode];
-    [[GTDataImporter sharedImporter]authorizeTranslator];
+    [[GTDataImporter sharedImporter]authorizeTranslator :accessCode];
     
     return YES;
 }

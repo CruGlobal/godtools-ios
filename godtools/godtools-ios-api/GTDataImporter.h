@@ -102,7 +102,7 @@
 - (void)downloadPageForLanguage:(GTLanguage*)language package:(GTPackage*)package pageID:(NSString*)pageID ;
 
 
-- (void)authorizeTranslator;
+- (void)authorizeTranslator: (NSString *)accessCode;
 
 - (void)persistMenuInfoFromXMLElement:(RXMLElement *)rootElement;
 

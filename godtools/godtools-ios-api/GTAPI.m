@@ -61,7 +61,7 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
 		[self didChangeValueForKey:@"errorHandler"];
 		
 		[self willChangeValueForKey:@"apiKey"];
-		_apiKey				= config.apiKeyGodTools;
+        _apiKey				= [[GTDefaults sharedDefaults] genericApiToken];
 		[self didChangeValueForKey:@"apiKey"];
 		
 		[self willChangeValueForKey:@"interpreterVersion"];
@@ -94,21 +94,20 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
     NSLog(@"token:%@",_authToken);
 	[self.requestSerializer setValue:_authToken
 				  forHTTPHeaderField:GTAPIDefaultHeaderKeyAPIKey];
-	
 }
 
 #pragma mark - Authorization methods
 
 - (void)getAuthTokenForDeviceID:(NSString *)deviceID success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSString *authToken))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure {
 	
-    NSMutableURLRequest *request			= [self.requestSerializer authRequestWithAccessCode:[[GTDefaults sharedDefaults] translatorAccessCode]
+    NSMutableURLRequest *request			= [self.requestSerializer authRequestWithAccessCode:nil
 																			  deviceID:deviceID
 																				 error:nil];
 	
 	AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request
 																				success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement) {
                                                                                     NSLog(@"get auth successful");
-																					success(request, response, [XMLElement child:GTAPIAuthEndpointAuthTokenKey].text);
+																					success(request, response, [[response allHeaderFields] valueForKey:@"Authorization"]);
 																					
 																				}
 																				failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement) {

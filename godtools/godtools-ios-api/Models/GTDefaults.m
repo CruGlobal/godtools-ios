@@ -19,9 +19,9 @@ NSString *const GTDefaultsisChoosingForMainLanguage         = @"is_for_main_lang
 NSString *const GTDefaultsisFirstLaunch                     = @"is_first_launch";
 NSString *const GTDefaultsisInTranslatorMode                = @"is_in_translator_mode";
 
-NSString *const GTDefaultstranslatorAccessCode              = @"translator_access_code";
-
 NSString *const GTDefaultstranslationDownloadStatus         = @"translation_download_status";
+
+NSString *const GTDefaultsgenericApiToken                   = @"generic_api_token";
 
 @interface GTDefaults ()
 
@@ -39,9 +39,9 @@ NSString *const GTDefaultstranslationDownloadStatus         = @"translation_down
 @synthesize isFirstLaunch               = _isFirstLaunch;
 @synthesize isInTranslatorMode          = _isInTranslatorMode;
 
-@synthesize translatorAccessCode        = _translatorAccessCode;
 @synthesize translationDownloadStatus   = _translationDownloadStatus;
 
+@synthesize genericApiToken             = _genericApiToken;
 
 #pragma mark - initialization
 
@@ -298,6 +298,26 @@ NSString *const GTDefaultstranslationDownloadStatus         = @"translation_down
     }
     
     return _translationDownloadStatus;
+}
+
+-(void) setGenericApiToken :(NSString *) genericApiToken {
+    [self willChangeValueForKey:@"genericApiToken"];
+
+    _genericApiToken = genericApiToken;
+    
+    [self didChangeValueForKey:@"genericApiToken"];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:genericApiToken forKey:GTDefaultsgenericApiToken];
+}
+
+- (NSString *)genericApiToken {
+    if (!_genericApiToken) {
+        [self willChangeValueForKey:@"genericApiToken"];
+        _genericApiToken = [[NSUserDefaults standardUserDefaults] stringForKey:GTDefaultsgenericApiToken];
+        [self didChangeValueForKey:@"genericApiToken"];
+    }
+    
+    return _genericApiToken;
 }
 
 @end

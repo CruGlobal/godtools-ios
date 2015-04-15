@@ -601,7 +601,6 @@ BOOL gtLanguageDownloadUserCancellation                                 = FALSE;
 	self.packagesNeedingToBeUpdated = [fetchedObjects mutableCopy];
 
     if (self.packagesNeedingToBeUpdated.count > 0) {
-		[[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationNameUpdateNeeded object:self];
         [self updatePackagesWithNewVersions];
     }
 }
@@ -623,13 +622,12 @@ BOOL gtLanguageDownloadUserCancellation                                 = FALSE;
 
 
 #pragma mark - Translator Mode
--(void)authorizeTranslator{
+-(void)authorizeTranslator :(NSString *)accessCode{
 
     __weak typeof(self)weakSelf = self;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationAuthTokenUpdateStarted object:self];
     
-    NSString *accessCode = [[GTDefaults sharedDefaults]translatorAccessCode];
     NSLog(@"access code: %@",accessCode);
     
     [weakSelf.api getAuthTokenWithAccessCode:accessCode success:^(NSURLRequest *request, NSHTTPURLResponse *response,NSString *authToken) {

@@ -38,6 +38,7 @@
     NSLog(@"SPLASH IS   %@", [self.splashScreen class]);
     
     [self.splashScreen initDownloadIndicator];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(updateFinished:)
                                                  name: GTDataImporterNotificationMenuUpdateFinished
@@ -46,19 +47,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(showLoadingIndicator:)
                                                  name: GTDataImporterNotificationMenuUpdateStarted
-                                               object:nil];
-    
-   /* [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(authorizeTranslatorAlert:)
-                                                 name: GTDataImporterNotificationAuthTokenUpdateStarted
-                                               object:nil];*/
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(updateMenu)
-                                                 name: GTDataImporterNotificationAuthTokenUpdateSuccessful
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(updateMenu)
-                                                 name: GTDataImporterNotificationAuthTokenUpdateFail
                                                object:nil];
     
     self.afReachability = [AFNetworkReachabilityManager managerForDomain:@"www.google.com"];
@@ -77,16 +65,12 @@
         [self extractMetaData];
     }
     
-    if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]){// && self.afReachability.reachable){
-        [[GTDataImporter sharedImporter] authorizeTranslator];
-    }//else{
-    //    [[GTDefaults sharedDefaults]setIsInTranslatorMode:[NSNumber numberWithBool:NO]];
-    //}
-    else{
-        [self updateMenu];
+    if(![[GTDefaults sharedDefaults] genericApiToken]) {
+        [self requestGenericAuthToken];
+    } else {
+        [self updateFromApi];
+        [self goToHome];
     }
-    
-    
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -97,17 +81,7 @@
                                                     name:GTDataImporterNotificationMenuUpdateFinished
                                                   object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:GTDataImporterNotificationMenuUpdateStarted
-                                                  object:nil];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                 name: GTDataImporterNotificationAuthTokenUpdateSuccessful
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                 name: GTDataImporterNotificationAuthTokenUpdateFail
-                                               object:nil];
-
+                                                    name:GTDataImporterNotificationMenuUpdateStarted                                              object:nil];
 }
 
 -(void)goToHome{
@@ -120,13 +94,31 @@
      [self performSegueWithIdentifier:@"splashToHomeViewSegue" sender:self];
 }
 
+-(void) requestGenericAuthToken {
+    [[GTAPI sharedAPI] getAuthTokenForDeviceID:nil
+                                       success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSString *authToken) {
+                                           [[GTDefaults sharedDefaults] setGenericApiToken:authToken];
+                                           [[GTAPI sharedAPI] setAuthToken:authToken];
+                                           [self updateFromApi];
+                                           [self goToHome];
+                                       }
+                                       failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                                           NSLog(@"generic auth failed!!");
+                                           [self goToHome];
+                                       }];
+}
+
+-(void)updateFromApi {
+    [self updateMenu];
+    [[GTDataImporter sharedImporter] downloadPackagesForLanguage:[[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults]phonesLanguageCode] inBackground:YES]objectAtIndex:0]];
+}
+
 -(void)updateMenu{
-    if(self.afReachability.reachable){
+//    if(self.afReachability.reachable){
         [[GTDataImporter sharedImporter] updateMenuInfo];
-    }else{
-        NSLog(@"NOT REACHABLE");
-        [self goToHome];
-    }
+//    }else{
+//        NSLog(@"NOT REACHABLE");
+//    }
 }
 
 -(void)showLoadingIndicator:(NSNotification *) notification{
