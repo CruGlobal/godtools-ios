@@ -200,7 +200,9 @@ BOOL gtLanguageDownloadUserCancellation                                 = FALSE;
             currentCodes = @[self.defaults.currentLanguageCode];
         }
         
-		[self checkForPackagesWithNewVersionsForLanguageCodes:currentCodes];
+        #warning: this check is broken and needs to be fixed
+        //it inserts new records into the local database every time the menu status is updated, instead of updating existing rows
+		//[self checkForPackagesWithNewVersionsForLanguageCodes:currentCodes];
 		
 	}
 	
@@ -609,7 +611,6 @@ BOOL gtLanguageDownloadUserCancellation                                 = FALSE;
 	
     NSError *error;
     [self.packagesNeedingToBeUpdated enumerateObjectsUsingBlock:^(GTPackage *package, NSUInteger index, BOOL *stop) {
-        
         package.language.downloaded =  [NSNumber numberWithBool: NO];
         
     }];

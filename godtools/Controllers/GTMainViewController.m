@@ -68,7 +68,7 @@
     if(![[GTDefaults sharedDefaults] genericApiToken]) {
         [self requestGenericAuthToken];
     } else {
-        [self updateFromApi];
+        [self updateMenu];
         [self goToHome];
     }
 }
@@ -109,7 +109,8 @@
 }
 
 -(void)updateFromApi {
-    [self updateMenu];
+    [self updateMenu];;
+    [[GTDefaults sharedDefaults] setIsChoosingForMainLanguage:[NSNumber numberWithBool: YES]];
     [[GTDataImporter sharedImporter] downloadPackagesForLanguage:[[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults]phonesLanguageCode] inBackground:YES]objectAtIndex:0]];
 }
 
