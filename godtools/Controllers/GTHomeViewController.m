@@ -16,6 +16,10 @@
 #import "GTDefaults.h"
 #import "EveryStudentController.h"
 
+#import "GAI.h"
+#import "GAITracker.h"
+#import "GAIDictionaryBuilder.h"
+#import "GAIFields.h"
 
 @interface GTHomeViewController ()
 
@@ -160,6 +164,8 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
+    [self trackScreen];
+    
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0]];
     [self.navigationController.navigationBar setTintColor:[UIColor colorWithRed: 0.0 green:0.5 blue:1.0 alpha:1.0]];
     [self.navigationController.navigationBar setTranslucent:YES]; // required for iOS7
@@ -188,6 +194,14 @@
     [self.homeView.tableView reloadData];
 }
 
+-(void) trackScreen {
+    id tracker = [[GAI sharedInstance] trackerWithTrackingId:@"UA-325725-50"];
+    
+    [tracker set:kGAIScreenName
+           value:@"HomeScreen"];
+    
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+}
 #pragma mark - Download packages methods
 -(void)downloadFinished:(NSNotification *) notification{
     NSLog(@"NOTIFICATION: %@",notification.name);
