@@ -278,32 +278,6 @@ NSString *const GTDefaultstranslationDownloadStatus         = @"translation_down
     return _isInTranslatorMode;
 }
 
-#pragma mark - translatorAccessCode
-
-- (void)setTranslatorAccessCode:(NSString *)translatorAccessCode{
-    
-    [self willChangeValueForKey:@"translatorAccessCode"];
-    
-    _translatorAccessCode	= translatorAccessCode;
-    [self didChangeValueForKey:@"translatorAccessCode"];
-    
-    [[NSUserDefaults standardUserDefaults] setObject:translatorAccessCode forKey:GTDefaultstranslatorAccessCode];
-    
-}
-
-- (NSString *)translatorAccessCode {
-    
-    if (!_translatorAccessCode) {
-        
-        [self willChangeValueForKey:@"translatorAccessCode"];
-        _translatorAccessCode = [[NSUserDefaults standardUserDefaults] stringForKey:GTDefaultstranslatorAccessCode];
-        [self didChangeValueForKey:@"translatorAccessCode"];
-        
-    }
-    
-    return _translatorAccessCode;
-}
-
 #pragma mark - translationDownloadStatus
 
 -(void) setTranslationDownloadStatus :(NSString*) status{
