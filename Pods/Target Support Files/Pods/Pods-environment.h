@@ -88,7 +88,7 @@
 #define COCOAPODS_POD_AVAILABLE_SSCWhatsAppActivity
 #define COCOAPODS_VERSION_MAJOR_SSCWhatsAppActivity 1
 #define COCOAPODS_VERSION_MINOR_SSCWhatsAppActivity 2
-#define COCOAPODS_VERSION_PATCH_SSCWhatsAppActivity 0
+#define COCOAPODS_VERSION_PATCH_SSCWhatsAppActivity 2
 
 // SSZipArchive
 #define COCOAPODS_POD_AVAILABLE_SSZipArchive

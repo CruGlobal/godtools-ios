@@ -6,10 +6,6 @@
 //  Copyright (c) 2014 Sascha Schwabbauer. All rights reserved.
 //
 
-#ifndef NSFoundationVersionNumber_iOS_7_1
-#define NSFoundationVersionNumber_iOS_7_1 1047.25
-#endif
-
 #import "SSCWhatsAppActivity.h"
 
 NSString * const SSCActivityTypePostToWhatsApp = @"io.evolved.activity.postToWhatsApp";

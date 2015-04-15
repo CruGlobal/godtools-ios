@@ -169,8 +169,7 @@
         NSData * data;
         
         // Get the bundle that this class resides in. This allows to load resources from the app bundle when running unit tests.
-        NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-        NSString * bundlePath = [bundle pathForResource:aXMLFile ofType:aFileExtension];
+        NSString * bundlePath = [[NSBundle bundleForClass:[self class]] pathForResource:aXMLFile ofType:aFileExtension];
 
         if (!bundlePath) {
             if (error) {

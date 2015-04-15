@@ -1912,8 +1912,7 @@ NSString * const kAttr_filename		= @"filename";
         
     }
     
-    [self runInstructionsIfNecessary];
-    
+    [self runInstructionsIfNecessary];    
 }
 
 - (void)didReceiveMemoryWarning {
