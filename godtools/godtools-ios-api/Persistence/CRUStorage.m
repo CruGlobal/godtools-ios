@@ -64,7 +64,7 @@ NSString *const CRUStorageExceptionUserInfoKeyForError		= @"org.cru.crustorage.e
 	//merge changes from background context to main context once background saves.
 	__weak typeof(self)weakSelf = self;
 	[[NSNotificationCenter defaultCenter] addObserverForName:NSManagedObjectContextDidSaveNotification
-													  object:nil
+													  object:weakSelf.mainObjectContext
 													   queue:nil
 												  usingBlock:^(NSNotification *notification) {
 												  
