@@ -17,6 +17,8 @@
 #import "GTBaseView.h"
 #import "GTSplashScreenView.h"
 
+#import "GTGoogleAnalyticsTracker.h"
+
 @interface GTMainViewController ()
     @property (nonatomic, strong) NSArray *resources;
     @property (nonatomic, strong) GTSplashScreenView *splashScreen;
@@ -71,6 +73,12 @@
         [self updateMenu];
         [self goToHome];
     }
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [[[GTGoogleAnalyticsTracker sharedInstance] setScreenName:@"SplashScreen"] sendScreenView];
 }
 
 - (void)viewDidDisappear:(BOOL)animated

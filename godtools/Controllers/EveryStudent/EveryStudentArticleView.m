@@ -8,6 +8,7 @@
 
 #import "EveryStudentArticleView.h"
 
+
 @interface EveryStudentArticleView ()
 
 @property (nonatomic, weak) IBOutlet UITextView *content;

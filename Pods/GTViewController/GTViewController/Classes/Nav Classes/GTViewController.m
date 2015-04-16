@@ -21,6 +21,10 @@
 #import "SNInstructions.h"
 #import "GTPage.h"
 
+#import "GAITracker.h"
+#import "GAI.h"
+#import "GAIFields.h"
+#import "GAIDictionaryBuilder.h"
 
 NSString *const GTViewControllerNotificationUserInfoConfigFilenameKey			= @"org.cru.godtools.gtviewcontroller.notifications.all.key.configfilename";
 
@@ -401,7 +405,7 @@ NSString * const kAttr_filename		= @"filename";
         //let the page's view controllers know what has happened to their views
         [self.oldCenterPage viewHasTransitionedOut];
         [self.centerPage viewHasTransitionedIn];
-        
+        [self trackPageView];
     }
     //}
 }
@@ -1752,6 +1756,7 @@ NSString * const kAttr_filename		= @"filename";
         }
         
         [self animationCleanUp];
+        [self trackPageView];
     } else {
         self.animateCurrentViewOut = nil;
     }
@@ -1789,6 +1794,7 @@ NSString * const kAttr_filename		= @"filename";
         }
         
         [self animationCleanUp];
+        [self trackPageView];
     } else {
         self.animateNextViewIn = nil;
     }
@@ -1828,14 +1834,12 @@ NSString * const kAttr_filename		= @"filename";
     
     [self.rightPage viewHasTransitionedIn];
     [self.centerPage viewHasTransitionedOut];
-    
 }
 
 - (void)centerViewHasTransitionedOutToRight {
     
     [self.leftPage viewHasTransitionedIn];
     [self.centerPage viewHasTransitionedOut];
-    
 }
 
 - (void)cacheImagesForPage:(GTPage *)pageToCache {
@@ -1867,7 +1871,9 @@ NSString * const kAttr_filename		= @"filename";
     
     self.centerPage.center	= self.inViewInCenterCenter;
     [self.view addSubview:self.centerPage];
+
     [self.centerPage viewHasTransitionedIn];
+    [self trackPageView];
     
     //bring toolbars to front again now that more views have been added
     [self.view bringSubviewToFront:self.navToolbar];
@@ -1946,4 +1952,15 @@ NSString * const kAttr_filename		= @"filename";
     
 }
 
+#pragma mark - page view tracking
+
+- (void) trackPageView{
+    id tracker = [[GAI sharedInstance] defaultTracker];
+    
+    [tracker set:kGAIScreenName
+           value:[self.packageCode stringByAppendingString:[@"-" stringByAppendingString:[@(self.activeView) stringValue]]]];
+    
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+
+}
 @end

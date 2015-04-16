@@ -12,7 +12,8 @@
 #import "EveryStudentSearchCell.h"
 #import "EveryStudentArticleView.h"
 #import "TBXML.h"
-//#import "GTTrackerNotifications.h"
+
+#import "GTGoogleAnalyticsTracker.h"
 
 @interface EveryStudentController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -130,6 +131,7 @@
 	
 	self.backgroundImage.frame		= self.view.frame;
 	
+    [[[GTGoogleAnalyticsTracker sharedInstance] setScreenName:@"EveryStudent"] sendScreenView];
 }
 
 - (void)dealloc {

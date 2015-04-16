@@ -15,6 +15,8 @@
 #import "GTDataImporter.h"
 #import "GTDefaults.h"
 
+#import "GTGoogleAnalyticsTracker.h"
+
 @interface GTLanguagesViewController ()
     @property (strong,nonatomic) NSMutableArray *languages;
     @property (strong, nonatomic) UIAlertView *buttonLessAlert;
@@ -92,6 +94,8 @@ BOOL languageDownloadCancelled = FALSE;
     if([@"finished" isEqualToString:[[GTDefaults sharedDefaults] translationDownloadStatus]]) {
         languageDownloading = nil;
     }
+    
+    [[[GTGoogleAnalyticsTracker sharedInstance] setScreenName:@"LanguagesScreen"] sendScreenView];
     
     [self.afReachability startMonitoring];
 }

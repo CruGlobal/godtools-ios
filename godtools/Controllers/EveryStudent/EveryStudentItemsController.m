@@ -9,6 +9,8 @@
 #import "EveryStudentItemsController.h"
 #import "EveryStudentCell.h"
 
+#import "GTGoogleAnalyticsTracker.h"
+
 @interface EveryStudentItemsController ()
 
 @property (nonatomic, weak)		IBOutlet UIImageView	*backgroundImage;
@@ -121,11 +123,22 @@
 	
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	
-	self.articleView.title		= [[self.arrayOfTableData objectAtIndex:indexPath.row] objectForKey:@"name"];
+    NSString *chosenArticleTitle = [[self.arrayOfTableData objectAtIndex:indexPath.row] objectForKey:@"name"];
+    
+    self.articleView.title		= chosenArticleTitle;
 	self.articleView.article	= [[self.arrayOfTableData objectAtIndex:indexPath.row] objectForKey:@"content"];
 	self.articleView.language	= self.language;
 	self.articleView.package	= self.package;
+    
+    [[[GTGoogleAnalyticsTracker sharedInstance] setScreenName:[self getEveryStudentTrackingTitle:chosenArticleTitle]] sendScreenView];
+     
 	[[self navigationController] pushViewController:self.articleView animated:YES];
+}
+
+-(NSString *) getEveryStudentTrackingTitle:(NSString *)articleTitle {
+    NSString *lowercaseTitle = [articleTitle lowercaseString];
+    NSString *lowercaseTitleWithDashes = [lowercaseTitle stringByReplacingOccurrencesOfString:@" " withString:@"-"];
+    return [@"everystudent-" stringByAppendingString: lowercaseTitleWithDashes];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {

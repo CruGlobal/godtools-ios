@@ -186,7 +186,7 @@
         [self setData];
     }
     
-//    [[[GTGoogleAnalyticsTracker sharedInstance] setScreenName:@"HomeScreen"] sendScreenView];
+    [[[GTGoogleAnalyticsTracker sharedInstance] setScreenName:@"HomeScreen"] sendScreenView];
     
     [self.homeView.tableView reloadData];
 }

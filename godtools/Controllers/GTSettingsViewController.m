@@ -13,6 +13,8 @@
 #import "GTDefaults.h"
 #import "GTDataImporter.h"
 
+#import "GTGoogleAnalyticsTracker.h"
+
 #import "GTSettingsAboutGodToolsViewController.h"
 
 @interface GTSettingsViewController ()
@@ -90,6 +92,8 @@
             NSLog(@"No internet connection!");
         }
     }];
+    
+    [[[GTGoogleAnalyticsTracker sharedInstance] setScreenName:@"SettingsScreen"] sendScreenView];
     
     [self.afReachability startMonitoring];
 }
