@@ -405,7 +405,7 @@ NSString * const kAttr_filename		= @"filename";
         //let the page's view controllers know what has happened to their views
         [self.oldCenterPage viewHasTransitionedOut];
         [self.centerPage viewHasTransitionedIn];
-        [self trackPageView];
+        [self trackPageView :index];
     }
     //}
 }
@@ -1719,8 +1719,10 @@ NSString * const kAttr_filename		= @"filename";
         }
         
         [self animationCleanUp];
+        [self trackPageView :self.activeView];
     } else {
         self.animateNextViewIn = nil;
+        [self trackPageView :(self.activeView - 1)];
     }
 }
 
@@ -1756,7 +1758,6 @@ NSString * const kAttr_filename		= @"filename";
         }
         
         [self animationCleanUp];
-        [self trackPageView];
     } else {
         self.animateCurrentViewOut = nil;
     }
@@ -1794,9 +1795,10 @@ NSString * const kAttr_filename		= @"filename";
         }
         
         [self animationCleanUp];
-        [self trackPageView];
+        [self trackPageView :self.activeView];
     } else {
         self.animateNextViewIn = nil;
+        [self trackPageView :(self.activeView + 1)];
     }
 }
 
@@ -1873,7 +1875,6 @@ NSString * const kAttr_filename		= @"filename";
     [self.view addSubview:self.centerPage];
 
     [self.centerPage viewHasTransitionedIn];
-    [self trackPageView];
     
     //bring toolbars to front again now that more views have been added
     [self.view bringSubviewToFront:self.navToolbar];
@@ -1954,12 +1955,18 @@ NSString * const kAttr_filename		= @"filename";
 
 #pragma mark - page view tracking
 
-- (void) trackPageView{
+- (void) trackPageView:(NSInteger) pageNumber{
     id tracker = [[GAI sharedInstance] defaultTracker];
-    
+
+    [tracker set:[GAIFields customDimensionForIndex:1]
+           value:self.packageCode];
+
+    [tracker set:[GAIFields customDimensionForIndex:2]
+           value:self.languageCode];
+
     [tracker set:kGAIScreenName
-           value:[self.packageCode stringByAppendingString:[@"-" stringByAppendingString:[@(self.activeView) stringValue]]]];
-    
+           value:[self.packageCode stringByAppendingString:[@"-" stringByAppendingString:[@(pageNumber) stringValue]]]];
+
     [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 
 }
