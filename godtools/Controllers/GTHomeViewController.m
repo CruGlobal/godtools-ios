@@ -588,10 +588,10 @@
     }
 
     self.godtoolsViewController.currentPackage = package;
+    [self.godtoolsViewController setCodes :package.code :package.language.code];
     [self.godtoolsViewController addNotificationObservers];
         
     [self.godtoolsViewController loadResourceWithConfigFilename:package.configFile parallelConfigFileName:parallelConfigFile isDraft:isDraft];
-    [self.godtoolsViewController setCodes :package.code :package.language.code];
     [self.navigationController pushViewController:self.godtoolsViewController animated:YES];
     
 }

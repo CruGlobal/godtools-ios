@@ -83,7 +83,10 @@ NSString * const kAttr_filename		= @"filename";
 @property (nonatomic, strong)	NSString *configFilename;
 @property (nonatomic, strong)	NSString *parallelConfigFilename;
 @property (nonatomic, assign)	NSInteger activeView;
+
 @property (nonatomic, assign)	NSInteger lastTrackedView;
+@property (nonatomic, strong)   NSString *lastTrackedPackage;
+@property (nonatomic, strong)   NSString *lastTrackedLanguage;
 
 @property (nonatomic, strong)	NSString *aboutFilename;
 @property (nonatomic, strong)	NSString *packageName;
@@ -1957,7 +1960,9 @@ NSString * const kAttr_filename		= @"filename";
 #pragma mark - page view tracking
 
 - (void) trackPageView:(NSInteger) pageNumber{
-    if(self.lastTrackedView != pageNumber) {
+    if(self.lastTrackedView != pageNumber
+       || ![self.packageCode isEqualToString:self.lastTrackedPackage]
+       || ![self.languageCode isEqualToString:self.lastTrackedLanguage]) {
         id tracker = [[GAI sharedInstance] defaultTracker];
 
         [tracker set:[GAIFields customDimensionForIndex:1]
@@ -1972,6 +1977,8 @@ NSString * const kAttr_filename		= @"filename";
         [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 
         self.lastTrackedView = pageNumber;
+        self.lastTrackedPackage = self.packageCode;
+        self.lastTrackedLanguage = self.languageCode;
     }
 }
 @end
