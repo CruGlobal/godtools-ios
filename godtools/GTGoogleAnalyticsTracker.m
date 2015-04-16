@@ -79,7 +79,9 @@ NSString * const GTGoogleAnalyticsActionSwipe	= @"swipe";
 //            [[GAI sharedInstance].logger setLogLevel:kGAILogLevelVerbose];
 //        }
         
-        self.tracker = [[GAI sharedInstance] trackerWithTrackingId:@"UA-325725-50"];
+        NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"config" ofType:@"plist"]];
+        NSString *apiKey = [dictionary objectForKey:@"google_analytics_api_key"];
+        self.tracker = [[GAI sharedInstance] trackerWithTrackingId:apiKey];
     }
     
     return self;
