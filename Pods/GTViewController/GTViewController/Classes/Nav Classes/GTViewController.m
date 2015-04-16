@@ -83,6 +83,7 @@ NSString * const kAttr_filename		= @"filename";
 @property (nonatomic, strong)	NSString *configFilename;
 @property (nonatomic, strong)	NSString *parallelConfigFilename;
 @property (nonatomic, assign)	NSInteger activeView;
+@property (nonatomic, assign)	NSInteger lastTrackedView;
 
 @property (nonatomic, strong)	NSString *aboutFilename;
 @property (nonatomic, strong)	NSString *packageName;
@@ -1891,7 +1892,7 @@ NSString * const kAttr_filename		= @"filename";
     
     [super viewDidLoad];
     
-    
+    self.lastTrackedView = -1;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -1956,18 +1957,21 @@ NSString * const kAttr_filename		= @"filename";
 #pragma mark - page view tracking
 
 - (void) trackPageView:(NSInteger) pageNumber{
-    id tracker = [[GAI sharedInstance] defaultTracker];
+    if(self.lastTrackedView != pageNumber) {
+        id tracker = [[GAI sharedInstance] defaultTracker];
 
-    [tracker set:[GAIFields customDimensionForIndex:1]
+        [tracker set:[GAIFields customDimensionForIndex:1]
            value:self.packageCode];
 
-    [tracker set:[GAIFields customDimensionForIndex:2]
+        [tracker set:[GAIFields customDimensionForIndex:2]
            value:self.languageCode];
 
-    [tracker set:kGAIScreenName
+        [tracker set:kGAIScreenName
            value:[self.packageCode stringByAppendingString:[@"-" stringByAppendingString:[@(pageNumber) stringValue]]]];
 
-    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+        [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 
+        self.lastTrackedView = pageNumber;
+    }
 }
 @end
