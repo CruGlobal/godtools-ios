@@ -29,6 +29,10 @@
 
 "Yes"                                   = "Yes";
 "No"                                    = "No";
+"OK"                                    = "OK";
+
+"AlertTitle_newUpdatesAvailable"				= "New Language updates available";
+"AlertMessage_newUpdatesAvailable"				= "Would you like to download the %d latest updates to your God Tools resources?";
 
 "AlertTitle_updateLanguageToPhonesLanguage"     = "Language Settings";
 "AlertMessage_updateLanguageToPhonesLanguage"   = "Would you like to make %@ as the default language?";
