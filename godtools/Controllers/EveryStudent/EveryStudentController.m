@@ -52,7 +52,7 @@
 		[self setTitle:@"Topics"];
 		self.searchBar.autocorrectionType = UITextAutocorrectionTypeYes;
         
-        TBXML	*parser		= [[TBXML alloc] initWithXMLFile:@"EveryStudent.xml"];
+        TBXML	*parser		= [[TBXML alloc] initWithXMLFile:@"EveryStudent.xml" error:nil];
         [self loadEveryStudentXMLFromElement:parser.rootXMLElement];
 		
 		[self.navigationController setNavigationBarHidden:NO animated:YES];

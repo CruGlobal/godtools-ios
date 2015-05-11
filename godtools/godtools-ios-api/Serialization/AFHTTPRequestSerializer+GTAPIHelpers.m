@@ -35,7 +35,7 @@ NSString * const GTAPIEndpointPackagesParameterPublishValueFalse	= @"false";
 
 - (NSURL *)baseURL {
 	
-#warning I feel dirty having used objc/runtime.h
+	//I feel dirty having used objc/runtime.h
 	return objc_getAssociatedObject(self, @selector(baseURL));
 }
 

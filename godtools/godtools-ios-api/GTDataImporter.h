@@ -16,7 +16,7 @@
 /**
  *  Class used to download content from the God Tools API and save it locally. This is the main class you should use.
  */
-@interface GTDataImporter : NSObject\
+@interface GTDataImporter : NSObject
 
 #warning This is the main class you should use with the apps logic. Start by reading this documentation
 
