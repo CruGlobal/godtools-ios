@@ -199,10 +199,9 @@ BOOL gtLanguageDownloadUserCancellation                                 = FALSE;
         }else{
             currentCodes = @[self.defaults.currentLanguageCode];
         }
-        
-        #warning: this check is broken and needs to be fixed
-        //it inserts new records into the local database every time the menu status is updated, instead of updating existing rows
-		//[self checkForPackagesWithNewVersionsForLanguageCodes:currentCodes];
+		
+        //this inserts new records into the local database every time the menu status is updated, instead of updating existing rows
+		[self checkForPackagesWithNewVersionsForLanguageCodes:currentCodes];
 		
 	}
 	
@@ -604,6 +603,7 @@ BOOL gtLanguageDownloadUserCancellation                                 = FALSE;
 
     if (self.packagesNeedingToBeUpdated.count > 0) {
         [self updatePackagesWithNewVersions];
+		[[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationNewVersionsAvailable object:self];
     }
 }
 
