@@ -16,24 +16,21 @@ NSString *const GTShareViewControllerCampaignLinkCampaignName          = @"app-s
 
 @interface GTShareViewController ()
 
-@property (weak, nonatomic) NSString *packageCode;
-@property (weak, nonatomic) NSString *languageCode;
-
 @end
 
 @implementation GTShareViewController
 
-- (instancetype)init{
+- (instancetype)init {
 	
 	NSString *campaignLink				= [self produceLinkForCampaign: GTShareViewControllerCampaignLinkCampaignName source:GTShareViewControllerCampaignLinkCampaignSource medium:GTShareViewControllerCampaignLinkCampaignMedium];
 	
 	SSCWhatsAppActivity *whatsAppActivity	= [[SSCWhatsAppActivity alloc] init];
 	
 	self = [super initWithActivityItems:@[[NSURL URLWithString:campaignLink]] applicationActivities:@[whatsAppActivity]];
-    self.excludedActivityTypes = [[NSArray alloc]init];
 	if (self) {
-
-		self.excludedActivityTypes	= @[//UIActivityTypePostToFacebook,
+		
+		self.excludedActivityTypes	= @[
+										//UIActivityTypePostToFacebook,
 										//UIActivityTypePostToTwitter,
 										//UIActivityTypePostToWeibo,
 										//UIActivityTypeMessage,
@@ -42,35 +39,16 @@ NSString *const GTShareViewControllerCampaignLinkCampaignName          = @"app-s
 										//UIActivityTypeCopyToPasteboard,
 										//UIActivityTypeAssignToContact,
 										//UIActivityTypeSaveToCameraRoll,
-										/////////UIActivityTypeAddToReadingList,    //iOS7
-										/////////UIActivityTypePostToFlickr,        //iOS7
-										////////UIActivityTypePostToVimeo,          //iOS7
-										//UIActivityTypePostToTencentWeibo,         //iOS7
-										/////////UIActivityTypeAirDrop              //iOS7
+										UIActivityTypeAddToReadingList,
+										UIActivityTypePostToFlickr,
+										UIActivityTypePostToVimeo,
+										//UIActivityTypePostToTencentWeibo,
+										UIActivityTypeAirDrop
 										];
-        if(([[[UIDevice currentDevice] systemVersion] compare:@"7.0" options:NSNumericSearch] != NSOrderedAscending)){//if version is greater than or equal to 7.0
-            
-             NSMutableArray* excludedActivityForEqualOrGreaterThaniOS7 = [[NSMutableArray alloc]initWithArray:@[
-                                                                                                                UIActivityTypeAddToReadingList,
-                                                                                                                UIActivityTypePostToFlickr,UIActivityTypePostToVimeo,
-                                                                                                                //UIActivityTypePostToTencentWeibo,
-                                                                                                                UIActivityTypeAirDrop]];
-
-            
-            [excludedActivityForEqualOrGreaterThaniOS7 addObjectsFromArray:self.excludedActivityTypes];
-            self.excludedActivityTypes = [NSArray arrayWithArray:excludedActivityForEqualOrGreaterThaniOS7];
-        }
 		
 	}
 	
 	return self;
-}
-
-- (id)initWithPackageCode:(NSString *)packageCode languageCode:(NSString *)languageCode{
-    self.packageCode = packageCode;
-    self.languageCode = languageCode;
-    
-    return [self init];
 }
 
 - (NSString *)produceShareLink {
@@ -82,11 +60,7 @@ NSString *const GTShareViewControllerCampaignLinkCampaignName          = @"app-s
 	
 	NSString *appVersionNumber	= [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
 	
-    if(self.packageCode && self.languageCode) {
-        return [self.produceShareLink stringByAppendingFormat:@"?utm_source=%@&utm_medium=%@&utm_content=%@&utm_campaign=%@&package=%@&language=%@", source, medium, appVersionNumber, campaign, self.packageCode, self.languageCode];
-    } else {
-        return [self.produceShareLink stringByAppendingFormat:@"?utm_source=%@&utm_medium=%@&utm_content=%@&utm_campaign=%@", source, medium, appVersionNumber, campaign];
-    }
+	return [self.produceShareLink stringByAppendingFormat:@"?utm_source=%@&utm_medium=%@&utm_content=%@&utm_campaign=%@", source, medium, appVersionNumber, campaign];
 }
 
 - (void)viewDidLoad
@@ -100,4 +74,16 @@ NSString *const GTShareViewControllerCampaignLinkCampaignName          = @"app-s
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
 @end

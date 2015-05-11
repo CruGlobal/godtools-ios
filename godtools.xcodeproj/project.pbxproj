@@ -914,7 +914,7 @@
 					"\"${PODS_ROOT}/Headers/Public/TBXML\"",
 					"$(SDKROOT)/usr/include/libxml2",
 					"$(SDKROOT)/usr/include/libz",
-					$,
+					"$(inherited)",
 				);
 				INFOPLIST_FILE = "godtools/godtools-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
@@ -951,7 +951,7 @@
 					"\"${PODS_ROOT}/Headers/Public/TBXML\"",
 					"$(SDKROOT)/usr/include/libxml2",
 					"$(SDKROOT)/usr/include/libz",
-					$,
+					"$(inherited)",
 				);
 				INFOPLIST_FILE = "godtools/godtools-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;

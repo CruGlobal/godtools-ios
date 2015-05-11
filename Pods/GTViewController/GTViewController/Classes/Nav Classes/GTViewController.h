@@ -72,8 +72,6 @@ extern NSString *const GTViewControllerNotificationResourceDidOpen;
 
 - (void)refreshView;
 
-- (void)setCodes:(NSString *)packageCode :(NSString *)languageCode;
-
 @end
 
 @protocol GTViewControllerMenuDelegate <NSObject>

@@ -1,29 +1,29 @@
 PODS:
   - AFDownloadRequestOperation (2.0.1):
     - AFNetworking (~> 2.0)
-  - AFNetworking (2.5.0):
+  - AFNetworking (2.5.3):
+    - AFNetworking/NSURLConnection (= 2.5.3)
+    - AFNetworking/NSURLSession (= 2.5.3)
+    - AFNetworking/Reachability (= 2.5.3)
+    - AFNetworking/Security (= 2.5.3)
+    - AFNetworking/Serialization (= 2.5.3)
+    - AFNetworking/UIKit (= 2.5.3)
+  - AFNetworking/NSURLConnection (2.5.3):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.5.3):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.5.3)
+  - AFNetworking/Security (2.5.3)
+  - AFNetworking/Serialization (2.5.3)
+  - AFNetworking/UIKit (2.5.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-    - AFNetworking/UIKit
-  - AFNetworking/NSURLConnection (2.5.0):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.5.0):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.5.0)
-  - AFNetworking/Security (2.5.0)
-  - AFNetworking/Serialization (2.5.0)
-  - AFNetworking/UIKit (2.5.0):
-    - AFNetworking/NSURLConnection
-    - AFNetworking/NSURLSession
-  - AFRaptureXMLRequestOperation (1.0.3):
-    - AFNetworking (~> 2.0.2)
+  - AFRaptureXMLRequestOperation (1.0.2):
+    - AFNetworking (~> 2.5)
     - RaptureXML (~> 1.0.1)
   - GoogleAnalytics-iOS-SDK (3.0.9)
   - GTViewController (3.1.1):
@@ -37,28 +37,39 @@ PODS:
 
 DEPENDENCIES:
   - AFDownloadRequestOperation (~> 2.0)
-  - AFNetworking (~> 2.0)
-  - AFRaptureXMLRequestOperation (~> 1.0)
+  - AFNetworking (~> 2.5)
+  - AFRaptureXMLRequestOperation (from `https://github.com/CruGlobal/AFRaptureXMLRequestOperation.git`)
   - GoogleAnalytics-iOS-SDK (~> 3.0.9)
-  - GTViewController (from `https://github.com/CruGlobal/GTViewController.git`, branch `dev4.0`)
+  - GTViewController (from `https://github.com/CruGlobal/GTViewController.git`, branch
+    `dev4.0`)
   - NewRelicAgent (~> 3.256)
   - SSZipArchive (~> 0.3)
 
 EXTERNAL SOURCES:
+  AFRaptureXMLRequestOperation:
+    :git: https://github.com/CruGlobal/AFRaptureXMLRequestOperation.git
   GTViewController:
     :branch: dev4.0
     :git: https://github.com/CruGlobal/GTViewController.git
 
+CHECKOUT OPTIONS:
+  AFRaptureXMLRequestOperation:
+    :commit: 4dbbb8a6c2d2115c09a4df3ffc6cda20e93a1cd1
+    :git: https://github.com/CruGlobal/AFRaptureXMLRequestOperation.git
+  GTViewController:
+    :commit: 0a5ca2b4515ad153be4e3af3161d6f693e0bbaa8
+    :git: https://github.com/CruGlobal/GTViewController.git
+
 SPEC CHECKSUMS:
   AFDownloadRequestOperation: 748a1643423e1ddb23f2178f778087d4f0ae8ac7
-  AFNetworking: 96ac9bf3eda33582701cb1fcc5b896aa1e20311e
-  AFRaptureXMLRequestOperation: 4affbeb03a4c760e22a69190b6befbd0da3ec4ad
+  AFNetworking: e1d86c2a96bb5d2e7408da36149806706ee122fe
+  AFRaptureXMLRequestOperation: dab4e06ac414e0e9e6a36298963dd8cafad8a9d7
   GoogleAnalytics-iOS-SDK: 3b0994bef22ed2e176a9e2a4d1660c7c2542eb47
-  GTViewController: 2d58a53ec4778b768628137513806b5a89468089
+  GTViewController: 9d986db4d22a5705dad3fa01af14aacda3543ad5
   NewRelicAgent: 5dbb8c108199f066e353231a90d80263830c0f73
   RaptureXML: b5c33c04c1a4adfd8ad0d5463329a31820596e82
   SSCWhatsAppActivity: fdea072dcf11f1e4889c8f8d9f58118672361900
   SSZipArchive: 11801759495fa4efb7512ef652eb0042d68305d7
   TBXML: 9f9dadb239f2f2af1dadb87fe43a0ce6e479379a
 
-COCOAPODS: 0.34.4
+COCOAPODS: 0.37.1

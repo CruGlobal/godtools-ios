@@ -1055,7 +1055,7 @@ NSString * const kFont_bolditalicslabel	= @"Helvetica-BoldOblique";
 	NSString *filename = [TBXML valueOfAttributeNamed:kAttr_watermark forElement:self.pageElement];
 	UIImageView *watermark = nil;
 	
-	if (filename != nil && filename.length>0) {
+	if (filename != nil) {
 		watermark = [[UIImageView alloc] initWithImage:[self.fileLoader imageWithFilename:filename]];
 		[watermark setFrame:self.pageView.frame];
 	}
