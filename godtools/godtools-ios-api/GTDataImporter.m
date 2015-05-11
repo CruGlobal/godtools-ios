@@ -32,6 +32,7 @@ NSString *const GTDataImporterPackageMetaXmlAttributeNameType			= @"type";
 NSString *const GTDataImporterPackageMetaXmlAttributeNameVersion		= @"version";
 NSString *const GTDataImporterPackageModelKeyNameIdentifier				= @"identifier";
 BOOL gtLanguageDownloadUserCancellation                                 = FALSE;
+BOOL gtUpdatePackagesUserCancellation									= FALSE;
 
 @interface GTDataImporter ()
 
@@ -54,7 +55,10 @@ BOOL gtLanguageDownloadUserCancellation                                 = FALSE;
 - (void)displayDownloadPackagesRequestError:(NSError *)error;
 - (void)displayDownloadPackagesUnzippingError:(NSError *)error;
 
-	
+- (void)checkForRemainingUpdatesForLanguageContainingPackage:(GTPackage *)package;
+- (void)downloadPackage:(GTPackage *)package;
+- (void)downloadPackage:(GTPackage *)package withProgressNotifier:(NSString *) progressNotificationName withSuccessNotifier:(NSString *) successNotificationName withFailureNotifier:(NSString *) failureNotificationName;
+
 @end
 
 @implementation GTDataImporter
@@ -349,9 +353,77 @@ BOOL gtLanguageDownloadUserCancellation                                 = FALSE;
 
 #pragma mark - Package downloading
 
+- (void)downloadPackage:(GTPackage *)package {
+	NSLog(@"downloadPackagesForLanguage() ...");
+	[self downloadPackage:package withProgressNotifier:GTDataImporterNotificationLanguageDownloadProgressMade withSuccessNotifier:GTDataImporterNotificationLanguageDownloadFinished withFailureNotifier:GTDataImporterNotificationLanguageDownloadFinished];
+}
+
 - (void)downloadPackagesForLanguage:(GTLanguage *)language {
     NSLog(@"downloadPackagesForLanguage() ...");
      [self downloadPackagesForLanguage:language withProgressNotifier:GTDataImporterNotificationLanguageDownloadProgressMade withSuccessNotifier:GTDataImporterNotificationLanguageDownloadFinished withFailureNotifier:GTDataImporterNotificationLanguageDownloadFinished];
+}
+
+- (void)downloadPackage:(GTPackage *)package withProgressNotifier:(NSString *) progressNotificationName withSuccessNotifier:(NSString *) successNotificationName withFailureNotifier:(NSString *) failureNotificationName {
+	
+	NSLog(@"downloadPackagesForLanguageForImporter() ...");
+	
+	NSParameterAssert(package);
+	NSLog(@"will download %@",package.name);
+	__weak typeof(self)weakSelf = self;
+	[self.api getResourcesForPackage:package
+							 progress:^(NSNumber *percentage) {
+								 
+								 NSLog(@"progress ...");
+								 [[NSNotificationCenter defaultCenter] postNotificationName:progressNotificationName
+																					 object:weakSelf
+																				   userInfo:@{GTDataImporterNotificationPackageDownloadPercentageKey: percentage}];
+								 
+							 } success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSURL *targetPath) {
+								 
+								 if(response.statusCode == 200){
+									 
+									 RXMLElement *contents =[weakSelf unzipResourcesAtTarget:targetPath forLanguage:package.language package:package];
+									 NSError *error;
+									 if(contents!=nil){
+										 //Update storage with data from contents.
+										 [contents iterate:@"resource" usingBlock: ^(RXMLElement *resource) {
+											 
+											 package.name = [NSString stringWithUTF8String:[[resource attribute:@"name"] UTF8String]];
+											 NSLog(@"name: %@",package.name);
+											 package.configFile = [resource attribute:@"config"];
+											 package.icon = [resource attribute:@"icon"];
+											 package.status = [resource attribute:@"status"];
+											 package.localVersion = [NSNumber numberWithFloat:[[resource attribute:@"version"] floatValue] ];
+											 package.latestVersion = [NSNumber numberWithFloat:[[resource attribute:@"version"] floatValue]];
+											 
+										 }];
+										 
+										 [weakSelf checkForRemainingUpdatesForLanguageContainingPackage:package];
+										 
+										 [[GTDefaults sharedDefaults] setTranslationDownloadStatus:@"finished"];
+									 }
+									 
+								 } else if(response.statusCode == 500) {
+									 
+									 NSString *errorMessage	= NSLocalizedString(@"GTDataImporter_downloadPackages_error", @"Error message when package endpoint response is missing data.");
+									 NSError *error = [NSError errorWithDomain:GTDataImporterErrorDomain
+																		  code:GTDataImporterErrorCodeInvalidXml
+																	  userInfo:@{NSLocalizedDescriptionKey: errorMessage, }];
+									 
+									 [weakSelf displayDownloadPackagesRequestError:error];
+									 
+								 }
+								 
+								 [[NSNotificationCenter defaultCenter] postNotificationName:successNotificationName object:self];
+								 
+							 } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+								 if(!gtUpdatePackagesUserCancellation) {
+									 [weakSelf displayDownloadPackagesRequestError:error];
+								 }
+								 gtUpdatePackagesUserCancellation = FALSE;
+								 [[NSNotificationCenter defaultCenter] postNotificationName:failureNotificationName object:self];
+							 }];
+	
 }
 
 - (void)downloadPackagesForLanguage:(GTLanguage *)language withProgressNotifier:(NSString *) progressNotificationName withSuccessNotifier:(NSString *) successNotificationName withFailureNotifier:(NSString *) failureNotificationName {
@@ -374,13 +446,13 @@ BOOL gtLanguageDownloadUserCancellation                                 = FALSE;
                                          //Update storage with data from contents.
                                          [language removePackages:language.packages];
                                          [contents iterate:@"resource" usingBlock: ^(RXMLElement *resource) {
-                                             
+											 
                                              NSString *existingIdentifier = [GTPackage identifierWithPackageCode:[resource attribute:@"package"] languageCode:language.code];
-                                             
+											 
                                              GTPackage *package;
-                                             
+											 
                                              NSArray *packageArray = [[GTStorage sharedStorage]fetchArrayOfModels:[GTPackage class] usingKey:@"identifier" forValues:@[existingIdentifier] inBackground:YES];
-                                             
+											 
                                              if([packageArray count]==0){
                                                  package = [GTPackage packageWithCode:[resource attribute:@"package"] language:language inContext:[GTStorage sharedStorage].backgroundObjectContext];
                                                  package.latestVersion = [NSNumber numberWithFloat:[[resource attribute:@"version"] floatValue]];
@@ -450,6 +522,11 @@ BOOL gtLanguageDownloadUserCancellation                                 = FALSE;
 - (void)cancelDownloadPackagesForLanguage {
     gtLanguageDownloadUserCancellation = TRUE;
     [self.api cancelGetResourcesForLanguage];
+}
+
+- (void)cancelUpdatePackages {
+	gtUpdatePackagesUserCancellation = TRUE;
+	[self.api cancelGetResourcesForPackage];
 }
 
 
@@ -593,32 +670,91 @@ BOOL gtLanguageDownloadUserCancellation                                 = FALSE;
 	NSParameterAssert(languageCodes.count);
 
 	NSManagedObjectContext *context	= self.storage.backgroundObjectContext;
-	NSArray *currentLanguages		= languageCodes;
 	NSFetchRequest *fetchRequest	= [[NSFetchRequest alloc] init];
 	fetchRequest.entity				= [NSEntityDescription entityForName:NSStringFromClass([GTPackage class]) inManagedObjectContext:context];
-	fetchRequest.predicate			= [NSPredicate predicateWithFormat:@"(localVersion < latestVersion) && language.code IN %@", currentLanguages];
+	fetchRequest.predicate			= [NSPredicate predicateWithFormat:@"(localVersion < latestVersion) && language.code IN %@", languageCodes];
 	
 	NSArray *fetchedObjects			= [context executeFetchRequest:fetchRequest error:nil];
 	self.packagesNeedingToBeUpdated = [fetchedObjects mutableCopy];
 
-    if (self.packagesNeedingToBeUpdated.count > 0) {
-        [self updatePackagesWithNewVersions];
+    if (self.packagesNeedingToBeUpdated != nil && self.packagesNeedingToBeUpdated.count > 0) {
+		
+		NSError *error;
+		[self.packagesNeedingToBeUpdated enumerateObjectsUsingBlock:^(GTPackage *package, NSUInteger index, BOOL *stop) {
+			
+			package.language.updatesAvailable =  [NSNumber numberWithBool: YES];
+			
+			
+		}];
+		
+		if (![[GTStorage sharedStorage].backgroundObjectContext save:&error]) {
+			NSLog(@"Error saving updates");
+		}
+		
 		[[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationNewVersionsAvailable object:self];
     }
 }
 
 - (void)updatePackagesWithNewVersions {
 	
-    NSError *error;
+	[self updatePackagesForLanguage:nil];
+	
+}
+
+- (void)updatePackagesForLanguage:(GTLanguage *)language {
+	
+	__weak typeof(self)weakSelf = self;
+	
     [self.packagesNeedingToBeUpdated enumerateObjectsUsingBlock:^(GTPackage *package, NSUInteger index, BOOL *stop) {
-        package.language.downloaded =  [NSNumber numberWithBool: NO];
+		
+		if (language == nil || [package.language.code isEqualToString:language.code]) {
+			
+			[weakSelf downloadPackage:package];
+		}
         
     }];
-    
-    if (![[GTStorage sharedStorage].backgroundObjectContext save:&error]) {
-        NSLog(@"Error saving updates");
-    }
 
+}
+
+- (void)checkForRemainingUpdatesForLanguageContainingPackage:(GTPackage *)package {
+	
+	NSManagedObjectContext *context	= self.storage.backgroundObjectContext;
+	NSFetchRequest *fetchRequest	= [[NSFetchRequest alloc] init];
+	fetchRequest.entity				= [NSEntityDescription entityForName:NSStringFromClass([GTPackage class]) inManagedObjectContext:context];
+	fetchRequest.predicate			= [NSPredicate predicateWithFormat:@"(localVersion < latestVersion) && language.code == %@", package.language.code];
+	
+	NSArray *packagesWithUpdates	= [context executeFetchRequest:fetchRequest error:nil];
+	
+	if (packagesWithUpdates == nil || packagesWithUpdates.count == 0) {
+		
+		package.language.downloaded			= [NSNumber numberWithBool:YES];
+		package.language.updatesAvailable	= [NSNumber numberWithBool:NO];
+		
+	}
+	
+	NSError *error;
+	if (![[GTStorage sharedStorage].backgroundObjectContext save:&error]) {
+		
+		NSLog(@"error saving");
+	} else {
+		if([[GTDefaults sharedDefaults] isChoosingForMainLanguage] == [NSNumber numberWithBool:YES]){
+			
+			if([[[GTDefaults sharedDefaults] currentParallelLanguageCode] isEqualToString:package.language.code]) {
+				
+				[[GTDefaults sharedDefaults] setCurrentParallelLanguageCode:nil];
+			}
+			
+			[[GTDefaults sharedDefaults] setCurrentLanguageCode:package.language.code];
+			
+		} else {
+			
+			NSLog(@"set %@ as parallel",package.language.name );
+			[[GTDefaults sharedDefaults] setCurrentParallelLanguageCode:package.language.code];
+		}
+	}
+	
+	[[GTDefaults sharedDefaults] setTranslationDownloadStatus:@"finished"];
+	
 }
 
 
@@ -626,7 +762,7 @@ BOOL gtLanguageDownloadUserCancellation                                 = FALSE;
 -(void)authorizeTranslator :(NSString *)accessCode{
 
     __weak typeof(self)weakSelf = self;
-    
+	
     [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationAuthTokenUpdateStarted object:self];
     
     NSLog(@"access code: %@",accessCode);
