@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:godtools/godtools-ios-api/Models/GTLanguage.h">
+   </FileRef>
+   <FileRef
+      location = "group:godtools/godtools-ios-api/Models/GTLanguage.m">
+   </FileRef>
+   <FileRef
       location = "group:godtools.xcodeproj">
    </FileRef>
    <FileRef

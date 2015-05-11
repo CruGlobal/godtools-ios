@@ -22,4 +22,14 @@
     return [self.name compare:otherLanguage.name];
 }
 
+- (BOOL)hasUpdates {
+
+	if (self.updatesAvailable == [NSNumber numberWithBool:YES]) {
+		return YES;
+	} else {
+		return NO;
+	}
+	
+}
+
 @end

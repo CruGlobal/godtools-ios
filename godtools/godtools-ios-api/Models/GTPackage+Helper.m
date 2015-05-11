@@ -27,4 +27,14 @@
 	return [packageCode stringByAppendingFormat:@"-%@", languageCode];
 }
 
+- (BOOL)hasUpdate {
+	
+	if (self.latestVersion > self.localVersion) {
+		return YES;
+	} else {
+		return NO;
+	}
+
+}
+
 @end
