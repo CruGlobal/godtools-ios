@@ -300,7 +300,7 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
     //NSLog(@"packageObjects: %@",packageObjects);
 
     if([[[languageElement child:@"packages"] children:@"package"]count] > 0){
-        __block NSNumber* latestVersion;
+        __block NSString* latestVersion;
         //NSLog(@"will check for %d packages",[[[languageElement child:@"packages"] children:@"package"]count]);
         [languageElement iterate:GTDataImporterPackageMetaXmlPathRelativeToLanguage usingBlock:^(RXMLElement *packageElement) {
             //update package
@@ -308,7 +308,7 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
            
             NSString *identifier	= [GTPackage identifierWithPackageCode:packageCode languageCode:languageCode];
 
-            NSNumber *version		= @([[packageElement attribute:GTDataImporterPackageMetaXmlAttributeNameVersion] integerValue]);
+            NSString *version		= [packageElement attribute:GTDataImporterPackageMetaXmlAttributeNameVersion];
             
             latestVersion = latestVersion && latestVersion>version ?latestVersion:version;
             
@@ -393,8 +393,8 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 											 package.configFile = [resource attribute:@"config"];
 											 package.icon = [resource attribute:@"icon"];
 											 package.status = [resource attribute:@"status"];
-											 package.localVersion = [NSNumber numberWithFloat:[[resource attribute:@"version"] floatValue] ];
-											 package.latestVersion = [NSNumber numberWithFloat:[[resource attribute:@"version"] floatValue]];
+											 package.localVersion = [resource attribute:@"version"];
+											 package.latestVersion = [resource attribute:@"version"];
 											 
 										 }];
 										 
@@ -455,19 +455,19 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 											 
                                              if([packageArray count]==0){
                                                  package = [GTPackage packageWithCode:[resource attribute:@"package"] language:language inContext:[GTStorage sharedStorage].backgroundObjectContext];
-                                                 package.latestVersion = [NSNumber numberWithFloat:[[resource attribute:@"version"] floatValue]];
                                              }else{
                                                  package = [packageArray objectAtIndex:0];
                                              }
                                              
-                                             package.name = [NSString stringWithUTF8String:[[resource attribute:@"name"] UTF8String]];
+                                             package.name			= [NSString stringWithUTF8String:[[resource attribute:@"name"] UTF8String]];
                                              NSLog(@"name: %@",package.name);
-                                             package.configFile = [resource attribute:@"config"];
-                                             package.icon = [resource attribute:@"icon"];
-                                             package.status = [resource attribute:@"status"];
-                                             package.localVersion = [NSNumber numberWithFloat:[[resource attribute:@"version"] floatValue] ];
+                                             package.configFile		= [resource attribute:@"config"];
+                                             package.icon			= [resource attribute:@"icon"];
+                                             package.status			= [resource attribute:@"status"];
+											 package.localVersion	= [resource attribute:@"version"];
+											 package.latestVersion	= [resource attribute:@"version"];
 
-                                             
+											 
                                              [language addPackagesObject:package];
                                              
                                          }];
@@ -836,17 +836,17 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
                                                  if(!package){
 
                                                      package = [GTPackage packageWithCode:[resource attribute:@"package"] language:language inContext:[GTStorage sharedStorage].backgroundObjectContext];
-                                                     package.latestVersion = [NSNumber numberWithFloat:[[resource attribute:@"version"] floatValue] ];
+                                                     package.latestVersion = [resource attribute:@"version"];
                                                  }else{
                                                      //[language removePackagesObject:package];
                                                  }
                                              }
                                              
-                                             package.name = [resource attribute:@"name"];
-                                             package.configFile = [resource attribute:@"config"];
-                                             package.icon = [resource attribute:@"icon"];
-                                             package.status = [resource attribute:@"status"];
-                                             package.localVersion = [NSNumber numberWithFloat:[[resource attribute:@"version"] floatValue] ];
+                                             package.name			= [resource attribute:@"name"];
+                                             package.configFile		= [resource attribute:@"config"];
+                                             package.icon			= [resource attribute:@"icon"];
+                                             package.status			= [resource attribute:@"status"];
+                                             package.localVersion	= [resource attribute:@"version"];
                                              
                                              [language addPackagesObject:package];
                                              

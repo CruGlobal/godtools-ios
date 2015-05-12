@@ -13,5 +13,7 @@
 + (instancetype)packageWithCode:(NSString *)code language:(GTLanguage *)language inContext:(NSManagedObjectContext *)context;
 + (NSString *)identifierWithPackageCode:(NSString *)packageCode languageCode:(NSString *)languageCode;
 - (BOOL)hasUpdate;
+- (BOOL)hasMajorUpdate;
+- (BOOL)hasMinorUpdate;
 
 @end

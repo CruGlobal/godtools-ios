@@ -1,9 +1,9 @@
 //
 //  GTPackage.m
-//  godtools
+//  
 //
-//  Created by Michael Harrison on 3/27/14.
-//  Copyright (c) 2014 Michael Harrison. All rights reserved.
+//  Created by Michael Harrison on 5/12/15.
+//
 //
 
 #import "GTPackage.h"
@@ -16,11 +16,11 @@
 @dynamic configFile;
 @dynamic icon;
 @dynamic identifier;
+@dynamic latestVersion;
+@dynamic localVersion;
 @dynamic name;
 @dynamic status;
 @dynamic type;
-@dynamic localVersion;
-@dynamic latestVersion;
 @dynamic language;
 
 @end

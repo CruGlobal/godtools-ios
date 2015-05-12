@@ -9,6 +9,7 @@
 #import "GTPackage+Helper.h"
 
 #import "GTLanguage+Helper.h"
+#import "EDSemver.h"
 
 @implementation GTPackage (Helper)
 
@@ -29,12 +30,41 @@
 
 - (BOOL)hasUpdate {
 	
-	if (self.latestVersion > self.localVersion) {
+	EDSemver *latest	= [EDSemver semverWithString:self.latestVersion];
+	EDSemver *local		= [EDSemver semverWithString:self.localVersion];
+	
+	if ([latest isGreaterThan: local]) {
 		return YES;
 	} else {
 		return NO;
 	}
 
+}
+
+- (BOOL)hasMajorUpdate {
+	
+	EDSemver *latest	= [EDSemver semverWithString:self.latestVersion];
+	EDSemver *local		= [EDSemver semverWithString:self.localVersion];
+	
+	if (latest.major > local.major) {
+		return YES;
+	} else {
+		return NO;
+	}
+	
+}
+
+- (BOOL)hasMinorUpdate {
+	
+	EDSemver *latest	= [EDSemver semverWithString:self.latestVersion];
+	EDSemver *local		= [EDSemver semverWithString:self.localVersion];
+	
+	if (latest.major == local.major && latest.minor > local.minor) {
+		return YES;
+	} else {
+		return NO;
+	}
+	
 }
 
 @end

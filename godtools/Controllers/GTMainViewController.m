@@ -202,12 +202,12 @@
                 package = [packageArray objectAtIndex:0];
             }
             
-            package.name = [resource attribute:@"name"];
-            package.configFile = [resource attribute:@"config"];
-            package.icon = [resource attribute:@"icon"];
-            package.status = [resource attribute:@"status"];
-            package.localVersion = [NSNumber numberWithFloat:[[resource attribute:@"version"] floatValue] ];
-            package.latestVersion = [NSNumber numberWithFloat:[[resource attribute:@"version"] floatValue] ];
+            package.name			= [resource attribute:@"name"];
+            package.configFile		= [resource attribute:@"config"];
+            package.icon			= [resource attribute:@"icon"];
+            package.status			= [resource attribute:@"status"];
+            package.localVersion	= [resource attribute:@"version"];
+            package.latestVersion	= [resource attribute:@"version"];
 
             [english addPackagesObject:package];
             
