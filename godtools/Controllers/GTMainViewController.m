@@ -140,7 +140,6 @@
     if([self.splashScreen.activityView isAnimating]){
         [self.splashScreen hideDownloadIndicator];
     }
-    [self goToHome];
     
 }
 
