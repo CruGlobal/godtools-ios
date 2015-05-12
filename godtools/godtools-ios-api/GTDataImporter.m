@@ -376,14 +376,14 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 								 NSLog(@"progress ...");
 								 [[NSNotificationCenter defaultCenter] postNotificationName:progressNotificationName
 																					 object:weakSelf
-																				   userInfo:@{GTDataImporterNotificationPackageDownloadPercentageKey: percentage}];
+																				   userInfo:@{GTDataImporterNotificationLanguageDownloadPercentageKey: percentage}];
 								 
 							 } success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSURL *targetPath) {
 								 
 								 if(response.statusCode == 200){
 									 
 									 RXMLElement *contents =[weakSelf unzipResourcesAtTarget:targetPath forLanguage:package.language package:package];
-									 NSError *error;
+									 
 									 if(contents!=nil){
 										 //Update storage with data from contents.
 										 [contents iterate:@"resource" usingBlock: ^(RXMLElement *resource) {

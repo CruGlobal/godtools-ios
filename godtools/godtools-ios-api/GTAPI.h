@@ -9,6 +9,7 @@
 
 #import "AFHTTPRequestOperationManager.h"
 #import "GTLanguage+Helper.h"
+#import "GTPackage+Helper.h"
 #import "GTConfig.h"
 #import "GTAPIErrorHandler.h"
 
@@ -113,9 +114,29 @@
 						failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure;
 
 /**
+ *  Retrieves all files for all resources associated with the package passed to this method.
+ *
+ *  @warning will throw exception if package.code or package.language.code is nil
+ *
+ *  @param package the package you would like to download resources for. Note: It needs to have an associated language that the package is in.
+ *  @param progress callback used to display the download progress for this request
+ *  @param success  callback for processing a successful request. In addition to the request and response you will get the path where the files have been downloaded to.
+ *  @param failure  callback that delivers the error object describing why your request failed.
+ */
+- (void)getResourcesForPackage:(GTPackage *)package
+					  progress:(void (^)(NSNumber *percentage))progress
+					   success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSURL *targetPath))success
+					   failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure;
+
+/**
  * Cancels the most recent getResourcesForLanguageRequest
  **/
 - (void)cancelGetResourcesForLanguage;
+
+/**
+ * Cancels the most recent getResourcesForPackageRequest
+ **/
+- (void)cancelGetResourcesForPackage;
 
 /**
  *  Retrieves only the xml files for all resources associated with the language passed to this method. This should be used to update a resource.
