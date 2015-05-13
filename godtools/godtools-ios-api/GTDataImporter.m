@@ -506,10 +506,10 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 											 
                                              GTPackage *package;
 											 
-                                             NSArray *packageArray = [[GTStorage sharedStorage]fetchArrayOfModels:[GTPackage class] usingKey:@"identifier" forValues:@[existingIdentifier] inBackground:YES];
+                                             NSArray *packageArray = [self.storage fetchArrayOfModels:[GTPackage class] usingKey:@"identifier" forValues:@[existingIdentifier] inBackground:YES];
 											 
                                              if([packageArray count]==0){
-                                                 package = [GTPackage packageWithCode:[resource attribute:@"package"] language:language inContext:[GTStorage sharedStorage].backgroundObjectContext];
+                                                 package = [GTPackage packageWithCode:[resource attribute:@"package"] language:language inContext:self.storage.backgroundObjectContext];
                                              }else{
                                                  package = [packageArray objectAtIndex:0];
                                              }
@@ -528,7 +528,7 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
                                          }];
                                          
                                          language.downloaded = [NSNumber numberWithBool: YES];
-                                         if (![[GTStorage sharedStorage].backgroundObjectContext save:&error]) {
+                                         if (![self.storage.backgroundObjectContext save:&error]) {
                                              NSLog(@"error saving");
                                          }else{
                                              if([[GTDefaults sharedDefaults] isChoosingForMainLanguage] == [NSNumber numberWithBool:YES]){
@@ -755,7 +755,7 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 			
 		}];
 		
-		if (![[GTStorage sharedStorage].backgroundObjectContext save:&error]) {
+		if (![self.storage.backgroundObjectContext save:&error]) {
 			NSLog(@"Error saving updates");
 		}
 		
@@ -811,7 +811,7 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 	}
 	
 	NSError *error;
-	if (![[GTStorage sharedStorage].backgroundObjectContext save:&error]) {
+	if (![self.storage.backgroundObjectContext save:&error]) {
 		
 		NSLog(@"error saving");
 	} else {
@@ -899,10 +899,10 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
                                              
                                              GTPackage *package;
                                              
-                                             NSArray *packageArray = [[GTStorage sharedStorage]fetchArrayOfModels:[GTPackage class] usingKey:@"identifier" forValues:@[existingIdentifier] inBackground:YES];
+                                             NSArray *packageArray = [self.storage fetchArrayOfModels:[GTPackage class] usingKey:@"identifier" forValues:@[existingIdentifier] inBackground:YES];
                                              
                                              if([packageArray count]==0){
-                                                 package = [GTPackage packageWithCode:[resource attribute:@"package"] language:language inContext:[GTStorage sharedStorage].backgroundObjectContext];
+                                                 package = [GTPackage packageWithCode:[resource attribute:@"package"] language:language inContext:self.storage.backgroundObjectContext];
                                                  
                                                 
                                              }else{
@@ -913,7 +913,7 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
                                                  //NSLog(@"PACKAGE");
                                                  if(!package){
 
-                                                     package = [GTPackage packageWithCode:[resource attribute:@"package"] language:language inContext:[GTStorage sharedStorage].backgroundObjectContext];
+                                                     package = [GTPackage packageWithCode:[resource attribute:@"package"] language:language inContext:self.storage.backgroundObjectContext];
                                                      package.latestVersion = [resource attribute:@"version"];
                                                  }else{
                                                      //[language removePackagesObject:package];
@@ -931,7 +931,7 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
                                          }];    
                                          
                                          language.downloaded = [NSNumber numberWithBool: YES];
-                                         if (![[GTStorage sharedStorage].backgroundObjectContext save:&error]) {
+                                         if (![self.storage.backgroundObjectContext save:&error]) {
                                              NSLog(@"error saving drafts");
                                          }else{
                                              //this is to catch the error from the empty live packages
@@ -962,7 +962,7 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
                                         [language removePackages:[language.packages filteredSetUsingPredicate:predicate]];
                                         
                                         NSError *error;
-                                        if (![[GTStorage sharedStorage].backgroundObjectContext save:&error]) {
+                                        if (![self.storage.backgroundObjectContext save:&error]) {
                                             NSLog(@"error saving");
                                         }
                                     }else if(response.statusCode == 500){
