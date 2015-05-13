@@ -146,12 +146,12 @@
  *
  *  @warning will throw exception if language.code is nil
  *
- *  @param language the language you would like to download resources for.
+ *  @param package the package you would like to download xml files for.
  *  @param progress callback used to display the download progress for this request
  *  @param success  callback for processing a successful request. In addition to the request and response you will get the path where the files have been downloaded to.
  *  @param failure  callback that delivers the error object describing why your request failed.
  */
-- (void)getXmlFilesForLanguage:(GTLanguage *)language
+- (void)getXmlFilesForPackage:(GTPackage *)package
 					   progress:(void (^)(NSNumber *percentage))progress
 						success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSURL *targetPath))success
 						failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure;

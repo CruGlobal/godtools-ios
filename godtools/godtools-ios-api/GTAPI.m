@@ -191,12 +191,12 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
 	self.languageAFDownloadRequestOperation = [self getFilesForRequest:request progress:progress success:success failure:failure];
 }
 
-- (void)getXmlFilesForLanguage:(GTLanguage *)language progress:(void (^)(NSNumber *percentage))progress success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSURL *targetPath))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure {
+- (void)getXmlFilesForPackage:(GTPackage *)package progress:(void (^)(NSNumber *percentage))progress success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSURL *targetPath))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure {
 	
-	NSParameterAssert(language.code);
+	NSParameterAssert(package.code && package.language.code);
 	
-	NSMutableURLRequest *request	= [self.requestSerializer translationRequestWithLanguage:language
-																			  package:nil
+	NSMutableURLRequest *request	= [self.requestSerializer translationRequestWithLanguage:package.language
+																			  package:package
 																			  version:nil
 																		   compressed:YES
 																				error:nil];

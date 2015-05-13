@@ -28,7 +28,7 @@
 	return [packageCode stringByAppendingFormat:@"-%@", languageCode];
 }
 
-- (BOOL)hasUpdate {
+- (BOOL)needsUpdate {
 	
 	EDSemver *latest	= [EDSemver semverWithString:self.latestVersion];
 	EDSemver *local		= [EDSemver semverWithString:self.localVersion];
@@ -41,7 +41,7 @@
 
 }
 
-- (BOOL)hasMajorUpdate {
+- (BOOL)needsMajorUpdate {
 	
 	EDSemver *latest	= [EDSemver semverWithString:self.latestVersion];
 	EDSemver *local		= [EDSemver semverWithString:self.localVersion];
@@ -54,7 +54,7 @@
 	
 }
 
-- (BOOL)hasMinorUpdate {
+- (BOOL)needsMinorUpdate {
 	
 	EDSemver *latest	= [EDSemver semverWithString:self.latestVersion];
 	EDSemver *local		= [EDSemver semverWithString:self.localVersion];
