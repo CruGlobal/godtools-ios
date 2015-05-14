@@ -31,6 +31,13 @@
 "No"                                    = "No";
 "OK"                                    = "OK";
 
+"GTLanguage_error_oneLanguageAtATime_Title"			= "Sorry";
+"GTLanguage_error_oneLanguageAtATime_Message"		= "We you can't download more than one at a time";
+"GTLanguage_error_cantChangeDuringDownload_Title"	= "Sorry";
+"GTLanguage_error_cantChangeDuringDownload_Message"	= "You can't change the language while a download is in progress";
+
+"GTLanguage_error_needToBeOnline_Message"		= "You need to be online to proceed";
+
 "AlertTitle_newUpdatesAvailable"				= "New Language updates available";
 "AlertMessage_newUpdatesAvailable"				= "Would you like to download the %d latest updates to your God Tools resources?";
 

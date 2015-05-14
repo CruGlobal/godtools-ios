@@ -780,6 +780,7 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 		
 		if (language == nil || [package.language.code isEqualToString:language.code]) {
 			
+#warning needs to use full version of method (instead of the convienience method) and do a check on each package completion to see if all the packages have been downloaded.
 			[weakSelf downloadPackage:package];
 		}
         
