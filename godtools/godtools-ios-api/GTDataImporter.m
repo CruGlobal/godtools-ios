@@ -750,7 +750,7 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 				package.language.updatesAvailable =  [NSNumber numberWithBool: YES];
 				
 			} else {
-				NSLog(@"None - %@ - %@ - %@ < %@", package.language.code, package.code, package.localVersion, package.latestVersion);
+				//NSLog(@"None - %@ - %@ - %@ < %@", package.language.code, package.code, package.localVersion, package.latestVersion);
 			}
 			
 		}];
@@ -760,7 +760,9 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 		}
 		
 		if (self.packagesNeedingMajorUpdate.count > 0 || self.packagesNeedingMinorUpdate.count > 0) {
-			[[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationNewVersionsAvailable object:self];
+			[[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationNewVersionsAvailableKeyNumberAvailable
+																object:self
+															  userInfo:@{GTDataImporterNotificationNewVersionsAvailableKeyNumberAvailable: @(self.packagesNeedingMajorUpdate.count + self.packagesNeedingMinorUpdate.count) }];
 		}
 		
     }

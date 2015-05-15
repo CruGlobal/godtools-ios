@@ -26,6 +26,7 @@
 #define GTDataImporterNotificationMenuUpdateStarted @"com.godtoolsapp.GTDataImporter.notifications.updateStarted"
 
 #define GTDataImporterNotificationNewVersionsAvailable @"com.godtoolsapp.GTDataImporter.notifications.newVersionsAvailable"
+#define GTDataImporterNotificationNewVersionsAvailableKeyNumberAvailable @"com.godtoolsapp.GTDataImporter.notifications.newVersionsAvailable.key.numberAvailable"
 #define GTDataImporterNotificationAuthTokenUpdateStarted @"com.godtoolsapp.GTDataImporter.notifications.authTokenUpdateStarted"
 #define GTDataImporterNotificationAuthTokenUpdateSuccessful @"com.godtoolsapp.GTDataImporter.notifications.authTokenUpdateSuccessful"
 #define GTDataImporterNotificationAuthTokenUpdateFail @"com.godtoolsapp.GTDataImporter.notifications.authTokenUpdateFailed"

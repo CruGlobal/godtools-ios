@@ -263,7 +263,9 @@
 
 - (void)askToUpdate:(NSNotification *)notification {
 	
-	UIAlertView *confirmationAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"AlertTitle_newUpdatesAvailable", nil)
+	NSNumber *numberOfUpdatesAvailable = [notification.userInfo objectForKey:GTDataImporterNotificationNewVersionsAvailableKeyNumberAvailable];
+	
+	UIAlertView *confirmationAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"AlertTitle_newUpdatesAvailable", nil), [numberOfUpdatesAvailable integerValue]]
 														 message:NSLocalizedString(@"AlertMessage_newUpdatesAvailable", nil)
 														delegate:self
 											   cancelButtonTitle:NSLocalizedString(@"No", nil)
