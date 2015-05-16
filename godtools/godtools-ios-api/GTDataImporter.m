@@ -13,6 +13,7 @@
 #import "SSZipArchive.h"
 #import "GTPackage+Helper.h"
 #import <GTViewController/GTFileLoader.h>
+#import "GTUpdateTracker.h"
 
 NSString *const GTDataImporterErrorDomain								= @"com.godtoolsapp.GTDataImporter.errorDomain";
 
@@ -42,6 +43,7 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 @property (nonatomic, strong)			NSDate			*lastMenuInfoUpdate;
 @property (nonatomic, strong)			NSMutableArray	*packagesNeedingMajorUpdate;
 @property (nonatomic, strong)			NSMutableArray	*packagesNeedingMinorUpdate;
+@property (nonatomic, strong)			GTUpdateTracker	*updateTracker;
 
 - (void)persistMenuInfoFromXMLElement:(RXMLElement *)rootElement;
 - (void)fillArraysWithPackageAndLanguageCodesForXmlElement:(RXMLElement *)rootElement packageCodeArray:(NSMutableArray **)packageCodesArray languageCodeArray:(NSMutableArray **)languageCodesArray;
@@ -57,6 +59,7 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 - (void)displayDownloadPackagesUnzippingError:(NSError *)error;
 
 - (void)cleanUpAfterDownloadingPackage:(GTPackage *)package;
+- (void)addUpdateTrackingCallbacks;
 - (void)downloadPackage:(GTPackage *)package;
 - (void)downloadPackage:(GTPackage *)package withProgressNotifier:(NSString *) progressNotificationName withSuccessNotifier:(NSString *) successNotificationName withFailureNotifier:(NSString *) failureNotificationName;
 
@@ -90,6 +93,9 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
         
 		self.packagesNeedingMajorUpdate	= [NSMutableArray array];
 		self.packagesNeedingMinorUpdate	= [NSMutableArray array];
+		
+		self.updateTracker				= [GTUpdateTracker updateTrackerWithNotificationOwner:self];
+		[self addUpdateTrackingCallbacks];
 		
 		_api		= api;
 		_storage	= storage;
@@ -341,12 +347,12 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 
 - (void)downloadXmlFilesForPackage:(GTPackage *)package {
 	NSLog(@"downloadPackagesForLanguage() ...");
-	[self downloadXmlFilesForPackage:package withProgressNotifier:GTDataImporterNotificationLanguageDownloadProgressMade withSuccessNotifier:GTDataImporterNotificationLanguageDownloadFinished withFailureNotifier:GTDataImporterNotificationLanguageDownloadFinished];
+	[self downloadXmlFilesForPackage:package withProgressNotifier:GTDataImporterNotificationPackageXmlDownloadProgressMade withSuccessNotifier:GTDataImporterNotificationPackageXmlDownloadFinished withFailureNotifier:GTDataImporterNotificationPackageXmlDownloadFailed];
 }
 
 - (void)downloadPackage:(GTPackage *)package {
 	NSLog(@"downloadPackagesForLanguage() ...");
-	[self downloadPackage:package withProgressNotifier:GTDataImporterNotificationLanguageDownloadProgressMade withSuccessNotifier:GTDataImporterNotificationLanguageDownloadFinished withFailureNotifier:GTDataImporterNotificationLanguageDownloadFinished];
+	[self downloadPackage:package withProgressNotifier:GTDataImporterNotificationPackageDownloadProgressMade withSuccessNotifier:GTDataImporterNotificationPackageDownloadFinished withFailureNotifier:GTDataImporterNotificationPackageDownloadFailed];
 }
 
 - (void)downloadPackagesForLanguage:(GTLanguage *)language {
@@ -364,7 +370,8 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 								
 								[[NSNotificationCenter defaultCenter] postNotificationName:progressNotificationName
 																					object:weakSelf
-																				  userInfo:@{GTDataImporterNotificationLanguageDownloadPercentageKey: percentage}];
+																				  userInfo:@{GTDataImporterNotificationLanguageDownloadPercentageKey: percentage,
+																							 GTDataImporterNotificationPackageKeyPackage: package}];
 								
 							} success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSURL *targetPath) {
 								
@@ -401,7 +408,9 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 									
 								}
 								
-								[[NSNotificationCenter defaultCenter] postNotificationName:successNotificationName object:self];
+								[[NSNotificationCenter defaultCenter] postNotificationName:successNotificationName
+																					object:self
+																				  userInfo:@{GTDataImporterNotificationPackageKeyPackage: package}];
 								
 							} failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
 								
@@ -412,7 +421,9 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 								}
 								
 								gtUpdatePackagesUserCancellation = FALSE;
-								[[NSNotificationCenter defaultCenter] postNotificationName:failureNotificationName object:self];
+								[[NSNotificationCenter defaultCenter] postNotificationName:failureNotificationName
+																					object:self
+																				  userInfo:@{GTDataImporterNotificationPackageKeyPackage: package}];
 								
 							}];
 	
@@ -431,7 +442,8 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 								 NSLog(@"progress ...");
 								 [[NSNotificationCenter defaultCenter] postNotificationName:progressNotificationName
 																					 object:weakSelf
-																				   userInfo:@{GTDataImporterNotificationLanguageDownloadPercentageKey: percentage}];
+																				   userInfo:@{GTDataImporterNotificationLanguageDownloadPercentageKey: percentage,
+																							  GTDataImporterNotificationPackageKeyPackage: package}];
 								 
 							 } success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSURL *targetPath) {
 								 
@@ -469,14 +481,18 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 									 
 								 }
 								 
-								 [[NSNotificationCenter defaultCenter] postNotificationName:successNotificationName object:self];
+								 [[NSNotificationCenter defaultCenter] postNotificationName:successNotificationName
+																					 object:self
+																				   userInfo:@{GTDataImporterNotificationPackageKeyPackage:package}];
 								 
 							 } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
 								 if(!gtUpdatePackagesUserCancellation) {
 									 [weakSelf displayDownloadPackagesRequestError:error];
 								 }
 								 gtUpdatePackagesUserCancellation = FALSE;
-								 [[NSNotificationCenter defaultCenter] postNotificationName:failureNotificationName object:self];
+								 [[NSNotificationCenter defaultCenter] postNotificationName:failureNotificationName
+																					 object:self
+																				   userInfo:@{GTDataImporterNotificationPackageKeyPackage: package}];
 							 }];
 	
 }
@@ -776,13 +792,15 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 
 - (void)updatePackagesForLanguage:(GTLanguage *)language {
 	
+	NSArray *packages = [self.packagesNeedingMajorUpdate arrayByAddingObjectsFromArray:self.packagesNeedingMinorUpdate];
+	[self.updateTracker updateInitiatedForLanguage:language withPackages:packages];
+	
 	__weak typeof(self)weakSelf = self;
 	
     [self.packagesNeedingMajorUpdate enumerateObjectsUsingBlock:^(GTPackage *package, NSUInteger index, BOOL *stop) {
 		
 		if (language == nil || [package.language.code isEqualToString:language.code]) {
 			
-#warning needs to use full version of method (instead of the convienience method) and do a check on each package completion to see if all the packages have been downloaded.
 			[weakSelf downloadPackage:package];
 		}
         
@@ -835,6 +853,47 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 	}
 	
 	[[GTDefaults sharedDefaults] setTranslationDownloadStatus:@"finished"];
+	
+}
+
+- (void)addUpdateTrackingCallbacks {
+	
+	__weak typeof(self)weakSelf = self;
+	[[NSNotificationCenter defaultCenter] addObserverForName:GTDataImporterNotificationPackageDownloadFailed
+													  object:self
+													   queue:nil
+												  usingBlock:^(NSNotification *note) {
+													  
+													  GTPackage *package = note.userInfo[GTDataImporterNotificationPackageKeyPackage];
+													  [weakSelf.updateTracker updateFailedForPackage:package];
+												  }];
+	
+	[[NSNotificationCenter defaultCenter] addObserverForName:GTDataImporterNotificationPackageDownloadFinished
+													  object:self
+													   queue:nil
+												  usingBlock:^(NSNotification *note) {
+													  
+													  GTPackage *package = note.userInfo[GTDataImporterNotificationPackageKeyPackage];
+													  [weakSelf.updateTracker updateCompletedForPackage:package];
+												  }];
+	
+	[[NSNotificationCenter defaultCenter] addObserverForName:GTDataImporterNotificationPackageXmlDownloadFailed
+													  object:self
+													   queue:nil
+												  usingBlock:^(NSNotification *note) {
+													  
+													  GTPackage *package = note.userInfo[GTDataImporterNotificationPackageKeyPackage];
+													  [weakSelf.updateTracker updateFailedForPackage:package];
+												  }];
+	
+	[[NSNotificationCenter defaultCenter] addObserverForName:GTDataImporterNotificationPackageXmlDownloadFinished
+													  object:self
+													   queue:nil
+												  usingBlock:^(NSNotification *note) {
+													  
+													  GTPackage *package = note.userInfo[GTDataImporterNotificationPackageKeyPackage];
+													  [weakSelf.updateTracker updateCompletedForPackage:package];
+												  }];
 	
 }
 

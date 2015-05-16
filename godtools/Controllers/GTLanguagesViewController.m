@@ -19,8 +19,9 @@
 
 @interface GTLanguagesViewController ()
 
-@property (strong,nonatomic) NSMutableArray *languages;
+@property (strong, nonatomic) NSMutableArray *languages;
 @property (strong, nonatomic) UIAlertView *buttonLessAlert;
+@property (strong, nonatomic) UIBarButtonItem *updateAllButton;
 @property AFNetworkReachabilityManager *afReachability;
 
 - (void)addDownloadAccessoryViewToCell:(GTLanguageViewCell *)cell;
@@ -72,6 +73,36 @@ BOOL languageDownloadCancelled = FALSE;
                                              selector:@selector(setData)
                                                  name:GTDataImporterNotificationMenuUpdateFinished
                                                object:nil];
+	
+	__weak typeof(self)weakSelf = self;
+	[[NSNotificationCenter defaultCenter] addObserverForName:GTDataImporterNotificationNewVersionsAvailable
+													  object:self
+													   queue:nil
+												  usingBlock:^(NSNotification *note) {
+													  weakSelf.navigationItem.rightBarButtonItem = weakSelf.updateAllButton;
+												  }];
+	
+	[[NSNotificationCenter defaultCenter] addObserverForName:GTDataImporterNotificationUpdateStarted
+													  object:self
+													   queue:nil
+												  usingBlock:^(NSNotification *note) {
+													  weakSelf.updateAllButton.enabled = NO;
+												  }];
+	
+	[[NSNotificationCenter defaultCenter] addObserverForName:GTDataImporterNotificationUpdateFinished
+													  object:self
+													   queue:nil
+												  usingBlock:^(NSNotification *note) {
+													  weakSelf.navigationItem.rightBarButtonItem = nil;
+													  weakSelf.updateAllButton.enabled = YES;
+												  }];
+	
+	[[NSNotificationCenter defaultCenter] addObserverForName:GTDataImporterNotificationUpdateFailed
+													  object:self
+													   queue:nil
+												  usingBlock:^(NSNotification *note) {
+													  weakSelf.updateAllButton.enabled = YES;
+												  }];
     
     self.buttonLessAlert        = [[UIAlertView alloc]
                                    initWithTitle:@""
@@ -79,6 +110,11 @@ BOOL languageDownloadCancelled = FALSE;
                                    delegate:self
                                    cancelButtonTitle:nil
                                    otherButtonTitles:nil, nil];
+	
+	self.updateAllButton		= [[UIBarButtonItem alloc] initWithTitle: NSLocalizedString(@"GTLanguage_toolbar_button_updateAll", nil)
+															 style:UIBarButtonItemStylePlain
+															target:self
+															action:@selector(updateAllLanguages)];
     
     // set navigation bar title color for title set from story board
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:UITextAttributeTextColor]];
@@ -367,6 +403,16 @@ BOOL languageDownloadCancelled = FALSE;
         }
         
 	}];
+}
+
+- (void)updateAllLanguages {
+	
+	[self ifOnline:^{
+		
+		[[GTDataImporter sharedImporter] updatePackagesWithNewVersions];
+		
+	}];
+	
 }
 
 - (BOOL)updateLanguage:(GTLanguage *)language {

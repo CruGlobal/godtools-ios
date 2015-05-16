@@ -26,6 +26,20 @@
 #define GTDataImporterNotificationMenuUpdateStarted @"com.godtoolsapp.GTDataImporter.notifications.updateStarted"
 
 #define GTDataImporterNotificationNewVersionsAvailable @"com.godtoolsapp.GTDataImporter.notifications.newVersionsAvailable"
+#define GTDataImporterNotificationUpdateStarted @"com.godtoolsapp.GTDataImporter.notifications.updateStarted"
+#define GTDataImporterNotificationUpdateFinished @"com.godtoolsapp.GTDataImporter.notifications.updateFinished"
+#define GTDataImporterNotificationUpdateFailed @"com.godtoolsapp.GTDataImporter.notifications.updateFailed"
+#define GTDataImporterNotificationUpdateCancelled @"com.godtoolsapp.GTDataImporter.notifications.updateCancelled"
+#define GTDataImporterNotificationUpdateKeyLanguage @"com.godtoolsapp.GTDataImporter.notifications.update.key.language"
+
+#define GTDataImporterNotificationPackageKeyPackage @"com.godtoolsapp.GTDataImporter.notifications.package.key.package"
+#define GTDataImporterNotificationPackageXmlDownloadProgressMade @"com.godtoolsapp.GTDataImporter.notifications.packageXmlDownloadProgressMade"
+#define GTDataImporterNotificationPackageXmlDownloadFinished @"com.godtoolsapp.GTDataImporter.notifications.packageXmlDownloadFinished"
+#define GTDataImporterNotificationPackageXmlDownloadFailed @"com.godtoolsapp.GTDataImporter.notifications.packageXmlDownloadFailed"
+#define GTDataImporterNotificationPackageDownloadProgressMade @"com.godtoolsapp.GTDataImporter.notifications.packageDownloadProgressMade"
+#define GTDataImporterNotificationPackageDownloadFinished @"com.godtoolsapp.GTDataImporter.notifications.packageDownloadFinished"
+#define GTDataImporterNotificationPackageDownloadFailed @"com.godtoolsapp.GTDataImporter.notifications.packageDownloadFailure"
+
 #define GTDataImporterNotificationNewVersionsAvailableKeyNumberAvailable @"com.godtoolsapp.GTDataImporter.notifications.newVersionsAvailable.key.numberAvailable"
 #define GTDataImporterNotificationAuthTokenUpdateStarted @"com.godtoolsapp.GTDataImporter.notifications.authTokenUpdateStarted"
 #define GTDataImporterNotificationAuthTokenUpdateSuccessful @"com.godtoolsapp.GTDataImporter.notifications.authTokenUpdateSuccessful"
