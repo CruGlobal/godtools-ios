@@ -333,9 +333,9 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 
             package.status			= [packageElement attribute:GTDataImporterPackageMetaXmlAttributeNameStatus];
             package.type			= [packageElement attribute:GTDataImporterPackageMetaXmlAttributeNameType];
-			package.localVersion	= (package.localVersion ? package.localVersion : version );
-            package.latestVersion	= version;
-            
+			//package.localVersion	= package.localVersion; //don't change local version. The xml data only represents what is on the server
+			[package setIfGreaterThanLatestVersion:version];
+			
             [packageObjects removeObjectForKey:identifier];
             
         }];
@@ -740,34 +740,37 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 
 	NSManagedObjectContext *context	= self.storage.backgroundObjectContext;
 	NSFetchRequest *fetchRequest	= [[NSFetchRequest alloc] init];
-	fetchRequest.entity				= [NSEntityDescription entityForName:NSStringFromClass([GTPackage class]) inManagedObjectContext:context];
+	fetchRequest.entity				= [NSEntityDescription entityForName:NSStringFromClass([GTLanguage class]) inManagedObjectContext:context];
+	//restrict list of languages to downloaded languages that match the languages listed in languageCodes (reverts to all downloaded languages if langugageCodes is empty or nil
 	fetchRequest.predicate			= ( (languageCodes != nil && languageCodes.count > 0) ?
-									   [NSPredicate predicateWithFormat:@"language.code IN %@", languageCodes] :
-									   nil);
+									   [NSPredicate predicateWithFormat:@"downloaded == TRUE AND code IN %@", languageCodes] :
+									   [NSPredicate predicateWithFormat:@"downloaded == TRUE"]);
 	
-	NSArray *fetchedPackages		= [context executeFetchRequest:fetchRequest error:nil];
+	NSArray *downloadedLanguages	= [context executeFetchRequest:fetchRequest error:nil];
 	[self.packagesNeedingMajorUpdate removeAllObjects];
 	[self.packagesNeedingMinorUpdate removeAllObjects];
 
-    if (fetchedPackages != nil && fetchedPackages.count > 0) {
+    if (downloadedLanguages != nil && downloadedLanguages.count > 0) {
 		
 		NSError *error;
 		__weak typeof(self)weakSelf = self;
-		[fetchedPackages enumerateObjectsUsingBlock:^(GTPackage *package, NSUInteger index, BOOL *stop) {
+		[downloadedLanguages enumerateObjectsUsingBlock:^(GTLanguage *language, NSUInteger index, BOOL *stop) {
 			
-			if (package.needsMajorUpdate) {
+			[language.packages enumerateObjectsUsingBlock:^(GTPackage *package, BOOL *stop) {
 				
-				[weakSelf.packagesNeedingMajorUpdate addObject:package];
-				package.language.updatesAvailable =  [NSNumber numberWithBool: YES];
+				if (package.needsMajorUpdate) {
+					
+					[weakSelf.packagesNeedingMajorUpdate addObject:package];
+					package.language.updatesAvailable =  [NSNumber numberWithBool: YES];
+					
+				} else if (package.needsMinorUpdate) {
+					
+					[weakSelf.packagesNeedingMinorUpdate addObject:package];
+					package.language.updatesAvailable =  [NSNumber numberWithBool: YES];
+					
+				}
 				
-			} else if (package.needsMinorUpdate) {
-				
-				[weakSelf.packagesNeedingMinorUpdate addObject:package];
-				package.language.updatesAvailable =  [NSNumber numberWithBool: YES];
-				
-			} else {
-				//NSLog(@"None - %@ - %@ - %@ < %@", package.language.code, package.code, package.localVersion, package.latestVersion);
-			}
+			}];
 			
 		}];
 		

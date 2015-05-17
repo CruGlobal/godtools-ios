@@ -30,8 +30,10 @@
 
 - (BOOL)needsUpdate {
 	
-	EDSemver *latest	= [EDSemver semverWithString:self.latestVersion];
-	EDSemver *local		= [EDSemver semverWithString:self.localVersion];
+	NSString *latestString	= (!self.latestVersion || self.latestVersion.length == 0 ? @"0.0.0" : self.latestVersion);
+	NSString *localString	= (!self.localVersion || self.localVersion.length == 0 ? @"0.0.0" : self.localVersion);
+	EDSemver *latest		= [EDSemver semverWithString:latestString];
+	EDSemver *local			= [EDSemver semverWithString:localString];
 	
 	if ([latest isGreaterThan: local]) {
 		return YES;
@@ -43,8 +45,10 @@
 
 - (BOOL)needsMajorUpdate {
 	
-	EDSemver *latest	= [EDSemver semverWithString:self.latestVersion];
-	EDSemver *local		= [EDSemver semverWithString:self.localVersion];
+	NSString *latestString	= (!self.latestVersion || self.latestVersion.length == 0 ? @"0.0.0" : self.latestVersion);
+	NSString *localString	= (!self.localVersion || self.localVersion.length == 0 ? @"0.0.0" : self.localVersion);
+	EDSemver *latest		= [EDSemver semverWithString:latestString];
+	EDSemver *local			= [EDSemver semverWithString:localString];
 	
 	if (latest.major > local.major) {
 		return YES;
@@ -56,13 +60,29 @@
 
 - (BOOL)needsMinorUpdate {
 	
-	EDSemver *latest	= [EDSemver semverWithString:self.latestVersion];
-	EDSemver *local		= [EDSemver semverWithString:self.localVersion];
+	NSString *latestString	= (!self.latestVersion || self.latestVersion.length == 0 ? @"0.0.0" : self.latestVersion);
+	NSString *localString	= (!self.localVersion || self.localVersion.length == 0 ? @"0.0.0" : self.localVersion);
+	EDSemver *latest		= [EDSemver semverWithString:latestString];
+	EDSemver *local			= [EDSemver semverWithString:localString];
 	
 	if (latest.major == local.major && latest.minor > local.minor) {
 		return YES;
 	} else {
 		return NO;
+	}
+	
+}
+
+- (void)setIfGreaterThanLatestVersion:(NSString *)latestVersion {
+	
+	NSString *latestString			= (!self.latestVersion || self.latestVersion.length == 0 ? @"0.0.0" : self.latestVersion);
+	NSString *newLatestString		= (!latestVersion || latestVersion.length == 0 ? @"0.0.0" : latestVersion);
+	EDSemver *storedLatestVersion	= [EDSemver semverWithString:latestString];
+	EDSemver *newLastestVersion		= [EDSemver semverWithString:newLatestString];
+	
+	if ([newLastestVersion isGreaterThan:storedLatestVersion]) {
+		
+		self.latestVersion = latestVersion;
 	}
 	
 }

@@ -15,5 +15,6 @@
 - (BOOL)needsUpdate;
 - (BOOL)needsMajorUpdate;
 - (BOOL)needsMinorUpdate;
+- (void)setIfGreaterThanLatestVersion:(NSString *)latestVersion;
 
 @end
