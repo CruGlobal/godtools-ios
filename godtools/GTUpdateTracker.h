@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "GTPackage+Helper.h"
+#import "GTLanguage+Helper.h"
 
 @interface GTUpdateTracker : NSObject
 
@@ -19,5 +20,7 @@
 - (void)updateCompletedForPackage:(GTPackage *)package;
 - (void)updateFailedForPackage:(GTPackage *)package;
 - (NSArray *)updateCancelled;
+
+- (BOOL)hasFinishedUpdatingLanguage:(GTLanguage *)language;
 
 @end

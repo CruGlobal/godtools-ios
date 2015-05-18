@@ -393,18 +393,7 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 										}];
 										
 										[weakSelf cleanUpAfterDownloadingPackage:package];
-										
-										[[GTDefaults sharedDefaults] setTranslationDownloadStatus:@"finished"];
 									}
-									
-								} else if (response.statusCode == 500) {
-									
-									NSString *errorMessage	= NSLocalizedString(@"GTDataImporter_downloadPackages_error", @"Error message when package endpoint response is missing data.");
-									NSError *error = [NSError errorWithDomain:GTDataImporterErrorDomain
-																		 code:GTDataImporterErrorCodeInvalidXml
-																	 userInfo:@{NSLocalizedDescriptionKey: errorMessage, }];
-									
-									[weakSelf displayDownloadPackagesRequestError:error];
 									
 								}
 								
@@ -466,18 +455,7 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 										 }];
 										 
 										 [weakSelf cleanUpAfterDownloadingPackage:package];
-										 
-										 [[GTDefaults sharedDefaults] setTranslationDownloadStatus:@"finished"];
 									 }
-									 
-								 } else if(response.statusCode == 500) {
-									 
-									 NSString *errorMessage	= NSLocalizedString(@"GTDataImporter_downloadPackages_error", @"Error message when package endpoint response is missing data.");
-									 NSError *error = [NSError errorWithDomain:GTDataImporterErrorDomain
-																		  code:GTDataImporterErrorCodeInvalidXml
-																	  userInfo:@{NSLocalizedDescriptionKey: errorMessage, }];
-									 
-									 [weakSelf displayDownloadPackagesRequestError:error];
 									 
 								 }
 								 
@@ -779,7 +757,7 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 		}
 		
 		if (self.packagesNeedingMajorUpdate.count > 0 || self.packagesNeedingMinorUpdate.count > 0) {
-			[[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationNewVersionsAvailableKeyNumberAvailable
+			[[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationNewVersionsAvailable
 																object:self
 															  userInfo:@{GTDataImporterNotificationNewVersionsAvailableKeyNumberAvailable: @(self.packagesNeedingMajorUpdate.count + self.packagesNeedingMinorUpdate.count) }];
 		}
@@ -822,12 +800,7 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 
 - (void)cleanUpAfterDownloadingPackage:(GTPackage *)package {
 	
-	NSPredicate *predicate				= [NSPredicate predicateWithFormat:@"language.code == %@", package.language.code];
-	NSArray *packagesWithMajorUpdates	= [self.packagesNeedingMajorUpdate filteredArrayUsingPredicate:predicate];
-	NSArray *packagesWithMinorUpdates	= [self.packagesNeedingMinorUpdate filteredArrayUsingPredicate:predicate];
-	
-	if ( (packagesWithMajorUpdates == nil || packagesWithMajorUpdates.count == 0) &&
-		 (packagesWithMinorUpdates == nil || packagesWithMinorUpdates.count == 0) ) {
+	if ( [self.updateTracker hasFinishedUpdatingLanguage:package.language] ) {
 		
 		package.language.downloaded			= [NSNumber numberWithBool:YES];
 		package.language.updatesAvailable	= [NSNumber numberWithBool:NO];
@@ -838,21 +811,6 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 	if (![self.storage.backgroundObjectContext save:&error]) {
 		
 		NSLog(@"error saving");
-	} else {
-		if([[GTDefaults sharedDefaults] isChoosingForMainLanguage] == [NSNumber numberWithBool:YES]){
-			
-			if([[[GTDefaults sharedDefaults] currentParallelLanguageCode] isEqualToString:package.language.code]) {
-				
-				[[GTDefaults sharedDefaults] setCurrentParallelLanguageCode:nil];
-			}
-			
-			[[GTDefaults sharedDefaults] setCurrentLanguageCode:package.language.code];
-			
-		} else {
-			
-			NSLog(@"set %@ as parallel",package.language.name );
-			[[GTDefaults sharedDefaults] setCurrentParallelLanguageCode:package.language.code];
-		}
 	}
 	
 	[[GTDefaults sharedDefaults] setTranslationDownloadStatus:@"finished"];

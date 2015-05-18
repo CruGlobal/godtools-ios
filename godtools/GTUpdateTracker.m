@@ -124,4 +124,18 @@
 	
 }
 
+- (BOOL)hasFinishedUpdatingLanguage:(GTLanguage *)language {
+	
+	NSPredicate *predicate							= [NSPredicate predicateWithFormat:@"language.code == %@", language.code];
+	NSArray *packagesForLanguageWaitingForUpdate	= [self.packagesWaitingForUpdate filteredArrayUsingPredicate:predicate];
+	NSArray *packagesForLanguageThatFailedUpdate	= [self.packagesFailedToUpdate filteredArrayUsingPredicate:predicate];
+	
+	if (packagesForLanguageWaitingForUpdate.count > 0 || packagesForLanguageThatFailedUpdate.count > 0) {
+		return NO;
+	} else {
+		return YES;
+	}
+	
+}
+
 @end

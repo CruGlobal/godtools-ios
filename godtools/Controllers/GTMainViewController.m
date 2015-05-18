@@ -265,11 +265,11 @@
 	
 	NSNumber *numberOfUpdatesAvailable = notification.userInfo[GTDataImporterNotificationNewVersionsAvailableKeyNumberAvailable];
 	
-	UIAlertView *confirmationAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"AlertTitle_newUpdatesAvailable", nil), [numberOfUpdatesAvailable integerValue]]
-														 message:NSLocalizedString(@"AlertMessage_newUpdatesAvailable", nil)
+	UIAlertView *confirmationAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"AlertTitle_newUpdatesAvailable", nil)
+														 message:[NSString stringWithFormat:NSLocalizedString(@"AlertMessage_newUpdatesAvailable", nil), [numberOfUpdatesAvailable integerValue]]
 														delegate:self
-											   cancelButtonTitle:NSLocalizedString(@"No", nil)
-											   otherButtonTitles:NSLocalizedString(@"Yes", nil), nil];
+											   cancelButtonTitle:nil
+											   otherButtonTitles:NSLocalizedString(@"Yes", nil), NSLocalizedString(@"No", nil), nil];
 	[confirmationAlert show];
 	
 }
