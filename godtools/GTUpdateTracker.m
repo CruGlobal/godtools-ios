@@ -65,12 +65,15 @@
 	[self.packagesWaitingForUpdate removeObject:package];
 	[self.packagesCompetedUpdate addObject:package];
 	
+	[self checkForCompletion];
 }
 
 - (void)updateFailedForPackage:(GTPackage *)package {
 	
 	[self.packagesWaitingForUpdate removeObject:package];
 	[self.packagesCompetedUpdate addObject:package];
+	
+	[self checkForCompletion];
 }
 
 - (NSArray *)updateCancelled {

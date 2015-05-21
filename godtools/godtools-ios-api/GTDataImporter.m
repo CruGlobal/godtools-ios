@@ -346,12 +346,12 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 #pragma mark - Package downloading
 
 - (void)downloadXmlFilesForPackage:(GTPackage *)package {
-	NSLog(@"downloadPackagesForLanguage() ...");
+	NSLog(@"downloadXmlFilesForPackage() ...");
 	[self downloadXmlFilesForPackage:package withProgressNotifier:GTDataImporterNotificationPackageXmlDownloadProgressMade withSuccessNotifier:GTDataImporterNotificationPackageXmlDownloadFinished withFailureNotifier:GTDataImporterNotificationPackageXmlDownloadFailed];
 }
 
 - (void)downloadPackage:(GTPackage *)package {
-	NSLog(@"downloadPackagesForLanguage() ...");
+	NSLog(@"downloadPackage() ...");
 	[self downloadPackage:package withProgressNotifier:GTDataImporterNotificationPackageDownloadProgressMade withSuccessNotifier:GTDataImporterNotificationPackageDownloadFinished withFailureNotifier:GTDataImporterNotificationPackageDownloadFailed];
 }
 
@@ -375,31 +375,27 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 								
 							} success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSURL *targetPath) {
 								
-								if (response.statusCode == 200){
-									
-									RXMLElement *contents =[weakSelf unzipResourcesAtTarget:targetPath forLanguage:package.language package:package];
-									
-									if(contents!=nil){
-										//Update storage with data from contents.
-										[contents iterate:@"resource" usingBlock: ^(RXMLElement *resource) {
-											
-											package.name			= [NSString stringWithUTF8String:[[resource attribute:@"name"] UTF8String]];
-											package.configFile		= [resource attribute:@"config"];
-											package.icon			= [resource attribute:@"icon"];
-											package.status			= [resource attribute:@"status"];
-											package.localVersion	= [resource attribute:@"version"];
-											package.latestVersion	= [resource attribute:@"version"];
-											
-										}];
-										
-										[weakSelf cleanUpAfterDownloadingPackage:package];
-									}
-									
-								}
+								RXMLElement *contents =[weakSelf unzipResourcesAtTarget:targetPath forLanguage:package.language package:package];
 								
-								[[NSNotificationCenter defaultCenter] postNotificationName:successNotificationName
-																					object:self
-																				  userInfo:@{GTDataImporterNotificationPackageKeyPackage: package}];
+								if(contents!=nil){
+									//Update storage with data from contents.
+									[contents iterate:@"resource" usingBlock: ^(RXMLElement *resource) {
+										
+										package.name			= [NSString stringWithUTF8String:[[resource attribute:@"name"] UTF8String]];
+										package.configFile		= [resource attribute:@"config"];
+										package.icon			= [resource attribute:@"icon"];
+										package.status			= [resource attribute:@"status"];
+										package.localVersion	= [resource attribute:@"version"];
+										package.latestVersion	= [resource attribute:@"version"];
+										
+									}];
+									
+									[[NSNotificationCenter defaultCenter] postNotificationName:successNotificationName
+																						object:self
+																					  userInfo:@{GTDataImporterNotificationPackageKeyPackage: package}];
+									
+									[weakSelf cleanUpAfterDownloadingPackage:package];
+								}
 								
 							} failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
 								
@@ -436,32 +432,28 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 								 
 							 } success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSURL *targetPath) {
 								 
-								 if(response.statusCode == 200){
-									 
-									 RXMLElement *contents =[weakSelf unzipResourcesAtTarget:targetPath forLanguage:package.language package:package];
-									 
-									 if(contents!=nil){
-										 //Update storage with data from contents.
-										 [contents iterate:@"resource" usingBlock: ^(RXMLElement *resource) {
-											 
-											 package.name = [NSString stringWithUTF8String:[[resource attribute:@"name"] UTF8String]];
-											 NSLog(@"name: %@",package.name);
-											 package.configFile = [resource attribute:@"config"];
-											 package.icon = [resource attribute:@"icon"];
-											 package.status = [resource attribute:@"status"];
-											 package.localVersion = [resource attribute:@"version"];
-											 package.latestVersion = [resource attribute:@"version"];
-											 
-										 }];
-										 
-										 [weakSelf cleanUpAfterDownloadingPackage:package];
-									 }
-									 
-								 }
+								 RXMLElement *contents =[weakSelf unzipResourcesAtTarget:targetPath forLanguage:package.language package:package];
 								 
-								 [[NSNotificationCenter defaultCenter] postNotificationName:successNotificationName
-																					 object:self
-																				   userInfo:@{GTDataImporterNotificationPackageKeyPackage:package}];
+								 if(contents!=nil){
+									 //Update storage with data from contents.
+									 [contents iterate:@"resource" usingBlock: ^(RXMLElement *resource) {
+										 
+										 package.name = [NSString stringWithUTF8String:[[resource attribute:@"name"] UTF8String]];
+										 NSLog(@"name: %@",package.name);
+										 package.configFile = [resource attribute:@"config"];
+										 package.icon = [resource attribute:@"icon"];
+										 package.status = [resource attribute:@"status"];
+										 package.localVersion = [resource attribute:@"version"];
+										 package.latestVersion = [resource attribute:@"version"];
+										 
+									 }];
+									 
+									 [[NSNotificationCenter defaultCenter] postNotificationName:successNotificationName
+																						 object:self
+																					   userInfo:@{GTDataImporterNotificationPackageKeyPackage:package}];
+									 
+									 [weakSelf cleanUpAfterDownloadingPackage:package];
+								 }
 								 
 							 } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
 								 if(!gtUpdatePackagesUserCancellation) {
