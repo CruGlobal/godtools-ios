@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<languages>
+	<language code="fr" name="French">
+		<packages>
+			<package code="satisfied" status="live" version="1.6"/>
+			<package code="kgp" status="live" version="1.12"/>
+			<package code="fourlaws" status="live" version="1.5"/>
+		</packages>
+	</language>
+	<language code="sk" name="Slovak">
+		<packages>
+			<package code="kgp" status="live" version="1.1"/>
+		</packages>
+	</language>
+	<language code="sw" name="Swahili">
+		<packages/>
+	</language>
+	<language code="lt" name="Lithuanian">
+		<packages>
+			<package code="fourlaws" status="live" version="1.1"/>
+		</packages>
+	</language>
+	<language code="nso" name="Northern Sotho">
+		<packages>
+			<package code="fourlaws" status="live" version="1.1"/>
+		</packages>
+	</language>
+	<language code="am-ET" name="Amharic-Ethiopia">
+		<packages>
+			<package code="fourlaws" status="live" version="1.1"/>
+		</packages>
+	</language>
+	<language code="th" name="Thai">
+		<packages>
+			<package code="kgp" status="live" version="1.1"/>
+			<package code="fourlaws" status="live" version="1.1"/>
+		</packages>
+	</language>
+	<language code="pl" name="Polish">
+		<packages>
+			<package code="fourlaws" status="live" version="1.1"/>
+		</packages>
+	</language>
+	<language code="jn" name="Japanese">
+		<packages/>
+	</language>
+	<language code="sq" name="Albanian">
+		<packages>
+			<package code="fourlaws" status="live" version="1.2"/>
+		</packages>
+	</language>
+	<language code="hu" name="Hungarian">
+		<packages>
+			<package code="kgp" status="live" version="1.1"/>
+		</packages>
+	</language>
+	<language code="ta" name="Tamil">
+		<packages/>
+	</language>
+	<language code="en" name="English">
+		<packages>
+			<package code="satisfied" status="live" version="1.15"/>
+			<package code="fourlaws" status="live" version="1.6"/>
+			<package code="kgp" status="live" version="1.17"/>
+		</packages>
+	</language>
+	<language code="sn" name="Shona">
+		<packages/>
+	</language>
+	<language code="pt" name="Portuguese">
+		<packages/>
+	</language>
+	<language code="tgl" name="Tagalog">
+		<packages>
+			<package code="kgp" status="live" version="1.1"/>
+			<package code="fourlaws" status="live" version="1.2"/>
+		</packages>
+	</language>
+	<language code="ru" name="Russian">
+		<packages>
+			<package code="satisfied" status="live" version="1.1"/>
+			<package code="fourlaws" status="live" version="1.1"/>
+			<package code="kgp" status="live" version="1.1"/>
+		</packages>
+	</language>
+	<language code="tr" name="Turkish">
+		<packages>
+			<package code="fourlaws" status="live" version="1.1"/>
+		</packages>
+	</language>
+	<language code="es" name="Spanish">
+		<packages>
+			<package code="satisfied" status="live" version="1.4"/>
+			<package code="kgp" status="live" version="1.1"/>
+			<package code="fourlaws" status="live" version="1.1"/>
+		</packages>
+	</language>
+	<language code="de" name="German">
+		<packages>
+			<package code="kgp" status="live" version="1.1"/>
+		</packages>
+	</language>
+	<language code="zh" name="Chinese">
+		<packages>
+			<package code="fourlaws" status="live" version="1.2"/>
+			<package code="kgp" status="live" version="1.1"/>
+		</packages>
+	</language>
+	<language code="cs" name="Czech">
+		<packages>
+			<package code="fourlaws" status="live" version="1.1"/>
+		</packages>
+	</language>
+	<language code="ko" name="Korean">
+		<packages>
+			<package code="fourlaws" status="live" version="1.1"/>
+		</packages>
+	</language>
+	<language code="uk" name="Ukrainian">
+		<packages>
+			<package code="kgp" status="live" version="1.1"/>
+			<package code="fourlaws" status="live" version="1.1"/>
+		</packages>
+	</language>
+	<language code="et" name="Estonian">
+		<packages>
+			<package code="kgp" status="live" version="1.1"/>
+		</packages>
+	</language>
+	<language code="it" name="Italian">
+		<packages/>
+	</language>
+	<language code="mk" name="Macedonian">
+		<packages/>
+	</language>
+</languages>
