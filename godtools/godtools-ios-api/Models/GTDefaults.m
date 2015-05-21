@@ -7,10 +7,21 @@
 //
 
 #import "GTDefaults.h"
+#import "GTStorage.h"
+#import "GTLanguage+Helper.h"
+
 
 NSString *const GTDefaultscurrentPackageCodeKey				= @"current_package_code";
 NSString *const GTDefaultscurrentLanguageCodeKey			= @"current_language_code";
 NSString *const GTDefaultscurrentParallelLanguageCodeKey	= @"current_parallel_language_code";
+
+NSString *const GTDefaultsisChoosingForMainLanguage         = @"is_for_main_language";
+NSString *const GTDefaultsisFirstLaunch                     = @"is_first_launch";
+NSString *const GTDefaultsisInTranslatorMode                = @"is_in_translator_mode";
+
+NSString *const GTDefaultstranslationDownloadStatus         = @"translation_download_status";
+
+NSString *const GTDefaultsgenericApiToken                   = @"generic_api_token";
 
 @interface GTDefaults ()
 
@@ -23,6 +34,14 @@ NSString *const GTDefaultscurrentParallelLanguageCodeKey	= @"current_parallel_la
 @synthesize currentPackageCode			= _currentPackageCode;
 @synthesize currentLanguageCode			= _currentLanguageCode;
 @synthesize currentParallelLanguageCode	= _currentParallelLanguageCode;
+
+@synthesize isChoosingForMainLanguage   = _isChoosingForMainLanguage;
+@synthesize isFirstLaunch               = _isFirstLaunch;
+@synthesize isInTranslatorMode          = _isInTranslatorMode;
+
+@synthesize translationDownloadStatus   = _translationDownloadStatus;
+
+@synthesize genericApiToken             = _genericApiToken;
 
 #pragma mark - initialization
 
@@ -45,8 +64,7 @@ NSString *const GTDefaultscurrentParallelLanguageCodeKey	= @"current_parallel_la
     self = [super init];
     
 	if (self) {
-		
-		self.currentLanguageCode	= ( self.currentLanguageCode ? self.currentLanguageCode : self.phonesLanguageCode );
+		//self.currentLanguageCode	= ( self.currentLanguageCode ? self.currentLanguageCode : self.phonesLanguageCode );
 		
     }
 	
@@ -61,33 +79,53 @@ NSString *const GTDefaultscurrentParallelLanguageCodeKey	= @"current_parallel_la
 	
 	NSArray			*preferredLanguages			= [NSLocale preferredLanguages];
 	NSLocale		*currentLocale				= [NSLocale currentLocale];
+    
+    //NSLog(@"preferredLanguages %@",preferredLanguages);
+    //NSLog(@"current Locale: %@", currentLocale.localeIdentifier);
 	
 	NSString		*phonesLanguage				= ( preferredLanguages.count > 0 ? preferredLanguages[0] : @"en" );
 	NSString		*phonesLocale				= ( [currentLocale objectForKey:NSLocaleCountryCode] ? [currentLocale objectForKey:NSLocaleCountryCode] : @"" );
-    NSString		*phonesLangageWithLocale	= [phonesLanguage stringByAppendingFormat:@"_%@", phonesLocale];
-	
-	if ([self isValidLanguageCode:phonesLangageWithLocale]) {
+    NSString		*phonesLanguageWithLocale	= [phonesLanguage stringByAppendingFormat:@"_%@", phonesLocale];
+    
+    
+	if ([self isValidLanguageCode:phonesLanguageWithLocale]) {
 		
-		language	= phonesLangageWithLocale;
+		language	= phonesLanguageWithLocale;
 		
-	} else if ([self isValidLanguageCode:phonesLangageWithLocale]) {
+	} else if ([self isValidLanguageCode:phonesLanguage]) {
 		
 		language	= phonesLanguage;
 		
-	} else {
+    }else if([self checkIfChinese:phonesLanguage]){
+        language    = @"zh";
+    
+    }else {
 		
-		language	= @"en";
+		//language	= @"en";
+        language = nil;
 		
 	}
-	
+
 	return language;
 }
 
+-(BOOL)checkIfChinese:(NSString *)languageCode{
+    return [languageCode isEqualToString:@"zh-Hans"] || [languageCode isEqualToString:@"zh-Hant"];
+}
+
 - (BOOL)isValidLanguageCode:(NSString *)languageCode {
-	
-#warning incomplete impelementation of isValidLanguageCode
-	
-	return YES;
+
+    //get all languages
+    NSArray *languages = [[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:languageCode inBackground:YES];
+    
+    if(languages.count > 0){
+        //NSLog(@"%@ is valid",languageCode);
+        return YES;
+    }else{
+        //NSLog(@"%@ is invalid",languageCode);
+        return NO;
+    }
+
 }
 
 #pragma mark - currentPackageCode
@@ -120,6 +158,10 @@ NSString *const GTDefaultscurrentParallelLanguageCodeKey	= @"current_parallel_la
 - (void)setCurrentLanguageCode:(NSString *)currentLanguageCode {
 	
 	[self willChangeValueForKey:@"currentLanguageCode"];
+    
+    if([currentLanguageCode isEqualToString:_currentParallelLanguageCode]){
+        [self setCurrentParallelLanguageCode:nil];
+    }
 	_currentLanguageCode	= currentLanguageCode;
 	[self didChangeValueForKey:@"currentLanguageCode"];
     
@@ -130,11 +172,10 @@ NSString *const GTDefaultscurrentParallelLanguageCodeKey	= @"current_parallel_la
 - (NSString *)currentLanguageCode {
 	
 	if (!_currentLanguageCode) {
-		
 		[self willChangeValueForKey:@"currentLanguageCode"];
 		_currentLanguageCode = [[NSUserDefaults standardUserDefaults] stringForKey:GTDefaultscurrentLanguageCodeKey];
+
 		[self didChangeValueForKey:@"currentLanguageCode"];
-		
 	}
 	
 	return _currentLanguageCode;
@@ -143,8 +184,9 @@ NSString *const GTDefaultscurrentParallelLanguageCodeKey	= @"current_parallel_la
 #pragma mark - currentParallelLanguageCode
 
 - (void)setCurrentParallelLanguageCode:(NSString *)currentParallelLanguageCode {
-	
-	[self willChangeValueForKey:@"currentParallelLanguageCode"];
+
+    [self willChangeValueForKey:@"currentParallelLanguageCode"];
+    
 	_currentParallelLanguageCode	= currentParallelLanguageCode;
 	[self didChangeValueForKey:@"currentParallelLanguageCode"];
     
@@ -163,6 +205,119 @@ NSString *const GTDefaultscurrentParallelLanguageCodeKey	= @"current_parallel_la
 	}
 	
 	return _currentParallelLanguageCode;
+}
+
+
+#pragma mark - Choosing Main Language
+
+-(void)setIsChoosingForMainLanguage:(NSNumber*)isChoosingForMainLanguage{
+    [self willChangeValueForKey:@"isChoosingForMainLanguage"];
+    _isChoosingForMainLanguage	= isChoosingForMainLanguage;
+    [self didChangeValueForKey:@"isChoosingForMainLanguage"];
+    
+    [[NSUserDefaults standardUserDefaults]setObject:_isChoosingForMainLanguage forKey:GTDefaultsisChoosingForMainLanguage];
+
+}
+
+-(NSNumber*)isChoosingForMainLanguage{
+    if (!_isChoosingForMainLanguage) {
+        
+        [self willChangeValueForKey:@"isChoosingForMainLanguage"];
+        _isChoosingForMainLanguage = [[NSUserDefaults standardUserDefaults] objectForKey:GTDefaultsisChoosingForMainLanguage];
+        [self didChangeValueForKey:@"isChoosingForMainLanguage"];
+    }
+
+    return _isChoosingForMainLanguage;
+}
+
+#pragma mark - isFirstLaunch
+
+-(void)setIsFirstLaunch:(NSNumber *)isFirstLaunch{
+    [self willChangeValueForKey:@"isFirstLaunch"];
+    _isFirstLaunch	= isFirstLaunch;
+    [self didChangeValueForKey:@"isFirstLaunch"];
+    
+    [[NSUserDefaults standardUserDefaults]setObject:_isFirstLaunch forKey:GTDefaultsisFirstLaunch];
+    
+}
+-(NSNumber*)isFirstLaunch{
+    
+    if (!_isFirstLaunch) {
+        
+        [self willChangeValueForKey:@"isFirstLaunch"];
+        _isFirstLaunch = [[NSUserDefaults standardUserDefaults] objectForKey:GTDefaultsisFirstLaunch];
+        if(_isFirstLaunch == nil){
+            [self setIsFirstLaunch:[NSNumber numberWithBool:YES]];
+        }
+        [self didChangeValueForKey:@"isFirstLaunch"];
+    }
+    
+    return _isFirstLaunch;
+}
+
+#pragma mark - isFirstLaunch
+
+-(void)setIsInTranslatorMode:(NSNumber *)isInTranslatorMode{
+    [self willChangeValueForKey:@"isInTranslatorMode"];
+    _isInTranslatorMode  = isInTranslatorMode;
+    [self didChangeValueForKey:@"isInTranslatorMode"];
+    
+    [[NSUserDefaults standardUserDefaults]setObject:_isInTranslatorMode forKey:GTDefaultsisInTranslatorMode];
+    
+}
+-(NSNumber*)isInTranslatorMode{
+    if (!_isInTranslatorMode) {
+        [self willChangeValueForKey:@"isInTranslatorMode"];
+        _isInTranslatorMode = [[NSUserDefaults standardUserDefaults] objectForKey:GTDefaultsisInTranslatorMode];
+        if(!_isInTranslatorMode){
+            [self setIsInTranslatorMode:[NSNumber numberWithBool:NO]];
+        }
+        [self didChangeValueForKey:@"isInTranslatorMode"];
+    }
+    
+    return _isInTranslatorMode;
+}
+
+#pragma mark - translationDownloadStatus
+
+-(void) setTranslationDownloadStatus :(NSString*) status{
+    [self willChangeValueForKey:@"translationDownloadStatus"];
+     
+    _translationDownloadStatus	= status;
+    [self didChangeValueForKey:@"translationDownloadStatus"];
+     
+    [[NSUserDefaults standardUserDefaults] setObject:status forKey:GTDefaultstranslationDownloadStatus];
+
+}
+- (NSString *)translationDownloadStatus {
+    if (!_translationDownloadStatus) {
+        
+        [self willChangeValueForKey:@"translationDownloadStatus"];
+        _translationDownloadStatus = [[NSUserDefaults standardUserDefaults] stringForKey:GTDefaultstranslationDownloadStatus];
+        [self didChangeValueForKey:@"translationDownloadStatus"];
+    }
+    
+    return _translationDownloadStatus;
+}
+
+-(void) setGenericApiToken :(NSString *) genericApiToken {
+    [self willChangeValueForKey:@"genericApiToken"];
+
+    _genericApiToken = genericApiToken;
+    
+    [self didChangeValueForKey:@"genericApiToken"];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:genericApiToken forKey:GTDefaultsgenericApiToken];
+}
+
+- (NSString *)genericApiToken {
+    if (!_genericApiToken) {
+        [self willChangeValueForKey:@"genericApiToken"];
+        _genericApiToken = [[NSUserDefaults standardUserDefaults] stringForKey:GTDefaultsgenericApiToken];
+        [self didChangeValueForKey:@"genericApiToken"];
+    }
+    
+    return _genericApiToken;
 }
 
 @end

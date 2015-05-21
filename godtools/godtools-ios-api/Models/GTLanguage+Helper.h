@@ -11,5 +11,6 @@
 @interface GTLanguage (Helper)
 
 + (instancetype)languageWithCode:(NSString *)code inContext:(NSManagedObjectContext *)context;
+- (NSComparisonResult)compare:(GTLanguage *)otherLanguage;
 
 @end

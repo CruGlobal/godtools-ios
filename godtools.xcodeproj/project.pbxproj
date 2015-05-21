@@ -7,7 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2B455C66AFC64D62ADFFFD47 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93D6EED5D0AA48EEB979D824 /* libPods.a */; };
+		498E2278AF98C76BDF632C70 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74F8066D3A00B27C587FD9D9 /* libPods.a */; };
+		4F20B3D31AC9A2F60026DC9E /* EveryStudent.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4F20B3C51AC9A2F60026DC9E /* EveryStudent.xml */; };
+		4F20B3D41AC9A2F60026DC9E /* EveryStudentArticleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F20B3C71AC9A2F60026DC9E /* EveryStudentArticleView.m */; };
+		4F20B3D51AC9A2F60026DC9E /* EveryStudentArticleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F20B3C81AC9A2F60026DC9E /* EveryStudentArticleView.xib */; };
+		4F20B3D61AC9A2F60026DC9E /* EveryStudentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F20B3CA1AC9A2F60026DC9E /* EveryStudentCell.m */; };
+		4F20B3D71AC9A2F60026DC9E /* EveryStudentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F20B3CC1AC9A2F60026DC9E /* EveryStudentController.m */; };
+		4F20B3D81AC9A2F60026DC9E /* EveryStudentController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F20B3CD1AC9A2F60026DC9E /* EveryStudentController.xib */; };
+		4F20B3D91AC9A2F60026DC9E /* EveryStudentItemsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F20B3CF1AC9A2F60026DC9E /* EveryStudentItemsController.m */; };
+		4F20B3DA1AC9A2F60026DC9E /* EveryStudentItemsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F20B3D01AC9A2F60026DC9E /* EveryStudentItemsController.xib */; };
+		4F20B3DB1AC9A2F60026DC9E /* EveryStudentSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F20B3D21AC9A2F60026DC9E /* EveryStudentSearchCell.m */; };
+		4F62978D1AA8E0CC003E1A1C /* GTAccessCodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F62978C1AA8E0CC003E1A1C /* GTAccessCodeController.m */; };
+		4FE1E6E51ADEF69700133A3E /* GTGoogleAnalyticsTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE1E6E41ADEF69700133A3E /* GTGoogleAnalyticsTracker.m */; };
+		6692BB1C1A072B0C00B15355 /* GTDataImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 68464FD218E1CEBE00D14C2B /* GTDataImporter.m */; };
+		66D1D7011A09F40F00AC4E48 /* en.zip in Resources */ = {isa = PBXBuildFile; fileRef = 66D1D6AB1A09F40F00AC4E48 /* en.zip */; };
+		66D1D7021A09F40F00AC4E48 /* meta.xml in Resources */ = {isa = PBXBuildFile; fileRef = 66D1D6AC1A09F40F00AC4E48 /* meta.xml */; };
+		66D1D71D1A0B74EA00AC4E48 /* GTLanguage.m in Sources */ = {isa = PBXBuildFile; fileRef = 66D1D71C1A0B74EA00AC4E48 /* GTLanguage.m */; };
 		682F0E8518D88BD600FBE3E0 /* GTDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E6068918D3986D00844377 /* GTDefaults.m */; };
 		682F0E9018D8FBE100FBE3E0 /* config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 682F0E8F18D8FBE100FBE3E0 /* config.plist */; };
 		682F0E9118D8FBE100FBE3E0 /* config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 682F0E8F18D8FBE100FBE3E0 /* config.plist */; };
@@ -26,7 +41,6 @@
 		68464FCE18E1CE4E00D14C2B /* GTErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 68464FC818E1CE4E00D14C2B /* GTErrorHandler.m */; };
 		68464FCF18E1CE4E00D14C2B /* GTStorageErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 68464FCA18E1CE4E00D14C2B /* GTStorageErrorHandler.m */; };
 		68464FD018E1CE4E00D14C2B /* GTStorageErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 68464FCA18E1CE4E00D14C2B /* GTStorageErrorHandler.m */; };
-		68464FD318E1CEBE00D14C2B /* GTDataImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 68464FD218E1CEBE00D14C2B /* GTDataImporter.m */; };
 		68464FD418E1CEBE00D14C2B /* GTDataImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 68464FD218E1CEBE00D14C2B /* GTDataImporter.m */; };
 		684D0A5318E38731004F51EE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 684D0A5618E38731004F51EE /* Localizable.strings */; };
 		684D0A5418E38731004F51EE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 684D0A5618E38731004F51EE /* Localizable.strings */; };
@@ -36,8 +50,6 @@
 		68740D1D18D24F9A00D36C0E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 68740D1B18D24F9A00D36C0E /* InfoPlist.strings */; };
 		68740D1F18D24F9A00D36C0E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 68740D1E18D24F9A00D36C0E /* main.m */; };
 		68740D2318D24F9A00D36C0E /* GTAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 68740D2218D24F9A00D36C0E /* GTAppDelegate.m */; };
-		68740D2618D24F9A00D36C0E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68740D2418D24F9A00D36C0E /* Main.storyboard */; };
-		68740D2918D24F9A00D36C0E /* GTMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68740D2818D24F9A00D36C0E /* GTMainViewController.m */; };
 		68740D2B18D24F9A00D36C0E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68740D2A18D24F9A00D36C0E /* Images.xcassets */; };
 		68740D3218D24F9A00D36C0E /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68740D3118D24F9A00D36C0E /* XCTest.framework */; };
 		68740D3318D24F9A00D36C0E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68740D1218D24F9A00D36C0E /* Foundation.framework */; };
@@ -49,8 +61,7 @@
 		6878F01618E4AC39007D1B5B /* GTPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6878F01418E49AF4007D1B5B /* GTPackage.m */; };
 		68A1CBFD18DB6C3B00D84F12 /* GTDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E6068918D3986D00844377 /* GTDefaults.m */; };
 		68A1CBFF18DB6F9600D84F12 /* GTAPITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A1CBFE18DB6F9600D84F12 /* GTAPITest.m */; };
-		68BA852C18DCE50C001AC6B3 /* GTLanguage.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BA852B18DCE50C001AC6B3 /* GTLanguage.m */; };
-		68BA852D18DCE50C001AC6B3 /* GTLanguage.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BA852B18DCE50C001AC6B3 /* GTLanguage.m */; };
+		68BA852D18DCE50C001AC6B3 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		68BA853318DCF0EB001AC6B3 /* GTDefaultsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BA853218DCF0EB001AC6B3 /* GTDefaultsTests.m */; };
 		68BA853518DCF102001AC6B3 /* GTStorageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BA853418DCF102001AC6B3 /* GTStorageTests.m */; };
 		68BA853718DCF129001AC6B3 /* GTDataImporterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BA853618DCF129001AC6B3 /* GTDataImporterTests.m */; };
@@ -66,7 +77,27 @@
 		68E6068718D3952800844377 /* GTAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E6068518D3952800844377 /* GTAPI.m */; };
 		68FB9CC9192D46800009C9A8 /* AFHTTPRequestSerializer+GTAPIHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 68FB9CC8192D46800009C9A8 /* AFHTTPRequestSerializer+GTAPIHelpers.m */; };
 		68FB9CCA192D46800009C9A8 /* AFHTTPRequestSerializer+GTAPIHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 68FB9CC8192D46800009C9A8 /* AFHTTPRequestSerializer+GTAPIHelpers.m */; };
-		EC75323B8E7649068F0619CB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93D6EED5D0AA48EEB979D824 /* libPods.a */; };
+		B76536C01A0CC677001C3FC3 /* GTHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B76536BD1A0CC677001C3FC3 /* GTHomeViewController.m */; };
+		B76536C11A0CC677001C3FC3 /* GTMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B76536BF1A0CC677001C3FC3 /* GTMainViewController.m */; };
+		B76536C51A0CC6CB001C3FC3 /* GTHomeViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B76536C31A0CC6CB001C3FC3 /* GTHomeViewCell.m */; };
+		B76536C61A0CC6CB001C3FC3 /* GTHomeViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B76536C41A0CC6CB001C3FC3 /* GTHomeViewCell.xib */; };
+		B76536CC1A0CCAE8001C3FC3 /* GTSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B76536CB1A0CCAE8001C3FC3 /* GTSettingsViewController.m */; };
+		B76536D71A0CD1AC001C3FC3 /* GTLanguagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B76536D61A0CD1AC001C3FC3 /* GTLanguagesViewController.m */; };
+		B76536DA1A0CD2CF001C3FC3 /* GTLanguageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B76536D91A0CD2CF001C3FC3 /* GTLanguageViewCell.m */; };
+		B76536DC1A0CD2E1001C3FC3 /* GTLanguageViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B76536DB1A0CD2E1001C3FC3 /* GTLanguageViewCell.xib */; };
+		B7C6B6101A2EEE73000DD4C6 /* GTViewController+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C6B60F1A2EEE73000DD4C6 /* GTViewController+Helper.m */; };
+		B7D2AF821A414D2E009B7D5B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68740D2418D24F9A00D36C0E /* Main.storyboard */; };
+		B7D2AF851A415419009B7D5B /* NotoSansEthiopic-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B7D2AF831A415419009B7D5B /* NotoSansEthiopic-Bold.ttf */; };
+		B7D2AF861A415419009B7D5B /* NotoSansEthiopic-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B7D2AF841A415419009B7D5B /* NotoSansEthiopic-Regular.ttf */; };
+		B7D2AF881A43D2D4009B7D5B /* GTSettingsAboutGodToolsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7D2AF871A43D2D4009B7D5B /* GTSettingsAboutGodToolsView.xib */; };
+		B7D2AF8B1A43EEAC009B7D5B /* GTSettingsAboutGodToolsView.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D2AF8A1A43EEAC009B7D5B /* GTSettingsAboutGodToolsView.m */; };
+		B7D2AF8E1A43F131009B7D5B /* GTSettingsAboutGodToolsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D2AF8D1A43F131009B7D5B /* GTSettingsAboutGodToolsViewController.m */; };
+		B7E472801A15A1F8002DF715 /* GTHomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7E4727F1A15A1F8002DF715 /* GTHomeView.xib */; };
+		B7E472831A15A210002DF715 /* GTHomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E472821A15A210002DF715 /* GTHomeView.m */; };
+		B7E472881A19FE90002DF715 /* GTBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E472871A19FE90002DF715 /* GTBaseView.m */; };
+		B7EA1B431A38097D0098890F /* GTSplashScreenView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7EA1B421A38097D0098890F /* GTSplashScreenView.xib */; };
+		B7EA1B461A3826070098890F /* GTSplashScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = B7EA1B451A3826070098890F /* GTSplashScreenView.m */; };
+		F4C1A344ED97B5D4B250557D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74F8066D3A00B27C587FD9D9 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +112,28 @@
 
 /* Begin PBXFileReference section */
 		368D2F901C18B173F9C84776 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		4F20B3C51AC9A2F60026DC9E /* EveryStudent.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = EveryStudent.xml; path = Controllers/EveryStudent/EveryStudent.xml; sourceTree = "<group>"; };
+		4F20B3C61AC9A2F60026DC9E /* EveryStudentArticleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EveryStudentArticleView.h; path = Controllers/EveryStudent/EveryStudentArticleView.h; sourceTree = "<group>"; };
+		4F20B3C71AC9A2F60026DC9E /* EveryStudentArticleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EveryStudentArticleView.m; path = Controllers/EveryStudent/EveryStudentArticleView.m; sourceTree = "<group>"; };
+		4F20B3C81AC9A2F60026DC9E /* EveryStudentArticleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EveryStudentArticleView.xib; path = Controllers/EveryStudent/EveryStudentArticleView.xib; sourceTree = "<group>"; };
+		4F20B3C91AC9A2F60026DC9E /* EveryStudentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EveryStudentCell.h; path = Controllers/EveryStudent/EveryStudentCell.h; sourceTree = "<group>"; };
+		4F20B3CA1AC9A2F60026DC9E /* EveryStudentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EveryStudentCell.m; path = Controllers/EveryStudent/EveryStudentCell.m; sourceTree = "<group>"; };
+		4F20B3CB1AC9A2F60026DC9E /* EveryStudentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EveryStudentController.h; path = Controllers/EveryStudent/EveryStudentController.h; sourceTree = "<group>"; };
+		4F20B3CC1AC9A2F60026DC9E /* EveryStudentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EveryStudentController.m; path = Controllers/EveryStudent/EveryStudentController.m; sourceTree = "<group>"; };
+		4F20B3CD1AC9A2F60026DC9E /* EveryStudentController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EveryStudentController.xib; path = Controllers/EveryStudent/EveryStudentController.xib; sourceTree = "<group>"; };
+		4F20B3CE1AC9A2F60026DC9E /* EveryStudentItemsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EveryStudentItemsController.h; path = Controllers/EveryStudent/EveryStudentItemsController.h; sourceTree = "<group>"; };
+		4F20B3CF1AC9A2F60026DC9E /* EveryStudentItemsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EveryStudentItemsController.m; path = Controllers/EveryStudent/EveryStudentItemsController.m; sourceTree = "<group>"; };
+		4F20B3D01AC9A2F60026DC9E /* EveryStudentItemsController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EveryStudentItemsController.xib; path = Controllers/EveryStudent/EveryStudentItemsController.xib; sourceTree = "<group>"; };
+		4F20B3D11AC9A2F60026DC9E /* EveryStudentSearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EveryStudentSearchCell.h; path = Controllers/EveryStudent/EveryStudentSearchCell.h; sourceTree = "<group>"; };
+		4F20B3D21AC9A2F60026DC9E /* EveryStudentSearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EveryStudentSearchCell.m; path = Controllers/EveryStudent/EveryStudentSearchCell.m; sourceTree = "<group>"; };
+		4F62978B1AA8E06B003E1A1C /* GTAccessCodeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GTAccessCodeController.h; sourceTree = "<group>"; };
+		4F62978C1AA8E0CC003E1A1C /* GTAccessCodeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTAccessCodeController.m; path = Controllers/GTAccessCodeController.m; sourceTree = "<group>"; };
+		4FE1E6E41ADEF69700133A3E /* GTGoogleAnalyticsTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTGoogleAnalyticsTracker.m; sourceTree = "<group>"; };
+		4FE1E6E61ADEF6D400133A3E /* GTGoogleAnalyticsTracker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GTGoogleAnalyticsTracker.h; sourceTree = "<group>"; };
+		66D1D6AB1A09F40F00AC4E48 /* en.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = en.zip; sourceTree = "<group>"; };
+		66D1D6AC1A09F40F00AC4E48 /* meta.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = meta.xml; sourceTree = "<group>"; };
+		66D1D71B1A0B74EA00AC4E48 /* GTLanguage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTLanguage.h; path = "godtools-ios-api/Models/GTLanguage.h"; sourceTree = "<group>"; };
+		66D1D71C1A0B74EA00AC4E48 /* GTLanguage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTLanguage.m; path = "godtools-ios-api/Models/GTLanguage.m"; sourceTree = "<group>"; };
 		682F0E8F18D8FBE100FBE3E0 /* config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = config.plist; path = "godtools-ios-api/config.plist"; sourceTree = "<group>"; };
 		68464FB118E1C79300D14C2B /* GTErrorHandlerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTErrorHandlerTests.m; sourceTree = "<group>"; };
 		68464FB318E1C7AE00D14C2B /* GTStorageErrorHandlerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTStorageErrorHandlerTests.m; sourceTree = "<group>"; };
@@ -111,8 +164,6 @@
 		68740D2118D24F9A00D36C0E /* GTAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GTAppDelegate.h; sourceTree = "<group>"; };
 		68740D2218D24F9A00D36C0E /* GTAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GTAppDelegate.m; sourceTree = "<group>"; };
 		68740D2518D24F9A00D36C0E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		68740D2718D24F9A00D36C0E /* GTMainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GTMainViewController.h; sourceTree = "<group>"; };
-		68740D2818D24F9A00D36C0E /* GTMainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GTMainViewController.m; sourceTree = "<group>"; };
 		68740D2A18D24F9A00D36C0E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		68740D3018D24F9A00D36C0E /* godtoolsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = godtoolsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		68740D3118D24F9A00D36C0E /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -122,8 +173,6 @@
 		6878F01318E49AF4007D1B5B /* GTPackage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GTPackage.h; path = "godtools-ios-api/Models/GTPackage.h"; sourceTree = "<group>"; };
 		6878F01418E49AF4007D1B5B /* GTPackage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = GTPackage.m; path = "godtools-ios-api/Models/GTPackage.m"; sourceTree = "<group>"; };
 		68A1CBFE18DB6F9600D84F12 /* GTAPITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTAPITest.m; sourceTree = "<group>"; };
-		68BA852A18DCE50C001AC6B3 /* GTLanguage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTLanguage.h; path = "godtools-ios-api/Models/GTLanguage.h"; sourceTree = "<group>"; };
-		68BA852B18DCE50C001AC6B3 /* GTLanguage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTLanguage.m; path = "godtools-ios-api/Models/GTLanguage.m"; sourceTree = "<group>"; };
 		68BA853218DCF0EB001AC6B3 /* GTDefaultsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTDefaultsTests.m; sourceTree = "<group>"; };
 		68BA853418DCF102001AC6B3 /* GTStorageTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTStorageTests.m; sourceTree = "<group>"; };
 		68BA853618DCF129001AC6B3 /* GTDataImporterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTDataImporterTests.m; sourceTree = "<group>"; };
@@ -141,8 +190,40 @@
 		68E6068918D3986D00844377 /* GTDefaults.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = GTDefaults.m; path = "godtools-ios-api/Models/GTDefaults.m"; sourceTree = "<group>"; };
 		68FB9CC7192D46800009C9A8 /* AFHTTPRequestSerializer+GTAPIHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AFHTTPRequestSerializer+GTAPIHelpers.h"; path = "godtools-ios-api/Serialization/AFHTTPRequestSerializer+GTAPIHelpers.h"; sourceTree = "<group>"; };
 		68FB9CC8192D46800009C9A8 /* AFHTTPRequestSerializer+GTAPIHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "AFHTTPRequestSerializer+GTAPIHelpers.m"; path = "godtools-ios-api/Serialization/AFHTTPRequestSerializer+GTAPIHelpers.m"; sourceTree = "<group>"; };
-		93D6EED5D0AA48EEB979D824 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		74F8066D3A00B27C587FD9D9 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9537C6E0A54FC8D76DE342FC /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		B76536BC1A0CC677001C3FC3 /* GTHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTHomeViewController.h; path = Controllers/GTHomeViewController.h; sourceTree = "<group>"; };
+		B76536BD1A0CC677001C3FC3 /* GTHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTHomeViewController.m; path = Controllers/GTHomeViewController.m; sourceTree = "<group>"; };
+		B76536BE1A0CC677001C3FC3 /* GTMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMainViewController.h; path = Controllers/GTMainViewController.h; sourceTree = "<group>"; };
+		B76536BF1A0CC677001C3FC3 /* GTMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTMainViewController.m; path = Controllers/GTMainViewController.m; sourceTree = "<group>"; };
+		B76536C21A0CC6C2001C3FC3 /* GTHomeViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GTHomeViewCell.h; path = Views/GTHomeViewCell.h; sourceTree = "<group>"; };
+		B76536C31A0CC6CB001C3FC3 /* GTHomeViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTHomeViewCell.m; path = Views/GTHomeViewCell.m; sourceTree = "<group>"; };
+		B76536C41A0CC6CB001C3FC3 /* GTHomeViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GTHomeViewCell.xib; path = Views/GTHomeViewCell.xib; sourceTree = "<group>"; };
+		B76536CA1A0CCAE8001C3FC3 /* GTSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTSettingsViewController.h; path = Controllers/GTSettingsViewController.h; sourceTree = "<group>"; };
+		B76536CB1A0CCAE8001C3FC3 /* GTSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTSettingsViewController.m; path = Controllers/GTSettingsViewController.m; sourceTree = "<group>"; };
+		B76536D51A0CD1AC001C3FC3 /* GTLanguagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTLanguagesViewController.h; path = Controllers/GTLanguagesViewController.h; sourceTree = "<group>"; };
+		B76536D61A0CD1AC001C3FC3 /* GTLanguagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTLanguagesViewController.m; path = Controllers/GTLanguagesViewController.m; sourceTree = "<group>"; };
+		B76536D81A0CD2CF001C3FC3 /* GTLanguageViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTLanguageViewCell.h; path = Views/GTLanguageViewCell.h; sourceTree = "<group>"; };
+		B76536D91A0CD2CF001C3FC3 /* GTLanguageViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTLanguageViewCell.m; path = Views/GTLanguageViewCell.m; sourceTree = "<group>"; };
+		B76536DB1A0CD2E1001C3FC3 /* GTLanguageViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GTLanguageViewCell.xib; path = Views/GTLanguageViewCell.xib; sourceTree = "<group>"; };
+		B7C6B60E1A2EEE73000DD4C6 /* GTViewController+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GTViewController+Helper.h"; path = "Controllers/GTViewController+Helper.h"; sourceTree = "<group>"; };
+		B7C6B60F1A2EEE73000DD4C6 /* GTViewController+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GTViewController+Helper.m"; path = "Controllers/GTViewController+Helper.m"; sourceTree = "<group>"; };
+		B7D2AF831A415419009B7D5B /* NotoSansEthiopic-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansEthiopic-Bold.ttf"; sourceTree = "<group>"; };
+		B7D2AF841A415419009B7D5B /* NotoSansEthiopic-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansEthiopic-Regular.ttf"; sourceTree = "<group>"; };
+		B7D2AF871A43D2D4009B7D5B /* GTSettingsAboutGodToolsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GTSettingsAboutGodToolsView.xib; path = Views/GTSettingsAboutGodToolsView.xib; sourceTree = "<group>"; };
+		B7D2AF891A43EEAC009B7D5B /* GTSettingsAboutGodToolsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTSettingsAboutGodToolsView.h; path = Views/GTSettingsAboutGodToolsView.h; sourceTree = "<group>"; };
+		B7D2AF8A1A43EEAC009B7D5B /* GTSettingsAboutGodToolsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTSettingsAboutGodToolsView.m; path = Views/GTSettingsAboutGodToolsView.m; sourceTree = "<group>"; };
+		B7D2AF8C1A43F131009B7D5B /* GTSettingsAboutGodToolsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTSettingsAboutGodToolsViewController.h; path = Controllers/GTSettingsAboutGodToolsViewController.h; sourceTree = "<group>"; };
+		B7D2AF8D1A43F131009B7D5B /* GTSettingsAboutGodToolsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTSettingsAboutGodToolsViewController.m; path = Controllers/GTSettingsAboutGodToolsViewController.m; sourceTree = "<group>"; };
+		B7E4727E1A1450E6002DF715 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		B7E4727F1A15A1F8002DF715 /* GTHomeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GTHomeView.xib; path = Views/GTHomeView.xib; sourceTree = "<group>"; };
+		B7E472811A15A210002DF715 /* GTHomeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTHomeView.h; path = Views/GTHomeView.h; sourceTree = "<group>"; };
+		B7E472821A15A210002DF715 /* GTHomeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTHomeView.m; path = Views/GTHomeView.m; sourceTree = "<group>"; };
+		B7E472861A19FE90002DF715 /* GTBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTBaseView.h; path = Views/GTBaseView.h; sourceTree = "<group>"; };
+		B7E472871A19FE90002DF715 /* GTBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTBaseView.m; path = Views/GTBaseView.m; sourceTree = "<group>"; };
+		B7EA1B421A38097D0098890F /* GTSplashScreenView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GTSplashScreenView.xib; path = Views/GTSplashScreenView.xib; sourceTree = "<group>"; };
+		B7EA1B441A3826070098890F /* GTSplashScreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTSplashScreenView.h; path = Views/GTSplashScreenView.h; sourceTree = "<group>"; };
+		B7EA1B451A3826070098890F /* GTSplashScreenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTSplashScreenView.m; path = Views/GTSplashScreenView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,7 +234,7 @@
 				68740D1518D24F9A00D36C0E /* CoreGraphics.framework in Frameworks */,
 				68740D1718D24F9A00D36C0E /* UIKit.framework in Frameworks */,
 				68740D1318D24F9A00D36C0E /* Foundation.framework in Frameworks */,
-				EC75323B8E7649068F0619CB /* libPods.a in Frameworks */,
+				F4C1A344ED97B5D4B250557D /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -164,13 +245,70 @@
 				68740D3218D24F9A00D36C0E /* XCTest.framework in Frameworks */,
 				68740D3418D24F9A00D36C0E /* UIKit.framework in Frameworks */,
 				68740D3318D24F9A00D36C0E /* Foundation.framework in Frameworks */,
-				2B455C66AFC64D62ADFFFD47 /* libPods.a in Frameworks */,
+				498E2278AF98C76BDF632C70 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4F20B3C41AC9A2E00026DC9E /* EveryStudent */ = {
+			isa = PBXGroup;
+			children = (
+				4F20B3C51AC9A2F60026DC9E /* EveryStudent.xml */,
+				4F20B3C61AC9A2F60026DC9E /* EveryStudentArticleView.h */,
+				4F20B3C71AC9A2F60026DC9E /* EveryStudentArticleView.m */,
+				4F20B3C81AC9A2F60026DC9E /* EveryStudentArticleView.xib */,
+				4F20B3C91AC9A2F60026DC9E /* EveryStudentCell.h */,
+				4F20B3CA1AC9A2F60026DC9E /* EveryStudentCell.m */,
+				4F20B3CB1AC9A2F60026DC9E /* EveryStudentController.h */,
+				4F20B3CC1AC9A2F60026DC9E /* EveryStudentController.m */,
+				4F20B3CD1AC9A2F60026DC9E /* EveryStudentController.xib */,
+				4F20B3CE1AC9A2F60026DC9E /* EveryStudentItemsController.h */,
+				4F20B3CF1AC9A2F60026DC9E /* EveryStudentItemsController.m */,
+				4F20B3D01AC9A2F60026DC9E /* EveryStudentItemsController.xib */,
+				4F20B3D11AC9A2F60026DC9E /* EveryStudentSearchCell.h */,
+				4F20B3D21AC9A2F60026DC9E /* EveryStudentSearchCell.m */,
+			);
+			name = EveryStudent;
+			sourceTree = "<group>";
+		};
+		66D1D6551A09F40F00AC4E48 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B7D2AF831A415419009B7D5B /* NotoSansEthiopic-Bold.ttf */,
+				B7D2AF841A415419009B7D5B /* NotoSansEthiopic-Regular.ttf */,
+				66D1D6AB1A09F40F00AC4E48 /* en.zip */,
+				66D1D6AC1A09F40F00AC4E48 /* meta.xml */,
+			);
+			name = Resources;
+			path = Packages;
+			sourceTree = "<group>";
+		};
+		66D1D7031A0B406800AC4E48 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4F20B3C41AC9A2E00026DC9E /* EveryStudent */,
+				B76536BC1A0CC677001C3FC3 /* GTHomeViewController.h */,
+				B76536BD1A0CC677001C3FC3 /* GTHomeViewController.m */,
+				B76536BE1A0CC677001C3FC3 /* GTMainViewController.h */,
+				B76536BF1A0CC677001C3FC3 /* GTMainViewController.m */,
+				B76536CA1A0CCAE8001C3FC3 /* GTSettingsViewController.h */,
+				B76536CB1A0CCAE8001C3FC3 /* GTSettingsViewController.m */,
+				B76536D51A0CD1AC001C3FC3 /* GTLanguagesViewController.h */,
+				B76536D61A0CD1AC001C3FC3 /* GTLanguagesViewController.m */,
+				B7C6B60E1A2EEE73000DD4C6 /* GTViewController+Helper.h */,
+				B7C6B60F1A2EEE73000DD4C6 /* GTViewController+Helper.m */,
+				B7D2AF8C1A43F131009B7D5B /* GTSettingsAboutGodToolsViewController.h */,
+				B7D2AF8D1A43F131009B7D5B /* GTSettingsAboutGodToolsViewController.m */,
+				4F62978B1AA8E06B003E1A1C /* GTAccessCodeController.h */,
+				4F62978C1AA8E0CC003E1A1C /* GTAccessCodeController.m */,
+				4FE1E6E41ADEF69700133A3E /* GTGoogleAnalyticsTracker.m */,
+				4FE1E6E61ADEF6D400133A3E /* GTGoogleAnalyticsTracker.h */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
 		68464FB718E1CC3D00D14C2B /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
@@ -222,7 +360,7 @@
 				68740D1418D24F9A00D36C0E /* CoreGraphics.framework */,
 				68740D1618D24F9A00D36C0E /* UIKit.framework */,
 				68740D3118D24F9A00D36C0E /* XCTest.framework */,
-				93D6EED5D0AA48EEB979D824 /* libPods.a */,
+				74F8066D3A00B27C587FD9D9 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -231,14 +369,16 @@
 			isa = PBXGroup;
 			children = (
 				68E6065E18D3834300844377 /* godtools-ios-api */,
+				66D1D7031A0B406800AC4E48 /* Controllers */,
+				B76536BB1A0CC616001C3FC3 /* Views */,
+				66D1D6551A09F40F00AC4E48 /* Resources */,
 				68740D2118D24F9A00D36C0E /* GTAppDelegate.h */,
 				68740D2218D24F9A00D36C0E /* GTAppDelegate.m */,
 				68740D2418D24F9A00D36C0E /* Main.storyboard */,
-				68740D2718D24F9A00D36C0E /* GTMainViewController.h */,
-				68740D2818D24F9A00D36C0E /* GTMainViewController.m */,
-				68740D4718D259AA00D36C0E /* GTModel.xcdatamodeld */,
 				68740D2A18D24F9A00D36C0E /* Images.xcassets */,
+				68740D4718D259AA00D36C0E /* GTModel.xcdatamodeld */,
 				68740D1918D24F9A00D36C0E /* Supporting Files */,
+				B7E4727E1A1450E6002DF715 /* Constants.h */,
 			);
 			path = godtools;
 			sourceTree = "<group>";
@@ -306,14 +446,14 @@
 				68E6067918D3947600844377 /* GTLanguage+Helper.m */,
 				68E6067C18D3949700844377 /* GTPackage+Helper.h */,
 				68E6067D18D3949700844377 /* GTPackage+Helper.m */,
-				68BA852A18DCE50C001AC6B3 /* GTLanguage.h */,
-				68BA852B18DCE50C001AC6B3 /* GTLanguage.m */,
 				6878F01318E49AF4007D1B5B /* GTPackage.h */,
 				6878F01418E49AF4007D1B5B /* GTPackage.m */,
 				68E6068818D3986D00844377 /* GTDefaults.h */,
 				68E6068918D3986D00844377 /* GTDefaults.m */,
 				68464FB918E1CE2C00D14C2B /* GTConfig.h */,
 				68464FBA18E1CE2C00D14C2B /* GTConfig.m */,
+				66D1D71B1A0B74EA00AC4E48 /* GTLanguage.h */,
+				66D1D71C1A0B74EA00AC4E48 /* GTLanguage.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -325,6 +465,30 @@
 				68FB9CC8192D46800009C9A8 /* AFHTTPRequestSerializer+GTAPIHelpers.m */,
 			);
 			name = Serialization;
+			sourceTree = "<group>";
+		};
+		B76536BB1A0CC616001C3FC3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B7E472861A19FE90002DF715 /* GTBaseView.h */,
+				B7E472871A19FE90002DF715 /* GTBaseView.m */,
+				B7E472811A15A210002DF715 /* GTHomeView.h */,
+				B7E472821A15A210002DF715 /* GTHomeView.m */,
+				B7E4727F1A15A1F8002DF715 /* GTHomeView.xib */,
+				B76536C21A0CC6C2001C3FC3 /* GTHomeViewCell.h */,
+				B76536C31A0CC6CB001C3FC3 /* GTHomeViewCell.m */,
+				B76536C41A0CC6CB001C3FC3 /* GTHomeViewCell.xib */,
+				B76536D81A0CD2CF001C3FC3 /* GTLanguageViewCell.h */,
+				B76536D91A0CD2CF001C3FC3 /* GTLanguageViewCell.m */,
+				B76536DB1A0CD2E1001C3FC3 /* GTLanguageViewCell.xib */,
+				B7D2AF891A43EEAC009B7D5B /* GTSettingsAboutGodToolsView.h */,
+				B7D2AF8A1A43EEAC009B7D5B /* GTSettingsAboutGodToolsView.m */,
+				B7D2AF871A43D2D4009B7D5B /* GTSettingsAboutGodToolsView.xib */,
+				B7EA1B441A3826070098890F /* GTSplashScreenView.h */,
+				B7EA1B451A3826070098890F /* GTSplashScreenView.m */,
+				B7EA1B421A38097D0098890F /* GTSplashScreenView.xib */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 		E600F78C726A1280F9AFC198 /* Pods */ = {
@@ -388,7 +552,11 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Michael Harrison";
 				TargetAttributes = {
+					68740D0E18D24F9A00D36C0E = {
+						DevelopmentTeam = DQ48D9BF2V;
+					};
 					68740D2F18D24F9A00D36C0E = {
+						DevelopmentTeam = DQ48D9BF2V;
 						TestTargetID = 68740D0E18D24F9A00D36C0E;
 					};
 				};
@@ -417,11 +585,24 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7D2AF821A414D2E009B7D5B /* Main.storyboard in Resources */,
+				B76536C61A0CC6CB001C3FC3 /* GTHomeViewCell.xib in Resources */,
+				B7D2AF861A415419009B7D5B /* NotoSansEthiopic-Regular.ttf in Resources */,
+				66D1D7021A09F40F00AC4E48 /* meta.xml in Resources */,
+				4F20B3D81AC9A2F60026DC9E /* EveryStudentController.xib in Resources */,
 				684D0A5318E38731004F51EE /* Localizable.strings in Resources */,
+				4F20B3D31AC9A2F60026DC9E /* EveryStudent.xml in Resources */,
+				B7D2AF881A43D2D4009B7D5B /* GTSettingsAboutGodToolsView.xib in Resources */,
+				4F20B3D51AC9A2F60026DC9E /* EveryStudentArticleView.xib in Resources */,
+				B76536DC1A0CD2E1001C3FC3 /* GTLanguageViewCell.xib in Resources */,
 				682F0E9018D8FBE100FBE3E0 /* config.plist in Resources */,
 				68740D2B18D24F9A00D36C0E /* Images.xcassets in Resources */,
+				B7D2AF851A415419009B7D5B /* NotoSansEthiopic-Bold.ttf in Resources */,
 				68740D1D18D24F9A00D36C0E /* InfoPlist.strings in Resources */,
-				68740D2618D24F9A00D36C0E /* Main.storyboard in Resources */,
+				4F20B3DA1AC9A2F60026DC9E /* EveryStudentItemsController.xib in Resources */,
+				B7EA1B431A38097D0098890F /* GTSplashScreenView.xib in Resources */,
+				66D1D7011A09F40F00AC4E48 /* en.zip in Resources */,
+				B7E472801A15A1F8002DF715 /* GTHomeView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -505,24 +686,42 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F20B3D71AC9A2F60026DC9E /* EveryStudentController.m in Sources */,
+				B7E472881A19FE90002DF715 /* GTBaseView.m in Sources */,
+				6692BB1C1A072B0C00B15355 /* GTDataImporter.m in Sources */,
 				6878F01518E4AC2D007D1B5B /* GTPackage.m in Sources */,
+				B7D2AF8B1A43EEAC009B7D5B /* GTSettingsAboutGodToolsView.m in Sources */,
 				68464FCF18E1CE4E00D14C2B /* GTStorageErrorHandler.m in Sources */,
+				B76536C11A0CC677001C3FC3 /* GTMainViewController.m in Sources */,
+				4F20B3D41AC9A2F60026DC9E /* EveryStudentArticleView.m in Sources */,
+				B76536C01A0CC677001C3FC3 /* GTHomeViewController.m in Sources */,
 				68FB9CC9192D46800009C9A8 /* AFHTTPRequestSerializer+GTAPIHelpers.m in Sources */,
+				B7C6B6101A2EEE73000DD4C6 /* GTViewController+Helper.m in Sources */,
 				68A1CBFD18DB6C3B00D84F12 /* GTDefaults.m in Sources */,
+				4F20B3D91AC9A2F60026DC9E /* EveryStudentItemsController.m in Sources */,
 				68E6067A18D3947600844377 /* GTLanguage+Helper.m in Sources */,
+				B7D2AF8E1A43F131009B7D5B /* GTSettingsAboutGodToolsViewController.m in Sources */,
+				4F20B3DB1AC9A2F60026DC9E /* EveryStudentSearchCell.m in Sources */,
+				4F20B3D61AC9A2F60026DC9E /* EveryStudentCell.m in Sources */,
+				4FE1E6E51ADEF69700133A3E /* GTGoogleAnalyticsTracker.m in Sources */,
+				B7E472831A15A210002DF715 /* GTHomeView.m in Sources */,
+				B76536DA1A0CD2CF001C3FC3 /* GTLanguageViewCell.m in Sources */,
 				68464FC318E1CE4000D14C2B /* GTStorage.m in Sources */,
+				B76536CC1A0CCAE8001C3FC3 /* GTSettingsViewController.m in Sources */,
 				68E6067E18D3949700844377 /* GTPackage+Helper.m in Sources */,
-				68BA852C18DCE50C001AC6B3 /* GTLanguage.m in Sources */,
+				66D1D71D1A0B74EA00AC4E48 /* GTLanguage.m in Sources */,
 				68740D4918D259AA00D36C0E /* GTModel.xcdatamodeld in Sources */,
-				68464FD318E1CEBE00D14C2B /* GTDataImporter.m in Sources */,
+				B76536D71A0CD1AC001C3FC3 /* GTLanguagesViewController.m in Sources */,
 				68740D1F18D24F9A00D36C0E /* main.m in Sources */,
-				68740D2918D24F9A00D36C0E /* GTMainViewController.m in Sources */,
 				68E6068618D3952800844377 /* GTAPI.m in Sources */,
 				68464FBB18E1CE2C00D14C2B /* GTConfig.m in Sources */,
 				68464FC118E1CE4000D14C2B /* CRUStorage.m in Sources */,
+				B76536C51A0CC6CB001C3FC3 /* GTHomeViewCell.m in Sources */,
+				B7EA1B461A3826070098890F /* GTSplashScreenView.m in Sources */,
 				68740D2318D24F9A00D36C0E /* GTAppDelegate.m in Sources */,
 				68464FCD18E1CE4E00D14C2B /* GTErrorHandler.m in Sources */,
 				68464FCB18E1CE4E00D14C2B /* GTAPIErrorHandler.m in Sources */,
+				4F62978D1AA8E0CC003E1A1C /* GTAccessCodeController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -531,7 +730,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6878F01618E4AC39007D1B5B /* GTPackage.m in Sources */,
-				68BA852D18DCE50C001AC6B3 /* GTLanguage.m in Sources */,
+				68BA852D18DCE50C001AC6B3 /* (null) in Sources */,
 				68BA853B18DCF15D001AC6B3 /* GTConfigTests.m in Sources */,
 				68464FB618E1C7C700D14C2B /* GTAPIErrorHandlerTests.m in Sources */,
 				682F0E8518D88BD600FBE3E0 /* GTDefaults.m in Sources */,
@@ -621,7 +820,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Claudine Bael (BKHE62CR3F)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Claudine Bael (BKHE62CR3F)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -637,9 +837,16 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LD_GENERATE_MAP_FILE = NO;
 				ONLY_ACTIVE_ARCH = YES;
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = iphoneos;
+				"USER_HEADER_SEARCH_PATHS[arch=*]" = "$(inherited)";
 			};
 			name = Debug;
 		};
@@ -659,7 +866,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Claudine Bael (BKHE62CR3F)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -669,8 +876,16 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LD_GENERATE_MAP_FILE = NO;
+				PROVISIONING_PROFILE = "2eb460f3-ddac-43b6-babd-34d2a3ce292e";
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = iphoneos;
+				"USER_HEADER_SEARCH_PATHS[arch=*]" = "$(inherited)";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -681,12 +896,33 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "godtools/godtools-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFDownloadRequestOperation\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/Public/AFRaptureXMLRequestOperation\"",
+					"\"${PODS_ROOT}/Headers/Public/GTViewController\"/**",
+					"\"${PODS_ROOT}/Headers/Public/GoogleAnalytics-iOS-SDK\"",
+					"\"${PODS_ROOT}/Headers/Public/NewRelicAgent\"",
+					"\"${PODS_ROOT}/Headers/Public/RaptureXML\"",
+					"\"${PODS_ROOT}/Headers/Public/SSCWhatsAppActivity\"",
+					"\"${PODS_ROOT}/Headers/Public/SSZipArchive\"",
+					"\"${PODS_ROOT}/Headers/Public/TBXML\"",
+					"$(SDKROOT)/usr/include/libxml2",
+					"$(SDKROOT)/usr/include/libz",
+					"$(inherited)",
+				);
 				INFOPLIST_FILE = "godtools/godtools-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
+				"USER_HEADER_SEARCH_PATHS[arch=*]" = "$(inherited)";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -697,12 +933,33 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "godtools/godtools-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFDownloadRequestOperation\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/Public/AFRaptureXMLRequestOperation\"",
+					"\"${PODS_ROOT}/Headers/Public/GTViewController\"/**",
+					"\"${PODS_ROOT}/Headers/Public/GoogleAnalytics-iOS-SDK\"",
+					"\"${PODS_ROOT}/Headers/Public/NewRelicAgent\"",
+					"\"${PODS_ROOT}/Headers/Public/RaptureXML\"",
+					"\"${PODS_ROOT}/Headers/Public/SSCWhatsAppActivity\"",
+					"\"${PODS_ROOT}/Headers/Public/SSZipArchive\"",
+					"\"${PODS_ROOT}/Headers/Public/TBXML\"",
+					"$(SDKROOT)/usr/include/libxml2",
+					"$(SDKROOT)/usr/include/libz",
+					"$(inherited)",
+				);
 				INFOPLIST_FILE = "godtools/godtools-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
+				"USER_HEADER_SEARCH_PATHS[arch=*]" = "$(inherited)";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -712,6 +969,8 @@
 			baseConfigurationReference = 9537C6E0A54FC8D76DE342FC /* Pods.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/godtools.app/godtools";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -724,7 +983,9 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "godtoolsTests/godtoolsTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -735,6 +996,8 @@
 			baseConfigurationReference = 368D2F901C18B173F9C84776 /* Pods.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/godtools.app/godtools";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -743,7 +1006,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "godtools/godtools-Prefix.pch";
 				INFOPLIST_FILE = "godtoolsTests/godtoolsTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};

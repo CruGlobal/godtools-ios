@@ -78,4 +78,50 @@ NSString *const GTStorageModelName				= @"GTModel";
 	
 }
 
+- (NSArray *)fetchArrayOfModels:(Class)modelType inBackground:(BOOL)background {
+    
+    if (modelType == nil) {
+        return nil;
+    }
+    
+    NSManagedObjectContext *context	= ( background ? self.backgroundObjectContext : self.mainObjectContext );
+    NSEntityDescription *entity		= [NSEntityDescription entityForName:NSStringFromClass(modelType)
+                                               inManagedObjectContext:context];
+    //NSLog(@"ENTITY; %@",entity);
+    //NSLog(@"value: %@",valueArray);
+    
+    NSFetchRequest *fetchRequest	= [[NSFetchRequest alloc] init];
+    fetchRequest.entity				= entity;
+    
+    NSArray *fetchedObjects			= [context executeFetchRequest:fetchRequest error:nil];
+    
+    //NSLog(@"fetched array: %@",fetchedObjects);
+    
+    return fetchedObjects;
+}
+
+
+- (NSArray *)fetchModel:(Class)modelType usingKey:(NSString *)key forValue:(NSString *)value inBackground:(BOOL)background {
+    
+    if (modelType == nil || key == nil || value == nil) {
+        return nil;
+    }
+    
+    NSManagedObjectContext *context	= ( background ? self.backgroundObjectContext : self.mainObjectContext );
+    NSEntityDescription *entity		= [NSEntityDescription entityForName:NSStringFromClass(modelType)
+                                               inManagedObjectContext:context];
+    //NSLog(@"ENTITY; %@",entity);
+    //NSLog(@"value: %@",valueArray);
+    
+    NSFetchRequest *fetchRequest	= [[NSFetchRequest alloc] init];
+    fetchRequest.entity				= entity;
+    fetchRequest.predicate			= [NSPredicate predicateWithFormat:@"%K == %@", key, value];
+    
+    NSArray *fetchedObjects			= [context executeFetchRequest:fetchRequest error:nil];
+    
+    //NSLog(@"fetched array: %@",fetchedObjects);
+    
+    return fetchedObjects;
+}
+
 @end

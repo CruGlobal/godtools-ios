@@ -64,7 +64,7 @@ NSString *const CRUStorageExceptionUserInfoKeyForError		= @"org.cru.crustorage.e
 	//merge changes from background context to main context once background saves.
 	__weak typeof(self)weakSelf = self;
 	[[NSNotificationCenter defaultCenter] addObserverForName:NSManagedObjectContextDidSaveNotification
-													  object:nil
+													  object:self.backgroundObjectContext
 													   queue:nil
 												  usingBlock:^(NSNotification *notification) {
 												  
@@ -166,11 +166,16 @@ NSString *const CRUStorageExceptionUserInfoKeyForError		= @"org.cru.crustorage.e
 	NSManagedObjectContext *context	= ( background ? self.backgroundObjectContext : self.mainObjectContext );
 	NSEntityDescription *entity		= [NSEntityDescription entityForName:NSStringFromClass(modelType)
 											  inManagedObjectContext:context];
+    //NSLog(@"ENTITY; %@",entity);
+    //NSLog(@"value: %@",valueArray);
+    
 	NSFetchRequest *fetchRequest	= [[NSFetchRequest alloc] init];
 	fetchRequest.entity				= entity;
-	fetchRequest.predicate			= [NSPredicate predicateWithFormat:@"@K IN %@", key, valueArray];
+	fetchRequest.predicate			= [NSPredicate predicateWithFormat:@"%K IN %@", key, valueArray];
 	
 	NSArray *fetchedObjects			= [context executeFetchRequest:fetchRequest error:nil];
+    
+    //NSLog(@"fetched array: %@",fetchedObjects);
 	
 	return fetchedObjects;
 }

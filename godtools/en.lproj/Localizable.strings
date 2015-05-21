@@ -5,4 +5,40 @@
   Created by Michael Harrison on 3/26/14.
   Copyright (c) 2014 Michael Harrison. All rights reserved.
 */
+
 "GTDataImporter_updateMenuInfo_bad_xml" = "Data was missing when asking the server for menu information.";
+"GTDataImporter_downloadPackages_error" = "There was an error downloading the packages";
+"GTDataImporter_downloadPage_error"     = "There was an error downloading the page";
+"GTDataImporter_unzipPackages_error"    = "There was an error extracting the files";
+
+
+"GTSettings_mainLanguage_label"         = "Main Language:";
+"GTSettings_parallelLanguage_label"     = "Parallel Language*:";
+"GTSettings_parallelLanguage_default"   = "None";
+"GTSettings_languageInstructions"       = "You can select a primary and parallel language that you can switch to at any time";
+"GTSettings_previewModeInstructions"    = "If you are a God Tools translator wanting to see your latest translations, enable Preview Mode";
+"GTSettings_parallelModeInstructions"   = "*Tap screen during presentation and use icon to toggle language.";
+"GTSettings_previewMode_label"          = "Preview Mode (translators)";
+"GTSettings_aboutGodTools"              = "About God Tools";
+
+
+"GTHome_status_updatingResources"       = "Updating resources...";
+"GTHome_status_updatingDrafts"          = "Updating drafts...";
+"GTHome_status_creatingDrafts"          = "Creating draft...";
+"GTHome_status_publishingDrafts"        = "Publishing draft...";
+
+"Yes"                                   = "Yes";
+"No"                                    = "No";
+
+"AlertTitle_updateLanguageToPhonesLanguage"     = "Language Settings";
+"AlertMessage_updateLanguageToPhonesLanguage"   = "Would you like to make %@ as the default language?";
+
+"AlertMessage_authenticatingAccessCode"         = "Authenticating access code";
+"AlertMesssage_invalidAccessCode"               = "Invalid access code";
+"AlertMessage_previewModeEnabled"               = "Translator preview mode is enabled";
+"AlertMessage_enterAccessCode"                  = "Enter Access Code";
+
+"AlertTitle_exitPreviewMode"                    = "Exit Preview Mode?";
+"AlertMessage_exitPreviewMode"                  = "Drafts will not be displayed";
+
+

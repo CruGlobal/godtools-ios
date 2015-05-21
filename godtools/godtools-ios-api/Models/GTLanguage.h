@@ -16,6 +16,7 @@
 @property (nonatomic, retain) NSString * code;
 @property (nonatomic, retain) NSNumber * downloaded;
 @property (nonatomic, retain) NSString * status;
+@property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSSet *packages;
 @end
 

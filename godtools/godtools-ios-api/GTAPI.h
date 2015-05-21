@@ -3,6 +3,7 @@
 //  godtools
 //
 //  Created by Michael Harrison on 3/14/14.
+//  Modified by Lee Braddock.
 //  Copyright (c) 2014 Michael Harrison. All rights reserved.
 //
 
@@ -66,6 +67,25 @@
 						failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure;
 
 /**
+ *  Retrieves response from the APIs auth endpoint together with an access code. This token is needed for all future calls to the API.
+ *  To have it automatically sent with all future calls assign the value to the authToken property of this class.
+ *
+ *  @warning you should wait for this method to return the auth token before making other requests to the API.
+ *
+ *  @param accessCode A string that will be used as an access code for translator mode.
+ *  @param success  callback that delivers your auth token to be taken from the response headers
+ *  @param failure  callback that delivers the error object describing why your request failed.
+ *
+ *  @example [api getAuthTokenWithAccessCode:accessCode
+ success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSString *authToken) {
+ api.authToken = authToken;
+ }
+ failure:nil];
+ *
+ */
+
+- (void)getAuthTokenWithAccessCode:(NSString *)accessCode success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSString *authToken))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure;
+/**
  *  If you send this request and it is successful you will receive an xml response that lists the meta data for available resources.
  *  See docs for examples. It will filter out resources using the language, package and since date as filters where you have provided them.
  *
@@ -93,6 +113,11 @@
 						failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure;
 
 /**
+ * Cancels the most recent getResourcesForLanguageRequest
+ **/
+- (void)cancelGetResourcesForLanguage;
+
+/**
  *  Retrieves only the xml files for all resources associated with the language passed to this method. This should be used to update a resource.
  *  @note getResourcesForLanguage:progress:success:failure: should be used when the major version number increases (eg version-number-on-device = 3.2 version-number-in-meta-data = 4.0)
  *
@@ -109,5 +134,14 @@
 					   progress:(void (^)(NSNumber *percentage))progress
 						success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSURL *targetPath))success
 						failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure;
+
+- (void)getDraftsResourcesForLanguage:(GTLanguage *)language progress:(void (^)(NSNumber *percentage))progress success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSURL *targetPath))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure;
+
+-(void)createDraftsForLanguage:(GTLanguage *)language package:(GTPackage *)package success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure;
+
+- (void)getPageForLanguage:(GTLanguage *)language package:(GTPackage*)package pageID:(NSString *)pageID progress:(void (^)(NSNumber *percentage))progress success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response,NSURL *targetPath))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure;
+
+-(void)publishTranslationForLanguage:(GTLanguage *)language package:(GTPackage *)package success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure;
+
 
 @end

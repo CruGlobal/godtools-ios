@@ -18,4 +18,8 @@
 	return language;
 }
 
+- (NSComparisonResult)compare:(GTLanguage *)otherLanguage {
+    return [self.name compare:otherLanguage.name];
+}
+
 @end
