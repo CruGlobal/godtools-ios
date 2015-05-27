@@ -80,8 +80,8 @@
 
 // NewRelicAgent
 #define COCOAPODS_POD_AVAILABLE_NewRelicAgent
-#define COCOAPODS_VERSION_MAJOR_NewRelicAgent 3
-#define COCOAPODS_VERSION_MINOR_NewRelicAgent 412
+#define COCOAPODS_VERSION_MAJOR_NewRelicAgent 4
+#define COCOAPODS_VERSION_MINOR_NewRelicAgent 186
 #define COCOAPODS_VERSION_PATCH_NewRelicAgent 0
 
 // RaptureXML
@@ -89,6 +89,12 @@
 #define COCOAPODS_VERSION_MAJOR_RaptureXML 1
 #define COCOAPODS_VERSION_MINOR_RaptureXML 0
 #define COCOAPODS_VERSION_PATCH_RaptureXML 1
+
+// Rollbar
+#define COCOAPODS_POD_AVAILABLE_Rollbar
+#define COCOAPODS_VERSION_MAJOR_Rollbar 0
+#define COCOAPODS_VERSION_MINOR_Rollbar 1
+#define COCOAPODS_VERSION_PATCH_Rollbar 3
 
 // SSCWhatsAppActivity
 #define COCOAPODS_POD_AVAILABLE_SSCWhatsAppActivity

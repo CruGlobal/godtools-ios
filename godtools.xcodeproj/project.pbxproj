@@ -542,6 +542,8 @@
 				68740D0C18D24F9A00D36C0E /* Frameworks */,
 				68740D0D18D24F9A00D36C0E /* Resources */,
 				B3FC0BD662C6407DB9C944C8 /* Copy Pods Resources */,
+				6807C2671B165A930097BDA4 /* Rollbar dSYM upload */,
+				6807C2681B16717B0097BDA4 /* New Relic Post Build script */,
 			);
 			buildRules = (
 			);
@@ -664,6 +666,34 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
+		};
+		6807C2671B165A930097BDA4 /* Rollbar dSYM upload */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Rollbar dSYM upload";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /usr/bin/python;
+			shellScript = "import os\nimport subprocess\nimport zipfile\nimport plistlib\n\nif os.environ['DEBUG_INFORMATION_FORMAT'] != 'dwarf-with-dsym' or os.environ['EFFECTIVE_PLATFORM_NAME'] == '-iphonesimulator':\n    exit(0)\n\nconfigPath = os.path.join(os.environ['PROJECT_DIR'], 'godtools', 'godtools-ios-api', 'config.plist')\nprint configPath\nconfig = plistlib.readPlist(configPath)\nACCESS_TOKEN = config.get('rollbar_api_key')\n\ndsym_file_path = os.path.join(os.environ['DWARF_DSYM_FOLDER_PATH'], os.environ['DWARF_DSYM_FILE_NAME'])\nzip_location = '%s.zip' % (dsym_file_path)\n\nos.chdir(os.environ['DWARF_DSYM_FOLDER_PATH'])\nwith zipfile.ZipFile(zip_location, 'w') as zipf:\n    for root, dirs, files in os.walk(os.environ['DWARF_DSYM_FILE_NAME']):\n        zipf.write(root)\n\n        for f in files:\n            zipf.write(os.path.join(root, f))\n\ninfo_file_path = os.path.join(os.environ['INSTALL_DIR'], os.environ['INFOPLIST_PATH'])\np = subprocess.Popen('/usr/libexec/PlistBuddy -c \"Print :CFBundleVersion\" -c \"Print :CFBundleIdentifier\" \"%s\"' % info_file_path, stdout=subprocess.PIPE, shell=True)\n\nstdout, stderr = p.communicate()\nversion, identifier = stdout.split()\n\np = subprocess.Popen('curl -X POST \"https://api.rollbar.com/api/1/dsym\" -F access_token=%s -F version=%s -F bundle_identifier=\"%s\" -F dsym=@\"%s\"' % (ACCESS_TOKEN, version, identifier, zip_location), shell=True)\np.communicate()";
+		};
+		6807C2681B16717B0097BDA4 /* New Relic Post Build script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "New Relic Post Build script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "SCRIPT=`/usr/bin/find \"${SRCROOT}\" -name newrelic_postbuild.sh | head -n 1`\nNEW_RELIC_TOKEN=$(/usr/libexec/PlistBuddy -c \"Print :newrelic_api_key\" \"${SRCROOT}/godtools/godtools-ios-api/config.plist\")\n/bin/sh \"${SCRIPT}\" \"${NEW_RELIC_TOKEN}\"";
 		};
 		89ECDA547D6840539CE634E3 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

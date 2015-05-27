@@ -17,6 +17,7 @@
 //
 
 #import "GTGoogleAnalyticsTracker.h"
+#import "GTConfig.h"
 #import <GoogleAnalytics-iOS-SDK/GAI.h>
 #import <GoogleAnalytics-iOS-SDK/GAIFields.h>
 #import <GoogleAnalytics-iOS-SDK/GAITracker.h>
@@ -79,9 +80,7 @@ NSString * const GTGoogleAnalyticsActionSwipe	= @"swipe";
 		[[GAI sharedInstance].logger setLogLevel:kGAILogLevelError];
 #endif
 		
-        NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"config" ofType:@"plist"]];
-        NSString *apiKey = [dictionary objectForKey:@"google_analytics_api_key"];
-        self.tracker = [[GAI sharedInstance] trackerWithTrackingId:apiKey];
+        self.tracker = [[GAI sharedInstance] trackerWithTrackingId:[GTConfig sharedConfig].apiKeyGoogleAnalytics];
     }
     
     return self;

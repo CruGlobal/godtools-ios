@@ -30,8 +30,9 @@ PODS:
   - GTViewController (3.1.1):
     - SSCWhatsAppActivity (~> 1.0)
     - TBXML (~> 1.5)
-  - NewRelicAgent (3.412)
+  - NewRelicAgent (4.186)
   - RaptureXML (1.0.1)
+  - Rollbar (0.1.3)
   - SSCWhatsAppActivity (1.2.2)
   - SSZipArchive (0.3.2)
   - TBXML (1.5)
@@ -44,7 +45,8 @@ DEPENDENCIES:
   - GoogleAnalytics-iOS-SDK (~> 3.0.9)
   - GTViewController (from `https://github.com/CruGlobal/GTViewController.git`, branch
     `dev4.0`)
-  - NewRelicAgent (~> 3.256)
+  - NewRelicAgent (= 4.186)
+  - Rollbar (~> 0.1.3)
   - SSZipArchive (~> 0.3)
 
 EXTERNAL SOURCES:
@@ -69,8 +71,9 @@ SPEC CHECKSUMS:
   EDSemver: 124a90685873628ec30f42504b461a1a61757568
   GoogleAnalytics-iOS-SDK: 3b0994bef22ed2e176a9e2a4d1660c7c2542eb47
   GTViewController: 9d986db4d22a5705dad3fa01af14aacda3543ad5
-  NewRelicAgent: 5dbb8c108199f066e353231a90d80263830c0f73
+  NewRelicAgent: c9efe4386f703c97741fbb1f65e80d5513a04866
   RaptureXML: b5c33c04c1a4adfd8ad0d5463329a31820596e82
+  Rollbar: 780e5fafa11155351b66f2b3785e2fe9e27f3e6c
   SSCWhatsAppActivity: fdea072dcf11f1e4889c8f8d9f58118672361900
   SSZipArchive: 11801759495fa4efb7512ef652eb0042d68305d7
   TBXML: 9f9dadb239f2f2af1dadb87fe43a0ce6e479379a
