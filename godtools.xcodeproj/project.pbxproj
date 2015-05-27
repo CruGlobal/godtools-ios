@@ -312,8 +312,8 @@
 				B7D2AF8D1A43F131009B7D5B /* GTSettingsAboutGodToolsViewController.m */,
 				4F62978B1AA8E06B003E1A1C /* GTAccessCodeController.h */,
 				4F62978C1AA8E0CC003E1A1C /* GTAccessCodeController.m */,
-				4FE1E6E41ADEF69700133A3E /* GTGoogleAnalyticsTracker.m */,
 				4FE1E6E61ADEF6D400133A3E /* GTGoogleAnalyticsTracker.h */,
+				4FE1E6E41ADEF69700133A3E /* GTGoogleAnalyticsTracker.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";

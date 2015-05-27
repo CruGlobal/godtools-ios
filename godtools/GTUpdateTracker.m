@@ -7,6 +7,7 @@
 //
 
 #import "GTUpdateTracker.h"
+#import "GTGoogleAnalyticsTracker.h"
 
 @interface GTUpdateTracker ()
 
@@ -58,6 +59,11 @@
 	[[NSNotificationCenter defaultCenter] postNotificationName: GTDataImporterNotificationUpdateStarted
 														object: self.owner
 													  userInfo: userInfo];
+	
+	[[GTGoogleAnalyticsTracker sharedInstance] sendEventWithCategory:@"update"
+															  action:@"started"
+															   label:@"number-of-packages"
+															   value:@(packages.count)];
 }
 
 - (void)updateCompletedForPackage:(GTPackage *)package {
@@ -72,6 +78,11 @@
 	
 	[self.packagesWaitingForUpdate removeObject:package];
 	[self.packagesCompetedUpdate addObject:package];
+	
+	[[GTGoogleAnalyticsTracker sharedInstance] sendEventWithCategory:@"update"
+															  action:@"failed"
+															   label:package.identifier
+															   value:@(1)];
 	
 	[self checkForCompletion];
 }
@@ -88,6 +99,11 @@
 	[[NSNotificationCenter defaultCenter] postNotificationName: GTDataImporterNotificationUpdateCancelled
 														object: self.owner
 													  userInfo: userInfo];
+	
+	[[GTGoogleAnalyticsTracker sharedInstance] sendEventWithCategory:@"update"
+															  action:@"cancelled"
+															   label:@"number-of-packages"
+															   value:@(self.packagesWaitingForUpdate.count)];
 	
 	NSArray *packagesToCancel = [self.packagesWaitingForUpdate copy];
 	
@@ -115,11 +131,21 @@
 																object: self.owner
 															  userInfo: userInfo];
 			
+			[[GTGoogleAnalyticsTracker sharedInstance] sendEventWithCategory:@"update"
+																	  action:@"failed-completely"
+																	   label:@"number-of-packages"
+																	   value:@(self.packagesFailedToUpdate.count)];
+			
 		} else {
 			
 			[[NSNotificationCenter defaultCenter] postNotificationName: GTDataImporterNotificationUpdateFinished
 																object: self.owner
 															  userInfo: userInfo];
+			
+			[[GTGoogleAnalyticsTracker sharedInstance] sendEventWithCategory:@"update"
+																	  action:@"finished"
+																	   label:@"number-of-packages"
+																	   value:@(self.packagesCompetedUpdate.count)];
 			
 		}
 
