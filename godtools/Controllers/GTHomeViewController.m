@@ -52,13 +52,12 @@
     self.homeView.tableView.delegate = self;
     self.homeView.tableView.dataSource = self;
 
-    self.refreshControl = [[UIRefreshControl alloc] init];
-    self.refreshControl.backgroundColor = [UIColor greenColor];
-    self.refreshControl.hidden = NO;
-    self.refreshControl.layer.zPosition = 1000;
-    [self.refreshControl addTarget:self.homeView.tableView action:@selector(setData) forControlEvents:UIControlEventValueChanged];
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self
+                       action:@selector(refresh:)
+             forControlEvents:UIControlEventValueChanged];
     
-    [self.homeView.tableView addSubview:self.refreshControl];
+    [self.homeView.tableView addSubview:refreshControl];
     
     [self.homeView initDownloadIndicator];
     
@@ -194,6 +193,12 @@
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:NO];
 }
+
+- (void)refresh:(UIRefreshControl *)refreshControl {
+    [refreshControl endRefreshing];
+    [self setData];
+}
+
 #pragma mark - Download packages methods
 -(void)downloadFinished:(NSNotification *) notification{
     NSLog(@"NOTIFICATION: %@",notification.name);
