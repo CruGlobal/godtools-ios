@@ -11,7 +11,6 @@
 @protocol GTHomeViewDelegate <NSObject>
 @required
 -(void)settingsButtonPressed;
--(void)refreshDraftsButtonDragged;
 @end
 
 
@@ -29,5 +28,4 @@
 @property (weak, nonatomic) IBOutlet UIView *instructionsOverlayView;
 
 - (IBAction)settingsButtonPressed:(id)sender;
-- (IBAction)refreshDraftsButtonDragged:(id)sender;
 @end

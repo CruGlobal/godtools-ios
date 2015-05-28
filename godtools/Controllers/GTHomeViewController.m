@@ -117,10 +117,7 @@
                                                  name: GTDataImporterNotificationCreateDraftStarted
                                                object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(refreshButtonPressed)
-                                                 name: GTDataImporterNotificationCreateDraftSuccessful
-                                               object:nil];
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(downloadFinished:)
                                                  name: GTDataImporterNotificationCreateDraftFail
@@ -200,7 +197,7 @@
 
 - (void)refresh:(UIRefreshControl *)refreshControl {
     [refreshControl endRefreshing];
-    [self setData];
+    [self refreshDrafts];
 }
 
 #pragma mark - Download packages methods
