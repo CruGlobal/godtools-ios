@@ -51,13 +51,6 @@
     self.homeView.delegate = self;
     self.homeView.tableView.delegate = self;
     self.homeView.tableView.dataSource = self;
-
-    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-    [refreshControl addTarget:self
-                       action:@selector(refresh:)
-             forControlEvents:UIControlEventValueChanged];
-    
-    [self.homeView.tableView addSubview:refreshControl];
     
     [self.homeView initDownloadIndicator];
     
@@ -171,10 +164,21 @@
         self.homeView.iconImageView.image = [UIImage imageNamed:@"GT4_Home_BookIcon_PreviewMode_"];
         self.homeView.translatorModeLabel.hidden = NO;
         self.homeView.refreshDraftsView.hidden = NO;
+        
+        UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+        [refreshControl addTarget:self
+                           action:@selector(refresh:)
+                 forControlEvents:UIControlEventValueChanged];
+        
+        [self.homeView.tableView addSubview:refreshControl];
+        
+        [self.homeView.tableView setScrollEnabled:TRUE];
     } else {
         self.homeView.iconImageView.image = [UIImage imageNamed:@"GT4_Home_BookIcon_"];
         self.homeView.translatorModeLabel.hidden = YES;
         self.homeView.refreshDraftsView.hidden = YES;
+        
+        [self.homeView.tableView setScrollEnabled:FALSE];
     }
     
     [self setData];
