@@ -26,13 +26,14 @@
  *  Initializer that configures the Storage stack based on method parameters.
  *
  *  @param storeURL     URL of sqlite file. Usually you put it in the Application Documents folder. This method will create it if it doesn't exist.
+ *  @param storeType	the type of store that will back this core data stack. The options are the following constants defined in NSPersistentStoreCoordinator: NSSQLiteStoreType, NSBinaryStoreType or NSInMemoryStoreType. NSSQLiteStoreType is default.
  *  @param modelURL     URL of managed object model file. Usually apart of the main bundle.
  *  @param shared       determines whether each context gets its own store coordinator or whether they share a store coordinator. Refer to CRUStorage initalizer for more details
  *  @param errorHandler Error handler, used by class to display errors that occur in its use.
  *
  *  @return configured storage object
  */
-- (id)initWithStoreURL:(NSURL*)storeURL modelURL:(NSURL*)modelURL contextsSharePersistentStoreCoordinator:(BOOL)shared errorHandler:(GTStorageErrorHandler *)errorHandler;
+- (id)initWithStoreURL:(NSURL*)storeURL storeType:(NSString *)storeType modelURL:(NSURL*)modelURL contextsSharePersistentStoreCoordinator:(BOOL)shared errorHandler:(GTStorageErrorHandler *)errorHandler;
 
 /**
  *  Error handler, used by class to display errors that occur in its use.

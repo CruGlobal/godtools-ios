@@ -26,6 +26,7 @@ NSString *const GTStorageModelName				= @"GTModel";
     dispatch_once(&onceToken, ^{
 		
         _sharedStorage = [[GTStorage alloc] initWithStoreURL:[GTStorage storeURL]
+												   storeType:NSSQLiteStoreType
 													modelURL:[GTStorage modelURL]
 					 contextsSharePersistentStoreCoordinator:YES
 												errorHandler:[GTStorageErrorHandler sharedErrorHandler]];
@@ -38,11 +39,11 @@ NSString *const GTStorageModelName				= @"GTModel";
 	
 }
 
-- (id)initWithStoreURL:(NSURL*)storeURL modelURL:(NSURL*)modelURL contextsSharePersistentStoreCoordinator:(BOOL)shared errorHandler:(GTStorageErrorHandler *)errorHandler {
+- (id)initWithStoreURL:(NSURL*)storeURL storeType:(NSString *)storeType modelURL:(NSURL*)modelURL contextsSharePersistentStoreCoordinator:(BOOL)shared errorHandler:(GTStorageErrorHandler *)errorHandler {
 	
 	@try {
 		
-		self = [super initWithStoreURL:storeURL modelURL:modelURL contextsSharePersistentStoreCoordinator:shared];
+		self = [super initWithStoreURL:storeURL storeType:storeType modelURL:modelURL contextsSharePersistentStoreCoordinator:shared];
 		
 		if (self) {
 			

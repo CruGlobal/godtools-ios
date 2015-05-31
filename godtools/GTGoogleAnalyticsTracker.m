@@ -73,12 +73,12 @@ NSString * const GTGoogleAnalyticsActionSwipe	= @"swipe";
     if (self) {
         
         [GAI sharedInstance].trackUncaughtExceptions = YES;
-        
-//        if ([GTConfig sharedInstance].inDevelopmentMode) {
-//            [GAI sharedInstance].dryRun = YES;
-//            [[GAI sharedInstance].logger setLogLevel:kGAILogLevelVerbose];
-//        }
-        
+		
+#ifdef DEBUG
+		[GAI sharedInstance].dryRun = YES;
+		[[GAI sharedInstance].logger setLogLevel:kGAILogLevelError];
+#endif
+		
         NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"config" ofType:@"plist"]];
         NSString *apiKey = [dictionary objectForKey:@"google_analytics_api_key"];
         self.tracker = [[GAI sharedInstance] trackerWithTrackingId:apiKey];

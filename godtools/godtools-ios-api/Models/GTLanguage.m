@@ -1,9 +1,9 @@
 //
 //  GTLanguage.m
-//  godtools
+//  
 //
-//  Created by Michael Harrison on 3/21/14.
-//  Copyright (c) 2014 Michael Harrison. All rights reserved.
+//  Created by Michael Harrison on 5/11/15.
+//
 //
 
 #import "GTLanguage.h"
@@ -14,9 +14,9 @@
 
 @dynamic code;
 @dynamic downloaded;
-@dynamic status;
-
 @dynamic name;
+@dynamic status;
+@dynamic updatesAvailable;
 @dynamic packages;
 
 @end

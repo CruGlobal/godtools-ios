@@ -19,10 +19,13 @@
 
 #import "GTGoogleAnalyticsTracker.h"
 
-@interface GTMainViewController ()
-    @property (nonatomic, strong) NSArray *resources;
-    @property (nonatomic, strong) GTSplashScreenView *splashScreen;
-    @property AFNetworkReachabilityManager *afReachability;
+@interface GTMainViewController () <UIAlertViewDelegate>
+
+@property (nonatomic, strong) NSArray *resources;
+@property (nonatomic, strong) GTSplashScreenView *splashScreen;
+
+- (void)askToUpdate:(NSNotification *)notification;
+
 @end
 
 @implementation GTMainViewController
@@ -50,15 +53,11 @@
                                              selector:@selector(showLoadingIndicator:)
                                                  name: GTDataImporterNotificationMenuUpdateStarted
                                                object:nil];
-    
-    self.afReachability = [AFNetworkReachabilityManager managerForDomain:@"www.google.com"];
-    [self.afReachability setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        if (status < AFNetworkReachabilityStatusReachableViaWWAN) {
-            NSLog(@"No internet connection!");
-        }
-    }];
-    
-    [self.afReachability startMonitoring];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(askToUpdate:)
+												 name: GTDataImporterNotificationNewVersionsAvailable
+											   object:nil];
 
     //check if first launch
     if([[GTDefaults sharedDefaults]isFirstLaunch] == [NSNumber numberWithBool:YES]){
@@ -84,17 +83,20 @@
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    
+	
+#warning remove observe calls are in the wrong place
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:GTDataImporterNotificationMenuUpdateFinished
                                                   object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:GTDataImporterNotificationMenuUpdateStarted                                              object:nil];
+	[[NSNotificationCenter defaultCenter] removeObserver:self
+													name:GTDataImporterNotificationNewVersionsAvailable                                              object:nil];
 }
 
 -(void)goToHome{
     NSLog(@"go to home");
-    [self performSelector:@selector(performSegueToHome) withObject:nil afterDelay:1.0];
+	[self performSelector:@selector(performSegueToHome) withObject:nil afterDelay:1.0];
 
 }
 
@@ -117,17 +119,14 @@
 }
 
 -(void)updateFromApi {
-    [self updateMenu];;
+    [self updateMenu];
     [[GTDefaults sharedDefaults] setIsChoosingForMainLanguage:[NSNumber numberWithBool: YES]];
     [[GTDataImporter sharedImporter] downloadPackagesForLanguage:[[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults]phonesLanguageCode] inBackground:YES]objectAtIndex:0]];
 }
 
 -(void)updateMenu{
-//    if(self.afReachability.reachable){
-        [[GTDataImporter sharedImporter] updateMenuInfo];
-//    }else{
-//        NSLog(@"NOT REACHABLE");
-//    }
+
+	[[GTDataImporter sharedImporter] updateMenuInfo];
 }
 
 -(void)showLoadingIndicator:(NSNotification *) notification{
@@ -140,7 +139,6 @@
     if([self.splashScreen.activityView isAnimating]){
         [self.splashScreen hideDownloadIndicator];
     }
-    [self goToHome];
     
 }
 
@@ -204,12 +202,12 @@
                 package = [packageArray objectAtIndex:0];
             }
             
-            package.name = [resource attribute:@"name"];
-            package.configFile = [resource attribute:@"config"];
-            package.icon = [resource attribute:@"icon"];
-            package.status = [resource attribute:@"status"];
-            package.localVersion = [NSNumber numberWithFloat:[[resource attribute:@"version"] floatValue] ];
-            package.latestVersion = [NSNumber numberWithFloat:[[resource attribute:@"version"] floatValue] ];
+            package.name			= [resource attribute:@"name"];
+            package.configFile		= [resource attribute:@"config"];
+            package.icon			= [resource attribute:@"icon"];
+            package.status			= [resource attribute:@"status"];
+            package.localVersion	= [resource attribute:@"version"];
+            package.latestVersion	= [resource attribute:@"version"];
 
             [english addPackagesObject:package];
             
@@ -260,6 +258,32 @@
     [[GTDataImporter sharedImporter]persistMenuInfoFromXMLElement:metaXML];
 
 }
+
+#pragma mark - Update languages to new versions
+
+- (void)askToUpdate:(NSNotification *)notification {
+	
+	NSNumber *numberOfUpdatesAvailable = notification.userInfo[GTDataImporterNotificationNewVersionsAvailableKeyNumberAvailable];
+	
+	UIAlertView *confirmationAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"AlertTitle_newUpdatesAvailable", nil)
+														 message:[NSString stringWithFormat:NSLocalizedString(@"AlertMessage_newUpdatesAvailable", nil), [numberOfUpdatesAvailable integerValue]]
+														delegate:self
+											   cancelButtonTitle:nil
+											   otherButtonTitles:NSLocalizedString(@"Yes", nil), NSLocalizedString(@"No", nil), nil];
+	[confirmationAlert show];
+	
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+	
+	if (buttonIndex == 0) {
+		
+		[[GTDataImporter sharedImporter] updatePackagesWithNewVersions];
+		
+	}
+	
+}
+
 
 - (void)didReceiveMemoryWarning {
 	

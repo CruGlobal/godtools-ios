@@ -29,6 +29,7 @@ extern NSString *const CRUStorageExceptionUserInfoKeyForError;
 *  Creates and configures Core Data stack based on method parameters.
 *
 *  @param storeURL URL of sqlite file. Usually you put it in the Application Documents folder. This method will create it if it doesn't exist.
+*  @param storeType the type of store that will back this core data stack. The options are the following constants defined in NSPersistentStoreCoordinator: NSSQLiteStoreType, NSBinaryStoreType or NSInMemoryStoreType. NSSQLiteStoreType is default.
 *  @param modelURL URL of managed object model file. Usually apart of the main bundle.
 *  @param shared   determines whether each context gets its own store coordinator or whether they share a store coordinator. Sharing a store coordinator means a shared cache but more locking so is good for cases where there are fewer writes. Separate store coordinators mean less locking but no shared cache so is good for cases with lots of changes. Refer to http://www.objc.io/issue-10/networked-core-data-application.html for more details
 *
@@ -36,7 +37,7 @@ extern NSString *const CRUStorageExceptionUserInfoKeyForError;
 *
 *  @return configured storage object
 */
-- (id)initWithStoreURL:(NSURL*)storeURL modelURL:(NSURL*)modelURL contextsSharePersistentStoreCoordinator:(BOOL)shared;
+- (id)initWithStoreURL:(NSURL*)storeURL storeType:(NSString *)storeType modelURL:(NSURL*)modelURL contextsSharePersistentStoreCoordinator:(BOOL)shared;
 
 /**
  *  The context that works on the main thread. This should be used for fetch request that update the UI.

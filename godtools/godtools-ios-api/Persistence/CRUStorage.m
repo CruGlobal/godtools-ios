@@ -20,6 +20,7 @@ NSString *const CRUStorageExceptionUserInfoKeyForError		= @"org.cru.crustorage.e
 @property (nonatomic, strong, readonly) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, strong) NSURL* modelURL;
 @property (nonatomic, strong) NSURL* storeURL;
+@property (nonatomic, strong) NSString *storeType;
 @property (nonatomic, assign) BOOL contextsShareStoreCoordinator;
 
 - (void)setupManagedObjectContexts;
@@ -35,13 +36,14 @@ NSString *const CRUStorageExceptionUserInfoKeyForError		= @"org.cru.crustorage.e
 
 #pragma mark - Initialization
 
-- (id)initWithStoreURL:(NSURL*)storeURL modelURL:(NSURL*)modelURL contextsSharePersistentStoreCoordinator:(BOOL)shared {
+- (id)initWithStoreURL:(NSURL*)storeURL storeType:(NSString *)storeType modelURL:(NSURL*)modelURL contextsSharePersistentStoreCoordinator:(BOOL)shared {
 	
 	self = [super init];
 	
 	if (self) {
 		
 		self.storeURL						= storeURL;
+		self.storeType						= ( storeType ? storeType : NSSQLiteStoreType );
 		self.modelURL						= modelURL;
 		self.contextsShareStoreCoordinator	= shared;
 		[self setupManagedObjectContexts];
@@ -119,7 +121,7 @@ NSString *const CRUStorageExceptionUserInfoKeyForError		= @"org.cru.crustorage.e
 	
 	NSPersistentStoreCoordinator *newPersistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
 	NSError* error;
-	[newPersistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
+	[newPersistentStoreCoordinator addPersistentStoreWithType:self.storeType
 												configuration:nil
 														  URL:self.storeURL
 													  options:@{NSMigratePersistentStoresAutomaticallyOption:	@YES,
@@ -139,7 +141,7 @@ NSString *const CRUStorageExceptionUserInfoKeyForError		= @"org.cru.crustorage.e
 		[[NSFileManager defaultManager] removeItemAtURL:self.storeURL error:nil];
 		error = nil;
 		
-		[storeCoordinator addPersistentStoreWithType:NSSQLiteStoreType
+		[storeCoordinator addPersistentStoreWithType:self.storeType
 									   configuration:nil
 												 URL:self.storeURL
 											 options:@{NSMigratePersistentStoresAutomaticallyOption:	@YES,

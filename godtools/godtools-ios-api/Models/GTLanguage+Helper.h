@@ -12,5 +12,6 @@
 
 + (instancetype)languageWithCode:(NSString *)code inContext:(NSManagedObjectContext *)context;
 - (NSComparisonResult)compare:(GTLanguage *)otherLanguage;
+- (BOOL)hasUpdates;
 
 @end

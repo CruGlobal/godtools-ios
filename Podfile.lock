@@ -25,6 +25,7 @@ PODS:
   - AFRaptureXMLRequestOperation (1.0.2):
     - AFNetworking (~> 2.5)
     - RaptureXML (~> 1.0.1)
+  - EDSemver (0.3.0)
   - GoogleAnalytics-iOS-SDK (3.0.9)
   - GTViewController (3.1.1):
     - SSCWhatsAppActivity (~> 1.0)
@@ -39,6 +40,7 @@ DEPENDENCIES:
   - AFDownloadRequestOperation (~> 2.0)
   - AFNetworking (~> 2.5)
   - AFRaptureXMLRequestOperation (from `https://github.com/CruGlobal/AFRaptureXMLRequestOperation.git`)
+  - EDSemver (~> 0.3)
   - GoogleAnalytics-iOS-SDK (~> 3.0.9)
   - GTViewController (from `https://github.com/CruGlobal/GTViewController.git`, branch
     `dev4.0`)
@@ -64,6 +66,7 @@ SPEC CHECKSUMS:
   AFDownloadRequestOperation: 748a1643423e1ddb23f2178f778087d4f0ae8ac7
   AFNetworking: e1d86c2a96bb5d2e7408da36149806706ee122fe
   AFRaptureXMLRequestOperation: dab4e06ac414e0e9e6a36298963dd8cafad8a9d7
+  EDSemver: 124a90685873628ec30f42504b461a1a61757568
   GoogleAnalytics-iOS-SDK: 3b0994bef22ed2e176a9e2a4d1660c7c2542eb47
   GTViewController: 9d986db4d22a5705dad3fa01af14aacda3543ad5
   NewRelicAgent: 5dbb8c108199f066e353231a90d80263830c0f73

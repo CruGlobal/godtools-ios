@@ -1,9 +1,9 @@
 //
 //  GTLanguage.h
-//  godtools
+//  
 //
-//  Created by Michael Harrison on 3/21/14.
-//  Copyright (c) 2014 Michael Harrison. All rights reserved.
+//  Created by Michael Harrison on 5/11/15.
+//
 //
 
 #import <Foundation/Foundation.h>
@@ -15,8 +15,9 @@
 
 @property (nonatomic, retain) NSString * code;
 @property (nonatomic, retain) NSNumber * downloaded;
-@property (nonatomic, retain) NSString * status;
 @property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSString * status;
+@property (nonatomic, retain) NSNumber * updatesAvailable;
 @property (nonatomic, retain) NSSet *packages;
 @end
 
