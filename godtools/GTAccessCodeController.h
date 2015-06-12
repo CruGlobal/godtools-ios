@@ -10,6 +10,6 @@
 
 @interface GTAccessCodeController : UIViewController<UITextFieldDelegate>
 
-
+@property (strong, nonatomic) NSNumber *expiredToken;
 
 @end

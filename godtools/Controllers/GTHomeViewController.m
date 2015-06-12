@@ -144,7 +144,7 @@
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(expireAuthToken)
+                                             selector:@selector(handleExpiredAuthToken)
                                                  name:GTDataImporterErrorExpiredAuthToken
                                                object:nil];
     
@@ -523,7 +523,7 @@
     return [[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES];
 }
 
--(void) expireAuthToken {
+-(void) handleExpiredAuthToken {
     [[GTAPI sharedAPI]setAuthToken:nil];
     [[GTDefaults sharedDefaults]setIsInTranslatorMode:[NSNumber numberWithBool:NO]];
     
@@ -534,6 +534,8 @@
 
     GTAccessCodeController *accessCodeController = [storyboard instantiateViewControllerWithIdentifier:@"GTAccessCodeController"];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:accessCodeController];
+    
+    accessCodeController.expiredToken = [NSNumber numberWithBool:YES];
     
     [accessCodeController setModalPresentationStyle:UIModalPresentationFullScreen];                                                    
     [self presentViewController:navigationController animated:YES completion:nil];

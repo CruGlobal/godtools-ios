@@ -37,6 +37,14 @@
                                    cancelButtonTitle:nil
                                    otherButtonTitles:nil, nil];
     
+    if([self.expiredToken boolValue]) {
+        self.accessCodeStatusAlert.message = @"Preview mode session expired.";
+        [self.accessCodeStatusAlert show];
+        [self performSelector:@selector(dismissAlertView:)
+                   withObject:self.accessCodeStatusAlert
+                   afterDelay:3.0];
+    }
+    
     self.accessCodeTextField.delegate = self;
 }
 
@@ -134,6 +142,7 @@
             self.accessCodeStatusAlert.message = NSLocalizedString(@"AlertMessage_previewModeEnabled", nil);
             [self.accessCodeStatusAlert show];
             [self performSelector:@selector(dismissAlertView:) withObject:self.accessCodeStatusAlert afterDelay:2.0];
+            [self performSelector:@selector(returnToPreviousViewController:) withObject:self.accessCodeStatusAlert afterDelay:2.0];
             
             GTLanguage *current = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:YES]objectAtIndex:0];
             [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:[NSNumber numberWithBool:YES]];
@@ -144,6 +153,9 @@
 
 -(void)dismissAlertView:(UIAlertView *)alertView{
     [alertView dismissWithClickedButtonIndex:0 animated:YES];
+}
+
+-(void)returnToPreviousViewController:(UIAlertView *)alertView{
     if(alertView == self.accessCodeStatusAlert && [[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]){
         
         NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
