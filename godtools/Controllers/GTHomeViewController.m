@@ -353,7 +353,6 @@
                                        :[self.articles objectAtIndex:indexPath.section]];
         } else if(currentSection >= self.articles.count){
             [cell showEveryStudentLayout];
-            
         } else {
             [cell showNormalModeLayout:(indexPath.section % 2)
                                       :[self.articles objectAtIndex:indexPath.section]];

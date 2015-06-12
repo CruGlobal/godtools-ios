@@ -22,7 +22,6 @@
 @property (strong, nonatomic) id<GTHomeViewCellDelegate> delegate;
 @property (strong, nonatomic) NSString *sectionIdentifier;
 
-
 -(void) showPreviewModeLayout:(BOOL) packagePresent
                              :(GTPackage *) package;
 

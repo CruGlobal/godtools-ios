@@ -16,7 +16,8 @@
 
 @property (strong, nonatomic) NSNumber *packageIsPresent;
 
-@property (weak, nonatomic) IBOutlet UIButton *showTranslatorOptionsButton;
+@property (weak, nonatomic) IBOutlet UIButton *translatorOptionsButton;
+@property (weak, nonatomic) IBOutlet UIImageView *translatorOptionsImage;
 @property (weak, nonatomic) IBOutlet UIView *publishDeleteOptionsView;
 @property (weak, nonatomic) IBOutlet UIView *createOptionsView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *verticalLayoutConstraint;
@@ -65,7 +66,8 @@
     self.verticalLayoutConstraint.constant = 2.0;
     self.backgroundView = nil;
     
-    self.showTranslatorOptionsButton.hidden = NO;
+    self.translatorOptionsButton.hidden = NO;
+    self.translatorOptionsImage.hidden = NO;
 }
 
 -(void) showNormalModeLayout:(BOOL) lightBackground
@@ -89,7 +91,8 @@
     [self.contentView.layer setBorderColor:nil];
     [self.contentView.layer setBorderWidth:0.0];
     
-    self.showTranslatorOptionsButton.hidden = YES;
+    self.translatorOptionsButton.hidden = YES;
+    self.translatorOptionsImage.hidden = YES;
 }
 
 -(void) showEveryStudentLayout {
@@ -106,7 +109,8 @@
     [self.contentView.layer setBorderColor:nil];
     [self.contentView.layer setBorderWidth:0.0];
     
-    self.showTranslatorOptionsButton.hidden = YES;
+    self.translatorOptionsButton.hidden = YES;
+    self.translatorOptionsImage.hidden = YES;
 }
 
 - (void) showTranslatorOptions {

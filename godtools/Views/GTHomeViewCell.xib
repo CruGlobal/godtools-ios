@@ -97,8 +97,9 @@
                 <outlet property="createOptionsView" destination="DED-aJ-94p" id="t3Q-t7-2Lg"/>
                 <outlet property="icon" destination="poS-Zh-dm8" id="8fp-IB-cxk"/>
                 <outlet property="publishDeleteOptionsView" destination="gdm-PF-AH9" id="EFw-zf-Mz6"/>
-                <outlet property="showTranslatorOptionsButton" destination="PjV-YV-I0C" id="Mkp-0C-RBk"/>
                 <outlet property="titleLabel" destination="UeF-AY-tJc" id="CBd-os-ZfH"/>
+                <outlet property="translatorOptionsButton" destination="PjV-YV-I0C" id="EvQ-Ng-Xod"/>
+                <outlet property="translatorOptionsImage" destination="2ke-fL-aSe" id="95a-8C-piy"/>
                 <outlet property="verticalLayoutConstraint" destination="PzW-Ap-2gz" id="Tyx-4M-ygy"/>
             </connections>
             <point key="canvasLocation" x="356" y="246.5"/>
