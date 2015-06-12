@@ -527,6 +527,9 @@
     [[GTAPI sharedAPI]setAuthToken:nil];
     [[GTDefaults sharedDefaults]setIsInTranslatorMode:[NSNumber numberWithBool:NO]];
     
+    [self.homeView hideDownloadIndicator];
+    [self.homeView setUserInteractionEnabled:YES];
+    
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
 
     GTAccessCodeController *accessCodeController = [storyboard instantiateViewControllerWithIdentifier:@"GTAccessCodeController"];
