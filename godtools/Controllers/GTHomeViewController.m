@@ -263,7 +263,7 @@
 
 #pragma mark - Home View Cell Delegates
 
--(void) showTranslatorOptionsButtonPressed:(NSString *)sectionIdentifier{
+-(void) translatorOptionsButtonPressed:(NSString *)sectionIdentifier{
     if([self.selectedSectionNumber isEqualToString:sectionIdentifier]){
         self.selectedSectionNumber = nil;
     } else {

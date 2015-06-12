@@ -129,8 +129,8 @@
     self.titleLabel.font = [UIFont fontWithName:fontName size:self.titleLabel.font.pointSize];
 }
 
--(void) showTranslatorOptionsButtonPressed:(id)sender {
-    [self.delegate showTranslatorOptionsButtonPressed:self.sectionIdentifier];
+-(void) translatorOptionsButtonPressed:(id)sender {
+    [self.delegate translatorOptionsButtonPressed:self.sectionIdentifier];
 }
 
 -(void) publishDraftButtonPressed:(id)sender {
