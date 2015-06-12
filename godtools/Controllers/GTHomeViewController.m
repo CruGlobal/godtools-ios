@@ -180,7 +180,7 @@
     
     [self setData];
 
-    if(![self languageHasLivePackages:[self getCurrentPrimaryLanguage]]) {
+    if(![self isTranslatorMode] && ![self languageHasLivePackages:[self getCurrentPrimaryLanguage]]) {
         self.languageCode = @"en";
         [[GTDefaults sharedDefaults] setCurrentLanguageCode:@"en" ];
         [self setData];
