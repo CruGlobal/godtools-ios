@@ -27,7 +27,7 @@ PODS:
     - RaptureXML (~> 1.0.1)
   - EDSemver (0.3.0)
   - GoogleAnalytics-iOS-SDK (3.0.9)
-  - GTViewController (3.1.1):
+  - GTViewController (3.1.2):
     - SSCWhatsAppActivity (~> 1.0)
     - TBXML (~> 1.5)
   - NewRelicAgent (3.412)
@@ -59,7 +59,7 @@ CHECKOUT OPTIONS:
     :commit: 4dbbb8a6c2d2115c09a4df3ffc6cda20e93a1cd1
     :git: https://github.com/CruGlobal/AFRaptureXMLRequestOperation.git
   GTViewController:
-    :commit: 0a5ca2b4515ad153be4e3af3161d6f693e0bbaa8
+    :commit: 720985c13842c9b5d69c8af7cbdb6b89b150b3e3
     :git: https://github.com/CruGlobal/GTViewController.git
 
 SPEC CHECKSUMS:
@@ -68,11 +68,11 @@ SPEC CHECKSUMS:
   AFRaptureXMLRequestOperation: dab4e06ac414e0e9e6a36298963dd8cafad8a9d7
   EDSemver: 124a90685873628ec30f42504b461a1a61757568
   GoogleAnalytics-iOS-SDK: 3b0994bef22ed2e176a9e2a4d1660c7c2542eb47
-  GTViewController: 9d986db4d22a5705dad3fa01af14aacda3543ad5
+  GTViewController: c568fe1171237d700f33c3ebdb88f5339fc6b7ab
   NewRelicAgent: 5dbb8c108199f066e353231a90d80263830c0f73
   RaptureXML: b5c33c04c1a4adfd8ad0d5463329a31820596e82
   SSCWhatsAppActivity: fdea072dcf11f1e4889c8f8d9f58118672361900
   SSZipArchive: 11801759495fa4efb7512ef652eb0042d68305d7
   TBXML: 9f9dadb239f2f2af1dadb87fe43a0ce6e479379a
 
-COCOAPODS: 0.37.1
+COCOAPODS: 0.37.2
