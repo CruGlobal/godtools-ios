@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="OvA-bH-obN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="13F1077" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="OvA-bH-obN">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -169,7 +169,7 @@
         <!--Enter Passcode-->
         <scene sceneID="ZH8-bc-7K6">
             <objects>
-                <viewController id="bg8-8O-T0Y" customClass="GTAccessCodeController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GTAccessCodeController" id="bg8-8O-T0Y" customClass="GTAccessCodeController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ejz-wI-n7t"/>
                         <viewControllerLayoutGuide type="bottom" id="9ys-PG-CTe"/>

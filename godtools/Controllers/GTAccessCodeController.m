@@ -24,6 +24,8 @@
 -(void)viewDidLoad {
     [super viewDidLoad];
     
+    [self.navigationController setNavigationBarHidden:NO];
+    
     self.navigationItem.backBarButtonItem.target = self;
     self.navigationItem.backBarButtonItem.action = @selector(cancelButtonPressed);
 
@@ -42,10 +44,10 @@
 
 -(void)viewWillAppear:(BOOL)animated{
 
-    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:246.0/255.0 green:246.0/255.0 blue:246.0/255.0 alpha:1];
-    [self.navigationController.navigationBar setTintColor:[UIColor darkGrayColor]];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:0.44 green:0.84 blue:0.88 alpha:1.0]];
+    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self.navigationController.navigationBar setTranslucent:NO]; // required for iOS7
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor darkGrayColor]}];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -117,6 +119,7 @@
 # pragma mark - UI helper methods
 -(void) cancelButtonPressed {
     [self performSegueWithIdentifier:@"returnFromAccessCodeView" sender:self];
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 -(void) doneButtonPressed {
@@ -180,6 +183,7 @@
                 [self.navigationController popToViewController:viewController animated:NO];
             }
         }
+        [self dismissViewControllerAnimated:NO completion:nil];
     }
 }
 

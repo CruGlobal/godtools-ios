@@ -971,7 +971,10 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
                                      }
                                 }else{
                                     NSLog(@"error. response is: %@",response);
-                                    if(response.statusCode == 404){
+                                    if(response.statusCode == 401) {
+                                        NSLog(@"Translator token expired or invalid");
+                                        [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterErrorExpiredAuthToken object:self];
+                                    } else if(response.statusCode == 404){
                                         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"status == %@",@"draft"];
                                         
                                         [language removePackages:[language.packages filteredSetUsingPredicate:predicate]];
@@ -992,7 +995,7 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
                                 }
                                 
                              } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                 NSLog(@"Failute here..");
+                                 NSLog(@"Failure here..");
                                  [weakSelf displayDownloadPackagesRequestError:error];
                                  [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDraftsDownloadFinished object:self];
                                  
