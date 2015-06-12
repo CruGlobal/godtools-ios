@@ -45,6 +45,7 @@
 -(void) showPreviewModeLayout:(BOOL) packagePresent
                              :(GTPackage *) package {
     self.titleLabel.text = package.name;
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     self.packageIsPresent = [NSNumber numberWithBool:packagePresent];
     
