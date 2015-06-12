@@ -348,18 +348,15 @@
         if([self isTranslatorMode] && currentSection >= self.articles.count) {
             [cell showPreviewModeLayout:NO
                                        :[self.packagesWithNoDrafts objectAtIndex:(indexPath.section - self.articles.count)]];
-            
         } else if([self isTranslatorMode]){
             [cell showPreviewModeLayout:YES
                                        :[self.articles objectAtIndex:indexPath.section]];
-            
         } else if(currentSection >= self.articles.count){
             [cell showEveryStudentLayout];
             
         } else {
             [cell showNormalModeLayout:(indexPath.section % 2)
                                       :[self.articles objectAtIndex:indexPath.section]];
-
         }
         
         if([self.currentPrimaryLanguage.code isEqualToString:@"am-ET"]){
