@@ -1059,20 +1059,19 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
         if(response.statusCode == 201){//, created
             NSLog(@"created");
             [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationCreateDraftSuccessful object:self];
-        }
-        else if(response.statusCode == 401){//, unauthorized
-            NSLog(@"Unauthorized");
-            [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationCreateDraftFail object:self];
-
-        }
-        else if(response.statusCode == 404){//, not found
+        } else if(response.statusCode == 404){//, not found
             NSLog(@"Not found");
             [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationCreateDraftFail object:self];
         }
     }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-        NSLog(@"creation error: %@", error);
-        [weakSelf displayDownloadPageRequestError:error];
-        [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationCreateDraftFail object:self];
+        if(response.statusCode == 401) {
+            NSLog(@"Translator token expired or invalid");
+            [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterErrorExpiredAuthToken object:self];
+        } else {
+            NSLog(@"creation error: %@", error);
+            [weakSelf displayDownloadPageRequestError:error];
+            [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationCreateDraftFail object:self];
+        }
     }];
     
 }
@@ -1089,19 +1088,18 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
         if(response.statusCode == 204){//, created
             NSLog(@"published");
             [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationPublishDraftSuccessful object:self];
-        }
-        else if(response.statusCode == 401){//, unauthorized
-            NSLog(@"Unauthorized");
-            [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationPublishDraftFail object:self];
-            
-        }
-        else if(response.statusCode == 404){//, not found
+        } else if(response.statusCode == 404){//, not found
             NSLog(@"Not found");
             [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationPublishDraftFail object:self];
         }
     }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-        NSLog(@"publishing error: %@", error);
-        [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationPublishDraftFail object:self];
+        if(response.statusCode == 401) {
+            NSLog(@"Translator token expired or invalid");
+            [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterErrorExpiredAuthToken object:self];
+        } else {
+            NSLog(@"publishing error: %@", error);
+            [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationPublishDraftFail object:self];
+        }
     }];
     
 }
