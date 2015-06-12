@@ -524,8 +524,8 @@
 }
 
 -(void) expireAuthToken {
-//    [[GTAPI sharedAPI]setAuthToken:nil];
-//    [[GTDefaults sharedDefaults]setIsInTranslatorMode:[NSNumber numberWithBool:NO]];
+    [[GTAPI sharedAPI]setAuthToken:nil];
+    [[GTDefaults sharedDefaults]setIsInTranslatorMode:[NSNumber numberWithBool:NO]];
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
 
