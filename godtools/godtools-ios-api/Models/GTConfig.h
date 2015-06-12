@@ -14,7 +14,7 @@
 @property (nonatomic, strong, readonly) NSNumber	*interpreterVersion;
 
 @property (nonatomic, strong, readonly) NSString	*apiKeyGodTools;
-@property (nonatomic, strong, readonly) NSString	*apiKeyErrbit;
+@property (nonatomic, strong, readonly) NSString	*apiKeyRollbar;
 @property (nonatomic, strong, readonly) NSString	*apiKeyGoogleAnalytics;
 @property (nonatomic, strong, readonly) NSString	*apiKeyNewRelic;
 

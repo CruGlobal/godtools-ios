@@ -1,0 +1,2 @@
+PODS_ROLLBAR_FRAMEWORK_SEARCH_PATHS = "$(PODS_ROOT)/Rollbar/Vendor"
+PODS_ROLLBAR_OTHER_LDFLAGS = -framework "CrashReporter" -framework "Foundation" -framework "SystemConfiguration" -framework "UIKit"
