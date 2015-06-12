@@ -344,6 +344,7 @@
         //rendering a missing package
         NSInteger currentSection = indexPath.section;
         
+        // this section configures the cell for when no draft exists for this package IN translator mode
         if([self isTranslatorMode] && currentSection >= self.articles.count) {
             [cell showPreviewModeLayout:NO
                                        :[self.packagesWithNoDrafts objectAtIndex:(indexPath.section - self.articles.count)]];
@@ -358,6 +359,7 @@
         } else {
             [cell showNormalModeLayout:(indexPath.section % 2)
                                       :[self.articles objectAtIndex:indexPath.section]];
+
         }
         
         if([self.currentPrimaryLanguage.code isEqualToString:@"am-ET"]){
