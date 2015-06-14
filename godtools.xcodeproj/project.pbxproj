@@ -579,7 +579,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = GT;
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Michael Harrison";
 				TargetAttributes = {
 					68740D0E18D24F9A00D36C0E = {
@@ -857,6 +857,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Claudine Bael (BKHE62CR3F)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Claudine Bael (BKHE62CR3F)";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -953,6 +954,7 @@
 				INFOPLIST_FILE = "godtools/godtools-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -990,6 +992,7 @@
 				INFOPLIST_FILE = "godtools/godtools-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1018,6 +1021,7 @@
 				);
 				INFOPLIST_FILE = "godtoolsTests/godtoolsTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pointwest.godtools;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUNDLE_LOADER)";
@@ -1041,6 +1045,7 @@
 				GCC_PREFIX_HEADER = "godtools/godtools-Prefix.pch";
 				INFOPLIST_FILE = "godtoolsTests/godtoolsTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pointwest.godtools;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUNDLE_LOADER)";
