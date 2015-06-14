@@ -11,7 +11,7 @@
 #import "EveryStudentCell.h"
 #import "EveryStudentSearchCell.h"
 #import "EveryStudentArticleView.h"
-#import "TBXML.h"
+#import <GTViewController/TBXML.h>
 
 #import "GTGoogleAnalyticsTracker.h"
 

@@ -27,14 +27,12 @@ PODS:
     - RaptureXML (~> 1.0.1)
   - EDSemver (0.3.0)
   - GoogleAnalytics-iOS-SDK (3.0.9)
-  - GTViewController (3.1.2):
+  - GTViewController (4.0.3):
     - SSCWhatsAppActivity (~> 1.0)
-    - TBXML (~> 1.5)
   - NewRelicAgent (3.412)
   - RaptureXML (1.0.1)
   - SSCWhatsAppActivity (1.2.2)
   - SSZipArchive (0.3.2)
-  - TBXML (1.5)
 
 DEPENDENCIES:
   - AFDownloadRequestOperation (~> 2.0)
@@ -42,25 +40,18 @@ DEPENDENCIES:
   - AFRaptureXMLRequestOperation (from `https://github.com/CruGlobal/AFRaptureXMLRequestOperation.git`)
   - EDSemver (~> 0.3)
   - GoogleAnalytics-iOS-SDK (~> 3.0.9)
-  - GTViewController (from `https://github.com/CruGlobal/GTViewController.git`, branch
-    `dev4.0`)
+  - GTViewController (~> 4.0)
   - NewRelicAgent (~> 3.256)
   - SSZipArchive (~> 0.3)
 
 EXTERNAL SOURCES:
   AFRaptureXMLRequestOperation:
     :git: https://github.com/CruGlobal/AFRaptureXMLRequestOperation.git
-  GTViewController:
-    :branch: dev4.0
-    :git: https://github.com/CruGlobal/GTViewController.git
 
 CHECKOUT OPTIONS:
   AFRaptureXMLRequestOperation:
     :commit: 4dbbb8a6c2d2115c09a4df3ffc6cda20e93a1cd1
     :git: https://github.com/CruGlobal/AFRaptureXMLRequestOperation.git
-  GTViewController:
-    :commit: 720985c13842c9b5d69c8af7cbdb6b89b150b3e3
-    :git: https://github.com/CruGlobal/GTViewController.git
 
 SPEC CHECKSUMS:
   AFDownloadRequestOperation: 748a1643423e1ddb23f2178f778087d4f0ae8ac7
@@ -68,11 +59,10 @@ SPEC CHECKSUMS:
   AFRaptureXMLRequestOperation: dab4e06ac414e0e9e6a36298963dd8cafad8a9d7
   EDSemver: 124a90685873628ec30f42504b461a1a61757568
   GoogleAnalytics-iOS-SDK: 3b0994bef22ed2e176a9e2a4d1660c7c2542eb47
-  GTViewController: c568fe1171237d700f33c3ebdb88f5339fc6b7ab
+  GTViewController: 19b12ef277b0990631355332e3d3f4a9a0cba838
   NewRelicAgent: 5dbb8c108199f066e353231a90d80263830c0f73
   RaptureXML: b5c33c04c1a4adfd8ad0d5463329a31820596e82
   SSCWhatsAppActivity: fdea072dcf11f1e4889c8f8d9f58118672361900
   SSZipArchive: 11801759495fa4efb7512ef652eb0042d68305d7
-  TBXML: 9f9dadb239f2f2af1dadb87fe43a0ce6e479379a
 
 COCOAPODS: 0.37.2

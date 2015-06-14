@@ -1,6 +1,10 @@
 {
   "name": "GTViewController",
+<<<<<<< Updated upstream
   "version": "3.1.2",
+=======
+  "version": "4.0.2",
+>>>>>>> Stashed changes
   "summary": "A View Controller that renders God Tools xml packages",
   "description": "                   GTViewController takes a God Tools xml package and renders it for iOS devices.\n\n                   God Tools packages can be downloaded from the God Tools API and can be rendered\n                   on Android too. All God Tools code is open source.\n\n                   If you would like to create your own xml packages the documentation is at godtoolsapp.com/docs\n",
   "homepage": "http://github.com/CruGlobal/GTViewController",
@@ -16,7 +20,7 @@
   },
   "source": {
     "git": "https://github.com/CruGlobal/GTViewController.git",
-    "branch": "dev4.0"
+    "tag": "4.0.2"
   },
   "source_files": [
     "GTViewController/Classes/**/*.{h,m}",
@@ -27,7 +31,8 @@
     "GTViewController/Classes/Custom Classes/GTFileLoader.h",
     "GTViewController/Classes/Nav Classes/GTPageMenuViewController.h",
     "GTViewController/Classes/Custom Classes/GTShareViewController.h",
-    "GTViewController/Classes/Parsing Classes/GTAboutViewController.h"
+    "GTViewController/Classes/Parsing Classes/GTAboutViewController.h",
+    "GTViewController/Classes/TBXML/TBXML.h"
   ],
   "resources": [
     "GTViewController/Resources/*",
@@ -41,9 +46,6 @@
   "dependencies": {
     "SSCWhatsAppActivity": [
       "~> 1.0"
-    ],
-    "TBXML": [
-      "~> 1.5"
     ]
   },
   "requires_arc": true
