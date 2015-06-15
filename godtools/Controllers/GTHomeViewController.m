@@ -169,13 +169,13 @@
         
         [self.homeView.tableView addSubview:refreshControl];
         
-        [self.homeView.tableView setScrollEnabled:TRUE];
+        [self.homeView.tableView setScrollEnabled:YES];
     } else {
         self.homeView.iconImageView.image = [UIImage imageNamed:@"GT4_Home_BookIcon_"];
         self.homeView.translatorModeLabel.hidden = YES;
         self.homeView.refreshDraftsView.hidden = YES;
         
-        [self.homeView.tableView setScrollEnabled:FALSE];
+        [self.homeView.tableView setScrollEnabled:NO];
     }
     
     [self setData];
