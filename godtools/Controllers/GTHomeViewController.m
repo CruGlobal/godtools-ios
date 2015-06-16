@@ -20,6 +20,7 @@
 
 @interface GTHomeViewController ()
 
+@property (strong, nonatomic) GTLanguage *currentPrimaryLanguage;
 @property (strong, nonatomic) NSString *languageCode;
 @property (strong, nonatomic) GTViewController *godtoolsViewController;
 @property (strong, nonatomic) GTHomeView *homeView;
@@ -114,7 +115,7 @@
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(refreshDrafts)
+                                             selector:@selector(downloadFinished:)
                                                  name: GTDataImporterNotificationCreateDraftSuccessful
                                                object:nil];
 
@@ -179,6 +180,8 @@
         [self setData];
     }
     
+    self.currentPrimaryLanguage = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:YES]objectAtIndex:0];
+    
     [[[GTGoogleAnalyticsTracker sharedInstance] setScreenName:@"HomeScreen"] sendScreenView];
     
     [self.homeView.tableView reloadData];
@@ -190,7 +193,7 @@
 
 - (void)refresh:(UIRefreshControl *)refreshControl {
     [refreshControl endRefreshing];
-    [self refreshDrafts];
+    [[GTDataImporter sharedImporter] downloadDraftsForLanguage:self.currentPrimaryLanguage];
 }
 
 #pragma mark - Download packages methods
@@ -202,7 +205,7 @@
     [self.homeView.tableView reloadData];
     
     if([notification.name isEqualToString: GTDataImporterNotificationPublishDraftSuccessful]){
-        [self refreshDrafts];
+        [[GTDataImporter sharedImporter] downloadDraftsForLanguage:self.currentPrimaryLanguage];
     }else if ([notification.name isEqualToString:GTDataImporterNotificationLanguageDraftsDownloadFinished]){
         [[GTDataImporter sharedImporter] updateMenuInfo];
     }else if([notification.name isEqualToString:GTDataImporterNotificationMenuUpdateFinished]){
@@ -239,10 +242,6 @@
 -(void)settingsButtonPressed{
     [self performSegueWithIdentifier:@"homeToSettingsViewSegue" sender:self];
 }
-
--(void)refreshDraftsButtonDragged {
-    [self refreshDrafts];
-};
 
 #pragma mark - Home View Cell Delegates
 
@@ -509,12 +508,6 @@
     return [[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES];
 }
 
--(void) refreshDrafts {
-    [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDraftsDownloadStarted object:self];
-    GTLanguage *current = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:YES]objectAtIndex:0];
-    [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:[NSNumber numberWithBool:YES]];
-    [[GTDataImporter sharedImporter]downloadPackagesForLanguage:current];
-}
 #pragma mark - Renderer methods
 -(void)loadRendererWithPackage: (GTPackage *)package{
    
