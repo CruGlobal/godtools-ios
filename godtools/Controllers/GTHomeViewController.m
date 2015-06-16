@@ -20,11 +20,15 @@
 
 @interface GTHomeViewController ()
 
+// the language the user has chosen to user for presentations
 @property (strong, nonatomic) GTLanguage *currentPrimaryLanguage;
-@property (strong, nonatomic) NSString *languageCode;
+
 @property (strong, nonatomic) GTViewController *godtoolsViewController;
 @property (strong, nonatomic) GTHomeView *homeView;
+
+// the language of the user's device, which may be different than "currentPrimaryLanguage" used for presentations
 @property (strong, nonatomic) GTLanguage *phonesLanguage;
+
 @property (strong, nonatomic) UIAlertView *phonesLanguageAlert;
 @property (strong, nonatomic) UIAlertView *draftsAlert;
 @property (strong, nonatomic) UIAlertView *createDraftsAlert;
@@ -60,7 +64,6 @@
     self.articles = [[NSMutableArray alloc]init];
     self.packagesWithNoDrafts = [[NSMutableArray alloc]init];
     
-    self.languageCode = [[GTDefaults sharedDefaults]currentLanguageCode];
     [self setData];
     [self.homeView.tableView reloadData];
     
@@ -171,16 +174,15 @@
     } else {
         [self.homeView showNormalModeLayout];
     }
-    
+
+    self.currentPrimaryLanguage = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:YES]objectAtIndex:0];
+
     [self setData];
 
-    if(![self isTranslatorMode] && ![self languageHasLivePackages:[self getCurrentPrimaryLanguage]]) {
-        self.languageCode = @"en";
+    if(![self isTranslatorMode] && ![self languageHasLivePackages:self.currentPrimaryLanguage]) {
         [[GTDefaults sharedDefaults] setCurrentLanguageCode:@"en" ];
         [self setData];
     }
-    
-    self.currentPrimaryLanguage = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:YES]objectAtIndex:0];
     
     [[[GTGoogleAnalyticsTracker sharedInstance] setScreenName:@"HomeScreen"] sendScreenView];
     
@@ -279,7 +281,7 @@
     if(tableView == self.homeView.tableView){
         if(![self isTranslatorMode]) {
             //every student is included for english only when not in translator mode, so add a cell
-            if([self.languageCode isEqualToString:@"en"]) {
+            if([self.currentPrimaryLanguage.code isEqualToString:@"en"]) {
                 return self.articles.count + 1;
             }
             return self.articles.count;
@@ -342,7 +344,7 @@
                                       :[self.articles objectAtIndex:indexPath.section]];
         }
         
-        if([self.languageCode isEqualToString:@"am-ET"]){
+        if([self.currentPrimaryLanguage.code isEqualToString:@"am-ET"]){
             [cell setCustomFont:@"NotoSansEthiopic"];
         }
         
@@ -392,18 +394,9 @@
 }
 
 #pragma mark - Data setter methods
--(GTLanguage *) getCurrentPrimaryLanguage {
-    NSArray *languages = [[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:self.languageCode inBackground:YES];
-    return(GTLanguage*)[languages objectAtIndex:0];
-}
+
 -(void)setData{
-    
-    self.languageCode = [[GTDefaults sharedDefaults]currentLanguageCode];
-    NSArray *languages = [[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:self.languageCode inBackground:YES];
-    
-    GTLanguage* mainLanguage = [self getCurrentPrimaryLanguage];
-    
-    self.articles = [[mainLanguage.packages allObjects]mutableCopy];
+    self.articles = [[self.currentPrimaryLanguage.packages allObjects]mutableCopy];
     
     NSPredicate *missingDraftsPredicate = [NSPredicate predicateWithFormat:@"status == %@",@"draft"];
     NSArray *draftsCodes = [[self.articles filteredArrayUsingPredicate:missingDraftsPredicate]valueForKeyPath:@"code"];
@@ -546,7 +539,7 @@
         
         GTPackage *package = [self.articles objectAtIndex:0];
         GTFileLoader *fileLoader = [GTFileLoader fileLoader];
-        fileLoader.language		= self.languageCode;
+        fileLoader.language		= self.currentPrimaryLanguage.code;
         GTShareViewController *shareViewController = [[GTShareViewController alloc] init];
         GTPageMenuViewController *pageMenuViewController = [[GTPageMenuViewController alloc] initWithFileLoader:fileLoader];
         GTAboutViewController *aboutViewController = [[GTAboutViewController alloc] initWithDelegate:self fileLoader:fileLoader];
