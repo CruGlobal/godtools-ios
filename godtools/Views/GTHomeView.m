@@ -38,7 +38,17 @@
     }
 }
 
-- (void) setIconImage:(UIImage *)image {
-    self.iconImageView.image = image;
+- (void) showPreviewModeLayout {
+    self.iconImageView.image = [UIImage imageNamed:@"GT4_Home_BookIcon_PreviewMode_"];
+    self.translatorModeLabel.hidden = NO;
+    self.refreshDraftsView.hidden = NO;
+    [self.tableView setScrollEnabled:YES];
+}
+
+- (void) showNormalModeLayout {
+    self.iconImageView.image = [UIImage imageNamed:@"GT4_Home_BookIcon_"];
+    self.translatorModeLabel.hidden = YES;
+    self.refreshDraftsView.hidden = YES;
+    [self.tableView setScrollEnabled:NO];
 }
 @end

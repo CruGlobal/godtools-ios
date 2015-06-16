@@ -154,10 +154,8 @@
     [self.navigationController setNavigationBarHidden:YES];
     
     if([self isTranslatorMode]) {
-        [self.homeView setIconImage:[UIImage imageNamed:@"GT4_Home_BookIcon_PreviewMode_"]];
-        self.homeView.translatorModeLabel.hidden = NO;
-        self.homeView.refreshDraftsView.hidden = NO;
-        
+        [self.homeView showPreviewModeLayout];
+
         UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
         [refreshControl addTarget:self
                            action:@selector(refresh:)
@@ -165,13 +163,8 @@
         
         [self.homeView.tableView addSubview:refreshControl];
         
-        [self.homeView.tableView setScrollEnabled:YES];
     } else {
-        [self.homeView setIconImage:[UIImage imageNamed:@"GT4_Home_BookIcon_"]];
-        self.homeView.translatorModeLabel.hidden = YES;
-        self.homeView.refreshDraftsView.hidden = YES;
-        
-        [self.homeView.tableView setScrollEnabled:NO];
+        [self.homeView showNormalModeLayout];
     }
     
     [self setData];

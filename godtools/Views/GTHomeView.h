@@ -27,6 +27,6 @@
 - (IBAction)settingsButtonPressed:(id)sender;
 
 - (void) hideInstructionsOverlay:(BOOL) animated;
-- (void) setIconImage:(UIImage *)image;
-
+- (void) showPreviewModeLayout;
+- (void) showNormalModeLayout;
 @end
