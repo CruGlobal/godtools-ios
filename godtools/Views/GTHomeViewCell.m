@@ -8,6 +8,15 @@
 
 #import "GTHomeViewCell.h"
 
+@interface GTHomeViewCell ()
+
+-(IBAction)showTranslatorOptionsButtonPressed:(id)sender;
+-(IBAction)publishDraftButtonPressed:(id)sender;
+-(IBAction)deleteDraftButtonPressed:(id)sender;
+-(IBAction)createDraftButtonPressed:(id)sender;
+
+@end
+
 @implementation GTHomeViewCell
 
 - (void)awakeFromNib {

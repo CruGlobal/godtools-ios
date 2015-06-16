@@ -64,14 +64,10 @@
     [self.homeView.tableView reloadData];
     
     if([[GTDefaults sharedDefaults] isFirstLaunch] == [NSNumber numberWithBool:NO]) {
-        self.homeView.instructionsOverlayView.hidden = YES;
+        [self.homeView hideInstructionsOverlay:NO];
     } else {
-        [UIView animateWithDuration: 1.0 delay:6.0 options:0 animations:^{
-            self.homeView.instructionsOverlayView.alpha = 0.0f;
-        } completion:^(BOOL finished) {
-            self.homeView.instructionsOverlayView.hidden = YES;
-            [[GTDefaults sharedDefaults]setIsFirstLaunch:[NSNumber numberWithBool:NO]];
-        }];
+        [self.homeView hideInstructionsOverlay:YES];
+        [[GTDefaults sharedDefaults]setIsFirstLaunch:[NSNumber numberWithBool:NO]];
     }
     
     NSLog(@"phone's :%@",[[GTDefaults sharedDefaults]phonesLanguageCode]);
@@ -158,10 +154,8 @@
     [self.navigationController setNavigationBarHidden:YES];
     
     if([self isTranslatorMode]) {
-        self.homeView.iconImageView.image = [UIImage imageNamed:@"GT4_Home_BookIcon_PreviewMode_"];
-        self.homeView.translatorModeLabel.hidden = NO;
-        self.homeView.refreshDraftsView.hidden = NO;
-        
+        [self.homeView showPreviewModeLayout];
+
         UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
         [refreshControl addTarget:self
                            action:@selector(refresh:)
@@ -169,13 +163,8 @@
         
         [self.homeView.tableView addSubview:refreshControl];
         
-        [self.homeView.tableView setScrollEnabled:YES];
     } else {
-        self.homeView.iconImageView.image = [UIImage imageNamed:@"GT4_Home_BookIcon_"];
-        self.homeView.translatorModeLabel.hidden = YES;
-        self.homeView.refreshDraftsView.hidden = YES;
-        
-        [self.homeView.tableView setScrollEnabled:NO];
+        [self.homeView showNormalModeLayout];
     }
     
     [self setData];
