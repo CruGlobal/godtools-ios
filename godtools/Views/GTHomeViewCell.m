@@ -61,6 +61,8 @@
     self.createOptionsView.hidden = YES;
     self.verticalLayoutConstraint.constant = 2.0;
     self.backgroundView = nil;
+    
+    self.showTranslatorOptionsButton.hidden = NO;
 }
 
 -(void) showNormalModeLayout:(BOOL) lightBackground
@@ -83,6 +85,8 @@
     
     [self.contentView.layer setBorderColor:nil];
     [self.contentView.layer setBorderWidth:0.0];
+    
+    self.showTranslatorOptionsButton.hidden = YES;
 }
 
 -(void) showEveryStudentLayout {
@@ -98,6 +102,8 @@
     
     [self.contentView.layer setBorderColor:nil];
     [self.contentView.layer setBorderWidth:0.0];
+    
+    self.showTranslatorOptionsButton.hidden = YES;
 }
 
 -(void) setCustomFont:(NSString *) fontName {

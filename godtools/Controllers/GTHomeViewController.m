@@ -362,7 +362,6 @@
             // moved to GTHomeViewCell showNormalModeLayout
         }
         
-        cell.showTranslatorOptionsButton.hidden = ![self isTranslatorMode];
         cell.delegate = self;
         cell.sectionIdentifier = [@(indexPath.section) stringValue];
         
