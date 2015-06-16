@@ -320,10 +320,6 @@
             cell = [nib objectAtIndex:0];
         }
         
-        cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        cell.textLabel.numberOfLines = 0;
-        cell.textLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-        
         //rendering a missing package
         NSInteger currentSection = indexPath.section;
         
@@ -361,15 +357,9 @@
             }
             cell.backgroundColor = [UIColor clearColor];
         } else if([self isTranslatorMode]){
-            cell.publishDeleteOptionsView.hidden = YES;
-            cell.createOptionsView.hidden = YES;
-            cell.verticalLayoutConstraint.constant = 2.0;
-            cell.backgroundView = nil;
+            // moved to GTHomeViewCell showPreviewModeLayout
         } else {
-            cell.publishDeleteOptionsView.hidden = YES;
-            cell.createOptionsView.hidden = YES;
-            cell.verticalLayoutConstraint.constant = 2.0;
-            cell.backgroundView = nil;
+            // moved to GTHomeViewCell showNormalModeLayout
         }
         
         cell.showTranslatorOptionsButton.hidden = ![self isTranslatorMode];

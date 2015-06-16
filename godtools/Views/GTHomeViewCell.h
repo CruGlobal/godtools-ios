@@ -28,8 +28,6 @@
 @property (weak, nonatomic) IBOutlet UIView *createOptionsView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *verticalLayoutConstraint;
 
--(void) setUpBackground:(int)isEven :(int)isTranslatorMode :(int)isMissingDraft;
-
 -(void) showPreviewModeLayout:(BOOL) packagePresent
                              :(GTPackage *) package;
 

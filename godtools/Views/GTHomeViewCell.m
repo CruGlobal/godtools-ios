@@ -24,14 +24,15 @@
 @implementation GTHomeViewCell
 
 - (void)awakeFromNib {
-    self.titleLabel.numberOfLines = 0;
-    self.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
+    self.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    self.textLabel.numberOfLines = 0;
+    self.textLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
-    // Configure the view for the selected state
+
 }
 
 -(void) showPreviewModeLayout:(BOOL) packagePresent
@@ -55,6 +56,11 @@
         [self.contentView.layer setBorderColor:[UIColor lightTextColor].CGColor];
         [self.contentView.layer setBorderWidth:1.0f];
     }
+    
+    self.publishDeleteOptionsView.hidden = YES;
+    self.createOptionsView.hidden = YES;
+    self.verticalLayoutConstraint.constant = 2.0;
+    self.backgroundView = nil;
 }
 
 -(void) showNormalModeLayout:(BOOL) lightBackground
@@ -70,6 +76,11 @@
         self.backgroundColor = [UIColor colorWithRed:0.88 green:0.88 blue:0.88 alpha:0.65];
     }
     
+    self.publishDeleteOptionsView.hidden = YES;
+    self.createOptionsView.hidden = YES;
+    self.verticalLayoutConstraint.constant = 2.0;
+    self.backgroundView = nil;
+    
     [self.contentView.layer setBorderColor:nil];
     [self.contentView.layer setBorderWidth:0.0];
 }
@@ -79,6 +90,11 @@
     self.icon.image = [UIImage imageNamed:@"GT4_HomeScreen_ESIcon_.png"];
     
     self.backgroundColor = [UIColor colorWithRed:0.88 green:0.88 blue:0.88 alpha:0.45];
+    
+    self.publishDeleteOptionsView.hidden = YES;
+    self.createOptionsView.hidden = YES;
+    self.verticalLayoutConstraint.constant = 2.0;
+    self.backgroundView = nil;
     
     [self.contentView.layer setBorderColor:nil];
     [self.contentView.layer setBorderWidth:0.0];
