@@ -14,6 +14,13 @@
 @property (weak, nonatomic) IBOutlet UIImageView *icon;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
+@property (strong, nonatomic) NSNumber *packageIsPresent;
+
+@property (weak, nonatomic) IBOutlet UIButton *showTranslatorOptionsButton;
+@property (weak, nonatomic) IBOutlet UIView *publishDeleteOptionsView;
+@property (weak, nonatomic) IBOutlet UIView *createOptionsView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *verticalLayoutConstraint;
+
 -(IBAction)showTranslatorOptionsButtonPressed:(id)sender;
 -(IBAction)publishDraftButtonPressed:(id)sender;
 -(IBAction)deleteDraftButtonPressed:(id)sender;
@@ -38,6 +45,8 @@
 -(void) showPreviewModeLayout:(BOOL) packagePresent
                              :(GTPackage *) package {
     self.titleLabel.text = package.name;
+    
+    self.packageIsPresent = [NSNumber numberWithBool:packagePresent];
     
     if(packagePresent) {
         self.backgroundColor = [UIColor colorWithRed:0.88 green:0.88 blue:0.88 alpha:0.85];
@@ -104,6 +113,18 @@
     [self.contentView.layer setBorderWidth:0.0];
     
     self.showTranslatorOptionsButton.hidden = YES;
+}
+
+- (void) showTranslatorOptions {
+    if(![self.packageIsPresent boolValue]) {
+        self.createOptionsView.hidden = NO;
+        self.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GT4_HomeScreen_PreviewCell_Missing_Bkgd.png"]];
+    } else {
+        self.publishDeleteOptionsView.hidden = NO;
+        self.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GT4_HomeScreen_PreviewCell_Bkgd.png"]];
+    }
+    self.verticalLayoutConstraint.constant = 33.0;
+    self.backgroundColor = [UIColor clearColor];
 }
 
 -(void) setCustomFont:(NSString *) fontName {

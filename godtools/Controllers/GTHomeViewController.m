@@ -344,22 +344,7 @@
         }
         
         if([self isTranslatorMode] && self.selectedSectionNumber != nil && [self.selectedSectionNumber intValue] == indexPath.section) {
-            if([self.selectedSectionNumber intValue] >= self.articles.count) {
-                cell.createOptionsView.hidden = NO;
-            } else {
-                cell.publishDeleteOptionsView.hidden = NO;
-            }
-            cell.verticalLayoutConstraint.constant = 33.0;
-            if([self.selectedSectionNumber intValue] >= self.articles.count) {
-                cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GT4_HomeScreen_PreviewCell_Missing_Bkgd.png"]];
-            } else {
-                cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GT4_HomeScreen_PreviewCell_Bkgd.png"]];
-            }
-            cell.backgroundColor = [UIColor clearColor];
-        } else if([self isTranslatorMode]){
-            // moved to GTHomeViewCell showPreviewModeLayout
-        } else {
-            // moved to GTHomeViewCell showNormalModeLayout
+            [cell showTranslatorOptions];
         }
         
         cell.delegate = self;

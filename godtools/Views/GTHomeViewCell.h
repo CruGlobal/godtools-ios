@@ -23,11 +23,6 @@
 @property (strong, nonatomic) NSString *sectionIdentifier;
 
 
-@property (weak, nonatomic) IBOutlet UIButton *showTranslatorOptionsButton;
-@property (weak, nonatomic) IBOutlet UIView *publishDeleteOptionsView;
-@property (weak, nonatomic) IBOutlet UIView *createOptionsView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *verticalLayoutConstraint;
-
 -(void) showPreviewModeLayout:(BOOL) packagePresent
                              :(GTPackage *) package;
 
@@ -35,6 +30,8 @@
                             :(GTPackage *) package;
 
 -(void) showEveryStudentLayout;
+
+-(void) showTranslatorOptions;
 
 -(void) setCustomFont:(NSString *) fontName;
 @end
