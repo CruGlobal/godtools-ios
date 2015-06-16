@@ -64,14 +64,10 @@
     [self.homeView.tableView reloadData];
     
     if([[GTDefaults sharedDefaults] isFirstLaunch] == [NSNumber numberWithBool:NO]) {
-        self.homeView.instructionsOverlayView.hidden = YES;
+        [self.homeView hideInstructionsOverlay:NO];
     } else {
-        [UIView animateWithDuration: 1.0 delay:6.0 options:0 animations:^{
-            self.homeView.instructionsOverlayView.alpha = 0.0f;
-        } completion:^(BOOL finished) {
-            self.homeView.instructionsOverlayView.hidden = YES;
-            [[GTDefaults sharedDefaults]setIsFirstLaunch:[NSNumber numberWithBool:NO]];
-        }];
+        [self.homeView hideInstructionsOverlay:YES];
+        [[GTDefaults sharedDefaults]setIsFirstLaunch:[NSNumber numberWithBool:NO]];
     }
     
     NSLog(@"phone's :%@",[[GTDefaults sharedDefaults]phonesLanguageCode]);

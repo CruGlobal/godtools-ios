@@ -23,9 +23,9 @@
 @property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
 @property (weak, nonatomic) IBOutlet UIButton *settingsButton;
 @property (weak, nonatomic) IBOutlet UIView *refreshDraftsView;
-@property (weak, nonatomic) IBOutlet UIImageView *setLanguageImageView;
-@property (weak, nonatomic) IBOutlet UIImageView *pickToolImageView;
-@property (weak, nonatomic) IBOutlet UIView *instructionsOverlayView;
 
 - (IBAction)settingsButtonPressed:(id)sender;
+
+- (void) hideInstructionsOverlay:(BOOL) animated;
+
 @end

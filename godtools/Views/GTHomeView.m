@@ -8,6 +8,14 @@
 
 #import "GTHomeView.h"
 
+@interface GTHomeView()
+
+@property (weak, nonatomic) IBOutlet UIImageView *setLanguageImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *pickToolImageView;
+@property (weak, nonatomic) IBOutlet UIView *instructionsOverlayView;
+
+@end
+
 @implementation GTHomeView
 
 - (IBAction)settingsButtonPressed:(id)sender {
@@ -16,4 +24,15 @@
     }
 }
 
+- (void) hideInstructionsOverlay:(BOOL) animated {
+    if(animated) {
+        [UIView animateWithDuration: 1.0 delay:6.0 options:0 animations:^{
+            self.instructionsOverlayView.alpha = 0.0f;
+        } completion:^(BOOL finished) {
+            self.instructionsOverlayView.hidden = YES;
+        }];
+    } else {
+        self.instructionsOverlayView.hidden = YES;
+    }
+}
 @end
