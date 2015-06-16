@@ -227,9 +227,11 @@
     }else if([notification.name isEqualToString:GTDataImporterNotificationCreateDraftFail]) {
         // if draft creation failed, at least renable the UI
         [self.homeView setUserInteractionEnabled:YES];
+        [self.homeView hideDownloadIndicator];
     }else if([notification.name isEqualToString:GTDataImporterNotificationPublishDraftFail]){
         // if draft publishing failed, at least renable the UI
         [self.homeView setUserInteractionEnabled:YES];
+        [self.homeView hideDownloadIndicator];
     }
 }
 
