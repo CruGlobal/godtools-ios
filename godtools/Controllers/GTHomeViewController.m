@@ -329,41 +329,31 @@
         
         if([self isTranslatorMode] && currentSection >= self.articles.count) {
             GTPackage *package = [self.packagesWithNoDrafts objectAtIndex:(indexPath.section - self.articles.count)];
-            cell.titleLabel.text = package.name;
-
-            [cell setUpBackground:(indexPath.section % 2) :YES :YES];
             
-            cell.icon.image = nil;
+            [cell showPreviewModeLayout:NO
+                                       :package.name
+                                       :nil];
             
-            [cell.contentView.layer setBorderColor:[UIColor lightTextColor].CGColor];
-            [cell.contentView.layer setBorderWidth:1.0f];
         } else if([self isTranslatorMode]){
             GTPackage *package = [self.articles objectAtIndex:indexPath.section];
-            cell.titleLabel.text = package.name;
             
-            NSString *imageFilePath = [[GTFileLoader pathOfPackagesDirectory] stringByAppendingPathComponent:package.icon];
-        
-            cell.icon.image = [UIImage imageWithContentsOfFile: imageFilePath];
-            [cell setUpBackground:(indexPath.section % 2) :YES :NO];
+            [cell showPreviewModeLayout:YES
+                                       :package.name
+                                       :[[GTFileLoader pathOfPackagesDirectory] stringByAppendingPathComponent:package.icon]];
             
-            [cell.contentView.layer setBorderColor:nil];
-            [cell.contentView.layer setBorderWidth:0.0];
         } else if(currentSection >= self.articles.count){
-            //block for every student cell
-            cell.titleLabel.text = @"Every Student";
-            [cell setUpBackground:(indexPath.section % 2) :NO :NO];
+            [cell showNormalModeLayout:(indexPath.section % 2)
+                                      :@"Every Student"
+                                      :nil];
+            
             cell.icon.image = [UIImage imageNamed:@"GT4_HomeScreen_ESIcon_.png"];
+            
         } else {
             GTPackage *package = [self.articles objectAtIndex:indexPath.section];
-            cell.titleLabel.text = package.name;
             
-            NSString *imageFilePath = [[GTFileLoader pathOfPackagesDirectory] stringByAppendingPathComponent:package.icon];
-            
-            cell.icon.image = [UIImage imageWithContentsOfFile: imageFilePath];
-            [cell setUpBackground:(indexPath.section % 2) :NO :NO];
-            
-            [cell.contentView.layer setBorderColor:nil];
-            [cell.contentView.layer setBorderWidth:0.0];
+            [cell showNormalModeLayout:(indexPath.section % 2)
+                                      :package.name
+                                      :[[GTFileLoader pathOfPackagesDirectory] stringByAppendingPathComponent:package.icon]];
         }
         
         if([self.languageCode isEqualToString:@"am-ET"]){

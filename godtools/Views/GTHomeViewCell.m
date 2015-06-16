@@ -30,16 +30,44 @@
     // Configure the view for the selected state
 }
 
--(void) setUpBackground:(int)isEven :(int)isTranslatorMode :(int)isMissingDraft{
-    if(isMissingDraft && isTranslatorMode) {
-        self.backgroundColor = [UIColor colorWithRed:0.88 green:0.88 blue:0.88 alpha:0.15];
-    } else if(isTranslatorMode) {
+-(void) showPreviewModeLayout:(BOOL) packagePresent
+                             :(NSString *)packageName
+                             :(NSString *)filePathToIcon {
+    self.titleLabel.text = packageName;
+    
+    if(packagePresent) {
         self.backgroundColor = [UIColor colorWithRed:0.88 green:0.88 blue:0.88 alpha:0.85];
-    } else if(isEven){
+        
+        self.icon.image = [UIImage imageWithContentsOfFile: filePathToIcon];
+        
+        [self.contentView.layer setBorderColor:nil];
+        [self.contentView.layer setBorderWidth:0.0];
+        
+    } else {
+        self.backgroundColor = [UIColor colorWithRed:0.88 green:0.88 blue:0.88 alpha:0.15];
+        
+        self.icon.image = nil;
+        
+        [self.contentView.layer setBorderColor:[UIColor lightTextColor].CGColor];
+        [self.contentView.layer setBorderWidth:1.0f];
+    }
+}
+
+-(void) showNormalModeLayout:(BOOL) lightBackground
+                            :(NSString *)packageName
+                            :(NSString *)filePathToIcon {
+    self.titleLabel.text = packageName;
+    
+    self.icon.image = [UIImage imageWithContentsOfFile: filePathToIcon];
+    
+    if(lightBackground){
         self.backgroundColor = [UIColor colorWithRed:0.88 green:0.88 blue:0.88 alpha:0.45];
     } else {
         self.backgroundColor = [UIColor colorWithRed:0.88 green:0.88 blue:0.88 alpha:0.65];
     }
+    
+    [self.contentView.layer setBorderColor:nil];
+    [self.contentView.layer setBorderWidth:0.0];
 }
 
 -(void) showTranslatorOptionsButtonPressed:(id)sender {

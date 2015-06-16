@@ -31,4 +31,11 @@
 
 -(void) setUpBackground:(int)isEven :(int)isTranslatorMode :(int)isMissingDraft;
 
+-(void) showPreviewModeLayout:(BOOL) packagePresent
+                             :(NSString *)packageName
+                             :(NSString *)filePathToIcon;
+
+-(void) showNormalModeLayout:(BOOL) lightBackground
+                            :(NSString *)packageName
+                            :(NSString *)filePathToIcon;
 @end
