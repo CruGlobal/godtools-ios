@@ -320,82 +320,33 @@
             cell = [nib objectAtIndex:0];
         }
         
-        cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        cell.textLabel.numberOfLines = 0;
-        cell.textLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-        
         //rendering a missing package
         NSInteger currentSection = indexPath.section;
         
         if([self isTranslatorMode] && currentSection >= self.articles.count) {
-            GTPackage *package = [self.packagesWithNoDrafts objectAtIndex:(indexPath.section - self.articles.count)];
-            cell.titleLabel.text = package.name;
-
-            [cell setUpBackground:(indexPath.section % 2) :YES :YES];
+            [cell showPreviewModeLayout:NO
+                                       :[self.packagesWithNoDrafts objectAtIndex:(indexPath.section - self.articles.count)]];
             
-            cell.icon.image = nil;
-            
-            [cell.contentView.layer setBorderColor:[UIColor lightTextColor].CGColor];
-            [cell.contentView.layer setBorderWidth:1.0f];
         } else if([self isTranslatorMode]){
-            GTPackage *package = [self.articles objectAtIndex:indexPath.section];
-            cell.titleLabel.text = package.name;
+            [cell showPreviewModeLayout:YES
+                                       :[self.articles objectAtIndex:indexPath.section]];
             
-            NSString *imageFilePath = [[GTFileLoader pathOfPackagesDirectory] stringByAppendingPathComponent:package.icon];
-        
-            cell.icon.image = [UIImage imageWithContentsOfFile: imageFilePath];
-            [cell setUpBackground:(indexPath.section % 2) :YES :NO];
-            
-            [cell.contentView.layer setBorderColor:nil];
-            [cell.contentView.layer setBorderWidth:0.0];
         } else if(currentSection >= self.articles.count){
-            //block for every student cell
-            cell.titleLabel.text = @"Every Student";
-            [cell setUpBackground:(indexPath.section % 2) :NO :NO];
-            cell.icon.image = [UIImage imageNamed:@"GT4_HomeScreen_ESIcon_.png"];
+            [cell showEveryStudentLayout];
+            
         } else {
-            GTPackage *package = [self.articles objectAtIndex:indexPath.section];
-            cell.titleLabel.text = package.name;
-            
-            NSString *imageFilePath = [[GTFileLoader pathOfPackagesDirectory] stringByAppendingPathComponent:package.icon];
-            
-            cell.icon.image = [UIImage imageWithContentsOfFile: imageFilePath];
-            [cell setUpBackground:(indexPath.section % 2) :NO :NO];
-            
-            [cell.contentView.layer setBorderColor:nil];
-            [cell.contentView.layer setBorderWidth:0.0];
+            [cell showNormalModeLayout:(indexPath.section % 2)
+                                      :[self.articles objectAtIndex:indexPath.section]];
         }
         
         if([self.languageCode isEqualToString:@"am-ET"]){
-            cell.titleLabel.font = [UIFont fontWithName:@"NotoSansEthiopic" size:cell.titleLabel.font.pointSize];
+            [cell setCustomFont:@"NotoSansEthiopic"];
         }
         
         if([self isTranslatorMode] && self.selectedSectionNumber != nil && [self.selectedSectionNumber intValue] == indexPath.section) {
-            if([self.selectedSectionNumber intValue] >= self.articles.count) {
-                cell.createOptionsView.hidden = NO;
-            } else {
-                cell.publishDeleteOptionsView.hidden = NO;
-            }
-            cell.verticalLayoutConstraint.constant = 33.0;
-            if([self.selectedSectionNumber intValue] >= self.articles.count) {
-                cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GT4_HomeScreen_PreviewCell_Missing_Bkgd.png"]];
-            } else {
-                cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GT4_HomeScreen_PreviewCell_Bkgd.png"]];
-            }
-            cell.backgroundColor = [UIColor clearColor];
-        } else if([self isTranslatorMode]){
-            cell.publishDeleteOptionsView.hidden = YES;
-            cell.createOptionsView.hidden = YES;
-            cell.verticalLayoutConstraint.constant = 2.0;
-            cell.backgroundView = nil;
-        } else {
-            cell.publishDeleteOptionsView.hidden = YES;
-            cell.createOptionsView.hidden = YES;
-            cell.verticalLayoutConstraint.constant = 2.0;
-            cell.backgroundView = nil;
+            [cell showTranslatorOptions];
         }
         
-        cell.showTranslatorOptionsButton.hidden = ![self isTranslatorMode];
         cell.delegate = self;
         cell.sectionIdentifier = [@(indexPath.section) stringValue];
         
