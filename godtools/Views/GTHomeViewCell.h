@@ -22,8 +22,6 @@
 @property (strong, nonatomic) id<GTHomeViewCellDelegate> delegate;
 @property (strong, nonatomic) NSString *sectionIdentifier;
 
-@property (weak, nonatomic) IBOutlet UIImageView *icon;
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
 @property (weak, nonatomic) IBOutlet UIButton *showTranslatorOptionsButton;
 @property (weak, nonatomic) IBOutlet UIView *publishDeleteOptionsView;
@@ -38,5 +36,7 @@
 -(void) showNormalModeLayout:(BOOL) lightBackground
                             :(GTPackage *) package;
 
--(void) showEveryStudentLayout
+-(void) showEveryStudentLayout;
+
+-(void) setCustomFont:(NSString *) fontName;
 @end

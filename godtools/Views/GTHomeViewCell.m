@@ -11,6 +11,9 @@
 
 @interface GTHomeViewCell ()
 
+@property (weak, nonatomic) IBOutlet UIImageView *icon;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+
 -(IBAction)showTranslatorOptionsButtonPressed:(id)sender;
 -(IBAction)publishDraftButtonPressed:(id)sender;
 -(IBAction)deleteDraftButtonPressed:(id)sender;
@@ -79,6 +82,10 @@
     
     [self.contentView.layer setBorderColor:nil];
     [self.contentView.layer setBorderWidth:0.0];
+}
+
+-(void) setCustomFont:(NSString *) fontName {
+    self.titleLabel.font = [UIFont fontWithName:fontName size:self.titleLabel.font.pointSize];
 }
 
 -(void) showTranslatorOptionsButtonPressed:(id)sender {

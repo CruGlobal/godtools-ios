@@ -344,7 +344,7 @@
         }
         
         if([self.languageCode isEqualToString:@"am-ET"]){
-            cell.titleLabel.font = [UIFont fontWithName:@"NotoSansEthiopic" size:cell.titleLabel.font.pointSize];
+            [cell setCustomFont:@"NotoSansEthiopic"];
         }
         
         if([self isTranslatorMode] && self.selectedSectionNumber != nil && [self.selectedSectionNumber intValue] == indexPath.section) {
