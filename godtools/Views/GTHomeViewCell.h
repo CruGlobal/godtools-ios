@@ -31,8 +31,4 @@
 
 -(void) setUpBackground:(int)isEven :(int)isTranslatorMode :(int)isMissingDraft;
 
--(IBAction)showTranslatorOptionsButtonPressed:(id)sender;
--(IBAction)publishDraftButtonPressed:(id)sender;
--(IBAction)deleteDraftButtonPressed:(id)sender;
--(IBAction)createDraftButtonPressed:(id)sender;
 @end
