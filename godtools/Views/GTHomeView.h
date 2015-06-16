@@ -20,12 +20,13 @@
 @property (strong,nonatomic) id<GTHomeViewDelegate> delegate;
 
 @property (weak, nonatomic) IBOutlet UILabel *translatorModeLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
+
 @property (weak, nonatomic) IBOutlet UIButton *settingsButton;
 @property (weak, nonatomic) IBOutlet UIView *refreshDraftsView;
 
 - (IBAction)settingsButtonPressed:(id)sender;
 
 - (void) hideInstructionsOverlay:(BOOL) animated;
+- (void) setIconImage:(UIImage *)image;
 
 @end

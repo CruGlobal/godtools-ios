@@ -14,6 +14,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *pickToolImageView;
 @property (weak, nonatomic) IBOutlet UIView *instructionsOverlayView;
 
+@property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
+
 @end
 
 @implementation GTHomeView
@@ -34,5 +36,9 @@
     } else {
         self.instructionsOverlayView.hidden = YES;
     }
+}
+
+- (void) setIconImage:(UIImage *)image {
+    self.iconImageView.image = image;
 }
 @end

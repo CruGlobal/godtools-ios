@@ -154,7 +154,7 @@
     [self.navigationController setNavigationBarHidden:YES];
     
     if([self isTranslatorMode]) {
-        self.homeView.iconImageView.image = [UIImage imageNamed:@"GT4_Home_BookIcon_PreviewMode_"];
+        [self.homeView setIconImage:[UIImage imageNamed:@"GT4_Home_BookIcon_PreviewMode_"]];
         self.homeView.translatorModeLabel.hidden = NO;
         self.homeView.refreshDraftsView.hidden = NO;
         
@@ -167,7 +167,7 @@
         
         [self.homeView.tableView setScrollEnabled:YES];
     } else {
-        self.homeView.iconImageView.image = [UIImage imageNamed:@"GT4_Home_BookIcon_"];
+        [self.homeView setIconImage:[UIImage imageNamed:@"GT4_Home_BookIcon_"]];
         self.homeView.translatorModeLabel.hidden = YES;
         self.homeView.refreshDraftsView.hidden = YES;
         
