@@ -208,6 +208,8 @@
     
     if([notification.name isEqualToString: GTDataImporterNotificationPublishDraftSuccessful]){
         [[GTDataImporter sharedImporter] downloadDraftsForLanguage:self.currentPrimaryLanguage];
+    }else if([notification.name isEqualToString:GTDataImporterNotificationCreateDraftSuccessful]){
+        [[GTDataImporter sharedImporter] downloadDraftsForLanguage:self.currentPrimaryLanguage];
     }else if ([notification.name isEqualToString:GTDataImporterNotificationLanguageDraftsDownloadFinished]){
         [[GTDataImporter sharedImporter] updateMenuInfo];
     }else if([notification.name isEqualToString:GTDataImporterNotificationMenuUpdateFinished]){
@@ -216,6 +218,11 @@
     
     if(!self.isRefreshing) {
         [self.homeView setUserInteractionEnabled:YES];
+    }
+    
+    if([notification.name isEqualToString:GTDataImporterNotificationCreateDraftFail] ||
+       [notification.name isEqualToString:GTDataImporterNotificationPublishDraftFail]) {
+           [self.homeView setUserInteractionEnabled:YES];
     }
 }
 
