@@ -113,6 +113,10 @@
                                                  name: GTDataImporterNotificationCreateDraftStarted
                                                object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(refreshDrafts)
+                                                 name: GTDataImporterNotificationCreateDraftSuccessful
+                                               object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(downloadFinished:)
