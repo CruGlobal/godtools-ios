@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GTPackage.h"
 
 @protocol GTHomeViewCellDelegate
 @required
@@ -32,10 +33,10 @@
 -(void) setUpBackground:(int)isEven :(int)isTranslatorMode :(int)isMissingDraft;
 
 -(void) showPreviewModeLayout:(BOOL) packagePresent
-                             :(NSString *)packageName
-                             :(NSString *)filePathToIcon;
+                             :(GTPackage *) package;
 
 -(void) showNormalModeLayout:(BOOL) lightBackground
-                            :(NSString *)packageName
-                            :(NSString *)filePathToIcon;
+                            :(GTPackage *) package;
+
+-(void) showEveryStudentLayout
 @end

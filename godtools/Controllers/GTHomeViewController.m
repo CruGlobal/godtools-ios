@@ -328,32 +328,19 @@
         NSInteger currentSection = indexPath.section;
         
         if([self isTranslatorMode] && currentSection >= self.articles.count) {
-            GTPackage *package = [self.packagesWithNoDrafts objectAtIndex:(indexPath.section - self.articles.count)];
-            
             [cell showPreviewModeLayout:NO
-                                       :package.name
-                                       :nil];
+                                       :[self.packagesWithNoDrafts objectAtIndex:(indexPath.section - self.articles.count)]];
             
         } else if([self isTranslatorMode]){
-            GTPackage *package = [self.articles objectAtIndex:indexPath.section];
-            
             [cell showPreviewModeLayout:YES
-                                       :package.name
-                                       :[[GTFileLoader pathOfPackagesDirectory] stringByAppendingPathComponent:package.icon]];
+                                       :[self.articles objectAtIndex:indexPath.section]];
             
         } else if(currentSection >= self.articles.count){
-            [cell showNormalModeLayout:(indexPath.section % 2)
-                                      :@"Every Student"
-                                      :nil];
-            
-            cell.icon.image = [UIImage imageNamed:@"GT4_HomeScreen_ESIcon_.png"];
+            [cell showEveryStudentLayout];
             
         } else {
-            GTPackage *package = [self.articles objectAtIndex:indexPath.section];
-            
             [cell showNormalModeLayout:(indexPath.section % 2)
-                                      :package.name
-                                      :[[GTFileLoader pathOfPackagesDirectory] stringByAppendingPathComponent:package.icon]];
+                                      :[self.articles objectAtIndex:indexPath.section]];
         }
         
         if([self.languageCode isEqualToString:@"am-ET"]){

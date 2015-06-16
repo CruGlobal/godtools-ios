@@ -7,6 +7,7 @@
 //
 
 #import "GTHomeViewCell.h"
+#import "GTFileLoader.h"
 
 @interface GTHomeViewCell ()
 
@@ -31,13 +32,13 @@
 }
 
 -(void) showPreviewModeLayout:(BOOL) packagePresent
-                             :(NSString *)packageName
-                             :(NSString *)filePathToIcon {
-    self.titleLabel.text = packageName;
+                             :(GTPackage *) package {
+    self.titleLabel.text = package.name;
     
     if(packagePresent) {
         self.backgroundColor = [UIColor colorWithRed:0.88 green:0.88 blue:0.88 alpha:0.85];
         
+        NSString *filePathToIcon = [[GTFileLoader pathOfPackagesDirectory] stringByAppendingPathComponent:package.icon];
         self.icon.image = [UIImage imageWithContentsOfFile: filePathToIcon];
         
         [self.contentView.layer setBorderColor:nil];
@@ -54,10 +55,10 @@
 }
 
 -(void) showNormalModeLayout:(BOOL) lightBackground
-                            :(NSString *)packageName
-                            :(NSString *)filePathToIcon {
-    self.titleLabel.text = packageName;
+                            :(GTPackage *) package {
+    self.titleLabel.text = package.name;
     
+    NSString *filePathToIcon = [[GTFileLoader pathOfPackagesDirectory] stringByAppendingPathComponent:package.icon];
     self.icon.image = [UIImage imageWithContentsOfFile: filePathToIcon];
     
     if(lightBackground){
@@ -65,6 +66,16 @@
     } else {
         self.backgroundColor = [UIColor colorWithRed:0.88 green:0.88 blue:0.88 alpha:0.65];
     }
+    
+    [self.contentView.layer setBorderColor:nil];
+    [self.contentView.layer setBorderWidth:0.0];
+}
+
+-(void) showEveryStudentLayout {
+    self.titleLabel.text = @"Every Student";
+    self.icon.image = [UIImage imageNamed:@"GT4_HomeScreen_ESIcon_.png"];
+    
+    self.backgroundColor = [UIColor colorWithRed:0.88 green:0.88 blue:0.88 alpha:0.45];
     
     [self.contentView.layer setBorderColor:nil];
     [self.contentView.layer setBorderWidth:0.0];
