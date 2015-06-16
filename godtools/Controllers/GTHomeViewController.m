@@ -118,12 +118,12 @@
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(downloadFinished:)
+                                             selector:@selector(updateFinished:)
                                                  name: GTDataImporterNotificationCreateDraftSuccessful
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(downloadFinished:)
+                                             selector:@selector(updateFinished:)
                                                  name: GTDataImporterNotificationCreateDraftFail
                                                object:nil];
     
@@ -133,12 +133,12 @@
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(downloadFinished:)
+                                             selector:@selector(updateFinished:)
                                                  name: GTDataImporterNotificationPublishDraftSuccessful
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(downloadFinished:)
+                                             selector:@selector(updateFinished:)
                                                  name: GTDataImporterNotificationPublishDraftFail
                                                object:nil];
     
@@ -206,23 +206,30 @@
     [self setData];
     [self.homeView.tableView reloadData];
     
-    if([notification.name isEqualToString: GTDataImporterNotificationPublishDraftSuccessful]){
-        [[GTDataImporter sharedImporter] downloadDraftsForLanguage:self.currentPrimaryLanguage];
-    }else if([notification.name isEqualToString:GTDataImporterNotificationCreateDraftSuccessful]){
-        [[GTDataImporter sharedImporter] downloadDraftsForLanguage:self.currentPrimaryLanguage];
-    }else if ([notification.name isEqualToString:GTDataImporterNotificationLanguageDraftsDownloadFinished]){
-        [[GTDataImporter sharedImporter] updateMenuInfo];
-    }else if([notification.name isEqualToString:GTDataImporterNotificationMenuUpdateFinished]){
-        self.isRefreshing = NO;
-    }
+   if ([notification.name isEqualToString:GTDataImporterNotificationLanguageDraftsDownloadFinished]){
+       [[GTDataImporter sharedImporter] updateMenuInfo];
+   }else if([notification.name isEqualToString:GTDataImporterNotificationMenuUpdateFinished]){
+       self.isRefreshing = NO;
+   }
     
     if(!self.isRefreshing) {
         [self.homeView setUserInteractionEnabled:YES];
     }
-    
-    if([notification.name isEqualToString:GTDataImporterNotificationCreateDraftFail] ||
-       [notification.name isEqualToString:GTDataImporterNotificationPublishDraftFail]) {
-           [self.homeView setUserInteractionEnabled:YES];
+}
+
+-(void)updateFinished:(NSNotification *) notification{
+    if([notification.name isEqualToString: GTDataImporterNotificationPublishDraftSuccessful]){
+        // if draft was published successfully, then update the drafts to reflect that
+        [[GTDataImporter sharedImporter] downloadDraftsForLanguage:self.currentPrimaryLanguage];
+    }else if([notification.name isEqualToString:GTDataImporterNotificationCreateDraftSuccessful]){
+        // if draft was created successfully, then update the drafts to reflect that
+        [[GTDataImporter sharedImporter] downloadDraftsForLanguage:self.currentPrimaryLanguage];
+    }else if([notification.name isEqualToString:GTDataImporterNotificationCreateDraftFail]) {
+        // if draft creation failed, at least renable the UI
+        [self.homeView setUserInteractionEnabled:YES];
+    }else if([notification.name isEqualToString:GTDataImporterNotificationPublishDraftFail]){
+        // if draft publishing failed, at least renable the UI
+        [self.homeView setUserInteractionEnabled:YES];
     }
 }
 
