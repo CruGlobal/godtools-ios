@@ -289,8 +289,6 @@ BOOL languageDownloadCancelled = FALSE;
 }
 
 - (void)addDownloadAccessoryViewToCell:(GTLanguageViewCell *)cell {
-    
-    cell.accessoryView = [self buttonForAccessoryViewWithTitle:NSLocalizedString(@"Download", nil)];
 }
 
 - (void)addUpdateAccessoryViewToCell:(GTLanguageViewCell *)cell {
