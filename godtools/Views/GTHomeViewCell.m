@@ -42,8 +42,8 @@
 
 }
 
--(void) showPreviewModeLayout:(BOOL) packagePresent
-                             :(GTPackage *) package {
+-(void) showPreviewModeLayoutWithPackagePresent:(BOOL) packagePresent
+                             package:(GTPackage *) package {
     self.titleLabel.text = package.name;
     
     self.packageIsPresent = [NSNumber numberWithBool:packagePresent];
@@ -74,8 +74,8 @@
     self.showTranslatorOptionsButton.hidden = NO;
 }
 
--(void) showNormalModeLayout:(BOOL) lightBackground
-                            :(GTPackage *) package {
+-(void) showNormalModeLayoutWithLightBackground:(BOOL) lightBackground
+                            package:(GTPackage *) package {
     self.titleLabel.text = package.name;
     
     NSString *filePathToIcon = [[GTFileLoader pathOfPackagesDirectory] stringByAppendingPathComponent:package.icon];
