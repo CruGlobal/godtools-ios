@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GTPackage.h"
 
 @protocol GTHomeViewCellDelegate
 @required
@@ -21,18 +22,16 @@
 @property (strong, nonatomic) id<GTHomeViewCellDelegate> delegate;
 @property (strong, nonatomic) NSString *sectionIdentifier;
 
-@property (weak, nonatomic) IBOutlet UIImageView *icon;
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
-@property (weak, nonatomic) IBOutlet UIButton *showTranslatorOptionsButton;
-@property (weak, nonatomic) IBOutlet UIView *publishDeleteOptionsView;
-@property (weak, nonatomic) IBOutlet UIView *createOptionsView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *verticalLayoutConstraint;
+-(void) showPreviewModeLayoutWithPackagePresent:(BOOL) packagePresent
+                                        package:(GTPackage *) package;
 
--(void) setUpBackground:(int)isEven :(int)isTranslatorMode :(int)isMissingDraft;
+-(void) showNormalModeLayoutWithLightBackground:(BOOL) lightBackground
+                                        package:(GTPackage *) package;
 
--(IBAction)showTranslatorOptionsButtonPressed:(id)sender;
--(IBAction)publishDraftButtonPressed:(id)sender;
--(IBAction)deleteDraftButtonPressed:(id)sender;
--(IBAction)createDraftButtonPressed:(id)sender;
+-(void) showEveryStudentLayout;
+
+-(void) showTranslatorOptions;
+
+-(void) setCustomFont:(NSString *) fontName;
 @end

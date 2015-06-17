@@ -20,10 +20,15 @@
 
 @interface GTHomeViewController ()
 
-@property (strong, nonatomic) NSString *languageCode;
+// the language the user has chosen to user for presentations
+@property (strong, nonatomic) GTLanguage *currentPrimaryLanguage;
+
 @property (strong, nonatomic) GTViewController *godtoolsViewController;
 @property (strong, nonatomic) GTHomeView *homeView;
+
+// the language of the user's device, which may be different than "currentPrimaryLanguage" used for presentations
 @property (strong, nonatomic) GTLanguage *phonesLanguage;
+
 @property (strong, nonatomic) UIAlertView *phonesLanguageAlert;
 @property (strong, nonatomic) UIAlertView *draftsAlert;
 @property (strong, nonatomic) UIAlertView *createDraftsAlert;
@@ -51,14 +56,6 @@
     self.homeView.delegate = self;
     self.homeView.tableView.delegate = self;
     self.homeView.tableView.dataSource = self;
-
-    self.refreshControl = [[UIRefreshControl alloc] init];
-    self.refreshControl.backgroundColor = [UIColor greenColor];
-    self.refreshControl.hidden = NO;
-    self.refreshControl.layer.zPosition = 1000;
-    [self.refreshControl addTarget:self.homeView.tableView action:@selector(setData) forControlEvents:UIControlEventValueChanged];
-    
-    [self.homeView.tableView addSubview:self.refreshControl];
     
     [self.homeView initDownloadIndicator];
     
@@ -67,19 +64,14 @@
     self.articles = [[NSMutableArray alloc]init];
     self.packagesWithNoDrafts = [[NSMutableArray alloc]init];
     
-    self.languageCode = [[GTDefaults sharedDefaults]currentLanguageCode];
     [self setData];
     [self.homeView.tableView reloadData];
     
     if([[GTDefaults sharedDefaults] isFirstLaunch] == [NSNumber numberWithBool:NO]) {
-        self.homeView.instructionsOverlayView.hidden = YES;
+        [self.homeView hideInstructionsOverlay:NO];
     } else {
-        [UIView animateWithDuration: 1.0 delay:6.0 options:0 animations:^{
-            self.homeView.instructionsOverlayView.alpha = 0.0f;
-        } completion:^(BOOL finished) {
-            self.homeView.instructionsOverlayView.hidden = YES;
-            [[GTDefaults sharedDefaults]setIsFirstLaunch:[NSNumber numberWithBool:NO]];
-        }];
+        [self.homeView hideInstructionsOverlay:YES];
+        [[GTDefaults sharedDefaults]setIsFirstLaunch:[NSNumber numberWithBool:NO]];
     }
     
     NSLog(@"phone's :%@",[[GTDefaults sharedDefaults]phonesLanguageCode]);
@@ -126,11 +118,12 @@
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(refreshButtonPressed)
+                                             selector:@selector(updateFinished:)
                                                  name: GTDataImporterNotificationCreateDraftSuccessful
                                                object:nil];
+
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(downloadFinished:)
+                                             selector:@selector(updateFinished:)
                                                  name: GTDataImporterNotificationCreateDraftFail
                                                object:nil];
     
@@ -140,12 +133,12 @@
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(downloadFinished:)
+                                             selector:@selector(updateFinished:)
                                                  name: GTDataImporterNotificationPublishDraftSuccessful
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(downloadFinished:)
+                                             selector:@selector(updateFinished:)
                                                  name: GTDataImporterNotificationPublishDraftFail
                                                object:nil];
     
@@ -169,19 +162,24 @@
     [self.navigationController setNavigationBarHidden:YES];
     
     if([self isTranslatorMode]) {
-        self.homeView.iconImageView.image = [UIImage imageNamed:@"GT4_Home_BookIcon_PreviewMode_"];
-        self.homeView.translatorModeLabel.hidden = NO;
-        self.homeView.refreshDraftsView.hidden = NO;
+        [self.homeView showPreviewModeLayout];
+
+        UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+        [refreshControl addTarget:self
+                           action:@selector(refresh:)
+                 forControlEvents:UIControlEventValueChanged];
+        
+        [self.homeView.tableView addSubview:refreshControl];
+        
     } else {
-        self.homeView.iconImageView.image = [UIImage imageNamed:@"GT4_Home_BookIcon_"];
-        self.homeView.translatorModeLabel.hidden = YES;
-        self.homeView.refreshDraftsView.hidden = YES;
+        [self.homeView showNormalModeLayout];
     }
-    
+
+    self.currentPrimaryLanguage = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:YES]objectAtIndex:0];
+
     [self setData];
 
-    if(![self isTranslatorMode] && ![self languageHasLivePackages:[self getCurrentPrimaryLanguage]]) {
-        self.languageCode = @"en";
+    if(![self isTranslatorMode] && ![self languageHasLivePackages:self.currentPrimaryLanguage]) {
         [[GTDefaults sharedDefaults] setCurrentLanguageCode:@"en" ];
         [self setData];
     }
@@ -194,6 +192,12 @@
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:NO];
 }
+
+- (void)refresh:(UIRefreshControl *)refreshControl {
+    [refreshControl endRefreshing];
+    [[GTDataImporter sharedImporter] downloadDraftsForLanguage:self.currentPrimaryLanguage];
+}
+
 #pragma mark - Download packages methods
 -(void)downloadFinished:(NSNotification *) notification{
     NSLog(@"NOTIFICATION: %@",notification.name);
@@ -202,16 +206,32 @@
     [self setData];
     [self.homeView.tableView reloadData];
     
-    if([notification.name isEqualToString: GTDataImporterNotificationPublishDraftSuccessful]){
-        [self refreshDrafts];
-    }else if ([notification.name isEqualToString:GTDataImporterNotificationLanguageDraftsDownloadFinished]){
-        [[GTDataImporter sharedImporter] updateMenuInfo];
-    }else if([notification.name isEqualToString:GTDataImporterNotificationMenuUpdateFinished]){
-        self.isRefreshing = NO;
-    }
+   if ([notification.name isEqualToString:GTDataImporterNotificationLanguageDraftsDownloadFinished]){
+       [[GTDataImporter sharedImporter] updateMenuInfo];
+   }else if([notification.name isEqualToString:GTDataImporterNotificationMenuUpdateFinished]){
+       self.isRefreshing = NO;
+   }
     
     if(!self.isRefreshing) {
         [self.homeView setUserInteractionEnabled:YES];
+    }
+}
+
+-(void)updateFinished:(NSNotification *) notification{
+    if([notification.name isEqualToString: GTDataImporterNotificationPublishDraftSuccessful]){
+        // if draft was published successfully, then update the drafts to reflect that
+        [[GTDataImporter sharedImporter] downloadDraftsForLanguage:self.currentPrimaryLanguage];
+    }else if([notification.name isEqualToString:GTDataImporterNotificationCreateDraftSuccessful]){
+        // if draft was created successfully, then update the drafts to reflect that
+        [[GTDataImporter sharedImporter] downloadDraftsForLanguage:self.currentPrimaryLanguage];
+    }else if([notification.name isEqualToString:GTDataImporterNotificationCreateDraftFail]) {
+        // if draft creation failed, at least renable the UI
+        [self.homeView setUserInteractionEnabled:YES];
+        [self.homeView hideDownloadIndicator];
+    }else if([notification.name isEqualToString:GTDataImporterNotificationPublishDraftFail]){
+        // if draft publishing failed, at least renable the UI
+        [self.homeView setUserInteractionEnabled:YES];
+        [self.homeView hideDownloadIndicator];
     }
 }
 
@@ -240,10 +260,6 @@
 -(void)settingsButtonPressed{
     [self performSegueWithIdentifier:@"homeToSettingsViewSegue" sender:self];
 }
-
--(void)refreshDraftsButtonDragged {
-    [self refreshDrafts];
-};
 
 #pragma mark - Home View Cell Delegates
 
@@ -281,7 +297,7 @@
     if(tableView == self.homeView.tableView){
         if(![self isTranslatorMode]) {
             //every student is included for english only when not in translator mode, so add a cell
-            if([self.languageCode isEqualToString:@"en"]) {
+            if([self.currentPrimaryLanguage.code isEqualToString:@"en"]) {
                 return self.articles.count + 1;
             }
             return self.articles.count;
@@ -325,82 +341,33 @@
             cell = [nib objectAtIndex:0];
         }
         
-        cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        cell.textLabel.numberOfLines = 0;
-        cell.textLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-        
         //rendering a missing package
         NSInteger currentSection = indexPath.section;
         
         if([self isTranslatorMode] && currentSection >= self.articles.count) {
-            GTPackage *package = [self.packagesWithNoDrafts objectAtIndex:(indexPath.section - self.articles.count)];
-            cell.titleLabel.text = package.name;
-
-            [cell setUpBackground:(indexPath.section % 2) :YES :YES];
+            [cell showPreviewModeLayoutWithPackagePresent:NO
+                                       package:[self.packagesWithNoDrafts objectAtIndex:(indexPath.section - self.articles.count)]];
             
-            cell.icon.image = nil;
-            
-            [cell.contentView.layer setBorderColor:[UIColor lightTextColor].CGColor];
-            [cell.contentView.layer setBorderWidth:1.0f];
         } else if([self isTranslatorMode]){
-            GTPackage *package = [self.articles objectAtIndex:indexPath.section];
-            cell.titleLabel.text = package.name;
+            [cell showPreviewModeLayoutWithPackagePresent:YES
+                                       package:[self.articles objectAtIndex:indexPath.section]];
             
-            NSString *imageFilePath = [[GTFileLoader pathOfPackagesDirectory] stringByAppendingPathComponent:package.icon];
-        
-            cell.icon.image = [UIImage imageWithContentsOfFile: imageFilePath];
-            [cell setUpBackground:(indexPath.section % 2) :YES :NO];
-            
-            [cell.contentView.layer setBorderColor:nil];
-            [cell.contentView.layer setBorderWidth:0.0];
         } else if(currentSection >= self.articles.count){
-            //block for every student cell
-            cell.titleLabel.text = @"Every Student";
-            [cell setUpBackground:(indexPath.section % 2) :NO :NO];
-            cell.icon.image = [UIImage imageNamed:@"GT4_HomeScreen_ESIcon_.png"];
+            [cell showEveryStudentLayout];
+            
         } else {
-            GTPackage *package = [self.articles objectAtIndex:indexPath.section];
-            cell.titleLabel.text = package.name;
-            
-            NSString *imageFilePath = [[GTFileLoader pathOfPackagesDirectory] stringByAppendingPathComponent:package.icon];
-            
-            cell.icon.image = [UIImage imageWithContentsOfFile: imageFilePath];
-            [cell setUpBackground:(indexPath.section % 2) :NO :NO];
-            
-            [cell.contentView.layer setBorderColor:nil];
-            [cell.contentView.layer setBorderWidth:0.0];
+            [cell showNormalModeLayoutWithLightBackground:(indexPath.section % 2)
+                                      package:[self.articles objectAtIndex:indexPath.section]];
         }
         
-        if([self.languageCode isEqualToString:@"am-ET"]){
-            cell.titleLabel.font = [UIFont fontWithName:@"NotoSansEthiopic" size:cell.titleLabel.font.pointSize];
+        if([self.currentPrimaryLanguage.code isEqualToString:@"am-ET"]){
+            [cell setCustomFont:@"NotoSansEthiopic"];
         }
         
         if([self isTranslatorMode] && self.selectedSectionNumber != nil && [self.selectedSectionNumber intValue] == indexPath.section) {
-            if([self.selectedSectionNumber intValue] >= self.articles.count) {
-                cell.createOptionsView.hidden = NO;
-            } else {
-                cell.publishDeleteOptionsView.hidden = NO;
-            }
-            cell.verticalLayoutConstraint.constant = 33.0;
-            if([self.selectedSectionNumber intValue] >= self.articles.count) {
-                cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GT4_HomeScreen_PreviewCell_Missing_Bkgd.png"]];
-            } else {
-                cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GT4_HomeScreen_PreviewCell_Bkgd.png"]];
-            }
-            cell.backgroundColor = [UIColor clearColor];
-        } else if([self isTranslatorMode]){
-            cell.publishDeleteOptionsView.hidden = YES;
-            cell.createOptionsView.hidden = YES;
-            cell.verticalLayoutConstraint.constant = 2.0;
-            cell.backgroundView = nil;
-        } else {
-            cell.publishDeleteOptionsView.hidden = YES;
-            cell.createOptionsView.hidden = YES;
-            cell.verticalLayoutConstraint.constant = 2.0;
-            cell.backgroundView = nil;
+            [cell showTranslatorOptions];
         }
         
-        cell.showTranslatorOptionsButton.hidden = ![self isTranslatorMode];
         cell.delegate = self;
         cell.sectionIdentifier = [@(indexPath.section) stringValue];
         
@@ -443,18 +410,9 @@
 }
 
 #pragma mark - Data setter methods
--(GTLanguage *) getCurrentPrimaryLanguage {
-    NSArray *languages = [[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:self.languageCode inBackground:YES];
-    return(GTLanguage*)[languages objectAtIndex:0];
-}
+
 -(void)setData{
-    
-    self.languageCode = [[GTDefaults sharedDefaults]currentLanguageCode];
-    NSArray *languages = [[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:self.languageCode inBackground:YES];
-    
-    GTLanguage* mainLanguage = [self getCurrentPrimaryLanguage];
-    
-    self.articles = [[mainLanguage.packages allObjects]mutableCopy];
+    self.articles = [[self.currentPrimaryLanguage.packages allObjects]mutableCopy];
     
     NSPredicate *missingDraftsPredicate = [NSPredicate predicateWithFormat:@"status == %@",@"draft"];
     NSArray *draftsCodes = [[self.articles filteredArrayUsingPredicate:missingDraftsPredicate]valueForKeyPath:@"code"];
@@ -559,12 +517,6 @@
     return [[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES];
 }
 
--(void) refreshDrafts {
-    [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDraftsDownloadStarted object:self];
-    GTLanguage *current = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:YES]objectAtIndex:0];
-    [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:[NSNumber numberWithBool:YES]];
-    [[GTDataImporter sharedImporter]downloadPackagesForLanguage:current];
-}
 #pragma mark - Renderer methods
 -(void)loadRendererWithPackage: (GTPackage *)package{
    
@@ -603,7 +555,7 @@
         
         GTPackage *package = [self.articles objectAtIndex:0];
         GTFileLoader *fileLoader = [GTFileLoader fileLoader];
-        fileLoader.language		= self.languageCode;
+        fileLoader.language		= self.currentPrimaryLanguage.code;
         GTShareViewController *shareViewController = [[GTShareViewController alloc] init];
         GTPageMenuViewController *pageMenuViewController = [[GTPageMenuViewController alloc] initWithFileLoader:fileLoader];
         GTAboutViewController *aboutViewController = [[GTAboutViewController alloc] initWithDelegate:self fileLoader:fileLoader];

@@ -11,7 +11,6 @@
 @protocol GTHomeViewDelegate <NSObject>
 @required
 -(void)settingsButtonPressed;
--(void)refreshDraftsButtonDragged;
 @end
 
 
@@ -20,14 +19,7 @@
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong,nonatomic) id<GTHomeViewDelegate> delegate;
 
-@property (weak, nonatomic) IBOutlet UILabel *translatorModeLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
-@property (weak, nonatomic) IBOutlet UIButton *settingsButton;
-@property (weak, nonatomic) IBOutlet UIView *refreshDraftsView;
-@property (weak, nonatomic) IBOutlet UIImageView *setLanguageImageView;
-@property (weak, nonatomic) IBOutlet UIImageView *pickToolImageView;
-@property (weak, nonatomic) IBOutlet UIView *instructionsOverlayView;
-
-- (IBAction)settingsButtonPressed:(id)sender;
-- (IBAction)refreshDraftsButtonDragged:(id)sender;
+- (void) hideInstructionsOverlay:(BOOL) animated;
+- (void) showPreviewModeLayout;
+- (void) showNormalModeLayout;
 @end
