@@ -43,8 +43,8 @@
 
 }
 
--(void) showPreviewModeLayout:(BOOL) packagePresent
-                             :(GTPackage *) package {
+-(void) showPreviewModeLayoutWithPackagePresent:(BOOL) packagePresent
+                             package:(GTPackage *) package {
     self.titleLabel.text = package.name;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
@@ -70,8 +70,8 @@
     self.translatorOptionsImage.hidden = NO;
 }
 
--(void) showNormalModeLayout:(BOOL) lightBackground
-                            :(GTPackage *) package {
+-(void) showNormalModeLayoutWithLightBackground:(BOOL) lightBackground
+                            package:(GTPackage *) package {
     self.titleLabel.text = package.name;
     
     NSString *filePathToIcon = [[GTFileLoader pathOfPackagesDirectory] stringByAppendingPathComponent:package.icon];

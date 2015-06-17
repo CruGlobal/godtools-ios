@@ -1,6 +1,6 @@
 {
   "name": "GTViewController",
-  "version": "3.1.1",
+  "version": "3.1.2",
   "summary": "A View Controller that renders God Tools xml packages",
   "description": "                   GTViewController takes a God Tools xml package and renders it for iOS devices.\n\n                   God Tools packages can be downloaded from the God Tools API and can be rendered\n                   on Android too. All God Tools code is open source.\n\n                   If you would like to create your own xml packages the documentation is at godtoolsapp.com/docs\n",
   "homepage": "http://github.com/CruGlobal/GTViewController",
