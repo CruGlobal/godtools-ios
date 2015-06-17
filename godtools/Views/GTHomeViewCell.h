@@ -23,11 +23,11 @@
 @property (strong, nonatomic) NSString *sectionIdentifier;
 
 
--(void) showPreviewModeLayout:(BOOL) packagePresent
-                             :(GTPackage *) package;
+-(void) showPreviewModeLayoutWithPackagePresent:(BOOL) packagePresent
+                                        package:(GTPackage *) package;
 
--(void) showNormalModeLayout:(BOOL) lightBackground
-                            :(GTPackage *) package;
+-(void) showNormalModeLayoutWithLightBackground:(BOOL) lightBackground
+                                        package:(GTPackage *) package;
 
 -(void) showEveryStudentLayout;
 

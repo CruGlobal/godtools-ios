@@ -70,7 +70,7 @@
 #define COCOAPODS_POD_AVAILABLE_GTViewController
 #define COCOAPODS_VERSION_MAJOR_GTViewController 3
 #define COCOAPODS_VERSION_MINOR_GTViewController 1
-#define COCOAPODS_VERSION_PATCH_GTViewController 1
+#define COCOAPODS_VERSION_PATCH_GTViewController 2
 
 // GoogleAnalytics-iOS-SDK
 #define COCOAPODS_POD_AVAILABLE_GoogleAnalytics_iOS_SDK
