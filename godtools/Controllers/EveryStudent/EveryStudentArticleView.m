@@ -33,6 +33,8 @@
 	
 	[super viewWillAppear:animated];
 	
+	[UIApplication sharedApplication].idleTimerDisabled = YES;
+	
 	if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
 		// Load resources for iOS 6.1 or earlier
 		self.content.frame = CGRectMake(CGRectGetMinX(self.content.frame),
@@ -61,6 +63,12 @@
 //																 GTTrackerNotificationUserInfoVersionKey:	@1,
 //																 GTTrackerNotificationEverystudentDidOpenArticleUserInfoArticleName: self.title}];
 	
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+	[super viewDidDisappear:animated];
+	
+	[UIApplication sharedApplication].idleTimerDisabled = NO;
 }
 
 /*
