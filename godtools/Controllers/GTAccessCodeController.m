@@ -37,7 +37,7 @@
                                    cancelButtonTitle:nil
                                    otherButtonTitles:nil, nil];
     
-    if([self.expiredToken boolValue]) {
+    if(self.expiredToken.boolValue) {
         self.accessCodeStatusAlert.message = @"Preview mode session expired.";
         [self.accessCodeStatusAlert show];
         [self performSelector:@selector(dismissAlertView:)
