@@ -126,6 +126,12 @@ BOOL languageDownloadCancelled = FALSE;
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidDisappear:animated];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(languageDownloadFinished)
+                                                 name: GTDataImporterNotificationLanguageDraftsDownloadFinished
+                                               object:nil];
+
+    
     self.afReachability = [AFNetworkReachabilityManager managerForDomain:@"www.google.com"];
     [self.afReachability setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
         if (status < AFNetworkReachabilityStatusReachableViaWWAN) {
@@ -145,6 +151,10 @@ BOOL languageDownloadCancelled = FALSE;
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
     [self.afReachability stopMonitoring];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:GTDataImporterNotificationLanguageDraftsDownloadFinished
+                                                  object:nil];
 }
 
 -(void)languageDownloadProgressMade{
