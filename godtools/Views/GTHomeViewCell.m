@@ -16,7 +16,8 @@
 
 @property (strong, nonatomic) NSNumber *packageIsPresent;
 
-@property (weak, nonatomic) IBOutlet UIButton *showTranslatorOptionsButton;
+@property (weak, nonatomic) IBOutlet UIButton *translatorOptionsButton;
+@property (weak, nonatomic) IBOutlet UIImageView *translatorOptionsImage;
 @property (weak, nonatomic) IBOutlet UIView *publishDeleteOptionsView;
 @property (weak, nonatomic) IBOutlet UIView *createOptionsView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *verticalLayoutConstraint;
@@ -45,6 +46,7 @@
 -(void) showPreviewModeLayoutWithPackagePresent:(BOOL) packagePresent
                              package:(GTPackage *) package {
     self.titleLabel.text = package.name;
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     self.packageIsPresent = [NSNumber numberWithBool:packagePresent];
     
@@ -53,17 +55,10 @@
         
         NSString *filePathToIcon = [[GTFileLoader pathOfPackagesDirectory] stringByAppendingPathComponent:package.icon];
         self.icon.image = [UIImage imageWithContentsOfFile: filePathToIcon];
-        
-        [self.contentView.layer setBorderColor:nil];
-        [self.contentView.layer setBorderWidth:0.0];
-        
     } else {
         self.backgroundColor = [UIColor colorWithRed:0.88 green:0.88 blue:0.88 alpha:0.15];
         
         self.icon.image = nil;
-        
-        [self.contentView.layer setBorderColor:[UIColor lightTextColor].CGColor];
-        [self.contentView.layer setBorderWidth:1.0f];
     }
     
     self.publishDeleteOptionsView.hidden = YES;
@@ -71,7 +66,8 @@
     self.verticalLayoutConstraint.constant = 2.0;
     self.backgroundView = nil;
     
-    self.showTranslatorOptionsButton.hidden = NO;
+    self.translatorOptionsButton.hidden = NO;
+    self.translatorOptionsImage.hidden = NO;
 }
 
 -(void) showNormalModeLayoutWithLightBackground:(BOOL) lightBackground
@@ -95,7 +91,8 @@
     [self.contentView.layer setBorderColor:nil];
     [self.contentView.layer setBorderWidth:0.0];
     
-    self.showTranslatorOptionsButton.hidden = YES;
+    self.translatorOptionsButton.hidden = YES;
+    self.translatorOptionsImage.hidden = YES;
 }
 
 -(void) showEveryStudentLayout {
@@ -112,7 +109,8 @@
     [self.contentView.layer setBorderColor:nil];
     [self.contentView.layer setBorderWidth:0.0];
     
-    self.showTranslatorOptionsButton.hidden = YES;
+    self.translatorOptionsButton.hidden = YES;
+    self.translatorOptionsImage.hidden = YES;
 }
 
 - (void) showTranslatorOptions {
@@ -131,8 +129,8 @@
     self.titleLabel.font = [UIFont fontWithName:fontName size:self.titleLabel.font.pointSize];
 }
 
--(void) showTranslatorOptionsButtonPressed:(id)sender {
-    [self.delegate showTranslatorOptionsButtonPressed:self.sectionIdentifier];
+-(void) translatorOptionsButtonPressed:(id)sender {
+    [self.delegate translatorOptionsButtonPressed:self.sectionIdentifier];
 }
 
 -(void) publishDraftButtonPressed:(id)sender {

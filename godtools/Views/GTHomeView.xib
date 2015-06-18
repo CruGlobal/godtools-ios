@@ -22,12 +22,6 @@
                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="GT4_HomeScreen_NavBar_" translatesAutoresizingMaskIntoConstraints="NO" id="GCk-XZ-SNq">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="46"/>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="[ Translator Mode ]" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aHU-fT-gkv">
-                    <rect key="frame" x="198" y="56" width="113" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="GT4_Home_BookIcon_" translatesAutoresizingMaskIntoConstraints="NO" id="jLQ-YV-T02">
                     <rect key="frame" x="120" y="99" width="80" height="75"/>
                 </imageView>
@@ -46,8 +40,8 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="God Tools" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mNr-eZ-kHj">
-                    <rect key="frame" x="8" y="12" width="98" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mNr-eZ-kHj">
+                    <rect key="frame" x="8" y="11" width="151" height="23"/>
                     <fontDescription key="fontDescription" type="system" pointSize="19"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
@@ -85,7 +79,7 @@
                 <outlet property="setLanguageImageView" destination="ESA-OQ-L88" id="Efo-qD-hme"/>
                 <outlet property="settingsButton" destination="hK1-HD-VKf" id="FXU-88-hBW"/>
                 <outlet property="tableView" destination="K6k-oN-bLy" id="jyd-dZ-g1e"/>
-                <outlet property="translatorModeLabel" destination="aHU-fT-gkv" id="ejf-Ef-bBv"/>
+                <outlet property="titleLabel" destination="mNr-eZ-kHj" id="6cw-sk-Dcl"/>
             </connections>
             <point key="canvasLocation" x="147" y="142"/>
         </view>

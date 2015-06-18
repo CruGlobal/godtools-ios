@@ -12,6 +12,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *settingsButton;
 
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *setLanguageImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *pickToolImageView;
 @property (weak, nonatomic) IBOutlet UIView *instructionsOverlayView;
@@ -46,6 +47,7 @@
 }
 
 - (void) showPreviewModeLayout {
+    self.titleLabel.text = @"Preview Mode";
     self.iconImageView.image = [UIImage imageNamed:@"GT4_Home_BookIcon_PreviewMode_"];
     self.translatorModeLabel.hidden = NO;
     self.refreshDraftsView.hidden = NO;
@@ -53,6 +55,7 @@
 }
 
 - (void) showNormalModeLayout {
+    self.titleLabel.text = @"God Tools";
     self.iconImageView.image = [UIImage imageNamed:@"GT4_Home_BookIcon_"];
     self.translatorModeLabel.hidden = YES;
     self.refreshDraftsView.hidden = YES;
