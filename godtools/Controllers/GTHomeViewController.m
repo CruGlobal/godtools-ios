@@ -269,7 +269,7 @@
 
 #pragma mark - Home View Cell Delegates
 
--(void) showTranslatorOptionsButtonPressed:(NSString *)sectionIdentifier{
+-(void) translatorOptionsButtonPressed:(NSString *)sectionIdentifier{
     if([self.selectedSectionNumber isEqualToString:sectionIdentifier]){
         self.selectedSectionNumber = nil;
     } else {
@@ -350,17 +350,15 @@
         //rendering a missing package
         NSInteger currentSection = indexPath.section;
         
+        // this section configures the cell for when no draft exists for this package IN translator mode
         if([self isTranslatorMode] && currentSection >= self.articles.count) {
             [cell showPreviewModeLayoutWithPackagePresent:NO
-                                       package:[self.packagesWithNoDrafts objectAtIndex:(indexPath.section - self.articles.count)]];
-            
+                                       package:[self.packagesWithNoDrafts objectAtIndex:(indexPath.section - self.articles.count)]];            
         } else if([self isTranslatorMode]){
             [cell showPreviewModeLayoutWithPackagePresent:YES
                                        package:[self.articles objectAtIndex:indexPath.section]];
-            
         } else if(currentSection >= self.articles.count){
             [cell showEveryStudentLayout];
-            
         } else {
             [cell showNormalModeLayoutWithLightBackground:(indexPath.section % 2)
                                       package:[self.articles objectAtIndex:indexPath.section]];

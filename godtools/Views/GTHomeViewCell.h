@@ -11,7 +11,7 @@
 
 @protocol GTHomeViewCellDelegate
 @required
--(void) showTranslatorOptionsButtonPressed:NSString;
+-(void) translatorOptionsButtonPressed:NSString;
 -(void) publishDraftButtonPressed:NSString;
 -(void) deleteDraftButtonPressed:NSString;
 -(void) createDraftButtonPressed:NSString;
@@ -34,4 +34,5 @@
 -(void) showTranslatorOptions;
 
 -(void) setCustomFont:(NSString *) fontName;
+
 @end

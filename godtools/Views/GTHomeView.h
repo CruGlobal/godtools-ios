@@ -22,4 +22,5 @@
 - (void) hideInstructionsOverlay:(BOOL) animated;
 - (void) showPreviewModeLayout;
 - (void) showNormalModeLayout;
+
 @end

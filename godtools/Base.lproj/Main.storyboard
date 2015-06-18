@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -80,35 +81,50 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="GT4_HomeScreen_Background_" translatesAutoresizingMaskIntoConstraints="NO" id="ZcR-5w-JH4">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             </imageView>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="GT4_SettingsScreen_ButtonBar15%_Teal_" translatesAutoresizingMaskIntoConstraints="NO" id="B77-rt-eeN">
-                                <rect key="frame" x="0.0" y="94" width="375" height="52"/>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="GT4_SettingsScreen_ButtonBar15%_Teal_" translatesAutoresizingMaskIntoConstraints="NO" id="B77-rt-eeN">
+                                <rect key="frame" x="0.0" y="164" width="375" height="52"/>
                             </imageView>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="GT4_SettingsScreen_ButtonBar15%_Teal_" translatesAutoresizingMaskIntoConstraints="NO" id="yMd-4c-vb1">
-                                <rect key="frame" x="0.0" y="196" width="375" height="52"/>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="GT4_SettingsScreen_ButtonBar15%_Teal_" translatesAutoresizingMaskIntoConstraints="NO" id="yMd-4c-vb1">
+                                <rect key="frame" x="0.0" y="266" width="375" height="52"/>
                             </imageView>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="GT4_SettingsScreen_ButtonBar15%_Orange_" translatesAutoresizingMaskIntoConstraints="NO" id="Hra-57-Rjx">
-                                <rect key="frame" x="0.0" y="404" width="375" height="52"/>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="GT4_SettingsScreen_ButtonBar15%_Orange_" translatesAutoresizingMaskIntoConstraints="NO" id="Hra-57-Rjx">
+                                <rect key="frame" x="0.0" y="474" width="375" height="52"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MsA-3e-8Np">
-                                <rect key="frame" x="30" y="65" width="274" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MsA-3e-8Np">
+                                <rect key="frame" x="30" y="135" width="274" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="45j-MI-lRs"/>
+                                    <constraint firstAttribute="width" constant="274" id="MZ2-AH-JQj"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rdm-Ei-0uu">
-                                <rect key="frame" x="30" y="404" width="290" height="52"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3LE-oe-ngK">
-                                <rect key="frame" x="255" y="414" width="51" height="31"/>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3LE-oe-ngK">
+                                <rect key="frame" x="251" y="484" width="51" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="31" id="rGU-k3-vAh"/>
+                                    <constraint firstAttribute="width" constant="49" id="xnA-Am-HkI"/>
+                                </constraints>
                                 <connections>
                                     <action selector="previewModeSwitchPressed" destination="oIQ-32-exZ" eventType="valueChanged" id="aP8-z8-q3d"/>
                                 </connections>
                             </switch>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cW2-xI-6th">
-                                <rect key="frame" x="0.0" y="94" width="320" height="52"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rdm-Ei-0uu">
+                                <rect key="frame" x="30" y="474" width="213" height="52"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="52" id="4sC-rV-kaI"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cW2-xI-6th">
+                                <rect key="frame" x="0.0" y="164" width="320" height="52"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="CEL-dP-DLN"/>
+                                    <constraint firstAttribute="height" constant="52" id="YOc-TA-KAE"/>
+                                </constraints>
                                 <inset key="titleEdgeInsets" minX="21" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <inset key="imageEdgeInsets" minX="294" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="Button" image="GT4_SettingsScreen_RightArrow_">
@@ -119,8 +135,35 @@
                                     <action selector="changePrimaryLanguagePressed" destination="oIQ-32-exZ" eventType="touchUpInside" id="XLR-Iz-mT3"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CL7-HZ-wpT">
-                                <rect key="frame" x="0.0" y="196" width="320" height="52"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yop-JO-bK0">
+                                <rect key="frame" x="30" y="237" width="274" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="274" id="nQi-b8-8wA"/>
+                                    <constraint firstAttribute="height" constant="21" id="rlH-Jf-2AT"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Zts-W6-ubl">
+                                <rect key="frame" x="6" y="320" width="265" height="89"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="265" id="Zvg-b0-kRv"/>
+                                    <constraint firstAttribute="height" constant="89" id="lpu-rC-1c2"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <inset key="imageEdgeInsets" minX="82" minY="0.0" maxX="0.0" maxY="15"/>
+                                <state key="normal" title="*Tap screen during presentation and use       to toggle language. Icon is not shown if booklet is not available." image="Package_PopUpToolBar_Icon_Switch.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CL7-HZ-wpT">
+                                <rect key="frame" x="0.0" y="266" width="320" height="52"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="DTS-3k-xXl"/>
+                                    <constraint firstAttribute="height" constant="52" id="OTh-Rg-Ozt"/>
+                                </constraints>
                                 <inset key="titleEdgeInsets" minX="21" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <inset key="imageEdgeInsets" minX="294" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="Button" image="GT4_SettingsScreen_RightArrow_">
@@ -131,23 +174,35 @@
                                     <action selector="changeParallelLanguagePressed" destination="oIQ-32-exZ" eventType="touchUpInside" id="MKw-Wc-R2y"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yop-JO-bK0">
-                                <rect key="frame" x="30" y="167" width="274" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Zts-W6-ubl">
-                                <rect key="frame" x="6" y="251" width="265" height="89"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <inset key="imageEdgeInsets" minX="82" minY="0.0" maxX="0.0" maxY="15"/>
-                                <state key="normal" title="*Tap screen during presentation and use       to toggle language. Icon is not shown if booklet is not available." image="Package_PopUpToolBar_Icon_Switch.png">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="JKp-5o-V3H" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Hra-57-Rjx" secondAttribute="bottom" constant="20" id="1rq-MS-4se"/>
+                            <constraint firstAttribute="trailing" secondItem="3LE-oe-ngK" secondAttribute="trailing" constant="20" symbolic="YES" id="2Hq-Eg-TsR"/>
+                            <constraint firstItem="cW2-xI-6th" firstAttribute="leading" secondItem="dbd-kT-ndl" secondAttribute="leadingMargin" constant="-16" id="2LG-zH-SWN"/>
+                            <constraint firstItem="B77-rt-eeN" firstAttribute="height" secondItem="cW2-xI-6th" secondAttribute="height" id="33h-4g-xIS"/>
+                            <constraint firstItem="Hra-57-Rjx" firstAttribute="top" secondItem="yMd-4c-vb1" secondAttribute="bottom" priority="750" constant="156" id="4dJ-Es-1d6"/>
+                            <constraint firstItem="B77-rt-eeN" firstAttribute="leading" secondItem="dbd-kT-ndl" secondAttribute="leadingMargin" constant="-16" id="7vz-oM-1eQ"/>
+                            <constraint firstItem="B77-rt-eeN" firstAttribute="top" secondItem="cW2-xI-6th" secondAttribute="top" id="GKW-sg-rIb"/>
+                            <constraint firstItem="yMd-4c-vb1" firstAttribute="top" secondItem="B77-rt-eeN" secondAttribute="bottom" priority="750" constant="50" id="I2f-V3-MsX"/>
+                            <constraint firstItem="Yop-JO-bK0" firstAttribute="leading" secondItem="dbd-kT-ndl" secondAttribute="leadingMargin" constant="14" id="NkA-Jc-izL"/>
+                            <constraint firstItem="CL7-HZ-wpT" firstAttribute="leading" secondItem="dbd-kT-ndl" secondAttribute="leadingMargin" constant="-16" id="O50-BK-KUC"/>
+                            <constraint firstItem="CL7-HZ-wpT" firstAttribute="top" secondItem="yMd-4c-vb1" secondAttribute="top" id="VZM-BJ-5vq"/>
+                            <constraint firstItem="3LE-oe-ngK" firstAttribute="centerY" secondItem="Hra-57-Rjx" secondAttribute="centerY" constant="-0.5" id="Vzf-Uc-z6L"/>
+                            <constraint firstItem="Rdm-Ei-0uu" firstAttribute="height" secondItem="Hra-57-Rjx" secondAttribute="height" id="WmO-tC-Xeo"/>
+                            <constraint firstItem="Hra-57-Rjx" firstAttribute="leading" secondItem="dbd-kT-ndl" secondAttribute="leadingMargin" constant="-16" id="X8T-3i-exG"/>
+                            <constraint firstItem="Rdm-Ei-0uu" firstAttribute="top" secondItem="Hra-57-Rjx" secondAttribute="top" id="XZp-6G-jxT"/>
+                            <constraint firstItem="Zts-W6-ubl" firstAttribute="top" secondItem="yMd-4c-vb1" secondAttribute="bottom" constant="2" id="YwQ-Lv-oQZ"/>
+                            <constraint firstItem="Rdm-Ei-0uu" firstAttribute="leading" secondItem="dbd-kT-ndl" secondAttribute="leadingMargin" constant="14" id="eFK-qi-xhg"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Rdm-Ei-0uu" secondAttribute="trailing" constant="61" id="hQs-si-nJR"/>
+                            <constraint firstItem="yMd-4c-vb1" firstAttribute="leading" secondItem="dbd-kT-ndl" secondAttribute="leadingMargin" constant="-16" id="iH6-X0-q0v"/>
+                            <constraint firstItem="Zts-W6-ubl" firstAttribute="leading" secondItem="dbd-kT-ndl" secondAttribute="leadingMargin" constant="-10" id="mAy-QR-ceu"/>
+                            <constraint firstItem="CL7-HZ-wpT" firstAttribute="height" secondItem="yMd-4c-vb1" secondAttribute="height" id="mPz-eb-xfv"/>
+                            <constraint firstItem="yMd-4c-vb1" firstAttribute="top" secondItem="Yop-JO-bK0" secondAttribute="bottom" constant="8" id="rFb-cf-SRq"/>
+                            <constraint firstItem="MsA-3e-8Np" firstAttribute="leading" secondItem="dbd-kT-ndl" secondAttribute="leadingMargin" constant="14" id="sf4-HB-Nee"/>
+                            <constraint firstItem="B77-rt-eeN" firstAttribute="top" secondItem="VMF-Qq-7PC" secondAttribute="bottom" priority="250" constant="100" id="uak-2n-YaK"/>
+                            <constraint firstItem="B77-rt-eeN" firstAttribute="top" secondItem="MsA-3e-8Np" secondAttribute="bottom" constant="8" id="w7l-VX-Nof"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="5kU-if-Z1Q"/>
                     <connections>
