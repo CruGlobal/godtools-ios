@@ -58,10 +58,12 @@
                                                  name: GTDataImporterNotificationMenuUpdateStarted
                                                object:nil];
     
+    NSNumber *isFirstLaunch = [[GTDefaults sharedDefaults]isFirstLaunch];
+    NSNumber *isInTranslatorMode = [[GTDefaults sharedDefaults] isInTranslatorMode];
+    
     // don't ask for updates on the first launch because the alert window will cover up/distract from the
     // instructional overlay that's shown
-    if([[GTDefaults sharedDefaults]isFirstLaunch] == [NSNumber numberWithBool:NO] &&
-       [[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:NO]) {
+    if(!isFirstLaunch.boolValue && !isInTranslatorMode.boolValue) {
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(askToUpdate:)
                                                      name: GTDataImporterNotificationNewVersionsAvailable
@@ -71,7 +73,7 @@
     [self.splashScreen initDownloadIndicator];
     
     //check if first launch
-    if([[GTDefaults sharedDefaults]isFirstLaunch] == [NSNumber numberWithBool:YES]){
+    if(isFirstLaunch.boolValue){
         //prepare initial content
         [self extractBundle];
         [self extractMetaData];
@@ -100,10 +102,11 @@
                                                   object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:GTDataImporterNotificationMenuUpdateStarted                                              object:nil];
-    
+    NSNumber *isFirstLaunch = [[GTDefaults sharedDefaults]isFirstLaunch];
+    NSNumber *isInTranslatorMode = [[GTDefaults sharedDefaults] isInTranslatorMode];
+
     // the observer is only added if this isn't the first launch, so don't try to remove it on the first launch
-    if([[GTDefaults sharedDefaults]isFirstLaunch] == [NSNumber numberWithBool:NO] &&
-              [[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:NO]) {
+    if(!isFirstLaunch.boolValue && !isInTranslatorMode.boolValue) {
         [[NSNotificationCenter defaultCenter] removeObserver:self
 													name:GTDataImporterNotificationNewVersionsAvailable                                              object:nil];
     }
