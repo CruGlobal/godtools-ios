@@ -124,7 +124,7 @@ BOOL languageDownloadCancelled = FALSE;
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [super viewDidDisappear:animated];
+    [super viewDidAppear:animated];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(languageDownloadFinished)
