@@ -60,7 +60,8 @@
     
     // don't ask for updates on the first launch because the alert window will cover up/distract from the
     // instructional overlay that's shown
-    if([[GTDefaults sharedDefaults]isFirstLaunch] == [NSNumber numberWithBool:NO]) {
+    if([[GTDefaults sharedDefaults]isFirstLaunch] == [NSNumber numberWithBool:NO] &&
+       [[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:NO]) {
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(askToUpdate:)
                                                      name: GTDataImporterNotificationNewVersionsAvailable
@@ -101,7 +102,8 @@
                                                     name:GTDataImporterNotificationMenuUpdateStarted                                              object:nil];
     
     // the observer is only added if this isn't the first launch, so don't try to remove it on the first launch
-    if([[GTDefaults sharedDefaults]isFirstLaunch] == [NSNumber numberWithBool:NO]) {
+    if([[GTDefaults sharedDefaults]isFirstLaunch] == [NSNumber numberWithBool:NO] &&
+              [[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:NO]) {
         [[NSNotificationCenter defaultCenter] removeObserver:self
 													name:GTDataImporterNotificationNewVersionsAvailable                                              object:nil];
     }
