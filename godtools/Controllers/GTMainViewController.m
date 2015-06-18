@@ -42,7 +42,11 @@
 
     NSLog(@"SPLASH IS   %@", [self.splashScreen class]);
     
-    [self.splashScreen initDownloadIndicator];
+    
+}
+
+-(void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(updateFinished:)
@@ -53,12 +57,18 @@
                                              selector:@selector(showLoadingIndicator:)
                                                  name: GTDataImporterNotificationMenuUpdateStarted
                                                object:nil];
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(askToUpdate:)
-												 name: GTDataImporterNotificationNewVersionsAvailable
-											   object:nil];
-
+    
+    // don't ask for updates on the first launch because the alert window will cover up/distract from the
+    // instructional overlay that's shown
+    if([[GTDefaults sharedDefaults]isFirstLaunch] == [NSNumber numberWithBool:NO]) {
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(askToUpdate:)
+                                                     name: GTDataImporterNotificationNewVersionsAvailable
+                                                   object:nil];
+    }
+    
+    [self.splashScreen initDownloadIndicator];
+    
     //check if first launch
     if([[GTDefaults sharedDefaults]isFirstLaunch] == [NSNumber numberWithBool:YES]){
         //prepare initial content
@@ -84,14 +94,17 @@
 {
     [super viewDidDisappear:animated];
 	
-#warning remove observe calls are in the wrong place
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:GTDataImporterNotificationMenuUpdateFinished
                                                   object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:GTDataImporterNotificationMenuUpdateStarted                                              object:nil];
-	[[NSNotificationCenter defaultCenter] removeObserver:self
+    
+    // the observer is only added if this isn't the first launch, so don't try to remove it on the first launch
+    if([[GTDefaults sharedDefaults]isFirstLaunch] == [NSNumber numberWithBool:NO]) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self
 													name:GTDataImporterNotificationNewVersionsAvailable                                              object:nil];
+    }
 }
 
 -(void)goToHome{
