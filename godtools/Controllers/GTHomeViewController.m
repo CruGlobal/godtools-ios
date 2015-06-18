@@ -7,6 +7,7 @@
 //
 
 #import "GTHomeViewController.h"
+#import "GTAccessCodeController.h"
 #import "GTHomeViewCell.h"
 #import "GTHomeView.h"
 #import "GTLanguage+Helper.h"
@@ -140,6 +141,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(updateFinished:)
                                                  name: GTDataImporterNotificationPublishDraftFail
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleExpiredAuthToken)
+                                                 name:GTDataImporterErrorExpiredAuthToken
                                                object:nil];
     
     [self checkPhonesLanguage];
@@ -513,6 +519,24 @@
 
 - (BOOL) isTranslatorMode {
     return [[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES];
+}
+
+-(void) handleExpiredAuthToken {
+    [[GTAPI sharedAPI]setAuthToken:nil];
+    [[GTDefaults sharedDefaults]setIsInTranslatorMode:[NSNumber numberWithBool:NO]];
+    
+    [self.homeView hideDownloadIndicator];
+    [self.homeView setUserInteractionEnabled:YES];
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+
+    GTAccessCodeController *accessCodeController = [storyboard instantiateViewControllerWithIdentifier:@"GTAccessCodeController"];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:accessCodeController];
+    
+    accessCodeController.expiredToken = [NSNumber numberWithBool:YES];
+    
+    [accessCodeController setModalPresentationStyle:UIModalPresentationFullScreen];                                                    
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 #pragma mark - Renderer methods

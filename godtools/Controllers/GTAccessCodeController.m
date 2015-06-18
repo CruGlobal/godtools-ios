@@ -37,11 +37,18 @@
                                    cancelButtonTitle:nil
                                    otherButtonTitles:nil, nil];
     
+    if(self.expiredToken.boolValue) {
+        self.accessCodeStatusAlert.message = @"Preview mode session expired.";
+        [self.accessCodeStatusAlert show];
+        [self performSelector:@selector(dismissAlertView:)
+                   withObject:self.accessCodeStatusAlert
+                   afterDelay:3.0];
+    }
+    
     self.accessCodeTextField.delegate = self;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:246.0/255.0 green:246.0/255.0 blue:246.0/255.0 alpha:1];
     [self.navigationController.navigationBar setTintColor:[UIColor darkGrayColor]];
     [self.navigationController.navigationBar setTranslucent:NO]; // required for iOS7
@@ -86,37 +93,10 @@
                                                   object:nil];
 }
 
-//-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-//    if(alertView == self.exitTranslatorModeAlert){
-//        if(buttonIndex == 1){
-//            [[GTDefaults sharedDefaults]setIsInTranslatorMode:[NSNumber numberWithBool:NO]];
-//            [self.translatorSwitch setOn:NO animated:YES];
-//        }else{
-//            [self.translatorSwitch setOn:YES animated:YES];
-//        }
-//    }else if(alertView == self.translatorModeAlert){
-//        if(buttonIndex == 1){
-//            [self addNotificationObservers];
-//            if([self.translatorModeAlert  textFieldAtIndex:0].text.length > 0){
-//                NSString *accessCode = [self.translatorModeAlert  textFieldAtIndex:0].text;
-//                [[GTDefaults sharedDefaults]setTranslatorAccessCode:accessCode];
-//                [[GTDataImporter sharedImporter]authorizeTranslator];
-//            }else{
-//                self.buttonLessAlert.message = NSLocalizedString(@"AlertMesssage_invalidAccessCode", nil);
-//                [self.buttonLessAlert show];
-//                [self performSelector:@selector(dismissAlertView:) withObject:self.buttonLessAlert afterDelay:2.0];
-//                [self.translatorSwitch setOn:NO animated:YES];
-//            }
-//        }else{
-//            [self.translatorSwitch setOn:NO animated:YES];
-//            [self.translatorModeAlert textFieldAtIndex:0].text = nil;
-//        }
-//    }
-//}
-
 # pragma mark - UI helper methods
 -(void) cancelButtonPressed {
     [self performSegueWithIdentifier:@"returnFromAccessCodeView" sender:self];
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 -(void) doneButtonPressed {
@@ -162,6 +142,7 @@
             self.accessCodeStatusAlert.message = NSLocalizedString(@"AlertMessage_previewModeEnabled", nil);
             [self.accessCodeStatusAlert show];
             [self performSelector:@selector(dismissAlertView:) withObject:self.accessCodeStatusAlert afterDelay:2.0];
+            [self performSelector:@selector(returnToPreviousViewController:) withObject:self.accessCodeStatusAlert afterDelay:2.0];
             
             GTLanguage *current = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:YES]objectAtIndex:0];
             [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:[NSNumber numberWithBool:YES]];
@@ -172,6 +153,9 @@
 
 -(void)dismissAlertView:(UIAlertView *)alertView{
     [alertView dismissWithClickedButtonIndex:0 animated:YES];
+}
+
+-(void)returnToPreviousViewController:(UIAlertView *)alertView{
     if(alertView == self.accessCodeStatusAlert && [[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]){
         
         NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
@@ -180,6 +164,7 @@
                 [self.navigationController popToViewController:viewController animated:NO];
             }
         }
+        [self dismissViewControllerAnimated:NO completion:nil];
     }
 }
 

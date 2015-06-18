@@ -45,6 +45,8 @@
 #define GTDataImporterNotificationAuthTokenUpdateSuccessful @"com.godtoolsapp.GTDataImporter.notifications.authTokenUpdateSuccessful"
 #define GTDataImporterNotificationAuthTokenUpdateFail @"com.godtoolsapp.GTDataImporter.notifications.authTokenUpdateFailed"
 
+#define GTDataImporterErrorExpiredAuthToken @"com.godtoolsapp.GTDataImporter.notifications.expiredAuthToken"
+
 #define GTDataImporterNotificationLanguageDraftsDownloadProgressMade  @"com.godtoolsapp.GTDataImporter.notifications.draftsDownloadProgressMade"
 #define GTDataImporterNotificationLanguageDraftsDownloadFinished      @"com.godtoolsapp.GTDataImporter.notifications.draftsDownloadFinished"
 #define GTDataImporterNotificationLanguageDraftsDownloadStarted      @"com.godtoolsapp.GTDataImporter.notifications.draftsDownloadStarted"

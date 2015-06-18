@@ -224,7 +224,7 @@
         <!--Enter Passcode-->
         <scene sceneID="ZH8-bc-7K6">
             <objects>
-                <viewController id="bg8-8O-T0Y" customClass="GTAccessCodeController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GTAccessCodeController" id="bg8-8O-T0Y" customClass="GTAccessCodeController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ejz-wI-n7t"/>
                         <viewControllerLayoutGuide type="bottom" id="9ys-PG-CTe"/>
