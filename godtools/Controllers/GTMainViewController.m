@@ -145,7 +145,7 @@
 
 -(void)extractBundle{
     //WILL ONLY BE TRIGERRED AT FRESH INSTALL
-    [self.splashScreen showDownloadIndicatorWithLabel:[NSString stringWithFormat:(NSLocalizedString(@"GTHome_status_updatingResources", nil))]];
+    [self.splashScreen showDownloadIndicatorWithLabel:[NSString stringWithFormat:NSLocalizedString(@"GTHome_status_updatingResources", nil)]];
    
     NSError *error;
     
