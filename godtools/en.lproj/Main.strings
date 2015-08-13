@@ -1,0 +1,15 @@
+
+/* Class = "UILabel"; text = "The toggle button will not show up in the menu if the booklet is not available in the parallel language"; ObjectID = "5lB-eD-M5X"; */
+"5lB-eD-M5X.text" = "The toggle button will not show up in the menu if the booklet is not available in the parallel language";
+
+/* Class = "UITextField"; placeholder = "   Passcode"; ObjectID = "DPa-cg-wGX"; */
+"DPa-cg-wGX.placeholder" = "   Passcode";
+
+/* Class = "UILabel"; text = "Tap screen during presentation to view menu."; ObjectID = "O3d-nf-ctT"; */
+"O3d-nf-ctT.text" = "Tap screen during presentation to view menu.";
+
+/* Class = "UILabel"; text = "Will toggle the 2 languages"; ObjectID = "loZ-lY-U87"; */
+"loZ-lY-U87.text" = "Will toggle the 2 languages";
+
+/* Class = "UINavigationItem"; title = "Enter Passcode"; ObjectID = "vXJ-Nv-6Xi"; */
+"vXJ-Nv-6Xi.title" = "Enter Passcode";

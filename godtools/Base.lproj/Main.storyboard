@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="13F1077" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="OvA-bH-obN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="OvA-bH-obN">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -91,7 +90,7 @@
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="GT4_SettingsScreen_ButtonBar15%_Orange_" translatesAutoresizingMaskIntoConstraints="NO" id="Hra-57-Rjx">
                                 <rect key="frame" x="0.0" y="474" width="375" height="52"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MsA-3e-8Np">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MsA-3e-8Np">
                                 <rect key="frame" x="30" y="135" width="274" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="45j-MI-lRs"/>
@@ -111,7 +110,7 @@
                                     <action selector="previewModeSwitchPressed" destination="oIQ-32-exZ" eventType="valueChanged" id="aP8-z8-q3d"/>
                                 </connections>
                             </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rdm-Ei-0uu">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rdm-Ei-0uu">
                                 <rect key="frame" x="30" y="474" width="213" height="52"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="52" id="4sC-rV-kaI"/>
@@ -128,7 +127,7 @@
                                 </constraints>
                                 <inset key="titleEdgeInsets" minX="21" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <inset key="imageEdgeInsets" minX="294" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="Button" image="GT4_SettingsScreen_RightArrow_">
+                                <state key="normal" image="GT4_SettingsScreen_RightArrow_">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -136,7 +135,7 @@
                                     <action selector="changePrimaryLanguagePressed" destination="oIQ-32-exZ" eventType="touchUpInside" id="XLR-Iz-mT3"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yop-JO-bK0">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yop-JO-bK0">
                                 <rect key="frame" x="30" y="237" width="274" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="274" id="nQi-b8-8wA"/>
@@ -146,19 +145,6 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Zts-W6-ubl">
-                                <rect key="frame" x="6" y="320" width="265" height="89"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="265" id="Zvg-b0-kRv"/>
-                                    <constraint firstAttribute="height" constant="89" id="lpu-rC-1c2"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <inset key="imageEdgeInsets" minX="82" minY="0.0" maxX="0.0" maxY="15"/>
-                                <state key="normal" title="*Tap screen during presentation and use       to toggle language. Icon is not shown if booklet is not available." image="Package_PopUpToolBar_Icon_Switch.png">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CL7-HZ-wpT">
                                 <rect key="frame" x="0.0" y="266" width="320" height="52"/>
                                 <constraints>
@@ -167,7 +153,7 @@
                                 </constraints>
                                 <inset key="titleEdgeInsets" minX="21" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <inset key="imageEdgeInsets" minX="294" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="Button" image="GT4_SettingsScreen_RightArrow_">
+                                <state key="normal" image="GT4_SettingsScreen_RightArrow_">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -175,6 +161,27 @@
                                     <action selector="changeParallelLanguagePressed" destination="oIQ-32-exZ" eventType="touchUpInside" id="MKw-Wc-R2y"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tap screen during presentation to view menu." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O3d-nf-ctT">
+                                <rect key="frame" x="16" y="326" width="288" height="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Will toggle the 2 languages" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="loZ-lY-U87">
+                                <rect key="frame" x="54" y="363" width="250" height="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Package_PopUpToolBar_Icon_Switch.png" translatesAutoresizingMaskIntoConstraints="NO" id="h78-CO-cwP">
+                                <rect key="frame" x="16" y="372" width="30" height="30"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="The toggle button will not show up in the menu if the booklet is not available in the parallel language" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5lB-eD-M5X">
+                                <rect key="frame" x="16" y="403" width="288" height="63"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -193,11 +200,9 @@
                             <constraint firstItem="Rdm-Ei-0uu" firstAttribute="height" secondItem="Hra-57-Rjx" secondAttribute="height" id="WmO-tC-Xeo"/>
                             <constraint firstItem="Hra-57-Rjx" firstAttribute="leading" secondItem="dbd-kT-ndl" secondAttribute="leadingMargin" constant="-16" id="X8T-3i-exG"/>
                             <constraint firstItem="Rdm-Ei-0uu" firstAttribute="top" secondItem="Hra-57-Rjx" secondAttribute="top" id="XZp-6G-jxT"/>
-                            <constraint firstItem="Zts-W6-ubl" firstAttribute="top" secondItem="yMd-4c-vb1" secondAttribute="bottom" constant="2" id="YwQ-Lv-oQZ"/>
                             <constraint firstItem="Rdm-Ei-0uu" firstAttribute="leading" secondItem="dbd-kT-ndl" secondAttribute="leadingMargin" constant="14" id="eFK-qi-xhg"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Rdm-Ei-0uu" secondAttribute="trailing" constant="61" id="hQs-si-nJR"/>
                             <constraint firstItem="yMd-4c-vb1" firstAttribute="leading" secondItem="dbd-kT-ndl" secondAttribute="leadingMargin" constant="-16" id="iH6-X0-q0v"/>
-                            <constraint firstItem="Zts-W6-ubl" firstAttribute="leading" secondItem="dbd-kT-ndl" secondAttribute="leadingMargin" constant="-10" id="mAy-QR-ceu"/>
                             <constraint firstItem="CL7-HZ-wpT" firstAttribute="height" secondItem="yMd-4c-vb1" secondAttribute="height" id="mPz-eb-xfv"/>
                             <constraint firstItem="yMd-4c-vb1" firstAttribute="top" secondItem="Yop-JO-bK0" secondAttribute="bottom" constant="8" id="rFb-cf-SRq"/>
                             <constraint firstItem="MsA-3e-8Np" firstAttribute="leading" secondItem="dbd-kT-ndl" secondAttribute="leadingMargin" constant="14" id="sf4-HB-Nee"/>
@@ -244,7 +249,7 @@
                                 </connections>
                             </textField>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="Enter Passcode" id="vXJ-Nv-6Xi">
                         <barButtonItem key="leftBarButtonItem" style="plain" systemItem="cancel" id="ND8-EI-07E">
