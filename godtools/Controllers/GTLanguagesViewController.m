@@ -42,9 +42,9 @@ BOOL languageDownloadCancelled = FALSE;
     [self setData];
     
     if([[GTDefaults sharedDefaults] isChoosingForMainLanguage] == [NSNumber numberWithBool:YES]){
-        [self setTitle : @"Language"];
+        [self setTitle : NSLocalizedString(@"GTLanguages_language_title", nil)];
     }else{
-        [self setTitle : @"Parallel Language"];
+        [self setTitle : NSLocalizedString(@"GTLanguages_parallelLanguage_title", nil)];
     }
 
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -245,7 +245,7 @@ BOOL languageDownloadCancelled = FALSE;
     UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     button.frame = CGRectMake(0.0f, 0.0f, 150.0f, 25.0f);
     
-    NSString *buttonTitle = @"Download";
+    NSString *buttonTitle = NSLocalizedString(@"GTLanguages_cell_downloadButton", nil);
     cell.accessoryView = nil;
     
     [button setTitle:buttonTitle
@@ -282,7 +282,7 @@ BOOL languageDownloadCancelled = FALSE;
         if (!cell.isDownloading) {
             [cell setDownloadingField:TRUE];
             if([self downloadLanguage:cell.languageName.text]) {
-                [(UIButton *) cell.accessoryView setTitle:@"Cancel" forState:UIControlStateNormal];
+                [(UIButton *) cell.accessoryView setTitle:NSLocalizedString(@"GTLanguages_cell_cancelButton", nil) forState:UIControlStateNormal];
                 languageActionCell.checkBox.hidden = TRUE;
                 languageActionCell.errorIcon.hidden = TRUE;
             }
@@ -334,7 +334,7 @@ BOOL languageDownloadCancelled = FALSE;
         }
         
     } else {
-        self.buttonLessAlert.message = NSLocalizedString(@"You need to be online to proceed", nil);
+        self.buttonLessAlert.message = NSLocalizedString(@"GTLanguages_download_error_reachability_message", nil);
         [self.buttonLessAlert show];
         [self performSelector:@selector(dismissAlertView:) withObject:self.buttonLessAlert afterDelay:2.0];
     }
@@ -359,7 +359,7 @@ BOOL languageDownloadCancelled = FALSE;
     if(!selectedLanguage.downloaded) {
         languageActionCell = (GTLanguageViewCell *)[tableView cellForRowAtIndexPath:indexPath];
         if([self downloadLanguage:languageActionCell.languageName.text]) {
-            [(UIButton *) languageActionCell.accessoryView setTitle:@"Cancel" forState:UIControlStateNormal];
+            [(UIButton *) languageActionCell.accessoryView setTitle:NSLocalizedString(@"GTLanguages_cell_cancelButton", nil) forState:UIControlStateNormal];
             
             languageActionCell.checkBox.hidden = TRUE;
             languageActionCell.errorIcon.hidden = TRUE;

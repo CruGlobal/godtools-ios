@@ -131,7 +131,7 @@
 }
 
 -(void)showLoadingIndicator:(NSNotification *) notification{
-    [self.splashScreen showDownloadIndicatorWithLabel:@"Checking for Updates"];
+    [self.splashScreen showDownloadIndicatorWithLabel:NSLocalizedString(@"GTHome_status_checkingForUpdates", nil)];
 }
 
 
@@ -145,7 +145,7 @@
 
 -(void)extractBundle{
     //WILL ONLY BE TRIGERRED AT FRESH INSTALL
-    [self.splashScreen showDownloadIndicatorWithLabel:[NSString stringWithFormat:(NSLocalizedString(@"GTHome_status_updatingResources", nil)),@"English"]];
+    [self.splashScreen showDownloadIndicatorWithLabel:[NSString stringWithFormat:(NSLocalizedString(@"GTHome_status_updatingResources", nil))]];
    
     NSError *error;
     

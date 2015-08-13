@@ -641,7 +641,7 @@ BOOL gtLanguageDownloadUserCancellation                                 = FALSE;
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) { 
         //NSLog(@"failure response: %@",response.allHeaderFields);
         if(response.statusCode == 401){
-            NSString *errorMessage	= NSLocalizedString(@"AlertMesssage_invalidAccessCode", @"Error message when access code is unauthorized.");
+            NSString *errorMessage	= NSLocalizedString(@"GTDataImporter_authTokenFailureAlert_message_invalidAccessCode", @"Error message when access code is unauthorized.");
             error = [NSError errorWithDomain:GTDataImporterErrorDomain
                                                  code:GTDataImporterErrorCodeInvalidXml
                                              userInfo:@{NSLocalizedDescriptionKey: errorMessage, }];
@@ -752,7 +752,7 @@ BOOL gtLanguageDownloadUserCancellation                                 = FALSE;
                                             NSLog(@"error saving");
                                         }
                                     }else if(response.statusCode == 500){
-                                        NSString *errorMessage	= NSLocalizedString(@"There were server issues encountered", @"Error message when package endpoint response is missing data.");
+                                        NSString *errorMessage	= NSLocalizedString(@"GTDataImporter_downloadDraftsForLanguage_error_server", @"Error message when package endpoint response is missing data.");
                                         NSError *error = [NSError errorWithDomain:GTDataImporterErrorDomain
                                                                              code:GTDataImporterErrorCodeInvalidXml
                                                                          userInfo:@{NSLocalizedDescriptionKey: errorMessage, }];

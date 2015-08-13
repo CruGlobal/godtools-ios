@@ -86,14 +86,18 @@
     
     if([[GTDefaults sharedDefaults]phonesLanguageCode]){
         self.phonesLanguage = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults]phonesLanguageCode] inBackground:YES]objectAtIndex:0];
-        self.phonesLanguageAlert = [[UIAlertView alloc] initWithTitle:@"Language Settings"
-                                                                message:[NSString stringWithFormat:@"Would you like to make %@ as the default language?",self.phonesLanguage.name]
+        self.phonesLanguageAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"GTHome_languageAlert_title", nil)
+                                                                message:[NSString stringWithFormat:NSLocalizedString(@"GTHome_languageAlert_message", nil),self.phonesLanguage.name]
                                                                delegate:self
-                                                      cancelButtonTitle:@"NO"
+                                                      cancelButtonTitle:NSLocalizedString(@"GTHome_languageAlert_dismissButton", nil)
                                                       otherButtonTitles:nil];
-        [self.phonesLanguageAlert addButtonWithTitle:@"YES"];
+        [self.phonesLanguageAlert addButtonWithTitle:NSLocalizedString(@"GTHome_languageAlert_confirmButton", nil)];
     }
-    self.draftsAlert = [[UIAlertView alloc]initWithTitle:nil message:@"Do you want to publish this draft?" delegate:self cancelButtonTitle:@"No, not yet." otherButtonTitles:@"Yes, it's ready!", nil];
+    self.draftsAlert = [[UIAlertView alloc]initWithTitle:nil
+												 message:NSLocalizedString(@"GTHome_draftsAlert_message", nil)
+												delegate:self
+									   cancelButtonTitle:NSLocalizedString(@"GTHome_draftsAlert_dismissButton", nil)
+									   otherButtonTitles:NSLocalizedString(@"GTHome_draftsAlert_confirmButton", nil), nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                                 selector:@selector(downloadFinished:)
@@ -231,7 +235,7 @@
     }else if([notification.name isEqualToString:GTDataImporterNotificationPublishDraftStarted]){
         [self.homeView showDownloadIndicatorWithLabel: NSLocalizedString(@"GTHome_status_publishingDrafts", nil)];
     }else if([notification.name isEqualToString:GTDataImporterNotificationMenuUpdateStarted]){
-        [self.homeView showDownloadIndicatorWithLabel:[NSString stringWithFormat: NSLocalizedString(@"Updating menu...", @"update resources (with menu)")]];
+        [self.homeView showDownloadIndicatorWithLabel:[NSString stringWithFormat: NSLocalizedString(@"GTHome_status_updatingMenu", @"update resources (with menu)")]];
     }
 }
 
@@ -269,7 +273,11 @@
     self.selectedSectionNumber = sectionIdentifier;
     GTPackage *selectedPackage = [self.packagesWithNoDrafts objectAtIndex:([sectionIdentifier intValue] - self.articles.count)];
     NSString *selectedPackageTitle = selectedPackage.name;
-    self.createDraftsAlert = [[UIAlertView alloc]initWithTitle:selectedPackageTitle message:@"Create new draft?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
+    self.createDraftsAlert = [[UIAlertView alloc] initWithTitle:selectedPackageTitle
+														message:NSLocalizedString(@"GTHome_createDraftAlert_message", nil)
+													   delegate:self
+											  cancelButtonTitle:NSLocalizedString(@"GTHome_createDraftAlert_dismissButton", nil)
+											  otherButtonTitles:NSLocalizedString(@"GTHome_createDraftAlert_confirmButton", nil), nil];
 
     [self.createDraftsAlert show];
 }
@@ -355,7 +363,7 @@
             [cell.contentView.layer setBorderWidth:0.0];
         } else if(currentSection >= self.articles.count){
             //block for every student cell
-            cell.titleLabel.text = @"Every Student";
+			cell.titleLabel.text = @"Every Student"; //only appears in english list so shouldn't be translated
             [cell setUpBackground:(indexPath.section % 2) :NO :NO];
             cell.icon.image = [UIImage imageNamed:@"GT4_HomeScreen_ESIcon_.png"];
         } else {
@@ -436,7 +444,7 @@
             
             [self.navigationController setNavigationBarHidden:NO animated:YES];
             self.everyStudentViewController.language = @"en"; // for now, always English
-            self.everyStudentViewController.package = @"EveryStudent"; // for lack of knowing what else to put
+            self.everyStudentViewController.package = @"everystudent";
             [self.navigationController pushViewController:self.everyStudentViewController animated:YES];
         }
     }

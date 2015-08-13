@@ -142,7 +142,7 @@
         NSLog(@"AUTHENTICATING_____++++++");
         //if([AFNetworkReachabilityManager sharedManager].reachable){
         NSLog(@"reachable");
-        self.accessCodeStatusAlert.message = NSLocalizedString(@"AlertMessage_authenticatingAccessCode", nil);
+        self.accessCodeStatusAlert.message = NSLocalizedString(@"GTAccessCode_accessCodeStatusAlert_message_authenticating", nil);
         [self.accessCodeStatusAlert show];
         //}
     }else if([notification.name isEqualToString:GTDataImporterNotificationAuthTokenUpdateFail]){
@@ -159,7 +159,7 @@
     }else if([notification.name isEqualToString:GTDataImporterNotificationAuthTokenUpdateSuccessful]){
         
         if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]){
-            self.accessCodeStatusAlert.message = NSLocalizedString(@"AlertMessage_previewModeEnabled", nil);
+            self.accessCodeStatusAlert.message = NSLocalizedString(@"GTAccessCode_accessCodeStatusAlert_message_previewModeEnabled", nil);
             [self.accessCodeStatusAlert show];
             [self performSelector:@selector(dismissAlertView:) withObject:self.accessCodeStatusAlert afterDelay:2.0];
             
