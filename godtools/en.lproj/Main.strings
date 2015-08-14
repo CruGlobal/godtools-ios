@@ -6,7 +6,7 @@
 "DPa-cg-wGX.placeholder" = "   Passcode";
 
 /* Class = "UILabel"; text = "Tap screen during presentation to view menu."; ObjectID = "O3d-nf-ctT"; */
-"O3d-nf-ctT.text" = "Tap screen during presentation to view menu.";
+"O3d-nf-ctT.text" = "*Tap screen during presentation to view menu.";
 
 /* Class = "UILabel"; text = "Will toggle the 2 languages"; ObjectID = "loZ-lY-U87"; */
 "loZ-lY-U87.text" = "Will toggle the 2 languages";
