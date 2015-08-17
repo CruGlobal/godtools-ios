@@ -1,4 +1,4 @@
-godtools-ios
+God Tools iOS
 ============
 
 iOS app for GodTools. This version of the app is connected to the God Tools API https://github.com/CruGlobal/godtools-api and displays resources in the God Tools viewer https://github.com/CruGlobal/GTViewController
