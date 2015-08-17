@@ -108,9 +108,10 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="God Tools" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="43O-9q-s8R">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="God Tools" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="43O-9q-s8R">
                                 <rect key="frame" x="11" y="12" width="258" height="21"/>
                                 <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="258" id="8K0-BW-dBQ"/>
                                     <constraint firstAttribute="height" constant="21" id="vpd-eV-79Q"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
@@ -121,10 +122,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="GT4_HomeScreen_PickTool" translatesAutoresizingMaskIntoConstraints="NO" id="jsp-4r-e3a">
-                                        <rect key="frame" x="-18" y="147" width="300" height="100"/>
+                                        <rect key="frame" x="8" y="179" width="102" height="40"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="300" id="Qwr-YG-pAj"/>
-                                            <constraint firstAttribute="height" constant="100" id="VvZ-Pp-oSj"/>
+                                            <constraint firstAttribute="width" constant="102" id="Qwr-YG-pAj"/>
+                                            <constraint firstAttribute="height" constant="40" id="VvZ-Pp-oSj"/>
                                         </constraints>
                                     </imageView>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="GT4_HomeScreen_KGPIcon_" translatesAutoresizingMaskIntoConstraints="NO" id="xEE-CI-HH1">
@@ -135,21 +136,45 @@
                                         </constraints>
                                     </imageView>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="GT4_HomeScreen_SetLanguage" translatesAutoresizingMaskIntoConstraints="NO" id="FRf-Yi-G4h">
-                                        <rect key="frame" x="9" y="22" width="302" height="91"/>
+                                        <rect key="frame" x="200" y="45" width="106" height="47"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="302" id="EHH-AL-zsB"/>
-                                            <constraint firstAttribute="height" constant="91" id="ajZ-30-3qn"/>
+                                            <constraint firstAttribute="width" constant="106" id="EHH-AL-zsB"/>
+                                            <constraint firstAttribute="height" constant="47" id="ajZ-30-3qn"/>
                                         </constraints>
                                     </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pick a Language" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Srq-de-tee">
+                                        <rect key="frame" x="24" y="55" width="168" height="37"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="37" id="tFS-t1-Dhy"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pick a tool" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P4W-0o-rM1">
+                                        <rect key="frame" x="118" y="188" width="188" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="TNS-M7-TEd"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="xEE-CI-HH1" firstAttribute="leading" secondItem="MS0-V2-i3u" secondAttribute="leading" id="AO3-Ta-1gP"/>
-                                    <constraint firstItem="jsp-4r-e3a" firstAttribute="top" secondItem="FRf-Yi-G4h" secondAttribute="bottom" constant="34" id="P1y-LZ-kKO"/>
-                                    <constraint firstItem="xEE-CI-HH1" firstAttribute="top" secondItem="FRf-Yi-G4h" secondAttribute="bottom" constant="108" id="Rme-eV-hur"/>
-                                    <constraint firstItem="jsp-4r-e3a" firstAttribute="leading" secondItem="MS0-V2-i3u" secondAttribute="leading" constant="-18" id="SWJ-fY-4Na"/>
-                                    <constraint firstAttribute="centerX" secondItem="FRf-Yi-G4h" secondAttribute="centerX" id="Sxb-sE-hCD"/>
-                                    <constraint firstItem="FRf-Yi-G4h" firstAttribute="top" secondItem="MS0-V2-i3u" secondAttribute="top" constant="22" id="UKJ-jq-T1E"/>
+                                    <constraint firstItem="jsp-4r-e3a" firstAttribute="top" secondItem="FRf-Yi-G4h" secondAttribute="bottom" constant="87" id="P1y-LZ-kKO"/>
+                                    <constraint firstItem="xEE-CI-HH1" firstAttribute="top" secondItem="FRf-Yi-G4h" secondAttribute="bottom" constant="129" id="Rme-eV-hur"/>
+                                    <constraint firstItem="jsp-4r-e3a" firstAttribute="leading" secondItem="MS0-V2-i3u" secondAttribute="leading" constant="8" id="SWJ-fY-4Na"/>
+                                    <constraint firstItem="FRf-Yi-G4h" firstAttribute="top" secondItem="MS0-V2-i3u" secondAttribute="top" constant="45" id="UKJ-jq-T1E"/>
+                                    <constraint firstItem="Srq-de-tee" firstAttribute="leading" secondItem="MS0-V2-i3u" secondAttribute="leading" constant="24" id="Uac-1i-BBk"/>
+                                    <constraint firstItem="FRf-Yi-G4h" firstAttribute="leading" secondItem="Srq-de-tee" secondAttribute="trailing" constant="8" id="hHb-Rg-e6R"/>
+                                    <constraint firstItem="Srq-de-tee" firstAttribute="centerY" secondItem="FRf-Yi-G4h" secondAttribute="centerY" constant="5" id="irm-VY-DTR"/>
+                                    <constraint firstAttribute="trailing" secondItem="FRf-Yi-G4h" secondAttribute="trailing" constant="14" id="pi3-aw-lCO"/>
+                                    <constraint firstItem="jsp-4r-e3a" firstAttribute="centerY" secondItem="P4W-0o-rM1" secondAttribute="centerY" id="s5x-hB-AxQ"/>
+                                    <constraint firstItem="P4W-0o-rM1" firstAttribute="leading" secondItem="jsp-4r-e3a" secondAttribute="trailing" constant="8" id="uQG-22-pzd"/>
+                                    <constraint firstAttribute="trailing" secondItem="P4W-0o-rM1" secondAttribute="trailing" constant="14" id="y4v-zG-dsR"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="szn-tD-RQS" userLabel="Settings Button">
@@ -479,9 +504,9 @@
         <image name="GT4_HomeScreen_Background_" width="320" height="568"/>
         <image name="GT4_HomeScreen_KGPIcon_" width="52" height="52"/>
         <image name="GT4_HomeScreen_NavBar_" width="320" height="46"/>
-        <image name="GT4_HomeScreen_PickTool" width="300" height="100"/>
+        <image name="GT4_HomeScreen_PickTool" width="98" height="36"/>
         <image name="GT4_HomeScreen_Pull_Icon_" width="11" height="14"/>
-        <image name="GT4_HomeScreen_SetLanguage" width="300" height="100"/>
+        <image name="GT4_HomeScreen_SetLanguage" width="109" height="60"/>
         <image name="GT4_HomeScreen_SettingsIcon_" width="24" height="24"/>
         <image name="GT4_Home_BookIcon_" width="80" height="75"/>
         <image name="GT4_SettingsScreen_ButtonBar15%_Orange_" width="375" height="52"/>
