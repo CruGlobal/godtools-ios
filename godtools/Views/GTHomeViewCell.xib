@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="13F1066" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -15,14 +15,8 @@
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IOb-6t-RhA" id="xhQ-1F-7kA">
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UeF-AY-tJc">
-                        <rect key="frame" x="61" y="7" width="212" height="35"/>
-                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="19"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="poS-Zh-dm8">
-                        <rect key="frame" x="0.0" y="0.0" width="53" height="53"/>
+                        <rect key="frame" x="-8" y="0.0" width="53" height="53"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="53" id="LbI-r6-1uC"/>
                             <constraint firstAttribute="width" secondItem="poS-Zh-dm8" secondAttribute="height" multiplier="1:1" id="SFN-rJ-OYG"/>
@@ -36,8 +30,8 @@
                             </mask>
                         </variation>
                     </imageView>
-                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PjV-YV-I0C">
-                        <rect key="frame" x="283" y="17" width="27" height="20"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PjV-YV-I0C">
+                        <rect key="frame" x="283" y="17" width="27" height="22"/>
                         <state key="normal" image="GT4_HomeScreen_DraftGripC_">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
@@ -81,15 +75,21 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UeF-AY-tJc">
+                        <rect key="frame" x="55" y="7" width="212" height="35"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="19"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailingMargin" secondItem="UeF-AY-tJc" secondAttribute="trailing" constant="39" id="5XK-x5-aMC"/>
-                    <constraint firstAttribute="centerY" secondItem="UeF-AY-tJc" secondAttribute="centerY" constant="2" id="PzW-Ap-2gz"/>
-                    <constraint firstItem="UeF-AY-tJc" firstAttribute="leading" secondItem="poS-Zh-dm8" secondAttribute="trailing" constant="8" id="QD8-9d-P3V"/>
+                    <constraint firstAttribute="centerY" secondItem="UeF-AY-tJc" secondAttribute="centerY" constant="55.5" id="PzW-Ap-2gz"/>
+                    <constraint firstItem="UeF-AY-tJc" firstAttribute="leading" secondItem="poS-Zh-dm8" secondAttribute="trailing" constant="10" id="QD8-9d-P3V"/>
                     <constraint firstAttribute="trailingMargin" secondItem="PjV-YV-I0C" secondAttribute="trailing" constant="2" id="T3y-fg-C4u"/>
                     <constraint firstItem="poS-Zh-dm8" firstAttribute="top" secondItem="xhQ-1F-7kA" secondAttribute="topMargin" constant="-8" id="UUe-JE-0Wk"/>
                     <constraint firstItem="PjV-YV-I0C" firstAttribute="top" secondItem="xhQ-1F-7kA" secondAttribute="topMargin" constant="9" id="a2K-m7-PoI"/>
-                    <constraint firstItem="poS-Zh-dm8" firstAttribute="leading" secondItem="xhQ-1F-7kA" secondAttribute="leadingMargin" constant="-8" id="hhk-7R-aLI"/>
+                    <constraint firstItem="poS-Zh-dm8" firstAttribute="leading" secondItem="xhQ-1F-7kA" secondAttribute="leadingMargin" constant="-16" id="hhk-7R-aLI"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

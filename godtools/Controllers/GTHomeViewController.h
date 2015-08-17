@@ -12,10 +12,9 @@
 #import <GTViewController/GTPageMenuViewController.h>
 #import <GTViewController/GTShareViewController.h>
 #import <GTViewController/GTAboutViewController.h>
-#import "GTHomeView.h"
 #import "GTHomeViewCell.h"
 
-@interface GTHomeViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, GTViewControllerMenuDelegate, GTAboutViewControllerDelegate, GTHomeViewDelegate, GTHomeViewCellDelegate >
+@interface GTHomeViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, GTViewControllerMenuDelegate, GTAboutViewControllerDelegate, GTHomeViewCellDelegate >
 
 @property (strong, nonatomic) NSMutableArray* articles;
 @property (strong, nonatomic) NSMutableArray* packagesWithNoDrafts;

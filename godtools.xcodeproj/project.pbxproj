@@ -44,7 +44,6 @@
 		68464FD418E1CEBE00D14C2B /* GTDataImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 68464FD218E1CEBE00D14C2B /* GTDataImporter.m */; };
 		684D0A5318E38731004F51EE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 684D0A5618E38731004F51EE /* Localizable.strings */; };
 		684D0A5418E38731004F51EE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 684D0A5618E38731004F51EE /* Localizable.strings */; };
-		686360701B7D3CD800080BD6 /* GTHomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 686360721B7D3CD800080BD6 /* GTHomeView.xib */; };
 		68740D1318D24F9A00D36C0E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68740D1218D24F9A00D36C0E /* Foundation.framework */; };
 		68740D1518D24F9A00D36C0E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68740D1418D24F9A00D36C0E /* CoreGraphics.framework */; };
 		68740D1718D24F9A00D36C0E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68740D1618D24F9A00D36C0E /* UIKit.framework */; };
@@ -93,7 +92,6 @@
 		B7D2AF881A43D2D4009B7D5B /* GTSettingsAboutGodToolsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7D2AF871A43D2D4009B7D5B /* GTSettingsAboutGodToolsView.xib */; };
 		B7D2AF8B1A43EEAC009B7D5B /* GTSettingsAboutGodToolsView.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D2AF8A1A43EEAC009B7D5B /* GTSettingsAboutGodToolsView.m */; };
 		B7D2AF8E1A43F131009B7D5B /* GTSettingsAboutGodToolsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D2AF8D1A43F131009B7D5B /* GTSettingsAboutGodToolsViewController.m */; };
-		B7E472831A15A210002DF715 /* GTHomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E472821A15A210002DF715 /* GTHomeView.m */; };
 		B7E472881A19FE90002DF715 /* GTBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E472871A19FE90002DF715 /* GTBaseView.m */; };
 		B7EA1B431A38097D0098890F /* GTSplashScreenView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7EA1B421A38097D0098890F /* GTSplashScreenView.xib */; };
 		B7EA1B461A3826070098890F /* GTSplashScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = B7EA1B451A3826070098890F /* GTSplashScreenView.m */; };
@@ -154,10 +152,8 @@
 		68464FD218E1CEBE00D14C2B /* GTDataImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTDataImporter.m; path = "godtools-ios-api/GTDataImporter.m"; sourceTree = "<group>"; };
 		684D0A5518E38731004F51EE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		686360691B7D174800080BD6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
-		6863606E1B7D2A2600080BD6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		6863606F1B7D2B4300080BD6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		686360711B7D3CD800080BD6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/GTHomeView.xib; sourceTree = "<group>"; };
-		686360741B7D3CDB00080BD6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/GTHomeView.strings; sourceTree = "<group>"; };
+		686D73231B8226D800444718 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		68740D0F18D24F9A00D36C0E /* godtools.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = godtools.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		68740D1218D24F9A00D36C0E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		68740D1418D24F9A00D36C0E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -221,8 +217,6 @@
 		B7D2AF8C1A43F131009B7D5B /* GTSettingsAboutGodToolsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTSettingsAboutGodToolsViewController.h; path = Controllers/GTSettingsAboutGodToolsViewController.h; sourceTree = "<group>"; };
 		B7D2AF8D1A43F131009B7D5B /* GTSettingsAboutGodToolsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTSettingsAboutGodToolsViewController.m; path = Controllers/GTSettingsAboutGodToolsViewController.m; sourceTree = "<group>"; };
 		B7E4727E1A1450E6002DF715 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
-		B7E472811A15A210002DF715 /* GTHomeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTHomeView.h; path = Views/GTHomeView.h; sourceTree = "<group>"; };
-		B7E472821A15A210002DF715 /* GTHomeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTHomeView.m; path = Views/GTHomeView.m; sourceTree = "<group>"; };
 		B7E472861A19FE90002DF715 /* GTBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTBaseView.h; path = Views/GTBaseView.h; sourceTree = "<group>"; };
 		B7E472871A19FE90002DF715 /* GTBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTBaseView.m; path = Views/GTBaseView.m; sourceTree = "<group>"; };
 		B7EA1B421A38097D0098890F /* GTSplashScreenView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GTSplashScreenView.xib; path = Views/GTSplashScreenView.xib; sourceTree = "<group>"; };
@@ -476,9 +470,6 @@
 			children = (
 				B7E472861A19FE90002DF715 /* GTBaseView.h */,
 				B7E472871A19FE90002DF715 /* GTBaseView.m */,
-				B7E472811A15A210002DF715 /* GTHomeView.h */,
-				B7E472821A15A210002DF715 /* GTHomeView.m */,
-				686360721B7D3CD800080BD6 /* GTHomeView.xib */,
 				B76536C21A0CC6C2001C3FC3 /* GTHomeViewCell.h */,
 				B76536C31A0CC6CB001C3FC3 /* GTHomeViewCell.m */,
 				B76536C41A0CC6CB001C3FC3 /* GTHomeViewCell.xib */,
@@ -606,7 +597,6 @@
 				4F20B3DA1AC9A2F60026DC9E /* EveryStudentItemsController.xib in Resources */,
 				B7EA1B431A38097D0098890F /* GTSplashScreenView.xib in Resources */,
 				66D1D7011A09F40F00AC4E48 /* en.zip in Resources */,
-				686360701B7D3CD800080BD6 /* GTHomeView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -708,7 +698,6 @@
 				4F20B3DB1AC9A2F60026DC9E /* EveryStudentSearchCell.m in Sources */,
 				4F20B3D61AC9A2F60026DC9E /* EveryStudentCell.m in Sources */,
 				4FE1E6E51ADEF69700133A3E /* GTGoogleAnalyticsTracker.m in Sources */,
-				B7E472831A15A210002DF715 /* GTHomeView.m in Sources */,
 				B76536DA1A0CD2CF001C3FC3 /* GTLanguageViewCell.m in Sources */,
 				68464FC318E1CE4000D14C2B /* GTStorage.m in Sources */,
 				B76536CC1A0CCAE8001C3FC3 /* GTSettingsViewController.m in Sources */,
@@ -782,16 +771,6 @@
 			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
-		686360721B7D3CD800080BD6 /* GTHomeView.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				686360711B7D3CD800080BD6 /* Base */,
-				686360741B7D3CDB00080BD6 /* en */,
-			);
-			name = GTHomeView.xib;
-			path = Views;
-			sourceTree = "<group>";
-		};
 		68740D1B18D24F9A00D36C0E /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -805,7 +784,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				68740D2518D24F9A00D36C0E /* Base */,
-				6863606E1B7D2A2600080BD6 /* en */,
+				686D73231B8226D800444718 /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

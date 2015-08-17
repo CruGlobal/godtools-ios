@@ -52,13 +52,154 @@
                         <viewControllerLayoutGuide type="top" id="el9-Z0-iI4"/>
                         <viewControllerLayoutGuide type="bottom" id="Oi2-EA-aoq"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="pYR-p1-DAY">
+                    <view key="view" contentMode="scaleToFill" id="pYR-p1-DAY" customClass="GTBaseView">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="GT4_HomeScreen_Background_" translatesAutoresizingMaskIntoConstraints="NO" id="0XS-mo-bDe">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            </imageView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="53" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="P8r-gh-EpT">
+                                <rect key="frame" x="0.0" y="206" width="320" height="362"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="8oq-uF-jDf" id="41q-el-F9V"/>
+                                    <outlet property="delegate" destination="8oq-uF-jDf" id="cSp-qc-rpW"/>
+                                </connections>
+                            </tableView>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="GT4_HomeScreen_NavBar_" translatesAutoresizingMaskIntoConstraints="NO" id="ebD-8E-bqf">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="46"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="46" id="vCq-Tc-73J"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="[ Translator Mode ]" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ddm-Sv-WQm">
+                                <rect key="frame" x="201" y="56" width="113" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="GT4_Home_BookIcon_" translatesAutoresizingMaskIntoConstraints="NO" id="Bgc-XF-gSL">
+                                <rect key="frame" x="120" y="103" width="80" height="75"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="6BD-wC-UhX"/>
+                                    <constraint firstAttribute="height" constant="75" id="NzP-al-faU"/>
+                                </constraints>
+                            </imageView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o9C-9g-h8G">
+                                <rect key="frame" x="6" y="54" width="135" height="54"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="pull to refresh drafts" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f2w-cw-tln">
+                                        <rect key="frame" x="5" y="3" width="125" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Nc-51-Wlv">
+                                        <rect key="frame" x="21" y="16" width="92" height="38"/>
+                                        <state key="normal" image="GT4_HomeScreen_Pull_Icon_">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="refreshDraftsButtonDragged:" destination="8oq-uF-jDf" eventType="touchUpInside" id="2gJ-gA-oL4"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="God Tools" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="43O-9q-s8R">
+                                <rect key="frame" x="11" y="12" width="258" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="vpd-eV-79Q"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view alpha="0.75" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MS0-V2-i3u">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <subviews>
+                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="GT4_HomeScreen_PickTool" translatesAutoresizingMaskIntoConstraints="NO" id="jsp-4r-e3a">
+                                        <rect key="frame" x="-18" y="147" width="300" height="100"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="300" id="Qwr-YG-pAj"/>
+                                            <constraint firstAttribute="height" constant="100" id="VvZ-Pp-oSj"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="GT4_HomeScreen_KGPIcon_" translatesAutoresizingMaskIntoConstraints="NO" id="xEE-CI-HH1">
+                                        <rect key="frame" x="0.0" y="221" width="52" height="52"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="52" id="4RM-vN-2tm"/>
+                                            <constraint firstAttribute="width" constant="52" id="Qfj-Wt-Zks"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="GT4_HomeScreen_SetLanguage" translatesAutoresizingMaskIntoConstraints="NO" id="FRf-Yi-G4h">
+                                        <rect key="frame" x="9" y="22" width="302" height="91"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="302" id="EHH-AL-zsB"/>
+                                            <constraint firstAttribute="height" constant="91" id="ajZ-30-3qn"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="xEE-CI-HH1" firstAttribute="leading" secondItem="MS0-V2-i3u" secondAttribute="leading" id="AO3-Ta-1gP"/>
+                                    <constraint firstItem="jsp-4r-e3a" firstAttribute="top" secondItem="FRf-Yi-G4h" secondAttribute="bottom" constant="34" id="P1y-LZ-kKO"/>
+                                    <constraint firstItem="xEE-CI-HH1" firstAttribute="top" secondItem="FRf-Yi-G4h" secondAttribute="bottom" constant="108" id="Rme-eV-hur"/>
+                                    <constraint firstItem="jsp-4r-e3a" firstAttribute="leading" secondItem="MS0-V2-i3u" secondAttribute="leading" constant="-18" id="SWJ-fY-4Na"/>
+                                    <constraint firstAttribute="centerX" secondItem="FRf-Yi-G4h" secondAttribute="centerX" id="Sxb-sE-hCD"/>
+                                    <constraint firstItem="FRf-Yi-G4h" firstAttribute="top" secondItem="MS0-V2-i3u" secondAttribute="top" constant="22" id="UKJ-jq-T1E"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="szn-tD-RQS" userLabel="Settings Button">
+                                <rect key="frame" x="280" y="11" width="24" height="24"/>
+                                <state key="normal" image="GT4_HomeScreen_SettingsIcon_">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="settingsButtonPressed:" destination="8oq-uF-jDf" eventType="touchUpInside" id="wfa-62-Fdq"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Oi2-EA-aoq" firstAttribute="top" secondItem="0XS-mo-bDe" secondAttribute="bottom" id="0vh-JS-koi"/>
+                            <constraint firstItem="MS0-V2-i3u" firstAttribute="leading" secondItem="pYR-p1-DAY" secondAttribute="leadingMargin" constant="-16" id="4cl-uu-aK8"/>
+                            <constraint firstItem="Oi2-EA-aoq" firstAttribute="top" secondItem="P8r-gh-EpT" secondAttribute="bottom" id="4rz-MU-gqy"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="0XS-mo-bDe" secondAttribute="trailing" constant="-16" id="65B-uz-Ixt"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="szn-tD-RQS" secondAttribute="trailing" id="Ap8-J0-I74"/>
+                            <constraint firstItem="P8r-gh-EpT" firstAttribute="top" secondItem="Bgc-XF-gSL" secondAttribute="bottom" constant="28" id="E4f-OV-RhU"/>
+                            <constraint firstItem="Oi2-EA-aoq" firstAttribute="top" secondItem="MS0-V2-i3u" secondAttribute="bottom" id="Fkz-ZV-D6y"/>
+                            <constraint firstItem="P8r-gh-EpT" firstAttribute="leading" secondItem="pYR-p1-DAY" secondAttribute="leadingMargin" constant="-16" id="GKd-dw-Yxk"/>
+                            <constraint firstItem="Oi2-EA-aoq" firstAttribute="top" secondItem="MS0-V2-i3u" secondAttribute="bottom" id="I8l-9E-IHe"/>
+                            <constraint firstItem="szn-tD-RQS" firstAttribute="centerY" secondItem="43O-9q-s8R" secondAttribute="centerY" id="IDu-5L-NSZ"/>
+                            <constraint firstItem="43O-9q-s8R" firstAttribute="leading" secondItem="pYR-p1-DAY" secondAttribute="leadingMargin" constant="-5" id="MTe-RH-2gi"/>
+                            <constraint firstItem="43O-9q-s8R" firstAttribute="top" secondItem="el9-Z0-iI4" secondAttribute="bottom" constant="12" id="N7E-k9-ROv"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="P8r-gh-EpT" secondAttribute="trailing" constant="-16" id="UcO-YH-UQY"/>
+                            <constraint firstItem="MS0-V2-i3u" firstAttribute="top" secondItem="pYR-p1-DAY" secondAttribute="topMargin" id="dd8-Xr-kg8"/>
+                            <constraint firstItem="0XS-mo-bDe" firstAttribute="leading" secondItem="pYR-p1-DAY" secondAttribute="leadingMargin" constant="-16" id="e4m-Z2-fwG"/>
+                            <constraint firstItem="0XS-mo-bDe" firstAttribute="top" secondItem="pYR-p1-DAY" secondAttribute="topMargin" id="g7W-D9-5FW"/>
+                            <constraint firstAttribute="centerX" secondItem="Bgc-XF-gSL" secondAttribute="centerX" id="gMv-Go-ieZ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ebD-8E-bqf" secondAttribute="trailing" constant="-16" id="gOC-qJ-FEA"/>
+                            <constraint firstItem="Bgc-XF-gSL" firstAttribute="top" secondItem="ebD-8E-bqf" secondAttribute="bottom" constant="57" id="ihM-ea-zcJ"/>
+                            <constraint firstItem="ebD-8E-bqf" firstAttribute="top" secondItem="pYR-p1-DAY" secondAttribute="topMargin" id="k6r-Re-VS2"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="MS0-V2-i3u" secondAttribute="trailing" constant="-16" id="xsY-qY-LBQ"/>
+                            <constraint firstItem="ebD-8E-bqf" firstAttribute="leading" secondItem="pYR-p1-DAY" secondAttribute="leadingMargin" constant="-16" id="ynf-B6-Ef3"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="HrM-js-DUe"/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
+                        <outlet property="iconImageView" destination="Bgc-XF-gSL" id="6EU-zK-Rf6"/>
+                        <outlet property="instructionsOverlayView" destination="MS0-V2-i3u" id="eZu-ct-igl"/>
+                        <outlet property="pickToolImageView" destination="jsp-4r-e3a" id="xjt-tE-KNa"/>
+                        <outlet property="refreshDraftsView" destination="o9C-9g-h8G" id="1KN-7N-CQj"/>
+                        <outlet property="setLanguageImageView" destination="FRf-Yi-G4h" id="SNF-gx-avH"/>
+                        <outlet property="settingsButton" destination="szn-tD-RQS" id="9PY-6d-A0f"/>
+                        <outlet property="tableView" destination="P8r-gh-EpT" id="H7B-Dy-0ge"/>
+                        <outlet property="translatorModeLabel" destination="Ddm-Sv-WQm" id="Sq8-uW-4uc"/>
                         <segue destination="oIQ-32-exZ" kind="push" identifier="homeToSettingsViewSegue" id="XAs-gy-8U5"/>
                     </connections>
                 </viewController>
@@ -81,16 +222,16 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="GT4_HomeScreen_Background_" translatesAutoresizingMaskIntoConstraints="NO" id="ZcR-5w-JH4">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             </imageView>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="GT4_SettingsScreen_ButtonBar15%_Teal_" translatesAutoresizingMaskIntoConstraints="NO" id="B77-rt-eeN">
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" image="GT4_SettingsScreen_ButtonBar15%_Teal_" translatesAutoresizingMaskIntoConstraints="NO" id="B77-rt-eeN">
                                 <rect key="frame" x="0.0" y="164" width="375" height="52"/>
                             </imageView>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="GT4_SettingsScreen_ButtonBar15%_Teal_" translatesAutoresizingMaskIntoConstraints="NO" id="yMd-4c-vb1">
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" image="GT4_SettingsScreen_ButtonBar15%_Teal_" translatesAutoresizingMaskIntoConstraints="NO" id="yMd-4c-vb1">
                                 <rect key="frame" x="0.0" y="266" width="375" height="52"/>
                             </imageView>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="GT4_SettingsScreen_ButtonBar15%_Orange_" translatesAutoresizingMaskIntoConstraints="NO" id="Hra-57-Rjx">
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" image="GT4_SettingsScreen_ButtonBar15%_Orange_" translatesAutoresizingMaskIntoConstraints="NO" id="Hra-57-Rjx">
                                 <rect key="frame" x="0.0" y="480" width="375" height="52"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MsA-3e-8Np">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MsA-3e-8Np">
                                 <rect key="frame" x="30" y="135" width="274" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="45j-MI-lRs"/>
@@ -100,7 +241,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3LE-oe-ngK">
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3LE-oe-ngK">
                                 <rect key="frame" x="251" y="490" width="51" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="31" id="rGU-k3-vAh"/>
@@ -110,7 +251,7 @@
                                     <action selector="previewModeSwitchPressed" destination="oIQ-32-exZ" eventType="valueChanged" id="aP8-z8-q3d"/>
                                 </connections>
                             </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rdm-Ei-0uu">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rdm-Ei-0uu">
                                 <rect key="frame" x="30" y="480" width="213" height="52"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="52" id="4sC-rV-kaI"/>
@@ -119,7 +260,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cW2-xI-6th">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cW2-xI-6th">
                                 <rect key="frame" x="0.0" y="164" width="320" height="52"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="320" id="CEL-dP-DLN"/>
@@ -135,7 +276,7 @@
                                     <action selector="changePrimaryLanguagePressed" destination="oIQ-32-exZ" eventType="touchUpInside" id="XLR-Iz-mT3"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yop-JO-bK0">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yop-JO-bK0">
                                 <rect key="frame" x="30" y="237" width="274" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="274" id="nQi-b8-8wA"/>
@@ -145,7 +286,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CL7-HZ-wpT">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CL7-HZ-wpT">
                                 <rect key="frame" x="0.0" y="266" width="320" height="52"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="320" id="DTS-3k-xXl"/>
@@ -161,13 +302,13 @@
                                     <action selector="changeParallelLanguagePressed" destination="oIQ-32-exZ" eventType="touchUpInside" id="MKw-Wc-R2y"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="*Tap screen during presentation to view menu." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O3d-nf-ctT">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="*Tap screen during presentation to view menu." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O3d-nf-ctT">
                                 <rect key="frame" x="16" y="326" width="288" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Will toggle the 2 languages" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="loZ-lY-U87">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Will toggle the 2 languages" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="loZ-lY-U87">
                                 <rect key="frame" x="56" y="360" width="244" height="54"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="244" id="sRz-TV-FtV"/>
@@ -176,14 +317,14 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="center" verticalHuggingPriority="251" image="Package_PopUpToolBar_Icon_Switch.png" translatesAutoresizingMaskIntoConstraints="NO" id="h78-CO-cwP">
+                            <imageView userInteractionEnabled="NO" contentMode="center" verticalHuggingPriority="251" misplaced="YES" image="Package_PopUpToolBar_Icon_Switch.png" translatesAutoresizingMaskIntoConstraints="NO" id="h78-CO-cwP">
                                 <rect key="frame" x="16" y="372" width="30" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="QJP-u0-m8u"/>
                                     <constraint firstAttribute="height" constant="30" id="toa-p7-2Y0"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The toggle button will not show up in the menu if the booklet is not available in the parallel language" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5lB-eD-M5X">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="The toggle button will not show up in the menu if the booklet is not available in the parallel language" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5lB-eD-M5X">
                                 <rect key="frame" x="16" y="410" width="288" height="54"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -258,7 +399,7 @@
                         <rect key="frame" x="0.0" y="94" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="   Passcode" minimumFontSize="19" translatesAutoresizingMaskIntoConstraints="NO" id="DPa-cg-wGX">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Passcode" minimumFontSize="19" translatesAutoresizingMaskIntoConstraints="NO" id="DPa-cg-wGX">
                                 <rect key="frame" x="0.0" y="72" width="326" height="39"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
@@ -336,6 +477,13 @@
     </scenes>
     <resources>
         <image name="GT4_HomeScreen_Background_" width="320" height="568"/>
+        <image name="GT4_HomeScreen_KGPIcon_" width="52" height="52"/>
+        <image name="GT4_HomeScreen_NavBar_" width="320" height="46"/>
+        <image name="GT4_HomeScreen_PickTool" width="300" height="100"/>
+        <image name="GT4_HomeScreen_Pull_Icon_" width="11" height="14"/>
+        <image name="GT4_HomeScreen_SetLanguage" width="300" height="100"/>
+        <image name="GT4_HomeScreen_SettingsIcon_" width="24" height="24"/>
+        <image name="GT4_Home_BookIcon_" width="80" height="75"/>
         <image name="GT4_SettingsScreen_ButtonBar15%_Orange_" width="375" height="52"/>
         <image name="GT4_SettingsScreen_ButtonBar15%_Teal_" width="375" height="52"/>
         <image name="GT4_SettingsScreen_RightArrow_" width="10" height="18"/>
