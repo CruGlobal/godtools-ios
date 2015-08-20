@@ -486,7 +486,7 @@ BOOL gtLanguageDownloadUserCancellation                                 = FALSE;
         RXMLElement *element = [RXMLElement elementFromXMLData:[NSData dataWithContentsOfFile:[temporaryDirectory stringByAppendingPathComponent:@"contents.xml"]]];
         
         //move to Packages folder
-        NSString *destinationPath = [GTFileLoader pathOfPackagesDirectory];
+        NSString *destinationPath = [[GTFileLoader sharedInstance] pathOfPackagesDirectory];
         NSFileManager *fm = [NSFileManager defaultManager];
         
         if (![fm fileExistsAtPath:destinationPath]){ //Create directory
@@ -552,7 +552,7 @@ BOOL gtLanguageDownloadUserCancellation                                 = FALSE;
         //RXMLElement *element = [RXMLElement elementFromXMLData:[NSData dataWithContentsOfFile:[temporaryDirectory stringByAppendingPathComponent:@"contents.xml"]]];
         
         //move to Packages folder
-        NSString *destinationPath = [GTFileLoader pathOfPackagesDirectory];
+        NSString *destinationPath = [[GTFileLoader sharedInstance] pathOfPackagesDirectory];
         NSFileManager *fm = [NSFileManager defaultManager];
         
         if (![fm fileExistsAtPath:destinationPath]){ //Create directory

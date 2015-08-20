@@ -360,10 +360,8 @@
         } else if([self isTranslatorMode]){
             GTPackage *package = [self.articles objectAtIndex:indexPath.section];
             cell.titleLabel.text = package.name;
-            
-            NSString *imageFilePath = [[GTFileLoader pathOfPackagesDirectory] stringByAppendingPathComponent:package.icon];
         
-            cell.icon.image = [UIImage imageWithContentsOfFile: imageFilePath];
+            cell.icon.image = [[GTFileLoader sharedInstance] imageWithFilename:package.icon];
             [cell setUpBackground:(indexPath.section % 2) :YES :NO];
             
             [cell.contentView.layer setBorderColor:nil];
@@ -377,9 +375,7 @@
             GTPackage *package = [self.articles objectAtIndex:indexPath.section];
             cell.titleLabel.text = package.name;
             
-            NSString *imageFilePath = [[GTFileLoader pathOfPackagesDirectory] stringByAppendingPathComponent:package.icon];
-            
-            cell.icon.image = [UIImage imageWithContentsOfFile: imageFilePath];
+            cell.icon.image = [[GTFileLoader sharedInstance] imageWithFilename:package.icon];
             [cell setUpBackground:(indexPath.section % 2) :NO :NO];
             
             [cell.contentView.layer setBorderColor:nil];
@@ -603,7 +599,7 @@
     }
 
     self.godtoolsViewController.currentPackage = package;
-    [self.godtoolsViewController setCodes :package.code :package.language.code];
+	[self.godtoolsViewController setPackageCode:package.code languageCode:package.language.code];
     [self.godtoolsViewController addNotificationObservers];
         
     [self.godtoolsViewController loadResourceWithConfigFilename:package.configFile parallelConfigFileName:parallelConfigFile isDraft:isDraft];
@@ -625,6 +621,8 @@
         
         [self willChangeValueForKey:@"godtoolsViewController"];
         _godtoolsViewController	= [[GTViewController alloc] initWithConfigFile:package.configFile
+																   packageCode:@"kgp"
+																  langaugeCode:@"en"
                                                                     fileLoader:fileLoader
                                                            shareViewController:shareViewController
                                                         pageMenuViewController:pageMenuViewController

@@ -21,14 +21,13 @@
 #import "SNInstructions.h"
 #import "GTPage.h"
 
-#import "GAITracker.h"
-#import "GAI.h"
-#import "GAIFields.h"
-#import "GAIDictionaryBuilder.h"
-
-NSString *const GTViewControllerNotificationUserInfoConfigFilenameKey			= @"org.cru.godtools.gtviewcontroller.notifications.all.key.configfilename";
+NSString *const GTViewControllerNotificationUserInfoConfigFilenameKey	= @"org.cru.godtools.gtviewcontroller.notifications.all.key.configfilename";
 
 NSString *const GTViewControllerNotificationResourceDidOpen				= @"org.cru.godtools.gtviewcontroller.notifications.resourcedidopen";
+
+NSString *const GTViewControllerNotificationPageView					= @"org.cru.godtools.gtviewcontroller.notifications.pageview";
+NSString *const GTViewControllerNotificationPageViewUserInfoKeyLanguage	= @"org.cru.godtools.gtviewcontroller.notifications.pageview.key.language";
+NSString *const GTViewControllerNotificationPageViewUserInfoKeyPackage	= @"org.cru.godtools.gtviewcontroller.notifications.pageview.key.package";
 
 /**
  *  Touch Notification Key Names
@@ -220,7 +219,14 @@ NSString * const kAttr_filename		= @"filename";
 
 #pragma mark - public methods
 
-- (instancetype)initWithConfigFile:(NSString *)filename fileLoader:(GTFileLoader *)fileLoader shareViewController:(GTShareViewController *)shareViewController pageMenuViewController:(GTPageMenuViewController *)pageMenuViewController aboutViewController:(GTAboutViewController *)aboutViewController delegate:(id<GTViewControllerMenuDelegate>)delegate {
+- (instancetype)initWithConfigFile:(NSString *)filename
+					   packageCode:(NSString *)packageCode
+					  langaugeCode:(NSString *)languageCode
+						fileLoader:(GTFileLoader *)fileLoader
+			   shareViewController:(GTShareViewController *)shareViewController
+			pageMenuViewController:(GTPageMenuViewController *)pageMenuViewController
+			   aboutViewController:(GTAboutViewController *)aboutViewController
+						  delegate:(id<GTViewControllerMenuDelegate>)delegate {
     
     if ((self = [super initWithNibName:NSStringFromClass([self class]) bundle:nil])) {
         
@@ -230,6 +236,7 @@ NSString * const kAttr_filename		= @"filename";
         self.pageMenu						= pageMenuViewController;
         self.aboutPage						= aboutViewController;
         self.shareSheet						= shareViewController;
+		[self setPackageCode:packageCode languageCode:languageCode];
         
         self.transitionAnimationDuration	= NORMAL_TRANSITION_ANIMATION_DURATION;
         self.resistedDragMultiplier			= RESISTED_DRAG_MULTIPLIER;
@@ -434,9 +441,19 @@ NSString * const kAttr_filename		= @"filename";
     
     //init the xml
     NSData *data				= [NSData dataWithContentsOfFile:[self.fileLoader pathOfFileWithFilename:filename]];
+	if (!data) {
+		[NSException raise:[self.fileLoader localizedString:@"GTViewController_configParseException_title"]
+					format:@"%@: %@. %@",	[self.fileLoader localizedString:@"GTViewController_configParseException_description"],
+											filename,
+											[self.fileLoader localizedString:@"error_message_contact_support"]];
+	}
+	
     TBXML *tempXml				= [[TBXML alloc] initWithXMLData:data error:nil];
     if (!tempXml.rootXMLElement) {
-        [NSException raise:@"Could not read resource!" format:@"Could not parse config file with name: %@. Try again. If the problem continues please contact support@godtoolsapp.com.", filename];
+        [NSException raise:[self.fileLoader localizedString:@"GTViewController_configParseException_title"]
+					format:@"%@: %@. %@",	[self.fileLoader localizedString:@"GTViewController_configParseException_description"],
+											filename,
+											[self.fileLoader localizedString:@"error_message_contact_support"]];
     }
     TBXMLElement	*element	= tempXml.rootXMLElement;
     TBXMLElement	*page_el	= [TBXML childElementNamed:kName_Page parentElement:element];
@@ -564,7 +581,7 @@ NSString * const kAttr_filename		= @"filename";
     NSLog(@"navtoolbarShareselector");
     [self hideNavToolbar];
     
-    self.shareSheet = [[GTShareViewController alloc]initWithPackageCode: self.packageCode languageCode:self.languageCode];
+    [self.shareSheet setPackageCode:self.packageCode languageCode:self.languageCode];
     
     [self presentViewController:self.shareSheet animated:YES completion:nil];
     self.childViewControllerWasShown = YES;
@@ -764,9 +781,13 @@ NSString * const kAttr_filename		= @"filename";
     }
 }
 
--(void)setCodes :packageCode :languageCode {
+- (void)setPackageCode:(NSString *)packageCode languageCode:(NSString *)languageCode {
     self.packageCode = packageCode;
     self.languageCode = languageCode;
+	
+	if (self.shareSheet) {
+		[self.shareSheet setPackageCode:packageCode languageCode:languageCode];
+	}
 }
 
 #pragma mark - easter egg
@@ -795,7 +816,7 @@ NSString * const kAttr_filename		= @"filename";
     [UIView commitAnimations];
     
     //NSError *error = nil;
-    NSString *soundPath = [[NSBundle mainBundle] pathForResource:@"fiftytap" ofType:@"mp3"];
+    NSString *soundPath = [self.fileLoader.bundle pathForResource:@"fiftytap" ofType:@"mp3"];
     NSURL		*soundURL	= [[NSURL alloc] initFileURLWithPath:soundPath];
     self.AVPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:soundURL error:NULL];
     
@@ -933,9 +954,11 @@ NSString * const kAttr_filename		= @"filename";
 - (void)page:(GTPage *)page didReceiveTapOnURL:(NSURL *)url {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:url.absoluteString
                                                              delegate:self
-                                                    cancelButtonTitle:@"Cancel"
+                                                    cancelButtonTitle:[self.fileLoader localizedString:@"GTViewController_urlButton_cancel"]
                                                destructiveButtonTitle:nil
-                                                    otherButtonTitles:@"Open", @"Email", @"Copy", nil];
+                                                    otherButtonTitles:[self.fileLoader localizedString:@"GTViewController_urlButton_open"],
+																	  [self.fileLoader localizedString:@"GTViewController_urlButton_email"],
+																	  [self.fileLoader localizedString:@"GTViewController_urlButton_copy"], nil];
     actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
     
     [actionSheet showInView:self.view];
@@ -961,11 +984,12 @@ NSString * const kAttr_filename		= @"filename";
     self.allURLsButtonArray	= urlArray;
     
     // open a dialog with two custom buttons
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"All Websites"
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:[self.fileLoader localizedString:@"GTViewController_allUrlsButton_title"]
                                                              delegate:self
-                                                    cancelButtonTitle:@"Cancel"
+                                                    cancelButtonTitle:[self.fileLoader localizedString:@"GTViewController_allUrlsButton_cancel"]
                                                destructiveButtonTitle:nil
-                                                    otherButtonTitles:@"Email", @"Copy", nil];
+                                                    otherButtonTitles:[self.fileLoader localizedString:@"GTViewController_allUrlsButton_email"],
+																	  [self.fileLoader localizedString:@"GTViewController_allUrlsButton_copy"], nil];
     actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
     
     [actionSheet showInView:self.view];
@@ -974,7 +998,7 @@ NSString * const kAttr_filename		= @"filename";
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     
-    if ([[actionSheet title] isEqual:@"All Websites"]) {
+    if ([[actionSheet title] isEqual:[self.fileLoader localizedString:@"GTViewController_allUrlsButton_title"]]) {
         switch (buttonIndex) {
             case 0://email
                 [self emailAllLinks];
@@ -1004,7 +1028,7 @@ NSString * const kAttr_filename		= @"filename";
 }
 
 -(void)emailLink:(NSString *)website {
-    NSString *emailString = [[NSString alloc] initWithFormat:@"mailto:?subject=A website to assist you&body=http://%@",website];
+    NSString *emailString = [[NSString alloc] initWithFormat:@"mailto:?subject=%@&body=http://%@", [self.fileLoader localizedString:@"GTViewController_shareEmail_subject"], website];
     NSString *escaped = [emailString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:escaped]];
 }
@@ -1031,7 +1055,7 @@ NSString * const kAttr_filename		= @"filename";
         [websiteString appendFormat:@"%@ - http://%@,\n", [dictObj valueForKey:@"title"],[dictObj valueForKey:@"url"]];
     }
     
-    NSString *emailString = [[NSString alloc] initWithFormat:@"mailto:?subject=Websites to assist you&body=%@",[websiteString substringFromIndex:0]];
+    NSString *emailString = [[NSString alloc] initWithFormat:@"mailto:?subject=%@&body=%@", [self.fileLoader localizedString:@"GTViewController_shareAllEmail_subject"], [websiteString substringFromIndex:0]];
     NSString *escaped = [emailString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:escaped]];
 }
@@ -1959,23 +1983,21 @@ NSString * const kAttr_filename		= @"filename";
 
 #pragma mark - page view tracking
 
-- (void) trackPageView:(NSInteger) pageNumber{
+- (void)trackPageView:(NSInteger)pageNumber {
     if(self.lastTrackedView != pageNumber
        || ![self.packageCode isEqualToString:self.lastTrackedPackage]
        || ![self.languageCode isEqualToString:self.lastTrackedLanguage]) {
-        id tracker = [[GAI sharedInstance] defaultTracker];
-
-        [tracker set:[GAIFields customDimensionForIndex:1]
-           value:self.packageCode];
-
-        [tracker set:[GAIFields customDimensionForIndex:2]
-           value:self.languageCode];
-
-        [tracker set:kGAIScreenName
-           value:[self.packageCode stringByAppendingString:[@"-" stringByAppendingString:[@(pageNumber) stringValue]]]];
-
-        [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
-
+		
+		NSDictionary *userInfo = nil;
+		if (self.packageCode && self.languageCode) {
+			userInfo = @{GTViewControllerNotificationPageViewUserInfoKeyPackage: self.packageCode,
+						 GTViewControllerNotificationPageViewUserInfoKeyLanguage: self.languageCode};
+		}
+		
+		[[NSNotificationCenter defaultCenter] postNotificationName:GTViewControllerNotificationPageView
+															object:self
+														  userInfo:userInfo];
+		
         self.lastTrackedView = pageNumber;
         self.lastTrackedPackage = self.packageCode;
         self.lastTrackedLanguage = self.languageCode;

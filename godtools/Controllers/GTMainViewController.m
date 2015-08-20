@@ -220,7 +220,7 @@
         }
         
         //move to Packages folder
-        NSString *destinationPath = [GTFileLoader pathOfPackagesDirectory];
+        NSString *destinationPath = [[GTFileLoader sharedInstance] pathOfPackagesDirectory];
         
         if (![[NSFileManager defaultManager] fileExistsAtPath:destinationPath]){
             if (![[NSFileManager defaultManager] createDirectoryAtPath:destinationPath withIntermediateDirectories:NO  attributes:nil error:&error]){
