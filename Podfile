@@ -1,4 +1,5 @@
 source 'https://github.com/CocoaPods/Specs.git'
+source 'https://github.com/CruGlobal/cocoapods-specs.git'
 
 platform :ios, '6.0'
 # ignore all warnings from all pods
@@ -13,5 +14,4 @@ pod 'GoogleAnalytics-iOS-SDK', '~> 3.0.9'
 pod 'AFDownloadRequestOperation', '~> 2.0'
 pod 'SSZipArchive', '~> 0.3'
 pod 'GTViewController', :git => 'https://github.com/CruGlobal/GTViewController.git', :branch => 'godtools-ios-changes'
-#pod 'GTViewController', :pod   spec => './GTViewController.podspec'
-#pod 'TestFlightSDK'
+#pod 'GTViewController', '~> 5.0'
