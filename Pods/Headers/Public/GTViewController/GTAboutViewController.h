@@ -1,1 +1,0 @@
-../../../GTViewController/GTViewController/Classes/Parsing Classes/GTAboutViewController.h
