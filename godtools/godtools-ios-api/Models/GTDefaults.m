@@ -16,7 +16,6 @@ NSString *const GTDefaultscurrentLanguageCodeKey			= @"current_language_code";
 NSString *const GTDefaultscurrentParallelLanguageCodeKey	= @"current_parallel_language_code";
 
 NSString *const GTDefaultsisChoosingForMainLanguage         = @"is_for_main_language";
-NSString *const GTDefaultsisFirstLaunch                     = @"is_first_launch";
 NSString *const GTDefaultsisInTranslatorMode                = @"is_in_translator_mode";
 
 NSString *const GTDefaultstranslationDownloadStatus         = @"translation_download_status";
@@ -36,7 +35,6 @@ NSString *const GTDefaultsgenericApiToken                   = @"generic_api_toke
 @synthesize currentParallelLanguageCode	= _currentParallelLanguageCode;
 
 @synthesize isChoosingForMainLanguage   = _isChoosingForMainLanguage;
-@synthesize isFirstLaunch               = _isFirstLaunch;
 @synthesize isInTranslatorMode          = _isInTranslatorMode;
 
 @synthesize translationDownloadStatus   = _translationDownloadStatus;
@@ -239,20 +237,6 @@ NSString *const GTDefaultsgenericApiToken                   = @"generic_api_toke
     
     [[NSUserDefaults standardUserDefaults]setObject:_isFirstLaunch forKey:GTDefaultsisFirstLaunch];
     
-}
--(NSNumber*)isFirstLaunch{
-    
-    if (!_isFirstLaunch) {
-        
-        [self willChangeValueForKey:@"isFirstLaunch"];
-        _isFirstLaunch = [[NSUserDefaults standardUserDefaults] objectForKey:GTDefaultsisFirstLaunch];
-        if(_isFirstLaunch == nil){
-            [self setIsFirstLaunch:[NSNumber numberWithBool:YES]];
-        }
-        [self didChangeValueForKey:@"isFirstLaunch"];
-    }
-    
-    return _isFirstLaunch;
 }
 
 #pragma mark - isFirstLaunch

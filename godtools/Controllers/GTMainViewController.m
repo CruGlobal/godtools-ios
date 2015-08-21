@@ -13,14 +13,13 @@
 #import "GTLanguage+Helper.h"
 #import "GTPackage+Helper.h"
 #import "TBXML.h"
-#import "GTDefaults.h"
-#import "GTBaseView.h"
+#import "GTInitialSetupTracker.h"
 #import "GTSplashScreenView.h"
 
 #import "GTGoogleAnalyticsTracker.h"
 
 @interface GTMainViewController ()
-    @property (nonatomic, strong) NSArray *resources;
+@property (nonatomic, strong) GTInitialSetupTracker *setupTracker;
     @property (nonatomic, strong) GTSplashScreenView *splashScreen;
     @property AFNetworkReachabilityManager *afReachability;
 @end
@@ -31,6 +30,7 @@
 	
     [super viewDidLoad];
 
+	self.setupTracker = [[GTInitialSetupTracker alloc] init];
     [self.navigationController setNavigationBarHidden:YES];
     
     self.splashScreen = (GTSplashScreenView*) [[[NSBundle mainBundle] loadNibNamed:@"GTSplashScreenView" owner:nil options:nil]objectAtIndex:0];
@@ -61,7 +61,7 @@
     [self.afReachability startMonitoring];
 
     //check if first launch
-    if([[GTDefaults sharedDefaults]isFirstLaunch] == [NSNumber numberWithBool:YES]){
+    if(self.setupTracker.firstLaunch){
         //prepare initial content
         [self extractBundle];
         [self extractMetaData];
