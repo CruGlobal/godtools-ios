@@ -23,6 +23,8 @@
 		66D1D7011A09F40F00AC4E48 /* en.zip in Resources */ = {isa = PBXBuildFile; fileRef = 66D1D6AB1A09F40F00AC4E48 /* en.zip */; };
 		66D1D7021A09F40F00AC4E48 /* meta.xml in Resources */ = {isa = PBXBuildFile; fileRef = 66D1D6AC1A09F40F00AC4E48 /* meta.xml */; };
 		66D1D71D1A0B74EA00AC4E48 /* GTLanguage.m in Sources */ = {isa = PBXBuildFile; fileRef = 66D1D71C1A0B74EA00AC4E48 /* GTLanguage.m */; };
+		681D22A11B87703F00269FE5 /* config.sample.plist in Resources */ = {isa = PBXBuildFile; fileRef = 681D22A01B87703F00269FE5 /* config.sample.plist */; };
+		681D22A21B87703F00269FE5 /* config.sample.plist in Resources */ = {isa = PBXBuildFile; fileRef = 681D22A01B87703F00269FE5 /* config.sample.plist */; };
 		682F0E8518D88BD600FBE3E0 /* GTDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E6068918D3986D00844377 /* GTDefaults.m */; };
 		682F0E9018D8FBE100FBE3E0 /* config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 682F0E8F18D8FBE100FBE3E0 /* config.plist */; };
 		682F0E9118D8FBE100FBE3E0 /* config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 682F0E8F18D8FBE100FBE3E0 /* config.plist */; };
@@ -132,6 +134,7 @@
 		66D1D6AC1A09F40F00AC4E48 /* meta.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = meta.xml; sourceTree = "<group>"; };
 		66D1D71B1A0B74EA00AC4E48 /* GTLanguage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTLanguage.h; path = "godtools-ios-api/Models/GTLanguage.h"; sourceTree = "<group>"; };
 		66D1D71C1A0B74EA00AC4E48 /* GTLanguage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTLanguage.m; path = "godtools-ios-api/Models/GTLanguage.m"; sourceTree = "<group>"; };
+		681D22A01B87703F00269FE5 /* config.sample.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = config.sample.plist; path = "godtools-ios-api/config.sample.plist"; sourceTree = "<group>"; };
 		682F0E8F18D8FBE100FBE3E0 /* config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = config.plist; path = "godtools-ios-api/config.plist"; sourceTree = "<group>"; };
 		68464FB118E1C79300D14C2B /* GTErrorHandlerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTErrorHandlerTests.m; sourceTree = "<group>"; };
 		68464FB318E1C7AE00D14C2B /* GTStorageErrorHandlerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTStorageErrorHandlerTests.m; sourceTree = "<group>"; };
@@ -433,6 +436,7 @@
 				68464FD118E1CEBE00D14C2B /* GTDataImporter.h */,
 				68464FD218E1CEBE00D14C2B /* GTDataImporter.m */,
 				682F0E8F18D8FBE100FBE3E0 /* config.plist */,
+				681D22A01B87703F00269FE5 /* config.sample.plist */,
 			);
 			name = "godtools-ios-api";
 			sourceTree = "<group>";
@@ -581,6 +585,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B7D2AF821A414D2E009B7D5B /* Main.storyboard in Resources */,
+				681D22A11B87703F00269FE5 /* config.sample.plist in Resources */,
 				B76536C61A0CC6CB001C3FC3 /* GTHomeViewCell.xib in Resources */,
 				B7D2AF861A415419009B7D5B /* NotoSansEthiopic-Regular.ttf in Resources */,
 				66D1D7021A09F40F00AC4E48 /* meta.xml in Resources */,
@@ -607,6 +612,7 @@
 				682F0E9118D8FBE100FBE3E0 /* config.plist in Resources */,
 				684D0A5418E38731004F51EE /* Localizable.strings in Resources */,
 				68740D3C18D24F9A00D36C0E /* InfoPlist.strings in Resources */,
+				681D22A21B87703F00269FE5 /* config.sample.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
