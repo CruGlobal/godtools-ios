@@ -12,7 +12,7 @@
 "Ddm-Sv-WQm.text" = "[ Translator Mode ]";
 
 /* Class = "UILabel"; text = "*Tap screen during presentation to view menu."; ObjectID = "O3d-nf-ctT"; */
-"O3d-nf-ctT.text" = "*Tap screen during presentation to view menu.";
+"O3d-nf-ctT.text" = "Tap screen during presentation to view menu.";
 
 /* Class = "UILabel"; text = "Pick a tool"; ObjectID = "P4W-0o-rM1"; */
 "P4W-0o-rM1.text" = "Pick a tool";
