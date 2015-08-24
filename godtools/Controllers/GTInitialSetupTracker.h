@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString *const GTInitialSetupTrackerNotificationDidBegin;
 extern NSString *const GTInitialSetupTrackerNotificationDidFinish;
 extern NSString *const GTInitialSetupTrackerNotificationDidFail;
 

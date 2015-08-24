@@ -106,7 +106,7 @@
 
 - (void)authorizeTranslator: (NSString *)accessCode;
 
-- (void)importMenuInfoFromXMLElement:(RXMLElement *)rootElement;
+- (BOOL)importMenuInfoFromXMLElement:(RXMLElement *)rootElement;
 
 - (BOOL)importPackageContentsFromElement:(RXMLElement *)contents forLanguage:(GTLanguage *)language ;
 

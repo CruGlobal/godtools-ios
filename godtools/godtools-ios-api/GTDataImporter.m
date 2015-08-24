@@ -156,8 +156,10 @@ BOOL gtLanguageDownloadUserCancellation                                 = FALSE;
 	
 }
 
-- (void)importMenuInfoFromXMLElement:(RXMLElement *)rootElement {
+- (BOOL)importMenuInfoFromXMLElement:(RXMLElement *)rootElement {
 
+	BOOL storageError = NO;
+	
 	if (rootElement) {
 		
 		NSMutableArray *packageCodes			= [NSMutableArray array];
@@ -186,10 +188,9 @@ BOOL gtLanguageDownloadUserCancellation                                 = FALSE;
 		NSError *error;
 		if (![self.storage.backgroundObjectContext save:&error]) {
 			
+			storageError = YES;
 			[self displayMenuInfoImportError:error];
 			
-        }else{
-            NSLog(@"NO ERROR saving to storage");
         }
 
 		//check for updates in current languages
@@ -204,8 +205,10 @@ BOOL gtLanguageDownloadUserCancellation                                 = FALSE;
         //it inserts new records into the local database every time the menu status is updated, instead of updating existing rows
 		//[self checkForPackagesWithNewVersionsForLanguageCodes:currentCodes];
 		
+		return !storageError;
 	}
 	
+	return NO;
 }
 
 - (void)fillArraysWithPackageAndLanguageCodesForXmlElement:(RXMLElement *)rootElement packageCodeArray:(NSMutableArray **)packageCodesArray languageCodeArray:(NSMutableArray **)languageCodesArray {

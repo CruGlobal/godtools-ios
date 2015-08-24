@@ -8,6 +8,7 @@
 
 #import "GTInitialSetupTracker.h"
 
+NSString *const GTInitialSetupTrackerNotificationDidBegin = @"org.cru.godtools.gtinitialsetuptracker.notification.name.didbegin";
 NSString *const GTInitialSetupTrackerNotificationDidFinish = @"org.cru.godtools.gtinitialsetuptracker.notification.name.didfinish";
 NSString *const GTInitialSetupTrackerNotificationDidFail = @"org.cru.godtools.gtinitialsetuptracker.notification.name.didfail";
 
@@ -53,6 +54,8 @@ NSString *const GTInitialSetupTrackerFirstLaunch = @"is_first_launch";
 	
 	[self.successfulSteps removeAllObjects];
 	[self.failedSteps removeAllObjects];
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:GTInitialSetupTrackerNotificationDidBegin object:self];
 	
 }
 
