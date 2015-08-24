@@ -21,7 +21,6 @@
 @interface GTMainViewController ()
 @property (nonatomic, strong) GTInitialSetupTracker *setupTracker;
     @property (nonatomic, strong) GTSplashScreenView *splashScreen;
-    @property AFNetworkReachabilityManager *afReachability;
 @end
 
 @implementation GTMainViewController
@@ -50,15 +49,6 @@
                                              selector:@selector(showLoadingIndicator:)
                                                  name: GTDataImporterNotificationMenuUpdateStarted
                                                object:nil];
-    
-    self.afReachability = [AFNetworkReachabilityManager managerForDomain:@"www.google.com"];
-    [self.afReachability setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        if (status < AFNetworkReachabilityStatusReachableViaWWAN) {
-            NSLog(@"No internet connection!");
-        }
-    }];
-    
-    [self.afReachability startMonitoring];
 
     //check if first launch
     if(self.setupTracker.firstLaunch){
@@ -117,17 +107,13 @@
 }
 
 -(void)updateFromApi {
-    [self updateMenu];;
+    [self updateMenu];
     [[GTDefaults sharedDefaults] setIsChoosingForMainLanguage:[NSNumber numberWithBool: YES]];
     [[GTDataImporter sharedImporter] downloadPackagesForLanguage:[[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults]phonesLanguageCode] inBackground:YES]objectAtIndex:0]];
 }
 
 -(void)updateMenu{
-//    if(self.afReachability.reachable){
-        [[GTDataImporter sharedImporter] updateMenuInfo];
-//    }else{
-//        NSLog(@"NOT REACHABLE");
-//    }
+	[[GTDataImporter sharedImporter] updateMenuInfo];
 }
 
 -(void)showLoadingIndicator:(NSNotification *) notification{
