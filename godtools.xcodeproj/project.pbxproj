@@ -79,6 +79,8 @@
 		68E6067F18D3949700844377 /* GTPackage+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E6067D18D3949700844377 /* GTPackage+Helper.m */; };
 		68E6068618D3952800844377 /* GTAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E6068518D3952800844377 /* GTAPI.m */; };
 		68E6068718D3952800844377 /* GTAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E6068518D3952800844377 /* GTAPI.m */; };
+		68ED6AB21B8B6E9D00D3A63B /* GTPackageExtractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 68ED6AB11B8B6E9D00D3A63B /* GTPackageExtractor.m */; };
+		68ED6AB31B8B6E9D00D3A63B /* GTPackageExtractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 68ED6AB11B8B6E9D00D3A63B /* GTPackageExtractor.m */; };
 		68FB9CC9192D46800009C9A8 /* AFHTTPRequestSerializer+GTAPIHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 68FB9CC8192D46800009C9A8 /* AFHTTPRequestSerializer+GTAPIHelpers.m */; };
 		68FB9CCA192D46800009C9A8 /* AFHTTPRequestSerializer+GTAPIHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 68FB9CC8192D46800009C9A8 /* AFHTTPRequestSerializer+GTAPIHelpers.m */; };
 		B76536C01A0CC677001C3FC3 /* GTHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B76536BD1A0CC677001C3FC3 /* GTHomeViewController.m */; };
@@ -196,6 +198,8 @@
 		68E6068518D3952800844377 /* GTAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTAPI.m; path = "godtools-ios-api/GTAPI.m"; sourceTree = "<group>"; };
 		68E6068818D3986D00844377 /* GTDefaults.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GTDefaults.h; path = "godtools-ios-api/Models/GTDefaults.h"; sourceTree = "<group>"; };
 		68E6068918D3986D00844377 /* GTDefaults.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = GTDefaults.m; path = "godtools-ios-api/Models/GTDefaults.m"; sourceTree = "<group>"; };
+		68ED6AB01B8B6E9D00D3A63B /* GTPackageExtractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTPackageExtractor.h; path = "godtools-ios-api/Persistence/GTPackageExtractor.h"; sourceTree = "<group>"; };
+		68ED6AB11B8B6E9D00D3A63B /* GTPackageExtractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTPackageExtractor.m; path = "godtools-ios-api/Persistence/GTPackageExtractor.m"; sourceTree = "<group>"; };
 		68FB9CC7192D46800009C9A8 /* AFHTTPRequestSerializer+GTAPIHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AFHTTPRequestSerializer+GTAPIHelpers.h"; path = "godtools-ios-api/Serialization/AFHTTPRequestSerializer+GTAPIHelpers.h"; sourceTree = "<group>"; };
 		68FB9CC8192D46800009C9A8 /* AFHTTPRequestSerializer+GTAPIHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "AFHTTPRequestSerializer+GTAPIHelpers.m"; path = "godtools-ios-api/Serialization/AFHTTPRequestSerializer+GTAPIHelpers.m"; sourceTree = "<group>"; };
 		74F8066D3A00B27C587FD9D9 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -323,6 +327,8 @@
 				68464FBE18E1CE4000D14C2B /* CRUStorage.m */,
 				68464FBF18E1CE4000D14C2B /* GTStorage.h */,
 				68464FC018E1CE4000D14C2B /* GTStorage.m */,
+				68ED6AB01B8B6E9D00D3A63B /* GTPackageExtractor.h */,
+				68ED6AB11B8B6E9D00D3A63B /* GTPackageExtractor.m */,
 			);
 			name = Persistence;
 			sourceTree = "<group>";
@@ -704,6 +710,7 @@
 				B76536C01A0CC677001C3FC3 /* GTHomeViewController.m in Sources */,
 				68FB9CC9192D46800009C9A8 /* AFHTTPRequestSerializer+GTAPIHelpers.m in Sources */,
 				B7C6B6101A2EEE73000DD4C6 /* GTViewController+Helper.m in Sources */,
+				68ED6AB21B8B6E9D00D3A63B /* GTPackageExtractor.m in Sources */,
 				68A1CBFD18DB6C3B00D84F12 /* GTDefaults.m in Sources */,
 				4F20B3D91AC9A2F60026DC9E /* EveryStudentItemsController.m in Sources */,
 				68E6067A18D3947600844377 /* GTLanguage+Helper.m in Sources */,
@@ -745,6 +752,7 @@
 				68E6068718D3952800844377 /* GTAPI.m in Sources */,
 				68BA853D18DCF1A5001AC6B3 /* GTPackage+HelperTests.m in Sources */,
 				68464FCC18E1CE4E00D14C2B /* GTAPIErrorHandler.m in Sources */,
+				68ED6AB31B8B6E9D00D3A63B /* GTPackageExtractor.m in Sources */,
 				68A1CBFF18DB6F9600D84F12 /* GTAPITest.m in Sources */,
 				68BA853F18DCF1B6001AC6B3 /* GTLanguage+HelperTests.m in Sources */,
 				68464FC418E1CE4000D14C2B /* GTStorage.m in Sources */,
