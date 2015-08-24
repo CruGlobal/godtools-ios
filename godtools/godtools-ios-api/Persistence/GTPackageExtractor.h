@@ -11,7 +11,15 @@
 #import "GTLanguage+Helper.h"
 #import "GTPackage+Helper.h"
 
+extern NSString * const GTPackageExtractorNotificationUnzippingFailed;
+extern NSString * const GTPackageExtractorNotificationUnzippingFailedKeyTarget;
+extern NSString * const GTPackageExtractorNotificationUnzippingFailedKeyLangauge;
+extern NSString * const GTPackageExtractorNotificationUnzippingFailedKeyPackage;
+extern NSString * const GTPackageExtractorNotificationUnzippingFailedKeyPageID;
+
 @interface GTPackageExtractor : NSObject
+
++ (instancetype)sharedPackageExtractor;
 
 - (RXMLElement *)unzipResourcesAtTarget:(NSURL *)targetPath forLanguage:(GTLanguage *)language package:(GTPackage *)package;
 - (NSError *)unzipXMLAtTarget:(NSURL *)targetPath forPage:(NSString *)pageID;

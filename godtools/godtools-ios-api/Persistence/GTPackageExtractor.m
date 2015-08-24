@@ -8,10 +8,36 @@
 
 #import "GTPackageExtractor.h"
 #import "SSZipArchive.h"
-#import "GTPackage+Helper.h"
 #import <GTViewController/GTFileLoader.h>
+#import "GTErrorHandler.h"
+
+NSString * const GTPackageExtractorNotificationUnzippingFailed = @"org.cru.godtools.gtpackageextractor.notification.unzippingfailed";
+NSString * const GTPackageExtractorNotificationUnzippingFailedKeyTarget = @"org.cru.godtools.gtpackageextractor.notification.unzippingfailed.key.target";
+NSString * const GTPackageExtractorNotificationUnzippingFailedKeyLangauge = @"org.cru.godtools.gtpackageextractor.notification.unzippingfailed.key.language";
+NSString * const GTPackageExtractorNotificationUnzippingFailedKeyPackage = @"org.cru.godtools.gtpackageextractor.notification.unzippingfailed.key.package";
+NSString * const GTPackageExtractorNotificationUnzippingFailedKeyPageID = @"org.cru.godtools.gtpackageextractor.notification.unzippingfailed.key.pageid";
+
+@interface GTPackageExtractor ()
+
+- (void)displayUnzippingError:(NSError *)error userInfo:(NSDictionary *)userInfo;
+
+@end
 
 @implementation GTPackageExtractor
+
++ (instancetype)sharedPackageExtractor {
+	
+	static GTPackageExtractor *_packageExtractor = nil;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		
+		_packageExtractor = [[GTPackageExtractor alloc] init];
+		
+	});
+	
+	return _packageExtractor;
+	
+}
 
 - (RXMLElement *)unzipResourcesAtTarget:(NSURL *)targetPath forLanguage:(GTLanguage *)language package:(GTPackage *)package {
 	
@@ -36,8 +62,9 @@
 								error:&error
 							 delegate:nil]) {
 		
-		[self displayDownloadPackagesUnzippingError:error];
-		[[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadFinished object:self];
+		[self displayUnzippingError:error userInfo:@{GTPackageExtractorNotificationUnzippingFailedKeyTarget: targetPath,
+													 GTPackageExtractorNotificationUnzippingFailedKeyLangauge: language,
+													 GTPackageExtractorNotificationUnzippingFailedKeyPackage: package}];
 	}
 	
 	if(!error){
@@ -92,7 +119,6 @@
 	
 	NSError *error;
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-	NSString *fileName = [NSString stringWithFormat:@"%@.xml",pageID];
 	NSString *fileDownloadDestinationPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:pageID];
 	
 	if(![SSZipArchive unzipFileAtPath:[targetPath absoluteString]
@@ -102,13 +128,11 @@
 								error:&error
 							 delegate:nil]) {
 		
-		[self displayDownloadPackagesUnzippingError:error];
-		[[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadFinished object:self];
+		[self displayUnzippingError:error  userInfo:@{GTPackageExtractorNotificationUnzippingFailedKeyTarget: targetPath,
+													  GTPackageExtractorNotificationUnzippingFailedKeyPageID: pageID}];
 	}
 	
 	if(!error){
-		
-		//RXMLElement *element = [RXMLElement elementFromXMLData:[NSData dataWithContentsOfFile:[temporaryDirectory stringByAppendingPathComponent:@"contents.xml"]]];
 		
 		//move to Packages folder
 		NSString *destinationPath = [[GTFileLoader sharedInstance] pathOfPackagesDirectory];
@@ -145,10 +169,10 @@
 	
 }
 
-- (void)displayDownloadPackagesUnzippingError:(NSError *)error {
+- (void)displayUnzippingError:(NSError *)error userInfo:(NSDictionary *)userInfo {
 	
-	[self.storage.errorHandler displayError:error];
-	
+	[[GTErrorHandler sharedErrorHandler] displayError:error];
+	[[NSNotificationCenter defaultCenter] postNotificationName:GTPackageExtractorNotificationUnzippingFailed object:self userInfo:userInfo];
 	
 }
 

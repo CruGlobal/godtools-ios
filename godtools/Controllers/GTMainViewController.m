@@ -8,11 +8,7 @@
 
 #import "GTMainViewController.h"
 #import "GTDataImporter.h"
-#import "RXMLElement.h"
-#import "SSZipArchive.h"
-#import "GTLanguage+Helper.h"
-#import "GTPackage+Helper.h"
-#import "TBXML.h"
+#import "GTPackageExtractor.h"
 #import "GTInitialSetupTracker.h"
 #import "GTSplashScreenView.h"
 
@@ -129,120 +125,35 @@
     
 }
 
--(void)extractBundle{
-    //WILL ONLY BE TRIGERRED AT FRESH INSTALL
-    [self.splashScreen showDownloadIndicatorWithLabel:[NSString stringWithFormat:NSLocalizedString(@"GTHome_status_updatingResources", nil)]];
-   
-    NSError *error;
-    
-    NSString *temporaryFolderName	= [[NSUUID UUID] UUIDString];
-    NSString* temporaryDirectory = [NSTemporaryDirectory() stringByAppendingPathComponent:temporaryFolderName];
-
-    
-    if (![[NSFileManager defaultManager] fileExistsAtPath:temporaryDirectory]){    //Does directory already exist?
-        if (![[NSFileManager defaultManager] createDirectoryAtPath:temporaryDirectory withIntermediateDirectories:NO attributes:nil error:&error]){
-            NSLog(@"Create directory error: %@", error);
-        }
-    }
-    
-    NSString* pathOfEnglishBundle = [[NSBundle mainBundle] pathForResource:@"en" ofType:@"zip"];
-    
-    //unzip to temporary directory
-    if(![SSZipArchive unzipFileAtPath:pathOfEnglishBundle
-                        toDestination:temporaryDirectory
-                            overwrite:NO
-                             password:nil
-                                error:&error
-                             delegate:nil]) {
-        
-        //[self displayDownloadPackagesUnzippingError:error];
-        NSLog(@"error unzipping file");
-        #warning error handling
-    }
-    if(!error){
-        RXMLElement *rootXML = [RXMLElement elementFromXMLData:[NSData dataWithContentsOfFile:[temporaryDirectory stringByAppendingPathComponent:@"contents.xml"]]];
-
-        //Update database with config filenames.
-        NSArray *englishArray = [[GTStorage sharedStorage]fetchArrayOfModels:[GTLanguage class] usingKey:@"code" forValues:@[@"en"] inBackground:YES];
-        GTLanguage *english;
-        if([englishArray count]==0){
-            english = [GTLanguage languageWithCode:@"en" inContext:[GTStorage sharedStorage].backgroundObjectContext];
-            english.name = @"English";
-        }else{
-            english = [englishArray objectAtIndex:0];
-            [english removePackages:english.packages];
-        }
-        
-        [rootXML iterate:@"resource" usingBlock: ^(RXMLElement *resource) {
-           
-            NSString *existingIdentifier = [GTPackage identifierWithPackageCode:[resource attribute:@"package"] languageCode:english.code];
-            
-            NSArray *packageArray = [[GTStorage sharedStorage]fetchArrayOfModels:[GTPackage class] usingKey:@"identifier" forValues:@[existingIdentifier] inBackground:YES];
-            
-            GTPackage *package;
-            
-            if([packageArray count]==0){
-                NSLog(@"create new package");
-                package = [GTPackage packageWithCode:[resource attribute:@"package"] language:english inContext:[GTStorage sharedStorage].backgroundObjectContext];
-            }else{
-                NSLog(@"get old package");
-                package = [packageArray objectAtIndex:0];
-            }
-            
-            package.name = [resource attribute:@"name"];
-            package.configFile = [resource attribute:@"config"];
-            package.icon = [resource attribute:@"icon"];
-            package.status = [resource attribute:@"status"];
-            package.localVersion = [NSNumber numberWithFloat:[[resource attribute:@"version"] floatValue] ];
-            package.latestVersion = [NSNumber numberWithFloat:[[resource attribute:@"version"] floatValue] ];
-
-            [english addPackagesObject:package];
-            
-        }];
-        
-        english.downloaded = [NSNumber numberWithBool: YES];
-        if (![[GTStorage sharedStorage].backgroundObjectContext save:&error]) {
-            NSLog(@"error saving");
-        }
-        
-        //move to Packages folder
-        NSString *destinationPath = [[GTFileLoader sharedInstance] pathOfPackagesDirectory];
-        
-        if (![[NSFileManager defaultManager] fileExistsAtPath:destinationPath]){
-            if (![[NSFileManager defaultManager] createDirectoryAtPath:destinationPath withIntermediateDirectories:NO  attributes:nil error:&error]){
-                NSLog(@"Create directory error: %@", error);
-            }
-        }
-        
-        NSFileManager *fm = [NSFileManager defaultManager];
-        
-        for (NSString *file in [fm contentsOfDirectoryAtPath:temporaryDirectory error:&error]) {
-            if(![file  isEqual: @"contents.xml"]){
-                NSString *filepath = [NSString stringWithFormat:@"%@/%@",temporaryDirectory,file];
-                BOOL success = [fm copyItemAtPath:filepath toPath:[NSString stringWithFormat:@"%@/%@",destinationPath,file] error:&error] ;
-                if (!success || error) {
-                    NSLog(@"Error: %@",[error localizedDescription]);
-                }else{
-                    [fm removeItemAtPath:filepath error:&error];
-                }
-            }
-        }
-        
-        if(!error){
-            [fm removeItemAtPath:temporaryDirectory error:&error];
-        }
-            
-        [[GTDefaults sharedDefaults]setCurrentLanguageCode:english.code];
-
-    }
+- (void)persistLocalEnglishPackage {
+	
+	//retrieve or create the english language object.
+	NSArray *englishArray = [[GTStorage sharedStorage] fetchArrayOfModels:[GTLanguage class] usingKey:@"code" forValues:@[@"en"] inBackground:YES];
+	GTLanguage *english;
+	if([englishArray count] == 0){
+		english = [GTLanguage languageWithCode:@"en" inContext:[GTStorage sharedStorage].backgroundObjectContext];
+		english.name = @"English";
+	}else{
+		english = [englishArray objectAtIndex:0];
+		[english removePackages:english.packages];
+	}
+	
+	NSURL* pathOfEnglishZip	= [NSURL URLWithString:[[NSBundle mainBundle] pathForResource:@"en" ofType:@"zip"]];
+	//unzips english package and moves it to documents folder
+	RXMLElement *contents			= [[GTPackageExtractor sharedPackageExtractor] unzipResourcesAtTarget:pathOfEnglishZip forLanguage:english package:nil];
+	//reads contents.xml and saves meta data to the database about all the packages found in the zip file.
+	[[GTDataImporter sharedImporter] importPackageContentsFromElement:contents forLanguage:english];
+	
+	[GTDefaults sharedDefaults].currentLanguageCode = english.code;
+	
 }
 
--(void)extractMetaData{
+- (void)extractMetaData{
 
     NSString* pathOfMeta = [[NSBundle mainBundle] pathForResource:@"meta" ofType:@"xml"];
     RXMLElement *metaXML = [RXMLElement elementFromXMLData:[NSData dataWithContentsOfFile:pathOfMeta]];
     
-    [[GTDataImporter sharedImporter]persistMenuInfoFromXMLElement:metaXML];
+    [[GTDataImporter sharedImporter] importMenuInfoFromXMLElement:metaXML];
 
 }
 
