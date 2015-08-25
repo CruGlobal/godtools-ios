@@ -41,7 +41,7 @@ BOOL languageDownloadCancelled = FALSE;
     
     [self setData];
     
-    if([[GTDefaults sharedDefaults] isChoosingForMainLanguage] == [NSNumber numberWithBool:YES]){
+    if([GTDefaults sharedDefaults].isChoosingForMainLanguage){
         [self setTitle : NSLocalizedString(@"GTLanguages_language_title", nil)];
     }else{
         [self setTitle : NSLocalizedString(@"GTLanguages_parallelLanguage_title", nil)];
@@ -145,7 +145,7 @@ BOOL languageDownloadCancelled = FALSE;
     
     
     
-    if([[GTDefaults sharedDefaults] isChoosingForMainLanguage] == [NSNumber numberWithBool:NO]){
+    if(![GTDefaults sharedDefaults].isChoosingForMainLanguage){
         GTLanguage *main = [[[GTStorage sharedStorage]fetchArrayOfModels:[GTLanguage class] usingKey:@"code" forValues:@[[[GTDefaults sharedDefaults] currentLanguageCode]] inBackground:YES] objectAtIndex:0];
         
         [self.languages removeObject:main];
@@ -190,10 +190,10 @@ BOOL languageDownloadCancelled = FALSE;
 }
 
 - (BOOL) isSelectedLanguage:(GTLanguage *)language {
-    return ([[GTDefaults sharedDefaults] isChoosingForMainLanguage] == [NSNumber numberWithBool:YES]
+    return ([GTDefaults sharedDefaults].isChoosingForMainLanguage
             && [language.code isEqual:[[GTDefaults sharedDefaults]currentLanguageCode]])
             ||
-            ([[GTDefaults sharedDefaults] isChoosingForMainLanguage] == [NSNumber numberWithBool:NO]
+            (![GTDefaults sharedDefaults].isChoosingForMainLanguage
              && [language.code isEqual:[[GTDefaults sharedDefaults]currentParallelLanguageCode]]);
 }
 
@@ -370,7 +370,7 @@ BOOL languageDownloadCancelled = FALSE;
     GTLanguage *chosen = (GTLanguage*)[self.languages objectAtIndex:indexPath.section];
     
     // set the current language selected
-    if([[GTDefaults sharedDefaults] isChoosingForMainLanguage] == [NSNumber numberWithBool:YES]) {
+    if(![GTDefaults sharedDefaults].isChoosingForMainLanguage) {
         [[GTDefaults sharedDefaults]setCurrentLanguageCode:chosen.code];
     }else {
         NSLog(@"set as parallel: %@",chosen.code);

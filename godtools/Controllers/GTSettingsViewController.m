@@ -166,7 +166,7 @@
 #pragma mark - Outlets
 
 - (IBAction)changeParallelLanguagePressed {
-    [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:[NSNumber numberWithBool: NO]];
+    [GTDefaults sharedDefaults].isChoosingForMainLanguage = NO;
     [self performSegueWithIdentifier:@"settingsToLanguageViewSegue" sender:self];
 }
 
@@ -179,7 +179,7 @@
 }
 
 - (IBAction)changePrimaryLanguagePressed {
-    [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:[NSNumber numberWithBool: YES]];
+    [GTDefaults sharedDefaults].isChoosingForMainLanguage = YES;
     [self performSegueWithIdentifier:@"settingsToLanguageViewSegue" sender:self];
 }
 

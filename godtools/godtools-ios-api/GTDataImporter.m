@@ -377,7 +377,7 @@ BOOL gtLanguageDownloadUserCancellation                                 = FALSE;
 									 
 									 if ([self importPackageContentsFromElement:contents forLanguage:language]) {
 										 
-										 if([[GTDefaults sharedDefaults] isChoosingForMainLanguage] == [NSNumber numberWithBool:YES]){
+										 if([GTDefaults sharedDefaults].isChoosingForMainLanguage){
 											 
 											 if([[[GTDefaults sharedDefaults]currentParallelLanguageCode] isEqualToString:language.code]){
 												 //[[GTDefaults sharedDefaults]setCurrentParallelLanguageCode:[[GTDefaults sharedDefaults] currentLanguageCode]];
@@ -615,7 +615,7 @@ BOOL gtLanguageDownloadUserCancellation                                 = FALSE;
                                              NSLog(@"error saving drafts");
                                          }else{
                                              //this is to catch the error from the empty live packages
-                                             if([[GTDefaults sharedDefaults] isChoosingForMainLanguage] == [NSNumber numberWithBool:YES]){
+                                             if([GTDefaults sharedDefaults].isChoosingForMainLanguage){
                                                  
                                                  if([[[GTDefaults sharedDefaults]currentParallelLanguageCode] isEqualToString:language.code]){
                                                      

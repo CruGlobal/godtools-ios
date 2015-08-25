@@ -208,20 +208,20 @@ NSString *const GTDefaultsgenericApiToken                   = @"generic_api_toke
 
 #pragma mark - Choosing Main Language
 
--(void)setIsChoosingForMainLanguage:(NSNumber*)isChoosingForMainLanguage{
+- (void)setIsChoosingForMainLanguage:(BOOL)isChoosingForMainLanguage {
     [self willChangeValueForKey:@"isChoosingForMainLanguage"];
     _isChoosingForMainLanguage	= isChoosingForMainLanguage;
     [self didChangeValueForKey:@"isChoosingForMainLanguage"];
     
-    [[NSUserDefaults standardUserDefaults]setObject:_isChoosingForMainLanguage forKey:GTDefaultsisChoosingForMainLanguage];
+    [[NSUserDefaults standardUserDefaults] setObject:@(_isChoosingForMainLanguage) forKey:GTDefaultsisChoosingForMainLanguage];
 
 }
 
--(NSNumber*)isChoosingForMainLanguage{
+- (BOOL)isChoosingForMainLanguage {
     if (!_isChoosingForMainLanguage) {
         
         [self willChangeValueForKey:@"isChoosingForMainLanguage"];
-        _isChoosingForMainLanguage = [[NSUserDefaults standardUserDefaults] objectForKey:GTDefaultsisChoosingForMainLanguage];
+		_isChoosingForMainLanguage = ( [[[NSUserDefaults standardUserDefaults] objectForKey:GTDefaultsisChoosingForMainLanguage] isEqual:@YES] ? YES : NO );
         [self didChangeValueForKey:@"isChoosingForMainLanguage"];
     }
 
