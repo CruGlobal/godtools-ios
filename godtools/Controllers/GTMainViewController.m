@@ -38,6 +38,8 @@ NSInteger const GTSplashErrorCodeInitialSetupFailed = 1;
 
 - (void)registerListenersForInitialSetup;
 - (void)removeListenersForInitialSetup;
+- (void)registerListenersForMenuUpdate;
+- (void)removeListenersForMenuUpdate;
 
 @end
 
@@ -72,6 +74,7 @@ NSInteger const GTSplashErrorCodeInitialSetupFailed = 1;
 		
 	} else {
 		
+		[self registerListenersForMenuUpdate];
 		[self updateMenu];
 		[self goToHome];
 		
@@ -94,72 +97,6 @@ NSInteger const GTSplashErrorCodeInitialSetupFailed = 1;
 
 - (void)updateMenu {
 	[[GTDataImporter sharedImporter] updateMenuInfo];
-}
-
-#pragma mark - UI methods
-
-- (void)goToHome {
-	[self performSegueWithIdentifier:@"splashToHomeViewSegue" sender:self];
-	
-}
-
-- (void)initialSetupBegan:(NSNotification *)notification {
-	
-    [self.splashScreen showDownloadIndicatorWithLabel:NSLocalizedString(@"GTHome_status_initialSetup", nil)];
-}
-
-
-- (void)initialSetupFinished:(NSNotification *)notification {
-	
-    if([self.splashScreen.activityView isAnimating]){
-        [self.splashScreen hideDownloadIndicator];
-    }
-	
-	[self removeListenersForInitialSetup];
-	[self goToHome];
-	self.setupTracker.firstLaunch = NO;
-}
-
-- (void)initialSetupFailed:(NSNotification *)notification {
-	
-	if([self.splashScreen.activityView isAnimating]){
-		[self.splashScreen hideDownloadIndicator];
-	}
-	
-	[self removeListenersForInitialSetup];
-	
-	NSError *error = [NSError errorWithDomain:GTSplashErrorDomain
-										 code:GTSplashErrorCodeInitialSetupFailed
-									 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"GTSplash_initialSetup_error_message", nil) }];
-	
-	[[GTErrorHandler sharedErrorHandler] displayError:error];
-	
-}
-
-- (void)menuUpdateBegan:(NSNotification *)notification {
-	
-	[self.splashScreen showDownloadIndicatorWithLabel:NSLocalizedString(@"GTHome_status_checkingForUpdates", nil)];
-}
-
-
-- (void)menuUpdateFinished:(NSNotification *)notification {
-	
-	if([self.splashScreen.activityView isAnimating]){
-		[self.splashScreen hideDownloadIndicator];
-	}
-	
-	[self removeListenersForMenuUpdate];
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-	
-	if ([[segue identifier] isEqualToString:@"splashToHomeViewSegue"]) {
-		
-		// Get reference to the destination view controller
-		GTHomeViewController *home = [segue destinationViewController];
-		home.shouldShowInstructions = self.setupTracker.firstLaunch;
-	}
-	
 }
 
 #pragma mark - First Launch methods
@@ -225,6 +162,72 @@ NSInteger const GTSplashErrorCodeInitialSetupFailed = 1;
 - (void)didReceiveMemoryWarning {
 	
     [super didReceiveMemoryWarning];
+	
+}
+
+#pragma mark - UI methods
+
+- (void)goToHome {
+	[self performSegueWithIdentifier:@"splashToHomeViewSegue" sender:self];
+	
+}
+
+- (void)initialSetupBegan:(NSNotification *)notification {
+	
+	[self.splashScreen showDownloadIndicatorWithLabel:NSLocalizedString(@"GTHome_status_initialSetup", nil)];
+}
+
+
+- (void)initialSetupFinished:(NSNotification *)notification {
+	
+	if([self.splashScreen.activityView isAnimating]){
+		[self.splashScreen hideDownloadIndicator];
+	}
+	
+	[self removeListenersForInitialSetup];
+	[self goToHome];
+	self.setupTracker.firstLaunch = NO;
+}
+
+- (void)initialSetupFailed:(NSNotification *)notification {
+	
+	if([self.splashScreen.activityView isAnimating]){
+		[self.splashScreen hideDownloadIndicator];
+	}
+	
+	[self removeListenersForInitialSetup];
+	
+	NSError *error = [NSError errorWithDomain:GTSplashErrorDomain
+										 code:GTSplashErrorCodeInitialSetupFailed
+									 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"GTSplash_initialSetup_error_message", nil) }];
+	
+	[[GTErrorHandler sharedErrorHandler] displayError:error];
+	
+}
+
+- (void)menuUpdateBegan:(NSNotification *)notification {
+	
+	[self.splashScreen showDownloadIndicatorWithLabel:NSLocalizedString(@"GTHome_status_checkingForUpdates", nil)];
+}
+
+
+- (void)menuUpdateFinished:(NSNotification *)notification {
+	
+	if([self.splashScreen.activityView isAnimating]){
+		[self.splashScreen hideDownloadIndicator];
+	}
+	
+	[self removeListenersForMenuUpdate];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+	
+	if ([[segue identifier] isEqualToString:@"splashToHomeViewSegue"]) {
+		
+		// Get reference to the destination view controller
+		GTHomeViewController *home = [segue destinationViewController];
+		home.shouldShowInstructions = self.setupTracker.firstLaunch;
+	}
 	
 }
 
