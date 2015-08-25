@@ -87,19 +87,8 @@
             self.instructionsOverlayView.hidden = YES;
         }];
     }
-    
-    NSLog(@"phone's :%@",[[GTDefaults sharedDefaults]phonesLanguageCode]);
-    
-    if([[GTDefaults sharedDefaults]phonesLanguageCode]){
-        self.phonesLanguage = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults]phonesLanguageCode] inBackground:YES]objectAtIndex:0];
-        self.phonesLanguageAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"GTHome_languageAlert_title", nil)
-                                                                message:[NSString stringWithFormat:NSLocalizedString(@"GTHome_languageAlert_message", nil),self.phonesLanguage.name]
-                                                               delegate:self
-                                                      cancelButtonTitle:NSLocalizedString(@"GTHome_languageAlert_dismissButton", nil)
-                                                      otherButtonTitles:nil];
-        [self.phonesLanguageAlert addButtonWithTitle:NSLocalizedString(@"GTHome_languageAlert_confirmButton", nil)];
-    }
-    self.draftsAlert = [[UIAlertView alloc]initWithTitle:nil
+	
+    self.draftsAlert = [[UIAlertView alloc] initWithTitle:nil
 												 message:NSLocalizedString(@"GTHome_draftsAlert_message", nil)
 												delegate:self
 									   cancelButtonTitle:NSLocalizedString(@"GTHome_draftsAlert_dismissButton", nil)
@@ -453,14 +442,13 @@
 }
 
 #pragma mark - Data setter methods
--(GTLanguage *) getCurrentPrimaryLanguage {
-    NSArray *languages = [[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:self.languageCode inBackground:YES];
-    return(GTLanguage*)[languages objectAtIndex:0];
+- (GTLanguage *) getCurrentPrimaryLanguage {
+    return [[GTStorage sharedStorage] findClosestLanguageTo:self.languageCode];
 }
--(void)setData{
+
+- (void)setData {
     
-    self.languageCode = [[GTDefaults sharedDefaults]currentLanguageCode];
-    NSArray *languages = [[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:self.languageCode inBackground:YES];
+    self.languageCode = [GTDefaults sharedDefaults].currentLanguageCode;
     
     GTLanguage* mainLanguage = [self getCurrentPrimaryLanguage];
     
@@ -496,26 +484,32 @@
 }
 
 #pragma mark - Language Methods
--(void)checkPhonesLanguage{
-    
-    GTLanguage *language = [[[GTStorage sharedStorage] fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] phonesLanguageCode] inBackground:YES]objectAtIndex:0];
-    
-    BOOL shouldSetPhonesLanguageAsMainLanguage = ![[[GTDefaults sharedDefaults]phonesLanguageCode] isEqualToString:[[GTDefaults sharedDefaults] currentLanguageCode]];
-    
-    shouldSetPhonesLanguageAsMainLanguage = shouldSetPhonesLanguageAsMainLanguage && [[GTDefaults sharedDefaults]phonesLanguageCode]!=nil ;
-
-    
-    if([[GTDefaults sharedDefaults] isInTranslatorMode] == [NSNumber numberWithBool:NO]){
-        shouldSetPhonesLanguageAsMainLanguage = shouldSetPhonesLanguageAsMainLanguage && [self languageHasLivePackages:language];
-    }else if([[GTDefaults sharedDefaults] isInTranslatorMode] == [NSNumber numberWithBool:YES]){
-        shouldSetPhonesLanguageAsMainLanguage = shouldSetPhonesLanguageAsMainLanguage && language.packages.count>0;
-    }
-    
-    //phone's language is not the current main language of the app
-    if(shouldSetPhonesLanguageAsMainLanguage){
-            [self.view setUserInteractionEnabled:YES];
-            [self.phonesLanguageAlert show];
-    }
+- (void)checkPhonesLanguage {
+	
+	GTLanguage *phonesLanguage = [[GTStorage sharedStorage] findClosestLanguageTo:[GTDefaults sharedDefaults].phonesLanguageCode];
+	NSString *currentLanguageCode = [GTDefaults sharedDefaults].currentLanguageCode;
+	BOOL translatorMode = [GTDefaults sharedDefaults].isInTranslatorMode.boolValue;
+	
+	if( ![phonesLanguage.code isEqualToString:currentLanguageCode]){
+		
+		if ( ( !translatorMode && [self languageHasLivePackages:phonesLanguage] ) ||
+			 (  translatorMode && phonesLanguage.packages.count > 0 ) ) {
+			
+			self.phonesLanguage = phonesLanguage;
+			self.phonesLanguageAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"GTHome_languageAlert_title", nil)
+																  message:[NSString stringWithFormat:NSLocalizedString(@"GTHome_languageAlert_message", nil),self.phonesLanguage.name]
+																 delegate:self
+														cancelButtonTitle:NSLocalizedString(@"GTHome_languageAlert_dismissButton", nil)
+														otherButtonTitles:nil];
+			[self.phonesLanguageAlert addButtonWithTitle:NSLocalizedString(@"GTHome_languageAlert_confirmButton", nil)];
+			
+			[self.view setUserInteractionEnabled:YES];
+			[self.phonesLanguageAlert show];
+			
+		}
+		
+	}
+	
 }
 
 -(BOOL) languageHasLivePackages : (GTLanguage *)currentLanguage {
@@ -526,12 +520,12 @@
 }
 
 -(void)setMainLanguageToPhonesLanguage{
-    GTLanguage *language = [[[GTStorage sharedStorage] fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] phonesLanguageCode] inBackground:YES]objectAtIndex:0];
+    GTLanguage *language = [[GTStorage sharedStorage] findClosestLanguageTo:[GTDefaults sharedDefaults].phonesLanguageCode];
     
     if(language.downloaded){
-        [[GTDefaults sharedDefaults]setCurrentLanguageCode:language.code];
-        if([[[GTDefaults sharedDefaults]currentParallelLanguageCode] isEqualToString:language.code]){
-           [[GTDefaults sharedDefaults]setCurrentParallelLanguageCode:nil];
+        [GTDefaults sharedDefaults].currentLanguageCode = language.code;
+        if([[GTDefaults sharedDefaults].currentParallelLanguageCode isEqualToString:language.code]){
+           [GTDefaults sharedDefaults].currentParallelLanguageCode = nil;
         }
         [self setData];
         [self.tableView reloadData];
@@ -539,7 +533,7 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadProgressMade
                                                             object:self
                                                           userInfo:nil];
-        [[GTDefaults sharedDefaults] setIsChoosingForMainLanguage:[NSNumber numberWithBool:YES]];
+        [GTDefaults sharedDefaults].isChoosingForMainLanguage = YES;
         [[GTDataImporter sharedImporter]downloadPackagesForLanguage:language];
     }
 }

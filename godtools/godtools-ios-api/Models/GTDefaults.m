@@ -73,57 +73,14 @@ NSString *const GTDefaultsgenericApiToken                   = @"generic_api_toke
 
 - (NSString *)phonesLanguageCode {
 	
-	NSString		*language					= @"";
-	
 	NSArray			*preferredLanguages			= [NSLocale preferredLanguages];
 	NSLocale		*currentLocale				= [NSLocale currentLocale];
-    
-    //NSLog(@"preferredLanguages %@",preferredLanguages);
-    //NSLog(@"current Locale: %@", currentLocale.localeIdentifier);
 	
 	NSString		*phonesLanguage				= ( preferredLanguages.count > 0 ? preferredLanguages[0] : @"en" );
 	NSString		*phonesLocale				= ( [currentLocale objectForKey:NSLocaleCountryCode] ? [currentLocale objectForKey:NSLocaleCountryCode] : @"" );
-    NSString		*phonesLanguageWithLocale	= [phonesLanguage stringByAppendingFormat:@"_%@", phonesLocale];
-    
-    
-	if ([self isValidLanguageCode:phonesLanguageWithLocale]) {
-		
-		language	= phonesLanguageWithLocale;
-		
-	} else if ([self isValidLanguageCode:phonesLanguage]) {
-		
-		language	= phonesLanguage;
-		
-    }else if([self checkIfChinese:phonesLanguage]){
-        language    = @"zh";
-    
-    }else {
-		
-		//language	= @"en";
-        language = nil;
-		
-	}
+    NSString		*phonesLanguageWithLocale	= [phonesLanguage stringByAppendingFormat:@"-%@", phonesLocale];
 
-	return language;
-}
-
--(BOOL)checkIfChinese:(NSString *)languageCode{
-    return [languageCode isEqualToString:@"zh-Hans"] || [languageCode isEqualToString:@"zh-Hant"];
-}
-
-- (BOOL)isValidLanguageCode:(NSString *)languageCode {
-
-    //get all languages
-    NSArray *languages = [[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:languageCode inBackground:YES];
-    
-    if(languages.count > 0){
-        //NSLog(@"%@ is valid",languageCode);
-        return YES;
-    }else{
-        //NSLog(@"%@ is invalid",languageCode);
-        return NO;
-    }
-
+	return phonesLanguageWithLocale;
 }
 
 #pragma mark - currentPackageCode

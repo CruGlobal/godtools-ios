@@ -49,7 +49,7 @@
 "GTHome_status_checkingForUpdates"                               = "Checking for Updates...";
 "GTHome_status_initialSetup"                                     = "Initial Setup...";
 "GTHome_languageAlert_title"                                     = "Language Settings";
-"GTHome_languageAlert_message"                                   = "Would you like to make % the default language?";
+"GTHome_languageAlert_message"                                   = "Would you like to make %@ the default language?";
 "GTHome_languageAlert_dismissButton"                             = "No";
 "GTHome_languageAlert_confirmButton"                             = "Yes";
 "GTHome_draftsAlert_confirmButton"                               = "Yes, it's ready!";
