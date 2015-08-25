@@ -528,8 +528,6 @@ BOOL gtLanguageDownloadUserCancellation                                 = FALSE;
     NSLog(@"access code: %@",accessCode);
     
     [weakSelf.api getAuthTokenWithAccessCode:accessCode success:^(NSURLRequest *request, NSHTTPURLResponse *response,NSString *authToken) {
-        
-        [[GTAPI sharedAPI]setAuthToken:authToken];
 
         [[GTDefaults sharedDefaults]setIsInTranslatorMode:[NSNumber numberWithBool:YES]];
         [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationAuthTokenUpdateSuccessful object:self];

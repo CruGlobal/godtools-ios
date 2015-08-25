@@ -228,19 +228,6 @@ NSString *const GTDefaultsgenericApiToken                   = @"generic_api_toke
     return _isChoosingForMainLanguage;
 }
 
-#pragma mark - isFirstLaunch
-
--(void)setIsFirstLaunch:(NSNumber *)isFirstLaunch{
-    [self willChangeValueForKey:@"isFirstLaunch"];
-    _isFirstLaunch	= isFirstLaunch;
-    [self didChangeValueForKey:@"isFirstLaunch"];
-    
-    [[NSUserDefaults standardUserDefaults]setObject:_isFirstLaunch forKey:GTDefaultsisFirstLaunch];
-    
-}
-
-#pragma mark - isFirstLaunch
-
 -(void)setIsInTranslatorMode:(NSNumber *)isInTranslatorMode{
     [self willChangeValueForKey:@"isInTranslatorMode"];
     _isInTranslatorMode  = isInTranslatorMode;

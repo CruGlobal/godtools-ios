@@ -124,20 +124,6 @@
 
 #pragma mark - API request methods
 
--(void) requestGenericAuthToken {
-    [[GTAPI sharedAPI] getAuthTokenForDeviceID:nil
-                                       success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSString *authToken) {
-                                           [[GTDefaults sharedDefaults] setGenericApiToken:authToken];
-                                           [[GTAPI sharedAPI] setAuthToken:authToken];
-                                           [self updateFromApi];
-                                           [self goToHome];
-                                       }
-                                       failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                           NSLog(@"generic auth failed!!");
-                                           [self goToHome];
-                                       }];
-}
-
 - (void)updateMenu {
 	[[GTDataImporter sharedImporter] updateMenuInfo];
 }
