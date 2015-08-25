@@ -127,7 +127,7 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
 																						
 																					}];
 		
-		[self startRequestWithOperation:operation];
+		[self.operationQueue addOperation:operation];
 			
 	}
 	
