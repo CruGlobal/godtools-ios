@@ -17,6 +17,10 @@
 NSString * const GTSplashErrorDomain				= @"org.cru.godtools.gtsplashviewcontroller.error.domain";
 NSInteger const GTSplashErrorCodeInitialSetupFailed = 1;
 
+NSString * const GTSplashNotificationDownloadPhonesLanugageSuccess				= @"org.cru.godtools.gtsplashviewcontroller.notification.downloadphoneslanguagesuccess";
+NSString * const GTSplashNotificationDownloadPhonesLanugageProgress				= @"org.cru.godtools.gtsplashviewcontroller.notification.downloadphoneslanguageprogress";
+NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cru.godtools.gtsplashviewcontroller.notification.downloadphoneslanguagefailure";
+
 @interface GTMainViewController ()
 
 @property (nonatomic, strong) GTInitialSetupTracker *setupTracker;
@@ -151,10 +155,52 @@ NSInteger const GTSplashErrorCodeInitialSetupFailed = 1;
 }
 
 - (void)downloadPhonesLanguage {
-#error incomplete implementation
+	
+	if (![[GTDefaults sharedDefaults].phonesLanguageCode isEqualToString:@"en"]) {
+	
+		__weak typeof(self)weakSelf = self;
+		[[NSNotificationCenter defaultCenter] addObserverForName:GTSplashNotificationDownloadPhonesLanugageSuccess
+														  object:nil
+														   queue:nil
+													  usingBlock:^(NSNotification *note) {
+														  
+														  [weakSelf.setupTracker finishedDownloadingPhonesLanguage];
+														  
+													  }];
+		
+		[[NSNotificationCenter defaultCenter] addObserverForName:GTSplashNotificationDownloadPhonesLanugageFailure
+														  object:nil
+														   queue:nil
+													  usingBlock:^(NSNotification *note) {
+														  
+														  [weakSelf.setupTracker failedDownloadingPhonesLanguage];
+														  
+													  }];
+		
+		[[NSNotificationCenter defaultCenter] addObserverForName:GTDataImporterNotificationMenuUpdateFinished
+														  object:nil
+														   queue:nil
+													  usingBlock:^(NSNotification *note) {
+			
+														  [self.splashScreen showDownloadIndicatorWithLabel:NSLocalizedString(@"DownloadingNotification_downloadingResources", nil)];
+														  
+														  [GTDefaults sharedDefaults].isChoosingForMainLanguage = YES;
+														  GTLanguage *phonesLanguage = [[GTStorage sharedStorage] findClosestLanguageTo:[GTDefaults sharedDefaults].phonesLanguageCode];
+														  
+														  if (![[GTDefaults sharedDefaults].phonesLanguageCode isEqualToString:@"en"]) {
+															  
+															  [[GTDataImporter sharedImporter] downloadPackagesForLanguage:phonesLanguage
+																									  withProgressNotifier:GTSplashNotificationDownloadPhonesLanugageProgress
+																									   withSuccessNotifier:GTSplashNotificationDownloadPhonesLanugageSuccess
+																									   withFailureNotifier:GTSplashNotificationDownloadPhonesLanugageFailure];
+														  }
+														  
+		}];
+	
+	}
+	
 	[self updateMenu];
-	[[GTDefaults sharedDefaults] setIsChoosingForMainLanguage:[NSNumber numberWithBool: YES]];
-	[[GTDataImporter sharedImporter] downloadPackagesForLanguage:[[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults]phonesLanguageCode] inBackground:YES]objectAtIndex:0]];
+	
 }
 
 #pragma mark - memory management methods
