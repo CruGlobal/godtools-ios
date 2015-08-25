@@ -47,6 +47,7 @@
 "GTHome_status_publishingDrafts"                                 = "Publishing draft...";
 "GTHome_status_updatingMenu"                                     = "Updating menu...";
 "GTHome_status_checkingForUpdates"                               = "Checking for Updates...";
+"GTHome_status_initialSetup"                                     = "Initial Setup...";
 "GTHome_languageAlert_title"                                     = "Language Settings";
 "GTHome_languageAlert_message"                                   = "Would you like to make % the default language?";
 "GTHome_languageAlert_dismissButton"                             = "No";
@@ -68,6 +69,9 @@
 
 "GTErrorHandler_errorTitle"                                      = "Error";
 "GTErrorHandler_errorDismissButton"                              = "OK";
+
+
+"GTSplash_initialSetup_error_message"                            = "Unfortunately we could not load any reasources. Please quit the app and reopen. If the problem persists contact supportgodtoolsapp.com";
 
 
 "Yes"                                                            = "Yes";

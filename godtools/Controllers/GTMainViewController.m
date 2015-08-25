@@ -12,8 +12,10 @@
 #import "GTInitialSetupTracker.h"
 #import "GTSplashScreenView.h"
 #import "GTHomeViewController.h"
-
 #import "GTGoogleAnalyticsTracker.h"
+
+NSString * const GTSplashErrorDomain				= @"org.cru.godtools.gtsplashviewcontroller.error.domain";
+NSInteger const GTSplashErrorCodeInitialSetupFailed = 1;
 
 @interface GTMainViewController ()
 
@@ -27,9 +29,12 @@
 - (void)updateMenu;
 - (void)goToHome;
 
-- (void)updateBegan:(NSNotification *)notification;
-- (void)updateFinished:(NSNotification *)notification;
-- (void)updateFailed:(NSNotification *)notification;
+- (void)initialSetupBegan:(NSNotification *)notification;
+- (void)initialSetupFinished:(NSNotification *)notification;
+- (void)initialSetupFailed:(NSNotification *)notification;
+
+- (void)menuUpdateBegan:(NSNotification *)notification;
+- (void)menuUpdateFinished:(NSNotification *)notification;
 
 - (void)registerListenersForInitialSetup;
 - (void)removeListenersForInitialSetup;
@@ -85,43 +90,6 @@
 	
 }
 
-#pragma mark - listener methods
-
-- (void)registerListenersForInitialSetup {
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(updateBegan:)
-												 name:GTInitialSetupTrackerNotificationDidBegin
-											   object:self.setupTracker];
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(updateFinished:)
-												 name:GTInitialSetupTrackerNotificationDidFinish
-											   object:self.setupTracker];
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(updateFailed:)
-												 name:GTInitialSetupTrackerNotificationDidFail
-											   object:self.setupTracker];
-	
-}
-
-- (void)removeListenersForInitialSetup {
-	
-	[[NSNotificationCenter defaultCenter] removeObserver:self
-													name:GTInitialSetupTrackerNotificationDidBegin
-												  object:self.setupTracker];
-	
-	[[NSNotificationCenter defaultCenter] removeObserver:self
-													name:GTInitialSetupTrackerNotificationDidFinish
-												  object:self.setupTracker];
-	
-	[[NSNotificationCenter defaultCenter] removeObserver:self
-													name:GTInitialSetupTrackerNotificationDidFail
-												  object:self.setupTracker];
-	
-}
-
 #pragma mark - API request methods
 
 - (void)updateMenu {
@@ -135,13 +103,13 @@
 	
 }
 
-- (void)updateBegan:(NSNotification *)notification {
+- (void)initialSetupBegan:(NSNotification *)notification {
 	
-    [self.splashScreen showDownloadIndicatorWithLabel:NSLocalizedString(@"GTHome_status_checkingForUpdates", nil)];
+    [self.splashScreen showDownloadIndicatorWithLabel:NSLocalizedString(@"GTHome_status_initialSetup", nil)];
 }
 
 
-- (void)updateFinished:(NSNotification *)notification {
+- (void)initialSetupFinished:(NSNotification *)notification {
 	
     if([self.splashScreen.activityView isAnimating]){
         [self.splashScreen hideDownloadIndicator];
@@ -152,21 +120,41 @@
 	self.setupTracker.firstLaunch = NO;
 }
 
-- (void)updateFailed:(NSNotification *)notification {
+- (void)initialSetupFailed:(NSNotification *)notification {
 	
 	if([self.splashScreen.activityView isAnimating]){
 		[self.splashScreen hideDownloadIndicator];
 	}
 	
 	[self removeListenersForInitialSetup];
-	//show error
 	
+	NSError *error = [NSError errorWithDomain:GTSplashErrorDomain
+										 code:GTSplashErrorCodeInitialSetupFailed
+									 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"GTSplash_initialSetup_error_message", nil) }];
+	
+	[[GTErrorHandler sharedErrorHandler] displayError:error];
+	
+}
+
+- (void)menuUpdateBegan:(NSNotification *)notification {
+	
+	[self.splashScreen showDownloadIndicatorWithLabel:NSLocalizedString(@"GTHome_status_checkingForUpdates", nil)];
+}
+
+
+- (void)menuUpdateFinished:(NSNotification *)notification {
+	
+	if([self.splashScreen.activityView isAnimating]){
+		[self.splashScreen hideDownloadIndicator];
+	}
+	
+	[self removeListenersForMenuUpdate];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	
-	if ([[segue identifier] isEqualToString:@"splashToHomeViewSegue"])
-	{
+	if ([[segue identifier] isEqualToString:@"splashToHomeViewSegue"]) {
+		
 		// Get reference to the destination view controller
 		GTHomeViewController *home = [segue destinationViewController];
 		home.shouldShowInstructions = self.setupTracker.firstLaunch;
@@ -237,6 +225,69 @@
 - (void)didReceiveMemoryWarning {
 	
     [super didReceiveMemoryWarning];
+	
+}
+
+#pragma mark - listener methods
+
+- (void)registerListenersForInitialSetup {
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(initialSetupBegan:)
+												 name:GTInitialSetupTrackerNotificationDidBegin
+											   object:self.setupTracker];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(initialSetupFinished:)
+												 name:GTInitialSetupTrackerNotificationDidFinish
+											   object:self.setupTracker];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(initialSetupFailed:)
+												 name:GTInitialSetupTrackerNotificationDidFail
+											   object:self.setupTracker];
+	
+}
+
+- (void)removeListenersForInitialSetup {
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self
+													name:GTInitialSetupTrackerNotificationDidBegin
+												  object:self.setupTracker];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self
+													name:GTInitialSetupTrackerNotificationDidFinish
+												  object:self.setupTracker];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self
+													name:GTInitialSetupTrackerNotificationDidFail
+												  object:self.setupTracker];
+	
+}
+
+- (void)registerListenersForMenuUpdate {
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(menuUpdateBegan:)
+												 name:GTDataImporterNotificationMenuUpdateStarted
+											   object:nil];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(menuUpdateFinished:)
+												 name:GTDataImporterNotificationMenuUpdateFinished
+											   object:nil];
+	
+}
+
+- (void)removeListenersForMenuUpdate {
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self
+													name:GTDataImporterNotificationMenuUpdateStarted
+												  object:nil];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self
+													name:GTDataImporterNotificationMenuUpdateFinished
+												  object:nil];
 	
 }
 
