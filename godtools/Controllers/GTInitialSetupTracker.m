@@ -25,6 +25,8 @@ NSString *const GTInitialSetupTrackerFirstLaunch = @"is_first_launch";
 
 @implementation GTInitialSetupTracker
 
+@synthesize firstLaunch = _firstLaunch;
+
 - (instancetype)init {
 	
 	self = [super init];
@@ -43,11 +45,20 @@ NSString *const GTInitialSetupTrackerFirstLaunch = @"is_first_launch";
 	if (!_firstLaunch) {
 		
 		[self willChangeValueForKey:@"firstLaunch"];
-		_firstLaunch = ( [[NSUserDefaults standardUserDefaults] objectForKey:GTInitialSetupTrackerFirstLaunch] ? YES : NO );
+		_firstLaunch = ( [[[NSUserDefaults standardUserDefaults] objectForKey:GTInitialSetupTrackerFirstLaunch] isEqual:@YES] ? YES : NO );
 		[self didChangeValueForKey:@"firstLaunch"];
 	}
 	
 	return _firstLaunch;
+}
+
+- (void)setFirstLaunch:(BOOL)firstLaunch {
+	
+	[self willChangeValueForKey:@"firstLaunch"];
+	_firstLaunch = firstLaunch;
+	[self didChangeValueForKey:@"firstLaunch"];
+	
+	[[NSUserDefaults standardUserDefaults] setObject:@(firstLaunch) forKey:GTInitialSetupTrackerFirstLaunch];
 }
 
 - (void)beganInitialSetup {
