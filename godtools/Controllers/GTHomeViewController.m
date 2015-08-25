@@ -78,14 +78,13 @@
     [self setData];
     [self.tableView reloadData];
     
-    if([[GTDefaults sharedDefaults] isFirstLaunch] == [NSNumber numberWithBool:NO]) {
+    if(self.shouldShowInstructions) {
         self.instructionsOverlayView.hidden = YES;
     } else {
         [UIView animateWithDuration: 1.0 delay:4.0 options:0 animations:^{
             self.instructionsOverlayView.alpha = 0.0f;
         } completion:^(BOOL finished) {
             self.instructionsOverlayView.hidden = YES;
-            [[GTDefaults sharedDefaults]setIsFirstLaunch:[NSNumber numberWithBool:NO]];
         }];
     }
     

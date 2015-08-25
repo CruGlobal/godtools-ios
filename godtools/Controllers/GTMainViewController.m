@@ -11,6 +11,7 @@
 #import "GTPackageExtractor.h"
 #import "GTInitialSetupTracker.h"
 #import "GTSplashScreenView.h"
+#import "GTHomeViewController.h"
 
 #import "GTGoogleAnalyticsTracker.h"
 
@@ -161,6 +162,8 @@
     }
 	
 	[self removeListenersForInitialSetup];
+	[self goToHome];
+	self.setupTracker.firstLaunch = NO;
 }
 
 - (void)updateFailed:(NSNotification *)notification {
@@ -171,6 +174,17 @@
 	
 	[self removeListenersForInitialSetup];
 	//show error
+	
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+	
+	if ([[segue identifier] isEqualToString:@"splashToHomeViewSegue"])
+	{
+		// Get reference to the destination view controller
+		GTHomeViewController *home = [segue destinationViewController];
+		home.shouldShowInstructions = self.setupTracker.firstLaunch;
+	}
 	
 }
 

@@ -18,5 +18,6 @@
 
 @property (strong, nonatomic) NSMutableArray* articles;
 @property (strong, nonatomic) NSMutableArray* packagesWithNoDrafts;
+@property (nonatomic, assign) BOOL shouldShowInstructions;
 
 @end
