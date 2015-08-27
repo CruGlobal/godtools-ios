@@ -186,12 +186,15 @@
 #pragma mark - UI Utilities
 
 - (void)setLanguageNameLabelValues {
-    [self.primaryLanguageButton setTitle:[[self mainLanguage].name uppercaseString] forState:UIControlStateNormal];
+	
+	NSString *localizedMainLanguageName = [[[NSLocale currentLocale] displayNameForKey:NSLocaleIdentifier value:self.mainLanguage.code] capitalizedString];
+    [self.primaryLanguageButton setTitle:localizedMainLanguageName forState:UIControlStateNormal];
 
     if([self parallelLanguage] == nil) {
         [self.parallelLanguageButton setTitle: NSLocalizedString(@"GTSettings_parallelLanguageButton_noneSelected", nil) forState:UIControlStateNormal];
     } else {
-        [self.parallelLanguageButton setTitle: [[self parallelLanguage].name uppercaseString] forState:UIControlStateNormal];
+		NSString *localizedParallelLanguageName = [[[NSLocale currentLocale] displayNameForKey:NSLocaleIdentifier value:self.parallelLanguage.code] capitalizedString];
+        [self.parallelLanguageButton setTitle:localizedParallelLanguageName forState:UIControlStateNormal];
     }
 }
 
