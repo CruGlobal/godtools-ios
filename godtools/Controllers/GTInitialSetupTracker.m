@@ -45,7 +45,7 @@ NSString *const GTInitialSetupTrackerFirstLaunch = @"is_first_launch";
 	if (!_firstLaunch) {
 		
 		[self willChangeValueForKey:@"firstLaunch"];
-		_firstLaunch = ( [[[NSUserDefaults standardUserDefaults] objectForKey:GTInitialSetupTrackerFirstLaunch] isEqual:@YES] ? YES : NO );
+		_firstLaunch = ( [[[NSUserDefaults standardUserDefaults] objectForKey:GTInitialSetupTrackerFirstLaunch] isEqual:@NO] ? NO : YES );
 		[self didChangeValueForKey:@"firstLaunch"];
 	}
 	
