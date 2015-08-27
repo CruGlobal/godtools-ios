@@ -43,6 +43,7 @@
 @property  BOOL isRefreshing;
 @property (strong, nonatomic) NSString *selectedSectionNumber;
 
+- (void)dismissInstructions:(UITapGestureRecognizer *)gestureRecognizer;
 - (IBAction)settingsButtonPressed:(id)sender;
 - (IBAction)refreshDraftsButtonDragged:(id)sender;
 
@@ -79,13 +80,16 @@
     [self.tableView reloadData];
     
     if(self.shouldShowInstructions) {
-        self.instructionsOverlayView.hidden = YES;
+		
+		UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissInstructions:)];
+		[self.instructionsOverlayView addGestureRecognizer:tapRecognizer];
+		[self performSelector:@selector(dismissInstructions:) withObject:tapRecognizer afterDelay:4.0f];
+		
     } else {
-        [UIView animateWithDuration: 1.0 delay:4.0 options:0 animations:^{
-            self.instructionsOverlayView.alpha = 0.0f;
-        } completion:^(BOOL finished) {
-            self.instructionsOverlayView.hidden = YES;
-        }];
+		
+		self.instructionsOverlayView.hidden = YES;
+		[self.instructionsOverlayView removeFromSuperview];
+		
     }
 	
     self.draftsAlert = [[UIAlertView alloc] initWithTitle:nil
@@ -232,6 +236,29 @@
     }else if([notification.name isEqualToString:GTDataImporterNotificationMenuUpdateStarted]){
         [((GTBaseView *)self.view) showDownloadIndicatorWithLabel:[NSString stringWithFormat: NSLocalizedString(@"GTHome_status_updatingMenu", @"update resources (with menu)")]];
     }
+}
+
+#pragma mark - Instruction selectors
+
+- (void)dismissInstructions:(UITapGestureRecognizer *)gestureRecognizer {
+	
+	if (self.instructionsOverlayView.superview) {
+		
+		[UIView animateWithDuration:1.0 delay:0.0 options:0 animations:^{
+			
+			self.instructionsOverlayView.alpha = 0.0f;
+			
+		} completion:^(BOOL finished) {
+			
+			if (self.instructionsOverlayView.superview) {
+				[self.instructionsOverlayView removeFromSuperview];
+				self.instructionsOverlayView.hidden = YES;
+			}
+			
+		}];
+		
+	}
+	
 }
 
 #pragma mark - Navigation Bar Button selectors
