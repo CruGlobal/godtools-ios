@@ -11,16 +11,26 @@
 @implementation GTBaseView
 
 -(void)initDownloadIndicator{
-    self.loadingView = [[UIView alloc] initWithFrame:CGRectMake(10.0f, self.frame.size.height - 50.0f, self.frame.size.width - 20.0f, 40.0f)];
+    self.loadingView = [[UIView alloc] initWithFrame:CGRectMake(10.0f,
+																CGRectGetHeight(self.frame) - 50.0f,
+																CGRectGetWidth(self.frame) - 20.0f,
+																40.0f)];
     self.loadingView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     self.loadingView.clipsToBounds = YES;
-    self.loadingView.layer.cornerRadius = 10.0;
-    
+	self.loadingView.layer.cornerRadius = 10.0;
+	self.loadingView.hidden = YES;
+	
     self.activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-    self.activityView.frame = CGRectMake(10.0f, 10.0f, self.activityView.bounds.size.width, self.activityView.bounds.size.height);
+    self.activityView.frame = CGRectMake(10.0f,
+										 10.0f,
+										 CGRectGetWidth(self.activityView.bounds),
+										 CGRectGetHeight(self.activityView.bounds));
     [self.loadingView addSubview:self.activityView];
     
-    self.loadingLabel = [[UILabel alloc] initWithFrame:CGRectMake(40.0f, 10.0f, 130, 22)];
+    self.loadingLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.activityView.frame) + 10.0f,
+																  10.0f,
+																  CGRectGetWidth(self.loadingView.frame) - CGRectGetMaxX(self.activityView.frame) - 20.0f,
+																  22)];
     self.loadingLabel.backgroundColor = [UIColor clearColor];
     self.loadingLabel.textColor = [UIColor whiteColor];
     self.loadingLabel.font = [UIFont systemFontOfSize:12.0f];
@@ -28,7 +38,7 @@
     self.loadingLabel.text = NSLocalizedString(@"DownloadingNotification_downloadingResources", nil);
     [self.loadingView addSubview:self.loadingLabel];
     [self addSubview:self.loadingView];
-    self.loadingView.hidden = YES;
+	
 }
 
 -(void)showDownloadIndicatorWithLabel:(NSString *)label{
