@@ -64,6 +64,7 @@
  */
 - (NSArray *)fetchModel:(Class)modelType usingKey:(NSString *)key forValue:(NSString *)value inBackground:(BOOL)background;
 
+- (GTLanguage *)languageWithCode:(NSString *)languageCode;
 - (GTLanguage *)findClosestLanguageTo:(NSString *)languageCode;
 
 @end

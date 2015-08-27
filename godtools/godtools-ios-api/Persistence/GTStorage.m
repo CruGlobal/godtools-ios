@@ -124,11 +124,18 @@ NSString *const GTStorageModelName				= @"GTModel";
     return fetchedObjects;
 }
 
+- (GTLanguage *)languageWithCode:(NSString *)languageCode {
+
+	NSArray *languages = [self fetchModel:[GTLanguage class] usingKey:@"code" forValue:languageCode inBackground:YES];
+	
+	return ( languages.count > 0 ? languages[0] : nil );
+}
+
 - (GTLanguage *)findClosestLanguageTo:(NSString *)languageCode {
 	
-	NSArray *languageArray = [self fetchModel:[GTLanguage class] usingKey:@"code" forValue:languageCode inBackground:YES];
+	GTLanguage *language = [self languageWithCode:languageCode];
 	
-	if (languageArray.count == 0) {
+	if (!language) {
 		
 		NSArray *languageComponents = [languageCode componentsSeparatedByString:@"-"];
 		
@@ -150,7 +157,7 @@ NSString *const GTStorageModelName				= @"GTModel";
 		
 	} else {
 		
-		return languageArray[0];
+		return language;
 	}
 	
 }
