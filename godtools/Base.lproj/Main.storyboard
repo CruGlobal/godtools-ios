@@ -102,52 +102,9 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b33-uL-Q1A">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                <items>
-                                    <barButtonItem title="God Tools" style="plain" id="GjW-KD-mNq">
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="UPS-Kl-njO"/>
-                                    <barButtonItem image="GT4_HomeScreen_SettingsIcon_" id="Bg4-3F-5Q8">
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <connections>
-                                            <action selector="settingsButtonPressed:" destination="8oq-uF-jDf" id="80I-gt-0Mk"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem width="10" style="plain" systemItem="fixedSpace" id="Kd8-aU-F21"/>
-                                    <barButtonItem systemItem="action" id="AQ8-DO-MSf">
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <connections>
-                                            <action selector="shareButtonPressed:" destination="8oq-uF-jDf" id="SMh-U2-wYP"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                                <color key="barTintColor" red="0.37254901960784315" green="0.80392156862745101" blue="0.85098039215686272" alpha="1" colorSpace="calibratedRGB"/>
-                            </toolbar>
                             <view alpha="0.75" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MS0-V2-i3u">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
-                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kno-sg-Jq3">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="UZX-IT-tVN"/>
-                                        </constraints>
-                                        <items>
-                                            <barButtonItem title="God Tools" style="plain" id="ysR-EL-bPi">
-                                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </barButtonItem>
-                                            <barButtonItem style="plain" systemItem="flexibleSpace" id="qQM-nJ-EQE"/>
-                                            <barButtonItem image="GT4_HomeScreen_SettingsIcon_" id="f9a-m5-Ugr">
-                                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </barButtonItem>
-                                            <barButtonItem width="10" style="plain" systemItem="fixedSpace" id="kzQ-Iy-Ebc"/>
-                                            <barButtonItem systemItem="action" id="g8Q-Bw-q4V">
-                                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </barButtonItem>
-                                        </items>
-                                        <color key="barTintColor" red="0.37254901959999998" green="0.80392156859999997" blue="0.85098039219999999" alpha="1" colorSpace="calibratedRGB"/>
-                                    </toolbar>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="GT4_HomeScreen_PickTool" translatesAutoresizingMaskIntoConstraints="NO" id="jsp-4r-e3a">
                                         <rect key="frame" x="8" y="179" width="102" height="40"/>
                                         <constraints>
@@ -209,7 +166,6 @@
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="FRf-Yi-G4h" firstAttribute="leading" secondItem="Srq-de-tee" secondAttribute="trailing" constant="8" id="8jx-IE-vO6"/>
-                                    <constraint firstItem="FRf-Yi-G4h" firstAttribute="top" secondItem="kno-sg-Jq3" secondAttribute="bottom" constant="1" id="BVF-dG-4bu"/>
                                     <constraint firstItem="Srq-de-tee" firstAttribute="leading" secondItem="MS0-V2-i3u" secondAttribute="leading" constant="3" id="BWp-Nf-vcm"/>
                                     <constraint firstItem="TtX-jB-e1x" firstAttribute="leading" secondItem="O05-24-H92" secondAttribute="trailing" constant="8" id="Cpk-EQ-gDr"/>
                                     <constraint firstItem="O05-24-H92" firstAttribute="leading" secondItem="MS0-V2-i3u" secondAttribute="leading" constant="3" id="GbT-kq-1Cy"/>
@@ -218,24 +174,45 @@
                                     <constraint firstItem="FRf-Yi-G4h" firstAttribute="leading" secondItem="Srq-de-tee" secondAttribute="trailing" constant="8" id="M8K-pA-CT8"/>
                                     <constraint firstItem="xEE-CI-HH1" firstAttribute="top" secondItem="jsp-4r-e3a" secondAttribute="bottom" constant="2" id="U8Z-Jr-THN"/>
                                     <constraint firstItem="FRf-Yi-G4h" firstAttribute="centerY" secondItem="Srq-de-tee" secondAttribute="centerY" id="W0l-jE-vI9"/>
-                                    <constraint firstItem="kno-sg-Jq3" firstAttribute="top" secondItem="MS0-V2-i3u" secondAttribute="top" id="WlH-Fj-LyZ"/>
-                                    <constraint firstAttribute="trailing" secondItem="kno-sg-Jq3" secondAttribute="trailing" id="bW2-bz-kdu"/>
-                                    <constraint firstItem="O05-24-H92" firstAttribute="top" secondItem="kno-sg-Jq3" secondAttribute="bottom" constant="37" id="bfe-ZV-D2T"/>
-                                    <constraint firstItem="kno-sg-Jq3" firstAttribute="leading" secondItem="MS0-V2-i3u" secondAttribute="leading" id="cp1-9O-ucF"/>
                                     <constraint firstItem="TtX-jB-e1x" firstAttribute="leading" secondItem="O05-24-H92" secondAttribute="trailing" constant="8" id="fe5-uL-683"/>
                                     <constraint firstItem="P4W-0o-rM1" firstAttribute="leading" secondItem="jsp-4r-e3a" secondAttribute="trailing" constant="8" id="iBL-oU-JGN"/>
-                                    <constraint firstItem="TtX-jB-e1x" firstAttribute="top" secondItem="kno-sg-Jq3" secondAttribute="bottom" constant="15" id="jV7-sH-SZi"/>
+                                    <constraint firstItem="O05-24-H92" firstAttribute="top" secondItem="MS0-V2-i3u" secondAttribute="top" constant="81" id="jsg-RJ-2nF"/>
                                     <constraint firstAttribute="trailing" secondItem="FRf-Yi-G4h" secondAttribute="trailing" constant="56" id="kCH-xy-3Zl"/>
                                     <constraint firstItem="xEE-CI-HH1" firstAttribute="top" secondItem="jsp-4r-e3a" secondAttribute="bottom" constant="2" id="lNe-YU-hxO"/>
+                                    <constraint firstItem="FRf-Yi-G4h" firstAttribute="top" secondItem="MS0-V2-i3u" secondAttribute="top" constant="45" id="lwk-mc-fWy"/>
                                     <constraint firstItem="P4W-0o-rM1" firstAttribute="centerY" secondItem="jsp-4r-e3a" secondAttribute="centerY" id="mFa-lR-lOF"/>
                                     <constraint firstItem="jsp-4r-e3a" firstAttribute="leading" secondItem="MS0-V2-i3u" secondAttribute="leading" constant="8" id="nCF-pl-mCU"/>
                                     <constraint firstAttribute="trailing" secondItem="P4W-0o-rM1" secondAttribute="trailing" constant="8" id="r0T-WK-W2o"/>
+                                    <constraint firstItem="TtX-jB-e1x" firstAttribute="top" secondItem="MS0-V2-i3u" secondAttribute="top" constant="59" id="sKB-Au-9Tn"/>
                                     <constraint firstAttribute="trailing" secondItem="TtX-jB-e1x" secondAttribute="trailing" constant="8" id="sR8-8h-tYW"/>
                                     <constraint firstItem="jsp-4r-e3a" firstAttribute="top" secondItem="O05-24-H92" secondAttribute="bottom" constant="61" id="t86-aL-jRH"/>
                                     <constraint firstItem="P4W-0o-rM1" firstAttribute="leading" secondItem="jsp-4r-e3a" secondAttribute="trailing" constant="8" id="x3p-dP-VWX"/>
                                     <constraint firstItem="P4W-0o-rM1" firstAttribute="top" secondItem="O05-24-H92" secondAttribute="bottom" constant="70" id="xUw-zi-bpU"/>
                                 </constraints>
                             </view>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b33-uL-Q1A">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <items>
+                                    <barButtonItem title="God Tools" style="plain" id="GjW-KD-mNq">
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="UPS-Kl-njO"/>
+                                    <barButtonItem image="GT4_HomeScreen_SettingsIcon_" id="Bg4-3F-5Q8">
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <action selector="settingsButtonPressed:" destination="8oq-uF-jDf" id="80I-gt-0Mk"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem width="10" style="plain" systemItem="fixedSpace" id="Kd8-aU-F21"/>
+                                    <barButtonItem systemItem="action" id="AQ8-DO-MSf">
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <action selector="shareButtonPressed:" destination="8oq-uF-jDf" id="SMh-U2-wYP"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                                <color key="barTintColor" red="0.37254901960784315" green="0.80392156862745101" blue="0.85098039215686272" alpha="1" colorSpace="calibratedRGB"/>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
