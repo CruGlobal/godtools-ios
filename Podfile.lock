@@ -26,7 +26,7 @@ PODS:
     - AFNetworking (~> 2.5)
     - RaptureXML (~> 1.0.1)
   - GoogleAnalytics-iOS-SDK (3.0.9)
-  - GTViewController (5.0.1):
+  - GTViewController (6.0.0):
     - SSCWhatsAppActivity (~> 1.0)
   - NewRelicAgent (3.412)
   - RaptureXML (1.0.1)
@@ -39,7 +39,7 @@ DEPENDENCIES:
   - AFRaptureXMLRequestOperation (from `https://github.com/CruGlobal/AFRaptureXMLRequestOperation.git`)
   - GoogleAnalytics-iOS-SDK (~> 3.0.9)
   - GTViewController (from `https://github.com/CruGlobal/GTViewController.git`, branch
-    `dev4.0`)
+    `sharing`)
   - NewRelicAgent (~> 3.256)
   - SSZipArchive (~> 0.3)
 
@@ -47,7 +47,7 @@ EXTERNAL SOURCES:
   AFRaptureXMLRequestOperation:
     :git: https://github.com/CruGlobal/AFRaptureXMLRequestOperation.git
   GTViewController:
-    :branch: dev4.0
+    :branch: sharing
     :git: https://github.com/CruGlobal/GTViewController.git
 
 CHECKOUT OPTIONS:
@@ -55,7 +55,7 @@ CHECKOUT OPTIONS:
     :commit: 4dbbb8a6c2d2115c09a4df3ffc6cda20e93a1cd1
     :git: https://github.com/CruGlobal/AFRaptureXMLRequestOperation.git
   GTViewController:
-    :commit: 420865a508869772b34708076f682eeaf3315ed4
+    :commit: cacd7ec6f62873be6ffd68e1f7bb77a13d701a5a
     :git: https://github.com/CruGlobal/GTViewController.git
 
 SPEC CHECKSUMS:
@@ -63,7 +63,7 @@ SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
   AFRaptureXMLRequestOperation: dab4e06ac414e0e9e6a36298963dd8cafad8a9d7
   GoogleAnalytics-iOS-SDK: 3b0994bef22ed2e176a9e2a4d1660c7c2542eb47
-  GTViewController: ee9677c3117e17e7cc3fac2ec6ef38c23a850e39
+  GTViewController: 51949fecbc6014f5c00f575832a2c35d38d61b9a
   NewRelicAgent: 5dbb8c108199f066e353231a90d80263830c0f73
   RaptureXML: b5c33c04c1a4adfd8ad0d5463329a31820596e82
   SSCWhatsAppActivity: fdea072dcf11f1e4889c8f8d9f58118672361900
