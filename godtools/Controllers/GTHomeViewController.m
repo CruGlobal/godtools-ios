@@ -282,6 +282,8 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 								   medium:GTHomeViewControllerShareCampaignMedium];
 	shareInfo.addPackageInfo = NO;
 	shareInfo.addCampaignInfo = YES;
+	shareInfo.subject = NSLocalizedString(@"GTHome_sharing_generalShare_subject", nil);
+	shareInfo.message = NSLocalizedString(@"GTHome_sharing_generalShare_message", nil);
 	GTShareViewController *shareViewController = [[GTShareViewController alloc] initWithInfo:shareInfo];
 	
 	[self presentViewController:shareViewController animated:YES completion:nil];
@@ -663,6 +665,8 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 									   medium:GTHomeViewControllerShareCampaignMedium];
 		shareInfo.addPackageInfo = YES;
 		shareInfo.addCampaignInfo = YES;
+		shareInfo.subject = NSLocalizedString(@"GTHome_sharing_shareFromPage_subject", nil);
+		shareInfo.message = NSLocalizedString(@"GTHome_sharing_shareFromPage_message", nil);
         GTPageMenuViewController *pageMenuViewController = [[GTPageMenuViewController alloc] initWithFileLoader:fileLoader];
         GTAboutViewController *aboutViewController = [[GTAboutViewController alloc] initWithDelegate:self fileLoader:fileLoader];
         
