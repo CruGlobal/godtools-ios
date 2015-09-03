@@ -7,22 +7,35 @@
 //
 
 #import "GTHomeViewController.h"
+#import "GTBaseView.h"
 #import "GTHomeViewCell.h"
-#import "GTHomeView.h"
 #import "GTLanguage+Helper.h"
 #import "GTPackage+Helper.h"
 #import "GTStorage.h"
 #import "GTDataImporter.h"
 #import "GTDefaults.h"
+#import "GTConfig.h"
 #import "EveryStudentController.h"
 
 #import "GTGoogleAnalyticsTracker.h"
+
+NSString *const GTHomeViewControllerShareCampaignSource        = @"godtools-ios";
+NSString *const GTHomeViewControllerShareCampaignMedium        = @"email";
+NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 
 @interface GTHomeViewController ()
 
 @property (strong, nonatomic) NSString *languageCode;
 @property (strong, nonatomic) GTViewController *godtoolsViewController;
-@property (strong, nonatomic) GTHomeView *homeView;
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UILabel *translatorModeLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
+@property (weak, nonatomic) IBOutlet UIView *refreshDraftsView;
+@property (weak, nonatomic) IBOutlet UIImageView *setLanguageImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *pickToolImageView;
+@property (weak, nonatomic) IBOutlet UIView *instructionsOverlayView;
+
 @property (strong, nonatomic) GTLanguage *phonesLanguage;
 @property (strong, nonatomic) UIAlertView *phonesLanguageAlert;
 @property (strong, nonatomic) UIAlertView *draftsAlert;
@@ -34,6 +47,11 @@
 @property  BOOL isRefreshing;
 @property (strong, nonatomic) NSString *selectedSectionNumber;
 
+- (void)dismissInstructions:(UITapGestureRecognizer *)gestureRecognizer;
+- (IBAction)settingsButtonPressed:(id)sender;
+- (IBAction)shareButtonPressed:(id)sender;
+- (IBAction)refreshDraftsButtonDragged:(id)sender;
+
 @end
 
 @implementation GTHomeViewController
@@ -43,24 +61,19 @@
     [super viewDidLoad];
     
     [self.navigationController setNavigationBarHidden:YES];
-    
-    self.homeView = (GTHomeView*) [[[NSBundle mainBundle] loadNibNamed:@"GTHomeView" owner:nil options:nil]objectAtIndex:0];
-    self.homeView.frame = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, self.view.frame.size.height);
-    self.view = self.homeView;
-    
-    self.homeView.delegate = self;
-    self.homeView.tableView.delegate = self;
-    self.homeView.tableView.dataSource = self;
+	
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
 
     self.refreshControl = [[UIRefreshControl alloc] init];
     self.refreshControl.backgroundColor = [UIColor greenColor];
     self.refreshControl.hidden = NO;
     self.refreshControl.layer.zPosition = 1000;
-    [self.refreshControl addTarget:self.homeView.tableView action:@selector(setData) forControlEvents:UIControlEventValueChanged];
+    [self.refreshControl addTarget:self.tableView action:@selector(setData) forControlEvents:UIControlEventValueChanged];
     
-    [self.homeView.tableView addSubview:self.refreshControl];
+    [self.tableView addSubview:self.refreshControl];
     
-    [self.homeView initDownloadIndicator];
+    [((GTBaseView *)self.view) initDownloadIndicator];
     
     self.isRefreshing = NO;
     
@@ -69,31 +82,26 @@
     
     self.languageCode = [[GTDefaults sharedDefaults]currentLanguageCode];
     [self setData];
-    [self.homeView.tableView reloadData];
+    [self.tableView reloadData];
     
-    if([[GTDefaults sharedDefaults] isFirstLaunch] == [NSNumber numberWithBool:NO]) {
-        self.homeView.instructionsOverlayView.hidden = YES;
+    if(self.shouldShowInstructions) {
+		
+		UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissInstructions:)];
+		[self.instructionsOverlayView addGestureRecognizer:tapRecognizer];
+		[self performSelector:@selector(dismissInstructions:) withObject:tapRecognizer afterDelay:4.0f];
+		
     } else {
-        [UIView animateWithDuration: 1.0 delay:6.0 options:0 animations:^{
-            self.homeView.instructionsOverlayView.alpha = 0.0f;
-        } completion:^(BOOL finished) {
-            self.homeView.instructionsOverlayView.hidden = YES;
-            [[GTDefaults sharedDefaults]setIsFirstLaunch:[NSNumber numberWithBool:NO]];
-        }];
+		
+		self.instructionsOverlayView.hidden = YES;
+		[self.instructionsOverlayView removeFromSuperview];
+		
     }
-    
-    NSLog(@"phone's :%@",[[GTDefaults sharedDefaults]phonesLanguageCode]);
-    
-    if([[GTDefaults sharedDefaults]phonesLanguageCode]){
-        self.phonesLanguage = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults]phonesLanguageCode] inBackground:YES]objectAtIndex:0];
-        self.phonesLanguageAlert = [[UIAlertView alloc] initWithTitle:@"Language Settings"
-                                                                message:[NSString stringWithFormat:@"Would you like to make %@ as the default language?",self.phonesLanguage.name]
-                                                               delegate:self
-                                                      cancelButtonTitle:@"NO"
-                                                      otherButtonTitles:nil];
-        [self.phonesLanguageAlert addButtonWithTitle:@"YES"];
-    }
-    self.draftsAlert = [[UIAlertView alloc]initWithTitle:nil message:@"Do you want to publish this draft?" delegate:self cancelButtonTitle:@"No, not yet." otherButtonTitles:@"Yes, it's ready!", nil];
+	
+    self.draftsAlert = [[UIAlertView alloc] initWithTitle:nil
+												 message:NSLocalizedString(@"GTHome_draftsAlert_message", nil)
+												delegate:self
+									   cancelButtonTitle:NSLocalizedString(@"GTHome_draftsAlert_dismissButton", nil)
+									   otherButtonTitles:NSLocalizedString(@"GTHome_draftsAlert_confirmButton", nil), nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                                 selector:@selector(downloadFinished:)
@@ -169,13 +177,13 @@
     [self.navigationController setNavigationBarHidden:YES];
     
     if([self isTranslatorMode]) {
-        self.homeView.iconImageView.image = [UIImage imageNamed:@"GT4_Home_BookIcon_PreviewMode_"];
-        self.homeView.translatorModeLabel.hidden = NO;
-        self.homeView.refreshDraftsView.hidden = NO;
+        self.iconImageView.image = [UIImage imageNamed:@"GT4_Home_BookIcon_PreviewMode_"];
+        self.translatorModeLabel.hidden = NO;
+        self.refreshDraftsView.hidden = NO;
     } else {
-        self.homeView.iconImageView.image = [UIImage imageNamed:@"GT4_Home_BookIcon_"];
-        self.homeView.translatorModeLabel.hidden = YES;
-        self.homeView.refreshDraftsView.hidden = YES;
+        self.iconImageView.image = [UIImage imageNamed:@"GT4_Home_BookIcon_"];
+        self.translatorModeLabel.hidden = YES;
+        self.refreshDraftsView.hidden = YES;
     }
     
     [self setData];
@@ -188,7 +196,7 @@
     
     [[[GTGoogleAnalyticsTracker sharedInstance] setScreenName:@"HomeScreen"] sendScreenView];
     
-    [self.homeView.tableView reloadData];
+    [self.tableView reloadData];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -197,10 +205,10 @@
 #pragma mark - Download packages methods
 -(void)downloadFinished:(NSNotification *) notification{
     NSLog(@"NOTIFICATION: %@",notification.name);
-    [self.homeView hideDownloadIndicator];
+    [((GTBaseView *)self.view) hideDownloadIndicator];
 
     [self setData];
-    [self.homeView.tableView reloadData];
+    [self.tableView reloadData];
     
     if([notification.name isEqualToString: GTDataImporterNotificationPublishDraftSuccessful]){
         [self refreshDrafts];
@@ -211,37 +219,77 @@
     }
     
     if(!self.isRefreshing) {
-        [self.homeView setUserInteractionEnabled:YES];
+        [self.view setUserInteractionEnabled:YES];
     }
 }
 
 -(void)showDownloadIndicator:(NSNotification *) notification{
 
-    [self.homeView setUserInteractionEnabled:NO];
+    [self.view setUserInteractionEnabled:NO];
 
     if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]){
         self.isRefreshing = YES;
     }
     if([notification.name isEqualToString: GTDataImporterNotificationLanguageDownloadProgressMade]){
-        [self.homeView showDownloadIndicatorWithLabel: [NSString stringWithFormat: NSLocalizedString(@"GTHome_status_updatingResources", nil),@""]];
+        [((GTBaseView *)self.view) showDownloadIndicatorWithLabel: [NSString stringWithFormat: NSLocalizedString(@"GTHome_status_updatingResources", nil),@""]];
     }else if([notification.name isEqualToString:GTDataImporterNotificationLanguageDraftsDownloadStarted]){
-        [self.homeView showDownloadIndicatorWithLabel: NSLocalizedString(@"GTHome_status_updatingDrafts", nil)];
+        [((GTBaseView *)self.view) showDownloadIndicatorWithLabel: NSLocalizedString(@"GTHome_status_updatingDrafts", nil)];
     }else if([notification.name isEqualToString:GTDataImporterNotificationCreateDraftStarted]){
-        [self.homeView showDownloadIndicatorWithLabel: NSLocalizedString(@"GTHome_status_creatingDrafts", nil)];
+        [((GTBaseView *)self.view) showDownloadIndicatorWithLabel: NSLocalizedString(@"GTHome_status_creatingDrafts", nil)];
     }else if([notification.name isEqualToString:GTDataImporterNotificationPublishDraftStarted]){
-        [self.homeView showDownloadIndicatorWithLabel: NSLocalizedString(@"GTHome_status_publishingDrafts", nil)];
+        [((GTBaseView *)self.view) showDownloadIndicatorWithLabel: NSLocalizedString(@"GTHome_status_publishingDrafts", nil)];
     }else if([notification.name isEqualToString:GTDataImporterNotificationMenuUpdateStarted]){
-        [self.homeView showDownloadIndicatorWithLabel:[NSString stringWithFormat: NSLocalizedString(@"Updating menu...", @"update resources (with menu)")]];
+        [((GTBaseView *)self.view) showDownloadIndicatorWithLabel:[NSString stringWithFormat: NSLocalizedString(@"GTHome_status_updatingMenu", @"update resources (with menu)")]];
     }
 }
 
-#pragma Home View Delegates
+#pragma mark - Instruction selectors
 
--(void)settingsButtonPressed{
+- (void)dismissInstructions:(UITapGestureRecognizer *)gestureRecognizer {
+	
+	if (self.instructionsOverlayView.superview) {
+		
+		[UIView animateWithDuration:1.0 delay:0.0 options:0 animations:^{
+			
+			self.instructionsOverlayView.alpha = 0.0f;
+			
+		} completion:^(BOOL finished) {
+			
+			if (self.instructionsOverlayView.superview) {
+				[self.instructionsOverlayView removeFromSuperview];
+				self.instructionsOverlayView.hidden = YES;
+			}
+			
+		}];
+		
+	}
+	
+}
+
+#pragma mark - Navigation Bar Button selectors
+
+- (IBAction)settingsButtonPressed:(id)sender {
     [self performSegueWithIdentifier:@"homeToSettingsViewSegue" sender:self];
 }
 
--(void)refreshDraftsButtonDragged {
+- (IBAction)shareButtonPressed:(id)sender {
+	
+	GTShareInfo *shareInfo = [[GTShareInfo alloc] initWithBaseURL:[GTConfig sharedConfig].baseShareUrl
+													  packageCode:nil
+													 languageCode:nil];
+	[shareInfo setGoogleAnalyticsCampaign:GTHomeViewControllerShareCampaignName
+								   source:GTHomeViewControllerShareCampaignSource
+								   medium:GTHomeViewControllerShareCampaignMedium];
+	shareInfo.addPackageInfo = NO;
+	shareInfo.addCampaignInfo = YES;
+	shareInfo.subject = NSLocalizedString(@"GTHome_sharing_generalShare_subject", nil);
+	shareInfo.message = NSLocalizedString(@"GTHome_sharing_generalShare_message", nil);
+	GTShareViewController *shareViewController = [[GTShareViewController alloc] initWithInfo:shareInfo];
+	
+	[self presentViewController:shareViewController animated:YES completion:nil];
+}
+
+- (IBAction)refreshDraftsButtonDragged:(id)sender {
     [self refreshDrafts];
 };
 
@@ -253,7 +301,7 @@
     } else {
         self.selectedSectionNumber = sectionIdentifier;
     }
-    [self.homeView.tableView reloadData];
+    [self.tableView reloadData];
 }
 
 -(void) publishDraftButtonPressed:(NSString *)sectionIdentifier{
@@ -269,7 +317,11 @@
     self.selectedSectionNumber = sectionIdentifier;
     GTPackage *selectedPackage = [self.packagesWithNoDrafts objectAtIndex:([sectionIdentifier intValue] - self.articles.count)];
     NSString *selectedPackageTitle = selectedPackage.name;
-    self.createDraftsAlert = [[UIAlertView alloc]initWithTitle:selectedPackageTitle message:@"Create new draft?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
+    self.createDraftsAlert = [[UIAlertView alloc] initWithTitle:selectedPackageTitle
+														message:NSLocalizedString(@"GTHome_createDraftAlert_message", nil)
+													   delegate:self
+											  cancelButtonTitle:NSLocalizedString(@"GTHome_createDraftAlert_dismissButton", nil)
+											  otherButtonTitles:NSLocalizedString(@"GTHome_createDraftAlert_confirmButton", nil), nil];
 
     [self.createDraftsAlert show];
 }
@@ -278,7 +330,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    if(tableView == self.homeView.tableView){
+    if(tableView == self.tableView){
         if(![self isTranslatorMode]) {
             //every student is included for english only when not in translator mode, so add a cell
             if([self.languageCode isEqualToString:@"en"]) {
@@ -298,7 +350,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if(tableView == self.homeView.tableView){
+    if(tableView == self.tableView){
         return 1;
     }
     
@@ -317,7 +369,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if(tableView == self.homeView.tableView){
+    if(tableView == self.tableView){
         GTHomeViewCell *cell = (GTHomeViewCell*)[tableView dequeueReusableCellWithIdentifier:@"GTHomeViewCell"];
         
         if (cell == nil){
@@ -345,26 +397,22 @@
         } else if([self isTranslatorMode]){
             GTPackage *package = [self.articles objectAtIndex:indexPath.section];
             cell.titleLabel.text = package.name;
-            
-            NSString *imageFilePath = [[GTFileLoader pathOfPackagesDirectory] stringByAppendingPathComponent:package.icon];
         
-            cell.icon.image = [UIImage imageWithContentsOfFile: imageFilePath];
+            cell.icon.image = [[GTFileLoader sharedInstance] imageWithFilename:package.icon];
             [cell setUpBackground:(indexPath.section % 2) :YES :NO];
             
             [cell.contentView.layer setBorderColor:nil];
             [cell.contentView.layer setBorderWidth:0.0];
         } else if(currentSection >= self.articles.count){
             //block for every student cell
-            cell.titleLabel.text = @"Every Student";
+			cell.titleLabel.text = @"Every Student"; //only appears in english list so shouldn't be translated
             [cell setUpBackground:(indexPath.section % 2) :NO :NO];
             cell.icon.image = [UIImage imageNamed:@"GT4_HomeScreen_ESIcon_.png"];
         } else {
             GTPackage *package = [self.articles objectAtIndex:indexPath.section];
             cell.titleLabel.text = package.name;
             
-            NSString *imageFilePath = [[GTFileLoader pathOfPackagesDirectory] stringByAppendingPathComponent:package.icon];
-            
-            cell.icon.image = [UIImage imageWithContentsOfFile: imageFilePath];
+            cell.icon.image = [[GTFileLoader sharedInstance] imageWithFilename:package.icon];
             [cell setUpBackground:(indexPath.section % 2) :NO :NO];
             
             [cell.contentView.layer setBorderColor:nil];
@@ -411,7 +459,7 @@
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(tableView == self.homeView.tableView){
+    if(tableView == self.tableView){
         if([self isTranslatorMode] &&
            self.selectedSectionNumber != nil &&
            [self.selectedSectionNumber intValue] == indexPath.section) {
@@ -425,7 +473,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(tableView == self.homeView.tableView){
+    if(tableView == self.tableView){
         if(indexPath.section < self.articles.count) {
             GTPackage *selectedPackage = [self.articles objectAtIndex:indexPath.section];
             [self loadRendererWithPackage:selectedPackage];
@@ -436,21 +484,20 @@
             
             [self.navigationController setNavigationBarHidden:NO animated:YES];
             self.everyStudentViewController.language = @"en"; // for now, always English
-            self.everyStudentViewController.package = @"EveryStudent"; // for lack of knowing what else to put
+            self.everyStudentViewController.package = @"everystudent";
             [self.navigationController pushViewController:self.everyStudentViewController animated:YES];
         }
     }
 }
 
 #pragma mark - Data setter methods
--(GTLanguage *) getCurrentPrimaryLanguage {
-    NSArray *languages = [[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:self.languageCode inBackground:YES];
-    return(GTLanguage*)[languages objectAtIndex:0];
+- (GTLanguage *) getCurrentPrimaryLanguage {
+    return [[GTStorage sharedStorage] findClosestLanguageTo:self.languageCode];
 }
--(void)setData{
+
+- (void)setData {
     
-    self.languageCode = [[GTDefaults sharedDefaults]currentLanguageCode];
-    NSArray *languages = [[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:self.languageCode inBackground:YES];
+    self.languageCode = [GTDefaults sharedDefaults].currentLanguageCode;
     
     GTLanguage* mainLanguage = [self getCurrentPrimaryLanguage];
     
@@ -486,26 +533,32 @@
 }
 
 #pragma mark - Language Methods
--(void)checkPhonesLanguage{
-    
-    GTLanguage *language = [[[GTStorage sharedStorage] fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] phonesLanguageCode] inBackground:YES]objectAtIndex:0];
-    
-    BOOL shouldSetPhonesLanguageAsMainLanguage = ![[[GTDefaults sharedDefaults]phonesLanguageCode] isEqualToString:[[GTDefaults sharedDefaults] currentLanguageCode]];
-    
-    shouldSetPhonesLanguageAsMainLanguage = shouldSetPhonesLanguageAsMainLanguage && [[GTDefaults sharedDefaults]phonesLanguageCode]!=nil ;
-
-    
-    if([[GTDefaults sharedDefaults] isInTranslatorMode] == [NSNumber numberWithBool:NO]){
-        shouldSetPhonesLanguageAsMainLanguage = shouldSetPhonesLanguageAsMainLanguage && [self languageHasLivePackages:language];
-    }else if([[GTDefaults sharedDefaults] isInTranslatorMode] == [NSNumber numberWithBool:YES]){
-        shouldSetPhonesLanguageAsMainLanguage = shouldSetPhonesLanguageAsMainLanguage && language.packages.count>0;
-    }
-    
-    //phone's language is not the current main language of the app
-    if(shouldSetPhonesLanguageAsMainLanguage){
-            [self.homeView setUserInteractionEnabled:YES];
-            [self.phonesLanguageAlert show];
-    }
+- (void)checkPhonesLanguage {
+	
+	GTLanguage *phonesLanguage = [[GTStorage sharedStorage] findClosestLanguageTo:[GTDefaults sharedDefaults].phonesLanguageCode];
+	NSString *currentLanguageCode = [GTDefaults sharedDefaults].currentLanguageCode;
+	BOOL translatorMode = [GTDefaults sharedDefaults].isInTranslatorMode.boolValue;
+	
+	if( ![phonesLanguage.code isEqualToString:currentLanguageCode]){
+		
+		if ( ( !translatorMode && [self languageHasLivePackages:phonesLanguage] ) ||
+			 (  translatorMode && phonesLanguage.packages.count > 0 ) ) {
+			
+			self.phonesLanguage = phonesLanguage;
+			self.phonesLanguageAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"GTHome_languageAlert_title", nil)
+																  message:[NSString stringWithFormat:NSLocalizedString(@"GTHome_languageAlert_message", nil),self.phonesLanguage.name]
+																 delegate:self
+														cancelButtonTitle:NSLocalizedString(@"GTHome_languageAlert_dismissButton", nil)
+														otherButtonTitles:nil];
+			[self.phonesLanguageAlert addButtonWithTitle:NSLocalizedString(@"GTHome_languageAlert_confirmButton", nil)];
+			
+			[self.view setUserInteractionEnabled:YES];
+			[self.phonesLanguageAlert show];
+			
+		}
+		
+	}
+	
 }
 
 -(BOOL) languageHasLivePackages : (GTLanguage *)currentLanguage {
@@ -516,20 +569,20 @@
 }
 
 -(void)setMainLanguageToPhonesLanguage{
-    GTLanguage *language = [[[GTStorage sharedStorage] fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] phonesLanguageCode] inBackground:YES]objectAtIndex:0];
+    GTLanguage *language = [[GTStorage sharedStorage] findClosestLanguageTo:[GTDefaults sharedDefaults].phonesLanguageCode];
     
     if(language.downloaded){
-        [[GTDefaults sharedDefaults]setCurrentLanguageCode:language.code];
-        if([[[GTDefaults sharedDefaults]currentParallelLanguageCode] isEqualToString:language.code]){
-           [[GTDefaults sharedDefaults]setCurrentParallelLanguageCode:nil];
+        [GTDefaults sharedDefaults].currentLanguageCode = language.code;
+        if([[GTDefaults sharedDefaults].currentParallelLanguageCode isEqualToString:language.code]){
+           [GTDefaults sharedDefaults].currentParallelLanguageCode = nil;
         }
         [self setData];
-        [self.homeView.tableView reloadData];
+        [self.tableView reloadData];
     }else{
         [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadProgressMade
                                                             object:self
                                                           userInfo:nil];
-        [[GTDefaults sharedDefaults] setIsChoosingForMainLanguage:[NSNumber numberWithBool:YES]];
+        [GTDefaults sharedDefaults].isChoosingForMainLanguage = YES;
         [[GTDataImporter sharedImporter]downloadPackagesForLanguage:language];
     }
 }
@@ -588,7 +641,7 @@
     }
 
     self.godtoolsViewController.currentPackage = package;
-    [self.godtoolsViewController setCodes :package.code :package.language.code];
+	[self.godtoolsViewController setPackageCode:package.code languageCode:package.language.code];
     [self.godtoolsViewController addNotificationObservers];
         
     [self.godtoolsViewController loadResourceWithConfigFilename:package.configFile parallelConfigFileName:parallelConfigFile isDraft:isDraft];
@@ -604,14 +657,25 @@
         GTPackage *package = [self.articles objectAtIndex:0];
         GTFileLoader *fileLoader = [GTFileLoader fileLoader];
         fileLoader.language		= self.languageCode;
-        GTShareViewController *shareViewController = [[GTShareViewController alloc] init];
+		GTShareInfo *shareInfo = [[GTShareInfo alloc] initWithBaseURL:[GTConfig sharedConfig].baseShareUrl
+														  packageCode:@"kgp"
+														 languageCode:@"en"];
+		[shareInfo setGoogleAnalyticsCampaign:GTHomeViewControllerShareCampaignName
+									   source:GTHomeViewControllerShareCampaignSource
+									   medium:GTHomeViewControllerShareCampaignMedium];
+		shareInfo.addPackageInfo = YES;
+		shareInfo.addCampaignInfo = YES;
+		shareInfo.subject = NSLocalizedString(@"GTHome_sharing_shareFromPage_subject", nil);
+		shareInfo.message = NSLocalizedString(@"GTHome_sharing_shareFromPage_message", nil);
         GTPageMenuViewController *pageMenuViewController = [[GTPageMenuViewController alloc] initWithFileLoader:fileLoader];
         GTAboutViewController *aboutViewController = [[GTAboutViewController alloc] initWithDelegate:self fileLoader:fileLoader];
         
         [self willChangeValueForKey:@"godtoolsViewController"];
         _godtoolsViewController	= [[GTViewController alloc] initWithConfigFile:package.configFile
-                                                                    fileLoader:fileLoader
-                                                           shareViewController:shareViewController
+																   packageCode:@"kgp"
+																  langaugeCode:@"en"
+																	fileLoader:fileLoader
+																	 shareInfo:shareInfo
                                                         pageMenuViewController:pageMenuViewController
                                                            aboutViewController:aboutViewController
                                                                       delegate:self];

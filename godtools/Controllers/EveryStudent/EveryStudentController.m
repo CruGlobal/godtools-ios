@@ -49,7 +49,7 @@
 		UIColor		*backgroundColor	= [UIColor colorWithPatternImage:[UIImage imageNamed:@"GT4_HomeScreen_Background_"]];
 		self.view.backgroundColor		= backgroundColor;
 		
-		[self setTitle:@"Topics"];
+		[self setTitle:NSLocalizedString(@"GTEveryStudent_title", nil)];
 		self.searchBar.autocorrectionType = UITextAutocorrectionTypeYes;
         
         TBXML	*parser		= [[TBXML alloc] initWithXMLFile:@"EveryStudent.xml"];

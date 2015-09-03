@@ -48,7 +48,7 @@ NSString const *refreshDraftAlertKey = @"com.godtools.gtviewcontroller.refreshDr
     NSLog(@"notif: %@",notification.name);
     if([notification.name isEqualToString:GTDataImporterNotificationDownloadPageStarted]){
         if(!self.refreshDraftAlert){
-            self.refreshDraftAlert = [[UIAlertView alloc] initWithTitle:nil message:@"Refreshing draft..." delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+            self.refreshDraftAlert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"GTViewController_refreshDraftAlert_message", nil) delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
         }
         if(!self.refreshDraftAlert.visible){
             NSLog(@"refresh alert view, show yourself!");
@@ -61,7 +61,7 @@ NSString const *refreshDraftAlertKey = @"com.godtools.gtviewcontroller.refreshDr
         //[self.refreshDraftAlert show];
         [self.refreshDraftAlert dismissWithClickedButtonIndex:3 animated:YES];
     }else if([notification.name isEqualToString:GTDataImporterNotificationDownloadPageFail]){
-        [self.refreshDraftAlert setMessage:@"Refresh failure"];
+        [self.refreshDraftAlert setMessage:NSLocalizedString(@"GTViewController_refreshDraftAlert_message_refreshFailure", nil)];
         [self.refreshDraftAlert dismissWithClickedButtonIndex:4 animated:YES];
     }
 }

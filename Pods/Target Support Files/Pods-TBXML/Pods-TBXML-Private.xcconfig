@@ -1,5 +1,0 @@
-#include "Pods-TBXML.xcconfig"
-GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1 ${PODS_TBXML_GCC_PREPROCESSOR_DEFINITIONS}
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Build" "${PODS_ROOT}/Headers/Build/TBXML" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AFDownloadRequestOperation" "${PODS_ROOT}/Headers/Public/AFNetworking" "${PODS_ROOT}/Headers/Public/AFRaptureXMLRequestOperation" "${PODS_ROOT}/Headers/Public/GTViewController" "${PODS_ROOT}/Headers/Public/GoogleAnalytics-iOS-SDK" "${PODS_ROOT}/Headers/Public/NewRelicAgent" "${PODS_ROOT}/Headers/Public/RaptureXML" "${PODS_ROOT}/Headers/Public/SSCWhatsAppActivity" "${PODS_ROOT}/Headers/Public/SSZipArchive" "${PODS_ROOT}/Headers/Public/TBXML"
-OTHER_LDFLAGS = ${PODS_TBXML_OTHER_LDFLAGS} -ObjC
-PODS_ROOT = ${SRCROOT}

@@ -21,6 +21,7 @@
 #import <GoogleAnalytics-iOS-SDK/GAIFields.h>
 #import <GoogleAnalytics-iOS-SDK/GAITracker.h>
 #import <GoogleAnalytics-iOS-SDK/GAIDictionaryBuilder.h>
+#import <GTViewController/GTViewController.h>
 
 NSString * const GTGoogleAnalyticsCategoryUI				= @"ui";
 NSString * const GTGoogleAnalyticsCategoryBackgroundProcess	= @"background_process";
@@ -38,6 +39,8 @@ NSString * const GTGoogleAnalyticsActionSwipe	= @"swipe";
 @interface GTGoogleAnalyticsTracker ()
 
 @property (nonatomic, strong) id<GAITracker> tracker;
+
+- (void)didReceivePageViewNotification:(NSNotification *)notification;
 
 @end
 
@@ -82,6 +85,9 @@ NSString * const GTGoogleAnalyticsActionSwipe	= @"swipe";
         NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"config" ofType:@"plist"]];
         NSString *apiKey = [dictionary objectForKey:@"google_analytics_api_key"];
         self.tracker = [[GAI sharedInstance] trackerWithTrackingId:apiKey];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceivePageViewNotification:) name:GTViewControllerNotificationPageView object:nil];
+		
     }
     
     return self;
@@ -164,6 +170,33 @@ NSString * const GTGoogleAnalyticsActionSwipe	= @"swipe";
                          set:screen forKey:kGAIScreenName]		// Screen Name Event was triggered on
                         build]];
     
+}
+
+- (void)didReceivePageViewNotification:(NSNotification *)notification {
+	
+	NSString *packageCode = notification.userInfo[GTViewControllerNotificationPageViewUserInfoKeyPackage];
+	NSString *languageCode = notification.userInfo[GTViewControllerNotificationPageViewUserInfoKeyLanguage];
+	NSNumber *pageNumber = notification.userInfo[GTViewControllerNotificationPageViewUserInfoKeyPageNumber];
+	
+	id tracker = [[GAI sharedInstance] defaultTracker];
+	
+	[tracker set:[GAIFields customDimensionForIndex:1]
+		   value:packageCode];
+	
+	[tracker set:[GAIFields customDimensionForIndex:2]
+		   value:languageCode];
+	
+	[tracker set:kGAIScreenName
+		   value:[packageCode stringByAppendingString:[@"-" stringByAppendingString:pageNumber.stringValue]]];
+	
+	[tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+	
+}
+
+- (void)dealloc {
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	
 }
 
 @end

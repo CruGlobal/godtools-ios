@@ -10,13 +10,14 @@
 #import <Foundation/Foundation.h>
 #import "GTAPI.h"
 #import "GTStorage.h"
+#import "GTPackageExtractor.h"
 #import "GTDefaults.h"
 #import "RXMLElement.h"
 
 /**
  *  Class used to download content from the God Tools API and save it locally. This is the main class you should use.
  */
-@interface GTDataImporter : NSObject\
+@interface GTDataImporter : NSObject
 
 #warning This is the main class you should use with the apps logic. Start by reading this documentation
 
@@ -34,11 +35,12 @@
  *
  *  @param api      God Tools API class that retrieves content from the God Tools webservice and processes it for use.
  *  @param storage  A Core Data stack used for storing downloaded content.
+ *  @param packageExtractor An object that given the path of a godtools zip file will extract it to the correct location on the hard drive.
  *  @param defaults An object that holds the apps current language(s) and package(s). This class will observe changes in this object and initiate requests that are needed.
  *
  *  @return a configured data importer object
  */
-- (instancetype)initWithAPI:(GTAPI *)api storage:(GTStorage *)storage defaults:(GTDefaults *)defaults;
+- (instancetype)initWithAPI:(GTAPI *)api storage:(GTStorage *)storage packageExtractor:(GTPackageExtractor *)packageExtractor defaults:(GTDefaults *)defaults;
 
 /**
  *  Initiates an request to the api for menu data and updates the storage with new values that have been returned.
@@ -104,7 +106,9 @@
 
 - (void)authorizeTranslator: (NSString *)accessCode;
 
-- (void)persistMenuInfoFromXMLElement:(RXMLElement *)rootElement;
+- (BOOL)importMenuInfoFromXMLElement:(RXMLElement *)rootElement;
+
+- (BOOL)importPackageContentsFromElement:(RXMLElement *)contents forLanguage:(GTLanguage *)language ;
 
 - (void)downloadDraftsForLanguage:(GTLanguage *)language;
 

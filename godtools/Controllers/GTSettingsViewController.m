@@ -55,11 +55,11 @@
     [self setLanguageNameLabelValues];
     
     self.exitTranslatorModeAlert = [[UIAlertView alloc]
-                                        initWithTitle:NSLocalizedString(@"AlertTitle_exitPreviewMode", nil)
-                                        message:NSLocalizedString(@"AlertMessage_exitPreviewMode", nil)
+                                        initWithTitle:NSLocalizedString(@"GTSettings_exitPreviewMode_title", nil)
+                                        message:NSLocalizedString(@"GTSettings_exitPreviewMode_message", nil)
                                         delegate:self
-                                        cancelButtonTitle:@"No"
-                                        otherButtonTitles:@"Yes",nil];
+                                        cancelButtonTitle:NSLocalizedString(@"GTSettings_exitPreviewMode_dismissButton", nil)
+                                        otherButtonTitles:NSLocalizedString(@"GTSettings_exitPreviewMode_confirmButton", nil),nil];
     
     self.buttonLessAlert        = [[UIAlertView alloc]
                                         initWithTitle:@""
@@ -78,7 +78,7 @@
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:0.44 green:0.84 blue:0.88 alpha:1.0]];
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self.navigationController.navigationBar setTranslucent:NO]; // required for iOS7
-    self.navigationController.navigationBar.topItem.title = @"Settings";
+    self.navigationController.navigationBar.topItem.title = NSLocalizedString(@"GTSettings_navigationBar_title", nil);
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     
     [self.previewModeSwitch setOn: [[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]];
@@ -166,7 +166,7 @@
 #pragma mark - Outlets
 
 - (IBAction)changeParallelLanguagePressed {
-    [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:[NSNumber numberWithBool: NO]];
+    [GTDefaults sharedDefaults].isChoosingForMainLanguage = NO;
     [self performSegueWithIdentifier:@"settingsToLanguageViewSegue" sender:self];
 }
 
@@ -179,20 +179,24 @@
 }
 
 - (IBAction)changePrimaryLanguagePressed {
-    [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:[NSNumber numberWithBool: YES]];
+    [GTDefaults sharedDefaults].isChoosingForMainLanguage = YES;
     [self performSegueWithIdentifier:@"settingsToLanguageViewSegue" sender:self];
 }
 
 #pragma mark - UI Utilities
 
 - (void)setLanguageNameLabelValues {
-    [self.primaryLanguageButton setTitle:[[self mainLanguage].name uppercaseString] forState:UIControlStateNormal];
+	
+	NSString *localizedMainLanguageName = [[[NSLocale currentLocale] displayNameForKey:NSLocaleIdentifier value:self.mainLanguage.code] capitalizedString];
+	localizedMainLanguageName = ( [localizedMainLanguageName isEqualToString:self.mainLanguage.code] ? self.mainLanguage.name.capitalizedString : localizedMainLanguageName.capitalizedString );
+	[self.primaryLanguageButton setTitle:localizedMainLanguageName forState:UIControlStateNormal];
 
     if([self parallelLanguage] == nil) {
-        [self.parallelLanguageButton setTitle: @"None Selected" forState:UIControlStateNormal];
-    }
-    else {
-        [self.parallelLanguageButton setTitle: [[self parallelLanguage].name uppercaseString] forState:UIControlStateNormal];
+        [self.parallelLanguageButton setTitle: NSLocalizedString(@"GTSettings_parallelLanguageButton_noneSelected", nil) forState:UIControlStateNormal];
+    } else {
+		NSString *localizedParallelLanguageName = [[[NSLocale currentLocale] displayNameForKey:NSLocaleIdentifier value:self.parallelLanguage.code] capitalizedString];
+		localizedParallelLanguageName = ( [localizedParallelLanguageName isEqualToString:self.parallelLanguage.code] ? self.parallelLanguage.name.capitalizedString : localizedParallelLanguageName.capitalizedString );
+        [self.parallelLanguageButton setTitle:localizedParallelLanguageName forState:UIControlStateNormal];
     }
 }
 
