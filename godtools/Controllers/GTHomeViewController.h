@@ -10,6 +10,7 @@
 #import "GTViewController+Helper.h"
 #import <GTViewController/GTFileLoader.h>
 #import <GTViewController/GTPageMenuViewController.h>
+#import <GTViewController/GTShareInfo.h>
 #import <GTViewController/GTShareViewController.h>
 #import <GTViewController/GTAboutViewController.h>
 #import "GTHomeViewCell.h"
@@ -18,5 +19,6 @@
 
 @property (strong, nonatomic) NSMutableArray* articles;
 @property (strong, nonatomic) NSMutableArray* packagesWithNoDrafts;
+@property (nonatomic, assign) BOOL shouldShowInstructions;
 
 @end

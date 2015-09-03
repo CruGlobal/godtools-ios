@@ -47,8 +47,9 @@
 "GTHome_status_publishingDrafts"                                 = "Publishing draft...";
 "GTHome_status_updatingMenu"                                     = "Updating menu...";
 "GTHome_status_checkingForUpdates"                               = "Checking for Updates...";
+"GTHome_status_initialSetup"                                     = "Initial Setup...";
 "GTHome_languageAlert_title"                                     = "Language Settings";
-"GTHome_languageAlert_message"                                   = "Would you like to make % the default language?";
+"GTHome_languageAlert_message"                                   = "Would you like to make %@ the default language?";
 "GTHome_languageAlert_dismissButton"                             = "No";
 "GTHome_languageAlert_confirmButton"                             = "Yes";
 "GTHome_draftsAlert_confirmButton"                               = "Yes, it's ready!";
@@ -57,6 +58,10 @@
 "GTHome_createDraftAlert_message"                                = "Create new draft?";
 "GTHome_createDraftAlert_dismissButton"                          = "Cancel";
 "GTHome_createDraftAlert_confirmButton"                          = "Yes";
+"GTHome_sharing_shareFromPage_subject"                           = "God Tools";
+"GTHome_sharing_shareFromPage_message"                           = "Here is the booklet we were looking at today. This link, %@, should take you to the page we were last looking at.";
+"GTHome_sharing_generalShare_subject"                            = "God Tools";
+"GTHome_sharing_generalShare_message"                            = "Check out this %@";
 
 
 "GTViewController_refreshDraftAlert_message"                     = "Refreshing draft...";
@@ -68,6 +73,9 @@
 
 "GTErrorHandler_errorTitle"                                      = "Error";
 "GTErrorHandler_errorDismissButton"                              = "OK";
+
+
+"GTSplash_initialSetup_error_message"                            = "Unfortunately we could not load any resources. Please quit the app and reopen. If the problem persists contact support@godtoolsapp.com";
 
 
 "Yes"                                                            = "Yes";

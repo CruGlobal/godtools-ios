@@ -16,7 +16,6 @@ NSString *const GTDefaultscurrentLanguageCodeKey			= @"current_language_code";
 NSString *const GTDefaultscurrentParallelLanguageCodeKey	= @"current_parallel_language_code";
 
 NSString *const GTDefaultsisChoosingForMainLanguage         = @"is_for_main_language";
-NSString *const GTDefaultsisFirstLaunch                     = @"is_first_launch";
 NSString *const GTDefaultsisInTranslatorMode                = @"is_in_translator_mode";
 
 NSString *const GTDefaultstranslationDownloadStatus         = @"translation_download_status";
@@ -36,7 +35,6 @@ NSString *const GTDefaultsgenericApiToken                   = @"generic_api_toke
 @synthesize currentParallelLanguageCode	= _currentParallelLanguageCode;
 
 @synthesize isChoosingForMainLanguage   = _isChoosingForMainLanguage;
-@synthesize isFirstLaunch               = _isFirstLaunch;
 @synthesize isInTranslatorMode          = _isInTranslatorMode;
 
 @synthesize translationDownloadStatus   = _translationDownloadStatus;
@@ -75,57 +73,14 @@ NSString *const GTDefaultsgenericApiToken                   = @"generic_api_toke
 
 - (NSString *)phonesLanguageCode {
 	
-	NSString		*language					= @"";
-	
 	NSArray			*preferredLanguages			= [NSLocale preferredLanguages];
 	NSLocale		*currentLocale				= [NSLocale currentLocale];
-    
-    //NSLog(@"preferredLanguages %@",preferredLanguages);
-    //NSLog(@"current Locale: %@", currentLocale.localeIdentifier);
 	
 	NSString		*phonesLanguage				= ( preferredLanguages.count > 0 ? preferredLanguages[0] : @"en" );
 	NSString		*phonesLocale				= ( [currentLocale objectForKey:NSLocaleCountryCode] ? [currentLocale objectForKey:NSLocaleCountryCode] : @"" );
-    NSString		*phonesLanguageWithLocale	= [phonesLanguage stringByAppendingFormat:@"_%@", phonesLocale];
-    
-    
-	if ([self isValidLanguageCode:phonesLanguageWithLocale]) {
-		
-		language	= phonesLanguageWithLocale;
-		
-	} else if ([self isValidLanguageCode:phonesLanguage]) {
-		
-		language	= phonesLanguage;
-		
-    }else if([self checkIfChinese:phonesLanguage]){
-        language    = @"zh";
-    
-    }else {
-		
-		//language	= @"en";
-        language = nil;
-		
-	}
+    NSString		*phonesLanguageWithLocale	= [phonesLanguage stringByAppendingFormat:@"-%@", phonesLocale];
 
-	return language;
-}
-
--(BOOL)checkIfChinese:(NSString *)languageCode{
-    return [languageCode isEqualToString:@"zh-Hans"] || [languageCode isEqualToString:@"zh-Hant"];
-}
-
-- (BOOL)isValidLanguageCode:(NSString *)languageCode {
-
-    //get all languages
-    NSArray *languages = [[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:languageCode inBackground:YES];
-    
-    if(languages.count > 0){
-        //NSLog(@"%@ is valid",languageCode);
-        return YES;
-    }else{
-        //NSLog(@"%@ is invalid",languageCode);
-        return NO;
-    }
-
+	return phonesLanguageWithLocale;
 }
 
 #pragma mark - currentPackageCode
@@ -210,52 +165,25 @@ NSString *const GTDefaultsgenericApiToken                   = @"generic_api_toke
 
 #pragma mark - Choosing Main Language
 
--(void)setIsChoosingForMainLanguage:(NSNumber*)isChoosingForMainLanguage{
+- (void)setIsChoosingForMainLanguage:(BOOL)isChoosingForMainLanguage {
     [self willChangeValueForKey:@"isChoosingForMainLanguage"];
     _isChoosingForMainLanguage	= isChoosingForMainLanguage;
     [self didChangeValueForKey:@"isChoosingForMainLanguage"];
     
-    [[NSUserDefaults standardUserDefaults]setObject:_isChoosingForMainLanguage forKey:GTDefaultsisChoosingForMainLanguage];
+    [[NSUserDefaults standardUserDefaults] setObject:@(_isChoosingForMainLanguage) forKey:GTDefaultsisChoosingForMainLanguage];
 
 }
 
--(NSNumber*)isChoosingForMainLanguage{
+- (BOOL)isChoosingForMainLanguage {
     if (!_isChoosingForMainLanguage) {
         
         [self willChangeValueForKey:@"isChoosingForMainLanguage"];
-        _isChoosingForMainLanguage = [[NSUserDefaults standardUserDefaults] objectForKey:GTDefaultsisChoosingForMainLanguage];
+		_isChoosingForMainLanguage = ( [[[NSUserDefaults standardUserDefaults] objectForKey:GTDefaultsisChoosingForMainLanguage] isEqual:@YES] ? YES : NO );
         [self didChangeValueForKey:@"isChoosingForMainLanguage"];
     }
 
     return _isChoosingForMainLanguage;
 }
-
-#pragma mark - isFirstLaunch
-
--(void)setIsFirstLaunch:(NSNumber *)isFirstLaunch{
-    [self willChangeValueForKey:@"isFirstLaunch"];
-    _isFirstLaunch	= isFirstLaunch;
-    [self didChangeValueForKey:@"isFirstLaunch"];
-    
-    [[NSUserDefaults standardUserDefaults]setObject:_isFirstLaunch forKey:GTDefaultsisFirstLaunch];
-    
-}
--(NSNumber*)isFirstLaunch{
-    
-    if (!_isFirstLaunch) {
-        
-        [self willChangeValueForKey:@"isFirstLaunch"];
-        _isFirstLaunch = [[NSUserDefaults standardUserDefaults] objectForKey:GTDefaultsisFirstLaunch];
-        if(_isFirstLaunch == nil){
-            [self setIsFirstLaunch:[NSNumber numberWithBool:YES]];
-        }
-        [self didChangeValueForKey:@"isFirstLaunch"];
-    }
-    
-    return _isFirstLaunch;
-}
-
-#pragma mark - isFirstLaunch
 
 -(void)setIsInTranslatorMode:(NSNumber *)isInTranslatorMode{
     [self willChangeValueForKey:@"isInTranslatorMode"];

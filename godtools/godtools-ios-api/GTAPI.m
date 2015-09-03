@@ -24,12 +24,16 @@ NSString * const GTAPIDefaultHeaderValueDensity				= @"high";
 NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
 
 @interface GTAPI ()
-
+/**
+ *  This is the token required by all requests to the God Tools API. You retreive it by calling getAuthTokenForDeviceID:success:failure:
+ */
+@property (nonatomic, strong)			NSString		*authToken;
 @property (nonatomic, strong, readonly) NSString		*apiKey;
 @property (nonatomic, strong, readonly) NSNumber		*interpreterVersion;
 @property (nonatomic, strong) AFDownloadRequestOperation *languageAFDownloadRequestOperation;
 
 - (AFDownloadRequestOperation *)getFilesForRequest:(NSMutableURLRequest *)request progress:(void (^)(NSNumber *))progress success:(void (^)(NSURLRequest *, NSHTTPURLResponse *, NSURL *))success failure:(void (^)(NSURLRequest *, NSHTTPURLResponse *, NSError *))failure;
+- (void)startRequestWithOperation:(NSOperation *)apiRequestOperation;
 
 @end
 
@@ -91,7 +95,7 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
 	[self willChangeValueForKey:@"authToken"];
 	_authToken	= authToken;
 	[self didChangeValueForKey:@"authToken"];
-    NSLog(@"token:%@",_authToken);
+	
 	[self.requestSerializer setValue:_authToken
 				  forHTTPHeaderField:GTAPIDefaultHeaderKeyAPIKey];
 }
@@ -100,24 +104,33 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
 
 - (void)getAuthTokenForDeviceID:(NSString *)deviceID success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSString *authToken))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure {
 	
-    NSMutableURLRequest *request			= [self.requestSerializer authRequestWithAccessCode:nil
-																			  deviceID:deviceID
-																				 error:nil];
+	if (self.authToken) {
+		
+		success(nil, nil, self.authToken);
+		
+	} else {
 	
-	AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request
-																				success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement) {
-                                                                                    NSLog(@"get auth successful");
-																					success(request, response, [[response allHeaderFields] valueForKey:@"Authorization"]);
-																					
-																				}
-																				failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement) {
+		NSMutableURLRequest *request			= [self.requestSerializer authRequestWithAccessCode:nil
+																				  deviceID:deviceID
+																					 error:nil];
+		
+		__weak typeof(self)weakSelf = self;
+		AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request
+																					success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement) {
+																						
+																						weakSelf.authToken = [[response allHeaderFields] valueForKey:@"Authorization"];
+																						success(request, response, weakSelf.authToken);
+																						
+																					} failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement) {
 
-                                                                                    NSLog(@"get auth not successful");
-																					failure(request, response, error);
-																					
-																				}];
+																						failure(request, response, error);
+																						
+																					}];
+		
+		[self.operationQueue addOperation:operation];
+			
+	}
 	
-	[self.operationQueue addOperation:operation];
 }
 
 - (void)getAuthTokenWithAccessCode:(NSString *)accessCode success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response,NSString *authToken))success failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure {
@@ -127,14 +140,16 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
                                                                                  error:nil];
     
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]initWithRequest:request];
-    
+	
+	__weak typeof(self)weakSelf = self;
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        success(operation.request, operation.response,[operation.response.allHeaderFields objectForKey:@"Authorization"]);
+		weakSelf.authToken = [operation.response.allHeaderFields objectForKey:@"Authorization"];
+        success(operation.request, operation.response, weakSelf.authToken);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         failure(operation.request, operation.response, error);
     }];
     
-    [self.operationQueue addOperation:operation];
+    [self startRequestWithOperation:operation];
 }
 
 #pragma mark - download meta information methods
@@ -150,7 +165,7 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
 																										 success:success
 																										 failure:failure];
 	
-    [self.operationQueue addOperation:operation];
+    [self startRequestWithOperation:operation];
 }
 
 #pragma mark - download resource methods
@@ -219,7 +234,7 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
 		
 	}];
 
-	[self.operationQueue addOperation:operation];
+	[self startRequestWithOperation:operation];
 	
     return operation;
 }
@@ -239,21 +254,11 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
 
 -(void)getPageForLanguage:(GTLanguage *)language package:(GTPackage *)package pageID:(NSString *)pageID progress:(void (^)(NSNumber *))progress success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSURL *targetPath))success failure:(void (^)(NSURLRequest *, NSHTTPURLResponse *, NSError *))failure{
     NSParameterAssert(language.code);
-    
-    /*NSMutableURLRequest *request	= [self.requestSerializer pageRequesttWithLanguage:language
-     package:package
-     pageID:pageID
-     error:nil];*/
+	
     NSMutableURLRequest *request	= [self.requestSerializer pageRequestWithLanguage:language
                                                                            package:package
                                                                             pageID:pageID
                                                                              error:nil];
-    
-    //AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request success:success failure:failure];
-    
-    //[self.operationQueue addOperation:operation];
-    
-    NSLog(@"request: %@",request);
     
     [self getFilesForRequest:request progress:progress success:success failure:failure];
     
@@ -273,7 +278,7 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
         failure(operation.request, operation.response, error);
     }];
     
-    [self.operationQueue addOperation:operation];
+    [self startRequestWithOperation:operation];
 
 }
 
@@ -289,10 +294,24 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
         failure(operation.request, operation.response, error);
     }];
     
-    [self.operationQueue addOperation:operation];
+    [self startRequestWithOperation:operation];
 }
 
-
+- (void)startRequestWithOperation:(NSOperation *)apiRequestOperation {
+	
+	__weak typeof(self)weakSelf = self;
+	[self getAuthTokenForDeviceID:nil
+						  success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSString *authToken) {
+							  
+							  [weakSelf.operationQueue addOperation:apiRequestOperation];
+							  
+						  } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+							  
+							  [weakSelf.operationQueue addOperation:apiRequestOperation];
+							  
+						  }];
+	
+}
 
 
 @end

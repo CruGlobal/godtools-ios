@@ -1,7 +1,4 @@
 
-/* Class = "UILabel"; text = "God Tools"; ObjectID = "43O-9q-s8R"; */
-"43O-9q-s8R.text" = "God Tools";
-
 /* Class = "UILabel"; text = "The toggle button will not show up in the menu if the booklet is not available in the parallel language"; ObjectID = "5lB-eD-M5X"; */
 "5lB-eD-M5X.text" = "The toggle button will not show up in the menu if the booklet is not available in the parallel language";
 
@@ -11,7 +8,13 @@
 /* Class = "UILabel"; text = "[ Translator Mode ]"; ObjectID = "Ddm-Sv-WQm"; */
 "Ddm-Sv-WQm.text" = "[ Translator Mode ]";
 
-/* Class = "UILabel"; text = "*Tap screen during presentation to view menu."; ObjectID = "O3d-nf-ctT"; */
+/* Class = "UIBarButtonItem"; title = "God Tools"; ObjectID = "GjW-KD-mNq"; */
+"GjW-KD-mNq.title" = "God Tools";
+
+/* Class = "UILabel"; text = "Share with a friend"; ObjectID = "O05-24-H92"; */
+"O05-24-H92.text" = "Share with a friend";
+
+/* Class = "UILabel"; text = "Tap screen during presentation to view menu."; ObjectID = "O3d-nf-ctT"; */
 "O3d-nf-ctT.text" = "Tap screen during presentation to view menu.";
 
 /* Class = "UILabel"; text = "Pick a tool"; ObjectID = "P4W-0o-rM1"; */

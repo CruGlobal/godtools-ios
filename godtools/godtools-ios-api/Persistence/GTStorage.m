@@ -124,4 +124,42 @@ NSString *const GTStorageModelName				= @"GTModel";
     return fetchedObjects;
 }
 
+- (GTLanguage *)languageWithCode:(NSString *)languageCode {
+
+	NSArray *languages = [self fetchModel:[GTLanguage class] usingKey:@"code" forValue:languageCode inBackground:YES];
+	
+	return ( languages.count > 0 ? languages[0] : nil );
+}
+
+- (GTLanguage *)findClosestLanguageTo:(NSString *)languageCode {
+	
+	GTLanguage *language = [self languageWithCode:languageCode];
+	
+	if (!language) {
+		
+		NSArray *languageComponents = [languageCode componentsSeparatedByString:@"-"];
+		
+		//if the language code has locale components and wasn't previously found then remove locale components and search again. Else return the default language, english (which is always in the DB)
+		if (languageComponents.count > 1) {
+			
+			languageCode = languageComponents[0];
+		} else {
+			
+			//this checks for an infinite loop (possible if there is an issue with the db and english can't be found)
+			if (![languageCode isEqualToString:@"en"]) {
+				languageCode = @"en";
+			} else {
+				return nil;
+			}
+		}
+		
+		return [self findClosestLanguageTo:languageCode];
+		
+	} else {
+		
+		return language;
+	}
+	
+}
+
 @end

@@ -8,21 +8,43 @@
 
 #import "GTMainViewController.h"
 #import "GTDataImporter.h"
-#import "RXMLElement.h"
-#import "SSZipArchive.h"
-#import "GTLanguage+Helper.h"
-#import "GTPackage+Helper.h"
-#import "TBXML.h"
-#import "GTDefaults.h"
-#import "GTBaseView.h"
+#import "GTPackageExtractor.h"
+#import "GTInitialSetupTracker.h"
 #import "GTSplashScreenView.h"
-
+#import "GTHomeViewController.h"
 #import "GTGoogleAnalyticsTracker.h"
 
+NSString * const GTSplashErrorDomain				= @"org.cru.godtools.gtsplashviewcontroller.error.domain";
+NSInteger const GTSplashErrorCodeInitialSetupFailed = 1;
+
+NSString * const GTSplashNotificationDownloadPhonesLanugageSuccess				= @"org.cru.godtools.gtsplashviewcontroller.notification.downloadphoneslanguagesuccess";
+NSString * const GTSplashNotificationDownloadPhonesLanugageProgress				= @"org.cru.godtools.gtsplashviewcontroller.notification.downloadphoneslanguageprogress";
+NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cru.godtools.gtsplashviewcontroller.notification.downloadphoneslanguagefailure";
+
 @interface GTMainViewController ()
-    @property (nonatomic, strong) NSArray *resources;
-    @property (nonatomic, strong) GTSplashScreenView *splashScreen;
-    @property AFNetworkReachabilityManager *afReachability;
+
+@property (nonatomic, strong) GTInitialSetupTracker *setupTracker;
+@property (nonatomic, strong) GTSplashScreenView *splashScreen;
+
+- (void)persistLocalMetaData;
+- (void)persistLocalEnglishPackage;
+- (void)downloadPhonesLanguage;
+
+- (void)updateMenu;
+- (void)goToHome;
+
+- (void)initialSetupBegan:(NSNotification *)notification;
+- (void)initialSetupFinished:(NSNotification *)notification;
+- (void)initialSetupFailed:(NSNotification *)notification;
+
+- (void)menuUpdateBegan:(NSNotification *)notification;
+- (void)menuUpdateFinished:(NSNotification *)notification;
+
+- (void)registerListenersForInitialSetup;
+- (void)removeListenersForInitialSetup;
+- (void)registerListenersForMenuUpdate;
+- (void)removeListenersForMenuUpdate;
+
 @end
 
 @implementation GTMainViewController
@@ -31,238 +53,294 @@
 	
     [super viewDidLoad];
 
+	self.setupTracker = [[GTInitialSetupTracker alloc] init];
+	
+	//UI config
     [self.navigationController setNavigationBarHidden:YES];
-    
     self.splashScreen = (GTSplashScreenView*) [[[NSBundle mainBundle] loadNibNamed:@"GTSplashScreenView" owner:nil options:nil]objectAtIndex:0];
     self.splashScreen.frame = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, self.view.frame.size.height);
     self.view = self.splashScreen;
-
-    NSLog(@"SPLASH IS   %@", [self.splashScreen class]);
     
     [self.splashScreen initDownloadIndicator];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(updateFinished:)
-                                                 name: GTDataImporterNotificationMenuUpdateFinished
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(showLoadingIndicator:)
-                                                 name: GTDataImporterNotificationMenuUpdateStarted
-                                               object:nil];
-    
-    self.afReachability = [AFNetworkReachabilityManager managerForDomain:@"www.google.com"];
-    [self.afReachability setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        if (status < AFNetworkReachabilityStatusReachableViaWWAN) {
-            NSLog(@"No internet connection!");
-        }
-    }];
-    
-    [self.afReachability startMonitoring];
 
     //check if first launch
-    if([[GTDefaults sharedDefaults]isFirstLaunch] == [NSNumber numberWithBool:YES]){
+    if(self.setupTracker.firstLaunch){
+		
+		[self registerListenersForInitialSetup];
+		[self.setupTracker beganInitialSetup];
+		
         //prepare initial content
-        [self extractBundle];
-        [self extractMetaData];
-    }
-    
-    if(![[GTDefaults sharedDefaults] genericApiToken]) {
-        [self requestGenericAuthToken];
-    } else {
-        [self updateMenu];
-        [self goToHome];
-    }
+        [self persistLocalEnglishPackage];
+        [self persistLocalMetaData];
+		
+		//download phone's language
+		[self downloadPhonesLanguage];
+		
+	} else {
+		
+		[self registerListenersForMenuUpdate];
+		[self updateMenu];
+		[self goToHome];
+		
+	}
+	
 }
 
--(void)viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
     [[[GTGoogleAnalyticsTracker sharedInstance] setScreenName:@"SplashScreen"] sendScreenView];
 }
 
-- (void)viewDidDisappear:(BOOL)animated
-{
+- (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:GTDataImporterNotificationMenuUpdateFinished
-                                                  object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:GTDataImporterNotificationMenuUpdateStarted                                              object:nil];
+	
 }
 
--(void)goToHome{
-    NSLog(@"go to home");
-    [self performSelector:@selector(performSegueToHome) withObject:nil afterDelay:1.0];
+#pragma mark - API request methods
 
+- (void)updateMenu {
+	[[GTDataImporter sharedImporter] updateMenuInfo];
 }
 
--(void)performSegueToHome{
-     [self performSegueWithIdentifier:@"splashToHomeViewSegue" sender:self];
+#pragma mark - First Launch methods
+
+- (void)persistLocalMetaData {
+	
+	NSString* pathOfMeta = [[NSBundle mainBundle] pathForResource:@"meta" ofType:@"xml"];
+	RXMLElement *metaXML = [RXMLElement elementFromXMLData:[NSData dataWithContentsOfFile:pathOfMeta]];
+	
+	if ([[GTDataImporter sharedImporter] importMenuInfoFromXMLElement:metaXML]) {
+		
+		[self.setupTracker finishedExtractingMetaData];
+		
+	} else {
+		
+		[self.setupTracker failedExtractingMetaData];
+		
+	}
+	
 }
 
--(void) requestGenericAuthToken {
-    [[GTAPI sharedAPI] getAuthTokenForDeviceID:nil
-                                       success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSString *authToken) {
-                                           [[GTDefaults sharedDefaults] setGenericApiToken:authToken];
-                                           [[GTAPI sharedAPI] setAuthToken:authToken];
-                                           [self updateFromApi];
-                                           [self goToHome];
-                                       }
-                                       failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                           NSLog(@"generic auth failed!!");
-                                           [self goToHome];
-                                       }];
+- (void)persistLocalEnglishPackage {
+	
+	//retrieve or create the english language object.
+	NSArray *englishArray = [[GTStorage sharedStorage] fetchArrayOfModels:[GTLanguage class] usingKey:@"code" forValues:@[@"en"] inBackground:YES];
+	GTLanguage *english;
+	if([englishArray count] == 0){
+		english = [GTLanguage languageWithCode:@"en" inContext:[GTStorage sharedStorage].backgroundObjectContext];
+		english.name = @"English";
+	}else{
+		english = [englishArray objectAtIndex:0];
+		[english removePackages:english.packages];
+	}
+	
+	NSURL* pathOfEnglishZip	= [NSURL URLWithString:[[NSBundle mainBundle] pathForResource:@"en" ofType:@"zip"]];
+	//unzips english package and moves it to documents folder
+	RXMLElement *contents			= [[GTPackageExtractor sharedPackageExtractor] unzipResourcesAtTarget:pathOfEnglishZip forLanguage:english package:nil];
+	
+	//reads contents.xml and saves meta data to the database about all the packages found in the zip file.
+	if ([[GTDataImporter sharedImporter] importPackageContentsFromElement:contents forLanguage:english]) {
+		
+		[self.setupTracker finishedExtractingEnglishPackage];
+		
+	} else {
+		
+		[self.setupTracker failedExtractingEnglishPackage];
+		
+	}
+	
+	[GTDefaults sharedDefaults].currentLanguageCode = english.code;
+	
 }
 
--(void)updateFromApi {
-    [self updateMenu];;
-    [[GTDefaults sharedDefaults] setIsChoosingForMainLanguage:[NSNumber numberWithBool: YES]];
-    [[GTDataImporter sharedImporter] downloadPackagesForLanguage:[[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults]phonesLanguageCode] inBackground:YES]objectAtIndex:0]];
+- (void)downloadPhonesLanguage {
+	
+	if (![[GTDefaults sharedDefaults].phonesLanguageCode isEqualToString:@"en"]) {
+	
+		__weak typeof(self)weakSelf = self;
+		[[NSNotificationCenter defaultCenter] addObserverForName:GTSplashNotificationDownloadPhonesLanugageSuccess
+														  object:nil
+														   queue:nil
+													  usingBlock:^(NSNotification *note) {
+														  
+														  [weakSelf.setupTracker finishedDownloadingPhonesLanguage];
+														  
+													  }];
+		
+		[[NSNotificationCenter defaultCenter] addObserverForName:GTSplashNotificationDownloadPhonesLanugageFailure
+														  object:nil
+														   queue:nil
+													  usingBlock:^(NSNotification *note) {
+														  
+														  [weakSelf.setupTracker failedDownloadingPhonesLanguage];
+														  
+													  }];
+		
+		[[NSNotificationCenter defaultCenter] addObserverForName:GTDataImporterNotificationMenuUpdateFinished
+														  object:nil
+														   queue:nil
+													  usingBlock:^(NSNotification *note) {
+			
+														  [self.splashScreen showDownloadIndicatorWithLabel:NSLocalizedString(@"DownloadingNotification_downloadingResources", nil)];
+														  
+														  [GTDefaults sharedDefaults].isChoosingForMainLanguage = YES;
+														  GTLanguage *phonesLanguage = [[GTStorage sharedStorage] findClosestLanguageTo:[GTDefaults sharedDefaults].phonesLanguageCode];
+														  
+														  if (![phonesLanguage.code isEqualToString:@"en"]) {
+															  
+															  [[GTDataImporter sharedImporter] downloadPackagesForLanguage:phonesLanguage
+																									  withProgressNotifier:GTSplashNotificationDownloadPhonesLanugageProgress
+																									   withSuccessNotifier:GTSplashNotificationDownloadPhonesLanugageSuccess
+																									   withFailureNotifier:GTSplashNotificationDownloadPhonesLanugageFailure];
+														  } else {
+															  
+															  [weakSelf.setupTracker finishedDownloadingPhonesLanguage];
+															  
+														  }
+														  
+		}];
+	
+	}
+	
+	[self updateMenu];
+	
 }
 
--(void)updateMenu{
-//    if(self.afReachability.reachable){
-        [[GTDataImporter sharedImporter] updateMenuInfo];
-//    }else{
-//        NSLog(@"NOT REACHABLE");
-//    }
-}
-
--(void)showLoadingIndicator:(NSNotification *) notification{
-    [self.splashScreen showDownloadIndicatorWithLabel:NSLocalizedString(@"GTHome_status_checkingForUpdates", nil)];
-}
-
-
--(void)updateFinished:(NSNotification *) notification{
-    NSLog(@"notification main: %@",notification.name);
-    if([self.splashScreen.activityView isAnimating]){
-        [self.splashScreen hideDownloadIndicator];
-    }
-    
-}
-
--(void)extractBundle{
-    //WILL ONLY BE TRIGERRED AT FRESH INSTALL
-    [self.splashScreen showDownloadIndicatorWithLabel:[NSString stringWithFormat:NSLocalizedString(@"GTHome_status_updatingResources", nil)]];
-   
-    NSError *error;
-    
-    NSString *temporaryFolderName	= [[NSUUID UUID] UUIDString];
-    NSString* temporaryDirectory = [NSTemporaryDirectory() stringByAppendingPathComponent:temporaryFolderName];
-
-    
-    if (![[NSFileManager defaultManager] fileExistsAtPath:temporaryDirectory]){    //Does directory already exist?
-        if (![[NSFileManager defaultManager] createDirectoryAtPath:temporaryDirectory withIntermediateDirectories:NO attributes:nil error:&error]){
-            NSLog(@"Create directory error: %@", error);
-        }
-    }
-    
-    NSString* pathOfEnglishBundle = [[NSBundle mainBundle] pathForResource:@"en" ofType:@"zip"];
-    
-    //unzip to temporary directory
-    if(![SSZipArchive unzipFileAtPath:pathOfEnglishBundle
-                        toDestination:temporaryDirectory
-                            overwrite:NO
-                             password:nil
-                                error:&error
-                             delegate:nil]) {
-        
-        //[self displayDownloadPackagesUnzippingError:error];
-        NSLog(@"error unzipping file");
-        #warning error handling
-    }
-    if(!error){
-        RXMLElement *rootXML = [RXMLElement elementFromXMLData:[NSData dataWithContentsOfFile:[temporaryDirectory stringByAppendingPathComponent:@"contents.xml"]]];
-
-        //Update database with config filenames.
-        NSArray *englishArray = [[GTStorage sharedStorage]fetchArrayOfModels:[GTLanguage class] usingKey:@"code" forValues:@[@"en"] inBackground:YES];
-        GTLanguage *english;
-        if([englishArray count]==0){
-            english = [GTLanguage languageWithCode:@"en" inContext:[GTStorage sharedStorage].backgroundObjectContext];
-            english.name = @"English";
-        }else{
-            english = [englishArray objectAtIndex:0];
-            [english removePackages:english.packages];
-        }
-        
-        [rootXML iterate:@"resource" usingBlock: ^(RXMLElement *resource) {
-           
-            NSString *existingIdentifier = [GTPackage identifierWithPackageCode:[resource attribute:@"package"] languageCode:english.code];
-            
-            NSArray *packageArray = [[GTStorage sharedStorage]fetchArrayOfModels:[GTPackage class] usingKey:@"identifier" forValues:@[existingIdentifier] inBackground:YES];
-            
-            GTPackage *package;
-            
-            if([packageArray count]==0){
-                NSLog(@"create new package");
-                package = [GTPackage packageWithCode:[resource attribute:@"package"] language:english inContext:[GTStorage sharedStorage].backgroundObjectContext];
-            }else{
-                NSLog(@"get old package");
-                package = [packageArray objectAtIndex:0];
-            }
-            
-            package.name = [resource attribute:@"name"];
-            package.configFile = [resource attribute:@"config"];
-            package.icon = [resource attribute:@"icon"];
-            package.status = [resource attribute:@"status"];
-            package.localVersion = [NSNumber numberWithFloat:[[resource attribute:@"version"] floatValue] ];
-            package.latestVersion = [NSNumber numberWithFloat:[[resource attribute:@"version"] floatValue] ];
-
-            [english addPackagesObject:package];
-            
-        }];
-        
-        english.downloaded = [NSNumber numberWithBool: YES];
-        if (![[GTStorage sharedStorage].backgroundObjectContext save:&error]) {
-            NSLog(@"error saving");
-        }
-        
-        //move to Packages folder
-        NSString *destinationPath = [[GTFileLoader sharedInstance] pathOfPackagesDirectory];
-        
-        if (![[NSFileManager defaultManager] fileExistsAtPath:destinationPath]){
-            if (![[NSFileManager defaultManager] createDirectoryAtPath:destinationPath withIntermediateDirectories:NO  attributes:nil error:&error]){
-                NSLog(@"Create directory error: %@", error);
-            }
-        }
-        
-        NSFileManager *fm = [NSFileManager defaultManager];
-        
-        for (NSString *file in [fm contentsOfDirectoryAtPath:temporaryDirectory error:&error]) {
-            if(![file  isEqual: @"contents.xml"]){
-                NSString *filepath = [NSString stringWithFormat:@"%@/%@",temporaryDirectory,file];
-                BOOL success = [fm copyItemAtPath:filepath toPath:[NSString stringWithFormat:@"%@/%@",destinationPath,file] error:&error] ;
-                if (!success || error) {
-                    NSLog(@"Error: %@",[error localizedDescription]);
-                }else{
-                    [fm removeItemAtPath:filepath error:&error];
-                }
-            }
-        }
-        
-        if(!error){
-            [fm removeItemAtPath:temporaryDirectory error:&error];
-        }
-            
-        [[GTDefaults sharedDefaults]setCurrentLanguageCode:english.code];
-
-    }
-}
-
--(void)extractMetaData{
-
-    NSString* pathOfMeta = [[NSBundle mainBundle] pathForResource:@"meta" ofType:@"xml"];
-    RXMLElement *metaXML = [RXMLElement elementFromXMLData:[NSData dataWithContentsOfFile:pathOfMeta]];
-    
-    [[GTDataImporter sharedImporter]persistMenuInfoFromXMLElement:metaXML];
-
-}
+#pragma mark - memory management methods
 
 - (void)didReceiveMemoryWarning {
 	
     [super didReceiveMemoryWarning];
+	
+}
+
+#pragma mark - UI methods
+
+- (void)goToHome {
+	[self performSegueWithIdentifier:@"splashToHomeViewSegue" sender:self];
+	
+}
+
+- (void)initialSetupBegan:(NSNotification *)notification {
+	
+	[self.splashScreen showDownloadIndicatorWithLabel:NSLocalizedString(@"GTHome_status_initialSetup", nil)];
+}
+
+
+- (void)initialSetupFinished:(NSNotification *)notification {
+	
+	if([self.splashScreen.activityView isAnimating]){
+		[self.splashScreen hideDownloadIndicator];
+	}
+	
+	[self removeListenersForInitialSetup];
+	[self goToHome];
+	self.setupTracker.firstLaunch = NO;
+}
+
+- (void)initialSetupFailed:(NSNotification *)notification {
+	
+	if([self.splashScreen.activityView isAnimating]){
+		[self.splashScreen hideDownloadIndicator];
+	}
+	
+	[self removeListenersForInitialSetup];
+	
+	NSError *error = [NSError errorWithDomain:GTSplashErrorDomain
+										 code:GTSplashErrorCodeInitialSetupFailed
+									 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"GTSplash_initialSetup_error_message", nil) }];
+	
+	[[GTErrorHandler sharedErrorHandler] displayError:error];
+	
+}
+
+- (void)menuUpdateBegan:(NSNotification *)notification {
+	
+	[self.splashScreen showDownloadIndicatorWithLabel:NSLocalizedString(@"GTHome_status_checkingForUpdates", nil)];
+}
+
+
+- (void)menuUpdateFinished:(NSNotification *)notification {
+	
+	if([self.splashScreen.activityView isAnimating]){
+		[self.splashScreen hideDownloadIndicator];
+	}
+	
+	[self removeListenersForMenuUpdate];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+	
+	if ([[segue identifier] isEqualToString:@"splashToHomeViewSegue"]) {
+		
+		// Get reference to the destination view controller
+		GTHomeViewController *home = [segue destinationViewController];
+		home.shouldShowInstructions = self.setupTracker.firstLaunch;
+	}
+	
+}
+
+#pragma mark - listener methods
+
+- (void)registerListenersForInitialSetup {
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(initialSetupBegan:)
+												 name:GTInitialSetupTrackerNotificationDidBegin
+											   object:self.setupTracker];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(initialSetupFinished:)
+												 name:GTInitialSetupTrackerNotificationDidFinish
+											   object:self.setupTracker];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(initialSetupFailed:)
+												 name:GTInitialSetupTrackerNotificationDidFail
+											   object:self.setupTracker];
+	
+}
+
+- (void)removeListenersForInitialSetup {
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self
+													name:GTInitialSetupTrackerNotificationDidBegin
+												  object:self.setupTracker];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self
+													name:GTInitialSetupTrackerNotificationDidFinish
+												  object:self.setupTracker];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self
+													name:GTInitialSetupTrackerNotificationDidFail
+												  object:self.setupTracker];
+	
+}
+
+- (void)registerListenersForMenuUpdate {
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(menuUpdateBegan:)
+												 name:GTDataImporterNotificationMenuUpdateStarted
+											   object:nil];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(menuUpdateFinished:)
+												 name:GTDataImporterNotificationMenuUpdateFinished
+											   object:nil];
+	
+}
+
+- (void)removeListenersForMenuUpdate {
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self
+													name:GTDataImporterNotificationMenuUpdateStarted
+												  object:nil];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self
+													name:GTDataImporterNotificationMenuUpdateFinished
+												  object:nil];
 	
 }
 

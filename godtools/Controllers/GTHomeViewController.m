@@ -14,9 +14,14 @@
 #import "GTStorage.h"
 #import "GTDataImporter.h"
 #import "GTDefaults.h"
+#import "GTConfig.h"
 #import "EveryStudentController.h"
 
 #import "GTGoogleAnalyticsTracker.h"
+
+NSString *const GTHomeViewControllerShareCampaignSource        = @"godtools-ios";
+NSString *const GTHomeViewControllerShareCampaignMedium        = @"email";
+NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 
 @interface GTHomeViewController ()
 
@@ -26,7 +31,6 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *translatorModeLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
-@property (weak, nonatomic) IBOutlet UIButton *settingsButton;
 @property (weak, nonatomic) IBOutlet UIView *refreshDraftsView;
 @property (weak, nonatomic) IBOutlet UIImageView *setLanguageImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *pickToolImageView;
@@ -43,7 +47,9 @@
 @property  BOOL isRefreshing;
 @property (strong, nonatomic) NSString *selectedSectionNumber;
 
+- (void)dismissInstructions:(UITapGestureRecognizer *)gestureRecognizer;
 - (IBAction)settingsButtonPressed:(id)sender;
+- (IBAction)shareButtonPressed:(id)sender;
 - (IBAction)refreshDraftsButtonDragged:(id)sender;
 
 @end
@@ -78,29 +84,20 @@
     [self setData];
     [self.tableView reloadData];
     
-    if([[GTDefaults sharedDefaults] isFirstLaunch] == [NSNumber numberWithBool:NO]) {
-        self.instructionsOverlayView.hidden = YES;
+    if(self.shouldShowInstructions) {
+		
+		UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissInstructions:)];
+		[self.instructionsOverlayView addGestureRecognizer:tapRecognizer];
+		[self performSelector:@selector(dismissInstructions:) withObject:tapRecognizer afterDelay:4.0f];
+		
     } else {
-        [UIView animateWithDuration: 1.0 delay:4.0 options:0 animations:^{
-            self.instructionsOverlayView.alpha = 0.0f;
-        } completion:^(BOOL finished) {
-            self.instructionsOverlayView.hidden = YES;
-            [[GTDefaults sharedDefaults]setIsFirstLaunch:[NSNumber numberWithBool:NO]];
-        }];
+		
+		self.instructionsOverlayView.hidden = YES;
+		[self.instructionsOverlayView removeFromSuperview];
+		
     }
-    
-    NSLog(@"phone's :%@",[[GTDefaults sharedDefaults]phonesLanguageCode]);
-    
-    if([[GTDefaults sharedDefaults]phonesLanguageCode]){
-        self.phonesLanguage = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults]phonesLanguageCode] inBackground:YES]objectAtIndex:0];
-        self.phonesLanguageAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"GTHome_languageAlert_title", nil)
-                                                                message:[NSString stringWithFormat:NSLocalizedString(@"GTHome_languageAlert_message", nil),self.phonesLanguage.name]
-                                                               delegate:self
-                                                      cancelButtonTitle:NSLocalizedString(@"GTHome_languageAlert_dismissButton", nil)
-                                                      otherButtonTitles:nil];
-        [self.phonesLanguageAlert addButtonWithTitle:NSLocalizedString(@"GTHome_languageAlert_confirmButton", nil)];
-    }
-    self.draftsAlert = [[UIAlertView alloc]initWithTitle:nil
+	
+    self.draftsAlert = [[UIAlertView alloc] initWithTitle:nil
 												 message:NSLocalizedString(@"GTHome_draftsAlert_message", nil)
 												delegate:self
 									   cancelButtonTitle:NSLocalizedString(@"GTHome_draftsAlert_dismissButton", nil)
@@ -246,10 +243,50 @@
     }
 }
 
+#pragma mark - Instruction selectors
+
+- (void)dismissInstructions:(UITapGestureRecognizer *)gestureRecognizer {
+	
+	if (self.instructionsOverlayView.superview) {
+		
+		[UIView animateWithDuration:1.0 delay:0.0 options:0 animations:^{
+			
+			self.instructionsOverlayView.alpha = 0.0f;
+			
+		} completion:^(BOOL finished) {
+			
+			if (self.instructionsOverlayView.superview) {
+				[self.instructionsOverlayView removeFromSuperview];
+				self.instructionsOverlayView.hidden = YES;
+			}
+			
+		}];
+		
+	}
+	
+}
+
 #pragma mark - Navigation Bar Button selectors
 
 - (IBAction)settingsButtonPressed:(id)sender {
     [self performSegueWithIdentifier:@"homeToSettingsViewSegue" sender:self];
+}
+
+- (IBAction)shareButtonPressed:(id)sender {
+	
+	GTShareInfo *shareInfo = [[GTShareInfo alloc] initWithBaseURL:[GTConfig sharedConfig].baseShareUrl
+													  packageCode:nil
+													 languageCode:nil];
+	[shareInfo setGoogleAnalyticsCampaign:GTHomeViewControllerShareCampaignName
+								   source:GTHomeViewControllerShareCampaignSource
+								   medium:GTHomeViewControllerShareCampaignMedium];
+	shareInfo.addPackageInfo = NO;
+	shareInfo.addCampaignInfo = YES;
+	shareInfo.subject = NSLocalizedString(@"GTHome_sharing_generalShare_subject", nil);
+	shareInfo.message = NSLocalizedString(@"GTHome_sharing_generalShare_message", nil);
+	GTShareViewController *shareViewController = [[GTShareViewController alloc] initWithInfo:shareInfo];
+	
+	[self presentViewController:shareViewController animated:YES completion:nil];
 }
 
 - (IBAction)refreshDraftsButtonDragged:(id)sender {
@@ -454,14 +491,13 @@
 }
 
 #pragma mark - Data setter methods
--(GTLanguage *) getCurrentPrimaryLanguage {
-    NSArray *languages = [[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:self.languageCode inBackground:YES];
-    return(GTLanguage*)[languages objectAtIndex:0];
+- (GTLanguage *) getCurrentPrimaryLanguage {
+    return [[GTStorage sharedStorage] findClosestLanguageTo:self.languageCode];
 }
--(void)setData{
+
+- (void)setData {
     
-    self.languageCode = [[GTDefaults sharedDefaults]currentLanguageCode];
-    NSArray *languages = [[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:self.languageCode inBackground:YES];
+    self.languageCode = [GTDefaults sharedDefaults].currentLanguageCode;
     
     GTLanguage* mainLanguage = [self getCurrentPrimaryLanguage];
     
@@ -497,26 +533,32 @@
 }
 
 #pragma mark - Language Methods
--(void)checkPhonesLanguage{
-    
-    GTLanguage *language = [[[GTStorage sharedStorage] fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] phonesLanguageCode] inBackground:YES]objectAtIndex:0];
-    
-    BOOL shouldSetPhonesLanguageAsMainLanguage = ![[[GTDefaults sharedDefaults]phonesLanguageCode] isEqualToString:[[GTDefaults sharedDefaults] currentLanguageCode]];
-    
-    shouldSetPhonesLanguageAsMainLanguage = shouldSetPhonesLanguageAsMainLanguage && [[GTDefaults sharedDefaults]phonesLanguageCode]!=nil ;
-
-    
-    if([[GTDefaults sharedDefaults] isInTranslatorMode] == [NSNumber numberWithBool:NO]){
-        shouldSetPhonesLanguageAsMainLanguage = shouldSetPhonesLanguageAsMainLanguage && [self languageHasLivePackages:language];
-    }else if([[GTDefaults sharedDefaults] isInTranslatorMode] == [NSNumber numberWithBool:YES]){
-        shouldSetPhonesLanguageAsMainLanguage = shouldSetPhonesLanguageAsMainLanguage && language.packages.count>0;
-    }
-    
-    //phone's language is not the current main language of the app
-    if(shouldSetPhonesLanguageAsMainLanguage){
-            [self.view setUserInteractionEnabled:YES];
-            [self.phonesLanguageAlert show];
-    }
+- (void)checkPhonesLanguage {
+	
+	GTLanguage *phonesLanguage = [[GTStorage sharedStorage] findClosestLanguageTo:[GTDefaults sharedDefaults].phonesLanguageCode];
+	NSString *currentLanguageCode = [GTDefaults sharedDefaults].currentLanguageCode;
+	BOOL translatorMode = [GTDefaults sharedDefaults].isInTranslatorMode.boolValue;
+	
+	if( ![phonesLanguage.code isEqualToString:currentLanguageCode]){
+		
+		if ( ( !translatorMode && [self languageHasLivePackages:phonesLanguage] ) ||
+			 (  translatorMode && phonesLanguage.packages.count > 0 ) ) {
+			
+			self.phonesLanguage = phonesLanguage;
+			self.phonesLanguageAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"GTHome_languageAlert_title", nil)
+																  message:[NSString stringWithFormat:NSLocalizedString(@"GTHome_languageAlert_message", nil),self.phonesLanguage.name]
+																 delegate:self
+														cancelButtonTitle:NSLocalizedString(@"GTHome_languageAlert_dismissButton", nil)
+														otherButtonTitles:nil];
+			[self.phonesLanguageAlert addButtonWithTitle:NSLocalizedString(@"GTHome_languageAlert_confirmButton", nil)];
+			
+			[self.view setUserInteractionEnabled:YES];
+			[self.phonesLanguageAlert show];
+			
+		}
+		
+	}
+	
 }
 
 -(BOOL) languageHasLivePackages : (GTLanguage *)currentLanguage {
@@ -527,12 +569,12 @@
 }
 
 -(void)setMainLanguageToPhonesLanguage{
-    GTLanguage *language = [[[GTStorage sharedStorage] fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] phonesLanguageCode] inBackground:YES]objectAtIndex:0];
+    GTLanguage *language = [[GTStorage sharedStorage] findClosestLanguageTo:[GTDefaults sharedDefaults].phonesLanguageCode];
     
     if(language.downloaded){
-        [[GTDefaults sharedDefaults]setCurrentLanguageCode:language.code];
-        if([[[GTDefaults sharedDefaults]currentParallelLanguageCode] isEqualToString:language.code]){
-           [[GTDefaults sharedDefaults]setCurrentParallelLanguageCode:nil];
+        [GTDefaults sharedDefaults].currentLanguageCode = language.code;
+        if([[GTDefaults sharedDefaults].currentParallelLanguageCode isEqualToString:language.code]){
+           [GTDefaults sharedDefaults].currentParallelLanguageCode = nil;
         }
         [self setData];
         [self.tableView reloadData];
@@ -540,7 +582,7 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadProgressMade
                                                             object:self
                                                           userInfo:nil];
-        [[GTDefaults sharedDefaults] setIsChoosingForMainLanguage:[NSNumber numberWithBool:YES]];
+        [GTDefaults sharedDefaults].isChoosingForMainLanguage = YES;
         [[GTDataImporter sharedImporter]downloadPackagesForLanguage:language];
     }
 }
@@ -615,7 +657,16 @@
         GTPackage *package = [self.articles objectAtIndex:0];
         GTFileLoader *fileLoader = [GTFileLoader fileLoader];
         fileLoader.language		= self.languageCode;
-        GTShareViewController *shareViewController = [[GTShareViewController alloc] init];
+		GTShareInfo *shareInfo = [[GTShareInfo alloc] initWithBaseURL:[GTConfig sharedConfig].baseShareUrl
+														  packageCode:@"kgp"
+														 languageCode:@"en"];
+		[shareInfo setGoogleAnalyticsCampaign:GTHomeViewControllerShareCampaignName
+									   source:GTHomeViewControllerShareCampaignSource
+									   medium:GTHomeViewControllerShareCampaignMedium];
+		shareInfo.addPackageInfo = YES;
+		shareInfo.addCampaignInfo = YES;
+		shareInfo.subject = NSLocalizedString(@"GTHome_sharing_shareFromPage_subject", nil);
+		shareInfo.message = NSLocalizedString(@"GTHome_sharing_shareFromPage_message", nil);
         GTPageMenuViewController *pageMenuViewController = [[GTPageMenuViewController alloc] initWithFileLoader:fileLoader];
         GTAboutViewController *aboutViewController = [[GTAboutViewController alloc] initWithDelegate:self fileLoader:fileLoader];
         
@@ -623,8 +674,8 @@
         _godtoolsViewController	= [[GTViewController alloc] initWithConfigFile:package.configFile
 																   packageCode:@"kgp"
 																  langaugeCode:@"en"
-                                                                    fileLoader:fileLoader
-                                                           shareViewController:shareViewController
+																	fileLoader:fileLoader
+																	 shareInfo:shareInfo
                                                         pageMenuViewController:pageMenuViewController
                                                            aboutViewController:aboutViewController
                                                                       delegate:self];

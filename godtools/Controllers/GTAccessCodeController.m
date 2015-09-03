@@ -164,7 +164,7 @@
             [self performSelector:@selector(dismissAlertView:) withObject:self.accessCodeStatusAlert afterDelay:2.0];
             
             GTLanguage *current = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:YES]objectAtIndex:0];
-            [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:[NSNumber numberWithBool:YES]];
+            [GTDefaults sharedDefaults].isChoosingForMainLanguage = YES;
             [[GTDataImporter sharedImporter]downloadPackagesForLanguage:current];
         }
     }

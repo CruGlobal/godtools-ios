@@ -8,6 +8,7 @@
 
 #import "CRUStorage.h"
 #import "GTStorageErrorHandler.h"
+#import "GTLanguage+Helper.h"
 
 /**
  *  Core Data Stack configured for God Tools.
@@ -62,4 +63,8 @@
  *  @return array of models
  */
 - (NSArray *)fetchModel:(Class)modelType usingKey:(NSString *)key forValue:(NSString *)value inBackground:(BOOL)background;
+
+- (GTLanguage *)languageWithCode:(NSString *)languageCode;
+- (GTLanguage *)findClosestLanguageTo:(NSString *)languageCode;
+
 @end
