@@ -42,7 +42,8 @@
 - (void)configureWithLanguage:(GTLanguage *)language target:(id)target selector:(SEL)selector {
 	
 	self.language = language;
-	self.languageName.text = [[[NSLocale currentLocale] displayNameForKey:NSLocaleIdentifier value:language.code] capitalizedString];
+	NSString *localizedLanguageName = [[NSLocale currentLocale] displayNameForKey:NSLocaleIdentifier value:language.code];
+	self.languageName.text = ( [localizedLanguageName isEqualToString:language.code] ? language.name.capitalizedString : localizedLanguageName.capitalizedString );
 	
 	self.checkBox.hidden = YES;
 	self.errorIcon.hidden = YES;
