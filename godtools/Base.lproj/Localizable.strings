@@ -75,7 +75,7 @@
 "GTErrorHandler_errorDismissButton"                              = "OK";
 
 
-"GTSplash_initialSetup_error_message"                            = "Unfortunately we could not load any reasources. Please quit the app and reopen. If the problem persists contact supportgodtoolsapp.com";
+"GTSplash_initialSetup_error_message"                            = "Unfortunately we could not load any resources. Please quit the app and reopen. If the problem persists contact support@godtoolsapp.com";
 
 
 "Yes"                                                            = "Yes";
