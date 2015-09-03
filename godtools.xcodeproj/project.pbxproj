@@ -162,7 +162,6 @@
 		684D0A5518E38731004F51EE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		686360691B7D174800080BD6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6863606F1B7D2B4300080BD6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		686D73251B82551800444718 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		68740D0F18D24F9A00D36C0E /* godtools.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = godtools.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		68740D1218D24F9A00D36C0E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		68740D1418D24F9A00D36C0E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -182,6 +181,7 @@
 		68740D4818D259AA00D36C0E /* GTModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GTModel.xcdatamodel; sourceTree = "<group>"; };
 		6878F01318E49AF4007D1B5B /* GTPackage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GTPackage.h; path = "godtools-ios-api/Models/GTPackage.h"; sourceTree = "<group>"; };
 		6878F01418E49AF4007D1B5B /* GTPackage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = GTPackage.m; path = "godtools-ios-api/Models/GTPackage.m"; sourceTree = "<group>"; };
+		68828FFC1B90FD30005E1EA2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		68A1CBFE18DB6F9600D84F12 /* GTAPITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTAPITest.m; sourceTree = "<group>"; };
 		68BA853218DCF0EB001AC6B3 /* GTDefaultsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTDefaultsTests.m; sourceTree = "<group>"; };
 		68BA853418DCF102001AC6B3 /* GTStorageTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTStorageTests.m; sourceTree = "<group>"; };
@@ -806,7 +806,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				68740D2518D24F9A00D36C0E /* Base */,
-				686D73251B82551800444718 /* en */,
+				68828FFC1B90FD30005E1EA2 /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

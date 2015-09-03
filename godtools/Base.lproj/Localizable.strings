@@ -58,6 +58,10 @@
 "GTHome_createDraftAlert_message"                                = "Create new draft?";
 "GTHome_createDraftAlert_dismissButton"                          = "Cancel";
 "GTHome_createDraftAlert_confirmButton"                          = "Yes";
+"GTHome_sharing_shareFromPage_subject"                           = "God Tools";
+"GTHome_sharing_shareFromPage_message"                           = "Here is the booklet we were looking at today. This link, %@, should take you to the page we were last looking at.";
+"GTHome_sharing_generalShare_subject"                            = "God Tools";
+"GTHome_sharing_generalShare_message"                            = "Check out this %@";
 
 
 "GTViewController_refreshDraftAlert_message"                     = "Refreshing draft...";
@@ -71,7 +75,7 @@
 "GTErrorHandler_errorDismissButton"                              = "OK";
 
 
-"GTSplash_initialSetup_error_message"                            = "Unfortunately we could not load any reasources. Please quit the app and reopen. If the problem persists contact supportgodtoolsapp.com";
+"GTSplash_initialSetup_error_message"                            = "Unfortunately we could not load any resources. Please quit the app and reopen. If the problem persists contact support@godtoolsapp.com";
 
 
 "Yes"                                                            = "Yes";

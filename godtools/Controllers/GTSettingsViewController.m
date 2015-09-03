@@ -188,12 +188,14 @@
 - (void)setLanguageNameLabelValues {
 	
 	NSString *localizedMainLanguageName = [[[NSLocale currentLocale] displayNameForKey:NSLocaleIdentifier value:self.mainLanguage.code] capitalizedString];
-    [self.primaryLanguageButton setTitle:localizedMainLanguageName forState:UIControlStateNormal];
+	localizedMainLanguageName = ( [localizedMainLanguageName isEqualToString:self.mainLanguage.code] ? self.mainLanguage.name.capitalizedString : localizedMainLanguageName.capitalizedString );
+	[self.primaryLanguageButton setTitle:localizedMainLanguageName forState:UIControlStateNormal];
 
     if([self parallelLanguage] == nil) {
         [self.parallelLanguageButton setTitle: NSLocalizedString(@"GTSettings_parallelLanguageButton_noneSelected", nil) forState:UIControlStateNormal];
     } else {
 		NSString *localizedParallelLanguageName = [[[NSLocale currentLocale] displayNameForKey:NSLocaleIdentifier value:self.parallelLanguage.code] capitalizedString];
+		localizedParallelLanguageName = ( [localizedParallelLanguageName isEqualToString:self.parallelLanguage.code] ? self.parallelLanguage.name.capitalizedString : localizedParallelLanguageName.capitalizedString );
         [self.parallelLanguageButton setTitle:localizedParallelLanguageName forState:UIControlStateNormal];
     }
 }

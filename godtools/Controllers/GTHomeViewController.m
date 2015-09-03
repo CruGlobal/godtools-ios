@@ -14,9 +14,14 @@
 #import "GTStorage.h"
 #import "GTDataImporter.h"
 #import "GTDefaults.h"
+#import "GTConfig.h"
 #import "EveryStudentController.h"
 
 #import "GTGoogleAnalyticsTracker.h"
+
+NSString *const GTHomeViewControllerShareCampaignSource        = @"godtools-ios";
+NSString *const GTHomeViewControllerShareCampaignMedium        = @"email";
+NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 
 @interface GTHomeViewController ()
 
@@ -26,7 +31,6 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *translatorModeLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
-@property (weak, nonatomic) IBOutlet UIButton *settingsButton;
 @property (weak, nonatomic) IBOutlet UIView *refreshDraftsView;
 @property (weak, nonatomic) IBOutlet UIImageView *setLanguageImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *pickToolImageView;
@@ -45,6 +49,7 @@
 
 - (void)dismissInstructions:(UITapGestureRecognizer *)gestureRecognizer;
 - (IBAction)settingsButtonPressed:(id)sender;
+- (IBAction)shareButtonPressed:(id)sender;
 - (IBAction)refreshDraftsButtonDragged:(id)sender;
 
 @end
@@ -265,6 +270,23 @@
 
 - (IBAction)settingsButtonPressed:(id)sender {
     [self performSegueWithIdentifier:@"homeToSettingsViewSegue" sender:self];
+}
+
+- (IBAction)shareButtonPressed:(id)sender {
+	
+	GTShareInfo *shareInfo = [[GTShareInfo alloc] initWithBaseURL:[GTConfig sharedConfig].baseShareUrl
+													  packageCode:nil
+													 languageCode:nil];
+	[shareInfo setGoogleAnalyticsCampaign:GTHomeViewControllerShareCampaignName
+								   source:GTHomeViewControllerShareCampaignSource
+								   medium:GTHomeViewControllerShareCampaignMedium];
+	shareInfo.addPackageInfo = NO;
+	shareInfo.addCampaignInfo = YES;
+	shareInfo.subject = NSLocalizedString(@"GTHome_sharing_generalShare_subject", nil);
+	shareInfo.message = NSLocalizedString(@"GTHome_sharing_generalShare_message", nil);
+	GTShareViewController *shareViewController = [[GTShareViewController alloc] initWithInfo:shareInfo];
+	
+	[self presentViewController:shareViewController animated:YES completion:nil];
 }
 
 - (IBAction)refreshDraftsButtonDragged:(id)sender {
@@ -635,7 +657,16 @@
         GTPackage *package = [self.articles objectAtIndex:0];
         GTFileLoader *fileLoader = [GTFileLoader fileLoader];
         fileLoader.language		= self.languageCode;
-        GTShareViewController *shareViewController = [[GTShareViewController alloc] init];
+		GTShareInfo *shareInfo = [[GTShareInfo alloc] initWithBaseURL:[GTConfig sharedConfig].baseShareUrl
+														  packageCode:@"kgp"
+														 languageCode:@"en"];
+		[shareInfo setGoogleAnalyticsCampaign:GTHomeViewControllerShareCampaignName
+									   source:GTHomeViewControllerShareCampaignSource
+									   medium:GTHomeViewControllerShareCampaignMedium];
+		shareInfo.addPackageInfo = YES;
+		shareInfo.addCampaignInfo = YES;
+		shareInfo.subject = NSLocalizedString(@"GTHome_sharing_shareFromPage_subject", nil);
+		shareInfo.message = NSLocalizedString(@"GTHome_sharing_shareFromPage_message", nil);
         GTPageMenuViewController *pageMenuViewController = [[GTPageMenuViewController alloc] initWithFileLoader:fileLoader];
         GTAboutViewController *aboutViewController = [[GTAboutViewController alloc] initWithDelegate:self fileLoader:fileLoader];
         
@@ -643,8 +674,8 @@
         _godtoolsViewController	= [[GTViewController alloc] initWithConfigFile:package.configFile
 																   packageCode:@"kgp"
 																  langaugeCode:@"en"
-                                                                    fileLoader:fileLoader
-                                                           shareViewController:shareViewController
+																	fileLoader:fileLoader
+																	 shareInfo:shareInfo
                                                         pageMenuViewController:pageMenuViewController
                                                            aboutViewController:aboutViewController
                                                                       delegate:self];
