@@ -331,7 +331,7 @@ BOOL languageDownloadCancelled = FALSE;
     GTLanguage *chosen = (GTLanguage*)[self.languages objectAtIndex:indexPath.section];
     
     // set the current language selected
-    if(![GTDefaults sharedDefaults].isChoosingForMainLanguage) {
+    if([GTDefaults sharedDefaults].isChoosingForMainLanguage) {
         [[GTDefaults sharedDefaults]setCurrentLanguageCode:chosen.code];
     }else {
         NSLog(@"set as parallel: %@",chosen.code);
