@@ -16,7 +16,7 @@
 
 "GTSettings_mainLanguage_label"                                  = "Main Language:";
 "GTSettings_parallelLanguage_label"                              = "Parallel Language:";
-"GTSettings_parallelLanguage_default"                            = "None";q
+"GTSettings_parallelLanguage_default"                            = "None";
 "GTSettings_previewMode_label"                                   = "Preview Mode (translators)";
 "GTSettings_aboutGodTools"                                       = "About God Tools";
 "GTSettings_exitPreviewMode_title"                               = "Exit Preview Mode?";

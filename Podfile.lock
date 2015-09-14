@@ -25,6 +25,10 @@ PODS:
   - AFRaptureXMLRequestOperation (1.0.2):
     - AFNetworking (~> 2.5)
     - RaptureXML (~> 1.0.1)
+  - Crashlytics (3.3.1)
+  - Fabric (1.5.1):
+    - Fabric/Base (= 1.5.1)
+  - Fabric/Base (1.5.1)
   - GoogleAnalytics-iOS-SDK (3.0.9)
   - GTViewController (6.0.0):
     - SSCWhatsAppActivity (~> 1.0)
@@ -37,6 +41,8 @@ DEPENDENCIES:
   - AFDownloadRequestOperation (~> 2.0)
   - AFNetworking (~> 2.5)
   - AFRaptureXMLRequestOperation (from `https://github.com/CruGlobal/AFRaptureXMLRequestOperation.git`)
+  - Crashlytics
+  - Fabric
   - GoogleAnalytics-iOS-SDK (~> 3.0.9)
   - GTViewController (~> 6.0)
   - NewRelicAgent (~> 3.256)
@@ -55,6 +61,8 @@ SPEC CHECKSUMS:
   AFDownloadRequestOperation: 748a1643423e1ddb23f2178f778087d4f0ae8ac7
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
   AFRaptureXMLRequestOperation: dab4e06ac414e0e9e6a36298963dd8cafad8a9d7
+  Crashlytics: 0e61bdda9def51f1e99720f804eebe94865442b2
+  Fabric: 03c3b3fe77e11a2bc31421b989a9c7adaa4779a5
   GoogleAnalytics-iOS-SDK: 3b0994bef22ed2e176a9e2a4d1660c7c2542eb47
   GTViewController: 36d8313c8ba970a97114dcd1c2a110fc8c6f4163
   NewRelicAgent: 5dbb8c108199f066e353231a90d80263830c0f73
