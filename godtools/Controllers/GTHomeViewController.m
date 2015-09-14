@@ -405,7 +405,7 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
             [cell.contentView.layer setBorderWidth:0.0];
         } else if(currentSection >= self.articles.count){
             //block for every student cell
-			cell.titleLabel.text = @"Every Student"; //only appears in english list so shouldn't be translated
+			cell.titleLabel.text = @"Questions About Life And God?"; //only appears in english list so shouldn't be translated
             [cell setUpBackground:(indexPath.section % 2) :NO :NO];
             cell.icon.image = [UIImage imageNamed:@"GT4_HomeScreen_ESIcon_.png"];
         } else {
