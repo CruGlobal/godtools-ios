@@ -544,7 +544,9 @@ BOOL gtLanguageDownloadUserCancellation                                 = FALSE;
 
             [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationAuthTokenUpdateFail object:self userInfo:data];
         }else{
-            [weakSelf displayAuthorizeTranslatorRequestError:error];
+			NSDictionary *data = [NSDictionary dictionaryWithObject:error
+															 forKey:@"Error"];
+			[[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationAuthTokenUpdateFail object:self userInfo:data];
         }
     }];
 }
