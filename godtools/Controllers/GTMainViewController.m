@@ -182,7 +182,7 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 														   queue:nil
 													  usingBlock:^(NSNotification *note) {
 			
-														  [self.splashScreen showDownloadIndicatorWithLabel:NSLocalizedString(@"DownloadingNotification_downloadingResources", nil)];
+														  [self.splashScreen showDownloadIndicatorWithLabel:NSLocalizedString(@"status_downloading_resources", nil)];
 														  
 														  [GTDefaults sharedDefaults].isChoosingForMainLanguage = YES;
 														  GTLanguage *phonesLanguage = [[GTStorage sharedStorage] findClosestLanguageTo:[GTDefaults sharedDefaults].phonesLanguageCode];
@@ -224,7 +224,7 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 
 - (void)initialSetupBegan:(NSNotification *)notification {
 	
-	[self.splashScreen showDownloadIndicatorWithLabel:NSLocalizedString(@"GTHome_status_initialSetup", nil)];
+	[self.splashScreen showDownloadIndicatorWithLabel:NSLocalizedString(@"status_initial_setup", nil)];
 }
 
 
@@ -249,7 +249,7 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 	
 	NSError *error = [NSError errorWithDomain:GTSplashErrorDomain
 										 code:GTSplashErrorCodeInitialSetupFailed
-									 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"GTSplash_initialSetup_error_message", nil) }];
+									 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"initial_setup_error_message", nil) }];
 	
 	[[GTErrorHandler sharedErrorHandler] displayError:error];
 	
@@ -257,7 +257,7 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 
 - (void)menuUpdateBegan:(NSNotification *)notification {
 	
-	[self.splashScreen showDownloadIndicatorWithLabel:NSLocalizedString(@"GTHome_status_checkingForUpdates", nil)];
+	[self.splashScreen showDownloadIndicatorWithLabel:NSLocalizedString(@"status_checking_for_updates", nil)];
 }
 
 

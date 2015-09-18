@@ -42,9 +42,9 @@ BOOL languageDownloadCancelled = FALSE;
     [self setData];
     
     if([GTDefaults sharedDefaults].isChoosingForMainLanguage){
-        [self setTitle : NSLocalizedString(@"GTLanguages_language_title", nil)];
+        [self setTitle : NSLocalizedString(@"menu_item_languages", nil)];
     }else{
-        [self setTitle : NSLocalizedString(@"GTLanguages_parallelLanguage_title", nil)];
+        [self setTitle : NSLocalizedString(@"menu_item_languages", nil)];
     }
 
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -253,7 +253,7 @@ BOOL languageDownloadCancelled = FALSE;
         if (!cell.isDownloading) {
             [cell setDownloadingField:YES];
             if([self downloadLanguage:cell.language]) {
-                [(UIButton *) cell.accessoryView setTitle:NSLocalizedString(@"GTLanguages_cell_cancelButton", nil) forState:UIControlStateNormal];
+                [(UIButton *) cell.accessoryView setTitle:NSLocalizedString(@"cancel", nil) forState:UIControlStateNormal];
                 languageActionCell.checkBox.hidden = YES;
                 languageActionCell.errorIcon.hidden = YES;
             }
@@ -295,7 +295,7 @@ BOOL languageDownloadCancelled = FALSE;
         }
         
     } else {
-        self.buttonLessAlert.message = NSLocalizedString(@"GTLanguages_download_error_reachability_message", nil);
+        self.buttonLessAlert.message = NSLocalizedString(@"internet_needed", nil);
         [self.buttonLessAlert show];
         [self performSelector:@selector(dismissAlertView:) withObject:self.buttonLessAlert afterDelay:2.0];
     }
@@ -320,7 +320,7 @@ BOOL languageDownloadCancelled = FALSE;
     if(!selectedLanguage.downloaded) {
         languageActionCell = (GTLanguageViewCell *)[tableView cellForRowAtIndexPath:indexPath];
         if([self downloadLanguage:languageActionCell.language]) {
-            [(UIButton *) languageActionCell.accessoryView setTitle:NSLocalizedString(@"GTLanguages_cell_cancelButton", nil) forState:UIControlStateNormal];
+            [(UIButton *) languageActionCell.accessoryView setTitle:NSLocalizedString(@"cancel", nil) forState:UIControlStateNormal];
             
             languageActionCell.checkBox.hidden = YES;
             languageActionCell.errorIcon.hidden = YES;

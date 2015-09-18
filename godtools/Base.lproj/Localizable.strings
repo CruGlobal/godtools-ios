@@ -6,74 +6,64 @@
   Copyright (c) 2014 Michael Harrison. All rights reserved.
 */
 
-"GTDataImporter_updateMenuInfo_bad_xml"                          = "Data was missing when asking the server for menu information.";
-"GTDataImporter_downloadPackages_error"                          = "There was an error downloading the packages";
-"GTDataImporter_downloadPage_error"                              = "There was an error downloading the page";
-"GTDataImporter_unzipPackages_error"                             = "There was an error extracting the files";
-"GTDataImporter_downloadDraftsForLanguage_error_server"          = "There were server issues encountered";
-"GTDataImporter_authTokenFailureAlert_message_invalidAccessCode" = "Invalid access code";
+"menu_download_bad_xml"                          = "Data was missing when asking the server for menu information.";
+"packages_download_error"                          = "There was an error downloading the packages";
+"page_download_error"                              = "There was an error downloading the page";
+"server_error"          = "There were server issues encountered";
+"invalid_code" = "Invalid access code";
 
 
-"GTSettings_mainLanguage_label"                                  = "Main Language:";
-"GTSettings_parallelLanguage_label"                              = "Parallel Language:";
-"GTSettings_parallelLanguage_default"                            = "None";
-"GTSettings_previewMode_label"                                   = "Preview Mode (translators)";
-"GTSettings_exitPreviewMode_title"                               = "Exit Preview Mode?";
-"GTSettings_exitPreviewMode_message"                             = "Drafts will not be displayed";
-"GTSettings_exitPreviewMode_dismissButton"                       = "No";
-"GTSettings_exitPreviewMode_confirmButton"                       = "Yes";
-"GTSettings_navigationBar_title"                                 = "Settings";
-"GTSettings_parallelLanguageButton_noneSelected"                 = "None Selected";
+"settings_main_language"                                  = "Main Language:";
+"settings_parallel_language"                              = "Parallel Language:";
+"settings_translator_mode"                                   = "Preview Mode (translators)";
+"dialog_translator_mode_title"                               = "Exit Preview Mode?";
+"dialog_translator_mode_body"                             = "Drafts will not be displayed";
+"no"                       = "No";
+"yes"                       = "Yes";
+"settings_title"                                 = "Settings";
+"settings_language_none_selected"                 = "None Selected";
 
 
-"GTLanguages_language_title"                                     = "Language";
-"GTLanguages_parallelLanguage_title"                             = "Parallel Language";
-"GTLanguages_cell_downloadButton"                                = "Download";
-"GTLanguages_cell_cancelButton"                                  = "Cancel";
-"GTLanguages_download_error_reachability_message"                = "You need to be online to proceed";
+"menu_item_languages"                                     = "Language";
+"download"                                = "Download";
+"cancel"                                  = "Cancel";
+"internet_needed"                = "You need to be online to proceed";
 
 
-"GTAccessCode_accessCodeStatusAlert_message_authenticating"      = "Authenticating access code";
-"GTAccessCode_accessCodeStatusAlert_message_previewModeEnabled"  = "Translator preview mode is enabled";
+"authenticate_code"      = "Authenticating access code";
+"translator_enabled"  = "Translator preview mode is enabled";
 
 
-"GTHome_status_updatingResources"                                = "Updating resources...";
-"GTHome_status_updatingDrafts"                                   = "Updating drafts...";
-"GTHome_status_creatingDrafts"                                   = "Creating draft...";
-"GTHome_status_publishingDrafts"                                 = "Publishing draft...";
-"GTHome_status_updatingMenu"                                     = "Updating menu...";
-"GTHome_status_checkingForUpdates"                               = "Checking for Updates...";
-"GTHome_status_initialSetup"                                     = "Initial Setup...";
-"GTHome_languageAlert_title"                                     = "Language Settings";
-"GTHome_languageAlert_message"                                   = "Would you like to make %@ the default language?";
-"GTHome_languageAlert_dismissButton"                             = "No";
-"GTHome_languageAlert_confirmButton"                             = "Yes";
-"GTHome_draftsAlert_confirmButton"                               = "Yes, it's ready!";
-"GTHome_draftsAlert_dismissButton"                               = "No, not yet.";
-"GTHome_draftsAlert_message"                                     = "Do you want to publish this draft?";
-"GTHome_createDraftAlert_message"                                = "Create new draft?";
-"GTHome_createDraftAlert_dismissButton"                          = "Cancel";
-"GTHome_createDraftAlert_confirmButton"                          = "Yes";
-"GTHome_sharing_shareFromPage_subject"                           = "God Tools";
-"GTHome_sharing_shareFromPage_message"                           = "Here is the booklet we were looking at today. This link, %@, should take you to the page we were last looking at.";
-"GTHome_sharing_generalShare_subject"                            = "God Tools";
-"GTHome_sharing_generalShare_message"                            = "Check out this %@";
+"status_updating_resources"                                = "Updating resources...";
+"status_updating_drafts"                                   = "Updating drafts...";
+"status_creating_drafts"                                   = "Creating draft...";
+"status_publishing_drafts"                                 = "Publishing draft...";
+"status_updating_menu"                                     = "Updating menu...";
+"status_checking_for_updates"                               = "Checking for Updates...";
+"status_initial_setup"                                     = "Initial Setup...";
+"language_alert_title"                                     = "Language Settings";
+"language_alert_body"                                   = "Would you like to make %@ the default language?";
+"draft_publish_confirm"                               = "Yes, it's ready!";
+"draft_publish_negative"                               = "No, not yet.";
+"draft_publish_message"                                     = "Do you want to publish this draft?";
+"draft_start_message"                                = "Create new draft?";
+"share_from_page_subject"                           = "God Tools";
+"share_from_page_message"                           = "Here is the booklet we were looking at today. This link, %@, should take you to the page we were last looking at.";
+"share_general_subject"                            = "God Tools";
+"share_general_message"                            = "Check out this %@";
 
 
-"GTViewController_refreshDraftAlert_message"                     = "Refreshing draft...";
-"GTViewController_refreshDraftAlert_message_refreshFailure"      = "Refresh failure";
+"draft_refresh_message"                     = "Refreshing draft...";
+"draft_refresh_error"      = "Refresh failure";
 
 
-"GTEveryStudent_title"                                           = "Topics";
+"everystudent_title"                                           = "Topics";
 
 
-"GTErrorHandler_errorTitle"                                      = "Error";
-"GTErrorHandler_errorDismissButton"                              = "OK";
+"error_title"                                      = "Error";
+"ok"                              = "OK";
 
 
-"GTSplash_initialSetup_error_message"                            = "Unfortunately we could not load any resources. Please quit the app and reopen. If the problem persists contact support@godtoolsapp.com";
+"initial_setup_error_message"                            = "Unfortunately we could not load any resources. Please quit the app and reopen. If the problem persists contact support@godtoolsapp.com";
 
-
-"Yes"                                                            = "Yes";
-"No"                                                             = "No";
-"DownloadingNotification_downloadingResources"                   = "Downloading Resources...";
+"status_downloading_resources"                   = "Downloading Resources...";

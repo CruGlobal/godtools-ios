@@ -25,10 +25,10 @@
 
 - (void)displayError:(NSError *)error {
     NSLog(@"alert error!!!!");
-    UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"GTErrorHandler_errorTitle", nil)
+    UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"error_title", nil)
                                                        message:error.localizedDescription
                                                       delegate:self
-                                             cancelButtonTitle:NSLocalizedString(@"GTErrorHandler_errorDismissButton", nil)
+                                             cancelButtonTitle:NSLocalizedString(@"ok", nil)
                                              otherButtonTitles:nil];
     [errorAlert show];
     

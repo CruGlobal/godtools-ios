@@ -62,7 +62,7 @@
 	UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
 	button.frame = CGRectMake(0.0f, 0.0f, 150.0f, 25.0f);
 	
-	[button setTitle:NSLocalizedString(@"GTLanguages_cell_downloadButton", nil)
+	[button setTitle:NSLocalizedString(@"download", nil)
 			forState:UIControlStateNormal];
 	
 	[button setTitleColor: [UIColor whiteColor]

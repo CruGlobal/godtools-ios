@@ -98,10 +98,10 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
     }
 	
     self.draftsAlert = [[UIAlertView alloc] initWithTitle:nil
-												 message:NSLocalizedString(@"GTHome_draftsAlert_message", nil)
+												 message:NSLocalizedString(@"draft_publish_message", nil)
 												delegate:self
-									   cancelButtonTitle:NSLocalizedString(@"GTHome_draftsAlert_dismissButton", nil)
-									   otherButtonTitles:NSLocalizedString(@"GTHome_draftsAlert_confirmButton", nil), nil];
+									   cancelButtonTitle:NSLocalizedString(@"draft_publish_negative", nil)
+									   otherButtonTitles:NSLocalizedString(@"draft_publish_confirm", nil), nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                                 selector:@selector(downloadFinished:)
@@ -231,15 +231,15 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
         self.isRefreshing = YES;
     }
     if([notification.name isEqualToString: GTDataImporterNotificationLanguageDownloadProgressMade]){
-        [((GTBaseView *)self.view) showDownloadIndicatorWithLabel: [NSString stringWithFormat: NSLocalizedString(@"GTHome_status_updatingResources", nil),@""]];
+        [((GTBaseView *)self.view) showDownloadIndicatorWithLabel: [NSString stringWithFormat: NSLocalizedString(@"status_updating_resources", nil),@""]];
     }else if([notification.name isEqualToString:GTDataImporterNotificationLanguageDraftsDownloadStarted]){
-        [((GTBaseView *)self.view) showDownloadIndicatorWithLabel: NSLocalizedString(@"GTHome_status_updatingDrafts", nil)];
+        [((GTBaseView *)self.view) showDownloadIndicatorWithLabel: NSLocalizedString(@"status_updating_drafts", nil)];
     }else if([notification.name isEqualToString:GTDataImporterNotificationCreateDraftStarted]){
-        [((GTBaseView *)self.view) showDownloadIndicatorWithLabel: NSLocalizedString(@"GTHome_status_creatingDrafts", nil)];
+        [((GTBaseView *)self.view) showDownloadIndicatorWithLabel: NSLocalizedString(@"status_creating_drafts", nil)];
     }else if([notification.name isEqualToString:GTDataImporterNotificationPublishDraftStarted]){
-        [((GTBaseView *)self.view) showDownloadIndicatorWithLabel: NSLocalizedString(@"GTHome_status_publishingDrafts", nil)];
+        [((GTBaseView *)self.view) showDownloadIndicatorWithLabel: NSLocalizedString(@"status_publishing_drafts", nil)];
     }else if([notification.name isEqualToString:GTDataImporterNotificationMenuUpdateStarted]){
-        [((GTBaseView *)self.view) showDownloadIndicatorWithLabel:[NSString stringWithFormat: NSLocalizedString(@"GTHome_status_updatingMenu", @"update resources (with menu)")]];
+        [((GTBaseView *)self.view) showDownloadIndicatorWithLabel:[NSString stringWithFormat: NSLocalizedString(@"status_updating_menu", @"update resources (with menu)")]];
     }
 }
 
@@ -282,8 +282,8 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 								   medium:GTHomeViewControllerShareCampaignMedium];
 	shareInfo.addPackageInfo = NO;
 	shareInfo.addCampaignInfo = YES;
-	shareInfo.subject = NSLocalizedString(@"GTHome_sharing_generalShare_subject", nil);
-	shareInfo.message = NSLocalizedString(@"GTHome_sharing_generalShare_message", nil);
+	shareInfo.subject = NSLocalizedString(@"share_general_subject", nil);
+	shareInfo.message = NSLocalizedString(@"share_general_message", nil);
 	GTShareViewController *shareViewController = [[GTShareViewController alloc] initWithInfo:shareInfo];
 	
 	[self presentViewController:shareViewController animated:YES completion:nil];
@@ -318,10 +318,10 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
     GTPackage *selectedPackage = [self.packagesWithNoDrafts objectAtIndex:([sectionIdentifier intValue] - self.articles.count)];
     NSString *selectedPackageTitle = selectedPackage.name;
     self.createDraftsAlert = [[UIAlertView alloc] initWithTitle:selectedPackageTitle
-														message:NSLocalizedString(@"GTHome_createDraftAlert_message", nil)
+														message:NSLocalizedString(@"draft_start_message", nil)
 													   delegate:self
-											  cancelButtonTitle:NSLocalizedString(@"GTHome_createDraftAlert_dismissButton", nil)
-											  otherButtonTitles:NSLocalizedString(@"GTHome_createDraftAlert_confirmButton", nil), nil];
+											  cancelButtonTitle:NSLocalizedString(@"cancel", nil)
+											  otherButtonTitles:NSLocalizedString(@"yes", nil), nil];
 
     [self.createDraftsAlert show];
 }
@@ -545,10 +545,10 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 			 (  translatorMode && phonesLanguage.packages.count > 0 ) ) {
 			
 			self.phonesLanguage = phonesLanguage;
-			self.phonesLanguageAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"GTHome_languageAlert_title", nil)
-																  message:[NSString stringWithFormat:NSLocalizedString(@"GTHome_languageAlert_message", nil),self.phonesLanguage.name]
+			self.phonesLanguageAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"language_alert_title", nil)
+																  message:[NSString stringWithFormat:NSLocalizedString(@"language_alert_body", nil),self.phonesLanguage.name]
 																 delegate:self
-														cancelButtonTitle:NSLocalizedString(@"GTHome_languageAlert_dismissButton", nil)
+														cancelButtonTitle:NSLocalizedString(@"no", nil)
 														otherButtonTitles:nil];
 			[self.phonesLanguageAlert addButtonWithTitle:NSLocalizedString(@"GTHome_languageAlert_confirmButton", nil)];
 			
@@ -667,8 +667,8 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 									   medium:GTHomeViewControllerShareCampaignMedium];
 		shareInfo.addPackageInfo = YES;
 		shareInfo.addCampaignInfo = YES;
-		shareInfo.subject = NSLocalizedString(@"GTHome_sharing_shareFromPage_subject", nil);
-		shareInfo.message = NSLocalizedString(@"GTHome_sharing_shareFromPage_message", nil);
+		shareInfo.subject = NSLocalizedString(@"share_from_page_subject", nil);
+		shareInfo.message = NSLocalizedString(@"share_from_page_message", nil);
         GTPageMenuViewController *pageMenuViewController = [[GTPageMenuViewController alloc] initWithFileLoader:fileLoader];
         GTAboutViewController *aboutViewController = [[GTAboutViewController alloc] initWithDelegate:self fileLoader:fileLoader];
         

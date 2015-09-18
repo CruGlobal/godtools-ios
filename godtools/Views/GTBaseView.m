@@ -35,7 +35,7 @@
     self.loadingLabel.textColor = [UIColor whiteColor];
     self.loadingLabel.font = [UIFont systemFontOfSize:12.0f];
     //self.loadingLabel.adjustsFontSizeToFitWidth = YES;
-    self.loadingLabel.text = NSLocalizedString(@"DownloadingNotification_downloadingResources", nil);
+    self.loadingLabel.text = NSLocalizedString(@"status_downloading_resources", nil);
     [self.loadingView addSubview:self.loadingLabel];
     [self addSubview:self.loadingView];
 	

@@ -130,7 +130,7 @@ BOOL gtLanguageDownloadUserCancellation                                 = FALSE;
 						   
 						   } @catch (NSException *exception) {
 
-							   NSString *errorMessage	= NSLocalizedString(@"GTDataImporter_updateMenuInfo_bad_xml", @"Error message when meta endpoint response is missing data.");
+							   NSString *errorMessage	= NSLocalizedString(@"menu_download_bad_xml", nil);
 							   NSError *xmlError = [NSError errorWithDomain:GTDataImporterErrorDomain
 																	   code:GTDataImporterErrorCodeInvalidXml
 																   userInfo:@{NSLocalizedDescriptionKey: errorMessage,
@@ -403,7 +403,7 @@ BOOL gtLanguageDownloadUserCancellation                                 = FALSE;
 									 [[GTDefaults sharedDefaults] setTranslationDownloadStatus:@"finished"];
 									 
                                  }else if(response.statusCode == 500){
-                                    NSString *errorMessage	= NSLocalizedString(@"GTDataImporter_downloadPackages_error", @"Error message when package endpoint response is missing data.");
+                                    NSString *errorMessage	= NSLocalizedString(@"packages_download_error", nil);
                                      NSError *error = [NSError errorWithDomain:GTDataImporterErrorDomain
                                                                              code:GTDataImporterErrorCodeInvalidXml
                                                                          userInfo:@{NSLocalizedDescriptionKey: errorMessage}];
@@ -535,7 +535,7 @@ BOOL gtLanguageDownloadUserCancellation                                 = FALSE;
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) { 
         //NSLog(@"failure response: %@",response.allHeaderFields);
         if(response.statusCode == 401){
-            NSString *errorMessage	= NSLocalizedString(@"GTDataImporter_authTokenFailureAlert_message_invalidAccessCode", @"Error message when access code is unauthorized.");
+            NSString *errorMessage	= NSLocalizedString(@"invalid_code", nil);
             error = [NSError errorWithDomain:GTDataImporterErrorDomain
                                                  code:GTDataImporterErrorCodeInvalidXml
                                              userInfo:@{NSLocalizedDescriptionKey: errorMessage, }];
@@ -648,7 +648,7 @@ BOOL gtLanguageDownloadUserCancellation                                 = FALSE;
                                             NSLog(@"error saving");
                                         }
                                     }else if(response.statusCode == 500){
-                                        NSString *errorMessage	= NSLocalizedString(@"GTDataImporter_downloadDraftsForLanguage_error_server", @"Error message when package endpoint response is missing data.");
+                                        NSString *errorMessage	= NSLocalizedString(@"server_error", nil);
                                         NSError *error = [NSError errorWithDomain:GTDataImporterErrorDomain
                                                                              code:GTDataImporterErrorCodeInvalidXml
                                                                          userInfo:@{NSLocalizedDescriptionKey: errorMessage, }];
@@ -689,7 +689,7 @@ BOOL gtLanguageDownloadUserCancellation                                 = FALSE;
                                                                                   userInfo:nil];
                             }
                             @catch (NSException *exception) {
-                                NSString *errorMessage	= NSLocalizedString(@"GTDataImporter_downloadPage_error", @"Error message when pages endpoint response is missing data.");
+                                NSString *errorMessage	= NSLocalizedString(@"page_download_error", nil);
                                 NSError *error = [NSError errorWithDomain:GTDataImporterErrorDomain
                                                                         code:GTDataImporterErrorCodeInvalidXml
                                                                     userInfo:@{NSLocalizedDescriptionKey: errorMessage,
@@ -796,7 +796,7 @@ BOOL gtLanguageDownloadUserCancellation                                 = FALSE;
 }
 
 - (void)displayDownloadPackagesRequestError:(NSError *)error {
-    NSString *errorMessage	= NSLocalizedString(@"GTDataImporter_downloadPackages_error", @"Error message when downloading package.");
+    NSString *errorMessage	= NSLocalizedString(@"packages_download_error", nil);
     NSError *downloadError = [NSError errorWithDomain:GTDataImporterErrorDomain
                                               code:GTDataImporterErrorCodeInvalidZip
                                           userInfo:@{NSLocalizedDescriptionKey: errorMessage,

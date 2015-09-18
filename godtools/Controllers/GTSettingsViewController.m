@@ -48,18 +48,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.previewModeLabel.text = NSLocalizedString(@"GTSettings_previewMode_label", nil);
-    self.primaryLanguageLabel.text = NSLocalizedString(@"GTSettings_mainLanguage_label", nil);
-    self.parallelLanguageLabel.text =NSLocalizedString(@"GTSettings_parallelLanguage_label", nil);
+    self.previewModeLabel.text = NSLocalizedString(@"settings_translator_mode", nil);
+    self.primaryLanguageLabel.text = NSLocalizedString(@"settings_main_language", nil);
+    self.parallelLanguageLabel.text =NSLocalizedString(@"settings_parallel_language", nil);
     
     [self setLanguageNameLabelValues];
     
     self.exitTranslatorModeAlert = [[UIAlertView alloc]
-                                        initWithTitle:NSLocalizedString(@"GTSettings_exitPreviewMode_title", nil)
-                                        message:NSLocalizedString(@"GTSettings_exitPreviewMode_message", nil)
+                                        initWithTitle:NSLocalizedString(@"dialog_translator_mode_title", nil)
+                                        message:NSLocalizedString(@"dialog_translator_mode_body", nil)
                                         delegate:self
-                                        cancelButtonTitle:NSLocalizedString(@"GTSettings_exitPreviewMode_dismissButton", nil)
-                                        otherButtonTitles:NSLocalizedString(@"GTSettings_exitPreviewMode_confirmButton", nil),nil];
+                                        cancelButtonTitle:NSLocalizedString(@"no", nil)
+                                        otherButtonTitles:NSLocalizedString(@"yes", nil),nil];
     
     self.buttonLessAlert        = [[UIAlertView alloc]
                                         initWithTitle:@""
@@ -78,7 +78,7 @@
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:0.44 green:0.84 blue:0.88 alpha:1.0]];
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self.navigationController.navigationBar setTranslucent:NO]; // required for iOS7
-    self.navigationController.navigationBar.topItem.title = NSLocalizedString(@"GTSettings_navigationBar_title", nil);
+    self.navigationController.navigationBar.topItem.title = NSLocalizedString(@"settings_title", nil);
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     
     [self.previewModeSwitch setOn: [[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]];
@@ -192,7 +192,7 @@
 	[self.primaryLanguageButton setTitle:localizedMainLanguageName forState:UIControlStateNormal];
 
     if([self parallelLanguage] == nil) {
-        [self.parallelLanguageButton setTitle: NSLocalizedString(@"GTSettings_parallelLanguageButton_noneSelected", nil) forState:UIControlStateNormal];
+        [self.parallelLanguageButton setTitle: NSLocalizedString(@"settings_language_none_selected", nil) forState:UIControlStateNormal];
     } else {
 		NSString *localizedParallelLanguageName = [[[NSLocale currentLocale] displayNameForKey:NSLocaleIdentifier value:self.parallelLanguage.code] capitalizedString];
 		localizedParallelLanguageName = ( [localizedParallelLanguageName isEqualToString:self.parallelLanguage.code] ? self.parallelLanguage.name.capitalizedString : localizedParallelLanguageName.capitalizedString );
