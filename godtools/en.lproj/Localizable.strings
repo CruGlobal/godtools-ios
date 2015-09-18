@@ -18,7 +18,6 @@
 "GTSettings_parallelLanguage_label"                              = "Parallel Language:";
 "GTSettings_parallelLanguage_default"                            = "None";
 "GTSettings_previewMode_label"                                   = "Preview Mode (translators)";
-"GTSettings_aboutGodTools"                                       = "About God Tools";
 "GTSettings_exitPreviewMode_title"                               = "Exit Preview Mode?";
 "GTSettings_exitPreviewMode_message"                             = "Drafts will not be displayed";
 "GTSettings_exitPreviewMode_dismissButton"                       = "No";
