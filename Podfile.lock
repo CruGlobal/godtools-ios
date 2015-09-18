@@ -30,7 +30,7 @@ PODS:
     - Fabric/Base (= 1.5.1)
   - Fabric/Base (1.5.1)
   - GoogleAnalytics-iOS-SDK (3.0.9)
-  - GTViewController (6.0.0):
+  - GTViewController (6.1.0):
     - SSCWhatsAppActivity (~> 1.0)
   - NewRelicAgent (3.412)
   - RaptureXML (1.0.1)
@@ -44,7 +44,7 @@ DEPENDENCIES:
   - Crashlytics
   - Fabric
   - GoogleAnalytics-iOS-SDK (~> 3.0.9)
-  - GTViewController (~> 6.0)
+  - GTViewController (~> 6.1)
   - NewRelicAgent (~> 3.256)
   - SSZipArchive (~> 0.3)
 
@@ -64,7 +64,7 @@ SPEC CHECKSUMS:
   Crashlytics: 0e61bdda9def51f1e99720f804eebe94865442b2
   Fabric: 03c3b3fe77e11a2bc31421b989a9c7adaa4779a5
   GoogleAnalytics-iOS-SDK: 3b0994bef22ed2e176a9e2a4d1660c7c2542eb47
-  GTViewController: 36d8313c8ba970a97114dcd1c2a110fc8c6f4163
+  GTViewController: b1c06ddfa20204da97949e7d9e20dcdd9cdd940f
   NewRelicAgent: 5dbb8c108199f066e353231a90d80263830c0f73
   RaptureXML: b5c33c04c1a4adfd8ad0d5463329a31820596e82
   SSCWhatsAppActivity: fdea072dcf11f1e4889c8f8d9f58118672361900

@@ -620,8 +620,8 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 }
 #pragma mark - Renderer methods
 -(void)loadRendererWithPackage: (GTPackage *)package{
-   
-    NSString *parallelConfigFile;
+	
+	GTPackage *parallelPackage;
     BOOL isDraft = [package.status isEqualToString:@"draft"]? YES: NO;
     
     //add checker if parallel language has a package
@@ -630,11 +630,12 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
         NSArray *languages = [[GTStorage sharedStorage]fetchArrayOfModels:[GTLanguage class] usingKey:@"code" forValues:@[[[GTDefaults sharedDefaults]currentParallelLanguageCode]] inBackground:NO];
         if(languages){
             GTLanguage *parallelLanguage = [languages objectAtIndex:0];
-            for(GTPackage *parallelPackage in parallelLanguage.packages){
-                if ([parallelPackage.code isEqualToString:package.code] && [parallelPackage.status isEqualToString:package.status]) {
+            for(GTPackage *currentPackage in parallelLanguage.packages){
+                if ([currentPackage.code isEqualToString:package.code] && [currentPackage.status isEqualToString:package.status]) {
                 // workaround to pass a parallel  config file that is not nil. this is due to packages created with no config file
-                    if(parallelPackage.configFile)
-                        parallelConfigFile = parallelPackage.configFile;
+					if(currentPackage.configFile) {
+                        parallelPackage = currentPackage;
+					}
                 }
             }
         }
@@ -642,9 +643,10 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 
     self.godtoolsViewController.currentPackage = package;
 	[self.godtoolsViewController setPackageCode:package.code languageCode:package.language.code];
+	[self.godtoolsViewController setParallelPackageCode:parallelPackage.code parallelLanguageCode:parallelPackage.language.code];
     [self.godtoolsViewController addNotificationObservers];
         
-    [self.godtoolsViewController loadResourceWithConfigFilename:package.configFile parallelConfigFileName:parallelConfigFile isDraft:isDraft];
+    [self.godtoolsViewController loadResourceWithConfigFilename:package.configFile parallelConfigFileName:parallelPackage.configFile isDraft:isDraft];
     [self.navigationController pushViewController:self.godtoolsViewController animated:YES];
     
 }
