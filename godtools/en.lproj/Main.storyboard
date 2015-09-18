@@ -274,17 +274,17 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="GT4_HomeScreen_Background_" translatesAutoresizingMaskIntoConstraints="NO" id="ZcR-5w-JH4">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             </imageView>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" image="GT4_SettingsScreen_ButtonBar15%_Teal_" translatesAutoresizingMaskIntoConstraints="NO" id="B77-rt-eeN">
-                                <rect key="frame" x="0.0" y="164" width="375" height="52"/>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="GT4_SettingsScreen_ButtonBar15%_Teal_" translatesAutoresizingMaskIntoConstraints="NO" id="B77-rt-eeN">
+                                <rect key="frame" x="0.0" y="100" width="375" height="52"/>
                             </imageView>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" image="GT4_SettingsScreen_ButtonBar15%_Teal_" translatesAutoresizingMaskIntoConstraints="NO" id="yMd-4c-vb1">
-                                <rect key="frame" x="0.0" y="266" width="375" height="52"/>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="GT4_SettingsScreen_ButtonBar15%_Teal_" translatesAutoresizingMaskIntoConstraints="NO" id="yMd-4c-vb1">
+                                <rect key="frame" x="0.0" y="202" width="375" height="52"/>
                             </imageView>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" image="GT4_SettingsScreen_ButtonBar15%_Orange_" translatesAutoresizingMaskIntoConstraints="NO" id="Hra-57-Rjx">
-                                <rect key="frame" x="0.0" y="480" width="375" height="52"/>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="GT4_SettingsScreen_ButtonBar15%_Orange_" translatesAutoresizingMaskIntoConstraints="NO" id="Hra-57-Rjx">
+                                <rect key="frame" x="0.0" y="416" width="375" height="52"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MsA-3e-8Np">
-                                <rect key="frame" x="30" y="135" width="274" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MsA-3e-8Np">
+                                <rect key="frame" x="30" y="71" width="274" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="45j-MI-lRs"/>
                                     <constraint firstAttribute="width" constant="274" id="MZ2-AH-JQj"/>
@@ -293,8 +293,8 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3LE-oe-ngK">
-                                <rect key="frame" x="251" y="490" width="51" height="31"/>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3LE-oe-ngK">
+                                <rect key="frame" x="251" y="426" width="51" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="31" id="rGU-k3-vAh"/>
                                     <constraint firstAttribute="width" constant="49" id="xnA-Am-HkI"/>
@@ -303,8 +303,8 @@
                                     <action selector="previewModeSwitchPressed" destination="oIQ-32-exZ" eventType="valueChanged" id="aP8-z8-q3d"/>
                                 </connections>
                             </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rdm-Ei-0uu">
-                                <rect key="frame" x="30" y="480" width="213" height="52"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rdm-Ei-0uu">
+                                <rect key="frame" x="30" y="416" width="213" height="52"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="52" id="4sC-rV-kaI"/>
                                 </constraints>
@@ -312,8 +312,8 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cW2-xI-6th">
-                                <rect key="frame" x="0.0" y="164" width="320" height="52"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cW2-xI-6th">
+                                <rect key="frame" x="0.0" y="100" width="320" height="52"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="320" id="CEL-dP-DLN"/>
                                     <constraint firstAttribute="height" constant="52" id="YOc-TA-KAE"/>
@@ -328,8 +328,8 @@
                                     <action selector="changePrimaryLanguagePressed" destination="oIQ-32-exZ" eventType="touchUpInside" id="XLR-Iz-mT3"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yop-JO-bK0">
-                                <rect key="frame" x="30" y="237" width="274" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yop-JO-bK0">
+                                <rect key="frame" x="30" y="173" width="274" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="274" id="nQi-b8-8wA"/>
                                     <constraint firstAttribute="height" constant="21" id="rlH-Jf-2AT"/>
@@ -338,8 +338,8 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CL7-HZ-wpT">
-                                <rect key="frame" x="0.0" y="266" width="320" height="52"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CL7-HZ-wpT">
+                                <rect key="frame" x="0.0" y="202" width="320" height="52"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="320" id="DTS-3k-xXl"/>
                                     <constraint firstAttribute="height" constant="52" id="OTh-Rg-Ozt"/>
@@ -354,14 +354,14 @@
                                     <action selector="changeParallelLanguagePressed" destination="oIQ-32-exZ" eventType="touchUpInside" id="MKw-Wc-R2y"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Tap screen during presentation to view menu." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O3d-nf-ctT">
-                                <rect key="frame" x="16" y="326" width="288" height="36"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap screen during presentation to view menu." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O3d-nf-ctT">
+                                <rect key="frame" x="16" y="262" width="288" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Will toggle the 2 languages" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="loZ-lY-U87">
-                                <rect key="frame" x="56" y="360" width="244" height="54"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Will toggle the 2 languages" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="loZ-lY-U87">
+                                <rect key="frame" x="56" y="296" width="244" height="54"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="244" id="sRz-TV-FtV"/>
                                 </constraints>
@@ -369,15 +369,15 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="center" verticalHuggingPriority="251" misplaced="YES" image="Package_PopUpToolBar_Icon_Switch.png" translatesAutoresizingMaskIntoConstraints="NO" id="h78-CO-cwP">
-                                <rect key="frame" x="16" y="372" width="30" height="30"/>
+                            <imageView userInteractionEnabled="NO" contentMode="center" verticalHuggingPriority="251" image="Package_PopUpToolBar_Icon_Switch.png" translatesAutoresizingMaskIntoConstraints="NO" id="h78-CO-cwP">
+                                <rect key="frame" x="16" y="308" width="30" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="QJP-u0-m8u"/>
                                     <constraint firstAttribute="height" constant="30" id="toa-p7-2Y0"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="The toggle button will not show up in the menu if the booklet is not available in the parallel language" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5lB-eD-M5X">
-                                <rect key="frame" x="16" y="410" width="288" height="54"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The toggle button will not show up in the menu if the booklet is not available in the parallel language" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5lB-eD-M5X">
+                                <rect key="frame" x="16" y="346" width="288" height="54"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
