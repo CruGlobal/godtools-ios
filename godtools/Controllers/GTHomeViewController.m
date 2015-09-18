@@ -28,13 +28,18 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 @property (strong, nonatomic) NSString *languageCode;
 @property (strong, nonatomic) GTViewController *godtoolsViewController;
 
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *godtoolsTitle;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *translatorModeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *pullToRefreshLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
 @property (weak, nonatomic) IBOutlet UIView *refreshDraftsView;
 @property (weak, nonatomic) IBOutlet UIImageView *setLanguageImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *pickToolImageView;
 @property (weak, nonatomic) IBOutlet UIView *instructionsOverlayView;
+@property (weak, nonatomic) IBOutlet UILabel *shareInstructionsLabel;
+@property (weak, nonatomic) IBOutlet UILabel *toolInstructionsLabel;
+@property (weak, nonatomic) IBOutlet UILabel *languageInstructionsLabel;
 
 @property (strong, nonatomic) GTLanguage *phonesLanguage;
 @property (strong, nonatomic) UIAlertView *phonesLanguageAlert;
@@ -59,7 +64,14 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 #pragma mark - View Controller Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+	
+	self.godtoolsTitle.title = NSLocalizedString(@"app_name", nil);
+	self.translatorModeLabel.text = NSLocalizedString(@"translator_mode", nil);
+	self.pullToRefreshLabel.text = NSLocalizedString(@"pull_down_info", nil);
+	self.shareInstructionsLabel.text = NSLocalizedString(@"intro_share_instructions", nil);
+	self.toolInstructionsLabel.text = NSLocalizedString(@"intro_tool_instructions", nil);
+	self.languageInstructionsLabel.text = NSLocalizedString(@"intro_language_instructions", nil);
+	
     [self.navigationController setNavigationBarHidden:YES];
 	
     self.tableView.delegate = self;

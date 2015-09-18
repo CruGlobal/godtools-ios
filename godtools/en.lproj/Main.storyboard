@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="OvA-bH-obN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="OvA-bH-obN">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -53,7 +53,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Oi2-EA-aoq"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="pYR-p1-DAY" customClass="GTBaseView">
-                        <rect key="frame" x="0.0" y="44" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="GT4_HomeScreen_Background_" translatesAutoresizingMaskIntoConstraints="NO" id="0XS-mo-bDe">
@@ -240,12 +240,17 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
+                        <outlet property="godtoolsTitle" destination="GjW-KD-mNq" id="cON-r9-epF"/>
                         <outlet property="iconImageView" destination="Bgc-XF-gSL" id="6EU-zK-Rf6"/>
                         <outlet property="instructionsOverlayView" destination="MS0-V2-i3u" id="eZu-ct-igl"/>
+                        <outlet property="languageInstructionsLabel" destination="Srq-de-tee" id="lbI-ay-YTz"/>
                         <outlet property="pickToolImageView" destination="jsp-4r-e3a" id="xjt-tE-KNa"/>
+                        <outlet property="pullToRefreshLabel" destination="f2w-cw-tln" id="nEq-FU-fZt"/>
                         <outlet property="refreshDraftsView" destination="o9C-9g-h8G" id="1KN-7N-CQj"/>
                         <outlet property="setLanguageImageView" destination="FRf-Yi-G4h" id="SNF-gx-avH"/>
+                        <outlet property="shareInstructionsLabel" destination="O05-24-H92" id="VuG-r5-DOY"/>
                         <outlet property="tableView" destination="P8r-gh-EpT" id="H7B-Dy-0ge"/>
+                        <outlet property="toolInstructionsLabel" destination="P4W-0o-rM1" id="bXD-3I-jyc"/>
                         <outlet property="translatorModeLabel" destination="Ddm-Sv-WQm" id="Sq8-uW-4uc"/>
                         <segue destination="oIQ-32-exZ" kind="push" identifier="homeToSettingsViewSegue" id="XAs-gy-8U5"/>
                     </connections>
@@ -263,7 +268,7 @@
                         <viewControllerLayoutGuide type="bottom" id="JKp-5o-V3H"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="dbd-kT-ndl">
-                        <rect key="frame" x="0.0" y="44" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="GT4_HomeScreen_Background_" translatesAutoresizingMaskIntoConstraints="NO" id="ZcR-5w-JH4">
@@ -421,6 +426,9 @@
                     <connections>
                         <outlet property="parallelLanguageButton" destination="CL7-HZ-wpT" id="8RG-aL-bTQ"/>
                         <outlet property="parallelLanguageLabel" destination="Yop-JO-bK0" id="aFA-hJ-xyc"/>
+                        <outlet property="parallelModeSwitchButtonInstructions" destination="loZ-lY-U87" id="HvS-i2-D4E"/>
+                        <outlet property="parallelModeTapInstructions" destination="O3d-nf-ctT" id="XYT-Ou-haS"/>
+                        <outlet property="parallelModeToggleExplaination" destination="5lB-eD-M5X" id="KTJ-WZ-Ztc"/>
                         <outlet property="previewModeLabel" destination="Rdm-Ei-0uu" id="GFX-h5-pZG"/>
                         <outlet property="previewModeSwitch" destination="3LE-oe-ngK" id="EoD-hN-Bfb"/>
                         <outlet property="primaryLanguageButton" destination="cW2-xI-6th" id="Icf-JV-Fzr"/>
@@ -443,7 +451,7 @@
                         <viewControllerLayoutGuide type="bottom" id="9ys-PG-CTe"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="rqz-vU-CUN">
-                        <rect key="frame" x="0.0" y="94" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Passcode" minimumFontSize="19" translatesAutoresizingMaskIntoConstraints="NO" id="DPa-cg-wGX">
@@ -492,7 +500,7 @@
                         <viewControllerLayoutGuide type="bottom" id="go3-at-bIy"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="0Nm-4R-kBW">
-                        <rect key="frame" x="0.0" y="44" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -507,7 +515,7 @@
             <objects>
                 <tableViewController id="YJa-Gt-v9R" customClass="GTLanguagesViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Y61-Vs-jDL">
-                        <rect key="frame" x="0.0" y="44" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <connections>
@@ -536,9 +544,4 @@
         <image name="GT4_SettingsScreen_RightArrow_" width="10" height="18"/>
         <image name="Package_PopUpToolBar_Icon_Switch.png" width="24" height="24"/>
     </resources>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
-    </simulatedMetricsContainer>
 </document>

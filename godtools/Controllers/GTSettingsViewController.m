@@ -31,7 +31,9 @@
 @property (strong, nonatomic) IBOutlet UILabel *parallelLanguageLabel;
 @property (strong, nonatomic) IBOutlet UILabel *previewModeLabel;
 @property (strong, nonatomic) IBOutlet UISwitch *previewModeSwitch;
-@property (strong, nonatomic) IBOutlet UILabel *parallelModeInstructions;
+@property (strong, nonatomic) IBOutlet UILabel *parallelModeTapInstructions;
+@property (strong, nonatomic) IBOutlet UILabel *parallelModeSwitchButtonInstructions;
+@property (strong, nonatomic) IBOutlet UILabel *parallelModeToggleExplaination;
 
 - (IBAction)previewModeSwitchPressed;
 - (IBAction)changePrimaryLanguagePressed;
@@ -50,7 +52,11 @@
 
     self.previewModeLabel.text = NSLocalizedString(@"settings_translator_mode", nil);
     self.primaryLanguageLabel.text = NSLocalizedString(@"settings_main_language", nil);
-    self.parallelLanguageLabel.text =NSLocalizedString(@"settings_parallel_language", nil);
+    self.parallelLanguageLabel.text = NSLocalizedString(@"settings_parallel_language", nil);
+	
+	self.parallelModeTapInstructions.text = NSLocalizedString(@"settings_parallel_info_tap", nil);
+	self.parallelModeSwitchButtonInstructions.text = NSLocalizedString(@"settings_parallel_info_switch_button", nil);
+	self.parallelModeToggleExplaination.text = NSLocalizedString(@"settings_parallel_info_toggle_explaination", nil);
     
     [self setLanguageNameLabelValues];
     

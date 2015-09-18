@@ -23,7 +23,9 @@
 # pragma mark - View lifecycle methods
 -(void)viewDidLoad {
     [super viewDidLoad];
-    
+	
+	self.title = NSLocalizedString(@"dialog_access_code_title", nil);
+	self.accessCodeTextField.placeholder = NSLocalizedString(@"access_code_placeholder", nil);
     self.navigationItem.backBarButtonItem.target = self;
     self.navigationItem.backBarButtonItem.action = @selector(cancelButtonPressed);
 
