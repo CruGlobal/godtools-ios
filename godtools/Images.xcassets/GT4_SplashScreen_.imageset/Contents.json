@@ -2,18 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "GT4_SplashScreen_ip4.png"
+      "filename" : "GT4_SplashScreen_ip4.png",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "GT4_SplashScreen_ip5.png"
+      "filename" : "GT4_SplashScreen_ip5.png",
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "GT4_SplashScreen_ip6+.png"
+      "filename" : "GT4_SplashScreen_ip6+.png",
+      "scale" : "3x"
     }
   ],
   "info" : {
