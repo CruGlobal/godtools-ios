@@ -194,7 +194,7 @@
 - (void)setLanguageNameLabelValues {
 	
 	NSString *localizedMainLanguageName = [[[NSLocale currentLocale] displayNameForKey:NSLocaleIdentifier value:self.mainLanguage.code] capitalizedString];
-	localizedMainLanguageName = ( [localizedMainLanguageName isEqualToString:self.mainLanguage.code] ? self.mainLanguage.name.capitalizedString : localizedMainLanguageName.capitalizedString );
+	localizedMainLanguageName = ( !localizedMainLanguageName || [localizedMainLanguageName isEqualToString:self.mainLanguage.code] ? self.mainLanguage.name.capitalizedString : localizedMainLanguageName.capitalizedString );
 	[self.primaryLanguageButton setTitle:localizedMainLanguageName forState:UIControlStateNormal];
 
     if([self parallelLanguage] == nil) {

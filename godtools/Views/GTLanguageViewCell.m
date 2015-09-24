@@ -43,7 +43,7 @@
 	
 	self.language = language;
 	NSString *localizedLanguageName = [[NSLocale currentLocale] displayNameForKey:NSLocaleIdentifier value:language.code];
-	self.languageName.text = ( [localizedLanguageName isEqualToString:language.code] ? language.name.capitalizedString : localizedLanguageName.capitalizedString );
+	self.languageName.text = ( !localizedLanguageName || [localizedLanguageName isEqualToString:language.code] ? language.name.capitalizedString : localizedLanguageName.capitalizedString );
 	
 	self.checkBox.hidden = YES;
 	self.errorIcon.hidden = YES;
