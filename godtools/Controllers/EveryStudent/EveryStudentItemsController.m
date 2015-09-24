@@ -77,7 +77,7 @@
 	
 	if (cell == nil) {
 		cell = [[EveryStudentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MyIdentifier];
-		UIView	*background	= [[UIView alloc] initWithFrame:CGRectMake(cell.frame.origin.x, cell.frame.origin.y, cell.frame.size.width, cell.frame.size.height - 1)];
+		UIView	*background	= [[UIView alloc] initWithFrame:CGRectMake(cell.frame.origin.x, cell.frame.origin.y, tableView.frame.size.width, cell.frame.size.height - 1)];
 		background.tag		= 123;
 		[cell insertSubview:background atIndex:0];
 	}
