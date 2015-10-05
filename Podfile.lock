@@ -44,18 +44,25 @@ DEPENDENCIES:
   - Crashlytics
   - Fabric
   - GoogleAnalytics-iOS-SDK (~> 3.0.9)
-  - GTViewController (~> 6.1)
+  - GTViewController (from `https://github.com/CruGlobal/GTViewController.git`, branch
+    `dev4.0`)
   - NewRelicAgent (~> 3.256)
   - SSZipArchive (~> 0.3)
 
 EXTERNAL SOURCES:
   AFRaptureXMLRequestOperation:
     :git: https://github.com/CruGlobal/AFRaptureXMLRequestOperation.git
+  GTViewController:
+    :branch: dev4.0
+    :git: https://github.com/CruGlobal/GTViewController.git
 
 CHECKOUT OPTIONS:
   AFRaptureXMLRequestOperation:
     :commit: 4dbbb8a6c2d2115c09a4df3ffc6cda20e93a1cd1
     :git: https://github.com/CruGlobal/AFRaptureXMLRequestOperation.git
+  GTViewController:
+    :commit: 4eb6c4fceb5dd03f5002a2f342bb24ab57b26f2d
+    :git: https://github.com/CruGlobal/GTViewController.git
 
 SPEC CHECKSUMS:
   AFDownloadRequestOperation: 748a1643423e1ddb23f2178f778087d4f0ae8ac7
@@ -64,7 +71,7 @@ SPEC CHECKSUMS:
   Crashlytics: 0e61bdda9def51f1e99720f804eebe94865442b2
   Fabric: 03c3b3fe77e11a2bc31421b989a9c7adaa4779a5
   GoogleAnalytics-iOS-SDK: 3b0994bef22ed2e176a9e2a4d1660c7c2542eb47
-  GTViewController: b1c06ddfa20204da97949e7d9e20dcdd9cdd940f
+  GTViewController: 48e5f5f8a2f09bdbf6f4f452b3c746f5ea7d81ae
   NewRelicAgent: 5dbb8c108199f066e353231a90d80263830c0f73
   RaptureXML: b5c33c04c1a4adfd8ad0d5463329a31820596e82
   SSCWhatsAppActivity: fdea072dcf11f1e4889c8f8d9f58118672361900

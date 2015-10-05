@@ -27,6 +27,7 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 
 @property (strong, nonatomic) NSString *languageCode;
 @property (strong, nonatomic) GTViewController *godtoolsViewController;
+@property (strong, nonatomic) GTShareInfo *shareInfo;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *godtoolsTitle;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -293,9 +294,10 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 								   source:GTHomeViewControllerShareCampaignSource
 								   medium:GTHomeViewControllerShareCampaignMedium];
 	shareInfo.addPackageInfo = NO;
-	shareInfo.addCampaignInfo = YES;
+	shareInfo.addCampaignInfo = NO;
 	shareInfo.subject = NSLocalizedString(@"share_general_subject", nil);
 	shareInfo.message = NSLocalizedString(@"share_general_message", nil);
+	shareInfo.appName = NSLocalizedString(@"app_name", nil);
 	GTShareViewController *shareViewController = [[GTShareViewController alloc] initWithInfo:shareInfo];
 	
 	[self presentViewController:shareViewController animated:YES completion:nil];
@@ -417,7 +419,7 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
             [cell.contentView.layer setBorderWidth:0.0];
         } else if(currentSection >= self.articles.count){
             //block for every student cell
-			cell.titleLabel.text = @"Questions About Life And God?"; //only appears in english list so shouldn't be translated
+			cell.titleLabel.text = @"Questions About God?"; //only appears in english list so shouldn't be translated
             [cell setUpBackground:(indexPath.section % 2) :NO :NO];
             cell.icon.image = [UIImage imageNamed:@"GT4_HomeScreen_ESIcon_.png"];
         } else {
@@ -557,8 +559,9 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 			 (  translatorMode && phonesLanguage.packages.count > 0 ) ) {
 			
 			self.phonesLanguage = phonesLanguage;
+			NSString *message = [NSLocalizedString(@"language_alert_body", nil) stringByReplacingOccurrencesOfString:@"{{language_name}}" withString:self.phonesLanguage.name];
 			self.phonesLanguageAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"language_alert_title", nil)
-																  message:[NSString stringWithFormat:NSLocalizedString(@"language_alert_body", nil),self.phonesLanguage.name]
+																  message:message
 																 delegate:self
 														cancelButtonTitle:NSLocalizedString(@"no", nil)
 														otherButtonTitles:nil];
@@ -655,6 +658,7 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 
     self.godtoolsViewController.currentPackage = package;
 	[self.godtoolsViewController setPackageCode:package.code languageCode:package.language.code];
+	self.shareInfo.packageName = package.name;
 	[self.godtoolsViewController setParallelPackageCode:parallelPackage.code parallelLanguageCode:parallelPackage.language.code];
     [self.godtoolsViewController addNotificationObservers];
         
@@ -671,25 +675,27 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
         GTPackage *package = [self.articles objectAtIndex:0];
         GTFileLoader *fileLoader = [GTFileLoader fileLoader];
         fileLoader.language		= self.languageCode;
-		GTShareInfo *shareInfo = [[GTShareInfo alloc] initWithBaseURL:[GTConfig sharedConfig].baseShareUrl
+		self.shareInfo = [[GTShareInfo alloc] initWithBaseURL:[GTConfig sharedConfig].baseShareUrl
 														  packageCode:@"kgp"
 														 languageCode:@"en"];
-		[shareInfo setGoogleAnalyticsCampaign:GTHomeViewControllerShareCampaignName
+		[self.shareInfo setGoogleAnalyticsCampaign:GTHomeViewControllerShareCampaignName
 									   source:GTHomeViewControllerShareCampaignSource
 									   medium:GTHomeViewControllerShareCampaignMedium];
-		shareInfo.addPackageInfo = YES;
-		shareInfo.addCampaignInfo = YES;
-		shareInfo.subject = NSLocalizedString(@"share_from_page_subject", nil);
-		shareInfo.message = NSLocalizedString(@"share_from_page_message", nil);
+		self.shareInfo.addPackageInfo = YES;
+		self.shareInfo.addCampaignInfo = NO;
+		self.shareInfo.subject = NSLocalizedString(@"share_from_page_subject", nil);
+		self.shareInfo.message = NSLocalizedString(@"share_from_page_message", nil);
+		self.shareInfo.appName = NSLocalizedString(@"app_name", nil);
         GTPageMenuViewController *pageMenuViewController = [[GTPageMenuViewController alloc] initWithFileLoader:fileLoader];
         GTAboutViewController *aboutViewController = [[GTAboutViewController alloc] initWithDelegate:self fileLoader:fileLoader];
         
         [self willChangeValueForKey:@"godtoolsViewController"];
         _godtoolsViewController	= [[GTViewController alloc] initWithConfigFile:package.configFile
+																		 frame:self.view.frame
 																   packageCode:@"kgp"
 																  langaugeCode:@"en"
 																	fileLoader:fileLoader
-																	 shareInfo:shareInfo
+																	 shareInfo:self.shareInfo
                                                         pageMenuViewController:pageMenuViewController
                                                            aboutViewController:aboutViewController
                                                                       delegate:self];

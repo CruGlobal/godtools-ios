@@ -1,76 +1,169 @@
-/* 
-  Localizable.strings
-  godtools
+"app_name" = "God Tools";
+"menu_item_kgp" = "Knowing God Personally";
+"menu_item_satisfied" = "Satisfied?";
+"menu_item_4laws" = "The Four Spiritual Laws";
+"menu_item_share" = "Share";
+"menu_item_contents" = "Contents";
+"menu_item_help" = "Help";
+"menu_switch_language" = "Switch Language";
+"menu_update_page" = "Update Page (draft)";
+"menu_flip" = "Flip";
+"app_name_everystudent" = "Questions About Life And God?";
+"quit_dialog_message" = "Are you sure you want to exit God Tools?";
+"quit_dialog_confirm" = "Exit";
+"quit_dialog_cancel" = "Cancel";
+"search_label" = "EveryStudent.com";
+"search_hint" = "Search EveryStudent.com";
+"search_results" = "{{number_or_results}} results for \"{{search_term}}\":";
+"search_no_results" = "No results found for \"{{search_term}}\"";
+"settings_description" = "Explore questions about life and God";
+"menu_search" = "Search";
+"menu_about" = "About";
+"snuffy_help" = "To advance to the next page, simply swipe to the left. To return to the previous page, swipe to the right. To show the menu you can tap in any area of the page other than on a button.";
+"snuffy_help_title" = "{{package_name}} Help";
+"choose_your_email_provider" = "Choose your email provider";
+"unable_to_send_the_email" = "Unable to send the email";
+"email" = "Email";
+"copy" = "Copy";
+"all_websites" = "All Websites";
 
-  Created by Michael Harrison on 3/26/14.
-  Copyright (c) 2014 Michael Harrison. All rights reserved.
-*/
+/* Renderer Activity */
+"processing_package" = "Loading pages…";
 
-"app_name"                                   = "God Tools";
+"processing_failed" = "Package processing failed";
+"select_share" = "Select how you would like to share";
+"update_page" = "Updating page…";
+"page_error" = "Error refreshing page";
 
-"translator_mode"                            = "[ Translator Mode ]";
-"intro_share_instructions"                   = "Share with a friend";
-"intro_tool_instructions"                    = "Pick a tool";
-"intro_language_instructions"                = "Pick a Language";
-"pull_down_info"                             = "pull to refresh drafts";
+/* Splash Activity */
+"check_update" = "Checking for updates…";
 
-"settings_title"                             = "Settings";
-"settings_language_none_selected"            = "None Selected";
-"settings_parallel_info_tap"                 = "Tap screen during presentation to view menu.";
-"settings_parallel_info_switch_button"       = "Will toggle the 2 languages";
+/* Settings Activity */
+"settings_title" = "Settings";
+
+"settings_main_language" = "Main Language:";
+"settings_parallel_language" = "Parallel Language:";
+"settings_parallel_info" = "Tap screen during presentation and use \"Switch Language\" to toggle language. Option is not shown if booklet is not available.";
+"settings_select" = "Select";
+"settings_translator_mode" = "Preview Mode (Translators)";
+"settings_notification" = "Allow Notifications";
+"wrong_passcode" = "Please try again";
+"expired_passcode" = "Preview mode session expired";
+"authenticate_code" = "Authenticating access code";
+
+/* Main Activity */
+"share_prompt" = "Select how you would like to share";
+
+/* Language List */
+"download" = "Download";
+
+"downloading" = "Downloading";
+"delete" = "Delete";
+"retry" = "Retry";
+
+/* Translator Mode Dialog */
+"dialog_translator_mode_title" = "Exit Preview Mode?";
+
+"dialog_translator_mode_body" = "Drafts will not be displayed";
+"translator_enabled" = "Translator preview mode is enabled";
+"translator_disabled" = "Translator preview mode is disabled";
+"draft_published" = "Draft has been published";
+"draft_publish_fail" = "Failed to publish draft";
+"draft_publish_message" = "Do you want to publish this draft?";
+"draft_publish_confirm" = "Yes, it\'s ready!";
+"draft_publish_negative" = "No, I changed my mind.";
+"draft_created" = "Draft has been created";
+"draft_create_failed" = "Failed to create a new draft";
+"draft_start_message" = "Create new draft?";
+
+/* Access Code Dialog */
+"dialog_access_code_title" = "Enter Access Code:";
+
+"invalid_code" = "Invalid Access Code";
+
+/* Preview Mode */
+"pull_down_info" = "pull to refresh drafts";
+
+"preview_mode_title" = "Preview Mode";
+"package_not_created" = "Package not yet created";
+"connecting" = "Connecting with server";
+
+/* Package Reader */
+"open" = "Open";
+
+"cannot_launch_browser" = "Cannot launch browser";
+"multi_website_assist" = "- websites to assist you";
+"single_website_assist" = "- a website to assist you";
+"cannot_dial" = "Cannot launch dialler";
+"cannot_email" = "Cannot launch email app";
+
+/* Every Student */
+"could_not_load_content" = "Could not load the content";
+
+/* Shared Strings */
+"ok" = "OK";
+
+"cancel" = "Cancel";
+"yes" = "Yes";
+"no" = "No";
+"none" = "None";
+"send" = "Send";
+"drafts_updated" = "Drafts have been updated";
+"failed_update_draft" = "Failed to update drafts";
+"failed_download_draft" = "Failed to download drafts";
+"failed_download_resources" = "Failed to download resources";
+"success" = "Success!";
+"internet_needed" = "An internet connection is needed to complete this request";
+"alternate_language" = "Parallel Language";
+"alternate_language_message" = "The parallel language selected is not available for this tool.";
+
+/* Sharing */
+"app_email_subject" = "Our conversation about {{package_name}} today";
+
+"share_general_subject" = "{{app_name}}";
+"share_general_message" = "Here’s the link to download the app we were looking at today: http://godtoolsapp.com
+		
+		Here’s a link to a web version of the app {{share_link}}
+		
+		Enjoy exploring!";
+"app_share_link_base_link" = "http://www.knowgod.com";
+"share_from_page_subject" = "{{app_name}}";
+"share_from_page_message" = "Here is the booklet we were looking at today. This link will take you to the web version of the page we were last looking at together:
+		
+		Let’s talk more!
+		
+		{{share_link}}";
+"satisfied_share" = "It was great talking with you today about how we can experience The Holy Spirit’s power in our lives. I hope we can talk more about this soon. In the meantime, you can check out what we looked at today at {{share_link}}";
+"everystudent_share" = "It was great talking with you today about your spiritual questions. I hope we can talk more about this soon. In the meantime, you can check out what we looked at today at {{share_link}}";
+
+/* iOS */
+"translator_mode" = "[ Translator Mode ]";
+
+"intro_share_instructions" = "Share with a friend";
+"intro_tool_instructions" = "Pick a tool";
+"intro_language_instructions" = "Pick a Language";
+"settings_language_none_selected" = "None Selected";
+"settings_parallel_info_tap" = "Tap screen during presentation to view menu.";
+"settings_parallel_info_switch_button" = "Will toggle the 2 languages";
 "settings_parallel_info_toggle_explaination" = "The toggle button will not show up in the menu if the booklet is not available in the parallel language";
-"settings_main_language"                     = "Main Language:";
-"settings_parallel_language"                 = "Parallel Language:";
-"settings_translator_mode"                   = "Preview Mode (translators)";
-"dialog_translator_mode_title"               = "Exit Preview Mode?";
-"dialog_translator_mode_body"                = "Drafts will not be displayed";
-
-"menu_item_languages"                        = "Language";
-"download"                                   = "Download";
-"cancel"                                     = "Cancel";
-"internet_needed"                            = "You need to be online to proceed";
-
-
-"dialog_access_code_title"                   = "Enter Access Code:";
-"access_code_placeholder"                    = "Passcode";
-"authenticate_code"                          = "Authenticating access code";
-"translator_enabled"                         = "Translator preview mode is enabled";
-
-
-"status_updating_resources"                  = "Updating resources...";
-"status_updating_drafts"                     = "Updating drafts...";
-"status_creating_drafts"                     = "Creating draft...";
-"status_publishing_drafts"                   = "Publishing draft...";
-"status_updating_menu"                       = "Updating menu...";
-"status_checking_for_updates"                = "Checking for Updates...";
-"status_initial_setup"                       = "Initial Setup...";
-"status_downloading_resources"               = "Downloading Resources...";
-"language_alert_title"                       = "Language Settings";
-"language_alert_body"                        = "Would you like to make %@ the default language?";
-"draft_publish_confirm"                      = "Yes, it's ready!";
-"draft_publish_negative"                     = "No, not yet.";
-"draft_publish_message"                      = "Do you want to publish this draft?";
-"draft_start_message"                        = "Create new draft?";
-"share_from_page_subject"                    = "God Tools";
-"share_from_page_message"                    = "Here is the booklet we were looking at today. This link, %@, should take you to the page we were last looking at.";
-"share_general_subject"                      = "God Tools";
-"share_general_message"                      = "Check out this %@";
-
-
-"draft_refresh_message"                      = "Refreshing draft...";
-"draft_refresh_error"                        = "Refresh failure";
-
-
-"everystudent_title"                         = "Topics";
-
-"error_title"                                = "Error";
-"menu_download_bad_xml"                      = "Data was missing when asking the server for menu information.";
-"packages_download_error"                    = "There was an error downloading the packages";
-"page_download_error"                        = "There was an error downloading the page";
-"server_error"                               = "There were server issues encountered";
-"invalid_code"                               = "Invalid access code";
-"initial_setup_error_message"                = "Unfortunately we could not load any resources. Please quit the app and reopen. If the problem persists contact support@godtoolsapp.com";
-
-"no"                                         = "No";
-"yes"                                        = "Yes";
-"ok"                                         = "OK";
+"menu_item_languages" = "Language";
+"access_code_placeholder" = "Passcode";
+"status_updating_resources" = "Updating resources...";
+"status_updating_drafts" = "Updating drafts...";
+"status_creating_drafts" = "Creating draft...";
+"status_publishing_drafts" = "Publishing draft...";
+"status_updating_menu" = "Updating menu...";
+"status_checking_for_updates" = "Checking for Updates...";
+"status_initial_setup" = "Initial Setup...";
+"status_downloading_resources" = "Downloading Resources...";
+"language_alert_title" = "Language Settings";
+"language_alert_body" = "Would you like to make {{language_name}} the default language?";
+"draft_refresh_message" = "Refreshing draft...";
+"draft_refresh_error" = "Refresh failure";
+"everystudent_title" = "Topics";
+"error_title" = "Error";
+"menu_download_bad_xml" = "Data was missing when asking the server for menu information.";
+"packages_download_error" = "There was an error downloading the packages";
+"page_download_error" = "There was an error downloading the page";
+"server_error" = "There were server issues encountered";
+"initial_setup_error_message" = "Unfortunately we could not load any resources. Please quit the app and reopen. If the problem persists contact support@godtoolsapp.com";
