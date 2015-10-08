@@ -45,7 +45,7 @@ DEPENDENCIES:
   - Fabric
   - GoogleAnalytics-iOS-SDK (~> 3.0.9)
   - GTViewController (from `https://github.com/CruGlobal/GTViewController.git`, branch
-    `dev4.0`)
+    `gtstyle`)
   - NewRelicAgent (~> 3.256)
   - SSZipArchive (~> 0.3)
 
@@ -53,7 +53,7 @@ EXTERNAL SOURCES:
   AFRaptureXMLRequestOperation:
     :git: https://github.com/CruGlobal/AFRaptureXMLRequestOperation.git
   GTViewController:
-    :branch: dev4.0
+    :branch: gtstyle
     :git: https://github.com/CruGlobal/GTViewController.git
 
 CHECKOUT OPTIONS:
@@ -61,7 +61,7 @@ CHECKOUT OPTIONS:
     :commit: 4dbbb8a6c2d2115c09a4df3ffc6cda20e93a1cd1
     :git: https://github.com/CruGlobal/AFRaptureXMLRequestOperation.git
   GTViewController:
-    :commit: 4eb6c4fceb5dd03f5002a2f342bb24ab57b26f2d
+    :commit: 552ba26565ef5fd769ce11a416ce55083fb06f56
     :git: https://github.com/CruGlobal/GTViewController.git
 
 SPEC CHECKSUMS:
