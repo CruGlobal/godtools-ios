@@ -7,6 +7,8 @@
 //
 
 #import "GTAppDelegate.h"
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 #import "GAI.h"
 
 @implementation GTAppDelegate
@@ -28,7 +30,9 @@
     
     // Initialize tracker. Replace with your tracking ID.
     [[GAI sharedInstance] trackerWithTrackingId:trackingId];
-    
+	
+	[Fabric with:@[[Crashlytics class]]];
+	
     return YES;
 }
 							

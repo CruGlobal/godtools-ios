@@ -7,12 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <GTViewController/GTViewController.h>
-#import <GTViewController/GTFileLoader.h>
-#import <GTViewController/GTPageMenuViewController.h>
-#import <GTViewController/GTShareViewController.h>
-#import <GTViewController/GTAboutViewController.h>
-#import "GTSplashScreenView.h"
 
 @interface GTMainViewController : UIViewController
 

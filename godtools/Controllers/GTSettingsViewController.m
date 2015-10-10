@@ -31,7 +31,9 @@
 @property (strong, nonatomic) IBOutlet UILabel *parallelLanguageLabel;
 @property (strong, nonatomic) IBOutlet UILabel *previewModeLabel;
 @property (strong, nonatomic) IBOutlet UISwitch *previewModeSwitch;
-@property (strong, nonatomic) IBOutlet UILabel *parallelModeInstructions;
+@property (strong, nonatomic) IBOutlet UILabel *parallelModeTapInstructions;
+@property (strong, nonatomic) IBOutlet UILabel *parallelModeSwitchButtonInstructions;
+@property (strong, nonatomic) IBOutlet UILabel *parallelModeToggleExplaination;
 
 - (IBAction)previewModeSwitchPressed;
 - (IBAction)changePrimaryLanguagePressed;
@@ -48,18 +50,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.previewModeLabel.text = NSLocalizedString(@"GTSettings_previewMode_label", nil);
-    self.primaryLanguageLabel.text = NSLocalizedString(@"GTSettings_mainLanguage_label", nil);
-    self.parallelLanguageLabel.text =NSLocalizedString(@"GTSettings_parallelLanguage_label", nil);
+    self.previewModeLabel.text = NSLocalizedString(@"settings_translator_mode", nil);
+    self.primaryLanguageLabel.text = NSLocalizedString(@"settings_main_language", nil);
+    self.parallelLanguageLabel.text = NSLocalizedString(@"settings_parallel_language", nil);
+	
+	self.parallelModeTapInstructions.text = NSLocalizedString(@"settings_parallel_info_tap", nil);
+	self.parallelModeSwitchButtonInstructions.text = NSLocalizedString(@"settings_parallel_info_switch_button", nil);
+	self.parallelModeToggleExplaination.text = NSLocalizedString(@"settings_parallel_info_toggle_explaination", nil);
     
     [self setLanguageNameLabelValues];
     
     self.exitTranslatorModeAlert = [[UIAlertView alloc]
-                                        initWithTitle:NSLocalizedString(@"AlertTitle_exitPreviewMode", nil)
-                                        message:NSLocalizedString(@"AlertMessage_exitPreviewMode", nil)
+                                        initWithTitle:NSLocalizedString(@"dialog_translator_mode_title", nil)
+                                        message:NSLocalizedString(@"dialog_translator_mode_body", nil)
                                         delegate:self
-                                        cancelButtonTitle:@"No"
-                                        otherButtonTitles:@"Yes",nil];
+                                        cancelButtonTitle:NSLocalizedString(@"no", nil)
+                                        otherButtonTitles:NSLocalizedString(@"yes", nil),nil];
     
     self.buttonLessAlert        = [[UIAlertView alloc]
                                         initWithTitle:@""
@@ -78,7 +84,7 @@
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:0.44 green:0.84 blue:0.88 alpha:1.0]];
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self.navigationController.navigationBar setTranslucent:NO]; // required for iOS7
-    self.navigationController.navigationBar.topItem.title = @"Settings";
+    self.navigationController.navigationBar.topItem.title = NSLocalizedString(@"settings_title", nil);
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     
     [self.previewModeSwitch setOn: [[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]];
@@ -166,7 +172,7 @@
 #pragma mark - Outlets
 
 - (IBAction)changeParallelLanguagePressed {
-    [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:[NSNumber numberWithBool: NO]];
+    [GTDefaults sharedDefaults].isChoosingForMainLanguage = NO;
     [self performSegueWithIdentifier:@"settingsToLanguageViewSegue" sender:self];
 }
 
@@ -179,20 +185,24 @@
 }
 
 - (IBAction)changePrimaryLanguagePressed {
-    [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:[NSNumber numberWithBool: YES]];
+    [GTDefaults sharedDefaults].isChoosingForMainLanguage = YES;
     [self performSegueWithIdentifier:@"settingsToLanguageViewSegue" sender:self];
 }
 
 #pragma mark - UI Utilities
 
 - (void)setLanguageNameLabelValues {
-    [self.primaryLanguageButton setTitle:[[self mainLanguage].name uppercaseString] forState:UIControlStateNormal];
+	
+	NSString *localizedMainLanguageName = [[[NSLocale currentLocale] displayNameForKey:NSLocaleIdentifier value:self.mainLanguage.code] capitalizedString];
+	localizedMainLanguageName = ( !localizedMainLanguageName || [localizedMainLanguageName isEqualToString:self.mainLanguage.code] ? self.mainLanguage.name.capitalizedString : localizedMainLanguageName.capitalizedString );
+	[self.primaryLanguageButton setTitle:localizedMainLanguageName forState:UIControlStateNormal];
 
     if([self parallelLanguage] == nil) {
-        [self.parallelLanguageButton setTitle: @"None Selected" forState:UIControlStateNormal];
-    }
-    else {
-        [self.parallelLanguageButton setTitle: [[self parallelLanguage].name uppercaseString] forState:UIControlStateNormal];
+        [self.parallelLanguageButton setTitle: NSLocalizedString(@"settings_language_none_selected", nil) forState:UIControlStateNormal];
+    } else {
+		NSString *localizedParallelLanguageName = [[[NSLocale currentLocale] displayNameForKey:NSLocaleIdentifier value:self.parallelLanguage.code] capitalizedString];
+		localizedParallelLanguageName = ( [localizedParallelLanguageName isEqualToString:self.parallelLanguage.code] ? self.parallelLanguage.name.capitalizedString : localizedParallelLanguageName.capitalizedString );
+        [self.parallelLanguageButton setTitle:localizedParallelLanguageName forState:UIControlStateNormal];
     }
 }
 

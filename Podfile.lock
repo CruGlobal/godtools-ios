@@ -1,49 +1,53 @@
 PODS:
   - AFDownloadRequestOperation (2.0.1):
     - AFNetworking (~> 2.0)
-  - AFNetworking (2.5.3):
-    - AFNetworking/NSURLConnection (= 2.5.3)
-    - AFNetworking/NSURLSession (= 2.5.3)
-    - AFNetworking/Reachability (= 2.5.3)
-    - AFNetworking/Security (= 2.5.3)
-    - AFNetworking/Serialization (= 2.5.3)
-    - AFNetworking/UIKit (= 2.5.3)
-  - AFNetworking/NSURLConnection (2.5.3):
+  - AFNetworking (2.5.4):
+    - AFNetworking/NSURLConnection (= 2.5.4)
+    - AFNetworking/NSURLSession (= 2.5.4)
+    - AFNetworking/Reachability (= 2.5.4)
+    - AFNetworking/Security (= 2.5.4)
+    - AFNetworking/Serialization (= 2.5.4)
+    - AFNetworking/UIKit (= 2.5.4)
+  - AFNetworking/NSURLConnection (2.5.4):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.5.3):
+  - AFNetworking/NSURLSession (2.5.4):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.5.3)
-  - AFNetworking/Security (2.5.3)
-  - AFNetworking/Serialization (2.5.3)
-  - AFNetworking/UIKit (2.5.3):
+  - AFNetworking/Reachability (2.5.4)
+  - AFNetworking/Security (2.5.4)
+  - AFNetworking/Serialization (2.5.4)
+  - AFNetworking/UIKit (2.5.4):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - AFRaptureXMLRequestOperation (1.0.2):
     - AFNetworking (~> 2.5)
     - RaptureXML (~> 1.0.1)
+  - Crashlytics (3.3.4)
   - EDSemver (0.3.0)
+  - Fabric (1.5.5):
+    - Fabric/Base (= 1.5.5)
+  - Fabric/Base (1.5.5)
   - GoogleAnalytics-iOS-SDK (3.0.9)
-  - GTViewController (3.1.1):
+  - GTViewController (6.1.0):
     - SSCWhatsAppActivity (~> 1.0)
-    - TBXML (~> 1.5)
   - NewRelicAgent (3.412)
   - RaptureXML (1.0.1)
   - SSCWhatsAppActivity (1.2.2)
-  - SSZipArchive (0.3.2)
-  - TBXML (1.5)
+  - SSZipArchive (0.3.3)
 
 DEPENDENCIES:
   - AFDownloadRequestOperation (~> 2.0)
   - AFNetworking (~> 2.5)
   - AFRaptureXMLRequestOperation (from `https://github.com/CruGlobal/AFRaptureXMLRequestOperation.git`)
+  - Crashlytics
   - EDSemver (~> 0.3)
+  - Fabric
   - GoogleAnalytics-iOS-SDK (~> 3.0.9)
   - GTViewController (from `https://github.com/CruGlobal/GTViewController.git`, branch
-    `dev4.0`)
+    `gtstyle`)
   - NewRelicAgent (~> 3.256)
   - SSZipArchive (~> 0.3)
 
@@ -51,7 +55,7 @@ EXTERNAL SOURCES:
   AFRaptureXMLRequestOperation:
     :git: https://github.com/CruGlobal/AFRaptureXMLRequestOperation.git
   GTViewController:
-    :branch: dev4.0
+    :branch: gtstyle
     :git: https://github.com/CruGlobal/GTViewController.git
 
 CHECKOUT OPTIONS:
@@ -59,20 +63,21 @@ CHECKOUT OPTIONS:
     :commit: 4dbbb8a6c2d2115c09a4df3ffc6cda20e93a1cd1
     :git: https://github.com/CruGlobal/AFRaptureXMLRequestOperation.git
   GTViewController:
-    :commit: 0a5ca2b4515ad153be4e3af3161d6f693e0bbaa8
+    :commit: 552ba26565ef5fd769ce11a416ce55083fb06f56
     :git: https://github.com/CruGlobal/GTViewController.git
 
 SPEC CHECKSUMS:
   AFDownloadRequestOperation: 748a1643423e1ddb23f2178f778087d4f0ae8ac7
-  AFNetworking: e1d86c2a96bb5d2e7408da36149806706ee122fe
+  AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
   AFRaptureXMLRequestOperation: dab4e06ac414e0e9e6a36298963dd8cafad8a9d7
+  Crashlytics: 41c082440d2e14da444186fff65e79c0b4b35d4c
   EDSemver: 124a90685873628ec30f42504b461a1a61757568
+  Fabric: 190bf1a6eb65f7500de1347d027d2e59a7e53db1
   GoogleAnalytics-iOS-SDK: 3b0994bef22ed2e176a9e2a4d1660c7c2542eb47
-  GTViewController: 9d986db4d22a5705dad3fa01af14aacda3543ad5
+  GTViewController: 48e5f5f8a2f09bdbf6f4f452b3c746f5ea7d81ae
   NewRelicAgent: 5dbb8c108199f066e353231a90d80263830c0f73
   RaptureXML: b5c33c04c1a4adfd8ad0d5463329a31820596e82
   SSCWhatsAppActivity: fdea072dcf11f1e4889c8f8d9f58118672361900
-  SSZipArchive: 11801759495fa4efb7512ef652eb0042d68305d7
-  TBXML: 9f9dadb239f2f2af1dadb87fe43a0ce6e479379a
+  SSZipArchive: 2cf2a6d3ac9f03252b7d96f93728b9b983be9afb
 
-COCOAPODS: 0.37.1
+COCOAPODS: 0.38.2

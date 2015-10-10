@@ -49,7 +49,7 @@
 		UIColor		*backgroundColor	= [UIColor colorWithPatternImage:[UIImage imageNamed:@"GT4_HomeScreen_Background_"]];
 		self.view.backgroundColor		= backgroundColor;
 		
-		[self setTitle:@"Topics"];
+		[self setTitle:NSLocalizedString(@"everystudent_title", nil)];
 		self.searchBar.autocorrectionType = UITextAutocorrectionTypeYes;
         
         TBXML	*parser		= [[TBXML alloc] initWithXMLFile:@"EveryStudent.xml" error:nil];
@@ -166,7 +166,7 @@
 	if (cell == nil) {
 		
 		cell = [[EveryStudentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MyIdentifier];
-		UIView	*background	= [[UIView alloc] initWithFrame:CGRectMake(cell.frame.origin.x, cell.frame.origin.y, cell.frame.size.width, cell.frame.size.height - 1)];
+		UIView	*background	= [[UIView alloc] initWithFrame:CGRectMake(cell.frame.origin.x, cell.frame.origin.y, tableView.frame.size.width, cell.frame.size.height - 1)];
 		background.tag		= 123;
 		[cell insertSubview:background atIndex:0];
 		
@@ -202,7 +202,7 @@
 				
 				if (searchCell == nil) {
 					searchCell = [[EveryStudentSearchCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MySearchIdentifier];
-					UIView	*searchBackground	= [[UIView alloc] initWithFrame:CGRectMake(searchCell.frame.origin.x, searchCell.frame.origin.y, searchCell.frame.size.width, searchCell.frame.size.height - 1)];
+					UIView	*searchBackground	= [[UIView alloc] initWithFrame:CGRectMake(searchCell.frame.origin.x, searchCell.frame.origin.y, tableView.frame.size.width, searchCell.frame.size.height - 1)];
 					searchBackground.tag		= 123;
 					[searchCell insertSubview:searchBackground atIndex:0];
 				}

@@ -19,11 +19,6 @@
 @interface GTAPI : AFHTTPRequestOperationManager
 
 /**
- *  This is the token required by all requests to the God Tools API. You retreive it by calling getAuthTokenForDeviceID:success:failure:
- */
-@property (nonatomic, strong)			NSString *authToken;
-
-/**
  *  error handler is required for displaying errors that happen during the request, on the server and in processing the response.
  */
 @property (nonatomic, strong, readonly) GTAPIErrorHandler *errorHandler;

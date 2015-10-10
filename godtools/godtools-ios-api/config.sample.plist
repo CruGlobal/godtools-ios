@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict/>
+<dict>
+	<key>newrelic_api_key</key>
+	<string></string>
+	<key>google_analytics_api_key</key>
+	<string></string>
+	<key>errbit_api_key</key>
+	<string></string>
+	<key>godtools_api_key</key>
+	<string></string>
+	<key>interpreter_version</key>
+	<integer>1</integer>
+	<key>base_url</key>
+	<string>https://api.godtoolsapp.com/godtools-api/rest/</string>
+	<key>base_share_url</key>
+	<string>http://www.godtools.com/</string>
+</dict>
 </plist>

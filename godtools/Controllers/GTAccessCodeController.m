@@ -23,7 +23,9 @@
 # pragma mark - View lifecycle methods
 -(void)viewDidLoad {
     [super viewDidLoad];
-    
+	
+	self.title = NSLocalizedString(@"dialog_access_code_title", nil);
+	self.accessCodeTextField.placeholder = NSLocalizedString(@"access_code_placeholder", nil);
     self.navigationItem.backBarButtonItem.target = self;
     self.navigationItem.backBarButtonItem.action = @selector(cancelButtonPressed);
 
@@ -142,7 +144,7 @@
         NSLog(@"AUTHENTICATING_____++++++");
         //if([AFNetworkReachabilityManager sharedManager].reachable){
         NSLog(@"reachable");
-        self.accessCodeStatusAlert.message = NSLocalizedString(@"AlertMessage_authenticatingAccessCode", nil);
+        self.accessCodeStatusAlert.message = NSLocalizedString(@"authenticate_code", nil);
         [self.accessCodeStatusAlert show];
         //}
     }else if([notification.name isEqualToString:GTDataImporterNotificationAuthTokenUpdateFail]){
@@ -159,12 +161,12 @@
     }else if([notification.name isEqualToString:GTDataImporterNotificationAuthTokenUpdateSuccessful]){
         
         if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]){
-            self.accessCodeStatusAlert.message = NSLocalizedString(@"AlertMessage_previewModeEnabled", nil);
+            self.accessCodeStatusAlert.message = NSLocalizedString(@"translator_enabled", nil);
             [self.accessCodeStatusAlert show];
             [self performSelector:@selector(dismissAlertView:) withObject:self.accessCodeStatusAlert afterDelay:2.0];
             
             GTLanguage *current = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:YES]objectAtIndex:0];
-            [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:[NSNumber numberWithBool:YES]];
+            [GTDefaults sharedDefaults].isChoosingForMainLanguage = YES;
             [[GTDataImporter sharedImporter]downloadPackagesForLanguage:current];
         }
     }

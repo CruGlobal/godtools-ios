@@ -39,6 +39,10 @@
 		NSString *baseUrlString			= ( [configDictionary valueForKey:@"base_url"] ? [configDictionary valueForKey:@"base_url"] : @"" );
 		_baseUrl						= [NSURL URLWithString:baseUrlString];
 		
+		//set urls base on mode
+		NSString *baseShareUrlString	= ( [configDictionary valueForKey:@"base_share_url"] ? [configDictionary valueForKey:@"base_share_url"] : @"" );
+		_baseShareUrl					= [NSURL URLWithString:baseShareUrlString];
+		
 		//set interpreter version
 		_interpreterVersion				= ( [configDictionary valueForKey:@"interpreter_version"] ? [configDictionary valueForKey:@"interpreter_version"] : @0 );
 		
