@@ -258,12 +258,18 @@ BOOL languageDownloadCancelled = NO;
 							 target:self
 						   selector:@selector(updateLanguageAtCell:)
 						  parameter:cell];
-	} else {
+	} else if (!language.downloaded) {
 		[cell configureWithLanguage:language
 						 buttonText:NSLocalizedString(@"download", nil)
 							 target:self
 						   selector:@selector(downloadLanguageAtCell:)
 						  parameter:cell];
+	} else {
+		[cell configureWithLanguage:language
+						 buttonText:nil
+							 target:nil
+						   selector:nil
+						  parameter:nil];
 	}
 	
     if ([self isSelectedLanguage:language]) {

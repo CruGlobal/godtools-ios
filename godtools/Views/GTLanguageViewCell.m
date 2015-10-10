@@ -57,7 +57,7 @@
 	self.errorIcon.hidden = YES;
 	
 	// Create custom accessory view with action selector
-	if(!language.downloaded) {
+	if(buttonText && self.target && self.selector) {
 		[self addAccessoryViewWithButtonText:buttonText];
 	} else {
 		self.accessoryView = nil;
