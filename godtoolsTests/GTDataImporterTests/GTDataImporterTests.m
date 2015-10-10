@@ -41,7 +41,7 @@
 	GTAPIStub *api = [[GTAPIStub alloc] initWithConfig:[GTConfig sharedConfig]
 										  errorHandler:[GTAPIErrorHandler sharedErrorHandler]];
 	
-	self.importer = [[GTDataImporter alloc] initWithAPI:api storage:self.storage defaults:[GTDefaults sharedDefaults]];
+	self.importer = [[GTDataImporter alloc] initWithAPI:api storage:self.storage packageExtractor:[GTPackageExtractor sharedPackageExtractor] defaults:[GTDefaults sharedDefaults]];
 	
 }
 
