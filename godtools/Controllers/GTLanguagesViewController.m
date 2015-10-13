@@ -123,7 +123,7 @@ BOOL languageDownloadCancelled = NO;
     }];
 	
 	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"updatesAvailable == YES AND packages.@count > 0 AND ANY packages.status == %@", @"live"];
-	if([self.languages filteredArrayUsingPredicate:predicate].count > 0) {
+	if(![[GTDefaults sharedDefaults].isInTranslatorMode isEqual:@YES] && [self.languages filteredArrayUsingPredicate:predicate].count > 0) {
 		self.navigationItem.rightBarButtonItem = self.updateAllButton;
 	} else {
 		self.navigationItem.rightBarButtonItem = nil;
@@ -252,7 +252,7 @@ BOOL languageDownloadCancelled = NO;
     
     GTLanguage *language = [self.languages objectAtIndex:indexPath.section];
 	
-	if (language.hasUpdates) {
+	if (language.hasUpdates && ![[GTDefaults sharedDefaults].isInTranslatorMode isEqual:@YES]) {
 		[cell configureWithLanguage:language
 						 buttonText:NSLocalizedString(@"update", nil)
 							 target:self

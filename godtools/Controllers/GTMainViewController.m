@@ -368,6 +368,11 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 
 - (void)askToUpdate:(NSNotification *)notification {
 	
+	//don't ask user to update if in translator mode
+	if ([[GTDefaults sharedDefaults].isInTranslatorMode isEqual: @YES]) {
+		return;
+	}
+	
 	NSNumber *numberOfUpdatesAvailable = notification.userInfo[GTDataImporterNotificationNewVersionsAvailableKeyNumberAvailable];
 	
 	NSString *message = [NSLocalizedString(@"new_updates_available_body", nil) stringByReplacingOccurrencesOfString:@"{{number_of_updates}}" withString:[numberOfUpdatesAvailable stringValue]];
