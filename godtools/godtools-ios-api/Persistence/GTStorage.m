@@ -34,7 +34,9 @@ NSInteger const GTStorageCorruptDatabase		= 1;
 					 contextsSharePersistentStoreCoordinator:YES
 												errorHandler:[GTStorageErrorHandler sharedErrorHandler]];
 		
-		_sharedStorage.mainObjectContext.undoManager	= nil;
+		if (_sharedStorage) {
+			_sharedStorage.mainObjectContext.undoManager	= nil;
+		}
 		
     });
     
@@ -67,6 +69,7 @@ NSInteger const GTStorageCorruptDatabase		= 1;
 		//post database exception as a crash after telling the user to reinstall the app.
 		NSUncaughtExceptionHandler *handler = NSGetUncaughtExceptionHandler();
 		handler(exception);
+		return nil;
 	}
 	
 }
