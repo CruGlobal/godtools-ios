@@ -8,6 +8,8 @@
 
 #import "CRUStorage.h"
 
+NSString *const CRUStorageNotificationRecoveryCompleted		= @"org.cru.crustorage.notification.recoveryattempted";
+
 NSString *const CRUStorageExceptionNameForCouldNotOpenStore	= @"org.cru.crustorage.exception.name.couldnotopenstore";
 NSString *const CRUStorageExceptionUserInfoKeyForError		= @"org.cru.crustorage.exception.userInfo.key.error";
 
@@ -153,6 +155,9 @@ NSString *const CRUStorageExceptionUserInfoKeyForError		= @"org.cru.crustorage.e
 										   reason:error.localizedDescription
 										 userInfo:@{CRUStorageExceptionUserInfoKeyForError: error}];
 		}
+		
+		[[NSNotificationCenter defaultCenter] postNotificationName:CRUStorageNotificationRecoveryCompleted object:self];
+		
 	}
 	
 }

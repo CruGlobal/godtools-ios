@@ -10,6 +10,13 @@
 #import <CoreData/CoreData.h>
 
 /**
+ *  Name of notification that is fired when database is corrupted and a fresh database is created to recover from the error.
+ *  Note: It will only be fired if the recovery is successful. If a new database could not be created the CRUStorageExceptionNameForCouldNotOpenStore
+ *  exception will be fired.
+ */
+extern NSString *const CRUStorageNotificationRecoveryCompleted;
+
+/**
  *  Name for 'Could not open persistent store' exception.
  */
 extern NSString *const CRUStorageExceptionNameForCouldNotOpenStore;

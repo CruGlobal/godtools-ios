@@ -11,6 +11,9 @@
 NSString *const GTStorageSqliteDatabaseFilename = @"godtools.sqlite";
 NSString *const GTStorageModelName				= @"GTModel";
 
+NSString *const GTStorageErrorDomain			= @"org.cru.godtools.gtstorage.errordomain";
+NSInteger const GTStorageCorruptDatabase		= 1;
+
 @interface GTStorage ()
 
 
@@ -56,8 +59,14 @@ NSString *const GTStorageModelName				= @"GTModel";
 	}
 	@catch (NSException *exception) {
 		
-		[errorHandler displayError:exception.userInfo[CRUStorageExceptionUserInfoKeyForError]];
+		NSError *error = [NSError errorWithDomain:GTStorageErrorDomain
+											 code:GTStorageCorruptDatabase
+										 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"corrupt_database_error", nil)}];
 		
+		[errorHandler displayError:error];
+		//post database exception as a crash after telling the user to reinstall the app.
+		NSUncaughtExceptionHandler *handler = NSGetUncaughtExceptionHandler();
+		handler(exception);
 	}
 	
 }

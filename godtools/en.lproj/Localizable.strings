@@ -173,3 +173,4 @@ Let’s talk more!
 "update_all" = "Update All";
 "one_language_at_a_time_title" = "Sorry";
 "one_language_at_a_time_body" = "We you can't download more than one at a time";
+"corrupt_database_error" = "Your database has become corrupted. Please uninstall the app and then reinstall it. If the problem persists please contact support@godtoolsapp.com";

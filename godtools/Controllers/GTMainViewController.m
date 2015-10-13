@@ -64,6 +64,15 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
     self.view = self.splashScreen;
     
     [self.splashScreen initDownloadIndicator];
+	
+	//check to see if the database go reset due to a bad migration. If so rerun the first launch code.
+	[[NSNotificationCenter defaultCenter] addObserverForName:CRUStorageNotificationRecoveryCompleted
+													  object:nil
+													   queue:nil
+												  usingBlock:^(NSNotification * _Nonnull note) {
+													  self.setupTracker.firstLaunch = YES;
+												  }];
+	[GTDataImporter sharedImporter];
 
     //check if first launch
     if(self.setupTracker.firstLaunch){
