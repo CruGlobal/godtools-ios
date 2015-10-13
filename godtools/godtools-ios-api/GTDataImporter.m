@@ -386,7 +386,6 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 										
 										package.name			= [NSString stringWithUTF8String:[[resource attribute:@"name"] UTF8String]];
 										package.configFile		= [resource attribute:@"config"];
-										package.icon			= [resource attribute:@"icon"];
 										package.status			= [resource attribute:@"status"];
 										package.localVersion	= [resource attribute:@"version"];
 										package.latestVersion	= [resource attribute:@"version"];
