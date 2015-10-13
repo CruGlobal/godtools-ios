@@ -8,7 +8,7 @@
 
 #import "GTDefaults.h"
 #import "GTStorage.h"
-#import "GTLanguage+Helper.h"
+#import "GTLanguage.h"
 
 
 NSString *const GTDefaultscurrentPackageCodeKey				= @"current_package_code";

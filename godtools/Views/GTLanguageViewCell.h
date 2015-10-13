@@ -8,7 +8,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GTLanguage+Helper.h"
+#import "GTLanguage.h"
 
 @interface GTLanguageViewCell : UITableViewCell
 

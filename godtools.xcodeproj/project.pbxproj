@@ -22,13 +22,20 @@
 		6692BB1C1A072B0C00B15355 /* GTDataImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 68464FD218E1CEBE00D14C2B /* GTDataImporter.m */; };
 		66D1D7011A09F40F00AC4E48 /* en.zip in Resources */ = {isa = PBXBuildFile; fileRef = 66D1D6AB1A09F40F00AC4E48 /* en.zip */; };
 		66D1D7021A09F40F00AC4E48 /* meta.xml in Resources */ = {isa = PBXBuildFile; fileRef = 66D1D6AC1A09F40F00AC4E48 /* meta.xml */; };
-		66D1D71D1A0B74EA00AC4E48 /* GTLanguage.m in Sources */ = {isa = PBXBuildFile; fileRef = 66D1D71C1A0B74EA00AC4E48 /* GTLanguage.m */; };
 		681D22A11B87703F00269FE5 /* config.sample.plist in Resources */ = {isa = PBXBuildFile; fileRef = 681D22A01B87703F00269FE5 /* config.sample.plist */; };
 		681D22A21B87703F00269FE5 /* config.sample.plist in Resources */ = {isa = PBXBuildFile; fileRef = 681D22A01B87703F00269FE5 /* config.sample.plist */; };
 		681D22A51B878F8900269FE5 /* GTInitialSetupTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 681D22A41B878F8900269FE5 /* GTInitialSetupTracker.m */; };
 		681D22A61B878F8900269FE5 /* GTInitialSetupTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 681D22A41B878F8900269FE5 /* GTInitialSetupTracker.m */; };
 		6822D0521B067F63001EB06F /* GTUpdateTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6822D0511B067F63001EB06F /* GTUpdateTracker.m */; };
 		6822D0531B067F63001EB06F /* GTUpdateTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6822D0511B067F63001EB06F /* GTUpdateTracker.m */; };
+		68278EBB1BCD3E4400472483 /* GTLanguage+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 68278EB41BCD3E4400472483 /* GTLanguage+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
+		68278EBC1BCD3E4400472483 /* GTLanguage+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 68278EB41BCD3E4400472483 /* GTLanguage+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
+		68278EBD1BCD3E4400472483 /* GTLanguage.m in Sources */ = {isa = PBXBuildFile; fileRef = 68278EB61BCD3E4400472483 /* GTLanguage.m */; settings = {ASSET_TAGS = (); }; };
+		68278EBE1BCD3E4400472483 /* GTLanguage.m in Sources */ = {isa = PBXBuildFile; fileRef = 68278EB61BCD3E4400472483 /* GTLanguage.m */; settings = {ASSET_TAGS = (); }; };
+		68278EBF1BCD3E4400472483 /* GTPackage+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 68278EB81BCD3E4400472483 /* GTPackage+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
+		68278EC01BCD3E4400472483 /* GTPackage+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 68278EB81BCD3E4400472483 /* GTPackage+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
+		68278EC11BCD3E4400472483 /* GTPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 68278EBA1BCD3E4400472483 /* GTPackage.m */; settings = {ASSET_TAGS = (); }; };
+		68278EC21BCD3E4400472483 /* GTPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 68278EBA1BCD3E4400472483 /* GTPackage.m */; settings = {ASSET_TAGS = (); }; };
 		682F0E8518D88BD600FBE3E0 /* GTDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E6068918D3986D00844377 /* GTDefaults.m */; };
 		682F0E9018D8FBE100FBE3E0 /* config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 682F0E8F18D8FBE100FBE3E0 /* config.plist */; };
 		682F0E9118D8FBE100FBE3E0 /* config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 682F0E8F18D8FBE100FBE3E0 /* config.plist */; };
@@ -60,8 +67,6 @@
 		68740D3C18D24F9A00D36C0E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 68740D3A18D24F9A00D36C0E /* InfoPlist.strings */; };
 		68740D4918D259AA00D36C0E /* GTModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 68740D4718D259AA00D36C0E /* GTModel.xcdatamodeld */; };
 		68740D4A18D259AA00D36C0E /* GTModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 68740D4718D259AA00D36C0E /* GTModel.xcdatamodeld */; };
-		6878F01518E4AC2D007D1B5B /* GTPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6878F01418E49AF4007D1B5B /* GTPackage.m */; };
-		6878F01618E4AC39007D1B5B /* GTPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6878F01418E49AF4007D1B5B /* GTPackage.m */; };
 		6879E50E1B0CD7E1009E5B8F /* GTDataImporterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6879E50B1B0CD7E1009E5B8F /* GTDataImporterTests.m */; };
 		6879E50F1B0CD7E1009E5B8F /* GTAPIMetaDataResponse.xml in Resources */ = {isa = PBXBuildFile; fileRef = 6879E50D1B0CD7E1009E5B8F /* GTAPIMetaDataResponse.xml */; };
 		6879E5121B0CD85C009E5B8F /* GTAPIStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 6879E5111B0CD85C009E5B8F /* GTAPIStub.m */; };
@@ -72,12 +77,6 @@
 		68BA853518DCF102001AC6B3 /* GTStorageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BA853418DCF102001AC6B3 /* GTStorageTests.m */; };
 		68BA853918DCF13F001AC6B3 /* CRUStorageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BA853818DCF13F001AC6B3 /* CRUStorageTests.m */; };
 		68BA853B18DCF15D001AC6B3 /* GTConfigTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BA853A18DCF15D001AC6B3 /* GTConfigTests.m */; };
-		68BA853D18DCF1A5001AC6B3 /* GTPackage+HelperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BA853C18DCF1A5001AC6B3 /* GTPackage+HelperTests.m */; };
-		68BA853F18DCF1B6001AC6B3 /* GTLanguage+HelperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BA853E18DCF1B6001AC6B3 /* GTLanguage+HelperTests.m */; };
-		68E6067A18D3947600844377 /* GTLanguage+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E6067918D3947600844377 /* GTLanguage+Helper.m */; };
-		68E6067B18D3947600844377 /* GTLanguage+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E6067918D3947600844377 /* GTLanguage+Helper.m */; };
-		68E6067E18D3949700844377 /* GTPackage+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E6067D18D3949700844377 /* GTPackage+Helper.m */; };
-		68E6067F18D3949700844377 /* GTPackage+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E6067D18D3949700844377 /* GTPackage+Helper.m */; };
 		68E6068618D3952800844377 /* GTAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E6068518D3952800844377 /* GTAPI.m */; };
 		68E6068718D3952800844377 /* GTAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E6068518D3952800844377 /* GTAPI.m */; };
 		68E7C9341BACB49C00D79196 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68E7C9321BACB49C00D79196 /* Main.storyboard */; settings = {ASSET_TAGS = (); }; };
@@ -142,14 +141,20 @@
 		4FE1E6E61ADEF6D400133A3E /* GTGoogleAnalyticsTracker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GTGoogleAnalyticsTracker.h; sourceTree = "<group>"; };
 		66D1D6AB1A09F40F00AC4E48 /* en.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = en.zip; sourceTree = "<group>"; };
 		66D1D6AC1A09F40F00AC4E48 /* meta.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = meta.xml; sourceTree = "<group>"; };
-		66D1D71B1A0B74EA00AC4E48 /* GTLanguage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTLanguage.h; path = "godtools-ios-api/Models/GTLanguage.h"; sourceTree = "<group>"; };
-		66D1D71C1A0B74EA00AC4E48 /* GTLanguage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTLanguage.m; path = "godtools-ios-api/Models/GTLanguage.m"; sourceTree = "<group>"; };
 		681D22A01B87703F00269FE5 /* config.sample.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = config.sample.plist; path = "godtools-ios-api/config.sample.plist"; sourceTree = "<group>"; };
 		681D22A31B878F8900269FE5 /* GTInitialSetupTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTInitialSetupTracker.h; path = Controllers/GTInitialSetupTracker.h; sourceTree = "<group>"; };
 		681D22A41B878F8900269FE5 /* GTInitialSetupTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTInitialSetupTracker.m; path = Controllers/GTInitialSetupTracker.m; sourceTree = "<group>"; };
 		6822D0501B067F63001EB06F /* GTUpdateTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTUpdateTracker.h; sourceTree = "<group>"; };
 		6822D0511B067F63001EB06F /* GTUpdateTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTUpdateTracker.m; sourceTree = "<group>"; };
 		68278EAA1BCC4BA400472483 /* GTModel-2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "GTModel-2.xcdatamodel"; sourceTree = "<group>"; };
+		68278EB31BCD3E4400472483 /* GTLanguage+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GTLanguage+CoreDataProperties.h"; path = "godtools-ios-api/Models/GTLanguage+CoreDataProperties.h"; sourceTree = "<group>"; };
+		68278EB41BCD3E4400472483 /* GTLanguage+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GTLanguage+CoreDataProperties.m"; path = "godtools-ios-api/Models/GTLanguage+CoreDataProperties.m"; sourceTree = "<group>"; };
+		68278EB51BCD3E4400472483 /* GTLanguage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTLanguage.h; path = "godtools-ios-api/Models/GTLanguage.h"; sourceTree = "<group>"; };
+		68278EB61BCD3E4400472483 /* GTLanguage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTLanguage.m; path = "godtools-ios-api/Models/GTLanguage.m"; sourceTree = "<group>"; };
+		68278EB71BCD3E4400472483 /* GTPackage+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GTPackage+CoreDataProperties.h"; path = "godtools-ios-api/Models/GTPackage+CoreDataProperties.h"; sourceTree = "<group>"; };
+		68278EB81BCD3E4400472483 /* GTPackage+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GTPackage+CoreDataProperties.m"; path = "godtools-ios-api/Models/GTPackage+CoreDataProperties.m"; sourceTree = "<group>"; };
+		68278EB91BCD3E4400472483 /* GTPackage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTPackage.h; path = "godtools-ios-api/Models/GTPackage.h"; sourceTree = "<group>"; };
+		68278EBA1BCD3E4400472483 /* GTPackage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTPackage.m; path = "godtools-ios-api/Models/GTPackage.m"; sourceTree = "<group>"; };
 		682F0E8F18D8FBE100FBE3E0 /* config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = config.plist; path = "godtools-ios-api/config.plist"; sourceTree = "<group>"; };
 		68464FB118E1C79300D14C2B /* GTErrorHandlerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTErrorHandlerTests.m; sourceTree = "<group>"; };
 		68464FB318E1C7AE00D14C2B /* GTStorageErrorHandlerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTStorageErrorHandlerTests.m; sourceTree = "<group>"; };
@@ -183,8 +188,6 @@
 		68740D3918D24F9A00D36C0E /* godtoolsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "godtoolsTests-Info.plist"; sourceTree = "<group>"; };
 		68740D3B18D24F9A00D36C0E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		68740D4818D259AA00D36C0E /* GTModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GTModel.xcdatamodel; sourceTree = "<group>"; };
-		6878F01318E49AF4007D1B5B /* GTPackage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GTPackage.h; path = "godtools-ios-api/Models/GTPackage.h"; sourceTree = "<group>"; };
-		6878F01418E49AF4007D1B5B /* GTPackage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = GTPackage.m; path = "godtools-ios-api/Models/GTPackage.m"; sourceTree = "<group>"; };
 		6879E50B1B0CD7E1009E5B8F /* GTDataImporterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTDataImporterTests.m; sourceTree = "<group>"; };
 		6879E50D1B0CD7E1009E5B8F /* GTAPIMetaDataResponse.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = GTAPIMetaDataResponse.xml; sourceTree = "<group>"; };
 		6879E5101B0CD85C009E5B8F /* GTAPIStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTAPIStub.h; sourceTree = "<group>"; };
@@ -194,12 +197,6 @@
 		68BA853418DCF102001AC6B3 /* GTStorageTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTStorageTests.m; sourceTree = "<group>"; };
 		68BA853818DCF13F001AC6B3 /* CRUStorageTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRUStorageTests.m; sourceTree = "<group>"; };
 		68BA853A18DCF15D001AC6B3 /* GTConfigTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTConfigTests.m; sourceTree = "<group>"; };
-		68BA853C18DCF1A5001AC6B3 /* GTPackage+HelperTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTPackage+HelperTests.m"; sourceTree = "<group>"; };
-		68BA853E18DCF1B6001AC6B3 /* GTLanguage+HelperTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTLanguage+HelperTests.m"; sourceTree = "<group>"; };
-		68E6067818D3947600844377 /* GTLanguage+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GTLanguage+Helper.h"; path = "godtools-ios-api/Models/GTLanguage+Helper.h"; sourceTree = "<group>"; };
-		68E6067918D3947600844377 /* GTLanguage+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GTLanguage+Helper.m"; path = "godtools-ios-api/Models/GTLanguage+Helper.m"; sourceTree = "<group>"; };
-		68E6067C18D3949700844377 /* GTPackage+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GTPackage+Helper.h"; path = "godtools-ios-api/Models/GTPackage+Helper.h"; sourceTree = "<group>"; };
-		68E6067D18D3949700844377 /* GTPackage+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GTPackage+Helper.m"; path = "godtools-ios-api/Models/GTPackage+Helper.m"; sourceTree = "<group>"; };
 		68E6068418D3952800844377 /* GTAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTAPI.h; path = "godtools-ios-api/GTAPI.h"; sourceTree = "<group>"; };
 		68E6068518D3952800844377 /* GTAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTAPI.m; path = "godtools-ios-api/GTAPI.m"; sourceTree = "<group>"; };
 		68E6068818D3986D00844377 /* GTDefaults.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GTDefaults.h; path = "godtools-ios-api/Models/GTDefaults.h"; sourceTree = "<group>"; };
@@ -426,8 +423,6 @@
 				68BA853218DCF0EB001AC6B3 /* GTDefaultsTests.m */,
 				68BA853818DCF13F001AC6B3 /* CRUStorageTests.m */,
 				68BA853418DCF102001AC6B3 /* GTStorageTests.m */,
-				68BA853C18DCF1A5001AC6B3 /* GTPackage+HelperTests.m */,
-				68BA853E18DCF1B6001AC6B3 /* GTLanguage+HelperTests.m */,
 				68464FB118E1C79300D14C2B /* GTErrorHandlerTests.m */,
 				68464FB318E1C7AE00D14C2B /* GTStorageErrorHandlerTests.m */,
 				68464FB518E1C7C700D14C2B /* GTAPIErrorHandlerTests.m */,
@@ -486,18 +481,18 @@
 		68E6066B18D383EE00844377 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				68E6067818D3947600844377 /* GTLanguage+Helper.h */,
-				68E6067918D3947600844377 /* GTLanguage+Helper.m */,
-				68E6067C18D3949700844377 /* GTPackage+Helper.h */,
-				68E6067D18D3949700844377 /* GTPackage+Helper.m */,
-				6878F01318E49AF4007D1B5B /* GTPackage.h */,
-				6878F01418E49AF4007D1B5B /* GTPackage.m */,
+				68278EB31BCD3E4400472483 /* GTLanguage+CoreDataProperties.h */,
+				68278EB41BCD3E4400472483 /* GTLanguage+CoreDataProperties.m */,
+				68278EB51BCD3E4400472483 /* GTLanguage.h */,
+				68278EB61BCD3E4400472483 /* GTLanguage.m */,
+				68278EB71BCD3E4400472483 /* GTPackage+CoreDataProperties.h */,
+				68278EB81BCD3E4400472483 /* GTPackage+CoreDataProperties.m */,
+				68278EB91BCD3E4400472483 /* GTPackage.h */,
+				68278EBA1BCD3E4400472483 /* GTPackage.m */,
 				68E6068818D3986D00844377 /* GTDefaults.h */,
 				68E6068918D3986D00844377 /* GTDefaults.m */,
 				68464FB918E1CE2C00D14C2B /* GTConfig.h */,
 				68464FBA18E1CE2C00D14C2B /* GTConfig.m */,
-				66D1D71B1A0B74EA00AC4E48 /* GTLanguage.h */,
-				66D1D71C1A0B74EA00AC4E48 /* GTLanguage.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -747,8 +742,8 @@
 			files = (
 				4F20B3D71AC9A2F60026DC9E /* EveryStudentController.m in Sources */,
 				B7E472881A19FE90002DF715 /* GTBaseView.m in Sources */,
+				68278EBD1BCD3E4400472483 /* GTLanguage.m in Sources */,
 				6692BB1C1A072B0C00B15355 /* GTDataImporter.m in Sources */,
-				6878F01518E4AC2D007D1B5B /* GTPackage.m in Sources */,
 				681D22A51B878F8900269FE5 /* GTInitialSetupTracker.m in Sources */,
 				B7D2AF8B1A43EEAC009B7D5B /* GTSettingsAboutGodToolsView.m in Sources */,
 				68464FCF18E1CE4E00D14C2B /* GTStorageErrorHandler.m in Sources */,
@@ -760,7 +755,6 @@
 				68ED6AB21B8B6E9D00D3A63B /* GTPackageExtractor.m in Sources */,
 				68A1CBFD18DB6C3B00D84F12 /* GTDefaults.m in Sources */,
 				4F20B3D91AC9A2F60026DC9E /* EveryStudentItemsController.m in Sources */,
-				68E6067A18D3947600844377 /* GTLanguage+Helper.m in Sources */,
 				B7D2AF8E1A43F131009B7D5B /* GTSettingsAboutGodToolsViewController.m in Sources */,
 				4F20B3DB1AC9A2F60026DC9E /* EveryStudentSearchCell.m in Sources */,
 				4F20B3D61AC9A2F60026DC9E /* EveryStudentCell.m in Sources */,
@@ -768,20 +762,21 @@
 				B76536DA1A0CD2CF001C3FC3 /* GTLanguageViewCell.m in Sources */,
 				68464FC318E1CE4000D14C2B /* GTStorage.m in Sources */,
 				B76536CC1A0CCAE8001C3FC3 /* GTSettingsViewController.m in Sources */,
-				68E6067E18D3949700844377 /* GTPackage+Helper.m in Sources */,
-				66D1D71D1A0B74EA00AC4E48 /* GTLanguage.m in Sources */,
 				68740D4918D259AA00D36C0E /* GTModel.xcdatamodeld in Sources */,
 				B76536D71A0CD1AC001C3FC3 /* GTLanguagesViewController.m in Sources */,
 				68740D1F18D24F9A00D36C0E /* main.m in Sources */,
 				68E6068618D3952800844377 /* GTAPI.m in Sources */,
 				68464FBB18E1CE2C00D14C2B /* GTConfig.m in Sources */,
+				68278EC11BCD3E4400472483 /* GTPackage.m in Sources */,
 				68464FC118E1CE4000D14C2B /* CRUStorage.m in Sources */,
 				B76536C51A0CC6CB001C3FC3 /* GTHomeViewCell.m in Sources */,
 				6822D0521B067F63001EB06F /* GTUpdateTracker.m in Sources */,
 				B7EA1B461A3826070098890F /* GTSplashScreenView.m in Sources */,
 				68740D2318D24F9A00D36C0E /* GTAppDelegate.m in Sources */,
 				68464FCD18E1CE4E00D14C2B /* GTErrorHandler.m in Sources */,
+				68278EBF1BCD3E4400472483 /* GTPackage+CoreDataProperties.m in Sources */,
 				68464FCB18E1CE4E00D14C2B /* GTAPIErrorHandler.m in Sources */,
+				68278EBB1BCD3E4400472483 /* GTLanguage+CoreDataProperties.m in Sources */,
 				4F62978D1AA8E0CC003E1A1C /* GTAccessCodeController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -790,35 +785,34 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6878F01618E4AC39007D1B5B /* GTPackage.m in Sources */,
 				68BA852D18DCE50C001AC6B3 /* (null) in Sources */,
+				68278EC21BCD3E4400472483 /* GTPackage.m in Sources */,
 				68BA853B18DCF15D001AC6B3 /* GTConfigTests.m in Sources */,
 				68464FB618E1C7C700D14C2B /* GTAPIErrorHandlerTests.m in Sources */,
 				682F0E8518D88BD600FBE3E0 /* GTDefaults.m in Sources */,
 				68464FBC18E1CE2C00D14C2B /* GTConfig.m in Sources */,
 				68464FC218E1CE4000D14C2B /* CRUStorage.m in Sources */,
 				68E6068718D3952800844377 /* GTAPI.m in Sources */,
-				68BA853D18DCF1A5001AC6B3 /* GTPackage+HelperTests.m in Sources */,
 				6879E5121B0CD85C009E5B8F /* GTAPIStub.m in Sources */,
 				68464FCC18E1CE4E00D14C2B /* GTAPIErrorHandler.m in Sources */,
 				68ED6AB31B8B6E9D00D3A63B /* GTPackageExtractor.m in Sources */,
 				68A1CBFF18DB6F9600D84F12 /* GTAPITest.m in Sources */,
-				68BA853F18DCF1B6001AC6B3 /* GTLanguage+HelperTests.m in Sources */,
 				68464FC418E1CE4000D14C2B /* GTStorage.m in Sources */,
 				68464FCE18E1CE4E00D14C2B /* GTErrorHandler.m in Sources */,
 				68464FD418E1CEBE00D14C2B /* GTDataImporter.m in Sources */,
 				6822D0531B067F63001EB06F /* GTUpdateTracker.m in Sources */,
-				68E6067B18D3947600844377 /* GTLanguage+Helper.m in Sources */,
+				68278EBE1BCD3E4400472483 /* GTLanguage.m in Sources */,
 				68740D4A18D259AA00D36C0E /* GTModel.xcdatamodeld in Sources */,
 				68464FD018E1CE4E00D14C2B /* GTStorageErrorHandler.m in Sources */,
 				68FB9CCA192D46800009C9A8 /* AFHTTPRequestSerializer+GTAPIHelpers.m in Sources */,
 				68BA853918DCF13F001AC6B3 /* CRUStorageTests.m in Sources */,
 				6879E50E1B0CD7E1009E5B8F /* GTDataImporterTests.m in Sources */,
-				68E6067F18D3949700844377 /* GTPackage+Helper.m in Sources */,
 				681D22A61B878F8900269FE5 /* GTInitialSetupTracker.m in Sources */,
 				68BA853518DCF102001AC6B3 /* GTStorageTests.m in Sources */,
+				68278EC01BCD3E4400472483 /* GTPackage+CoreDataProperties.m in Sources */,
 				68464FB418E1C7AE00D14C2B /* GTStorageErrorHandlerTests.m in Sources */,
 				68464FB218E1C79300D14C2B /* GTErrorHandlerTests.m in Sources */,
+				68278EBC1BCD3E4400472483 /* GTLanguage+CoreDataProperties.m in Sources */,
 				68BA853318DCF0EB001AC6B3 /* GTDefaultsTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

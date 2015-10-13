@@ -10,8 +10,8 @@
 #import "GTLanguagesViewController.h"
 #import "GTLanguageViewCell.h"
 #import "GTStorage.h"
-#import "GTLanguage+Helper.h"
-#import "GTPackage+Helper.h"
+#import "GTLanguage.h"
+#import "GTPackage.h"
 #import "GTDataImporter.h"
 #import "GTDefaults.h"
 

@@ -8,8 +8,8 @@
 //
 
 #import "AFHTTPRequestOperationManager.h"
-#import "GTLanguage+Helper.h"
-#import "GTPackage+Helper.h"
+#import "GTLanguage.h"
+#import "GTPackage.h"
 #import "GTConfig.h"
 #import "GTAPIErrorHandler.h"
 

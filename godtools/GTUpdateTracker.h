@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "GTPackage+Helper.h"
-#import "GTLanguage+Helper.h"
+#import "GTPackage.h"
+#import "GTLanguage.h"
 
 @interface GTUpdateTracker : NSObject
 

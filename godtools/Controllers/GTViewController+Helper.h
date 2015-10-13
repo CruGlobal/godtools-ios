@@ -7,7 +7,7 @@
 //
 
 #import "GTViewController.h"
-#import "GTPackage+Helper.h"
+#import "GTPackage.h"
 
 @interface GTViewController (Helper)
 

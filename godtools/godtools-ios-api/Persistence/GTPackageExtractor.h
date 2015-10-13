@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "RXMLElement.h"
-#import "GTLanguage+Helper.h"
-#import "GTPackage+Helper.h"
+#import "GTLanguage.h"
+#import "GTPackage.h"
 
 extern NSString * const GTPackageExtractorNotificationUnzippingFailed;
 extern NSString * const GTPackageExtractorNotificationUnzippingFailedKeyTarget;

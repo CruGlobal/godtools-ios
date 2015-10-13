@@ -9,8 +9,8 @@
 #import "AFHTTPRequestSerializer+GTAPIHelpers.h"
 
 #import <objc/runtime.h>
-#import "GTLanguage+Helper.h"
-#import "GTPackage+Helper.h"
+#import "GTLanguage.h"
+#import "GTPackage.h"
 
 NSString * const GTAPIEndpointAuthName			= @"auth";
 NSString * const GTAPIEndpointMetaName			= @"meta";

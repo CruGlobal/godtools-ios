@@ -8,7 +8,7 @@
 
 #import "GTSettingsViewController.h"
 #import "GTLanguagesViewController.h"
-#import "GTLanguage+Helper.h"
+#import "GTLanguage.h"
 #import "GTStorage.h"
 #import "GTDefaults.h"
 #import "GTDataImporter.h"

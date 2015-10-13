@@ -10,7 +10,7 @@
 #import "GTDataImporter.h"
 
 #import "RXMLElement.h"
-#import "GTPackage+Helper.h"
+#import "GTPackage.h"
 #import <GTViewController/GTFileLoader.h>
 #import "GTUpdateTracker.h"
 
@@ -628,12 +628,12 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 				if (package.needsMajorUpdate) {
 					
 					[weakSelf.packagesNeedingMajorUpdate addObject:package];
-					package.language.updatesAvailable =  [NSNumber numberWithBool: YES];
+					package.language.updatesAvailable =  @YES;
 					
 				} else if (package.needsMinorUpdate) {
 					
 					[weakSelf.packagesNeedingMinorUpdate addObject:package];
-					package.language.updatesAvailable =  [NSNumber numberWithBool: YES];
+					package.language.updatesAvailable =  @YES;
 					
 				}
 				

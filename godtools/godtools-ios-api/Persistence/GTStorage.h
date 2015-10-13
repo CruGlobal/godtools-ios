@@ -8,7 +8,7 @@
 
 #import "CRUStorage.h"
 #import "GTStorageErrorHandler.h"
-#import "GTLanguage+Helper.h"
+#import "GTLanguage.h"
 
 /**
  *  Core Data Stack configured for God Tools.
