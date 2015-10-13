@@ -31,7 +31,7 @@
     // Initialize tracker. Replace with your tracking ID.
     [[GAI sharedInstance] trackerWithTrackingId:trackingId];
 	
-	[Fabric with:@[[Crashlytics class]]];
+	[Fabric with:@[CrashlyticsKit]];
 	
     return YES;
 }
