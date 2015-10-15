@@ -20,7 +20,7 @@
     NSString *trackingId = [dict objectForKey:@"google_analytics_api_key"];
     
     // Optional: automatically send uncaught exceptions to Google Analytics.
-    [GAI sharedInstance].trackUncaughtExceptions = YES;
+    [GAI sharedInstance].trackUncaughtExceptions = NO;
     
     // Optional: set Google Analytics dispatch interval to e.g. 20 seconds.
     [GAI sharedInstance].dispatchInterval = 20;
@@ -31,6 +31,7 @@
     // Initialize tracker. Replace with your tracking ID.
     [[GAI sharedInstance] trackerWithTrackingId:trackingId];
 	
+	[[Crashlytics sharedInstance] setDebugMode:YES];
 	[Fabric with:@[CrashlyticsKit]];
 	
     return YES;
