@@ -42,6 +42,7 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 @property (nonatomic, strong, readonly) GTPackageExtractor	*packageExtractor;
 @property (nonatomic, strong)			GTDefaults			*defaults;
 @property (nonatomic, strong)			NSDate				*lastMenuInfoUpdate;
+@property (nonatomic, strong)			NSMutableDictionary	*languagesNeedingMajorUpdate;
 @property (nonatomic, strong)			NSMutableArray		*packagesNeedingMajorUpdate;
 @property (nonatomic, strong)			NSMutableArray		*packagesNeedingMinorUpdate;
 @property (nonatomic, strong)			GTUpdateTracker		*updateTracker;
@@ -89,7 +90,8 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 	self = [self init];
 	
     if (self) {
-        
+		
+		self.languagesNeedingMajorUpdate = [NSMutableDictionary dictionary];
 		self.packagesNeedingMajorUpdate	= [NSMutableArray array];
 		self.packagesNeedingMinorUpdate	= [NSMutableArray array];
 		
@@ -525,14 +527,18 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
                                  if([[GTDefaults sharedDefaults] isInTranslatorMode] == [NSNumber numberWithBool:YES]){
                                      [self downloadDraftsForLanguage:language];
                                  }else{
-                                     [[NSNotificationCenter defaultCenter] postNotificationName:successNotificationName object:self];
+                                     [[NSNotificationCenter defaultCenter] postNotificationName:successNotificationName
+																						 object:self
+																					   userInfo:@{GTDataImporterNotificationKeyLanguage: language}];
                                  }
 							 } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
                                  if(!gtLanguageDownloadUserCancellation) {
                                      [weakSelf displayDownloadPackagesRequestError:error];
                                  }
                                  gtLanguageDownloadUserCancellation = FALSE;
-                                 [[NSNotificationCenter defaultCenter] postNotificationName:failureNotificationName object:self];
+                                 [[NSNotificationCenter defaultCenter] postNotificationName:failureNotificationName
+																					 object:self
+																				   userInfo:@{GTDataImporterNotificationKeyLanguage: language}];
 							 }];
 
 	
@@ -583,7 +589,8 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 			
 		}];
 		
-		language.downloaded = [NSNumber numberWithBool: YES];
+		language.downloaded			= @YES;
+		language.updatesAvailable	= @NO;
 		
 		NSError *error;
 		if (![[GTStorage sharedStorage].backgroundObjectContext save:&error]) {
@@ -613,6 +620,7 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 									   [NSPredicate predicateWithFormat:@"downloaded == TRUE"]);
 	
 	NSArray *downloadedLanguages	= [context executeFetchRequest:fetchRequest error:nil];
+	[self.languagesNeedingMajorUpdate removeAllObjects];
 	[self.packagesNeedingMajorUpdate removeAllObjects];
 	[self.packagesNeedingMinorUpdate removeAllObjects];
 
@@ -627,6 +635,7 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 				if (package.needsMajorUpdate) {
 					
 					[weakSelf.packagesNeedingMajorUpdate addObject:package];
+					weakSelf.languagesNeedingMajorUpdate[language.code] = language;
 					package.language.updatesAvailable =  @YES;
 					
 				} else if (package.needsMinorUpdate) {
@@ -644,10 +653,10 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 			NSLog(@"Error saving updates");
 		}
 		
-		if (self.packagesNeedingMajorUpdate.count > 0 || self.packagesNeedingMinorUpdate.count > 0) {
+		if (self.languagesNeedingMajorUpdate.count > 0 || self.packagesNeedingMinorUpdate.count > 0) {
 			[[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationNewVersionsAvailable
 																object:self
-															  userInfo:@{GTDataImporterNotificationNewVersionsAvailableKeyNumberAvailable: @(self.packagesNeedingMajorUpdate.count + self.packagesNeedingMinorUpdate.count) }];
+															  userInfo:@{GTDataImporterNotificationNewVersionsAvailableKeyNumberAvailable: @(self.languagesNeedingMajorUpdate.count + self.packagesNeedingMinorUpdate.count) }];
 		}
 		
     }
@@ -661,19 +670,21 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 
 - (void)updatePackagesForLanguage:(GTLanguage *)language {
 	
-	NSArray *packages = [self.packagesNeedingMajorUpdate arrayByAddingObjectsFromArray:self.packagesNeedingMinorUpdate];
-	[self.updateTracker updateInitiatedForLanguage:language withPackages:packages];
+	[self.updateTracker updateInitiatedForLanguage:language
+								  withMajorUpdates:self.languagesNeedingMajorUpdate.allValues
+									  minorUpdates:self.packagesNeedingMinorUpdate];
 	
 	__weak typeof(self)weakSelf = self;
 	
-    [self.packagesNeedingMajorUpdate enumerateObjectsUsingBlock:^(GTPackage *package, NSUInteger index, BOOL *stop) {
-		
-		if (language == nil || [package.language.code isEqualToString:language.code]) {
+	[self.languagesNeedingMajorUpdate enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull languageCode, GTLanguage * _Nonnull currentLanguage, BOOL * _Nonnull stop) {
+		if (language == nil || [currentLanguage.code isEqualToString:language.code]) {
 			
-			[weakSelf downloadPackage:package];
+			[weakSelf downloadPackagesForLanguage:currentLanguage
+							 withProgressNotifier:GTDataImporterNotificationMajorUpdateProgressMade
+							  withSuccessNotifier:GTDataImporterNotificationMajorUpdateFinished
+							  withFailureNotifier:GTDataImporterNotificationMajorUpdateFailed];
 		}
-        
-    }];
+	}];
 	
 	[self.packagesNeedingMinorUpdate enumerateObjectsUsingBlock:^(GTPackage *package, NSUInteger index, BOOL *stop) {
 		
@@ -690,8 +701,8 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 	
 	if ( [self.updateTracker hasFinishedUpdatingLanguage:package.language] ) {
 		
-		package.language.downloaded			= [NSNumber numberWithBool:YES];
-		package.language.updatesAvailable	= [NSNumber numberWithBool:NO];
+		package.language.downloaded			= @YES;
+		package.language.updatesAvailable	= @NO;
 		
 	}
 	
@@ -708,22 +719,22 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 - (void)addUpdateTrackingCallbacks {
 	
 	__weak typeof(self)weakSelf = self;
-	[[NSNotificationCenter defaultCenter] addObserverForName:GTDataImporterNotificationPackageDownloadFailed
+	[[NSNotificationCenter defaultCenter] addObserverForName:GTDataImporterNotificationMajorUpdateFailed
 													  object:self
 													   queue:nil
 												  usingBlock:^(NSNotification *note) {
 													  
-													  GTPackage *package = note.userInfo[GTDataImporterNotificationPackageKeyPackage];
-													  [weakSelf.updateTracker updateFailedForPackage:package];
+													  GTLanguage *language = note.userInfo[GTDataImporterNotificationKeyLanguage];
+													  [weakSelf.updateTracker majorUpdateFailedForLanguage:language];
 												  }];
 	
-	[[NSNotificationCenter defaultCenter] addObserverForName:GTDataImporterNotificationPackageDownloadFinished
+	[[NSNotificationCenter defaultCenter] addObserverForName:GTDataImporterNotificationMajorUpdateFinished
 													  object:self
 													   queue:nil
 												  usingBlock:^(NSNotification *note) {
 													  
-													  GTPackage *package = note.userInfo[GTDataImporterNotificationPackageKeyPackage];
-													  [weakSelf.updateTracker updateCompletedForPackage:package];
+													  GTLanguage *language = note.userInfo[GTDataImporterNotificationKeyLanguage];
+													  [weakSelf.updateTracker majorUpdateCompletedForLanguage:language];
 												  }];
 	
 	[[NSNotificationCenter defaultCenter] addObserverForName:GTDataImporterNotificationPackageXmlDownloadFailed
@@ -732,7 +743,7 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 												  usingBlock:^(NSNotification *note) {
 													  
 													  GTPackage *package = note.userInfo[GTDataImporterNotificationPackageKeyPackage];
-													  [weakSelf.updateTracker updateFailedForPackage:package];
+													  [weakSelf.updateTracker minorUpdateFailedForPackage:package];
 												  }];
 	
 	[[NSNotificationCenter defaultCenter] addObserverForName:GTDataImporterNotificationPackageXmlDownloadFinished
@@ -741,7 +752,7 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 												  usingBlock:^(NSNotification *note) {
 													  
 													  GTPackage *package = note.userInfo[GTDataImporterNotificationPackageKeyPackage];
-													  [weakSelf.updateTracker updateCompletedForPackage:package];
+													  [weakSelf.updateTracker minorUpdateCompletedForPackage:package];
 												  }];
 	
 }

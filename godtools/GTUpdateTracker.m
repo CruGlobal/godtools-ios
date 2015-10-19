@@ -12,6 +12,9 @@
 @interface GTUpdateTracker ()
 
 @property (strong, nonatomic) GTLanguage *language;
+@property (strong, nonatomic) NSMutableArray *languagesWaitingForUpdate;
+@property (strong, nonatomic) NSMutableArray *languagesFailedToUpdate;
+@property (strong, nonatomic) NSMutableArray *languagesCompetedUpdate;
 @property (strong, nonatomic) NSMutableArray *packagesWaitingForUpdate;
 @property (strong, nonatomic) NSMutableArray *packagesFailedToUpdate;
 @property (strong, nonatomic) NSMutableArray *packagesCompetedUpdate;
@@ -26,6 +29,10 @@
 	
 	self = [super init];
 	if (self) {
+		
+		self.languagesWaitingForUpdate	= [NSMutableArray array];
+		self.languagesFailedToUpdate	= [NSMutableArray array];
+		self.languagesCompetedUpdate	= [NSMutableArray array];
 		
 		self.packagesWaitingForUpdate	= [NSMutableArray array];
 		self.packagesFailedToUpdate		= [NSMutableArray array];
@@ -43,9 +50,13 @@
 	return updateTracker;
 }
 
-- (void)updateInitiatedForLanguage:(GTLanguage *)language withPackages:(NSArray *)packages {
+- (void)updateInitiatedForLanguage:(GTLanguage *)language withMajorUpdates:(NSArray *)majorUpdates minorUpdates:(NSArray *)minorUpdates {
 	
-	self.packagesWaitingForUpdate = [packages mutableCopy];
+	self.languagesWaitingForUpdate = [majorUpdates mutableCopy];
+	[self.languagesFailedToUpdate removeAllObjects];
+	[self.languagesCompetedUpdate removeAllObjects];
+	
+	self.packagesWaitingForUpdate = [minorUpdates mutableCopy];
 	[self.packagesFailedToUpdate removeAllObjects];
 	[self.packagesCompetedUpdate removeAllObjects];
 	
@@ -63,10 +74,10 @@
 	[[GTGoogleAnalyticsTracker sharedInstance] sendEventWithCategory:@"update"
 															  action:@"started"
 															   label:@"number-of-packages"
-															   value:@(packages.count)];
+															   value:@(majorUpdates.count + minorUpdates.count)];
 }
 
-- (void)updateCompletedForPackage:(GTPackage *)package {
+- (void)minorUpdateCompletedForPackage:(GTPackage *)package {
 	
 	[self.packagesWaitingForUpdate removeObject:package];
 	[self.packagesCompetedUpdate addObject:package];
@@ -74,10 +85,10 @@
 	[self checkForCompletion];
 }
 
-- (void)updateFailedForPackage:(GTPackage *)package {
+- (void)minorUpdateFailedForPackage:(GTPackage *)package {
 	
 	[self.packagesWaitingForUpdate removeObject:package];
-	[self.packagesCompetedUpdate addObject:package];
+	[self.packagesFailedToUpdate addObject:package];
 	
 	[[GTGoogleAnalyticsTracker sharedInstance] sendEventWithCategory:@"update"
 															  action:@"failed"
@@ -85,6 +96,58 @@
 															   value:@(1)];
 	
 	[self checkForCompletion];
+}
+
+- (void)majorUpdateCompletedForLanguage:(GTLanguage *)language {
+	
+	[self.languagesWaitingForUpdate removeObject:language];
+	[self.languagesCompetedUpdate addObject:language];
+	
+	[self checkForCompletion];
+}
+
+- (void)majorUpdateFailedForLanguage:(GTLanguage *)language {
+	
+	[self.languagesWaitingForUpdate removeObject:language];
+	[self.languagesFailedToUpdate addObject:language];
+	
+	[[GTGoogleAnalyticsTracker sharedInstance] sendEventWithCategory:@"update"
+															  action:@"failed"
+															   label:language.code
+															   value:@(1)];
+	
+	[self checkForCompletion];
+}
+
+- (NSArray *)updateCancelledForLanguage:(GTLanguage *)language {
+	
+	NSPredicate *predicate							= [NSPredicate predicateWithFormat:@"language.code == %@", language.code];
+	NSArray *packagesForLanguageWaitingForUpdate	= [self.packagesWaitingForUpdate filteredArrayUsingPredicate:predicate];
+	
+	if (packagesForLanguageWaitingForUpdate.count) {
+		[self.packagesWaitingForUpdate removeObjectsInArray:packagesForLanguageWaitingForUpdate];
+		[self.packagesFailedToUpdate addObjectsFromArray:packagesForLanguageWaitingForUpdate];
+	}
+	
+	NSInteger numberOfUpdates = packagesForLanguageWaitingForUpdate.count ?: 0;
+	NSInteger numberOfLanguages = self.languagesWaitingForUpdate.count;
+	[self.languagesWaitingForUpdate removeObject:language];
+	if (numberOfLanguages > self.languagesWaitingForUpdate.count) {
+		
+		[self.languagesFailedToUpdate addObject:language];
+		numberOfUpdates++;
+	}
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName: GTDataImporterNotificationUpdateCancelledForLanguage
+														object: self.owner
+													  userInfo: @{GTDataImporterNotificationUpdateKeyLanguage: language}];
+	
+	[[GTGoogleAnalyticsTracker sharedInstance] sendEventWithCategory:@"update"
+															  action:@"cancelled"
+															   label:@"number-of-updates"
+															   value:@(numberOfUpdates)];
+	
+	return packagesForLanguageWaitingForUpdate;
 }
 
 - (NSArray *)updateCancelled {
@@ -100,13 +163,16 @@
 														object: self.owner
 													  userInfo: userInfo];
 	
+	NSArray *packagesToCancel = [self.packagesWaitingForUpdate arrayByAddingObjectsFromArray:self.languagesWaitingForUpdate];
+	
 	[[GTGoogleAnalyticsTracker sharedInstance] sendEventWithCategory:@"update"
 															  action:@"cancelled"
-															   label:@"number-of-packages"
-															   value:@(self.packagesWaitingForUpdate.count)];
+															   label:@"number-of-updates"
+															   value:@(packagesToCancel.count)];
 	
-	NSArray *packagesToCancel = [self.packagesWaitingForUpdate copy];
-	
+	[self.languagesWaitingForUpdate removeAllObjects];
+	[self.languagesFailedToUpdate removeAllObjects];
+	[self.languagesCompetedUpdate removeAllObjects];
 	[self.packagesWaitingForUpdate removeAllObjects];
 	[self.packagesFailedToUpdate removeAllObjects];
 	[self.packagesCompetedUpdate removeAllObjects];
@@ -116,7 +182,7 @@
 
 - (void)checkForCompletion {
 	
-	if (self.packagesWaitingForUpdate.count == 0) {
+	if (self.languagesWaitingForUpdate.count == 0 && self.packagesWaitingForUpdate.count == 0) {
 		
 		NSDictionary *userInfo = nil;
 		if (self.language) {
@@ -125,7 +191,7 @@
 			
 		}
 		
-		if (self.packagesCompetedUpdate.count == 0) {
+		if (self.languagesCompetedUpdate == 0 && self.packagesCompetedUpdate.count == 0) {
 				
 			[[NSNotificationCenter defaultCenter] postNotificationName: GTDataImporterNotificationUpdateFailed
 																object: self.owner
@@ -133,8 +199,8 @@
 			
 			[[GTGoogleAnalyticsTracker sharedInstance] sendEventWithCategory:@"update"
 																	  action:@"failed-completely"
-																	   label:@"number-of-packages"
-																	   value:@(self.packagesFailedToUpdate.count)];
+																	   label:@"number-of-updates"
+																	   value:@(self.languagesFailedToUpdate.count + self.packagesFailedToUpdate.count)];
 			
 		} else {
 			
@@ -144,8 +210,8 @@
 			
 			[[GTGoogleAnalyticsTracker sharedInstance] sendEventWithCategory:@"update"
 																	  action:@"finished"
-																	   label:@"number-of-packages"
-																	   value:@(self.packagesCompetedUpdate.count)];
+																	   label:@"number-of-updates"
+																	   value:@(self.languagesCompetedUpdate.count + self.packagesCompetedUpdate.count)];
 			
 		}
 
@@ -154,6 +220,10 @@
 }
 
 - (BOOL)hasFinishedUpdatingLanguage:(GTLanguage *)language {
+	
+	if (!language.hasUpdates) {
+		return YES;
+	}
 	
 	NSPredicate *predicate							= [NSPredicate predicateWithFormat:@"language.code == %@", language.code];
 	NSArray *packagesForLanguageWaitingForUpdate	= [self.packagesWaitingForUpdate filteredArrayUsingPredicate:predicate];

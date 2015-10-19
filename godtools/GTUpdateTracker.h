@@ -16,9 +16,12 @@
 
 + (instancetype)updateTrackerWithNotificationOwner:(id)owner;
 
-- (void)updateInitiatedForLanguage:(GTLanguage *)language withPackages:(NSArray *)packages;
-- (void)updateCompletedForPackage:(GTPackage *)package;
-- (void)updateFailedForPackage:(GTPackage *)package;
+- (void)updateInitiatedForLanguage:(GTLanguage *)language withMajorUpdates:(NSArray *)majorUpdates minorUpdates:(NSArray *)minorUpdates;
+- (void)majorUpdateCompletedForLanguage:(GTLanguage *)language;
+- (void)majorUpdateFailedForLanguage:(GTLanguage *)language;
+- (void)minorUpdateCompletedForPackage:(GTPackage *)package;
+- (void)minorUpdateFailedForPackage:(GTPackage *)package;
+- (NSArray *)updateCancelledForLanguage:(GTLanguage *)language;
 - (NSArray *)updateCancelled;
 
 - (BOOL)hasFinishedUpdatingLanguage:(GTLanguage *)language;
