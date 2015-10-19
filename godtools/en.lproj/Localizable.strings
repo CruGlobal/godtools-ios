@@ -126,14 +126,14 @@
 
 Here’s a link to a web version of the app {{share_link}}
 
-Enjoy exploring!";
+Let’s talk more!";
 "app_share_link_base_link" = "http://www.knowgod.com";
 "share_from_page_subject" = "{{app_name}}";
 "share_from_page_message" = "Here is the booklet we were looking at today. This link will take you to the web version of the page we were last looking at together:
 
-Let’s talk more!
+{{share_link}}
 
-{{share_link}}";
+Let’s talk more!";
 "satisfied_share" = "It was great talking with you today about how we can experience The Holy Spirit’s power in our lives. I hope we can talk more about this soon. In the meantime, you can check out what we looked at today at {{share_link}}";
 "everystudent_share" = "It was great talking with you today about your spiritual questions. I hope we can talk more about this soon. In the meantime, you can check out what we looked at today at {{share_link}}";
 
