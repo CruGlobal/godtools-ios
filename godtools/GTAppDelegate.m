@@ -9,27 +9,16 @@
 #import "GTAppDelegate.h"
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
-#import "GAI.h"
+#import "GTConfig.h"
+#import "GTGoogleAnalyticsTracker.h"
 
 @implementation GTAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"config" ofType:@"plist"];
-    NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
-    NSString *trackingId = [dict objectForKey:@"google_analytics_api_key"];
-    
-    // Optional: automatically send uncaught exceptions to Google Analytics.
-    [GAI sharedInstance].trackUncaughtExceptions = NO;
-    
-    // Optional: set Google Analytics dispatch interval to e.g. 20 seconds.
-    [GAI sharedInstance].dispatchInterval = 20;
-    
-    // Optional: set Logger to VERBOSE for debug information.
-    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
-    
-    // Initialize tracker. Replace with your tracking ID.
-    [[GAI sharedInstance] trackerWithTrackingId:trackingId];
+	[GTGoogleAnalyticsTracker start];
+	
+	[NewRelicAgent startWithApplicationToken:[GTConfig sharedConfig].apiKeyNewRelic];
 	
 	[[Crashlytics sharedInstance] setDebugMode:YES];
 	[Fabric with:@[CrashlyticsKit]];

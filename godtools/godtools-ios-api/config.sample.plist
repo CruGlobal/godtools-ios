@@ -8,8 +8,6 @@
 	<string></string>
 	<key>errbit_api_key</key>
 	<string></string>
-	<key>godtools_api_key</key>
-	<string></string>
 	<key>interpreter_version</key>
 	<integer>1</integer>
 	<key>base_url</key>

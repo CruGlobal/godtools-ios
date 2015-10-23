@@ -33,7 +33,7 @@ PODS:
   - GoogleAnalytics-iOS-SDK (3.0.9)
   - GTViewController (6.1.0):
     - SSCWhatsAppActivity (~> 1.0)
-  - NewRelicAgent (3.412)
+  - NewRelicAgent (5.2.2)
   - RaptureXML (1.0.1)
   - SSCWhatsAppActivity (1.2.2)
   - SSZipArchive (0.3.3)
@@ -48,7 +48,7 @@ DEPENDENCIES:
   - GoogleAnalytics-iOS-SDK (~> 3.0.9)
   - GTViewController (from `https://github.com/CruGlobal/GTViewController.git`, branch
     `gtstyle`)
-  - NewRelicAgent (~> 3.256)
+  - NewRelicAgent (= 5.2.2)
   - SSZipArchive (~> 0.3)
 
 EXTERNAL SOURCES:
@@ -75,7 +75,7 @@ SPEC CHECKSUMS:
   Fabric: 190bf1a6eb65f7500de1347d027d2e59a7e53db1
   GoogleAnalytics-iOS-SDK: 3b0994bef22ed2e176a9e2a4d1660c7c2542eb47
   GTViewController: 48e5f5f8a2f09bdbf6f4f452b3c746f5ea7d81ae
-  NewRelicAgent: 5dbb8c108199f066e353231a90d80263830c0f73
+  NewRelicAgent: ab64e8cf418a75185d52c1b2257933846fe496de
   RaptureXML: b5c33c04c1a4adfd8ad0d5463329a31820596e82
   SSCWhatsAppActivity: fdea072dcf11f1e4889c8f8d9f58118672361900
   SSZipArchive: 2cf2a6d3ac9f03252b7d96f93728b9b983be9afb

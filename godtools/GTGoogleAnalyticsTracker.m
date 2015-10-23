@@ -22,6 +22,7 @@
 #import <GoogleAnalytics-iOS-SDK/GAITracker.h>
 #import <GoogleAnalytics-iOS-SDK/GAIDictionaryBuilder.h>
 #import <GTViewController/GTViewController.h>
+#import "GTConfig.h"
 
 NSString * const GTGoogleAnalyticsCategoryUI				= @"ui";
 NSString * const GTGoogleAnalyticsCategoryBackgroundProcess	= @"background_process";
@@ -75,16 +76,19 @@ NSString * const GTGoogleAnalyticsActionSwipe	= @"swipe";
     
     if (self) {
         
-        [GAI sharedInstance].trackUncaughtExceptions = YES;
+        [GAI sharedInstance].trackUncaughtExceptions = NO;
+		// Optional: set Google Analytics dispatch interval to e.g. 20 seconds.
+		[GAI sharedInstance].dispatchInterval = 20;
+		
+		// Optional: set Logger to VERBOSE for debug information.
+		[[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
 		
 #ifdef DEBUG
 		[GAI sharedInstance].dryRun = YES;
 		[[GAI sharedInstance].logger setLogLevel:kGAILogLevelError];
 #endif
 		
-        NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"config" ofType:@"plist"]];
-        NSString *apiKey = [dictionary objectForKey:@"google_analytics_api_key"];
-        self.tracker = [[GAI sharedInstance] trackerWithTrackingId:apiKey];
+        self.tracker = [[GAI sharedInstance] trackerWithTrackingId:[GTConfig sharedConfig].apiKeyGoogleAnalytics];
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceivePageViewNotification:) name:GTViewControllerNotificationPageView object:nil];
 		
