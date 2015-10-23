@@ -287,7 +287,8 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 
 - (IBAction)shareButtonPressed:(id)sender {
 	
-	GTShareInfo *shareInfo = [[GTShareInfo alloc] initWithBaseURL:[GTConfig sharedConfig].baseShareUrl
+	NSURL *baseShareUrl = [NSURL URLWithString:NSLocalizedString(@"app_share_link_base_link", nil)];
+	GTShareInfo *shareInfo = [[GTShareInfo alloc] initWithBaseURL:baseShareUrl
 													  packageCode:nil
 													 languageCode:nil];
 	[shareInfo setGoogleAnalyticsCampaign:GTHomeViewControllerShareCampaignName
@@ -676,7 +677,9 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
         GTPackage *package = [self.articles objectAtIndex:0];
         GTFileLoader *fileLoader = [GTFileLoader fileLoader];
         fileLoader.language		= self.languageCode;
-		self.shareInfo = [[GTShareInfo alloc] initWithBaseURL:[GTConfig sharedConfig].baseShareUrl
+		
+		NSURL *baseShareUrl = [NSURL URLWithString:NSLocalizedString(@"app_share_link_base_link", nil)];
+		self.shareInfo = [[GTShareInfo alloc] initWithBaseURL:baseShareUrl
 														  packageCode:@"kgp"
 														 languageCode:@"en"];
 		[self.shareInfo setGoogleAnalyticsCampaign:GTHomeViewControllerShareCampaignName

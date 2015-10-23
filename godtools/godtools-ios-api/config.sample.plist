@@ -14,7 +14,5 @@
 	<integer>1</integer>
 	<key>base_url</key>
 	<string>https://api.godtoolsapp.com/godtools-api/rest/</string>
-	<key>base_share_url</key>
-	<string>http://www.godtools.com/</string>
 </dict>
 </plist>
