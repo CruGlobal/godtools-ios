@@ -48,7 +48,7 @@
 		
 		//set api keys
 		_apiKeyGodTools					= ( [configDictionary valueForKey:@"godtools_api_key"] ? [configDictionary valueForKey:@"godtools_api_key"] : @"" );
-		_apiKeyErrbit					= ( [configDictionary valueForKey:@"errbit_api_key"] ? [configDictionary valueForKey:@"errbit_api_key"] : @"" );
+		_apiKeyRollbar					= ( [configDictionary valueForKey:@"rollbar_client_api_key"] ? [configDictionary valueForKey:@"rollbar_client_api_key"] : @"" );
 		_apiKeyGoogleAnalytics			= ( [configDictionary valueForKey:@"google_analytics_api_key"] ? [configDictionary valueForKey:@"google_analytics_api_key"] : @"" );
 		_apiKeyNewRelic					= ( [configDictionary valueForKey:@"newrelic_api_key"] ? [configDictionary valueForKey:@"newrelic_api_key"] : @"" );
 

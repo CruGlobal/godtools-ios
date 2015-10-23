@@ -6,7 +6,9 @@
 	<string></string>
 	<key>google_analytics_api_key</key>
 	<string></string>
-	<key>errbit_api_key</key>
+	<key>rollbar_client_api_key</key>
+	<string></string>
+	<key>rollbar_server_api_key</key>
 	<string></string>
 	<key>interpreter_version</key>
 	<integer>1</integer>

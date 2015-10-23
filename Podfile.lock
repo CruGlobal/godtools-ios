@@ -35,6 +35,7 @@ PODS:
     - SSCWhatsAppActivity (~> 1.0)
   - NewRelicAgent (5.2.2)
   - RaptureXML (1.0.1)
+  - Rollbar (0.1.5)
   - SSCWhatsAppActivity (1.2.2)
   - SSZipArchive (0.3.3)
 
@@ -49,6 +50,7 @@ DEPENDENCIES:
   - GTViewController (from `https://github.com/CruGlobal/GTViewController.git`, branch
     `gtstyle`)
   - NewRelicAgent (= 5.2.2)
+  - Rollbar (~> 0.1.5)
   - SSZipArchive (~> 0.3)
 
 EXTERNAL SOURCES:
@@ -77,6 +79,7 @@ SPEC CHECKSUMS:
   GTViewController: 48e5f5f8a2f09bdbf6f4f452b3c746f5ea7d81ae
   NewRelicAgent: ab64e8cf418a75185d52c1b2257933846fe496de
   RaptureXML: b5c33c04c1a4adfd8ad0d5463329a31820596e82
+  Rollbar: 6b4be007d57f434cd48f7cce52862013c6bd64cb
   SSCWhatsAppActivity: fdea072dcf11f1e4889c8f8d9f58118672361900
   SSZipArchive: 2cf2a6d3ac9f03252b7d96f93728b9b983be9afb
 

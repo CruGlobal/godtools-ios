@@ -11,6 +11,7 @@
 #import <Crashlytics/Crashlytics.h>
 #import "GTConfig.h"
 #import "GTGoogleAnalyticsTracker.h"
+#import <Rollbar/Rollbar.h>
 
 @implementation GTAppDelegate
 
@@ -22,6 +23,8 @@
 	
 	[[Crashlytics sharedInstance] setDebugMode:YES];
 	[Fabric with:@[CrashlyticsKit]];
+	
+	[Rollbar initWithAccessToken:[GTConfig sharedConfig].apiKeyRollbar];
 	
     return YES;
 }

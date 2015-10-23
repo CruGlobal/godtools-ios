@@ -18,3 +18,4 @@ pod 'GTViewController', :git => 'https://github.com/CruGlobal/GTViewController.g
 pod 'EDSemver', '~> 0.3'
 pod 'Fabric'
 pod 'Crashlytics'
+pod 'Rollbar', '~> 0.1.5'
