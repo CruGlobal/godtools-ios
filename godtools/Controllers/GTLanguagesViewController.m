@@ -24,6 +24,9 @@
 @property (strong, nonatomic) UIBarButtonItem *updateAllButton;
 @property AFNetworkReachabilityManager *afReachability;
 
+- (void)updateFinished:(NSNotification *)notification;
+- (void)updateFailed:(NSNotification *)notification;
+
 @end
 
 @implementation GTLanguagesViewController
@@ -70,28 +73,15 @@ BOOL languageDownloadCancelled = NO;
                                                  name:GTDataImporterNotificationMenuUpdateFinished
                                                object:nil];
 	
-	__weak typeof(self)weakSelf = self;
-	[[NSNotificationCenter defaultCenter] addObserverForName:GTDataImporterNotificationUpdateStarted
-													  object:self
-													   queue:nil
-												  usingBlock:^(NSNotification *note) {
-													  weakSelf.updateAllButton.enabled = NO;
-												  }];
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(updateFinished:)
+												 name:GTDataImporterNotificationUpdateFinished
+											   object:nil];
 	
-	[[NSNotificationCenter defaultCenter] addObserverForName:GTDataImporterNotificationUpdateFinished
-													  object:self
-													   queue:nil
-												  usingBlock:^(NSNotification *note) {
-													  weakSelf.navigationItem.rightBarButtonItem = nil;
-													  weakSelf.updateAllButton.enabled = YES;
-												  }];
-	
-	[[NSNotificationCenter defaultCenter] addObserverForName:GTDataImporterNotificationUpdateFailed
-													  object:self
-													   queue:nil
-												  usingBlock:^(NSNotification *note) {
-													  weakSelf.updateAllButton.enabled = YES;
-												  }];
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(updateFailed:)
+												 name:GTDataImporterNotificationUpdateFailed
+											   object:nil];
     
     self.buttonLessAlert        = [[UIAlertView alloc]
                                    initWithTitle:@""
@@ -341,6 +331,7 @@ BOOL languageDownloadCancelled = NO;
 	
 	[self ifOnline:^{
 		
+		self.updateAllButton.enabled = NO;
 		[[GTDataImporter sharedImporter] updatePackagesWithNewVersions];
 		
 	}];
@@ -367,6 +358,7 @@ BOOL languageDownloadCancelled = NO;
 			
 			[[GTDataImporter sharedImporter] updatePackagesForLanguage:language];
 			
+			selectedLanguage = language;
 			languageDownloading = language.code.copy;
 			
 			[[GTDefaults sharedDefaults] setTranslationDownloadStatus:@"running"];
@@ -376,7 +368,51 @@ BOOL languageDownloadCancelled = NO;
 		
 	}];
 }
+
+- (void)updateFinished:(NSNotification *)notification {
 	
+	self.updateAllButton.enabled = YES;
+	
+	if (languageDownloading) {
+		languageDownloading = nil;
+		languageDownloadFailed = nil;
+		[self hideLanguageDownloadIndicator];
+		[self setData];
+	} else {
+		
+		UIAlertView *confirmationAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"new_updates_completed_title", nil)
+																	message:NSLocalizedString(@"new_updates_completed_body", nil)
+																   delegate:nil
+														  cancelButtonTitle:nil
+														  otherButtonTitles:NSLocalizedString(@"ok", nil), nil];
+		[confirmationAlert show];
+		
+		self.navigationItem.rightBarButtonItem = nil;
+		[self setData];
+	}
+}
+
+- (void)updateFailed:(NSNotification *)notification {
+	
+	self.updateAllButton.enabled = YES;
+	
+	if (languageDownloading) {
+		languageDownloadFailed = selectedLanguage.code.copy;
+		languageDownloading = nil;
+		[self hideLanguageDownloadIndicator];
+		[self setData];
+	} else {
+		UIAlertView *confirmationAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"new_updates_failed_title", nil)
+																	message:NSLocalizedString(@"new_updates_failed_body", nil)
+																   delegate:nil
+														  cancelButtonTitle:nil
+														  otherButtonTitles:NSLocalizedString(@"ok", nil), nil];
+		[confirmationAlert show];
+		
+		[self setData];
+	}
+}
+
 - (void)cancelDownloadForLanguageAtCell:(GTLanguageViewCell *)cell {
 	
 	[cell setDownloadingField:NO];

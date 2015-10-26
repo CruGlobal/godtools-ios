@@ -673,9 +673,19 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 
 - (void)updatePackagesForLanguage:(GTLanguage *)language {
 	
+	NSArray *majorUpdates = self.languagesNeedingMajorUpdate.allValues;
+	NSArray *minorUpdates = self.packagesNeedingMinorUpdate;
+	
+	if (language) {
+		NSPredicate *languagePredicate = [NSPredicate predicateWithFormat:@"code == %@", language.code];
+		NSPredicate *packagePredicate = [NSPredicate predicateWithFormat:@"language.code == %@", language.code];
+		majorUpdates = [self.languagesNeedingMajorUpdate.allValues filteredArrayUsingPredicate:languagePredicate];
+		minorUpdates = [self.packagesNeedingMinorUpdate filteredArrayUsingPredicate:packagePredicate];
+	}
+	
 	[self.updateTracker updateInitiatedForLanguage:language
-								  withMajorUpdates:self.languagesNeedingMajorUpdate.allValues
-									  minorUpdates:self.packagesNeedingMinorUpdate];
+								  withMajorUpdates:majorUpdates
+									  minorUpdates:minorUpdates];
 	
 	__weak typeof(self)weakSelf = self;
 	

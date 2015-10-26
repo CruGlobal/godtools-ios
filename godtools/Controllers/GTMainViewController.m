@@ -389,7 +389,7 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
 	
-	if (alertView.numberOfButtons == 2 && buttonIndex == 0) {
+	if (buttonIndex == 0) {
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self
 												 selector:@selector(updateFinished:)
@@ -411,7 +411,7 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 	
 	UIAlertView *confirmationAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"new_updates_completed_title", nil)
 																message:NSLocalizedString(@"new_updates_completed_body", nil)
-															   delegate:self
+															   delegate:nil
 													  cancelButtonTitle:nil
 													  otherButtonTitles:NSLocalizedString(@"ok", nil), nil];
 	[confirmationAlert show];
@@ -425,7 +425,7 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 	
 	UIAlertView *confirmationAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"new_updates_failed_title", nil)
 																message:NSLocalizedString(@"new_updates_failed_body", nil)
-															   delegate:self
+															   delegate:nil
 													  cancelButtonTitle:nil
 													  otherButtonTitles:NSLocalizedString(@"ok", nil), nil];
 	[confirmationAlert show];
