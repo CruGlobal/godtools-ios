@@ -620,6 +620,7 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 									   [NSPredicate predicateWithFormat:@"downloaded == TRUE"]);
 	
 	NSArray *downloadedLanguages	= [context executeFetchRequest:fetchRequest error:nil];
+	NSMutableDictionary *languagesNeedingUpdates = [NSMutableDictionary dictionary];
 	[self.languagesNeedingMajorUpdate removeAllObjects];
 	[self.packagesNeedingMajorUpdate removeAllObjects];
 	[self.packagesNeedingMinorUpdate removeAllObjects];
@@ -637,11 +638,13 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 					[weakSelf.packagesNeedingMajorUpdate addObject:package];
 					weakSelf.languagesNeedingMajorUpdate[language.code] = language;
 					package.language.updatesAvailable =  @YES;
+					languagesNeedingUpdates[language.code] = @YES;
 					
 				} else if (package.needsMinorUpdate) {
 					
 					[weakSelf.packagesNeedingMinorUpdate addObject:package];
 					package.language.updatesAvailable =  @YES;
+					languagesNeedingUpdates[language.code] = @YES;
 					
 				}
 				
@@ -656,7 +659,7 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 		if (self.languagesNeedingMajorUpdate.count > 0 || self.packagesNeedingMinorUpdate.count > 0) {
 			[[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationNewVersionsAvailable
 																object:self
-															  userInfo:@{GTDataImporterNotificationNewVersionsAvailableKeyNumberAvailable: @(self.languagesNeedingMajorUpdate.count + self.packagesNeedingMinorUpdate.count) }];
+															  userInfo:@{GTDataImporterNotificationNewVersionsAvailableKeyNumberAvailable: @(languagesNeedingUpdates.count) }];
 		}
 		
     }

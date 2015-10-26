@@ -46,6 +46,8 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 - (void)removeListenersForMenuUpdate;
 
 - (void)askToUpdate:(NSNotification *)notification;
+- (void)updateFinished:(NSNotification *)notification;
+- (void)updateFailed:(NSNotification *)notification;
 
 @end
 
@@ -387,12 +389,50 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
 	
-	if (buttonIndex == 0) {
+	if (alertView.numberOfButtons == 2 && buttonIndex == 0) {
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self
+												 selector:@selector(updateFinished:)
+													 name:GTDataImporterNotificationUpdateFinished
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self
+												 selector:@selector(updateFailed:)
+													 name:GTDataImporterNotificationUpdateFailed
+												   object:nil];
 		
 		[[GTDataImporter sharedImporter] updatePackagesWithNewVersions];
 		
 	}
 	
+}
+
+- (void)updateFinished:(NSNotification *)notification {
+	
+	UIAlertView *confirmationAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"new_updates_completed_title", nil)
+																message:NSLocalizedString(@"new_updates_completed_body", nil)
+															   delegate:self
+													  cancelButtonTitle:nil
+													  otherButtonTitles:NSLocalizedString(@"ok", nil), nil];
+	[confirmationAlert show];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self
+													name:GTDataImporterNotificationUpdateFinished
+												  object:nil];
+}
+
+- (void)updateFailed:(NSNotification *)notification {
+	
+	UIAlertView *confirmationAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"new_updates_failed_title", nil)
+																message:NSLocalizedString(@"new_updates_failed_body", nil)
+															   delegate:self
+													  cancelButtonTitle:nil
+													  otherButtonTitles:NSLocalizedString(@"ok", nil), nil];
+	[confirmationAlert show];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self
+													name:GTDataImporterNotificationUpdateFailed
+												  object:nil];
 }
 
 @end
