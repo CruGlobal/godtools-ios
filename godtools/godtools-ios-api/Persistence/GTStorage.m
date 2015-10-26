@@ -7,6 +7,7 @@
 //
 
 #import "GTStorage.h"
+#import <Rollbar/Rollbar.h>
 
 NSString *const GTStorageSqliteDatabaseFilename = @"godtools.sqlite";
 NSString *const GTStorageModelName				= @"GTModel";
@@ -67,8 +68,7 @@ NSInteger const GTStorageCorruptDatabase		= 1;
 		
 		[errorHandler displayError:error];
 		//post database exception as a crash after telling the user to reinstall the app.
-		NSUncaughtExceptionHandler *handler = NSGetUncaughtExceptionHandler();
-		handler(exception);
+		[Rollbar criticalWithMessage:@"Corrupt Database"];
 		return nil;
 	}
 	
