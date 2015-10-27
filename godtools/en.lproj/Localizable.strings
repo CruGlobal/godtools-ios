@@ -140,7 +140,7 @@ Let’s talk more!";
 /* iOS */
 "translator_mode" = "[ Translator Mode ]";
 
-"intro_share_instructions" = "Share with a friend";
+"intro_share_instructions" = "Share";
 "intro_tool_instructions" = "Pick a tool";
 "intro_language_instructions" = "Pick a Language";
 "settings_language_none_selected" = "None Selected";
