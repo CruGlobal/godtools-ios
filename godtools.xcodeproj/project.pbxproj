@@ -28,14 +28,14 @@
 		681D22A61B878F8900269FE5 /* GTInitialSetupTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 681D22A41B878F8900269FE5 /* GTInitialSetupTracker.m */; };
 		6822D0521B067F63001EB06F /* GTUpdateTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6822D0511B067F63001EB06F /* GTUpdateTracker.m */; };
 		6822D0531B067F63001EB06F /* GTUpdateTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6822D0511B067F63001EB06F /* GTUpdateTracker.m */; };
-		68278EBB1BCD3E4400472483 /* GTLanguage+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 68278EB41BCD3E4400472483 /* GTLanguage+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
-		68278EBC1BCD3E4400472483 /* GTLanguage+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 68278EB41BCD3E4400472483 /* GTLanguage+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
-		68278EBD1BCD3E4400472483 /* GTLanguage.m in Sources */ = {isa = PBXBuildFile; fileRef = 68278EB61BCD3E4400472483 /* GTLanguage.m */; settings = {ASSET_TAGS = (); }; };
-		68278EBE1BCD3E4400472483 /* GTLanguage.m in Sources */ = {isa = PBXBuildFile; fileRef = 68278EB61BCD3E4400472483 /* GTLanguage.m */; settings = {ASSET_TAGS = (); }; };
-		68278EBF1BCD3E4400472483 /* GTPackage+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 68278EB81BCD3E4400472483 /* GTPackage+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
-		68278EC01BCD3E4400472483 /* GTPackage+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 68278EB81BCD3E4400472483 /* GTPackage+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
-		68278EC11BCD3E4400472483 /* GTPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 68278EBA1BCD3E4400472483 /* GTPackage.m */; settings = {ASSET_TAGS = (); }; };
-		68278EC21BCD3E4400472483 /* GTPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 68278EBA1BCD3E4400472483 /* GTPackage.m */; settings = {ASSET_TAGS = (); }; };
+		68278EBB1BCD3E4400472483 /* GTLanguage+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 68278EB41BCD3E4400472483 /* GTLanguage+CoreDataProperties.m */; };
+		68278EBC1BCD3E4400472483 /* GTLanguage+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 68278EB41BCD3E4400472483 /* GTLanguage+CoreDataProperties.m */; };
+		68278EBD1BCD3E4400472483 /* GTLanguage.m in Sources */ = {isa = PBXBuildFile; fileRef = 68278EB61BCD3E4400472483 /* GTLanguage.m */; };
+		68278EBE1BCD3E4400472483 /* GTLanguage.m in Sources */ = {isa = PBXBuildFile; fileRef = 68278EB61BCD3E4400472483 /* GTLanguage.m */; };
+		68278EBF1BCD3E4400472483 /* GTPackage+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 68278EB81BCD3E4400472483 /* GTPackage+CoreDataProperties.m */; };
+		68278EC01BCD3E4400472483 /* GTPackage+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 68278EB81BCD3E4400472483 /* GTPackage+CoreDataProperties.m */; };
+		68278EC11BCD3E4400472483 /* GTPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 68278EBA1BCD3E4400472483 /* GTPackage.m */; };
+		68278EC21BCD3E4400472483 /* GTPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 68278EBA1BCD3E4400472483 /* GTPackage.m */; };
 		682F0E8518D88BD600FBE3E0 /* GTDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E6068918D3986D00844377 /* GTDefaults.m */; };
 		682F0E9018D8FBE100FBE3E0 /* config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 682F0E8F18D8FBE100FBE3E0 /* config.plist */; };
 		682F0E9118D8FBE100FBE3E0 /* config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 682F0E8F18D8FBE100FBE3E0 /* config.plist */; };
@@ -79,12 +79,12 @@
 		68BA853B18DCF15D001AC6B3 /* GTConfigTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BA853A18DCF15D001AC6B3 /* GTConfigTests.m */; };
 		68E6068618D3952800844377 /* GTAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E6068518D3952800844377 /* GTAPI.m */; };
 		68E6068718D3952800844377 /* GTAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E6068518D3952800844377 /* GTAPI.m */; };
-		68E7C9341BACB49C00D79196 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68E7C9321BACB49C00D79196 /* Main.storyboard */; settings = {ASSET_TAGS = (); }; };
-		68E7C9351BACB49C00D79196 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68E7C9321BACB49C00D79196 /* Main.storyboard */; settings = {ASSET_TAGS = (); }; };
-		68E7C93B1BACB5AE00D79196 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 68E7C9391BACB5AE00D79196 /* InfoPlist.strings */; settings = {ASSET_TAGS = (); }; };
-		68E7C93C1BACB5AE00D79196 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 68E7C9391BACB5AE00D79196 /* InfoPlist.strings */; settings = {ASSET_TAGS = (); }; };
-		68E7C93F1BACB5BB00D79196 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 68E7C93D1BACB5BB00D79196 /* Localizable.strings */; settings = {ASSET_TAGS = (); }; };
-		68E7C9401BACB5BB00D79196 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 68E7C93D1BACB5BB00D79196 /* Localizable.strings */; settings = {ASSET_TAGS = (); }; };
+		68E7C9341BACB49C00D79196 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68E7C9321BACB49C00D79196 /* Main.storyboard */; };
+		68E7C9351BACB49C00D79196 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68E7C9321BACB49C00D79196 /* Main.storyboard */; };
+		68E7C93B1BACB5AE00D79196 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 68E7C9391BACB5AE00D79196 /* InfoPlist.strings */; };
+		68E7C93C1BACB5AE00D79196 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 68E7C9391BACB5AE00D79196 /* InfoPlist.strings */; };
+		68E7C93F1BACB5BB00D79196 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 68E7C93D1BACB5BB00D79196 /* Localizable.strings */; };
+		68E7C9401BACB5BB00D79196 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 68E7C93D1BACB5BB00D79196 /* Localizable.strings */; };
 		68ED6AB21B8B6E9D00D3A63B /* GTPackageExtractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 68ED6AB11B8B6E9D00D3A63B /* GTPackageExtractor.m */; };
 		68ED6AB31B8B6E9D00D3A63B /* GTPackageExtractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 68ED6AB11B8B6E9D00D3A63B /* GTPackageExtractor.m */; };
 		68FB9CC9192D46800009C9A8 /* AFHTTPRequestSerializer+GTAPIHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 68FB9CC8192D46800009C9A8 /* AFHTTPRequestSerializer+GTAPIHelpers.m */; };
@@ -550,6 +550,7 @@
 				B3FC0BD662C6407DB9C944C8 /* Copy Pods Resources */,
 				68664B561BA771160088C974 /* Fabric */,
 				6854EDCA1BDA8E1A001A0781 /* Rollbar */,
+				5F554174E406A4BB28565A86 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -569,6 +570,7 @@
 				68740D2D18D24F9A00D36C0E /* Frameworks */,
 				68740D2E18D24F9A00D36C0E /* Resources */,
 				D50E718DB44A4FE486486F47 /* Copy Pods Resources */,
+				2090E86344C59B5C65E9BD24 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -660,6 +662,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		2090E86344C59B5C65E9BD24 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		4E27A2824D6D40349936A2A5 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -673,6 +690,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		5F554174E406A4BB28565A86 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		6854EDCA1BDA8E1A001A0781 /* Rollbar */ = {
