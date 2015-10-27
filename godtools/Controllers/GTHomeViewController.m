@@ -670,6 +670,7 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 }
 
 #pragma  mark - GodToolsViewController
+
 - (GTViewController *)godtoolsViewController {
     
     if (!_godtoolsViewController) {
