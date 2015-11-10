@@ -20,7 +20,11 @@
 }
 
 - (NSComparisonResult)compare:(GTLanguage *)otherLanguage {
-	return [self.name compare:otherLanguage.name];
+    NSLocale *deviceLocale = [NSLocale currentLocale];
+    
+    return [[deviceLocale displayNameForKey:NSLocaleIdentifier
+                                      value: self.code] compare: [deviceLocale displayNameForKey:NSLocaleIdentifier
+                                                                                           value:otherLanguage.code]];
 }
 
 - (BOOL)hasUpdates {
