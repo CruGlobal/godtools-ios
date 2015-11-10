@@ -200,17 +200,11 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 														  [GTDefaults sharedDefaults].isChoosingForMainLanguage = YES;
 														  GTLanguage *phonesLanguage = [[GTStorage sharedStorage] findClosestLanguageTo:[GTDefaults sharedDefaults].phonesLanguageCode];
 														  
-														  if (![phonesLanguage.code isEqualToString:@"en"]) {
-															  
+
 															  [[GTDataImporter sharedImporter] downloadPackagesForLanguage:phonesLanguage
 																									  withProgressNotifier:GTSplashNotificationDownloadPhonesLanugageProgress
 																									   withSuccessNotifier:GTSplashNotificationDownloadPhonesLanugageSuccess
 																									   withFailureNotifier:GTSplashNotificationDownloadPhonesLanugageFailure];
-														  } else {
-															  
-															  [weakSelf.setupTracker finishedDownloadingPhonesLanguage];
-															  
-														  }
 														  
 		}];
 	
