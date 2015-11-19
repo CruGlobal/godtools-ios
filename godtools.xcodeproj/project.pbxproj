@@ -137,6 +137,7 @@
 		4F20B3D21AC9A2F60026DC9E /* EveryStudentSearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EveryStudentSearchCell.m; path = Controllers/EveryStudent/EveryStudentSearchCell.m; sourceTree = "<group>"; };
 		4F62978B1AA8E06B003E1A1C /* GTAccessCodeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GTAccessCodeController.h; sourceTree = "<group>"; };
 		4F62978C1AA8E0CC003E1A1C /* GTAccessCodeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTAccessCodeController.m; path = Controllers/GTAccessCodeController.m; sourceTree = "<group>"; };
+		4FD1FB7B1BFE555F00A9B722 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4FE1E6E41ADEF69700133A3E /* GTGoogleAnalyticsTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTGoogleAnalyticsTracker.m; sourceTree = "<group>"; };
 		4FE1E6E61ADEF6D400133A3E /* GTGoogleAnalyticsTracker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GTGoogleAnalyticsTracker.h; sourceTree = "<group>"; };
 		66D1D6AB1A09F40F00AC4E48 /* en.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = en.zip; sourceTree = "<group>"; };
@@ -607,6 +608,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				pl,
 			);
 			mainGroup = 68740D0618D24F9A00D36C0E;
 			productRefGroup = 68740D1018D24F9A00D36C0E /* Products */;
@@ -903,6 +905,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				68E7C93E1BACB5BB00D79196 /* en */,
+				4FD1FB7B1BFE555F00A9B722 /* pl */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
