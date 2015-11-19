@@ -206,6 +206,8 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 																									  withProgressNotifier:GTSplashNotificationDownloadPhonesLanugageProgress
 																									   withSuccessNotifier:GTSplashNotificationDownloadPhonesLanugageSuccess
 																									   withFailureNotifier:GTSplashNotificationDownloadPhonesLanugageFailure];
+                                                          } else {
+                                                              [weakSelf.setupTracker finishedDownloadingPhonesLanguage];
                                                           }
 														  
 		}];
