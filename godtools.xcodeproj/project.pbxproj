@@ -139,7 +139,6 @@
 		4F62978C1AA8E0CC003E1A1C /* GTAccessCodeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTAccessCodeController.m; path = Controllers/GTAccessCodeController.m; sourceTree = "<group>"; };
 		4FE1E6E41ADEF69700133A3E /* GTGoogleAnalyticsTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTGoogleAnalyticsTracker.m; sourceTree = "<group>"; };
 		4FE1E6E61ADEF6D400133A3E /* GTGoogleAnalyticsTracker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GTGoogleAnalyticsTracker.h; sourceTree = "<group>"; };
-		4FE793921BFD0D5C00793BB8 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		66D1D6AB1A09F40F00AC4E48 /* en.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = en.zip; sourceTree = "<group>"; };
 		66D1D6AC1A09F40F00AC4E48 /* meta.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = meta.xml; sourceTree = "<group>"; };
 		681D22A01B87703F00269FE5 /* config.sample.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = config.sample.plist; path = "godtools-ios-api/config.sample.plist"; sourceTree = "<group>"; };
@@ -608,7 +607,6 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				pl,
 			);
 			mainGroup = 68740D0618D24F9A00D36C0E;
 			productRefGroup = 68740D1018D24F9A00D36C0E /* Products */;
@@ -905,7 +903,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				68E7C93E1BACB5BB00D79196 /* en */,
-				4FE793921BFD0D5C00793BB8 /* pl */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
