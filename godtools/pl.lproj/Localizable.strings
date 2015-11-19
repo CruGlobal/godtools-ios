@@ -1,180 +1,177 @@
 "app_name" = "God Tools";
-"menu_item_kgp" = "Knowing God Personally";
-"menu_item_satisfied" = "Satisfied?";
-"menu_item_4laws" = "The Four Spiritual Laws";
-"menu_item_share" = "Share";
-"menu_item_contents" = "Contents";
-"menu_item_help" = "Help";
-"menu_switch_language" = "Switch Language";
-"menu_update_page" = "Update Page (draft)";
-"menu_flip" = "Flip";
-"app_name_everystudent" = "Questions About Life And God?";
-"quit_dialog_message" = "Are you sure you want to exit God Tools?";
-"quit_dialog_confirm" = "Exit";
-"quit_dialog_cancel" = "Cancel";
-"search_label" = "EveryStudent.com";
-"search_hint" = "Search EveryStudent.com";
-"search_results" = "{{number_or_results}} results for \"{{search_term}}\":";
-"search_no_results" = "No results found for \"{{search_term}}\"";
-"settings_description" = "Explore questions about life and God";
-"menu_search" = "Search";
-"menu_about" = "About";
-"snuffy_help" = "To advance to the next page, simply swipe to the left. To return to the previous page, swipe to the right. To show the menu you can tap in any area of the page other than on a button.";
-"snuffy_help_title" = "{{package_name}} Help";
-"choose_your_email_provider" = "Choose your email provider";
-"unable_to_send_the_email" = "Unable to send the email";
+"menu_item_kgp" = "Przyjaźń z Bogiem";
+"menu_item_satisfied" = "Zadowolony?";
+"menu_item_4laws" = "Cztery prawa duchowego życia";
+"menu_item_share" = "Podziel się";
+"menu_item_contents" = "Treść";
+"menu_item_help" = "Pomoc";
+"menu_switch_language" = "Zamień język";
+"menu_update_page" = "Aktualizuj stronę (wersja robocza)";
+"menu_flip" = "Obróć";
+"app_name_everystudent" = "Pytania na temat Boga?";
+"quit_dialog_message" = "Na pewno chcesz zamknąć God Tools?";
+"quit_dialog_confirm" = "Wyjście";
+"quit_dialog_cancel" = "Anuluj";
+"search_label" = "kazdystudent.pl";
+"search_hint" = "Przeszukaj stronę kazdystudent.pl";
+"search_results" = "{{number_or_results}} : tyle wyników poszukiwań  \"{{search_term}}\":";
+"search_no_results" = "Nie znaleziono \"{{search_term}}\"";
+"settings_description" = "Pytania na temat życia i Boga";
+"menu_search" = "Szukaj";
+"menu_about" = "O aplikacji";
+"snuffy_help" = "Aby przejść do następnej strony przesuń palcem w lewą stronę. Aby wrócić do poprzedniej strony przesuń palcem w prawo. Aby zobaczyć menu dotknij dowolnego miejsca na ekranie (innego niż aktywny link/przycisk)";
+"snuffy_help_title" = "Pomoc na temat: {{package_name}}";
+"choose_your_email_provider" = "Wybierz dostawcę poczty elektronicznej";
+"unable_to_send_the_email" = "Nie można wysłać emaila";
 "email" = "Email";
-"copy" = "Copy";
-"all_websites" = "All Websites";
+"copy" = "Kopiuj";
+"all_websites" = "Wszystkie strony WWW";
 
 /* Renderer Activity */
-"processing_package" = "Loading pages…";
+"processing_package" = "Trwa ładowanie...";
 
-"processing_failed" = "Package processing failed";
-"select_share" = "Select how you would like to share";
-"update_page" = "Updating page…";
-"page_error" = "Error refreshing page";
+"processing_failed" = "Błąd pakietu";
+"select_share" = "Wybierz sposób podzielenia się";
+"update_page" = "Trwa aktualizowanie...";
+"page_error" = "Błąd odświeżenia strony";
 
 /* Splash Activity */
-"check_update" = "Checking for updates…";
+"check_update" = "Trwa sprawdzanie aktualizacji...";
 
 /* Settings Activity */
-"settings_title" = "Settings";
+"settings_title" = "Ustawienia";
 
-"settings_main_language" = "Main Language:";
-"settings_parallel_language" = "Parallel Language:";
-"settings_parallel_info" = "Tap screen during presentation and use \"Switch Language\" to toggle language. Option is not shown if booklet is not available.";
-"settings_select" = "Select";
-"settings_translator_mode" = "Preview Mode (Translators)";
-"settings_notification" = "Allow Notifications";
-"wrong_passcode" = "Please try again";
-"expired_passcode" = "Preview mode session expired";
-"authenticate_code" = "Authenticating access code";
+"settings_main_language" = "Język główny";
+"settings_parallel_language" = "Język równoległy:";
+"settings_parallel_info" = "Dotknij ekranu i wybierz komendę \"Zamień język\" aby zobaczyć treść prezentacji w innym języku. Ta opcja nie działa jeśli tłumaczenie danej prezentacji nie jest dostępne.  ";
+"settings_select" = "Wybierz";
+"settings_translator_mode" = "Tryb podglądu (dla tłumaczy)";
+"settings_notification" = "Pozwól na zawiadomienia";
+"wrong_passcode" = "Proszę spróbować ponownie";
+"expired_passcode" = "Sesja trybu podglądu wersji roboczej wygasła";
+"authenticate_code" = "Sprawdzanie kodu dostępu";
 
 /* Main Activity */
-"share_prompt" = "Select how you would like to share";
+"share_prompt" = "Wybierz sposób podzielenia się";
 
 /* Language List */
-"download" = "Download";
-"update" = "Update";
-
-"downloading" = "Downloading";
-"delete" = "Delete";
-"retry" = "Retry";
+"download" = "Pobierz";
+"downloading" = "Pobieranie";
+"delete" = "Usuń";
+"retry" = "Powtórz";
 
 /* Translator Mode Dialog */
-"dialog_translator_mode_title" = "Exit Preview Mode?";
+"dialog_translator_mode_title" = "Zakończyć tryb podglądu wersji roboczej?";
 
-"dialog_translator_mode_body" = "Drafts will not be displayed";
-"translator_enabled" = "Translator preview mode is enabled";
-"translator_disabled" = "Translator preview mode is disabled";
-"draft_published" = "Draft has been published";
-"draft_publish_fail" = "Failed to publish draft";
-"draft_publish_message" = "Do you want to publish this draft?";
-"draft_publish_confirm" = "Yes, it\'s ready!";
-"draft_publish_negative" = "No, I changed my mind.";
-"draft_created" = "Draft has been created";
-"draft_create_failed" = "Failed to create a new draft";
-"draft_start_message" = "Create new draft?";
+"dialog_translator_mode_body" = "Wersja robocza nie może być wyświetlona";
+"translator_enabled" = "Tryb podglądu dla tłumacza jest włączony";
+"translator_disabled" = "Tryb podglądu dla tłumacza jest wyłączony";
+"draft_published" = "Wersja robocza uzyskała status oficjalnej publikacji";
+"draft_publish_fail" = "Błąd publikacji wersji roboczej";
+"draft_publish_message" = "Czy opublikować wersję roboczą jako oficjalne tłumaczenie?";
+"draft_publish_confirm" = "Tak, wszystko gotowe!";
+"draft_publish_negative" = "Jednak na razie nie.";
+"draft_created" = "Wersja robocza została utworzona";
+"draft_create_failed" = "Błąd utworzenia nowej wersji roboczej";
+"draft_start_message" = "Stworzyć nową wersję roboczą tłumaczenia?";
 
 /* Access Code Dialog */
-"dialog_access_code_title" = "Enter Access Code:";
+"dialog_access_code_title" = "Wprowadź kod dostępu:";
 
-"invalid_code" = "Invalid Access Code";
+"invalid_code" = "Niewłaściwy kod dostępu";
 
 /* Preview Mode */
-"pull_down_info" = "pull to refresh drafts";
+"pull_down_info" = "Przesuń, aby zaktualizować wersje robocze tłumaczenia";
 
-"preview_mode_title" = "Preview Mode";
-"package_not_created" = "Package not yet created";
-"connecting" = "Connecting with server";
+"preview_mode_title" = "Tryb podglądu";
+"package_not_created" = "Pakiet nie jest jeszcze utworzony";
+"connecting" = "Trwa łączenie sie z serwerem";
 
 /* Package Reader */
-"open" = "Open";
+"open" = "Otwórz";
 
-"cannot_launch_browser" = "Cannot launch browser";
-"multi_website_assist" = "- websites to assist you";
-"single_website_assist" = "- a website to assist you";
-"cannot_dial" = "Cannot launch dialler";
-"cannot_email" = "Cannot launch email app";
+"cannot_launch_browser" = "Błąd uruchomienia przeglądarki";
+"multi_website_assist" = "- pomocne strony WWW";
+"single_website_assist" = "- pomocna strona WWW";
+"cannot_dial" = "Błąd uruchomienia diallera";
+"cannot_email" = "Błąd uruchomienia aplikacji poczty elektronicznej";
 
 /* Every Student */
-"could_not_load_content" = "Could not load the content";
+"could_not_load_content" = "Nie można załadować zawartości";
 
 /* Shared Strings */
 "ok" = "OK";
 
-"cancel" = "Cancel";
-"yes" = "Yes";
-"no" = "No";
-"none" = "None";
-"send" = "Send";
-"drafts_updated" = "Drafts have been updated";
-"failed_update_draft" = "Failed to update drafts";
-"failed_download_draft" = "Failed to download drafts";
-"failed_download_resources" = "Failed to download resources";
-"success" = "Success!";
-"internet_needed" = "An internet connection is needed to complete this request";
-"alternate_language" = "Parallel Language";
-"alternate_language_message" = "The parallel language selected is not available for this tool.";
+"cancel" = "Anuluj";
+"yes" = "Tak";
+"no" = "Nie";
+"none" = "Żaden";
+"send" = "Wyślij";
+"drafts_updated" = "Wersje robocze tłumaczeń zostały zaktualizowane";
+"failed_update_draft" = "Błąd aktualizacji wersji roboczych tłumaczeń";
+"failed_download_draft" = "Błąd pobrania wersji roboczych tłumaczeń";
+"failed_download_resources" = "Błąd pobrania źródła";
+"success" = "Sukces!";
+"internet_needed" = "Do wykonania polecenia niezbędne jest połączenie z internetem";
+"alternate_language" = "Język równoległy";
+"alternate_language_message" = "Tłumaczenie w wybrany języku nie jest jeszcze dostępne.";
 
 /* Sharing */
-"app_email_subject" = "Our conversation about {{package_name}} today";
+"app_email_subject" = "Nasza dzisiejsza rozmowa o prezentacji \"{{package_name}}\"";
 
 "share_general_subject" = "{{app_name}}";
-"share_general_message" = "Here’s the link to download the app we were looking at today: http://godtoolsapp.com
-
-Here’s a link to a web version of the app {{share_link}}
-
-Let’s talk more!";
+"share_general_message" = "Tutaj jest link do ściągnięcia aplikacja o której dzisiaj rozmawialiśmy:
+http://godtoolsapp.com
+A tutaj możesz zobaczyć te treści na stronie internetowej {{share_link}}
+Bądźmy w kontakcie!";
 "app_share_link_base_link" = "http://www.knowgod.com";
 "share_from_page_subject" = "{{app_name}}";
-"share_from_page_message" = "Here is the booklet we were looking at today. This link will take you to the web version of the page we were last looking at together:
-
-{{share_link}}
-
-Let’s talk more!";
-"satisfied_share" = "It was great talking with you today about how we can experience The Holy Spirit’s power in our lives. I hope we can talk more about this soon. In the meantime, you can check out what we looked at today at {{share_link}}";
-"everystudent_share" = "It was great talking with you today about your spiritual questions. I hope we can talk more about this soon. In the meantime, you can check out what we looked at today at {{share_link}}";
+"share_from_page_message" = "Przesyłam link do prezentacji, o której rozmawialiśmy dzisiaj. Ten link kieruje do ostatniej strony prezentacji, którą razem omawialiśmy: {{share_link}}
+Bądźmy w kontakcie!";
+"satisfied_share" = "Bardzo się cieszę, że mogliśmy porozmawiać dzisiaj jak możemy doświadczać mocy Ducha Świętego w naszym życiu. Mam nadzięję, że będziemy mogli o tym jeszcze wkrótce porozmawiać. A póki co przesyłam link do prezentacji, którą omawialiśmy:  {{share_link}}";
+"everystudent_share" = "Bardzo się cieszę, że mogliśmy porozmawiać dzisiaj o ważnych duchowych kwestiach. Mam nadzięję, że będziemy mogli o tym jeszcze wkrótce porozmawiać. A póki co przesyłam link do prezentacji, którą omawialiśmy:  {{share_link}}";
 
 /* iOS */
-"translator_mode" = "[ Translator Mode ]";
+"translator_mode" = "[ Tryb dla tłumaczy ]";
 
-"intro_share_instructions" = "Share";
-"intro_tool_instructions" = "Pick a tool";
-"intro_language_instructions" = "Pick a Language";
-"settings_language_none_selected" = "None Selected";
-"settings_parallel_info_tap" = "Tap screen during presentation to view menu.";
-"settings_parallel_info_switch_button" = "Will toggle the 2 languages";
-"settings_parallel_info_toggle_explaination" = "The toggle button will not show up in the menu if the booklet is not available in the parallel language";
-"menu_item_languages" = "Language";
-"access_code_placeholder" = "Passcode";
-"status_updating_resources" = "Updating resources...";
-"status_updating_drafts" = "Updating drafts...";
-"status_creating_drafts" = "Creating draft...";
-"status_publishing_drafts" = "Publishing draft...";
-"status_updating_menu" = "Updating menu...";
-"status_checking_for_updates" = "Checking for Updates...";
-"status_initial_setup" = "Initial Setup...";
-"status_downloading_resources" = "Downloading Resources...";
-"language_alert_title" = "Language Settings";
-"language_alert_body" = "Would you like to make {{language_name}} the default language?";
-"draft_refresh_message" = "Refreshing draft...";
-"draft_refresh_error" = "Refresh failure";
-"everystudent_title" = "Topics";
-"error_title" = "Error";
-"menu_download_bad_xml" = "Data was missing when asking the server for menu information.";
-"packages_download_error" = "There was an error downloading the packages";
-"page_download_error" = "There was an error downloading the page";
-"server_error" = "There were server issues encountered";
-"initial_setup_error_message" = "Unfortunately we could not load any resources. Please quit the app and reopen. If the problem persists contact support@godtoolsapp.com";
-"new_updates_available_title" = "New updates available";
-"new_updates_available_body" = "Would you like to download the {{number_of_updates}} latest updates to your God Tools resources?";
-"new_updates_completed_title" = "Updates Completed";
-"new_updates_completed_body" = "Your God Tools resources were successfully updated.";
-"new_updates_failed_title" = "Updates Failed";
-"new_updates_failed_body" = "Unfortunately we were unable to update your resources. Try again later.";
-"update_all" = "Update All";
-"one_language_at_a_time_title" = "Sorry";
-"one_language_at_a_time_body" = "We you can't download more than one at a time";
-"corrupt_database_error" = "Your database has become corrupted. Please uninstall the app and then reinstall it. If the problem persists please contact support@godtoolsapp.com";
+"intro_share_instructions" = "Podziel się";
+"intro_tool_instructions" = "Wybierz prezentację";
+"intro_language_instructions" = "Wybierz język";
+"settings_language_none_selected" = "Żaden nie jest wybrany";
+"settings_parallel_info_tap" = "Dotknij ekranu, aby zobaczyć menu.";
+"settings_parallel_info_switch_button" = "Możliwość zamiany  dotyczy 2 języków";
+"settings_parallel_info_toggle_explaination" = "Przycisk zamiany języka nie ukaże się, jeśli prezentacja nie jest dostępna w równoległym języku";
+"menu_item_languages" = "Język";
+"access_code_placeholder" = "Kod dostęu";
+"status_updating_resources" = "Trwa aktualizowanie danych...";
+"status_updating_drafts" = "Trwa aktualizowanie wersji roboczych tłumaczeń...";
+"status_creating_drafts" = "Trwa tworzenie wersji roboczej tłumaczenia...";
+"status_publishing_drafts" = "Trwa proces publikowania wersji roboczej do statusu oficjalnego tłumaczenia....";
+"status_updating_menu" = "Aktualizacje menu...";
+"status_checking_for_updates" = "Trwa sprawdzanie aktualizacji...";
+"status_initial_setup" = "Ustawienia początkowe...";
+"status_downloading_resources" = "Trwa pobieranie danych...";
+"language_alert_title" = "Ustawienia języka";
+"language_alert_body" = "Czy {{language_name}} ma być domyślnym językiem?";
+"draft_refresh_message" = "Trwa odświeżanie wersji roboczej tłumaczenia...";
+"draft_refresh_error" = "Błąd odświeżenia wersji roboczej";
+"everystudent_title" = "Tematy";
+"error_title" = "Błąd";
+"menu_download_bad_xml" = "Brak danych na serwerze.";
+"packages_download_error" = "Nastąpił błąd podczas pobierania pakietów";
+"page_download_error" = "Nastąpił błąd podczas pobierania strony";
+"server_error" = "Wystąpiły problemy z serwerem";
+"initial_setup_error_message" = "Niestety nie można załadować danych. Zamknij aplikację i uruchom ją ponownie. Jeśli problem będzie się powtarzał skontaktuj sie z nami: support@godtoolsapp.com";
+"update" = "Aktualizuj";
+
+"new_updates_available_title" = "Są dostępne aktualizacje";
+"new_updates_available_body" = "Czy chcesz pobrać do aplikacji God Tools tę liczbę ostatnich aktualizacji: {{number_of_updates}}?";
+"update_all" = "Aktualizuj wszystko";
+"one_language_at_a_time_title" = "Przepraszamy";
+"one_language_at_a_time_body" = "Nie można pobrać więcej niż 1 naraz";
+"corrupt_database_error" = "Baza danych zostałą uszkodzona.
+Proszę odinstaluj aplikację i zainstaluj ją ponownie. Jeśli problem będzie się powtarzał skontaktuj sie z nami: support@godtoolsapp.com";
+"new_updates_completed_title" = "Aktualizacja ukończona";
+"new_updates_completed_body" = "Aktualizacja zakończona sukcesem!";
+"new_updates_failed_title" = "Błąd aktualizacji";
+"new_updates_failed_body" = "Niestety nie można było zaktualizować danych aplikacji. Spróbuj ponownie później.";
