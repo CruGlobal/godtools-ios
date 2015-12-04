@@ -120,7 +120,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		368D2F901C18B173F9C84776 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		4F20B3C51AC9A2F60026DC9E /* EveryStudent.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = EveryStudent.xml; path = Controllers/EveryStudent/EveryStudent.xml; sourceTree = "<group>"; };
 		4F20B3C61AC9A2F60026DC9E /* EveryStudentArticleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EveryStudentArticleView.h; path = Controllers/EveryStudent/EveryStudentArticleView.h; sourceTree = "<group>"; };
 		4F20B3C71AC9A2F60026DC9E /* EveryStudentArticleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EveryStudentArticleView.m; path = Controllers/EveryStudent/EveryStudentArticleView.m; sourceTree = "<group>"; };
@@ -174,6 +173,7 @@
 		68464FCA18E1CE4E00D14C2B /* GTStorageErrorHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTStorageErrorHandler.m; path = "godtools-ios-api/Error Handling/GTStorageErrorHandler.m"; sourceTree = "<group>"; };
 		68464FD118E1CEBE00D14C2B /* GTDataImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTDataImporter.h; path = "godtools-ios-api/GTDataImporter.h"; sourceTree = "<group>"; };
 		68464FD218E1CEBE00D14C2B /* GTDataImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTDataImporter.m; path = "godtools-ios-api/GTDataImporter.m"; sourceTree = "<group>"; };
+		684BEEB91BFE5EA500EDE567 /* godtools.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = godtools.entitlements; sourceTree = "<group>"; };
 		68740D0F18D24F9A00D36C0E /* godtools.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = godtools.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		68740D1218D24F9A00D36C0E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		68740D1418D24F9A00D36C0E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -210,7 +210,6 @@
 		68FB9CC7192D46800009C9A8 /* AFHTTPRequestSerializer+GTAPIHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AFHTTPRequestSerializer+GTAPIHelpers.h"; path = "godtools-ios-api/Serialization/AFHTTPRequestSerializer+GTAPIHelpers.h"; sourceTree = "<group>"; };
 		68FB9CC8192D46800009C9A8 /* AFHTTPRequestSerializer+GTAPIHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "AFHTTPRequestSerializer+GTAPIHelpers.m"; path = "godtools-ios-api/Serialization/AFHTTPRequestSerializer+GTAPIHelpers.m"; sourceTree = "<group>"; };
 		74F8066D3A00B27C587FD9D9 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		9537C6E0A54FC8D76DE342FC /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		B76536BC1A0CC677001C3FC3 /* GTHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTHomeViewController.h; path = Controllers/GTHomeViewController.h; sourceTree = "<group>"; };
 		B76536BD1A0CC677001C3FC3 /* GTHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTHomeViewController.m; path = Controllers/GTHomeViewController.m; sourceTree = "<group>"; };
 		B76536BE1A0CC677001C3FC3 /* GTMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMainViewController.h; path = Controllers/GTMainViewController.h; sourceTree = "<group>"; };
@@ -360,7 +359,6 @@
 				68740D3718D24F9A00D36C0E /* godtoolsTests */,
 				68740D1118D24F9A00D36C0E /* Frameworks */,
 				68740D1018D24F9A00D36C0E /* Products */,
-				E600F78C726A1280F9AFC198 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -407,6 +405,7 @@
 			isa = PBXGroup;
 			children = (
 				68740D1A18D24F9A00D36C0E /* godtools-Info.plist */,
+				684BEEB91BFE5EA500EDE567 /* godtools.entitlements */,
 				68E7C9391BACB5AE00D79196 /* InfoPlist.strings */,
 				68740D1E18D24F9A00D36C0E /* main.m */,
 				68740D2018D24F9A00D36C0E /* godtools-Prefix.pch */,
@@ -528,15 +527,6 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
-		E600F78C726A1280F9AFC198 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				9537C6E0A54FC8D76DE342FC /* Pods.debug.xcconfig */,
-				368D2F901C18B173F9C84776 /* Pods.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -595,6 +585,11 @@
 				TargetAttributes = {
 					68740D0E18D24F9A00D36C0E = {
 						DevelopmentTeam = DQ48D9BF2V;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 					68740D2F18D24F9A00D36C0E = {
 						DevelopmentTeam = DQ48D9BF2V;
@@ -1001,10 +996,10 @@
 		};
 		68740D4218D24F9A00D36C0E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9537C6E0A54FC8D76DE342FC /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = godtools/godtools.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
@@ -1039,10 +1034,10 @@
 		};
 		68740D4318D24F9A00D36C0E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 368D2F901C18B173F9C84776 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = godtools/godtools.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
@@ -1077,7 +1072,6 @@
 		};
 		68740D4518D24F9A00D36C0E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9537C6E0A54FC8D76DE342FC /* Pods.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/godtools.app/godtools";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1104,7 +1098,6 @@
 		};
 		68740D4618D24F9A00D36C0E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 368D2F901C18B173F9C84776 /* Pods.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/godtools.app/godtools";
 				CODE_SIGN_IDENTITY = "iPhone Developer";

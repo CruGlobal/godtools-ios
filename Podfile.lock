@@ -26,6 +26,8 @@ PODS:
     - AFNetworking (~> 2.5)
     - RaptureXML (~> 1.0.1)
   - Crashlytics (3.3.4)
+  - CRUDeviceID (1.0.0):
+    - UICKeyChainStore (~> 2.1)
   - EDSemver (0.3.0)
   - Fabric (1.5.5):
     - Fabric/Base (= 1.5.5)
@@ -37,13 +39,15 @@ PODS:
   - RaptureXML (1.0.1)
   - Rollbar (0.1.5)
   - SSCWhatsAppActivity (1.2.2)
-  - SSZipArchive (0.3.3)
+  - SSZipArchive (0.4.0)
+  - UICKeyChainStore (2.1.0)
 
 DEPENDENCIES:
   - AFDownloadRequestOperation (~> 2.0)
   - AFNetworking (~> 2.5)
   - AFRaptureXMLRequestOperation (from `https://github.com/CruGlobal/AFRaptureXMLRequestOperation.git`)
   - Crashlytics
+  - CRUDeviceID (~> 1.0)
   - EDSemver (~> 0.3)
   - Fabric
   - GoogleAnalytics-iOS-SDK (~> 3.0.9)
@@ -60,11 +64,20 @@ EXTERNAL SOURCES:
     :branch: dev4.0
     :git: https://github.com/CruGlobal/GTViewController.git
 
+CHECKOUT OPTIONS:
+  AFRaptureXMLRequestOperation:
+    :commit: 4dbbb8a6c2d2115c09a4df3ffc6cda20e93a1cd1
+    :git: https://github.com/CruGlobal/AFRaptureXMLRequestOperation.git
+  GTViewController:
+    :commit: e6f11f2cd73ff75386d32234012bd0170b2010bc
+    :git: https://github.com/CruGlobal/GTViewController.git
+
 SPEC CHECKSUMS:
   AFDownloadRequestOperation: 748a1643423e1ddb23f2178f778087d4f0ae8ac7
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
   AFRaptureXMLRequestOperation: dab4e06ac414e0e9e6a36298963dd8cafad8a9d7
   Crashlytics: 41c082440d2e14da444186fff65e79c0b4b35d4c
+  CRUDeviceID: 71bd5ad8ac6e55015485658fb3a57c006a5f20c9
   EDSemver: 124a90685873628ec30f42504b461a1a61757568
   Fabric: 190bf1a6eb65f7500de1347d027d2e59a7e53db1
   GoogleAnalytics-iOS-SDK: 3b0994bef22ed2e176a9e2a4d1660c7c2542eb47
@@ -73,6 +86,7 @@ SPEC CHECKSUMS:
   RaptureXML: b5c33c04c1a4adfd8ad0d5463329a31820596e82
   Rollbar: 6b4be007d57f434cd48f7cce52862013c6bd64cb
   SSCWhatsAppActivity: fdea072dcf11f1e4889c8f8d9f58118672361900
-  SSZipArchive: 2cf2a6d3ac9f03252b7d96f93728b9b983be9afb
+  SSZipArchive: d3d66fc0e3fb6ac0f723d95481aae71aae916cc3
+  UICKeyChainStore: f1cbd42216a113f0165de1e733e62905b8823432
 
 COCOAPODS: 0.39.0

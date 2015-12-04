@@ -19,3 +19,5 @@ pod 'EDSemver', '~> 0.3'
 pod 'Fabric'
 pod 'Crashlytics'
 pod 'Rollbar', '~> 0.1.5'
+
+pod 'CRUDeviceID', '~> 1.0'

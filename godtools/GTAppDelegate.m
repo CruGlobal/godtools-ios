@@ -12,6 +12,7 @@
 #import "GTConfig.h"
 #import "GTGoogleAnalyticsTracker.h"
 #import <Rollbar/Rollbar.h>
+#import "CRUDeviceID.h"
 
 @implementation GTAppDelegate
 
@@ -25,6 +26,9 @@
 	[Fabric with:@[CrashlyticsKit]];
 	
 	[Rollbar initWithAccessToken:[GTConfig sharedConfig].apiKeyRollbar];
+	
+	NSString *deviceID = [CRUDeviceID UUIDString];
+	NSLog(@"Device ID: %@", deviceID);
 	
     return YES;
 }
