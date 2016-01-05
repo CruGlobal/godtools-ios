@@ -78,13 +78,12 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
 
-    self.refreshControl = [[UIRefreshControl alloc] init];
-    self.refreshControl.backgroundColor = [UIColor greenColor];
-    self.refreshControl.hidden = NO;
-    self.refreshControl.layer.zPosition = 1000;
-    [self.refreshControl addTarget:self.tableView action:@selector(setData) forControlEvents:UIControlEventValueChanged];
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self
+                       action:@selector(refresh:)
+             forControlEvents:UIControlEventValueChanged];
     
-    [self.tableView addSubview:self.refreshControl];
+    [self.tableView addSubview:refreshControl];
     
     [((GTBaseView *)self.view) initDownloadIndicator];
     
@@ -203,6 +202,12 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:NO];
 }
+
+- (void)refresh:(UIRefreshControl *)refreshControl {
+    [refreshControl endRefreshing];
+    [self setData];
+}
+
 #pragma mark - Download packages methods
 -(void)downloadFinished:(NSNotification *) notification{
     NSLog(@"NOTIFICATION: %@",notification.name);
@@ -620,8 +625,12 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
     [[NSNotificationCenter defaultCenter] postNotificationName:LanguageDownloadStarted
                                                         object:self];
     
-    GTLanguage *current = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:YES]objectAtIndex:0];
+    GTLanguage *current = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class]
+                                                       usingKey:@"code"
+                                                       forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:YES]objectAtIndex:0];
+    
     [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:[NSNumber numberWithBool:YES]];
+    
     [[GTDataImporter sharedImporter]downloadPackagesForLanguage:current];
 }
 #pragma mark - Renderer methods
