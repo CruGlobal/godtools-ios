@@ -142,8 +142,9 @@ BOOL languageDownloadCancelled = NO;
     languageDownloadFailed = nil;
     [self hideLanguageDownloadIndicator];
     [self setData];
-	//once language is selected go back to settings page
-	[self.navigationController popViewControllerAnimated:YES];
+    
+    //once language is selected go back to settings page
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)languageDownloadFailed {

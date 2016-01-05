@@ -22,6 +22,7 @@ NSString *const GTDefaultstranslationDownloadStatus         = @"translation_down
 
 NSString *const GTDefaultsgenericApiToken                   = @"generic_api_token";
 
+NSString *const GTDefaultslanguagePromptHasBeenShown        = @"language_prompt_has_been_shown";
 @interface GTDefaults ()
 
 @property (nonatomic, strong, readonly) NSString *phonesLanguageCode;
@@ -40,6 +41,8 @@ NSString *const GTDefaultsgenericApiToken                   = @"generic_api_toke
 @synthesize translationDownloadStatus   = _translationDownloadStatus;
 
 @synthesize genericApiToken             = _genericApiToken;
+
+@synthesize languagePromptHasBeenShown  = _languagePromptHasBeenShown;
 
 #pragma mark - initialization
 
@@ -248,4 +251,24 @@ NSString *const GTDefaultsgenericApiToken                   = @"generic_api_toke
     return _genericApiToken;
 }
 
+-(void) setLanguagePromptHasBeenShown:(NSNumber *)languagePromptHasBeenShown {
+    [self willChangeValueForKey:@"languagePromptHasBeenShown"];
+    
+    _languagePromptHasBeenShown = languagePromptHasBeenShown;
+    
+    [self didChangeValueForKey:@"languagePromptHasBeenShown"];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:languagePromptHasBeenShown forKey:GTDefaultslanguagePromptHasBeenShown];
+}
+
+- (NSNumber *) languagePromptHasBeenShown {
+    
+    if(!_languagePromptHasBeenShown) {
+        [self willChangeValueForKey:@"languagePromptHasBeenShown"];
+        _languagePromptHasBeenShown = [[NSUserDefaults standardUserDefaults] objectForKey:GTDefaultslanguagePromptHasBeenShown];
+        [self didChangeValueForKey:@"languagePromptHasBeenShown"];
+    }
+
+    return _languagePromptHasBeenShown;
+}
 @end

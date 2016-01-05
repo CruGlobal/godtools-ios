@@ -20,6 +20,8 @@
 @property (nonatomic) NSString *translationDownloadStatus;
 @property (nonatomic) NSString *genericApiToken;
 
+@property (nonatomic) NSNumber *languagePromptHasBeenShown;
+
 + (instancetype)sharedDefaults;
 - (NSString *)phonesLanguageCode;
 
