@@ -141,12 +141,15 @@
                        withObject:self.accessCodeStatusAlert
                        afterDelay:2.0];
             
-            GTLanguage *current = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class]
-                                                               usingKey:@"code"
-                                                               forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:YES]objectAtIndex:0];
-            
-            [GTDefaults sharedDefaults].isChoosingForMainLanguage = YES;
-            [[GTDataImporter sharedImporter]downloadPackagesForLanguage:current];
+            for (UIViewController *controller in self.navigationController.viewControllers)
+            {
+                if ([controller isKindOfClass:[GTHomeViewController class]])
+                {
+                    [self.navigationController popToViewController:controller
+                                                          animated:YES];
+                    break;
+                }
+            }
         }
     }
 }
