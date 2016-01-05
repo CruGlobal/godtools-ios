@@ -90,11 +90,10 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 		[self downloadPhonesLanguage];
 		
 	} else {
-		
+        [self leavePreviewMode];
 		[self registerListenersForMenuUpdate];
 		[self updateMenu];
 		[self goToHome];
-		
 	}
 	
 }
@@ -190,7 +189,7 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 														  
 													  }];
 		
-		[[NSNotificationCenter defaultCenter] addObserverForName:GTDataImporterNotificationMenuUpdateFinished
+		[[NSNotificationCenter defaultCenter] addObserverForName:MenuUpdateFinished
 														  object:nil
 														   queue:nil
 													  usingBlock:^(NSNotification *note) {
@@ -331,17 +330,17 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(menuUpdateBegan:)
-												 name:GTDataImporterNotificationMenuUpdateStarted
+												 name:MenuUpdateStarted
 											   object:nil];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(menuUpdateFinished:)
-												 name:GTDataImporterNotificationMenuUpdateFinished
+												 name:MenuUpdateFinished
 											   object:nil];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(askToUpdate:)
-												 name:GTDataImporterNotificationNewVersionsAvailable
+												 name:NewVersionsAvailable
 											   object:nil];
 	
 }
@@ -349,18 +348,18 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 - (void)removeListenersForMenuUpdate {
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self
-													name:GTDataImporterNotificationMenuUpdateStarted
+													name:MenuUpdateStarted
 												  object:nil];
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self
-													name:GTDataImporterNotificationMenuUpdateFinished
+													name:MenuUpdateFinished
 												  object:nil];
 	
 }
 
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self
-													name:GTDataImporterNotificationNewVersionsAvailable
+													name:NewVersionsAvailable
 												  object:nil];
 }
 
@@ -373,7 +372,7 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 		return;
 	}
 	
-	NSNumber *numberOfUpdatesAvailable = notification.userInfo[GTDataImporterNotificationNewVersionsAvailableKeyNumberAvailable];
+	NSNumber *numberOfUpdatesAvailable = notification.userInfo[NewVersionsAvailableKeyNumberAvailable];
 	
 	NSString *message = [NSLocalizedString(@"new_updates_available_body", nil) stringByReplacingOccurrencesOfString:@"{{number_of_updates}}" withString:[numberOfUpdatesAvailable stringValue]];
 	UIAlertView *confirmationAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"new_updates_available_title", nil)
@@ -391,12 +390,12 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self
 												 selector:@selector(updateFinished:)
-													 name:GTDataImporterNotificationUpdateFinished
+													 name:UpdateFinished
 												   object:nil];
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self
 												 selector:@selector(updateFailed:)
-													 name:GTDataImporterNotificationUpdateFailed
+													 name:UpdateFailed
 												   object:nil];
 		
 		[[GTDataImporter sharedImporter] updatePackagesWithNewVersions];
@@ -415,7 +414,7 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 	[confirmationAlert show];
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self
-													name:GTDataImporterNotificationUpdateFinished
+													name:UpdateFinished
 												  object:nil];
 }
 
@@ -429,8 +428,12 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 	[confirmationAlert show];
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self
-													name:GTDataImporterNotificationUpdateFailed
+													name:UpdateFailed
 												  object:nil];
 }
 
+#pragma mark - Helper methods
+- (void)leavePreviewMode {
+    [[GTDefaults sharedDefaults] setIsInTranslatorMode:[NSNumber numberWithBool:NO]];
+}
 @end

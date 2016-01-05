@@ -64,57 +64,29 @@
 -(void)addNotificationObservers{
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(authorizeTranslatorAlert:)
-                                                 name: GTDataImporterNotificationAuthTokenUpdateStarted
+                                                 name: AuthTokenUpdateStarted
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(authorizeTranslatorAlert:)
-                                                 name: GTDataImporterNotificationAuthTokenUpdateSuccessful
+                                                 name: AuthTokenUpdateSuccessful
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(authorizeTranslatorAlert:)
-                                                 name: GTDataImporterNotificationAuthTokenUpdateFail
+                                                 name: AuthTokenUpdateFail
                                                object:nil];
 }
 
 -(void)removeNotificationObservers{
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:GTDataImporterNotificationAuthTokenUpdateStarted
+                                                    name:AuthTokenUpdateStarted
                                                   object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:GTDataImporterNotificationAuthTokenUpdateSuccessful
+                                                    name:AuthTokenUpdateSuccessful
                                                   object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:GTDataImporterNotificationAuthTokenUpdateFail
+                                                    name:AuthTokenUpdateFail
                                                   object:nil];
 }
-
-//-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-//    if(alertView == self.exitTranslatorModeAlert){
-//        if(buttonIndex == 1){
-//            [[GTDefaults sharedDefaults]setIsInTranslatorMode:[NSNumber numberWithBool:NO]];
-//            [self.translatorSwitch setOn:NO animated:YES];
-//        }else{
-//            [self.translatorSwitch setOn:YES animated:YES];
-//        }
-//    }else if(alertView == self.translatorModeAlert){
-//        if(buttonIndex == 1){
-//            [self addNotificationObservers];
-//            if([self.translatorModeAlert  textFieldAtIndex:0].text.length > 0){
-//                NSString *accessCode = [self.translatorModeAlert  textFieldAtIndex:0].text;
-//                [[GTDefaults sharedDefaults]setTranslatorAccessCode:accessCode];
-//                [[GTDataImporter sharedImporter]authorizeTranslator];
-//            }else{
-//                self.buttonLessAlert.message = NSLocalizedString(@"AlertMesssage_invalidAccessCode", nil);
-//                [self.buttonLessAlert show];
-//                [self performSelector:@selector(dismissAlertView:) withObject:self.buttonLessAlert afterDelay:2.0];
-//                [self.translatorSwitch setOn:NO animated:YES];
-//            }
-//        }else{
-//            [self.translatorSwitch setOn:NO animated:YES];
-//            [self.translatorModeAlert textFieldAtIndex:0].text = nil;
-//        }
-//    }
-//}
 
 # pragma mark - UI helper methods
 -(void) cancelButtonPressed {
@@ -140,46 +112,50 @@
     
     NSLog(@"notif %@", notification.name);
     
-    if([notification.name isEqualToString:GTDataImporterNotificationAuthTokenUpdateStarted]){
+    if([notification.name isEqualToString:AuthTokenUpdateStarted]){
         NSLog(@"AUTHENTICATING_____++++++");
-        //if([AFNetworkReachabilityManager sharedManager].reachable){
-        NSLog(@"reachable");
         self.accessCodeStatusAlert.message = NSLocalizedString(@"authenticate_code", nil);
         [self.accessCodeStatusAlert show];
-        //}
-    }else if([notification.name isEqualToString:GTDataImporterNotificationAuthTokenUpdateFail]){
+    }else if([notification.name isEqualToString:AuthTokenUpdateFail]){
         if(notification.userInfo != nil){
             NSError *error = (NSError*)[notification.userInfo objectForKey:@"Error"];
+            
             self.accessCodeStatusAlert.message = [error.userInfo objectForKey:@"NSLocalizedDescription"];
             [self.accessCodeStatusAlert show];
             
-            [self performSelector:@selector(dismissAlertView:) withObject:self.accessCodeStatusAlert afterDelay:2.0];
+            [self performSelector:@selector(dismissAlertView:)
+                       withObject:self.accessCodeStatusAlert
+                       afterDelay:2.0];
         }
         
         self.accessCodeTextField.text = nil;
         
-    }else if([notification.name isEqualToString:GTDataImporterNotificationAuthTokenUpdateSuccessful]){
+    }else if([notification.name isEqualToString:AuthTokenUpdateSuccessful]){
         
         if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]){
+            
             self.accessCodeStatusAlert.message = NSLocalizedString(@"translator_enabled", nil);
             [self.accessCodeStatusAlert show];
-            [self performSelector:@selector(dismissAlertView:) withObject:self.accessCodeStatusAlert afterDelay:2.0];
             
-            GTLanguage *current = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:YES]objectAtIndex:0];
-            [GTDefaults sharedDefaults].isChoosingForMainLanguage = YES;
-            [[GTDataImporter sharedImporter]downloadPackagesForLanguage:current];
+            [self performSelector:@selector(dismissAlertView:)
+                       withObject:self.accessCodeStatusAlert
+                       afterDelay:2.0];
         }
     }
 }
 
 -(void)dismissAlertView:(UIAlertView *)alertView{
     [alertView dismissWithClickedButtonIndex:0 animated:YES];
+
     if(alertView == self.accessCodeStatusAlert && [[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]){
         
-        NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
-        for (UIViewController *viewController in allViewControllers) {
-            if ([viewController isKindOfClass:[GTHomeViewController class]]) {
-                [self.navigationController popToViewController:viewController animated:NO];
+        for (UIViewController *controller in self.navigationController.viewControllers)
+        {
+            if ([controller isKindOfClass:[GTHomeViewController class]])
+            {
+                [self.navigationController popToViewController:controller
+                                                      animated:YES];
+                break;
             }
         }
     }

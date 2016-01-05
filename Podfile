@@ -12,7 +12,7 @@ pod 'AFRaptureXMLRequestOperation', :git => 'https://github.com/CruGlobal/AFRapt
 pod 'NewRelicAgent', '~> 5.3.1'
 pod 'GoogleAnalytics-iOS-SDK', '~> 3.0.9'
 pod 'AFDownloadRequestOperation', '~> 2.0'
-pod 'SSZipArchive', '~> 0.3'
+pod 'SSZipArchive', '~> 0.4'
 pod 'GTViewController', :git => 'https://github.com/CruGlobal/GTViewController.git', :branch => 'dev4.0'
 #pod 'GTViewController', '~> 6.1.2'
 pod 'EDSemver', '~> 0.3'

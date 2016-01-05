@@ -63,11 +63,11 @@
 	NSDictionary *userInfo = nil;
 	if (self.language) {
 		
-		userInfo = @{GTDataImporterNotificationUpdateKeyLanguage: self.language};
+		userInfo = @{UpdateKeyLanguage: self.language};
 		
 	}
 	
-	[[NSNotificationCenter defaultCenter] postNotificationName: GTDataImporterNotificationUpdateStarted
+	[[NSNotificationCenter defaultCenter] postNotificationName: UpdateStarted
 														object: self.owner
 													  userInfo: userInfo];
 	
@@ -138,9 +138,9 @@
 		numberOfUpdates++;
 	}
 	
-	[[NSNotificationCenter defaultCenter] postNotificationName: GTDataImporterNotificationUpdateCancelledForLanguage
+	[[NSNotificationCenter defaultCenter] postNotificationName: UpdateCancelledForLanguage
 														object: self.owner
-													  userInfo: @{GTDataImporterNotificationUpdateKeyLanguage: language}];
+													  userInfo: @{UpdateKeyLanguage: language}];
 	
 	[[GTGoogleAnalyticsTracker sharedInstance] sendEventWithCategory:@"update"
 															  action:@"cancelled"
@@ -155,11 +155,11 @@
 	NSDictionary *userInfo = nil;
 	if (self.language) {
 		
-		userInfo = @{GTDataImporterNotificationUpdateKeyLanguage: self.language};
+		userInfo = @{UpdateKeyLanguage: self.language};
 		
 	}
 	
-	[[NSNotificationCenter defaultCenter] postNotificationName: GTDataImporterNotificationUpdateCancelled
+	[[NSNotificationCenter defaultCenter] postNotificationName: UpdateCancelled
 														object: self.owner
 													  userInfo: userInfo];
 	
@@ -187,13 +187,13 @@
 		NSDictionary *userInfo = nil;
 		if (self.language) {
 			
-			userInfo = @{GTDataImporterNotificationUpdateKeyLanguage: self.language};
+			userInfo = @{UpdateKeyLanguage: self.language};
 			
 		}
 		
 		if (self.languagesCompetedUpdate == 0 && self.packagesCompetedUpdate.count == 0) {
 				
-			[[NSNotificationCenter defaultCenter] postNotificationName: GTDataImporterNotificationUpdateFailed
+			[[NSNotificationCenter defaultCenter] postNotificationName: UpdateFailed
 																object: self.owner
 															  userInfo: userInfo];
 			
@@ -204,7 +204,7 @@
 			
 		} else {
 			
-			[[NSNotificationCenter defaultCenter] postNotificationName: GTDataImporterNotificationUpdateFinished
+			[[NSNotificationCenter defaultCenter] postNotificationName: UpdateFinished
 																object: self.owner
 															  userInfo: userInfo];
 			

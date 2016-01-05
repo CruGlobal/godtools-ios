@@ -55,32 +55,32 @@ BOOL languageDownloadCancelled = NO;
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(languageDownloadProgressMade)
-                                                 name: GTLanguageViewDataImporterNotificationLanguageDownloadProgressMade
+                                                 name: LanguageDownloadProgressMade
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(languageDownloadFinished)
-                                                 name: GTLanguageViewDataImporterNotificationLanguageDownloadFinished
+                                                 name: LanguageDownloadFinished
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(languageDownloadFailed)
-                                                 name: GTLanguageViewDataImporterNotificationLanguageDownloadFailed
+                                                 name: LanguageDownloadFailed
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(setData)
-                                                 name:GTDataImporterNotificationMenuUpdateFinished
+                                                 name:MenuUpdateFinished
                                                object:nil];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(updateFinished:)
-												 name:GTDataImporterNotificationUpdateFinished
+												 name:UpdateFinished
 											   object:nil];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(updateFailed:)
-												 name:GTDataImporterNotificationUpdateFailed
+												 name:UpdateFailed
 											   object:nil];
     
     self.buttonLessAlert        = [[UIAlertView alloc]
@@ -142,8 +142,9 @@ BOOL languageDownloadCancelled = NO;
     languageDownloadFailed = nil;
     [self hideLanguageDownloadIndicator];
     [self setData];
-	//once language is selected go back to settings page
-	[self.navigationController popViewControllerAnimated:YES];
+    
+    //once language is selected go back to settings page
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)languageDownloadFailed {
@@ -308,14 +309,18 @@ BOOL languageDownloadCancelled = NO;
 			
 			selectedLanguage = language;
             
-            [[NSNotificationCenter defaultCenter] postNotificationName:GTLanguageViewDataImporterNotificationLanguageDownloadProgressMade
+            [[NSNotificationCenter defaultCenter] postNotificationName:LanguageDownloadProgressMade
                                                                 object:weakSelf
                                                               userInfo:nil];
             
-            [[GTDataImporter sharedImporter] downloadPackagesForLanguage:language
-                                                    withProgressNotifier:GTLanguageViewDataImporterNotificationLanguageDownloadProgressMade
-                                                     withSuccessNotifier:GTLanguageViewDataImporterNotificationLanguageDownloadFinished
-                                                     withFailureNotifier:GTLanguageViewDataImporterNotificationLanguageDownloadFailed];
+            if([[GTDefaults sharedDefaults] isInTranslatorMode] == [NSNumber numberWithBool:YES]) {
+                [[GTDataImporter sharedImporter] downloadDraftsForLanguage:language];
+            } else {
+                [[GTDataImporter sharedImporter] downloadPackagesForLanguage:language
+                                                        withProgressNotifier:LanguageDownloadProgressMade
+                                                         withSuccessNotifier:LanguageDownloadFinished
+                                                         withFailureNotifier:LanguageDownloadFailed];
+            }
 
             languageDownloading = language.code.copy;
 
@@ -352,7 +357,7 @@ BOOL languageDownloadCancelled = NO;
 							   selector:@selector(cancelDownloadForLanguageAtCell:)
 							  parameter:cell];
 			
-			[[NSNotificationCenter defaultCenter] postNotificationName:GTLanguageViewDataImporterNotificationLanguageDownloadProgressMade
+			[[NSNotificationCenter defaultCenter] postNotificationName:LanguageDownloadProgressMade
 																object:weakSelf
 															  userInfo:nil];
 			

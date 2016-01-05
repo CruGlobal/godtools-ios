@@ -79,10 +79,9 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
     self.tableView.dataSource = self;
 
     self.refreshControl = [[UIRefreshControl alloc] init];
-    self.refreshControl.backgroundColor = [UIColor greenColor];
-    self.refreshControl.hidden = NO;
-    self.refreshControl.layer.zPosition = 1000;
-    [self.refreshControl addTarget:self.tableView action:@selector(setData) forControlEvents:UIControlEventValueChanged];
+    [self.refreshControl addTarget:self
+                       action:@selector(refresh:)
+             forControlEvents:UIControlEventValueChanged];
     
     [self.tableView addSubview:self.refreshControl];
     
@@ -116,60 +115,6 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 									   cancelButtonTitle:NSLocalizedString(@"draft_publish_negative", nil)
 									   otherButtonTitles:NSLocalizedString(@"draft_publish_confirm", nil), nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                                selector:@selector(downloadFinished:)
-                                                 name:GTDataImporterNotificationMenuUpdateFinished
-                                                  object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(showDownloadIndicator:)
-                                                 name:GTDataImporterNotificationMenuUpdateStarted
-                                                  object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(downloadFinished:)
-                                                 name: GTDataImporterNotificationLanguageDownloadFinished
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(showDownloadIndicator:)
-                                                 name: GTDataImporterNotificationLanguageDownloadProgressMade
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(showDownloadIndicator:)
-                                                 name: GTDataImporterNotificationLanguageDraftsDownloadStarted
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(downloadFinished:)
-                                                 name: GTDataImporterNotificationLanguageDraftsDownloadFinished
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(showDownloadIndicator:)
-                                                 name: GTDataImporterNotificationCreateDraftStarted
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(refreshButtonPressed)
-                                                 name: GTDataImporterNotificationCreateDraftSuccessful
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(downloadFinished:)
-                                                 name: GTDataImporterNotificationCreateDraftFail
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(showDownloadIndicator:)
-                                                 name: GTDataImporterNotificationPublishDraftStarted
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(downloadFinished:)
-                                                 name: GTDataImporterNotificationPublishDraftSuccessful
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(downloadFinished:)
-                                                 name: GTDataImporterNotificationPublishDraftFail
-                                               object:nil];
-    
     [self checkPhonesLanguage];
     
     // set navigation bar text and chevron color
@@ -181,13 +126,10 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-        
-    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0]];
-    [self.navigationController.navigationBar setTintColor:[UIColor colorWithRed: 0.0 green:0.5 blue:1.0 alpha:1.0]];
-    [self.navigationController.navigationBar setTranslucent:YES]; // required for iOS7
-    self.navigationController.navigationBar.topItem.title = nil;
     
     [self.navigationController setNavigationBarHidden:YES];
+    
+    [self registerListeners];
     
     if([self isTranslatorMode]) {
         self.iconImageView.image = [UIImage imageNamed:@"GT4_Home_BookIcon_PreviewMode_"];
@@ -201,7 +143,8 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
     
     [self setData];
 
-    if(![self languageHasLivePackages:[self getCurrentPrimaryLanguage]]) {
+    if(![self languageHasLivePackages:[self getCurrentPrimaryLanguage]] &&
+       ![self isTranslatorMode]) {
         self.languageCode = @"en";
         [[GTDefaults sharedDefaults] setCurrentLanguageCode:@"en" ];
         [self setData];
@@ -215,6 +158,101 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:NO];
 }
+
+-(void)viewDidDisappear:(BOOL)animated {
+    [self removeListeners];
+}
+
+- (void)refresh:(UIRefreshControl *)refreshControl {
+    [self refreshDrafts];
+    [refreshControl endRefreshing];
+}
+
+- (void)registerListeners {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(downloadFinished:)
+                                                 name:MenuUpdateFinished
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(showDownloadIndicator:)
+                                                 name:MenuUpdateStarted
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(downloadFinished:)
+                                                 name: LanguageDownloadFinished
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(showDownloadIndicator:)
+                                                 name: LanguageDownloadProgressMade
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(showDownloadIndicator:)
+                                                 name: CreateDraftStarted
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(refreshDrafts)
+                                                 name: CreateDraftSuccessful
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(downloadFinished:)
+                                                 name: CreateDraftFail
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(showDownloadIndicator:)
+                                                 name: PublishDraftStarted
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(downloadFinished:)
+                                                 name: PublishDraftSuccessful
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(downloadFinished:)
+                                                 name: PublishDraftFail
+                                               object:nil];
+}
+
+- (void)removeListeners {
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                 name:MenuUpdateFinished
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                 name:MenuUpdateStarted
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                 name: LanguageDownloadFinished
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                 name: LanguageDownloadProgressMade
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                 name: CreateDraftStarted
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                 name: CreateDraftSuccessful
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                 name: CreateDraftFail
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                 name: PublishDraftStarted
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                 name: PublishDraftSuccessful
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                 name: PublishDraftFail
+                                               object:nil];
+}
 #pragma mark - Download packages methods
 -(void)downloadFinished:(NSNotification *) notification{
     NSLog(@"NOTIFICATION: %@",notification.name);
@@ -223,16 +261,18 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
     [self setData];
     [self.tableView reloadData];
     
-    if([notification.name isEqualToString: GTDataImporterNotificationPublishDraftSuccessful]){
+    if([notification.name isEqualToString: PublishDraftSuccessful]){
         [self refreshDrafts];
-    }else if ([notification.name isEqualToString:GTDataImporterNotificationLanguageDraftsDownloadFinished]){
+    }else if ([notification.name isEqualToString:LanguageDownloadFinished]){
         [[GTDataImporter sharedImporter] updateMenuInfo];
-    }else if([notification.name isEqualToString:GTDataImporterNotificationMenuUpdateFinished]){
+        [self.refreshControl endRefreshing];
+    }else if([notification.name isEqualToString:MenuUpdateFinished]){
         self.isRefreshing = NO;
     }
     
     if(!self.isRefreshing) {
         [self.view setUserInteractionEnabled:YES];
+        [self.refreshControl endRefreshing];
     }
 }
 
@@ -243,15 +283,15 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
     if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]){
         self.isRefreshing = YES;
     }
-    if([notification.name isEqualToString: GTDataImporterNotificationLanguageDownloadProgressMade]){
+    if([notification.name isEqualToString: LanguageDownloadProgressMade]){
         [((GTBaseView *)self.view) showDownloadIndicatorWithLabel: [NSString stringWithFormat: NSLocalizedString(@"status_updating_resources", nil),@""]];
-    }else if([notification.name isEqualToString:GTDataImporterNotificationLanguageDraftsDownloadStarted]){
+    }else if([notification.name isEqualToString:LanguageDownloadStarted]){
         [((GTBaseView *)self.view) showDownloadIndicatorWithLabel: NSLocalizedString(@"status_updating_drafts", nil)];
-    }else if([notification.name isEqualToString:GTDataImporterNotificationCreateDraftStarted]){
+    }else if([notification.name isEqualToString:CreateDraftStarted]){
         [((GTBaseView *)self.view) showDownloadIndicatorWithLabel: NSLocalizedString(@"status_creating_drafts", nil)];
-    }else if([notification.name isEqualToString:GTDataImporterNotificationPublishDraftStarted]){
+    }else if([notification.name isEqualToString:PublishDraftStarted]){
         [((GTBaseView *)self.view) showDownloadIndicatorWithLabel: NSLocalizedString(@"status_publishing_drafts", nil)];
-    }else if([notification.name isEqualToString:GTDataImporterNotificationMenuUpdateStarted]){
+    }else if([notification.name isEqualToString:MenuUpdateStarted]){
         [((GTBaseView *)self.view) showDownloadIndicatorWithLabel:[NSString stringWithFormat: NSLocalizedString(@"status_updating_menu", @"update resources (with menu)")]];
     }
 }
@@ -303,10 +343,6 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 	
 	[self presentViewController:shareViewController animated:YES completion:nil];
 }
-
-- (IBAction)refreshDraftsButtonDragged:(id)sender {
-    [self refreshDrafts];
-};
 
 #pragma mark - Home View Cell Delegates
 
@@ -549,7 +585,10 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 
 #pragma mark - Language Methods
 - (void)checkPhonesLanguage {
-	
+    if([[GTDefaults sharedDefaults] languagePromptHasBeenShown] == [NSNumber numberWithBool:YES]) {
+        return;
+    }
+    
 	GTLanguage *phonesLanguage = [[GTStorage sharedStorage] findClosestLanguageTo:[GTDefaults sharedDefaults].phonesLanguageCode];
 	NSString *currentLanguageCode = [GTDefaults sharedDefaults].currentLanguageCode;
 	BOOL translatorMode = [GTDefaults sharedDefaults].isInTranslatorMode.boolValue;
@@ -570,11 +609,10 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 			
 			[self.view setUserInteractionEnabled:YES];
 			[self.phonesLanguageAlert show];
-			
+            
+            [[GTDefaults sharedDefaults] setLanguagePromptHasBeenShown:[NSNumber numberWithBool:YES]];
 		}
-		
 	}
-	
 }
 
 -(BOOL) languageHasLivePackages : (GTLanguage *)currentLanguage {
@@ -595,7 +633,7 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
         [self setData];
         [self.tableView reloadData];
     }else{
-        [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadProgressMade
+        [[NSNotificationCenter defaultCenter] postNotificationName:LanguageDownloadProgressMade
                                                             object:self
                                                           userInfo:nil];
         [GTDefaults sharedDefaults].isChoosingForMainLanguage = YES;
@@ -629,10 +667,13 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 }
 
 -(void) refreshDrafts {
-    [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDraftsDownloadStarted object:self];
-    GTLanguage *current = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:YES]objectAtIndex:0];
     [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:[NSNumber numberWithBool:YES]];
-    [[GTDataImporter sharedImporter]downloadPackagesForLanguage:current];
+    
+    GTLanguage *current = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class]
+                                                       usingKey:@"code"
+                                                       forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:YES]objectAtIndex:0];
+    
+    [[GTDataImporter sharedImporter]downloadDraftsForLanguage:current];
 }
 #pragma mark - Renderer methods
 -(void)loadRendererWithPackage: (GTPackage *)package{

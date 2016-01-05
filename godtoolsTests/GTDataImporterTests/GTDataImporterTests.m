@@ -133,12 +133,12 @@
 	//Expectation
 	XCTestExpectation *expectation = [self expectationWithDescription:@"New Updates Notification Not Triggered"];
 	
-	[[NSNotificationCenter defaultCenter] addObserverForName:GTDataImporterNotificationNewVersionsAvailable
+	[[NSNotificationCenter defaultCenter] addObserverForName:NewVersionsAvailable
 													  object:self
 													   queue:nil
 												  usingBlock:^(NSNotification *note) {
 													  
-													  NSNumber *numberOfUpdates = note.userInfo[GTDataImporterNotificationNewVersionsAvailableKeyNumberAvailable];
+													  NSNumber *numberOfUpdates = note.userInfo[NewVersionsAvailableKeyNumberAvailable];
 													  XCTAssertEqual(numberOfUpdates, @(3), @"wrong number of updates found");
 													  [expectation fulfill];
 												  }];
