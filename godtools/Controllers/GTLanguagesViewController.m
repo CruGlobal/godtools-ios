@@ -312,10 +312,14 @@ BOOL languageDownloadCancelled = NO;
                                                                 object:weakSelf
                                                               userInfo:nil];
             
-            [[GTDataImporter sharedImporter] downloadPackagesForLanguage:language
-                                                    withProgressNotifier:LanguageDownloadProgressMade
-                                                     withSuccessNotifier:LanguageDownloadFinished
-                                                     withFailureNotifier:LanguageDownloadFailed];
+            if([[GTDefaults sharedDefaults] isInTranslatorMode] == [NSNumber numberWithBool:YES]) {
+                [[GTDataImporter sharedImporter] downloadDraftsForLanguage:language];
+            } else {
+                [[GTDataImporter sharedImporter] downloadPackagesForLanguage:language
+                                                        withProgressNotifier:LanguageDownloadProgressMade
+                                                         withSuccessNotifier:LanguageDownloadFinished
+                                                         withFailureNotifier:LanguageDownloadFailed];
+            }
 
             languageDownloading = language.code.copy;
 

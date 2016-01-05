@@ -135,14 +135,6 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(showDownloadIndicator:)
-                                                 name: LanguageDraftsDownloadStarted
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(downloadFinished:)
-                                                 name: LanguageDraftsDownloadFinished
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(showDownloadIndicator:)
                                                  name: CreateDraftStarted
                                                object:nil];
     
@@ -221,7 +213,7 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
     
     if([notification.name isEqualToString: PublishDraftSuccessful]){
         [self refreshDrafts];
-    }else if ([notification.name isEqualToString:LanguageDraftsDownloadFinished]){
+    }else if ([notification.name isEqualToString:LanguageDownloadFinished]){
         [[GTDataImporter sharedImporter] updateMenuInfo];
     }else if([notification.name isEqualToString:MenuUpdateFinished]){
         self.isRefreshing = NO;
@@ -241,7 +233,7 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
     }
     if([notification.name isEqualToString: LanguageDownloadProgressMade]){
         [((GTBaseView *)self.view) showDownloadIndicatorWithLabel: [NSString stringWithFormat: NSLocalizedString(@"status_updating_resources", nil),@""]];
-    }else if([notification.name isEqualToString:LanguageDraftsDownloadStarted]){
+    }else if([notification.name isEqualToString:LanguageDownloadStarted]){
         [((GTBaseView *)self.view) showDownloadIndicatorWithLabel: NSLocalizedString(@"status_updating_drafts", nil)];
     }else if([notification.name isEqualToString:CreateDraftStarted]){
         [((GTBaseView *)self.view) showDownloadIndicatorWithLabel: NSLocalizedString(@"status_creating_drafts", nil)];
@@ -625,7 +617,9 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 }
 
 -(void) refreshDrafts {
-    [[NSNotificationCenter defaultCenter] postNotificationName:LanguageDraftsDownloadStarted object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:LanguageDownloadStarted
+                                                        object:self];
+    
     GTLanguage *current = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:YES]objectAtIndex:0];
     [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:[NSNumber numberWithBool:YES]];
     [[GTDataImporter sharedImporter]downloadPackagesForLanguage:current];

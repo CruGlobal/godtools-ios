@@ -820,14 +820,14 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
     
     __weak typeof(self)weakSelf = self;
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:LanguageDraftsDownloadStarted object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:LanguageDownloadStarted object:self];
     
     [weakSelf.api getDraftsResourcesForLanguage:language
                             progress:^(NSNumber *percentage) {
         
-                                [[NSNotificationCenter defaultCenter] postNotificationName:LanguageDraftsDownloadProgressMade
+                                [[NSNotificationCenter defaultCenter] postNotificationName:LanguageDownloadProgressMade
                                                             object:weakSelf
-                                                          userInfo:@{LanguageDraftsDownloadPercentageKey: percentage}];
+                                                          userInfo:@{LanguageDownloadPercentageKey: percentage}];
         
                             } success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSURL *targetPath) {
                                 if(response.statusCode == 200){
@@ -897,7 +897,8 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 
                                          }
                                          
-                                         [[NSNotificationCenter defaultCenter] postNotificationName:LanguageDraftsDownloadFinished object:self];
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:LanguageDownloadFinished
+                                                                                             object:self];
                                      }
                                 }else{
                                     NSLog(@"error. response is: %@",response);
@@ -918,14 +919,14 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
                                         [weakSelf displayDownloadPackagesRequestError:error];
                                     }
                                     
-                                    [[NSNotificationCenter defaultCenter] postNotificationName:LanguageDraftsDownloadFinished
+                                    [[NSNotificationCenter defaultCenter] postNotificationName:LanguageDownloadFinished
                                                                                         object:self];
                                 }
                                 
                              } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
                                  NSLog(@"Failute here..");
                                  [weakSelf displayDownloadPackagesRequestError:error];
-                                 [[NSNotificationCenter defaultCenter] postNotificationName:LanguageDraftsDownloadFinished
+                                 [[NSNotificationCenter defaultCenter] postNotificationName:LanguageDownloadFinished
                                                                                      object:self];
                                  
                              }];

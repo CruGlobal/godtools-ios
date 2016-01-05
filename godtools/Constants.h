@@ -14,15 +14,11 @@
  */
 
 //Data Importer
+#define LanguageDownloadStarted @"com.godtoolsapp.GTDataImporter.notifications.draftsDownloadStarted"
 #define LanguageDownloadProgressMade  @"com.godtoolsapp.GTDataImporter.notifications.languageDownloadProgressMade"
 #define LanguageDownloadFinished      @"com.godtoolsapp.GTDataImporter.notifications.languageDownloadFinished"
 #define LanguageDownloadPercentageKey @"com.godtoolsapp.GTDataImporter.notifications.languageDownloadProgressMade.key.percentage"
-
-#define LanguageDraftsDownloadProgressMade  @"com.godtoolsapp.GTDataImporter.notifications.draftsDownloadProgressMade"
-#define LanguageDraftsDownloadFinished      @"com.godtoolsapp.GTDataImporter.notifications.draftsDownloadFinished"
-#define LanguageDraftsDownloadStarted       @"com.godtoolsapp.GTDataImporter.notifications.draftsDownloadStarted"
 #define LanguageDownloadFailed @"com.godtoolsapp.GTDataImporter.notifications.draftsDownloadFailed"
-#define LanguageDraftsDownloadPercentageKey @"com.godtoolsapp.GTDataImporter.notifications.draftsDownloadProgressMade.key.percentage"
 
 #define UpdateNeeded              @"com.godtoolsapp.GTDataImporter.notifications.updateNeeded"
 
