@@ -114,11 +114,8 @@
     
     if([notification.name isEqualToString:GTDataImporterNotificationAuthTokenUpdateStarted]){
         NSLog(@"AUTHENTICATING_____++++++");
-        //if([AFNetworkReachabilityManager sharedManager].reachable){
-        NSLog(@"reachable");
         self.accessCodeStatusAlert.message = NSLocalizedString(@"authenticate_code", nil);
         [self.accessCodeStatusAlert show];
-        //}
     }else if([notification.name isEqualToString:GTDataImporterNotificationAuthTokenUpdateFail]){
         if(notification.userInfo != nil){
             NSError *error = (NSError*)[notification.userInfo objectForKey:@"Error"];
