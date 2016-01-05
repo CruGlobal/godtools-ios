@@ -90,11 +90,10 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 		[self downloadPhonesLanguage];
 		
 	} else {
-		
+        [self leavePreviewMode];
 		[self registerListenersForMenuUpdate];
 		[self updateMenu];
 		[self goToHome];
-		
 	}
 	
 }
@@ -433,4 +432,8 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 												  object:nil];
 }
 
+#pragma mark - Helper methods
+- (void)leavePreviewMode {
+    [[GTDefaults sharedDefaults] setIsInTranslatorMode:[NSNumber numberWithBool:NO]];
+}
 @end
