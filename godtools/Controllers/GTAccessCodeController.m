@@ -119,10 +119,13 @@
     }else if([notification.name isEqualToString:GTDataImporterNotificationAuthTokenUpdateFail]){
         if(notification.userInfo != nil){
             NSError *error = (NSError*)[notification.userInfo objectForKey:@"Error"];
+            
             self.accessCodeStatusAlert.message = [error.userInfo objectForKey:@"NSLocalizedDescription"];
             [self.accessCodeStatusAlert show];
             
-            [self performSelector:@selector(dismissAlertView:) withObject:self.accessCodeStatusAlert afterDelay:2.0];
+            [self performSelector:@selector(dismissAlertView:)
+                       withObject:self.accessCodeStatusAlert
+                       afterDelay:2.0];
         }
         
         self.accessCodeTextField.text = nil;
@@ -130,11 +133,18 @@
     }else if([notification.name isEqualToString:GTDataImporterNotificationAuthTokenUpdateSuccessful]){
         
         if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]){
+            
             self.accessCodeStatusAlert.message = NSLocalizedString(@"translator_enabled", nil);
             [self.accessCodeStatusAlert show];
-            [self performSelector:@selector(dismissAlertView:) withObject:self.accessCodeStatusAlert afterDelay:2.0];
             
-            GTLanguage *current = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:YES]objectAtIndex:0];
+            [self performSelector:@selector(dismissAlertView:)
+                       withObject:self.accessCodeStatusAlert
+                       afterDelay:2.0];
+            
+            GTLanguage *current = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class]
+                                                               usingKey:@"code"
+                                                               forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:YES]objectAtIndex:0];
+            
             [GTDefaults sharedDefaults].isChoosingForMainLanguage = YES;
             [[GTDataImporter sharedImporter]downloadPackagesForLanguage:current];
         }
