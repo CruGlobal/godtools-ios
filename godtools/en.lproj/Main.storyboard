@@ -70,17 +70,10 @@
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="[ Translator Mode ]" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ddm-Sv-WQm">
                                 <rect key="frame" x="201" y="56" width="113" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="GT4_Home_BookIcon_" translatesAutoresizingMaskIntoConstraints="NO" id="Bgc-XF-gSL">
-                                <rect key="frame" x="120" y="103" width="80" height="75"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="80" id="6BD-wC-UhX"/>
-                                    <constraint firstAttribute="height" constant="75" id="NzP-al-faU"/>
-                                </constraints>
-                            </imageView>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o9C-9g-h8G">
                                 <rect key="frame" x="6" y="54" width="135" height="54"/>
                                 <subviews>
@@ -90,18 +83,19 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Nc-51-Wlv">
-                                        <rect key="frame" x="21" y="16" width="92" height="38"/>
-                                        <state key="normal" image="GT4_HomeScreen_Pull_Icon_">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="refreshDraftsButtonDragged:" destination="8oq-uF-jDf" eventType="touchUpInside" id="2gJ-gA-oL4"/>
-                                        </connections>
-                                    </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="GT4_HomeScreen_Pull_Icon_" translatesAutoresizingMaskIntoConstraints="NO" id="Njz-B6-MdJ">
+                                        <rect key="frame" x="59" y="32" width="16" height="20"/>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="GT4_Home_BookIcon_" translatesAutoresizingMaskIntoConstraints="NO" id="Bgc-XF-gSL">
+                                <rect key="frame" x="120" y="103" width="80" height="75"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="6BD-wC-UhX"/>
+                                    <constraint firstAttribute="height" constant="75" id="NzP-al-faU"/>
+                                </constraints>
+                            </imageView>
                             <view alpha="0.75" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MS0-V2-i3u">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
