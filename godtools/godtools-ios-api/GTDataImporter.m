@@ -524,13 +524,11 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
                                          [weakSelf displayDownloadPackagesRequestError:error];
                                      }
                                  }
-                                 if([[GTDefaults sharedDefaults] isInTranslatorMode] == [NSNumber numberWithBool:YES]){
-                                     [self downloadDraftsForLanguage:language];
-                                 }else{
-                                     [[NSNotificationCenter defaultCenter] postNotificationName:successNotificationName
+                                 
+                                 [[NSNotificationCenter defaultCenter] postNotificationName:successNotificationName
 																						 object:self
 																					   userInfo:@{GTDataImporterNotificationKeyLanguage: language}];
-                                 }
+                                 
 							 } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
                                  if(!gtLanguageDownloadUserCancellation) {
                                      [weakSelf displayDownloadPackagesRequestError:error];
@@ -540,8 +538,6 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 																					 object:self
 																				   userInfo:@{GTDataImporterNotificationKeyLanguage: language}];
 							 }];
-
-	
 }
 
 - (void)cancelDownloadPackagesForLanguage {
