@@ -119,27 +119,27 @@
 -(void)addNotificationObservers{
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(authorizeTranslatorAlert:)
-                                                 name: GTDataImporterNotificationAuthTokenUpdateStarted
+                                                 name: AuthTokenUpdateStarted
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(authorizeTranslatorAlert:)
-                                                 name: GTDataImporterNotificationAuthTokenUpdateSuccessful
+                                                 name: AuthTokenUpdateSuccessful
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(authorizeTranslatorAlert:)
-                                                 name: GTDataImporterNotificationAuthTokenUpdateFail
+                                                 name: AuthTokenUpdateFail
                                                object:nil];
 }
 
 -(void)removeNotificationObservers{
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:GTDataImporterNotificationAuthTokenUpdateStarted
+                                                    name:AuthTokenUpdateStarted
                                                   object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:GTDataImporterNotificationAuthTokenUpdateSuccessful
+                                                    name:AuthTokenUpdateSuccessful
                                                   object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:GTDataImporterNotificationAuthTokenUpdateFail
+                                                    name:AuthTokenUpdateFail
                                                   object:nil];
 }
 

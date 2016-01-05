@@ -32,21 +32,21 @@ NSString const *refreshDraftAlertKey = @"com.godtools.gtviewcontroller.refreshDr
 -(void)addNotificationObservers{
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(showHideRefreshAlert:)
-                                                 name: GTDataImporterNotificationDownloadPageStarted
+                                                 name: DownloadPageStarted
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(showHideRefreshAlert:)
-                                                 name: GTDataImporterNotificationDownloadPageSuccessful
+                                                 name: DownloadPageSuccessful
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(showHideRefreshAlert:)
-                                                 name: GTDataImporterNotificationDownloadPageFail
+                                                 name: DownloadPageFail
                                                object:nil];
 }
 
 -(void)showHideRefreshAlert:(NSNotification *)notification{
     NSLog(@"notif: %@",notification.name);
-    if([notification.name isEqualToString:GTDataImporterNotificationDownloadPageStarted]){
+    if([notification.name isEqualToString:DownloadPageStarted]){
         if(!self.refreshDraftAlert){
             self.refreshDraftAlert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"draft_refresh_message", nil) delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
         }
@@ -54,13 +54,13 @@ NSString const *refreshDraftAlertKey = @"com.godtools.gtviewcontroller.refreshDr
             NSLog(@"refresh alert view, show yourself!");
             [self.refreshDraftAlert show];
         }
-    }else if([notification.name isEqualToString:GTDataImporterNotificationDownloadPageSuccessful]){
+    }else if([notification.name isEqualToString:DownloadPageSuccessful]){
         [self refreshView];
         //[self.refreshDraftAlert setMessage:@"Refresh successful"];
         //[self.refreshDraftAlert dismissWithClickedButtonIndex:0 animated:YES];
         //[self.refreshDraftAlert show];
         [self.refreshDraftAlert dismissWithClickedButtonIndex:3 animated:YES];
-    }else if([notification.name isEqualToString:GTDataImporterNotificationDownloadPageFail]){
+    }else if([notification.name isEqualToString:DownloadPageFail]){
         [self.refreshDraftAlert setMessage:NSLocalizedString(@"draft_refresh_error", nil)];
         [self.refreshDraftAlert dismissWithClickedButtonIndex:4 animated:YES];
     }

@@ -64,27 +64,27 @@
 -(void)addNotificationObservers{
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(authorizeTranslatorAlert:)
-                                                 name: GTDataImporterNotificationAuthTokenUpdateStarted
+                                                 name: AuthTokenUpdateStarted
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(authorizeTranslatorAlert:)
-                                                 name: GTDataImporterNotificationAuthTokenUpdateSuccessful
+                                                 name: AuthTokenUpdateSuccessful
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(authorizeTranslatorAlert:)
-                                                 name: GTDataImporterNotificationAuthTokenUpdateFail
+                                                 name: AuthTokenUpdateFail
                                                object:nil];
 }
 
 -(void)removeNotificationObservers{
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:GTDataImporterNotificationAuthTokenUpdateStarted
+                                                    name:AuthTokenUpdateStarted
                                                   object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:GTDataImporterNotificationAuthTokenUpdateSuccessful
+                                                    name:AuthTokenUpdateSuccessful
                                                   object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:GTDataImporterNotificationAuthTokenUpdateFail
+                                                    name:AuthTokenUpdateFail
                                                   object:nil];
 }
 
@@ -112,11 +112,11 @@
     
     NSLog(@"notif %@", notification.name);
     
-    if([notification.name isEqualToString:GTDataImporterNotificationAuthTokenUpdateStarted]){
+    if([notification.name isEqualToString:AuthTokenUpdateStarted]){
         NSLog(@"AUTHENTICATING_____++++++");
         self.accessCodeStatusAlert.message = NSLocalizedString(@"authenticate_code", nil);
         [self.accessCodeStatusAlert show];
-    }else if([notification.name isEqualToString:GTDataImporterNotificationAuthTokenUpdateFail]){
+    }else if([notification.name isEqualToString:AuthTokenUpdateFail]){
         if(notification.userInfo != nil){
             NSError *error = (NSError*)[notification.userInfo objectForKey:@"Error"];
             
@@ -130,7 +130,7 @@
         
         self.accessCodeTextField.text = nil;
         
-    }else if([notification.name isEqualToString:GTDataImporterNotificationAuthTokenUpdateSuccessful]){
+    }else if([notification.name isEqualToString:AuthTokenUpdateSuccessful]){
         
         if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]){
             
