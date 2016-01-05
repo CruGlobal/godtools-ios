@@ -88,34 +88,6 @@
                                                   object:nil];
 }
 
-//-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-//    if(alertView == self.exitTranslatorModeAlert){
-//        if(buttonIndex == 1){
-//            [[GTDefaults sharedDefaults]setIsInTranslatorMode:[NSNumber numberWithBool:NO]];
-//            [self.translatorSwitch setOn:NO animated:YES];
-//        }else{
-//            [self.translatorSwitch setOn:YES animated:YES];
-//        }
-//    }else if(alertView == self.translatorModeAlert){
-//        if(buttonIndex == 1){
-//            [self addNotificationObservers];
-//            if([self.translatorModeAlert  textFieldAtIndex:0].text.length > 0){
-//                NSString *accessCode = [self.translatorModeAlert  textFieldAtIndex:0].text;
-//                [[GTDefaults sharedDefaults]setTranslatorAccessCode:accessCode];
-//                [[GTDataImporter sharedImporter]authorizeTranslator];
-//            }else{
-//                self.buttonLessAlert.message = NSLocalizedString(@"AlertMesssage_invalidAccessCode", nil);
-//                [self.buttonLessAlert show];
-//                [self performSelector:@selector(dismissAlertView:) withObject:self.buttonLessAlert afterDelay:2.0];
-//                [self.translatorSwitch setOn:NO animated:YES];
-//            }
-//        }else{
-//            [self.translatorSwitch setOn:NO animated:YES];
-//            [self.translatorModeAlert textFieldAtIndex:0].text = nil;
-//        }
-//    }
-//}
-
 # pragma mark - UI helper methods
 -(void) cancelButtonPressed {
     [self performSegueWithIdentifier:@"returnFromAccessCodeView" sender:self];
