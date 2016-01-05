@@ -509,7 +509,10 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 
 #pragma mark - Language Methods
 - (void)checkPhonesLanguage {
-	
+    if([[GTDefaults sharedDefaults] languagePromptHasBeenShown] == [NSNumber numberWithBool:YES]) {
+        return;
+    }
+    
 	GTLanguage *phonesLanguage = [[GTStorage sharedStorage] findClosestLanguageTo:[GTDefaults sharedDefaults].phonesLanguageCode];
 	NSString *currentLanguageCode = [GTDefaults sharedDefaults].currentLanguageCode;
 	BOOL translatorMode = [GTDefaults sharedDefaults].isInTranslatorMode.boolValue;
@@ -530,11 +533,10 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 			
 			[self.view setUserInteractionEnabled:YES];
 			[self.phonesLanguageAlert show];
-			
+            
+            [[GTDefaults sharedDefaults] setLanguagePromptHasBeenShown:[NSNumber numberWithBool:YES]];
 		}
-		
 	}
-	
 }
 
 -(BOOL) languageHasLivePackages : (GTLanguage *)currentLanguage {
