@@ -140,28 +140,22 @@
             [self performSelector:@selector(dismissAlertView:)
                        withObject:self.accessCodeStatusAlert
                        afterDelay:2.0];
-            
-            for (UIViewController *controller in self.navigationController.viewControllers)
-            {
-                if ([controller isKindOfClass:[GTHomeViewController class]])
-                {
-                    [self.navigationController popToViewController:controller
-                                                          animated:YES];
-                    break;
-                }
-            }
         }
     }
 }
 
 -(void)dismissAlertView:(UIAlertView *)alertView{
     [alertView dismissWithClickedButtonIndex:0 animated:YES];
+
     if(alertView == self.accessCodeStatusAlert && [[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]){
         
-        NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
-        for (UIViewController *viewController in allViewControllers) {
-            if ([viewController isKindOfClass:[GTHomeViewController class]]) {
-                [self.navigationController popToViewController:viewController animated:NO];
+        for (UIViewController *controller in self.navigationController.viewControllers)
+        {
+            if ([controller isKindOfClass:[GTHomeViewController class]])
+            {
+                [self.navigationController popToViewController:controller
+                                                      animated:YES];
+                break;
             }
         }
     }
