@@ -740,44 +740,44 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 
 - (void) removeListeners {
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                 name:GTDataImporterNotificationMenuUpdateFinished
-                                               object:nil];
+                                                    name:GTDataImporterNotificationMenuUpdateFinished
+                                                  object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                 name:GTDataImporterNotificationMenuUpdateStarted
-                                               object:nil];
+                                                    name:GTDataImporterNotificationMenuUpdateStarted
+                                                  object:nil];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                 name: GTDataImporterNotificationLanguageDownloadFinished
-                                               object:nil];
+                                                    name: GTDataImporterNotificationLanguageDownloadFinished
+                                                  object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                 name: GTDataImporterNotificationLanguageDownloadProgressMade
-                                               object:nil];
+                                                    name: GTDataImporterNotificationLanguageDownloadProgressMade
+                                                  object:nil];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                 name: GTDataImporterNotificationLanguageDraftsDownloadStarted
-                                               object:nil];
+                                                    name: GTDataImporterNotificationLanguageDraftsDownloadStarted
+                                                  object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                 name: GTDataImporterNotificationLanguageDraftsDownloadFinished
-                                               object:nil];
+                                                    name: GTDataImporterNotificationLanguageDraftsDownloadFinished
+                                                  object:nil];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                 name: GTDataImporterNotificationCreateDraftStarted
-                                               object:nil];
+                                                    name: GTDataImporterNotificationCreateDraftStarted
+                                                  object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                 name: GTDataImporterNotificationCreateDraftSuccessful
-                                               object:nil];
+                                                    name: GTDataImporterNotificationCreateDraftSuccessful
+                                                  object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                 name: GTDataImporterNotificationCreateDraftFail
-                                               object:nil];
+                                                    name: GTDataImporterNotificationCreateDraftFail
+                                                  object:nil];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                 name: GTDataImporterNotificationPublishDraftStarted
-                                               object:nil];
+                                                    name: GTDataImporterNotificationPublishDraftStarted
+                                                  object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                 name: GTDataImporterNotificationPublishDraftSuccessful
-                                               object:nil];
+                                                    name: GTDataImporterNotificationPublishDraftSuccessful
+                                                  object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                 name: GTDataImporterNotificationPublishDraftFail
-                                               object:nil];
+                                                    name: GTDataImporterNotificationPublishDraftFail
+                                                  object:nil];
 }
 @end
