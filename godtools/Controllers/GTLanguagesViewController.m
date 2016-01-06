@@ -284,10 +284,7 @@ BOOL languageDownloadCancelled = NO;
 							  parameter:cell];
 			
 			selectedLanguage = language;
-            
-            [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadProgressMade
-                                                                object:weakSelf
-                                                              userInfo:nil];
+            languageActionCell = cell;
             
             [[GTDataImporter sharedImporter] downloadPackagesForLanguage:language
                                                     withProgressNotifier:GTDataImporterNotificationLanguageDownloadProgressMade
@@ -337,7 +334,8 @@ BOOL languageDownloadCancelled = NO;
 			
 			selectedLanguage = language;
 			languageDownloading = language.code.copy;
-			
+            languageActionCell = cell;
+            
 			[[GTDefaults sharedDefaults] setTranslationDownloadStatus:@"running"];
 			
 			languageDownloadCancelled = NO;
@@ -428,8 +426,10 @@ BOOL languageDownloadCancelled = NO;
     
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 
+    GTLanguage *chosen = (GTLanguage*)[self.languages objectAtIndex:indexPath.section];
+
     // download language if not yet downloaded
-    if(!selectedLanguage.downloaded) {
+    if(!chosen.downloaded) {
 		
         languageActionCell = (GTLanguageViewCell *)[tableView cellForRowAtIndexPath:indexPath];
 		[self downloadLanguageAtCell:languageActionCell];
@@ -437,8 +437,6 @@ BOOL languageDownloadCancelled = NO;
         return;
     }
 
-    GTLanguage *chosen = (GTLanguage*)[self.languages objectAtIndex:indexPath.section];
-    
     // set the current language selected
     if([GTDefaults sharedDefaults].isChoosingForMainLanguage) {
         [[GTDefaults sharedDefaults]setCurrentLanguageCode:chosen.code];
