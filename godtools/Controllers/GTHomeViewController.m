@@ -133,6 +133,7 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
                                              selector:@selector(showDownloadIndicator:)
                                                  name: GTDataImporterNotificationLanguageDownloadProgressMade
                                                object:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(showDownloadIndicator:)
                                                  name: GTDataImporterNotificationLanguageDraftsDownloadStarted
@@ -141,11 +142,11 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
                                              selector:@selector(downloadFinished:)
                                                  name: GTDataImporterNotificationLanguageDraftsDownloadFinished
                                                object:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(showDownloadIndicator:)
                                                  name: GTDataImporterNotificationCreateDraftStarted
                                                object:nil];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(refreshButtonPressed)
                                                  name: GTDataImporterNotificationCreateDraftSuccessful
@@ -159,12 +160,10 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
                                              selector:@selector(showDownloadIndicator:)
                                                  name: GTDataImporterNotificationPublishDraftStarted
                                                object:nil];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(downloadFinished:)
                                                  name: GTDataImporterNotificationPublishDraftSuccessful
                                                object:nil];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(downloadFinished:)
                                                  name: GTDataImporterNotificationPublishDraftFail
