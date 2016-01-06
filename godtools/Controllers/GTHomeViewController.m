@@ -196,9 +196,6 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
     self.isRefreshing = NO;
     [self.view setUserInteractionEnabled:YES];
     [self.refreshControl endRefreshing];
-    
-    [((GTBaseView *)self.view) showDownloadIndicatorWithLabel:[NSString stringWithFormat: NSLocalizedString(@"draft_refresh_error", nil)]];
-    
 }
 
 -(void)showDownloadIndicator:(NSNotification *) notification{

@@ -812,8 +812,6 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
     
     __weak typeof(self)weakSelf = self;
     
-//    [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadStarted object:self];
-    
     [weakSelf.api getDraftsResourcesForLanguage:language
                             progress:^(NSNumber *percentage) {
         
@@ -903,7 +901,7 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
                                         if (![self.storage.backgroundObjectContext save:&error]) {
                                             NSLog(@"error saving");
                                         }
-                                    }else if(response.statusCode == 500){
+                                    }else if(response.statusCode == 500 || response.statusCode == 401){
                                         NSString *errorMessage	= NSLocalizedString(@"server_error", nil);
                                         NSError *error = [NSError errorWithDomain:GTDataImporterErrorDomain
                                                                              code:GTDataImporterErrorCodeInvalidXml
@@ -913,9 +911,9 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
                                         [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadFailed
                                                                                             object:self];
 
+                                    }else{
+                                        [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadFinished object:self];
                                     }
-                                    
-                                    [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadFinished object:self];
                                 }
                                 
                              } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
