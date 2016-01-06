@@ -80,7 +80,7 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self
-                            action:@selector(refreshDrafts)
+                            action:@selector(refresh)
                   forControlEvents:UIControlEventValueChanged];
     
     [self.tableView addSubview:self.refreshControl];
@@ -177,7 +177,7 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
     [self.tableView reloadData];
     
     if([notification.name isEqualToString: GTDataImporterNotificationPublishDraftSuccessful]){
-        [self refreshDrafts];
+        [self refresh];
     }else if ([notification.name isEqualToString:GTDataImporterNotificationLanguageDownloadFinished]){
         [[GTDataImporter sharedImporter] updateMenuInfo];
     }else if([notification.name isEqualToString:GTDataImporterNotificationMenuUpdateFinished]){
@@ -265,7 +265,7 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 }
 
 - (IBAction)refreshDraftsButtonDragged:(id)sender {
-    [self refreshDrafts];
+    [self refresh];
 };
 
 #pragma mark - Home View Cell Delegates
@@ -590,7 +590,7 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
     return [[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES];
 }
 
--(void) refreshDrafts {
+-(void) refresh {
     GTLanguage *current = [[[GTStorage sharedStorage] fetchModel:[GTLanguage class]
                                                         usingKey:@"code"
                                                         forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:YES] objectAtIndex:0];
