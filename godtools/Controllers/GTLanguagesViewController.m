@@ -346,6 +346,10 @@ BOOL languageDownloadCancelled = NO;
 	}];
 }
 
+- (void)updateStarted:(NSNotification *)notification {
+        [self showLanguageDownloadIndicator];
+}
+
 - (void)updateFinished:(NSNotification *)notification {
 	
 	self.updateAllButton.enabled = YES;
@@ -479,6 +483,11 @@ BOOL languageDownloadCancelled = NO;
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateStarted:)
+                                                 name:GTDataImporterNotificationUpdateStarted
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(updateFinished:)
                                                  name:GTDataImporterNotificationUpdateFinished
                                                object:nil];
@@ -503,6 +512,10 @@ BOOL languageDownloadCancelled = NO;
                                                     name: GTDataImporterNotificationLanguageDownloadFailed
                                                   object:nil];
     
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:GTDataImporterNotificationUpdateStarted
+                                                  object:nil];
+
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:GTDataImporterNotificationMenuUpdateFinished
                                                   object:nil];
