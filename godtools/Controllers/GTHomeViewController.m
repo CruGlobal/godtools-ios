@@ -193,11 +193,7 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
     if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]){
         self.isRefreshing = YES;
     }
-    if([notification.name isEqualToString: GTDataImporterNotificationLanguageDownloadProgressMade]){
-        [((GTBaseView *)self.view) showDownloadIndicatorWithLabel: [NSString stringWithFormat: NSLocalizedString(@"status_updating_resources", nil),@""]];
-//    }else if([notification.name isEqualToString:GTDataImporterNotificationLanguageDraftsDownloadStarted]){
-//        [((GTBaseView *)self.view) showDownloadIndicatorWithLabel: NSLocalizedString(@"status_updating_drafts", nil)];
-    }else if([notification.name isEqualToString:GTDataImporterNotificationCreateDraftStarted]){
+    if([notification.name isEqualToString:GTDataImporterNotificationCreateDraftStarted]){
         [((GTBaseView *)self.view) showDownloadIndicatorWithLabel: NSLocalizedString(@"status_creating_drafts", nil)];
     }else if([notification.name isEqualToString:GTDataImporterNotificationPublishDraftStarted]){
         [((GTBaseView *)self.view) showDownloadIndicatorWithLabel: NSLocalizedString(@"status_publishing_drafts", nil)];
@@ -692,25 +688,7 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
                                              selector:@selector(showDownloadIndicator:)
                                                  name:GTDataImporterNotificationMenuUpdateStarted
                                                object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(downloadFinished:)
-                                                 name: GTDataImporterNotificationLanguageDownloadFinished
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(showDownloadIndicator:)
-                                                 name: GTDataImporterNotificationLanguageDownloadProgressMade
-                                               object:nil];
-    
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(showDownloadIndicator:)
-//                                                 name: GTDataImporterNotificationLanguageDraftsDownloadStarted
-//                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(showDownloadIndicator:)
-                                                 name: GTDataImporterNotificationCreateDraftStarted
-                                               object:nil];
+        
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(refreshButtonPressed)
                                                  name: GTDataImporterNotificationCreateDraftSuccessful
@@ -741,17 +719,6 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:GTDataImporterNotificationMenuUpdateStarted
                                                   object:nil];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name: GTDataImporterNotificationLanguageDownloadFinished
-                                                  object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name: GTDataImporterNotificationLanguageDownloadProgressMade
-                                                  object:nil];
-    
-//    [[NSNotificationCenter defaultCenter] removeObserver:self
-//                                                    name: GTDataImporterNotificationLanguageDraftsDownloadStarted
-//                                                  object:nil];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name: GTDataImporterNotificationCreateDraftStarted
