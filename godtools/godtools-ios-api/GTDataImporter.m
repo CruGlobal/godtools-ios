@@ -812,14 +812,14 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
     
     __weak typeof(self)weakSelf = self;
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDraftsDownloadStarted object:self];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadStarted object:self];
     
     [weakSelf.api getDraftsResourcesForLanguage:language
                             progress:^(NSNumber *percentage) {
         
-                                [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDraftsDownloadProgressMade
-                                                            object:weakSelf
-                                                          userInfo:@{GTDataImporterNotificationLanguageDraftsDownloadPercentageKey: percentage}];
+                                [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadProgressMade
+                                                                                    object:weakSelf
+                                                                                  userInfo:@{GTDataImporterNotificationLanguageDownloadPercentageKey: percentage}];
         
                             } success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSURL *targetPath) {
                                 if(response.statusCode == 200){
@@ -889,7 +889,8 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 
                                          }
                                          
-                                         [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDraftsDownloadFinished object:self];
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadFinished
+                                                                                             object:self];
                                      }
                                 }else{
                                     NSLog(@"error. response is: %@",response);
@@ -908,15 +909,20 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
                                                                              code:GTDataImporterErrorCodeInvalidXml
                                                                          userInfo:@{NSLocalizedDescriptionKey: errorMessage, }];
                                         [weakSelf displayDownloadPackagesRequestError:error];
+
+                                        [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadFailed
+                                                                                            object:self];
+
                                     }
                                     
-                                    [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDraftsDownloadFinished object:self];
+                                    [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadFinished object:self];
                                 }
                                 
                              } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
                                  NSLog(@"Failute here..");
                                  [weakSelf displayDownloadPackagesRequestError:error];
-                                 [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDraftsDownloadFinished object:self];
+                                 [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadFailed
+                                                                                     object:self];
                                  
                              }];
 }
