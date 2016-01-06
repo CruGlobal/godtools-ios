@@ -79,10 +79,9 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
     self.tableView.dataSource = self;
 
     self.refreshControl = [[UIRefreshControl alloc] init];
-    self.refreshControl.backgroundColor = [UIColor greenColor];
-    self.refreshControl.hidden = NO;
-    self.refreshControl.layer.zPosition = 1000;
-    [self.refreshControl addTarget:self.tableView action:@selector(setData) forControlEvents:UIControlEventValueChanged];
+    [self.refreshControl addTarget:self
+                            action:@selector(refreshDrafts)
+                  forControlEvents:UIControlEventValueChanged];
     
     [self.tableView addSubview:self.refreshControl];
     
