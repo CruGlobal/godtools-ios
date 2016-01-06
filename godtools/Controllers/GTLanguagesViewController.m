@@ -482,10 +482,10 @@ BOOL languageDownloadCancelled = NO;
                                                  name:GTDataImporterNotificationMenuUpdateFinished
                                                object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(updateStarted:)
-                                                 name:GTDataImporterNotificationUpdateStarted
-                                               object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(updateStarted:)
+//                                                 name:GTDataImporterNotificationUpdateStarted
+//                                               object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(updateFinished:)
@@ -512,9 +512,9 @@ BOOL languageDownloadCancelled = NO;
                                                     name: GTDataImporterNotificationLanguageDownloadFailed
                                                   object:nil];
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:GTDataImporterNotificationUpdateStarted
-                                                  object:nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self
+//                                                    name:GTDataImporterNotificationUpdateStarted
+//                                                  object:nil];
 
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:GTDataImporterNotificationMenuUpdateFinished
