@@ -52,36 +52,6 @@ BOOL languageDownloadCancelled = NO;
     }else{
         [self setTitle : NSLocalizedString(@"menu_item_languages", nil)];
     }
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(languageDownloadProgressMade)
-                                                 name: GTDataImporterNotificationLanguageDownloadProgressMade
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(languageDownloadFinished)
-                                                 name: GTDataImporterNotificationLanguageDownloadFinished
-                                               object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(languageDownloadFailed)
-                                                 name: GTDataImporterNotificationLanguageDownloadFailed
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(setData)
-                                                 name:GTDataImporterNotificationMenuUpdateFinished
-                                               object:nil];
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(updateFinished:)
-												 name:GTDataImporterNotificationUpdateFinished
-											   object:nil];
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(updateFailed:)
-												 name:GTDataImporterNotificationUpdateFailed
-											   object:nil];
     
     self.buttonLessAlert        = [[UIAlertView alloc]
                                    initWithTitle:@""
@@ -102,6 +72,11 @@ BOOL languageDownloadCancelled = NO;
     [self.tableView setBackgroundView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GT4_HomeScreen_Background_ip5.png"]] ];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self registerListeners];
+}
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidDisappear:animated];
     
@@ -131,6 +106,8 @@ BOOL languageDownloadCancelled = NO;
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
     [self.afReachability stopMonitoring];
+
+    [self removeListeners];
 }
 
 -(void)languageDownloadProgressMade{
@@ -480,5 +457,63 @@ BOOL languageDownloadCancelled = NO;
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (void) registerListeners {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(languageDownloadProgressMade)
+                                                 name: GTDataImporterNotificationLanguageDownloadProgressMade
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(languageDownloadFinished)
+                                                 name: GTDataImporterNotificationLanguageDownloadFinished
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(languageDownloadFailed)
+                                                 name: GTDataImporterNotificationLanguageDownloadFailed
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(setData)
+                                                 name:GTDataImporterNotificationMenuUpdateFinished
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateFinished:)
+                                                 name:GTDataImporterNotificationUpdateFinished
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateFailed:)
+                                                 name:GTDataImporterNotificationUpdateFailed
+                                               object:nil];
+}
+
+- (void) removeListeners {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name: GTDataImporterNotificationLanguageDownloadProgressMade
+                                                  object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name: GTDataImporterNotificationLanguageDownloadFinished
+                                                  object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name: GTDataImporterNotificationLanguageDownloadFailed
+                                                  object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:GTDataImporterNotificationMenuUpdateFinished
+                                                  object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:GTDataImporterNotificationUpdateFinished
+                                                  object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:GTDataImporterNotificationUpdateFailed
+                                                  object:nil];
+}
 
 @end
