@@ -116,8 +116,6 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 									   cancelButtonTitle:NSLocalizedString(@"draft_publish_negative", nil)
 									   otherButtonTitles:NSLocalizedString(@"draft_publish_confirm", nil), nil];
     
-    [self registerListeners];
-    
     [self checkPhonesLanguage];
     
     // set navigation bar text and chevron color
@@ -148,6 +146,8 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
     }
     
     [self setData];
+
+    [self registerListeners];
 
     if(![self languageHasLivePackages:[self getCurrentPrimaryLanguage]]) {
         self.languageCode = @"en";
