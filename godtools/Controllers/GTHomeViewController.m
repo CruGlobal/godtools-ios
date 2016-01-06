@@ -148,7 +148,7 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 
     [self registerListeners];
 
-    if(![self languageHasLivePackages:[self getCurrentPrimaryLanguage]]) {
+    if(![self languageHasLivePackages:[self getCurrentPrimaryLanguage]] && ![self isTranslatorMode]) {
         self.languageCode = @"en";
         [[GTDefaults sharedDefaults] setCurrentLanguageCode:@"en" ];
         [self setData];
