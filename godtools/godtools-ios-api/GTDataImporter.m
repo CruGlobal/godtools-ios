@@ -475,73 +475,75 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
     NSLog(@"downloadPackagesForLanguageForImporter() ...");
 
    	NSParameterAssert(language);
-    NSLog(@"will download %@",language.name);
-	__weak typeof(self)weakSelf = self;
-	[self.api getResourcesForLanguage:language
-							 progress:^(NSNumber *percentage) {
-                                 NSLog(@"progress ...");
+    
+    if([[GTDefaults sharedDefaults] isInTranslatorMode] == [NSNumber numberWithBool:YES]){
+        [self downloadDraftsForLanguage:language];
+    }else{
+        
+        NSLog(@"will download %@",language.name);
+        __weak typeof(self)weakSelf = self;
+        [self.api getResourcesForLanguage:language
+                                 progress:^(NSNumber *percentage) {
+                                     NSLog(@"progress ...");
                                      [[NSNotificationCenter defaultCenter] postNotificationName:progressNotificationName
                                                                                          object:weakSelf
                                                                                        userInfo:@{GTDataImporterNotificationLanguageDownloadPercentageKey: percentage}];
-							 } success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSURL *targetPath) {
-                                 if(response.statusCode == 200){
-									 
-                                     RXMLElement *contents =[weakSelf.packageExtractor unzipResourcesAtTarget:targetPath forLanguage:language package:nil];
-									 
-									 if ([self importPackageContentsFromElement:contents forLanguage:language]) {
-										 
-										 if([GTDefaults sharedDefaults].isChoosingForMainLanguage){
-											 
-											 if([[[GTDefaults sharedDefaults]currentParallelLanguageCode] isEqualToString:language.code]){
-												 //[[GTDefaults sharedDefaults]setCurrentParallelLanguageCode:[[GTDefaults sharedDefaults] currentLanguageCode]];
-												 [[GTDefaults sharedDefaults]setCurrentParallelLanguageCode:nil];
-											 }
-											 
-											 
-											 [[GTDefaults sharedDefaults]setCurrentLanguageCode:language.code];
-											 
-										 }else{
-											 NSLog(@"set %@ as parallel",language.name );
-											 [[GTDefaults sharedDefaults]setCurrentParallelLanguageCode:language.code];
-										 }
-									 } else {
-										 
-										 NSError *error = [NSError errorWithDomain:GTDataImporterErrorDomain
-																			  code:GTDataImporterErrorCodeCouldNotSave
-																		  userInfo:nil];
-										 [self displayPackageImportError:error];
-										 
-									 }
-									 
-									 [[GTDefaults sharedDefaults] setTranslationDownloadStatus:@"finished"];
-									 
-                                 }else if(response.statusCode == 500){
-                                    NSString *errorMessage	= NSLocalizedString(@"packages_download_error", nil);
-                                     NSError *error = [NSError errorWithDomain:GTDataImporterErrorDomain
-                                                                             code:GTDataImporterErrorCodeInvalidXml
-                                                                         userInfo:@{NSLocalizedDescriptionKey: errorMessage}];
-                                     if(language.downloaded == [NSNumber numberWithBool:NO]){
+                                 } success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSURL *targetPath) {
+                                     if(response.statusCode == 200){
+                                         
+                                         RXMLElement *contents =[weakSelf.packageExtractor unzipResourcesAtTarget:targetPath forLanguage:language package:nil];
+                                         
+                                         if ([self importPackageContentsFromElement:contents forLanguage:language]) {
+                                             
+                                             if([GTDefaults sharedDefaults].isChoosingForMainLanguage){
+                                                 
+                                                 if([[[GTDefaults sharedDefaults]currentParallelLanguageCode] isEqualToString:language.code]){
+                                                     //[[GTDefaults sharedDefaults]setCurrentParallelLanguageCode:[[GTDefaults sharedDefaults] currentLanguageCode]];
+                                                     [[GTDefaults sharedDefaults]setCurrentParallelLanguageCode:nil];
+                                                 }
+                                                 
+                                                 
+                                                 [[GTDefaults sharedDefaults]setCurrentLanguageCode:language.code];
+                                                 
+                                             }else{
+                                                 NSLog(@"set %@ as parallel",language.name );
+                                                 [[GTDefaults sharedDefaults]setCurrentParallelLanguageCode:language.code];
+                                             }
+                                         } else {
+                                             
+                                             NSError *error = [NSError errorWithDomain:GTDataImporterErrorDomain
+                                                                                  code:GTDataImporterErrorCodeCouldNotSave
+                                                                              userInfo:nil];
+                                             [self displayPackageImportError:error];
+                                             
+                                         }
+                                         
+                                         [[GTDefaults sharedDefaults] setTranslationDownloadStatus:@"finished"];
+                                         
+                                     }else if(response.statusCode == 500){
+                                         NSString *errorMessage	= NSLocalizedString(@"packages_download_error", nil);
+                                         NSError *error = [NSError errorWithDomain:GTDataImporterErrorDomain
+                                                                              code:GTDataImporterErrorCodeInvalidXml
+                                                                          userInfo:@{NSLocalizedDescriptionKey: errorMessage}];
+                                         if(language.downloaded == [NSNumber numberWithBool:NO]){
+                                             [weakSelf displayDownloadPackagesRequestError:error];
+                                         }
+                                     }
+                                     [[NSNotificationCenter defaultCenter] postNotificationName:successNotificationName
+                                                                                         object:self
+                                                                                       userInfo:@{GTDataImporterNotificationKeyLanguage: language}];
+                                     
+                                 } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                                     if(!gtLanguageDownloadUserCancellation) {
                                          [weakSelf displayDownloadPackagesRequestError:error];
                                      }
-                                 }
-                                 if([[GTDefaults sharedDefaults] isInTranslatorMode] == [NSNumber numberWithBool:YES]){
-                                     [self downloadDraftsForLanguage:language];
-                                 }else{
-                                     [[NSNotificationCenter defaultCenter] postNotificationName:successNotificationName
-																						 object:self
-																					   userInfo:@{GTDataImporterNotificationKeyLanguage: language}];
-                                 }
-							 } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                 if(!gtLanguageDownloadUserCancellation) {
-                                     [weakSelf displayDownloadPackagesRequestError:error];
-                                 }
-                                 gtLanguageDownloadUserCancellation = FALSE;
-                                 [[NSNotificationCenter defaultCenter] postNotificationName:failureNotificationName
-																					 object:self
-																				   userInfo:@{GTDataImporterNotificationKeyLanguage: language}];
-							 }];
-
-	
+                                     gtLanguageDownloadUserCancellation = FALSE;
+                                     [[NSNotificationCenter defaultCenter] postNotificationName:failureNotificationName
+                                                                                         object:self
+                                                                                       userInfo:@{GTDataImporterNotificationKeyLanguage: language}];
+                                 }];
+    }
+    
 }
 
 - (void)cancelDownloadPackagesForLanguage {

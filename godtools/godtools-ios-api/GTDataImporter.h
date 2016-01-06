@@ -119,8 +119,6 @@
 
 - (BOOL)importPackageContentsFromElement:(RXMLElement *)contents forLanguage:(GTLanguage *)language ;
 
-- (void)downloadDraftsForLanguage:(GTLanguage *)language;
-
 - (void)createDraftsForLanguage:(GTLanguage *)language package:(GTPackage *)package;
 
 - (void)publishDraftForLanguage: (GTLanguage *)language package:(GTPackage *)package;
