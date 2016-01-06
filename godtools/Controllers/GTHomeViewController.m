@@ -162,6 +162,8 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:NO];
+    
+    [self removeListeners];
 }
 #pragma mark - Download packages methods
 -(void)downloadFinished:(NSNotification *) notification{
@@ -732,6 +734,49 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(downloadFinished:)
+                                                 name: GTDataImporterNotificationPublishDraftFail
+                                               object:nil];
+}
+
+- (void) removeListeners {
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                 name:GTDataImporterNotificationMenuUpdateFinished
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                 name:GTDataImporterNotificationMenuUpdateStarted
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                 name: GTDataImporterNotificationLanguageDownloadFinished
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                 name: GTDataImporterNotificationLanguageDownloadProgressMade
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                 name: GTDataImporterNotificationLanguageDraftsDownloadStarted
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                 name: GTDataImporterNotificationLanguageDraftsDownloadFinished
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                 name: GTDataImporterNotificationCreateDraftStarted
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                 name: GTDataImporterNotificationCreateDraftSuccessful
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                 name: GTDataImporterNotificationCreateDraftFail
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                 name: GTDataImporterNotificationPublishDraftStarted
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                 name: GTDataImporterNotificationPublishDraftSuccessful
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
                                                  name: GTDataImporterNotificationPublishDraftFail
                                                object:nil];
 }
