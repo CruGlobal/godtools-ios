@@ -282,6 +282,10 @@ BOOL languageDownloadCancelled = NO;
 			selectedLanguage = language;
             languageActionCell = cell;
             
+            [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadProgressMade
+                                                                object:weakSelf
+                                                              userInfo:nil];
+            
             [[GTDataImporter sharedImporter] downloadPackagesForLanguage:language
                                                     withProgressNotifier:GTDataImporterNotificationLanguageDownloadProgressMade
                                                      withSuccessNotifier:GTDataImporterNotificationLanguageDownloadFinished
