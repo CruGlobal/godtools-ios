@@ -50,7 +50,11 @@ BOOL languageDownloadCancelled = NO;
     }else{
         [self setTitle : NSLocalizedString(@"menu_item_languages", nil)];
     }
+
+    [self setData];
     
+    [self registerListeners];
+
     self.buttonLessAlert        = [[UIAlertView alloc]
                                    initWithTitle:@""
                                    message:@""
@@ -70,13 +74,6 @@ BOOL languageDownloadCancelled = NO;
     [self.tableView setBackgroundView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GT4_HomeScreen_Background_ip5.png"]] ];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    [self setData];
-    
-    [self registerListeners];
-}
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidDisappear:animated];
     
