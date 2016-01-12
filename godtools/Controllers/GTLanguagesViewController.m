@@ -447,8 +447,10 @@ BOOL languageDownloadCancelled = NO;
     
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 
+    GTLanguage *currentlySelected =  (GTLanguage*)[self.languages objectAtIndex:indexPath.section];
+    
     // download language if not yet downloaded
-    if(!selectedLanguage.downloaded) {
+    if(!currentlySelected.downloaded) {
 		
         languageActionCell = (GTLanguageViewCell *)[tableView cellForRowAtIndexPath:indexPath];
 		[self downloadLanguageAtCell:languageActionCell];
