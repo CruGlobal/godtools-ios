@@ -45,8 +45,6 @@ BOOL languageDownloadCancelled = NO;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setData];
-    
     if([GTDefaults sharedDefaults].isChoosingForMainLanguage){
         [self setTitle : NSLocalizedString(@"menu_item_languages", nil)];
     }else{
@@ -74,6 +72,8 @@ BOOL languageDownloadCancelled = NO;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    [self setData];
     
     [self registerListeners];
 }
@@ -151,8 +151,6 @@ BOOL languageDownloadCancelled = NO;
     
     self.languages = [sortedArray mutableCopy];
     
-    
-    
     if(![GTDefaults sharedDefaults].isChoosingForMainLanguage) {
 		
 		GTLanguage *main = [[GTStorage sharedStorage] languageWithCode:[GTDefaults sharedDefaults].currentLanguageCode];
@@ -165,7 +163,7 @@ BOOL languageDownloadCancelled = NO;
     NSPredicate *predicate = [[NSPredicate alloc]init];
     
     if([[GTDefaults sharedDefaults] isInTranslatorMode] == [NSNumber numberWithBool:YES]){
-		predicate = [NSPredicate predicateWithFormat:@"packages.@count > 0"];
+		predicate = [NSPredicate predicateWithFormat:@"packages.@count >= 0"];
     } else {
 		predicate = [NSPredicate predicateWithFormat:@"packages.@count > 0 AND ANY packages.status == %@",@"live"];
     }
