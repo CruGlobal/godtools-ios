@@ -17,6 +17,8 @@
 		4F20B3D91AC9A2F60026DC9E /* EveryStudentItemsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F20B3CF1AC9A2F60026DC9E /* EveryStudentItemsController.m */; };
 		4F20B3DA1AC9A2F60026DC9E /* EveryStudentItemsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F20B3D01AC9A2F60026DC9E /* EveryStudentItemsController.xib */; };
 		4F20B3DB1AC9A2F60026DC9E /* EveryStudentSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F20B3D21AC9A2F60026DC9E /* EveryStudentSearchCell.m */; };
+		4F3992BB1C49645500CE692E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F3992BA1C49645500CE692E /* SystemConfiguration.framework */; };
+		4F3992BF1C49658100CE692E /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F3992BE1C49658100CE692E /* Reachability.m */; };
 		4F62978D1AA8E0CC003E1A1C /* GTAccessCodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F62978C1AA8E0CC003E1A1C /* GTAccessCodeController.m */; };
 		4FE1E6E51ADEF69700133A3E /* GTGoogleAnalyticsTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE1E6E41ADEF69700133A3E /* GTGoogleAnalyticsTracker.m */; };
 		6692BB1C1A072B0C00B15355 /* GTDataImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 68464FD218E1CEBE00D14C2B /* GTDataImporter.m */; };
@@ -135,6 +137,9 @@
 		4F20B3D01AC9A2F60026DC9E /* EveryStudentItemsController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EveryStudentItemsController.xib; path = Controllers/EveryStudent/EveryStudentItemsController.xib; sourceTree = "<group>"; };
 		4F20B3D11AC9A2F60026DC9E /* EveryStudentSearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EveryStudentSearchCell.h; path = Controllers/EveryStudent/EveryStudentSearchCell.h; sourceTree = "<group>"; };
 		4F20B3D21AC9A2F60026DC9E /* EveryStudentSearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EveryStudentSearchCell.m; path = Controllers/EveryStudent/EveryStudentSearchCell.m; sourceTree = "<group>"; };
+		4F3992BA1C49645500CE692E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		4F3992BD1C49658100CE692E /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		4F3992BE1C49658100CE692E /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		4F62978B1AA8E06B003E1A1C /* GTAccessCodeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GTAccessCodeController.h; sourceTree = "<group>"; };
 		4F62978C1AA8E0CC003E1A1C /* GTAccessCodeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTAccessCodeController.m; path = Controllers/GTAccessCodeController.m; sourceTree = "<group>"; };
 		4FD1FB7B1BFE555F00A9B722 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -247,6 +252,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F3992BB1C49645500CE692E /* SystemConfiguration.framework in Frameworks */,
 				68740D1518D24F9A00D36C0E /* CoreGraphics.framework in Frameworks */,
 				68740D1718D24F9A00D36C0E /* UIKit.framework in Frameworks */,
 				68740D1318D24F9A00D36C0E /* Foundation.framework in Frameworks */,
@@ -287,6 +293,15 @@
 				4F20B3D21AC9A2F60026DC9E /* EveryStudentSearchCell.m */,
 			);
 			name = EveryStudent;
+			sourceTree = "<group>";
+		};
+		4F3992BC1C49656800CE692E /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				4F3992BD1C49658100CE692E /* Reachability.h */,
+				4F3992BE1C49658100CE692E /* Reachability.m */,
+			);
+			name = Reachability;
 			sourceTree = "<group>";
 		};
 		66D1D6551A09F40F00AC4E48 /* Resources */ = {
@@ -376,6 +391,7 @@
 		68740D1118D24F9A00D36C0E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4F3992BA1C49645500CE692E /* SystemConfiguration.framework */,
 				68740D1218D24F9A00D36C0E /* Foundation.framework */,
 				68740D1418D24F9A00D36C0E /* CoreGraphics.framework */,
 				68740D1618D24F9A00D36C0E /* UIKit.framework */,
@@ -463,6 +479,7 @@
 		68E6065E18D3834300844377 /* godtools-ios-api */ = {
 			isa = PBXGroup;
 			children = (
+				4F3992BC1C49656800CE692E /* Reachability */,
 				68464FB818E1CCA500D14C2B /* Error Handling */,
 				68464FB718E1CC3D00D14C2B /* Persistence */,
 				68E6066B18D383EE00844377 /* Models */,
@@ -802,6 +819,7 @@
 				68FB9CC9192D46800009C9A8 /* AFHTTPRequestSerializer+GTAPIHelpers.m in Sources */,
 				B7C6B6101A2EEE73000DD4C6 /* GTViewController+Helper.m in Sources */,
 				68ED6AB21B8B6E9D00D3A63B /* GTPackageExtractor.m in Sources */,
+				4F3992BF1C49658100CE692E /* Reachability.m in Sources */,
 				68A1CBFD18DB6C3B00D84F12 /* GTDefaults.m in Sources */,
 				4F20B3D91AC9A2F60026DC9E /* EveryStudentItemsController.m in Sources */,
 				B7D2AF8E1A43F131009B7D5B /* GTSettingsAboutGodToolsViewController.m in Sources */,

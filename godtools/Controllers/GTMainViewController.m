@@ -14,6 +14,8 @@
 #import "GTHomeViewController.h"
 #import "GTGoogleAnalyticsTracker.h"
 
+#import "Reachability.h"
+
 NSString * const GTSplashErrorDomain				= @"org.cru.godtools.gtsplashviewcontroller.error.domain";
 NSInteger const GTSplashErrorCodeInitialSetupFailed = 1;
 
@@ -85,17 +87,17 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
         //prepare initial content
         [self persistLocalEnglishPackage];
         [self persistLocalMetaData];
-		
-		//download phone's language
-		[self downloadPhonesLanguage];
-		
-	} else {
+        
+        //download phone's language
+        [self downloadPhonesLanguage];
+        
+    } else {
         [self leavePreviewMode];
-		[self registerListenersForMenuUpdate];
-		[self updateMenu];
-		[self goToHome];
-	}
-	
+        [self registerListenersForMenuUpdate];
+        [self updateMenu];
+        [self goToHome];
+    }
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -367,21 +369,24 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 
 - (void)askToUpdate:(NSNotification *)notification {
 	
-	//don't ask user to update if in translator mode
-	if ([[GTDefaults sharedDefaults].isInTranslatorMode isEqual: @YES]) {
-		return;
-	}
-	
-	NSNumber *numberOfUpdatesAvailable = notification.userInfo[GTDataImporterNotificationNewVersionsAvailableKeyNumberAvailable];
-	
-	NSString *message = [NSLocalizedString(@"new_updates_available_body", nil) stringByReplacingOccurrencesOfString:@"{{number_of_updates}}" withString:[numberOfUpdatesAvailable stringValue]];
-	UIAlertView *confirmationAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"new_updates_available_title", nil)
-																message:message
-															   delegate:self
-													  cancelButtonTitle:nil
-													  otherButtonTitles:NSLocalizedString(@"yes", nil), NSLocalizedString(@"no", nil), nil];
-	[confirmationAlert show];
-	
+    //don't ask user to update if in translator mode
+    if ([[GTDefaults sharedDefaults].isInTranslatorMode isEqual: @YES]) {
+        return;
+    }
+    
+    if ([self isConnectedToWifi]) {
+        [[GTDataImporter sharedImporter] updatePackagesWithNewVersions];
+    } else {
+        NSNumber *numberOfUpdatesAvailable = notification.userInfo[GTDataImporterNotificationNewVersionsAvailableKeyNumberAvailable];
+        
+        NSString *message = [NSLocalizedString(@"new_updates_available_body", nil) stringByReplacingOccurrencesOfString:@"{{number_of_updates}}" withString:[numberOfUpdatesAvailable stringValue]];
+        UIAlertView *confirmationAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"new_updates_available_title", nil)
+                                                                    message:message
+                                                                   delegate:self
+                                                          cancelButtonTitle:nil
+                                                          otherButtonTitles:NSLocalizedString(@"yes", nil), NSLocalizedString(@"no", nil), nil];
+        [confirmationAlert show];
+    }
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -436,4 +441,9 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 - (void)leavePreviewMode {
     [[GTDefaults sharedDefaults] setIsInTranslatorMode:[NSNumber numberWithBool:NO]];
 }
+
+- (BOOL)isConnectedToWifi {
+    return[[Reachability reachabilityForLocalWiFi] currentReachabilityStatus] == ReachableViaWiFi;
+    }
+
 @end
