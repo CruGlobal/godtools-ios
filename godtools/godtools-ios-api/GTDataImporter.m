@@ -688,9 +688,9 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 		if (language == nil || [currentLanguage.code isEqualToString:language.code]) {
 			
 			[weakSelf downloadPackagesForLanguage:currentLanguage
-                             withProgressNotifier:GTDataImporterNotificationUpdateStarted
-                              withSuccessNotifier:GTDataImporterNotificationUpdateFinished
-                              withFailureNotifier:GTDataImporterNotificationUpdateFailed];
+							 withProgressNotifier:GTDataImporterNotificationMajorUpdateProgressMade
+							  withSuccessNotifier:GTDataImporterNotificationMajorUpdateFinished
+							  withFailureNotifier:GTDataImporterNotificationMajorUpdateFailed];
 		}
 	}];
 	
