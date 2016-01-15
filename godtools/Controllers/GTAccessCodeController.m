@@ -88,45 +88,17 @@
                                                   object:nil];
 }
 
-//-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-//    if(alertView == self.exitTranslatorModeAlert){
-//        if(buttonIndex == 1){
-//            [[GTDefaults sharedDefaults]setIsInTranslatorMode:[NSNumber numberWithBool:NO]];
-//            [self.translatorSwitch setOn:NO animated:YES];
-//        }else{
-//            [self.translatorSwitch setOn:YES animated:YES];
-//        }
-//    }else if(alertView == self.translatorModeAlert){
-//        if(buttonIndex == 1){
-//            [self addNotificationObservers];
-//            if([self.translatorModeAlert  textFieldAtIndex:0].text.length > 0){
-//                NSString *accessCode = [self.translatorModeAlert  textFieldAtIndex:0].text;
-//                [[GTDefaults sharedDefaults]setTranslatorAccessCode:accessCode];
-//                [[GTDataImporter sharedImporter]authorizeTranslator];
-//            }else{
-//                self.buttonLessAlert.message = NSLocalizedString(@"AlertMesssage_invalidAccessCode", nil);
-//                [self.buttonLessAlert show];
-//                [self performSelector:@selector(dismissAlertView:) withObject:self.buttonLessAlert afterDelay:2.0];
-//                [self.translatorSwitch setOn:NO animated:YES];
-//            }
-//        }else{
-//            [self.translatorSwitch setOn:NO animated:YES];
-//            [self.translatorModeAlert textFieldAtIndex:0].text = nil;
-//        }
-//    }
-//}
-
 # pragma mark - UI helper methods
 -(void) cancelButtonPressed {
     [self performSegueWithIdentifier:@"returnFromAccessCodeView" sender:self];
 }
 
 -(void) doneButtonPressed {
-    [self.accessCodeTextField resignFirstResponder];
+    [self.view endEditing:YES];
 }
 
 -(BOOL) textFieldShouldReturn:(UITextField *)textField{
-    [self.accessCodeTextField resignFirstResponder];
+    [self.view endEditing:YES];
     [self addNotificationObservers];
     
     NSString *accessCode = self.accessCodeTextField.text;
@@ -159,15 +131,10 @@
         self.accessCodeTextField.text = nil;
         
     }else if([notification.name isEqualToString:GTDataImporterNotificationAuthTokenUpdateSuccessful]){
-        
         if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]){
             self.accessCodeStatusAlert.message = NSLocalizedString(@"translator_enabled", nil);
             [self.accessCodeStatusAlert show];
             [self performSelector:@selector(dismissAlertView:) withObject:self.accessCodeStatusAlert afterDelay:2.0];
-            
-            GTLanguage *current = [[[GTStorage sharedStorage]fetchModel:[GTLanguage class] usingKey:@"code" forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:YES]objectAtIndex:0];
-            [GTDefaults sharedDefaults].isChoosingForMainLanguage = YES;
-            [[GTDataImporter sharedImporter]downloadPackagesForLanguage:current];
         }
     }
 }

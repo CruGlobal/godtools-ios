@@ -68,7 +68,7 @@
 - (void)addAccessoryViewWithButtonText:(NSString *)buttonText {
 	
 	UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-	button.frame = CGRectMake(0.0f, 0.0f, 150.0f, 25.0f);
+	button.frame = CGRectMake(0.0f, 0.0f, 100.0f, 25.0f);
 	
 	[button setTitle:( buttonText ? buttonText : NSLocalizedString(@"download", nil) )
 			forState:UIControlStateNormal];

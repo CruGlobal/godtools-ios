@@ -45,14 +45,16 @@ BOOL languageDownloadCancelled = NO;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setData];
-    
     if([GTDefaults sharedDefaults].isChoosingForMainLanguage){
         [self setTitle : NSLocalizedString(@"menu_item_languages", nil)];
     }else{
         [self setTitle : NSLocalizedString(@"menu_item_languages", nil)];
     }
+
+    [self setData];
     
+    [self registerListeners];
+
     self.buttonLessAlert        = [[UIAlertView alloc]
                                    initWithTitle:@""
                                    message:@""
@@ -72,11 +74,6 @@ BOOL languageDownloadCancelled = NO;
     [self.tableView setBackgroundView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GT4_HomeScreen_Background_ip5.png"]] ];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    [self registerListeners];
-}
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidDisappear:animated];
     
@@ -119,8 +116,9 @@ BOOL languageDownloadCancelled = NO;
     languageDownloadFailed = nil;
     [self hideLanguageDownloadIndicator];
     [self setData];
-	//once language is selected go back to settings page
-	[self.navigationController popViewControllerAnimated:YES];
+    
+    //once language is selected go back to settings page
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)languageDownloadFailed {
@@ -150,8 +148,6 @@ BOOL languageDownloadCancelled = NO;
     
     self.languages = [sortedArray mutableCopy];
     
-    
-    
     if(![GTDefaults sharedDefaults].isChoosingForMainLanguage) {
 		
 		GTLanguage *main = [[GTStorage sharedStorage] languageWithCode:[GTDefaults sharedDefaults].currentLanguageCode];
@@ -164,7 +160,7 @@ BOOL languageDownloadCancelled = NO;
     NSPredicate *predicate = [[NSPredicate alloc]init];
     
     if([[GTDefaults sharedDefaults] isInTranslatorMode] == [NSNumber numberWithBool:YES]){
-		predicate = [NSPredicate predicateWithFormat:@"packages.@count > 0"];
+		predicate = [NSPredicate predicateWithFormat:@"packages.@count >= 0"];
     } else {
 		predicate = [NSPredicate predicateWithFormat:@"packages.@count > 0 AND ANY packages.status == %@",@"live"];
     }
@@ -285,6 +281,10 @@ BOOL languageDownloadCancelled = NO;
 			
 			selectedLanguage = language;
             languageActionCell = cell;
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadProgressMade
+                                                                object:weakSelf
+                                                              userInfo:nil];
             
             [[GTDataImporter sharedImporter] downloadPackagesForLanguage:language
                                                     withProgressNotifier:GTDataImporterNotificationLanguageDownloadProgressMade
