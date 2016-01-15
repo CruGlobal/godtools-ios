@@ -36,7 +36,9 @@
 #define GTDataImporterNotificationPackageXmlDownloadProgressMade @"com.godtoolsapp.GTDataImporter.notifications.packageXmlDownloadProgressMade"
 #define GTDataImporterNotificationPackageXmlDownloadFinished @"com.godtoolsapp.GTDataImporter.notifications.packageXmlDownloadFinished"
 #define GTDataImporterNotificationPackageXmlDownloadFailed @"com.godtoolsapp.GTDataImporter.notifications.packageXmlDownloadFailed"
+
 #define GTDataImporterNotificationMajorUpdateProgressMade @"com.godtoolsapp.GTDataImporter.notifications.majorUpdateProgressMade"
+#define GTDataImporterNotificationMajorUpdateStarted @"com.godtoolsapp.GTDataImporter.notifications.majorUpdateStarted"
 #define GTDataImporterNotificationMajorUpdateFinished @"com.godtoolsapp.GTDataImporter.notifications.majorUpdateFinished"
 #define GTDataImporterNotificationMajorUpdateFailed @"com.godtoolsapp.GTDataImporter.notifications.majorUpdateFailure"
 #define GTDataImporterNotificationPackageDownloadProgressMade @"com.godtoolsapp.GTDataImporter.notifications.packageDownloadProgressMade"

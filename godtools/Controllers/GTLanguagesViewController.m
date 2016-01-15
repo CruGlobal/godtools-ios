@@ -494,6 +494,21 @@ BOOL languageDownloadCancelled = NO;
                                              selector:@selector(updateFailed:)
                                                  name:GTDataImporterNotificationUpdateFailed
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateStarted:)
+                                                 name:GTDataImporterNotificationMajorUpdateStarted
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateFinished:)
+                                                 name:GTDataImporterNotificationMajorUpdateFinished
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateFailed:)
+                                                 name:GTDataImporterNotificationMajorUpdateFailed
+                                               object:nil];
 }
 
 - (void) removeListeners {
@@ -525,6 +540,18 @@ BOOL languageDownloadCancelled = NO;
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:GTDataImporterNotificationUpdateFailed
                                                   object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                 name:GTDataImporterNotificationMajorUpdateStarted
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                 name:GTDataImporterNotificationMajorUpdateFinished
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                 name:GTDataImporterNotificationMajorUpdateFailed
+                                               object:nil];
 }
 
 @end
