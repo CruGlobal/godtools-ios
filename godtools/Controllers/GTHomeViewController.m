@@ -116,60 +116,6 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 									   cancelButtonTitle:NSLocalizedString(@"draft_publish_negative", nil)
 									   otherButtonTitles:NSLocalizedString(@"draft_publish_confirm", nil), nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                                selector:@selector(downloadFinished:)
-                                                 name:GTDataImporterNotificationMenuUpdateFinished
-                                                  object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(showDownloadIndicator:)
-                                                 name:GTDataImporterNotificationMenuUpdateStarted
-                                                  object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(downloadFinished:)
-                                                 name: GTDataImporterNotificationLanguageDownloadFinished
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(showDownloadIndicator:)
-                                                 name: GTDataImporterNotificationLanguageDownloadProgressMade
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(showDownloadIndicator:)
-                                                 name: GTDataImporterNotificationLanguageDraftsDownloadStarted
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(downloadFinished:)
-                                                 name: GTDataImporterNotificationLanguageDraftsDownloadFinished
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(showDownloadIndicator:)
-                                                 name: GTDataImporterNotificationCreateDraftStarted
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(refreshButtonPressed)
-                                                 name: GTDataImporterNotificationCreateDraftSuccessful
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(downloadFinished:)
-                                                 name: GTDataImporterNotificationCreateDraftFail
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(showDownloadIndicator:)
-                                                 name: GTDataImporterNotificationPublishDraftStarted
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(downloadFinished:)
-                                                 name: GTDataImporterNotificationPublishDraftSuccessful
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(downloadFinished:)
-                                                 name: GTDataImporterNotificationPublishDraftFail
-                                               object:nil];
-    
     [self checkPhonesLanguage];
     
     // set navigation bar text and chevron color
@@ -201,6 +147,8 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
     
     [self setData];
 
+    [self registerListeners];
+
     if(![self languageHasLivePackages:[self getCurrentPrimaryLanguage]]) {
         self.languageCode = @"en";
         [[GTDefaults sharedDefaults] setCurrentLanguageCode:@"en" ];
@@ -214,6 +162,8 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:NO];
+    
+    [self removeListeners];
 }
 #pragma mark - Download packages methods
 -(void)downloadFinished:(NSNotification *) notification{
@@ -784,4 +734,101 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
     [super didReceiveMemoryWarning];
 }
 
+- (void) registerListeners {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(downloadFinished:)
+                                                 name:GTDataImporterNotificationMenuUpdateFinished
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(showDownloadIndicator:)
+                                                 name:GTDataImporterNotificationMenuUpdateStarted
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(downloadFinished:)
+                                                 name: GTDataImporterNotificationLanguageDownloadFinished
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(showDownloadIndicator:)
+                                                 name: GTDataImporterNotificationLanguageDownloadProgressMade
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(showDownloadIndicator:)
+                                                 name: GTDataImporterNotificationLanguageDraftsDownloadStarted
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(downloadFinished:)
+                                                 name: GTDataImporterNotificationLanguageDraftsDownloadFinished
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(showDownloadIndicator:)
+                                                 name: GTDataImporterNotificationCreateDraftStarted
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(refreshButtonPressed)
+                                                 name: GTDataImporterNotificationCreateDraftSuccessful
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(downloadFinished:)
+                                                 name: GTDataImporterNotificationCreateDraftFail
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(showDownloadIndicator:)
+                                                 name: GTDataImporterNotificationPublishDraftStarted
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(downloadFinished:)
+                                                 name: GTDataImporterNotificationPublishDraftSuccessful
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(downloadFinished:)
+                                                 name: GTDataImporterNotificationPublishDraftFail
+                                               object:nil];
+}
+
+- (void) removeListeners {
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:GTDataImporterNotificationMenuUpdateFinished
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:GTDataImporterNotificationMenuUpdateStarted
+                                                  object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name: GTDataImporterNotificationLanguageDownloadFinished
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name: GTDataImporterNotificationLanguageDownloadProgressMade
+                                                  object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name: GTDataImporterNotificationLanguageDraftsDownloadStarted
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name: GTDataImporterNotificationLanguageDraftsDownloadFinished
+                                                  object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name: GTDataImporterNotificationCreateDraftStarted
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name: GTDataImporterNotificationCreateDraftSuccessful
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name: GTDataImporterNotificationCreateDraftFail
+                                                  object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name: GTDataImporterNotificationPublishDraftStarted
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name: GTDataImporterNotificationPublishDraftSuccessful
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name: GTDataImporterNotificationPublishDraftFail
+                                                  object:nil];
+}
 @end
