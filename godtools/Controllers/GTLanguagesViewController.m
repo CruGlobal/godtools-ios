@@ -430,7 +430,6 @@ BOOL languageDownloadCancelled = NO;
 
     // download language if not yet downloaded
     if(!chosen.downloaded) {
-		
         languageActionCell = (GTLanguageViewCell *)[tableView cellForRowAtIndexPath:indexPath];
 		[self downloadLanguageAtCell:languageActionCell];
 		

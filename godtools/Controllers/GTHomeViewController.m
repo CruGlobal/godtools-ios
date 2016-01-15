@@ -297,11 +297,9 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
     
     if(tableView == self.tableView){
         if(![self isTranslatorMode]) {
-            //every student is included for english only when not in translator mode, so add a cell
-            if([self.languageCode isEqualToString:@"en"]) {
+            //every student is included for every language so add to the count
+            //so that the cell will be created properly
                 return self.articles.count + 1;
-            }
-            return self.articles.count;
         }
         else {
             NSInteger articlesCount = self.articles.count;
@@ -359,6 +357,7 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
             
             [cell.contentView.layer setBorderColor:[UIColor lightTextColor].CGColor];
             [cell.contentView.layer setBorderWidth:1.0f];
+            
         } else if([self isTranslatorMode]){
             GTPackage *package = [self.articles objectAtIndex:indexPath.section];
             cell.titleLabel.text = package.name;
@@ -368,11 +367,19 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
             
             [cell.contentView.layer setBorderColor:nil];
             [cell.contentView.layer setBorderWidth:0.0];
+            
         } else if(currentSection >= self.articles.count){
             //block for every student cell
 			cell.titleLabel.text = @"Questions About God?"; //only appears in english list so shouldn't be translated
             [cell setUpBackground:(indexPath.section % 2) :NO :NO];
             cell.icon.image = [UIImage imageNamed:@"GT4_HomeScreen_ESIcon_.png"];
+            if(![self.languageCode  isEqual: @"en"]){
+                cell.contentView.alpha = 0.4;
+            }
+            else{
+                cell.contentView.alpha = 1.0;
+            }
+     
         } else {
             GTPackage *package = [self.articles objectAtIndex:indexPath.section];
             cell.titleLabel.text = package.name;
@@ -382,6 +389,7 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
             
             [cell.contentView.layer setBorderColor:nil];
             [cell.contentView.layer setBorderWidth:0.0];
+            
         }
         
         if([self.languageCode isEqualToString:@"am-ET"]){
@@ -412,6 +420,18 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
             cell.verticalLayoutConstraint.constant = 2.0;
             cell.backgroundView = nil;
         }
+        
+        if(![self isTranslatorMode] && indexPath.section < self.articles.count){
+            
+            GTPackage *tempPackage = [self.articles objectAtIndex:indexPath.section];
+            if(![self.languageCode  isEqual: @"en"] && [tempPackage.language.code isEqual:@"en"]){
+                cell.contentView.alpha = 0.4;
+            }
+            else{
+                cell.contentView.alpha = 1.0;
+            }
+        }
+      
         
         cell.showTranslatorOptionsButton.hidden = ![self isTranslatorMode];
         cell.delegate = self;
@@ -460,6 +480,10 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
     return [[GTStorage sharedStorage] findClosestLanguageTo:self.languageCode];
 }
 
+- (GTLanguage *) getEnglishLanguage{
+    return [[GTStorage sharedStorage] findClosestLanguageTo:@"en"];
+}
+
 - (void)setData {
     
     self.languageCode = [GTDefaults sharedDefaults].currentLanguageCode;
@@ -495,6 +519,33 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
       [NSSortDescriptor sortDescriptorWithKey:@"status" ascending:NO],
       [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES], nil]];
     
+    if(![self isTranslatorMode]){
+        GTLanguage *englishLanguage = [self getEnglishLanguage];
+        NSMutableArray *englishArticles = [[englishLanguage.packages allObjects]mutableCopy];
+        predicate = [NSPredicate predicateWithFormat:@"status == %@ AND configFile != nil",@"live"];
+        englishArticles =  [[englishArticles filteredArrayUsingPredicate:predicate]mutableCopy];
+        [englishArticles sortUsingDescriptors:
+         [NSArray arrayWithObjects:
+          [NSSortDescriptor sortDescriptorWithKey:@"status" ascending:NO],
+          [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES], nil]];
+    
+        if(self.articles.count < englishArticles.count)
+        {
+            __block BOOL same = NO;
+            [englishArticles enumerateObjectsUsingBlock:^(GTPackage *enPackage, NSUInteger enIndex, BOOL *enStop){
+                same = NO;
+                [self.articles enumerateObjectsUsingBlock:^(GTPackage *package, NSUInteger index, BOOL *stop){
+                    if([package.code isEqualToString: enPackage.code]){
+                        same = YES;
+                        *stop = @YES;
+                    }
+                }];
+                if(!same){
+                    [self.articles addObject:enPackage];
+                }
+            }];
+        }
+    }
 }
 
 #pragma mark - Language Methods
