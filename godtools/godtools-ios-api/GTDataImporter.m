@@ -350,11 +350,6 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 
 #pragma mark - Package downloading
 
-- (void)downloadXmlFilesForPackage:(GTPackage *)package {
-	NSLog(@"downloadXmlFilesForPackage() ...");
-	[self downloadXmlFilesForPackage:package withProgressNotifier:GTDataImporterNotificationPackageXmlDownloadProgressMade withSuccessNotifier:GTDataImporterNotificationPackageXmlDownloadFinished withFailureNotifier:GTDataImporterNotificationPackageXmlDownloadFailed];
-}
-
 - (void)downloadPackage:(GTPackage *)package {
 	NSLog(@"downloadPackage() ...");
 	[self downloadPackage:package withProgressNotifier:GTDataImporterNotificationPackageDownloadProgressMade withSuccessNotifier:GTDataImporterNotificationPackageDownloadFinished withFailureNotifier:GTDataImporterNotificationPackageDownloadFailed];
@@ -703,7 +698,11 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 		
 		if (language == nil || [package.language.code isEqualToString:language.code]) {
 			
-			[weakSelf downloadXmlFilesForPackage:package];
+			[weakSelf downloadXmlFilesForPackage:package
+                            withProgressNotifier:GTDataImporterNotificationUpdateStarted
+                             withSuccessNotifier:GTDataImporterNotificationUpdateFinished
+                             withFailureNotifier:GTDataImporterNotificationUpdateFailed];
+
 		}
 		
 	}];
