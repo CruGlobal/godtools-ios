@@ -480,10 +480,10 @@ BOOL languageDownloadCancelled = NO;
                                                  name:GTDataImporterNotificationMenuUpdateFinished
                                                object:nil];
     
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(updateStarted:)
-//                                                 name:GTDataImporterNotificationUpdateStarted
-//                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateStarted:)
+                                                 name:GTDataImporterNotificationUpdateStarted
+                                               object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(updateFinished:)
@@ -509,15 +509,15 @@ BOOL languageDownloadCancelled = NO;
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name: GTDataImporterNotificationLanguageDownloadFailed
                                                   object:nil];
-    
-//    [[NSNotificationCenter defaultCenter] removeObserver:self
-//                                                    name:GTDataImporterNotificationUpdateStarted
-//                                                  object:nil];
 
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:GTDataImporterNotificationMenuUpdateFinished
                                                   object:nil];
-    
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:GTDataImporterNotificationUpdateStarted
+                                                  object:nil];
+
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:GTDataImporterNotificationUpdateFinished
                                                   object:nil];
