@@ -383,12 +383,6 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 			cell.titleLabel.text = @"Questions About God?"; //only appears in english list so shouldn't be translated
             [cell setUpBackground:(indexPath.section % 2) :NO :NO];
             cell.icon.image = [UIImage imageNamed:@"GT4_HomeScreen_ESIcon_.png"];
-            if(![self.languageCode  isEqual: @"en"]){
-                cell.contentView.alpha = 0.4;
-            }
-            else{
-                cell.contentView.alpha = 1.0;
-            }
      
         } else {
             GTPackage *package = [self.articles objectAtIndex:indexPath.section];
@@ -429,17 +423,6 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
             cell.createOptionsView.hidden = YES;
             cell.verticalLayoutConstraint.constant = 2.0;
             cell.backgroundView = nil;
-        }
-        
-        if(![self isTranslatorMode] && indexPath.section < self.articles.count){
-            
-            GTPackage *tempPackage = [self.articles objectAtIndex:indexPath.section];
-            if(![self.languageCode  isEqual: @"en"] && [tempPackage.language.code isEqual:@"en"]){
-                cell.contentView.alpha = 0.4;
-            }
-            else{
-                cell.contentView.alpha = 1.0;
-            }
         }
       
         
