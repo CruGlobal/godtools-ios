@@ -90,6 +90,10 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
     self.isRefreshing = NO;
     
     self.articles = [[NSMutableArray alloc]init];
+    //Used to compare with current language count
+    GTLanguage* englishLanguage = [self getEnglishLanguage];
+    self.englishArticles = [[englishLanguage.packages allObjects]mutableCopy];
+    
     self.packagesWithNoDrafts = [[NSMutableArray alloc]init];
     
     self.languageCode = [[GTDefaults sharedDefaults]currentLanguageCode];
@@ -232,6 +236,12 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 				[self.instructionsOverlayView removeFromSuperview];
 				self.instructionsOverlayView.hidden = YES;
                 self.shouldShowInstructions = NO;
+                
+                 GTLanguage* currentLanguage = [self getCurrentPrimaryLanguage];
+                //Display message if currentLanguage is not English
+                if([currentLanguage.code isEqualToString:@"en"] || (![currentLanguage.code isEqualToString:@"en"] && currentLanguage.packages.count < self.englishArticles.count)){
+                    [self untranslatedPackageMessage];
+                }
 			}
 			
 		}];
@@ -514,25 +524,18 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
       [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES], nil]];
     
     if(![self isTranslatorMode]){
-        GTLanguage *englishLanguage = [self getEnglishLanguage];
-        NSMutableArray *englishArticles = [[englishLanguage.packages allObjects]mutableCopy];
         predicate = [NSPredicate predicateWithFormat:@"status == %@ AND configFile != nil",@"live"];
-        englishArticles =  [[englishArticles filteredArrayUsingPredicate:predicate]mutableCopy];
-        [englishArticles sortUsingDescriptors:
+        self.englishArticles =  [[self.englishArticles filteredArrayUsingPredicate:predicate]mutableCopy];
+        [self.englishArticles sortUsingDescriptors:
          [NSArray arrayWithObjects:
           [NSSortDescriptor sortDescriptorWithKey:@"status" ascending:NO],
           [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES], nil]];
     
-        if(self.articles.count < englishArticles.count)
+        if(self.articles.count < self.englishArticles.count)
         {
-            if(![[NSUserDefaults standardUserDefaults] valueForKey:@"missingLanguageAlertHasDisplayed"] && !self.shouldShowInstructions)
-            {
-                UIAlertView *missingPackagesAlert = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(@"less_packages_notification", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles: nil];
-                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"missingLanguageAlertHasDisplayed"];
-                [missingPackagesAlert show];
-            }
+            [self untranslatedPackageMessage];
             __block BOOL same = NO;
-            [englishArticles enumerateObjectsUsingBlock:^(GTPackage *enPackage, NSUInteger enIndex, BOOL *enStop){
+            [self.englishArticles enumerateObjectsUsingBlock:^(GTPackage *enPackage, NSUInteger enIndex, BOOL *enStop){
                 same = NO;
                 [self.articles enumerateObjectsUsingBlock:^(GTPackage *package, NSUInteger index, BOOL *stop){
                     if([package.code isEqualToString: enPackage.code]){
@@ -545,6 +548,15 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
                 }
             }];
         }
+    }
+}
+
+- (void)untranslatedPackageMessage{
+    
+    if(!self.shouldShowInstructions && ![[NSUserDefaults standardUserDefaults] valueForKey:@"missingLanguageAlertHasDisplayed"]){
+        UIAlertView *missingPackagesAlert = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(@"less_packages_notification", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles: nil];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"missingLanguageAlertHasDisplayed"];
+        [missingPackagesAlert show];
     }
 }
 
