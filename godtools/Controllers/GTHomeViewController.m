@@ -239,7 +239,7 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
                 
                  GTLanguage* currentLanguage = [self getCurrentPrimaryLanguage];
                 //Display message if currentLanguage is not English
-                if([currentLanguage.code isEqualToString:@"en"] || (![currentLanguage.code isEqualToString:@"en"] && currentLanguage.packages.count < self.englishArticles.count)){
+                if(![currentLanguage.code isEqualToString:@"en"] && currentLanguage.packages.count < self.englishArticles.count){
                     [self untranslatedPackageMessage];
                 }
 			}
