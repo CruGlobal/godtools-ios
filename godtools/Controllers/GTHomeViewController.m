@@ -231,6 +231,7 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 			if (self.instructionsOverlayView.superview) {
 				[self.instructionsOverlayView removeFromSuperview];
 				self.instructionsOverlayView.hidden = YES;
+                self.shouldShowInstructions = NO;
 			}
 			
 		}];
@@ -524,7 +525,7 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
     
         if(self.articles.count < englishArticles.count)
         {
-            if(![[NSUserDefaults standardUserDefaults] valueForKey:@"missingLanguageAlertHasDisplayed"])
+            if(![[NSUserDefaults standardUserDefaults] valueForKey:@"missingLanguageAlertHasDisplayed"] && !self.shouldShowInstructions)
             {
                 UIAlertView *missingPackagesAlert = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(@"less_packages_notification", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles: nil];
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"missingLanguageAlertHasDisplayed"];
