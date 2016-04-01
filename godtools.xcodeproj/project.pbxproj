@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		498E2278AF98C76BDF632C70 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74F8066D3A00B27C587FD9D9 /* libPods.a */; };
+		4F0C465A1CAEECDD007581A8 /* GTFollowUpSubscription.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F0C46571CAEECDD007581A8 /* GTFollowUpSubscription.m */; };
+		4F0C465B1CAEECDD007581A8 /* GTFollowUpSubscription+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F0C46591CAEECDD007581A8 /* GTFollowUpSubscription+CoreDataProperties.m */; };
 		4F20B3D31AC9A2F60026DC9E /* EveryStudent.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4F20B3C51AC9A2F60026DC9E /* EveryStudent.xml */; };
 		4F20B3D41AC9A2F60026DC9E /* EveryStudentArticleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F20B3C71AC9A2F60026DC9E /* EveryStudentArticleView.m */; };
 		4F20B3D51AC9A2F60026DC9E /* EveryStudentArticleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F20B3C81AC9A2F60026DC9E /* EveryStudentArticleView.xib */; };
@@ -121,6 +123,11 @@
 
 /* Begin PBXFileReference section */
 		368D2F901C18B173F9C84776 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		4F0C464D1CAEE9A4007581A8 /* GTModel-3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "GTModel-3.xcdatamodel"; sourceTree = "<group>"; };
+		4F0C46561CAEECDD007581A8 /* GTFollowUpSubscription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTFollowUpSubscription.h; path = "follow-up-api/Models/GTFollowUpSubscription.h"; sourceTree = "<group>"; };
+		4F0C46571CAEECDD007581A8 /* GTFollowUpSubscription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTFollowUpSubscription.m; path = "follow-up-api/Models/GTFollowUpSubscription.m"; sourceTree = "<group>"; };
+		4F0C46581CAEECDD007581A8 /* GTFollowUpSubscription+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GTFollowUpSubscription+CoreDataProperties.h"; path = "follow-up-api/Models/GTFollowUpSubscription+CoreDataProperties.h"; sourceTree = "<group>"; };
+		4F0C46591CAEECDD007581A8 /* GTFollowUpSubscription+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GTFollowUpSubscription+CoreDataProperties.m"; path = "follow-up-api/Models/GTFollowUpSubscription+CoreDataProperties.m"; sourceTree = "<group>"; };
 		4F20B3C51AC9A2F60026DC9E /* EveryStudent.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = EveryStudent.xml; path = Controllers/EveryStudent/EveryStudent.xml; sourceTree = "<group>"; };
 		4F20B3C61AC9A2F60026DC9E /* EveryStudentArticleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EveryStudentArticleView.h; path = Controllers/EveryStudent/EveryStudentArticleView.h; sourceTree = "<group>"; };
 		4F20B3C71AC9A2F60026DC9E /* EveryStudentArticleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EveryStudentArticleView.m; path = Controllers/EveryStudent/EveryStudentArticleView.m; sourceTree = "<group>"; };
@@ -268,6 +275,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4F0C46541CAEEC17007581A8 /* followup-api */ = {
+			isa = PBXGroup;
+			children = (
+				4F0C46551CAEEC3B007581A8 /* Models */,
+			);
+			name = "followup-api";
+			sourceTree = "<group>";
+		};
+		4F0C46551CAEEC3B007581A8 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4F0C46561CAEECDD007581A8 /* GTFollowUpSubscription.h */,
+				4F0C46571CAEECDD007581A8 /* GTFollowUpSubscription.m */,
+				4F0C46581CAEECDD007581A8 /* GTFollowUpSubscription+CoreDataProperties.h */,
+				4F0C46591CAEECDD007581A8 /* GTFollowUpSubscription+CoreDataProperties.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		4F20B3C41AC9A2E00026DC9E /* EveryStudent */ = {
 			isa = PBXGroup;
 			children = (
@@ -388,6 +414,7 @@
 		68740D1818D24F9A00D36C0E /* godtools */ = {
 			isa = PBXGroup;
 			children = (
+				4F0C46541CAEEC17007581A8 /* followup-api */,
 				68E6065E18D3834300844377 /* godtools-ios-api */,
 				66D1D7031A0B406800AC4E48 /* Controllers */,
 				B76536BB1A0CC616001C3FC3 /* Views */,
@@ -798,11 +825,13 @@
 				68464FCF18E1CE4E00D14C2B /* GTStorageErrorHandler.m in Sources */,
 				B76536C11A0CC677001C3FC3 /* GTMainViewController.m in Sources */,
 				4F20B3D41AC9A2F60026DC9E /* EveryStudentArticleView.m in Sources */,
+				4F0C465B1CAEECDD007581A8 /* GTFollowUpSubscription+CoreDataProperties.m in Sources */,
 				B76536C01A0CC677001C3FC3 /* GTHomeViewController.m in Sources */,
 				68FB9CC9192D46800009C9A8 /* AFHTTPRequestSerializer+GTAPIHelpers.m in Sources */,
 				B7C6B6101A2EEE73000DD4C6 /* GTViewController+Helper.m in Sources */,
 				68ED6AB21B8B6E9D00D3A63B /* GTPackageExtractor.m in Sources */,
 				68A1CBFD18DB6C3B00D84F12 /* GTDefaults.m in Sources */,
+				4F0C465A1CAEECDD007581A8 /* GTFollowUpSubscription.m in Sources */,
 				4F20B3D91AC9A2F60026DC9E /* EveryStudentItemsController.m in Sources */,
 				B7D2AF8E1A43F131009B7D5B /* GTSettingsAboutGodToolsViewController.m in Sources */,
 				4F20B3DB1AC9A2F60026DC9E /* EveryStudentSearchCell.m in Sources */,
@@ -1161,10 +1190,11 @@
 		68740D4718D259AA00D36C0E /* GTModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				4F0C464D1CAEE9A4007581A8 /* GTModel-3.xcdatamodel */,
 				68278EAA1BCC4BA400472483 /* GTModel-2.xcdatamodel */,
 				68740D4818D259AA00D36C0E /* GTModel.xcdatamodel */,
 			);
-			currentVersion = 68278EAA1BCC4BA400472483 /* GTModel-2.xcdatamodel */;
+			currentVersion = 4F0C464D1CAEE9A4007581A8 /* GTModel-3.xcdatamodel */;
 			path = GTModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

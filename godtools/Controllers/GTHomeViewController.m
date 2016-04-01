@@ -130,7 +130,7 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-        
+    
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0]];
     [self.navigationController.navigationBar setTintColor:[UIColor colorWithRed: 0.0 green:0.5 blue:1.0 alpha:1.0]];
     [self.navigationController.navigationBar setTranslucent:YES]; // required for iOS7
