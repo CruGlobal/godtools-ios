@@ -11,7 +11,7 @@
 @implementation GTFollowUpSubscription
 
 - (NSArray *)loadSubscriptionsNeedingAPITranmission {
-    return [GTFollowUpSubscription MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"!apiTransmissionSuccess"]];
+    return [GTFollowUpSubscription MR_findAll];
 }
 
 
@@ -37,6 +37,15 @@
                                                                        toRoute:routeId];
     subscription.contextId = contextId;
     subscription.followUpId = followUpId;
+    
+    return subscription;
+}
+
+- (instancetype)createNewSubscriptionForEmail:(NSString *)emailAddress inLanguage:(NSString *)language toRoute:(NSString *) routeId {
+    GTFollowUpSubscription *subscription = [self createNewSubscriptionForEmail:emailAddress
+                                                                       toRoute:routeId];
+    
+    subscription.languageCode = language;
     
     return subscription;
 }
