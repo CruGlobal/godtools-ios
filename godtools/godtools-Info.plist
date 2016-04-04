@@ -54,6 +54,8 @@
 		<string>NotoSansEthiopic-Regular.ttf</string>
 		<string>NotoSansEthiopic-Bold.ttf</string>
 	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>GTSplashScreenView</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>
