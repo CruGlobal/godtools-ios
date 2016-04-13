@@ -10,6 +10,7 @@
 		498E2278AF98C76BDF632C70 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74F8066D3A00B27C587FD9D9 /* libPods.a */; };
 		4F0C465A1CAEECDD007581A8 /* GTFollowUpSubscription.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F0C46571CAEECDD007581A8 /* GTFollowUpSubscription.m */; };
 		4F0C465B1CAEECDD007581A8 /* GTFollowUpSubscription+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F0C46591CAEECDD007581A8 /* GTFollowUpSubscription+CoreDataProperties.m */; };
+		4F204CB01CB2B0F800F1CBD7 /* FollowUpAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F204CAF1CB2B0F800F1CBD7 /* FollowUpAPI.m */; };
 		4F20B3D31AC9A2F60026DC9E /* EveryStudent.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4F20B3C51AC9A2F60026DC9E /* EveryStudent.xml */; };
 		4F20B3D41AC9A2F60026DC9E /* EveryStudentArticleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F20B3C71AC9A2F60026DC9E /* EveryStudentArticleView.m */; };
 		4F20B3D51AC9A2F60026DC9E /* EveryStudentArticleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F20B3C81AC9A2F60026DC9E /* EveryStudentArticleView.xib */; };
@@ -128,6 +129,8 @@
 		4F0C46571CAEECDD007581A8 /* GTFollowUpSubscription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTFollowUpSubscription.m; path = "follow-up-api/Models/GTFollowUpSubscription.m"; sourceTree = "<group>"; };
 		4F0C46581CAEECDD007581A8 /* GTFollowUpSubscription+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GTFollowUpSubscription+CoreDataProperties.h"; path = "follow-up-api/Models/GTFollowUpSubscription+CoreDataProperties.h"; sourceTree = "<group>"; };
 		4F0C46591CAEECDD007581A8 /* GTFollowUpSubscription+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GTFollowUpSubscription+CoreDataProperties.m"; path = "follow-up-api/Models/GTFollowUpSubscription+CoreDataProperties.m"; sourceTree = "<group>"; };
+		4F204CAE1CB2B0D400F1CBD7 /* FollowUpAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FollowUpAPI.h; path = "follow-up-api/FollowUpAPI.h"; sourceTree = "<group>"; };
+		4F204CAF1CB2B0F800F1CBD7 /* FollowUpAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FollowUpAPI.m; path = "follow-up-api/FollowUpAPI.m"; sourceTree = "<group>"; };
 		4F20B3C51AC9A2F60026DC9E /* EveryStudent.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = EveryStudent.xml; path = Controllers/EveryStudent/EveryStudent.xml; sourceTree = "<group>"; };
 		4F20B3C61AC9A2F60026DC9E /* EveryStudentArticleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EveryStudentArticleView.h; path = Controllers/EveryStudent/EveryStudentArticleView.h; sourceTree = "<group>"; };
 		4F20B3C71AC9A2F60026DC9E /* EveryStudentArticleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EveryStudentArticleView.m; path = Controllers/EveryStudent/EveryStudentArticleView.m; sourceTree = "<group>"; };
@@ -279,6 +282,8 @@
 			isa = PBXGroup;
 			children = (
 				4F0C46551CAEEC3B007581A8 /* Models */,
+				4F204CAE1CB2B0D400F1CBD7 /* FollowUpAPI.h */,
+				4F204CAF1CB2B0F800F1CBD7 /* FollowUpAPI.m */,
 			);
 			name = "followup-api";
 			sourceTree = "<group>";
@@ -835,6 +840,7 @@
 				4F20B3D91AC9A2F60026DC9E /* EveryStudentItemsController.m in Sources */,
 				B7D2AF8E1A43F131009B7D5B /* GTSettingsAboutGodToolsViewController.m in Sources */,
 				4F20B3DB1AC9A2F60026DC9E /* EveryStudentSearchCell.m in Sources */,
+				4F204CB01CB2B0F800F1CBD7 /* FollowUpAPI.m in Sources */,
 				4F20B3D61AC9A2F60026DC9E /* EveryStudentCell.m in Sources */,
 				4FE1E6E51ADEF69700133A3E /* GTGoogleAnalyticsTracker.m in Sources */,
 				B76536DA1A0CD2CF001C3FC3 /* GTLanguageViewCell.m in Sources */,
