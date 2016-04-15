@@ -120,20 +120,19 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 									   otherButtonTitles:NSLocalizedString(@"draft_publish_confirm", nil), nil];
     
     [self checkPhonesLanguage];
-    
-    // set navigation bar text and chevron color
-    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
-    // set navigation bar background color
-    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:0.67 green:0.93 blue:0.93 alpha:1.0]];
-    [self.navigationController.navigationBar setTranslucent:NO]; // required for iOS7
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-        
-    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0]];
+    
     [self.navigationController.navigationBar setTintColor:[UIColor colorWithRed: 0.0 green:0.5 blue:1.0 alpha:1.0]];
-    [self.navigationController.navigationBar setTranslucent:YES]; // required for iOS7
+    
+    if ([self.navigationController.navigationBar respondsToSelector:@selector(setBarTintColor:)] &&
+        [self.navigationController.navigationBar respondsToSelector:@selector(setTranslucent:)]) {
+        [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0]];
+        [self.navigationController.navigationBar setTranslucent:YES]; // required for iOS7
+    }
+    
     self.navigationController.navigationBar.topItem.title = nil;
     
     [self.navigationController setNavigationBarHidden:YES];
