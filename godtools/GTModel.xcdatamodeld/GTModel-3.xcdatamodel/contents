@@ -7,6 +7,7 @@
         <attribute name="emailAddress" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="followUpId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="languageCode" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="recordedTimestamp" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="routeId" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
@@ -35,7 +36,7 @@
         <relationship name="language" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GTLanguage" inverseName="packages" inverseEntity="GTLanguage" syncable="YES"/>
     </entity>
     <elements>
-        <element name="GTFollowUpSubscription" positionX="-54" positionY="108" width="128" height="165"/>
+        <element name="GTFollowUpSubscription" positionX="-54" positionY="108" width="128" height="180"/>
         <element name="GTLanguage" positionX="-63" positionY="-18" width="128" height="135"/>
         <element name="GTPackage" positionX="-54" positionY="-9" width="128" height="255"/>
     </elements>

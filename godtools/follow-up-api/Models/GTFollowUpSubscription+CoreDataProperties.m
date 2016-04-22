@@ -13,6 +13,7 @@
 
 @implementation GTFollowUpSubscription (CoreDataProperties)
 
+@dynamic name;
 @dynamic emailAddress;
 @dynamic followUpId;
 @dynamic contextId;

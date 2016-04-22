@@ -17,9 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray *)loadSubscriptionsNeedingAPITranmission;
 
 - (instancetype)createNewSubscription;
-- (instancetype)createNewSubscriptionForEmail:(NSString *)emailAddress toRoute:(NSString *)routeId;
-- (instancetype)createNewSubscriptionForEmail:(NSString *)emailAddress toRoute:(NSString *)routeId withContext:(NSString *)contextId andFollowUp:(NSString *)followUpId;
 - (instancetype)createNewSubscriptionForEmail:(NSString *)emailAddress inLanguage:(NSString *)language toRoute:(NSString *) routeId;
+- (instancetype)createNewSubscriptionForEmail:(NSString *)emailAddress forName:(NSString *)name inLanguage:(NSString *)language toRoute:(NSString *) routeId;
 @end
 
 NS_ASSUME_NONNULL_END
