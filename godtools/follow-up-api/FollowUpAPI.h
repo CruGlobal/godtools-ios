@@ -21,5 +21,5 @@
 - (BOOL)isReachable;
 
 - (void)sendNewSubscription:(GTFollowUpSubscription *)subscriber;
-- (void)sendNewSubscription:(GTFollowUpSubscription *)subscriber onSuccess:(void (^)(AFHTTPRequestOperation *, id))successBlock onFailure:(void (^)(AFHTTPRequestOperation *, id)) failureBlock;
+- (void)sendNewSubscription:(GTFollowUpSubscription *)subscriber onSuccess:(void (^)(AFHTTPRequestOperation *, id))successBlock onFailure:(void (^)(AFHTTPRequestOperation *, NSError *)) failureBlock;
 @end

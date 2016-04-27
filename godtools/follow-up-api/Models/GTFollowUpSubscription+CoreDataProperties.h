@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GTFollowUpSubscription (CoreDataProperties)
 
+@property (nullable, nonatomic, retain) NSString *name;
 @property (nullable, nonatomic, retain) NSString *emailAddress;
 @property (nullable, nonatomic, retain) NSString *followUpId;
 @property (nullable, nonatomic, retain) NSString *contextId;

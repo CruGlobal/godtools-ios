@@ -32,15 +32,6 @@
 }
 
 
-- (instancetype)createNewSubscriptionForEmail:(NSString *)emailAddress toRoute:(NSString *)routeId withContext:(NSString *)contextId andFollowUp:(NSString *)followUpId {
-    GTFollowUpSubscription *subscription = [self createNewSubscriptionForEmail:emailAddress
-                                                                       toRoute:routeId];
-    subscription.contextId = contextId;
-    subscription.followUpId = followUpId;
-    
-    return subscription;
-}
-
 - (instancetype)createNewSubscriptionForEmail:(NSString *)emailAddress inLanguage:(NSString *)language toRoute:(NSString *) routeId {
     GTFollowUpSubscription *subscription = [self createNewSubscriptionForEmail:emailAddress
                                                                        toRoute:routeId];
@@ -49,5 +40,17 @@
     
     return subscription;
 }
+
+
+- (instancetype)createNewSubscriptionForEmail:(NSString *)emailAddress forName:(NSString *)name inLanguage:(NSString *)language toRoute:(NSString *) routeId {
+    GTFollowUpSubscription *subscription = [self createNewSubscriptionForEmail:emailAddress
+                                                                    inLanguage:language
+                                                                       toRoute:routeId];
+    
+    subscription.name = name;
+    
+    return subscription;
+}
+
 
 @end
