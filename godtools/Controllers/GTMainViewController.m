@@ -13,6 +13,8 @@
 #import "GTSplashScreenView.h"
 #import "GTHomeViewController.h"
 #import "GTGoogleAnalyticsTracker.h"
+#import "FollowUpAPI.h"
+#import "GTFollowUpSubscription.h"
 
 NSString * const GTSplashErrorDomain				= @"org.cru.godtools.gtsplashviewcontroller.error.domain";
 NSInteger const GTSplashErrorCodeInitialSetupFailed = 1;
@@ -92,6 +94,7 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 	} else {
         [self leavePreviewMode];
 		[self registerListenersForMenuUpdate];
+        [self sendCachedFollowupSubscriptions];
 		[self updateMenu];
 		[self goToHome];
 	}
@@ -216,6 +219,31 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 	[self updateMenu];
 	
 }
+
+
+- (void)sendCachedFollowupSubscriptions {
+    NSArray *subscriptions = [GTFollowUpSubscription MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"apiTransmissionSuccess == nil || apiTransmissionSuccess == NO"]];
+    
+    [subscriptions enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        GTFollowUpSubscription *subscription = obj;
+        [[FollowUpAPI sharedAPI] sendNewSubscription:subscription
+                                           onSuccess:^(AFHTTPRequestOperation *request, id obj) {
+                                               [MagicalRecord saveUsingCurrentThreadContextWithBlock:^(NSManagedObjectContext *localContext) {
+                                                   subscription.apiTransmissionSuccess = @YES;
+                                                   subscription.apiTransmissionTimestamp = [NSDate date];
+                                               } completion:nil];
+                                           }
+                                           onFailure:^(AFHTTPRequestOperation *request, NSError *error) {
+                                               [MagicalRecord saveUsingCurrentThreadContextWithBlock:^(NSManagedObjectContext *localContext) {
+                                                   subscription.apiTransmissionSuccess = @NO;
+                                                   subscription.apiTransmissionTimestamp = [NSDate date];
+                                               } completion:nil];
+                                               
+                                           }];
+        
+    }];
+}
+
 
 #pragma mark - memory management methods
 
