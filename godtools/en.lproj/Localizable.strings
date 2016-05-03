@@ -178,9 +178,3 @@ Let’s talk more!";
 "corrupt_database_error" = "Your database has become corrupted. Please uninstall the app and then reinstall it. If the problem persists please contact support@godtoolsapp.com";
 "less_packages_notification" = "Untranslated items will appear in English.";
 
-/*GTViewController strings */
-"GTInputFieldView_validationMessage_empty"           = "%@ was empty";
-"GTInputFieldView_validationMessage_badFormat"       = "%@ was not properly formatted";
-
-"GTFollowupViewController_validation_title"          = "Please correct these fields:";
-

@@ -222,10 +222,9 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 
 
 - (void)sendCachedFollowupSubscriptions {
-    NSArray *subscriptions = [GTFollowUpSubscription MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"apiTransmissionSuccess == nil || apiTransmissionSuccess == NO"]];
+    NSArray *subscriptions = [GTFollowUpSubscription MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"apiTransmissionSuccess == NIL || apiTransmissionSuccess == NO"]];
     
-    [subscriptions enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        GTFollowUpSubscription *subscription = obj;
+    [subscriptions enumerateObjectsUsingBlock:^(GTFollowUpSubscription * _Nonnull subscription, NSUInteger idx, BOOL * _Nonnull stop) {
         [[FollowUpAPI sharedAPI] sendNewSubscription:subscription
                                            onSuccess:^(AFHTTPRequestOperation *request, id obj) {
                                                [MagicalRecord saveUsingCurrentThreadContextWithBlock:^(NSManagedObjectContext *localContext) {
