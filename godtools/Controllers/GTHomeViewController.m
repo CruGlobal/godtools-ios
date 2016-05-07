@@ -16,8 +16,13 @@
 #import "GTDefaults.h"
 #import "GTConfig.h"
 #import "EveryStudentController.h"
-
 #import "GTGoogleAnalyticsTracker.h"
+
+#import "GTFollowupViewController.h"
+#import "GTFollowUpSubscription.h"
+#import "FollowUpAPI.h"
+
+#import "EDSemver.h"
 
 NSString *const GTHomeViewControllerShareCampaignSource        = @"godtools-ios";
 NSString *const GTHomeViewControllerShareCampaignMedium        = @"email";
@@ -52,6 +57,8 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 
 @property  BOOL isRefreshing;
 @property (strong, nonatomic) NSString *selectedSectionNumber;
+
+@property (strong, nonatomic) NSMutableDictionary *versionsDictionary;
 
 - (void)dismissInstructions:(UITapGestureRecognizer *)gestureRecognizer;
 - (IBAction)settingsButtonPressed:(id)sender;
@@ -124,7 +131,6 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
     [self.navigationController.navigationBar setTintColor:[UIColor colorWithRed: 0.0 green:0.5 blue:1.0 alpha:1.0]];
     
     if ([self.navigationController.navigationBar respondsToSelector:@selector(setBarTintColor:)] &&
@@ -157,7 +163,11 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
         [self setData];
     }
     
+    self.versionsDictionary = [[NSMutableDictionary alloc]initWithCapacity:4];
+    
     [[[GTGoogleAnalyticsTracker sharedInstance] setScreenName:@"HomeScreen"] sendScreenView];
+    
+    [self unregisterFollowupListener];
     
     [self.tableView reloadData];
 }
@@ -369,6 +379,7 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
         
         if([self isTranslatorMode] && currentSection >= self.articles.count) {
             GTPackage *package = [self.packagesWithNoDrafts objectAtIndex:(indexPath.section - self.articles.count)];
+            
             cell.titleLabel.text = package.name;
 
             [cell setUpBackground:(indexPath.section % 2) :YES :YES];
@@ -392,10 +403,19 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
             //block for every student cell
 			cell.titleLabel.text = @"Questions About God?"; //only appears in english list so shouldn't be translated
             [cell setUpBackground:(indexPath.section % 2) :NO :NO];
-            cell.icon.image = [UIImage imageNamed:@"GT4_HomeScreen_ESIcon_.png"];
-     
+            
+            EDSemver *kgpSemver = [self.versionsDictionary valueForKey:@"kgp"];
+            
+            if([kgpSemver isGreaterThan:[EDSemver semverWithString:@"1.8"]]) {
+                cell.icon.image = [UIImage imageNamed:@"EveryStudent4.2Icon.png"];
+            } else {
+                cell.icon.image = [UIImage imageNamed:@"GT4_HomeScreen_ESIcon_.png"];
+            }
         } else {
             GTPackage *package = [self.articles objectAtIndex:indexPath.section];
+            
+            [self.versionsDictionary setValue:[EDSemver semverWithString:package.localSemanticVersion ] forKey:package.code];
+
             cell.titleLabel.text = package.name;
             
             cell.icon.image = [[GTFileLoader sharedInstance] imageWithFilename:package.icon];
@@ -465,6 +485,9 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
         if(indexPath.section < self.articles.count) {
             GTPackage *selectedPackage = [self.articles objectAtIndex:indexPath.section];
             [self loadRendererWithPackage:selectedPackage];
+            [self registerFollowupListener];
+            [self.navigationController pushViewController:self.godtoolsViewController animated:YES];
+
         } else if(![self isTranslatorMode] && indexPath.section == self.articles.count) {
             [self everyStudentViewController];
             
@@ -617,6 +640,33 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
     }
 }
 
+#pragma mark - Followup methods
+- (void)handleFollowupSubscription:(NSNotification *)notification {
+    NSString *emailAddress = notification.userInfo[GTFollowupViewControllerFieldKeyEmail];
+    NSString *name = notification.userInfo[GTFollowupViewControllerFieldKeyName];
+//    NSString *followupId = notification.userInfo[@"org.cru.godtools.GTFollowupModalView.fieldKeyFollowupId"];
+    
+    __block GTFollowUpSubscription *subscription = [[GTFollowUpSubscription alloc] createNewSubscriptionForEmail:emailAddress
+                                                                                                         forName:name
+                                                                                                      inLanguage:self.languageCode
+                                                                                                         toRoute:[[GTConfig sharedConfig] followUpApiDefaultRouteId]];
+    
+    [[FollowUpAPI sharedAPI] sendNewSubscription:subscription
+                   onSuccess:^(AFHTTPRequestOperation *request, id obj) {
+                       [MagicalRecord saveUsingCurrentThreadContextWithBlock:^(NSManagedObjectContext *context){
+                           subscription.apiTransmissionSuccess = @YES;
+                           subscription.apiTransmissionTimestamp = [NSDate date];
+                       }
+                                                                  completion:nil];
+                   }
+                   onFailure:^(AFHTTPRequestOperation *request, NSError *error) {
+                       [MagicalRecord saveUsingCurrentThreadContextWithBlock:^(NSManagedObjectContext *context){
+                           subscription.apiTransmissionSuccess = @NO;
+                           subscription.apiTransmissionTimestamp = [NSDate date];
+                       }
+                                                                  completion:nil];
+                   }];
+}
 
 #pragma mark - Utility methods
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
@@ -681,8 +731,6 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
     [self.godtoolsViewController addNotificationObservers];
         
     [self.godtoolsViewController loadResourceWithConfigFilename:package.configFile parallelConfigFileName:parallelPackage.configFile isDraft:isDraft];
-    [self.navigationController pushViewController:self.godtoolsViewController animated:YES];
-    
 }
 
 #pragma  mark - GodToolsViewController
@@ -825,5 +873,19 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name: GTDataImporterNotificationPublishDraftFail
                                                   object:nil];
+}
+
+- (void)registerFollowupListener {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleFollowupSubscription:)
+                                                 name:@"org.cru.godtools.GTFollowupModalView.followupSubscriptionNotificationName"
+                                               object:nil];
+}
+
+- (void)unregisterFollowupListener {
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                 name:@"org.cru.godtools.GTFollowupModalView.followupSubscriptionNotificationName"
+                                               object:nil];
+
 }
 @end

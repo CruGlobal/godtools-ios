@@ -52,7 +52,15 @@
 		_apiKeyGoogleAnalytics			= ( [configDictionary valueForKey:@"google_analytics_api_key"] ? [configDictionary valueForKey:@"google_analytics_api_key"] : @"" );
 		_apiKeyNewRelic					= ( [configDictionary valueForKey:@"newrelic_api_key"] ? [configDictionary valueForKey:@"newrelic_api_key"] : @"" );
 
-		
+		//set follow api values
+        _followUpApiUrl = ([configDictionary valueForKey:@"follow_up_api_url_base"] ? [NSURL URLWithString:[configDictionary valueForKey:@"follow_up_api_url_base"]] : [NSURL URLWithString:@""]);
+        
+        _followUpApiSharedKey = ([configDictionary valueForKey:@"follow_up_api_shared_key"] ?: @"");
+
+        _followUpApiSecretKey = ([configDictionary valueForKey:@"follow_up_api_secret_key"] ?: @"");
+        
+        _followUpApiDefaultRouteId = ([configDictionary valueForKey:@"follow_up_api_default_route_id"] ?: @"");
+
     }
 	
     return self;

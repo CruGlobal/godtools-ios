@@ -31,8 +31,11 @@ PODS:
     - Fabric/Base (= 1.5.5)
   - Fabric/Base (1.5.5)
   - GoogleAnalytics-iOS-SDK (3.0.9)
-  - GTViewController (6.1.2):
+  - GTViewController (7.0.11):
     - SSCWhatsAppActivity (~> 1.0)
+  - MagicalRecord (2.2):
+    - MagicalRecord/Core (= 2.2)
+  - MagicalRecord/Core (2.2)
   - NewRelicAgent (5.3.1)
   - RaptureXML (1.0.1)
   - Rollbar (0.1.5)
@@ -47,8 +50,8 @@ DEPENDENCIES:
   - EDSemver (~> 0.3)
   - Fabric
   - GoogleAnalytics-iOS-SDK (~> 3.0.9)
-  - GTViewController (from `https://github.com/CruGlobal/GTViewController.git`, branch
-    `dev4.0`)
+  - GTViewController (~> 7.0.11)
+  - MagicalRecord (~> 2.2)
   - NewRelicAgent (~> 5.3.1)
   - Rollbar (~> 0.1.5)
   - SSZipArchive (~> 0.3)
@@ -56,17 +59,11 @@ DEPENDENCIES:
 EXTERNAL SOURCES:
   AFRaptureXMLRequestOperation:
     :git: https://github.com/CruGlobal/AFRaptureXMLRequestOperation.git
-  GTViewController:
-    :branch: dev4.0
-    :git: https://github.com/CruGlobal/GTViewController.git
 
 CHECKOUT OPTIONS:
   AFRaptureXMLRequestOperation:
     :commit: 4dbbb8a6c2d2115c09a4df3ffc6cda20e93a1cd1
     :git: https://github.com/CruGlobal/AFRaptureXMLRequestOperation.git
-  GTViewController:
-    :commit: e6f11f2cd73ff75386d32234012bd0170b2010bc
-    :git: https://github.com/CruGlobal/GTViewController.git
 
 SPEC CHECKSUMS:
   AFDownloadRequestOperation: 748a1643423e1ddb23f2178f778087d4f0ae8ac7
@@ -76,7 +73,8 @@ SPEC CHECKSUMS:
   EDSemver: 124a90685873628ec30f42504b461a1a61757568
   Fabric: 190bf1a6eb65f7500de1347d027d2e59a7e53db1
   GoogleAnalytics-iOS-SDK: 3b0994bef22ed2e176a9e2a4d1660c7c2542eb47
-  GTViewController: 1f1a88315d4e0cd15dbdd5b3064439a96d9a76bc
+  GTViewController: 54b6ba6a2f9d7462fb4cc4b5ef4144fcd5cbd380
+  MagicalRecord: 2dc87179ae7c1f2a274442624ec65a07d4357a6f
   NewRelicAgent: 8d8b27bea8d046f42a4a03c0ca4b571021f100d8
   RaptureXML: b5c33c04c1a4adfd8ad0d5463329a31820596e82
   Rollbar: 6b4be007d57f434cd48f7cce52862013c6bd64cb

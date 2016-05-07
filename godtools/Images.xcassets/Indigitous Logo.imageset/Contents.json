@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "GT4_SplashScreen_ip4.png",
+      "filename" : "Indigitous Logo.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "GT4_SplashScreen_ip5.png",
+      "filename" : "Indigitous Logo@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "GT4_SplashScreen_ip6+.png",
+      "filename" : "Indigitous Logo@3x.png",
       "scale" : "3x"
     }
   ],

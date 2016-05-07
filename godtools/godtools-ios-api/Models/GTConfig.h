@@ -19,6 +19,11 @@
 @property (nonatomic, strong, readonly) NSString	*apiKeyGoogleAnalytics;
 @property (nonatomic, strong, readonly) NSString	*apiKeyNewRelic;
 
+@property (nonatomic, strong, readonly) NSURL       *followUpApiUrl;
+@property (nonatomic, strong, readonly) NSString    *followUpApiSharedKey;
+@property (nonatomic, strong, readonly) NSString    *followUpApiSecretKey;
+@property (nonatomic, strong, readonly) NSString    *followUpApiDefaultRouteId;
+
 + (GTConfig *)sharedConfig;
 
 @end

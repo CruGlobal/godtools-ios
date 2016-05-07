@@ -140,8 +140,6 @@ Let’s talk more!";
 /* iOS */
 "translator_mode" = "[ Translator Mode ]";
 
-"intro_share_instructions" = "Share";
-"intro_tool_instructions" = "Pick a tool";
 "intro_language_instructions" = "Pick a Language";
 "settings_language_none_selected" = "None Selected";
 "settings_parallel_info_tap" = "Tap screen during presentation to view menu.";
@@ -179,3 +177,4 @@ Let’s talk more!";
 "one_language_at_a_time_body" = "We you can't download more than one at a time";
 "corrupt_database_error" = "Your database has become corrupted. Please uninstall the app and then reinstall it. If the problem persists please contact support@godtoolsapp.com";
 "less_packages_notification" = "Untranslated items will appear in English.";
+
