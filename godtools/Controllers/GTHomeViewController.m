@@ -22,8 +22,6 @@
 #import "GTFollowUpSubscription.h"
 #import "FollowUpAPI.h"
 
-#import "EDSemver.h"
-
 NSString *const GTHomeViewControllerShareCampaignSource        = @"godtools-ios";
 NSString *const GTHomeViewControllerShareCampaignMedium        = @"email";
 NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
@@ -57,8 +55,6 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 
 @property  BOOL isRefreshing;
 @property (strong, nonatomic) NSString *selectedSectionNumber;
-
-@property (strong, nonatomic) NSMutableDictionary *versionsDictionary;
 
 - (void)dismissInstructions:(UITapGestureRecognizer *)gestureRecognizer;
 - (IBAction)settingsButtonPressed:(id)sender;
@@ -162,9 +158,7 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
         [[GTDefaults sharedDefaults] setCurrentLanguageCode:@"en" ];
         [self setData];
     }
-    
-    self.versionsDictionary = [[NSMutableDictionary alloc]initWithCapacity:4];
-    
+        
     [[[GTGoogleAnalyticsTracker sharedInstance] setScreenName:@"HomeScreen"] sendScreenView];
     
     [self unregisterFollowupListener];
@@ -404,17 +398,9 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 			cell.titleLabel.text = @"Questions About God?"; //only appears in english list so shouldn't be translated
             [cell setUpBackground:(indexPath.section % 2) :NO :NO];
             
-            EDSemver *kgpSemver = [self.versionsDictionary valueForKey:@"kgp"];
-            
-            if([kgpSemver isGreaterThan:[EDSemver semverWithString:@"1.8"]]) {
-                cell.icon.image = [UIImage imageNamed:@"EveryStudent4.2Icon.png"];
-            } else {
-                cell.icon.image = [UIImage imageNamed:@"GT4_HomeScreen_ESIcon_.png"];
-            }
+            cell.icon.image = [UIImage imageNamed:@"EveryStudent4.2Icon.png"];
         } else {
             GTPackage *package = [self.articles objectAtIndex:indexPath.section];
-            
-            [self.versionsDictionary setValue:[EDSemver semverWithString:package.localSemanticVersion ] forKey:package.code];
 
             cell.titleLabel.text = package.name;
             

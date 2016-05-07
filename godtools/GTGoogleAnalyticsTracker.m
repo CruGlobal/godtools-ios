@@ -23,6 +23,7 @@
 #import <GoogleAnalytics-iOS-SDK/GAIDictionaryBuilder.h>
 #import <GTViewController/GTViewController.h>
 #import "GTConfig.h"
+#import "UISnuffleButton.h"
 
 NSString * const GTGoogleAnalyticsCategoryUI				= @"ui";
 NSString * const GTGoogleAnalyticsCategoryBackgroundProcess	= @"background_process";
@@ -89,13 +90,28 @@ NSString * const GTGoogleAnalyticsActionSwipe	= @"swipe";
 #endif
 		
         self.tracker = [[GAI sharedInstance] trackerWithTrackingId:[GTConfig sharedConfig].apiKeyGoogleAnalytics];
-		
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceivePageViewNotification:) name:GTViewControllerNotificationPageView object:nil];
-		
+        
+        [self registerListeners];
     }
     
     return self;
 }
+
+
+- (void) registerListeners {
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didReceivePageViewNotification:)
+                                                 name:GTViewControllerNotificationPageView
+                                               object:nil];
+
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didRecieveButtonTapNotification:)
+                                                 name:UISnuffleButtonNotificationButtonTapEvent
+                                               object:nil];
+}
+
 
 - (instancetype)setScreenName:(NSString *)screenName {
     
@@ -196,6 +212,18 @@ NSString * const GTGoogleAnalyticsActionSwipe	= @"swipe";
 	[tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 	
 }
+
+
+- (void)didRecieveButtonTapNotification:(NSNotification *)notification {
+    NSString *eventName = notification.userInfo[UISnuffleButtonNotificationButtonTapEventKeyEventName];
+    NSString *packageCode = notification.userInfo[UISnuffleButtonNotificationButtonTapEventKeyPackageCode];
+    
+    // why these have to be in reverse order to get the correct output is beyond me.
+    NSString *label = [NSString stringWithFormat:@"%@:%@", packageCode, eventName];
+    
+    [self sendEventWithLabel:label];
+}
+
 
 - (void)dealloc {
 	
