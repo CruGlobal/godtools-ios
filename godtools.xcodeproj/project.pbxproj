@@ -336,10 +336,10 @@
 			isa = PBXGroup;
 			children = (
 				4F20B3C41AC9A2E00026DC9E /* EveryStudent */,
-				B76536BC1A0CC677001C3FC3 /* GTHomeViewController.h */,
-				B76536BD1A0CC677001C3FC3 /* GTHomeViewController.m */,
 				B76536BE1A0CC677001C3FC3 /* GTMainViewController.h */,
 				B76536BF1A0CC677001C3FC3 /* GTMainViewController.m */,
+				B76536BC1A0CC677001C3FC3 /* GTHomeViewController.h */,
+				B76536BD1A0CC677001C3FC3 /* GTHomeViewController.m */,
 				681D22A31B878F8900269FE5 /* GTInitialSetupTracker.h */,
 				681D22A41B878F8900269FE5 /* GTInitialSetupTracker.m */,
 				B76536CA1A0CCAE8001C3FC3 /* GTSettingsViewController.h */,
