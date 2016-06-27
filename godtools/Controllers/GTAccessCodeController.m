@@ -11,9 +11,12 @@
 #import "GTDataImporter.h"
 #import "GTHomeViewController.h"
 
-@interface GTAccessCodeController()
+@interface GTAccessCodeController() <UITextFieldDelegate>
 
-@property (strong, nonatomic) IBOutlet UITextField *accessCodeTextField;
+@property (weak, nonatomic) IBOutlet UITextField *accessCodeTextField;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *submitButton;
+
+@property (weak, nonatomic) IBOutlet UILabel *accessCodeLabel;
 @property (strong, nonatomic) UIAlertView *accessCodeStatusAlert;
 
 @end
@@ -26,11 +29,6 @@
 	
 	self.title = NSLocalizedString(@"dialog_access_code_title", nil);
 	self.accessCodeTextField.placeholder = NSLocalizedString(@"access_code_placeholder", nil);
-    self.navigationItem.backBarButtonItem.target = self;
-    self.navigationItem.backBarButtonItem.action = @selector(cancelButtonPressed);
-
-    self.navigationItem.rightBarButtonItem.target = self;
-    self.navigationItem.rightBarButtonItem.action = @selector(doneButtonPressed);
     
     self.accessCodeStatusAlert = [[UIAlertView alloc]
                                    initWithTitle:@""
@@ -40,14 +38,8 @@
                                    otherButtonTitles:nil, nil];
     
     self.accessCodeTextField.delegate = self;
-}
-
--(void)viewWillAppear:(BOOL)animated{
-
-    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:246.0/255.0 green:246.0/255.0 blue:246.0/255.0 alpha:1];
-    [self.navigationController.navigationBar setTintColor:[UIColor darkGrayColor]];
-    [self.navigationController.navigationBar setTranslucent:NO]; // required for iOS7
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor darkGrayColor]}];
+    
+    [self.submitButton setEnabled:NO];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -89,21 +81,41 @@
 }
 
 # pragma mark - UI helper methods
--(void) cancelButtonPressed {
-    [self performSegueWithIdentifier:@"returnFromAccessCodeView" sender:self];
+-(IBAction) cancelButtonPressed:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
--(void) doneButtonPressed {
+-(IBAction) submitButtonPressed:(id)sender {
     [self.view endEditing:YES];
-}
-
--(BOOL) textFieldShouldReturn:(UITextField *)textField{
-    [self.view endEditing:YES];
+    
     [self addNotificationObservers];
     
     NSString *accessCode = self.accessCodeTextField.text;
     
     [[GTDataImporter sharedImporter]authorizeTranslator :accessCode];
+}
+
+-(BOOL) textFieldShouldReturn:(UITextField *)textField{
+    [self.view endEditing:YES];
+    
+    return YES;
+}
+
+#pragma mark - UITextFieldDelegate methods
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    // first case means adding any charecter enables button,
+    // second case means removing a character won't disable button unless it's last character
+    if (string.length > 0 || textField.text.length > 1) {
+        [self.submitButton setEnabled:YES];
+    } else {
+        [self.submitButton setEnabled:NO];
+    }
+    
+    return YES;
+}
+
+- (BOOL)textFieldShouldClear:(UITextField *)textField {
+    [self.submitButton setEnabled:NO];
     
     return YES;
 }
@@ -143,12 +155,7 @@
     [alertView dismissWithClickedButtonIndex:0 animated:YES];
     if(alertView == self.accessCodeStatusAlert && [[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]){
         
-        NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
-        for (UIViewController *viewController in allViewControllers) {
-            if ([viewController isKindOfClass:[GTHomeViewController class]]) {
-                [self.navigationController popToViewController:viewController animated:NO];
-            }
-        }
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
