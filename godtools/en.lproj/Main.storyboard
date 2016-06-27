@@ -397,7 +397,7 @@
             </objects>
             <point key="canvasLocation" x="764" y="119"/>
         </scene>
-        <!--Enter Passcode-->
+        <!--Access Code Controller-->
         <scene sceneID="ZH8-bc-7K6">
             <objects>
                 <viewController id="bg8-8O-T0Y" customClass="GTAccessCodeController" sceneMemberID="viewController">
@@ -409,48 +409,73 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Passcode" minimumFontSize="19" translatesAutoresizingMaskIntoConstraints="NO" id="DPa-cg-wGX">
-                                <rect key="frame" x="0.0" y="72" width="330" height="39"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="39" id="Uk5-xE-eN4"/>
-                                </constraints>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="GT4_HomeScreen_Background_" translatesAutoresizingMaskIntoConstraints="NO" id="aZ9-JH-utj">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            </imageView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oxY-X2-ebA">
+                                <rect key="frame" x="0.0" y="44" width="320" height="44"/>
+                                <color key="barTintColor" red="0.4392156862745098" green="0.83921568627450982" blue="0.8784313725490196" alpha="1" colorSpace="calibratedRGB"/>
+                                <textAttributes key="titleTextAttributes">
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </textAttributes>
+                                <items>
+                                    <navigationItem title="Preview Mode" id="gWl-PF-vOE">
+                                        <barButtonItem key="backBarButtonItem" title="Cancel" id="yo3-8u-6be"/>
+                                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="kgF-cf-zn0">
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <connections>
+                                                <action selector="cancelButtonPressed:" destination="bg8-8O-T0Y" id="oP0-HC-edk"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="Submit" id="fYX-9x-f1Z">
+                                            <color key="tintColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <connections>
+                                                <action selector="submitButtonPressed:" destination="bg8-8O-T0Y" id="asb-V1-jVU"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="19" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="DPa-cg-wGX">
+                                <rect key="frame" x="8" y="160" width="304" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="send"/>
+                                <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <outlet property="delegate" destination="rqz-vU-CUN" id="BBN-O2-XLz"/>
                                 </connections>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter Access Code:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="kol-XY-whw">
+                                <rect key="frame" x="12" y="133" width="296" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="DPa-cg-wGX" secondAttribute="trailing" constant="-26" id="16h-TO-Abe"/>
-                            <constraint firstItem="DPa-cg-wGX" firstAttribute="top" secondItem="ejz-wI-n7t" secondAttribute="bottom" constant="28" id="6xJ-fm-N1b"/>
-                            <constraint firstItem="DPa-cg-wGX" firstAttribute="leading" secondItem="rqz-vU-CUN" secondAttribute="leadingMargin" constant="-16" id="IoT-il-4Oa"/>
+                            <constraint firstItem="aZ9-JH-utj" firstAttribute="height" secondItem="rqz-vU-CUN" secondAttribute="height" id="5LW-yh-VM4"/>
+                            <constraint firstItem="oxY-X2-ebA" firstAttribute="centerX" secondItem="rqz-vU-CUN" secondAttribute="centerX" id="67n-pE-rjP"/>
+                            <constraint firstItem="aZ9-JH-utj" firstAttribute="width" secondItem="rqz-vU-CUN" secondAttribute="width" id="7Jp-Pl-YHe"/>
+                            <constraint firstItem="aZ9-JH-utj" firstAttribute="centerY" secondItem="rqz-vU-CUN" secondAttribute="centerY" id="As7-Hv-ZZN"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="DPa-cg-wGX" secondAttribute="trailing" constant="-8" id="Gen-Qe-6PZ"/>
+                            <constraint firstItem="kol-XY-whw" firstAttribute="leading" secondItem="rqz-vU-CUN" secondAttribute="leadingMargin" constant="-4" id="Qv9-6U-JcY"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="kol-XY-whw" secondAttribute="trailing" constant="-4" id="UGN-4k-Epo"/>
+                            <constraint firstItem="oxY-X2-ebA" firstAttribute="width" secondItem="rqz-vU-CUN" secondAttribute="width" id="Ufm-y2-yA5"/>
+                            <constraint firstItem="DPa-cg-wGX" firstAttribute="top" secondItem="kol-XY-whw" secondAttribute="bottom" constant="9" id="d0t-Zw-eWX"/>
+                            <constraint firstItem="oxY-X2-ebA" firstAttribute="top" secondItem="ejz-wI-n7t" secondAttribute="bottom" id="dbH-hV-iRU"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="DPa-cg-wGX" secondAttribute="leading" constant="8" id="fhW-Ik-me2"/>
+                            <constraint firstItem="aZ9-JH-utj" firstAttribute="centerX" secondItem="rqz-vU-CUN" secondAttribute="centerX" id="ftb-Iy-4oQ"/>
+                            <constraint firstItem="DPa-cg-wGX" firstAttribute="top" secondItem="oxY-X2-ebA" secondAttribute="bottom" constant="72" id="jBp-1q-bRq"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Enter Passcode" id="vXJ-Nv-6Xi">
-                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="cancel" id="ND8-EI-07E">
-                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <segue destination="wb3-eT-oUL" kind="unwind" identifier="returnFromAccessCodeView" unwindAction="returnFromAccessCodeView:" id="fAV-8A-zcu"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="done" id="m7a-51-udq">
-                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                        </barButtonItem>
-                        <connections>
-                            <outlet property="backBarButtonItem" destination="ND8-EI-07E" id="8pJ-SJ-Cst"/>
-                            <outlet property="rightBarButtonItem" destination="m7a-51-udq" id="jXS-eJ-Vok"/>
-                        </connections>
-                    </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="accessCodeLabel" destination="kol-XY-whw" id="ObQ-kM-MpD"/>
                         <outlet property="accessCodeTextField" destination="DPa-cg-wGX" id="Lkh-ie-aft"/>
+                        <outlet property="submitButton" destination="fYX-9x-f1Z" id="SBt-QA-B77"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="COK-jC-sER" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="wb3-eT-oUL" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="764" y="802"/>
         </scene>
