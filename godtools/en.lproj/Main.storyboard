@@ -390,7 +390,7 @@
                         <outlet property="primaryLanguageLabel" destination="MsA-3e-8Np" id="Cr7-50-tMJ"/>
                         <segue destination="YJa-Gt-v9R" kind="push" identifier="settingsToLanguageViewSegue" id="Qqk-3p-fFz"/>
                         <segue destination="eUe-NG-066" kind="push" id="PlZ-Mg-hcL"/>
-                        <segue destination="bg8-8O-T0Y" kind="push" identifier="settingsToAccessCodeScreenSegue" id="Jp3-wq-ZDc"/>
+                        <segue destination="bg8-8O-T0Y" kind="modal" identifier="settingsToAccessCodeScreenSegue" id="Jp3-wq-ZDc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ysl-rJ-b5c" userLabel="First Responder" sceneMemberID="firstResponder"/>
