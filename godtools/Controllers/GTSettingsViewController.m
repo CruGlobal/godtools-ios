@@ -81,9 +81,14 @@
     [self setLanguageNameLabelValues];
     
     [self.navigationController setNavigationBarHidden:NO];
-    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:0.44 green:0.84 blue:0.88 alpha:1.0]];
-    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
-    [self.navigationController.navigationBar setTranslucent:NO]; // required for iOS7
+    
+    if ([self.navigationController.navigationBar respondsToSelector:@selector(setBarTintColor:)] &&
+        [self.navigationController.navigationBar respondsToSelector:@selector(setTranslucent:)]) {
+        [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:0.44 green:0.84 blue:0.88 alpha:1.0]];
+        [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+        [self.navigationController.navigationBar setTranslucent:NO]; // required for iOS7
+    }
+    
     self.navigationController.navigationBar.topItem.title = NSLocalizedString(@"settings_title", nil);
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     
