@@ -31,7 +31,7 @@ PODS:
     - Fabric/Base (= 1.5.5)
   - Fabric/Base (1.5.5)
   - GoogleAnalytics-iOS-SDK (3.0.9)
-  - GTViewController (7.0.0):
+  - GTViewController (7.0.1):
     - SSCWhatsAppActivity (~> 1.0)
   - MagicalRecord (2.2):
     - MagicalRecord/Core (= 2.2)
@@ -50,7 +50,7 @@ DEPENDENCIES:
   - EDSemver (~> 0.3)
   - Fabric
   - GoogleAnalytics-iOS-SDK (~> 3.0.9)
-  - GTViewController (~> 7.0.0)
+  - GTViewController (~> 7.0.1)
   - MagicalRecord (~> 2.2)
   - NewRelicAgent (~> 5.3.1)
   - Rollbar (~> 0.1.5)
@@ -73,7 +73,7 @@ SPEC CHECKSUMS:
   EDSemver: 124a90685873628ec30f42504b461a1a61757568
   Fabric: 190bf1a6eb65f7500de1347d027d2e59a7e53db1
   GoogleAnalytics-iOS-SDK: 3b0994bef22ed2e176a9e2a4d1660c7c2542eb47
-  GTViewController: 6cf0fd76810832ad949b87a1a782f670c9a1c720
+  GTViewController: c4b001ce81cebcc90f16d8c7dc3c05f5853699b9
   MagicalRecord: 2dc87179ae7c1f2a274442624ec65a07d4357a6f
   NewRelicAgent: 8d8b27bea8d046f42a4a03c0ca4b571021f100d8
   RaptureXML: b5c33c04c1a4adfd8ad0d5463329a31820596e82
@@ -81,4 +81,6 @@ SPEC CHECKSUMS:
   SSCWhatsAppActivity: fdea072dcf11f1e4889c8f8d9f58118672361900
   SSZipArchive: 2cf2a6d3ac9f03252b7d96f93728b9b983be9afb
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: 036ee8a7d789bca9b54b5fca9a11979abcd6c195
+
+COCOAPODS: 1.0.0
