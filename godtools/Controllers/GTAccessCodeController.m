@@ -42,14 +42,6 @@
     self.accessCodeTextField.delegate = self;
 }
 
--(void)viewWillAppear:(BOOL)animated{
-
-    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:246.0/255.0 green:246.0/255.0 blue:246.0/255.0 alpha:1];
-    [self.navigationController.navigationBar setTintColor:[UIColor darkGrayColor]];
-    [self.navigationController.navigationBar setTranslucent:NO]; // required for iOS7
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor darkGrayColor]}];
-}
-
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     
