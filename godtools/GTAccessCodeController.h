@@ -10,6 +10,6 @@
 
 @interface GTAccessCodeController : UIViewController<UITextFieldDelegate>
 
-
+-(void)authorizeTranslatorAlert:(NSNotification *) notification;
 
 @end

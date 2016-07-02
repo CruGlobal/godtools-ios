@@ -12,6 +12,7 @@
 #import "GTStorage.h"
 #import "GTDefaults.h"
 #import "GTDataImporter.h"
+#import "GTAccessCodeController.h"
 
 #import "GTGoogleAnalyticsTracker.h"
 
