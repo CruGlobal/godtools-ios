@@ -792,7 +792,6 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
                                              selector:@selector(showDownloadIndicator:)
                                                  name:GTDataImporterNotificationMenuUpdateStarted
                                                object:nil];
-
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(downloadFinished:)
                                                  name:GTDataImporterNotificationLanguageDownloadFinished
@@ -801,11 +800,16 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
                                              selector:@selector(downloadFailed:)
                                                  name:GTDataImporterNotificationLanguageDownloadFailed
                                                object:nil];
+    //Putting this back as part of PR #45 feedback. It looks like it was just calling a refresh on the
+    //page when the user created a draft before, so the new selector is refreshDraftsButtonDragged:
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(refreshDraftsButtonDragged:)
+                                                 name:GTDataImporterNotificationCreateDraftSuccessful
+                                               object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(downloadFinished:)
                                                  name: GTDataImporterNotificationCreateDraftFail
                                                object:nil];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(showDownloadIndicator:)
                                                  name: GTDataImporterNotificationPublishDraftStarted
