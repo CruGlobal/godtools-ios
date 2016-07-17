@@ -43,11 +43,10 @@
     
     CGRect frame = self.textLabel.frame;
     self.textLabel.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, frame.size.height-14.0);
+    CGRect imageframe = self.imageView.frame;
+    self.imageView.frame = CGRectMake(imageframe.origin.x, imageframe.origin.y-7.0, imageframe.size.width, imageframe.size.height);
     self.accessoryType = UITableViewCellAccessoryNone;
     self.disclosure.frame = CGRectMake(self.frame.size.width-31, 0, 21, self.frame.size.height);
-	
-	//self.imageView.frame = CGRectMake(10, 10, 20.0, 20.0);
-	//self.imageView.alpha = 0.25;
 	
 }
 

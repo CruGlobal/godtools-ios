@@ -176,7 +176,7 @@
 	}
 	
 	//add formatting
-	cell.textLabel.font		= [UIFont systemFontOfSize:14];
+	cell.textLabel.font		= [UIFont systemFontOfSize:16];
     //color the text
     cell.textLabel.textColor = [UIColor whiteColor];
 	UIView	*cellBackground	= [cell viewWithTag:123];
@@ -202,22 +202,13 @@
 					UIView	*searchBackground	= [[UIView alloc] initWithFrame:CGRectMake(searchCell.frame.origin.x, searchCell.frame.origin.y, tableView.frame.size.width, searchCell.frame.size.height - 1)];
 					searchBackground.tag		= 123;
 					[searchCell insertSubview:searchBackground atIndex:0];
-				}
-				
-				UIView	*searchCellBackground	= [searchCell viewWithTag:123];
-				
-				//set alternating background color
-				if ((indexPath.row % 2) == 0) {
-					
-					searchCellBackground.backgroundColor	= [UIColor colorWithRed:(244.0/255.0) green:(244.0/255.0) blue:(244.0/255.0) alpha:1.0];
-					//cell.accessoryView.	= [UIColor colorWithRed:(244.0/255.0) green:(244.0/255.0) blue:(244.0/255.0) alpha:1.0];
-					
-				} else {
-					
-					//cell.contentView.backgroundColor	= [UIColor colorWithRed:(250.0/255.0) green:(250.0/255.0) blue:(250.0/255.0) alpha:1.0];
-					searchCellBackground.backgroundColor	= [UIColor colorWithRed:(250.0/255.0) green:(250.0/255.0) blue:(250.0/255.0) alpha:1.0];
-					
-				}
+                }
+                
+                UIView	*cellBackground	= [searchCell viewWithTag:123];
+                //set the background on the inner part of the cell
+                cellBackground.backgroundColor = [UIColor colorWithRed:0.88 green:0.88 blue:0.88 alpha:0.65];
+                //allow the 14px separation
+                searchCell.backgroundColor = [UIColor clearColor];
 				
 				//NSLog(@"ssl: %d, length: %d", substringRange.location - charactersToDisplay, [content length]);
 				substringRange.location = ((NSInteger)(substringRange.location - charactersToDisplay) < 0) ? 0 : substringRange.location - charactersToDisplay;
