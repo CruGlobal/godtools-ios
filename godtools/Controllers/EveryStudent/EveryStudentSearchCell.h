@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EveryStudentCell.h"
 
 
-@interface EveryStudentSearchCell : UITableViewCell
+@interface EveryStudentSearchCell : EveryStudentCell
 
 @property (nonatomic,strong)	UILabel		*nameLabel;
 @property (nonatomic,strong)	UILabel		*searchResultLabel;
