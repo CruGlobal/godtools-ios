@@ -21,6 +21,7 @@
 		self.nameLabel.textAlignment		= NSTextAlignmentLeft;
 		self.nameLabel.font					= [UIFont systemFontOfSize:16];
 		self.nameLabel.backgroundColor		= [UIColor clearColor];
+        self.nameLabel.textColor            = [UIColor whiteColor];
 		self.searchResultLabel				= [[UILabel alloc] init];
 		self.searchResultLabel.textAlignment= NSTextAlignmentLeft;
 		self.searchResultLabel.font			= [UIFont systemFontOfSize:12];
@@ -64,7 +65,7 @@
 	CGContextBeginPath(context);
 	
 	//CGContextSetStrokeColorWithColor(context, [[UIColor colorWithRed:(255.0/255.0) green:(255.0/255.0) blue:(255.0/255.0) alpha:0.5] CGColor]);
-	CGContextSetStrokeColorWithColor(context, [[UIColor colorWithRed:(228.0/255.0) green:(229.0/255.0) blue:(231.0/255.0) alpha:1.0] CGColor]);
+	CGContextSetStrokeColorWithColor(context, [[UIColor colorWithRed:(228.0/255.0) green:(229.0/255.0) blue:(231.0/255.0) alpha:0.0] CGColor]);
 	CGContextSetLineWidth(context, 1.0);
 	
 	CGContextMoveToPoint(context, CGRectGetMinX(rect), CGRectGetMaxY(rect)-1);

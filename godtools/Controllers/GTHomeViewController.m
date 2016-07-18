@@ -472,7 +472,9 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
             GTPackage *selectedPackage = [self.articles objectAtIndex:indexPath.section];
             [self loadRendererWithPackage:selectedPackage];
             [self registerFollowupListener];
+            self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
             [self.navigationController pushViewController:self.godtoolsViewController animated:YES];
+            self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
 
         } else if(![self isTranslatorMode] && indexPath.section == self.articles.count) {
             [self everyStudentViewController];
@@ -483,6 +485,7 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
             self.everyStudentViewController.language = @"en"; // for now, always English
             self.everyStudentViewController.package = @"everystudent";
             [self.navigationController pushViewController:self.everyStudentViewController animated:YES];
+            self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
         }
     }
 }

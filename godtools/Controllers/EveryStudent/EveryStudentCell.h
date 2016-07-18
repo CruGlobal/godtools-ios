@@ -10,4 +10,6 @@
 
 @interface EveryStudentCell : UITableViewCell
 
+@property (nonatomic, strong) UIView *disclosure;
+
 @end

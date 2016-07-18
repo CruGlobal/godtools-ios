@@ -130,6 +130,9 @@
 	}
 	
 	self.backgroundImage.frame		= self.view.frame;
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    [self.categoryTable setBackgroundView:nil];
+    [self.categoryTable setBackgroundColor:[UIColor clearColor]];
 	
     [[[GTGoogleAnalyticsTracker sharedInstance] setScreenName:@"EveryStudent"] sendScreenView];
 }
@@ -173,21 +176,15 @@
 	}
 	
 	//add formatting
-	cell.textLabel.font		= [UIFont systemFontOfSize:14];
+	cell.textLabel.font		= [UIFont systemFontOfSize:16];
+    //color the text
+    cell.textLabel.textColor = [UIColor whiteColor];
 	UIView	*cellBackground	= [cell viewWithTag:123];
 	
-	//set alternating background color
-	if ((indexPath.row % 2) == 0) {
-		
-		cellBackground.backgroundColor	= [UIColor colorWithRed:(244.0/255.0) green:(244.0/255.0) blue:(244.0/255.0) alpha:1.0];
-		//cell.accessoryView.	= [UIColor colorWithRed:(244.0/255.0) green:(244.0/255.0) blue:(244.0/255.0) alpha:1.0];
-		
-	} else {
-		
-		//cell.contentView.backgroundColor	= [UIColor colorWithRed:(250.0/255.0) green:(250.0/255.0) blue:(250.0/255.0) alpha:1.0];
-		cellBackground.backgroundColor	= [UIColor colorWithRed:(250.0/255.0) green:(250.0/255.0) blue:(250.0/255.0) alpha:1.0];
-		
-	}
+	//set the background on the inner part of the cell
+    cellBackground.backgroundColor = [UIColor colorWithRed:0.88 green:0.88 blue:0.88 alpha:0.65];
+    //allow the 14px separation
+    cell.backgroundColor = [UIColor clearColor];
 	
 	if (self.isSearching) {
 		
@@ -205,22 +202,13 @@
 					UIView	*searchBackground	= [[UIView alloc] initWithFrame:CGRectMake(searchCell.frame.origin.x, searchCell.frame.origin.y, tableView.frame.size.width, searchCell.frame.size.height - 1)];
 					searchBackground.tag		= 123;
 					[searchCell insertSubview:searchBackground atIndex:0];
-				}
-				
-				UIView	*searchCellBackground	= [searchCell viewWithTag:123];
-				
-				//set alternating background color
-				if ((indexPath.row % 2) == 0) {
-					
-					searchCellBackground.backgroundColor	= [UIColor colorWithRed:(244.0/255.0) green:(244.0/255.0) blue:(244.0/255.0) alpha:1.0];
-					//cell.accessoryView.	= [UIColor colorWithRed:(244.0/255.0) green:(244.0/255.0) blue:(244.0/255.0) alpha:1.0];
-					
-				} else {
-					
-					//cell.contentView.backgroundColor	= [UIColor colorWithRed:(250.0/255.0) green:(250.0/255.0) blue:(250.0/255.0) alpha:1.0];
-					searchCellBackground.backgroundColor	= [UIColor colorWithRed:(250.0/255.0) green:(250.0/255.0) blue:(250.0/255.0) alpha:1.0];
-					
-				}
+                }
+                
+                UIView	*cellBackground	= [searchCell viewWithTag:123];
+                //set the background on the inner part of the cell
+                cellBackground.backgroundColor = [UIColor colorWithRed:0.88 green:0.88 blue:0.88 alpha:0.65];
+                //allow the 14px separation
+                searchCell.backgroundColor = [UIColor clearColor];
 				
 				//NSLog(@"ssl: %d, length: %d", substringRange.location - charactersToDisplay, [content length]);
 				substringRange.location = ((NSInteger)(substringRange.location - charactersToDisplay) < 0) ? 0 : substringRange.location - charactersToDisplay;
@@ -256,8 +244,11 @@
 		cell.accessoryType	= UITableViewCellAccessoryDisclosureIndicator;
 		cell.imageView.image= nil;
 	}
-		
 	return (searchCell != nil) ? searchCell : cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 58.;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -268,6 +259,17 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 	
 	return 1;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, tableView.sectionHeaderHeight)];
+    UIImage *image = [UIImage imageNamed:@"everyStudent"];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    imageView.contentMode = UIViewContentModeCenter;
+    imageView.frame = CGRectMake(header.frame.origin.x, header.frame.origin.y+25, header.frame.size.width, header.frame.size.height-50);
+    [header addSubview:imageView];
+    imageView.backgroundColor = [UIColor whiteColor];
+    return header;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
