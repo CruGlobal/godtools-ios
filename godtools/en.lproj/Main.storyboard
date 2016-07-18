@@ -81,7 +81,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o9C-9g-h8G">
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o9C-9g-h8G">
                                 <rect key="frame" x="6" y="54" width="135" height="54"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="pull to refresh drafts" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f2w-cw-tln">
@@ -170,7 +170,6 @@
                             <constraint firstItem="P8r-gh-EpT" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Bgc-XF-gSL" secondAttribute="bottom" constant="25" id="E4f-OV-RhU"/>
                             <constraint firstItem="Oi2-EA-aoq" firstAttribute="top" secondItem="MS0-V2-i3u" secondAttribute="bottom" id="Fkz-ZV-D6y"/>
                             <constraint firstItem="Oi2-EA-aoq" firstAttribute="top" secondItem="MS0-V2-i3u" secondAttribute="bottom" id="I8l-9E-IHe"/>
-                            <constraint firstAttribute="bottom" secondItem="o9C-9g-h8G" secondAttribute="bottom" constant="460" id="Kwn-sg-NBI"/>
                             <constraint firstItem="b33-uL-Q1A" firstAttribute="top" secondItem="el9-Z0-iI4" secondAttribute="bottom" id="RSc-NR-B6p"/>
                             <constraint firstItem="b33-uL-Q1A" firstAttribute="centerX" secondItem="pYR-p1-DAY" secondAttribute="centerX" id="VVY-Kq-DWR"/>
                             <constraint firstAttribute="trailingMargin" secondItem="0XS-mo-bDe" secondAttribute="trailing" constant="-24" id="ZqL-Sn-6F5"/>
