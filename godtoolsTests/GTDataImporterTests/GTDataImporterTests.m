@@ -126,6 +126,7 @@
     [super tearDown];
 }
 
+# warning KK 7/1/16 - This failed before my changes. I tried to fix it but have been unable to get the block called, even though the same observer in GTMainViewController.m using selectors, but couldn't pass the expectation around. I'm not too familiar with XCTest, so this may be simple for someone else to work out.
 - (void)testThatTheDataImporterCanDetectNewUpdatesAvailable
 {
 	[self populateStorage];

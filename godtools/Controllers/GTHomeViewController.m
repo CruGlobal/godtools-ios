@@ -548,7 +548,7 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
                 [self.articles enumerateObjectsUsingBlock:^(GTPackage *package, NSUInteger index, BOOL *stop){
                     if([package.code isEqualToString: enPackage.code]){
                         same = YES;
-                        *stop = @YES;
+                        *stop = YES;
                     }
                 }];
                 if(!same){
@@ -683,7 +683,7 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
                                                         usingKey:@"code"
                                                         forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:YES] objectAtIndex:0];
     
-    [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:[NSNumber numberWithBool:YES]];
+    [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:YES];
     [[GTDataImporter sharedImporter]downloadPackagesForLanguage:current];
 }
 #pragma mark - Renderer methods
@@ -792,7 +792,6 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
                                              selector:@selector(showDownloadIndicator:)
                                                  name:GTDataImporterNotificationMenuUpdateStarted
                                                object:nil];
-
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(downloadFinished:)
                                                  name:GTDataImporterNotificationLanguageDownloadFinished
@@ -801,16 +800,16 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
                                              selector:@selector(downloadFailed:)
                                                  name:GTDataImporterNotificationLanguageDownloadFailed
                                                object:nil];
-    
+    //Putting this back as part of PR #45 feedback. It looks like it was just calling a refresh on the
+    //page when the user created a draft before, so the new selector is refreshDraftsButtonDragged:
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(refreshButtonPressed)
-                                                 name: GTDataImporterNotificationCreateDraftSuccessful
+                                             selector:@selector(refreshDraftsButtonDragged:)
+                                                 name:GTDataImporterNotificationCreateDraftSuccessful
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(downloadFinished:)
                                                  name: GTDataImporterNotificationCreateDraftFail
                                                object:nil];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(showDownloadIndicator:)
                                                  name: GTDataImporterNotificationPublishDraftStarted

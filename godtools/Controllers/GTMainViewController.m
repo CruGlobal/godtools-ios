@@ -16,8 +16,8 @@
 #import "FollowUpAPI.h"
 #import "GTFollowUpSubscription.h"
 
-NSString * const GTSplashErrorDomain				= @"org.cru.godtools.gtsplashviewcontroller.error.domain";
-NSInteger const GTSplashErrorCodeInitialSetupFailed = 1;
+NSString * const GTSplashErrorDomain                                            = @"org.cru.godtools.gtsplashviewcontroller.error.domain";
+NSInteger const GTSplashErrorCodeInitialSetupFailed                             = 1;
 
 NSString * const GTSplashNotificationDownloadPhonesLanugageSuccess				= @"org.cru.godtools.gtsplashviewcontroller.notification.downloadphoneslanguagesuccess";
 NSString * const GTSplashNotificationDownloadPhonesLanugageProgress				= @"org.cru.godtools.gtsplashviewcontroller.notification.downloadphoneslanguageprogress";
@@ -44,12 +44,6 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 
 - (void)registerListenersForInitialSetup;
 - (void)removeListenersForInitialSetup;
-- (void)registerListenersForMenuUpdate;
-- (void)removeListenersForMenuUpdate;
-
-- (void)askToUpdate:(NSNotification *)notification;
-- (void)updateFinished:(NSNotification *)notification;
-- (void)updateFailed:(NSNotification *)notification;
 
 @end
 
@@ -93,7 +87,6 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 		
 	} else {
         [self leavePreviewMode];
-		[self registerListenersForMenuUpdate];
         [self sendCachedFollowupSubscriptions];
 		[self updateMenu];
 		[self goToHome];
@@ -302,8 +295,6 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 	if([self.splashScreen.activityView isAnimating]){
 		[self.splashScreen hideDownloadIndicator];
 	}
-	
-	[self removeListenersForMenuUpdate];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -316,6 +307,8 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 	}
 	
 }
+
+
 
 #pragma mark - listener methods
 
@@ -353,111 +346,10 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 	
 }
 
-- (void)registerListenersForMenuUpdate {
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(menuUpdateBegan:)
-												 name:GTDataImporterNotificationMenuUpdateStarted
-											   object:nil];
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(menuUpdateFinished:)
-												 name:GTDataImporterNotificationMenuUpdateFinished
-											   object:nil];
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(askToUpdate:)
-												 name:GTDataImporterNotificationNewVersionsAvailable
-											   object:nil];
-	
-}
-
-- (void)removeListenersForMenuUpdate {
-	
-	[[NSNotificationCenter defaultCenter] removeObserver:self
-													name:GTDataImporterNotificationMenuUpdateStarted
-												  object:nil];
-	
-	[[NSNotificationCenter defaultCenter] removeObserver:self
-													name:GTDataImporterNotificationMenuUpdateFinished
-												  object:nil];
-	
-}
-
 - (void)dealloc {
-	[[NSNotificationCenter defaultCenter] removeObserver:self
-													name:GTDataImporterNotificationNewVersionsAvailable
-												  object:nil];
 }
 
 #pragma mark - Update languages to new versions
-
-- (void)askToUpdate:(NSNotification *)notification {
-	
-	//don't ask user to update if in translator mode
-	if ([[GTDefaults sharedDefaults].isInTranslatorMode isEqual: @YES]) {
-		return;
-	}
-	
-	NSNumber *numberOfUpdatesAvailable = notification.userInfo[GTDataImporterNotificationNewVersionsAvailableKeyNumberAvailable];
-	
-	NSString *message = [NSLocalizedString(@"new_updates_available_body", nil) stringByReplacingOccurrencesOfString:@"{{number_of_updates}}" withString:[numberOfUpdatesAvailable stringValue]];
-	UIAlertView *confirmationAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"new_updates_available_title", nil)
-																message:message
-															   delegate:self
-													  cancelButtonTitle:nil
-													  otherButtonTitles:NSLocalizedString(@"yes", nil), NSLocalizedString(@"no", nil), nil];
-	[confirmationAlert show];
-	
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-	
-	if (buttonIndex == 0) {
-		
-		[[NSNotificationCenter defaultCenter] addObserver:self
-												 selector:@selector(updateFinished:)
-													 name:GTDataImporterNotificationUpdateFinished
-												   object:nil];
-		
-		[[NSNotificationCenter defaultCenter] addObserver:self
-												 selector:@selector(updateFailed:)
-													 name:GTDataImporterNotificationUpdateFailed
-												   object:nil];
-		
-		[[GTDataImporter sharedImporter] updatePackagesWithNewVersions];
-		
-	}
-	
-}
-
-- (void)updateFinished:(NSNotification *)notification {
-	
-	UIAlertView *confirmationAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"new_updates_completed_title", nil)
-																message:NSLocalizedString(@"new_updates_completed_body", nil)
-															   delegate:nil
-													  cancelButtonTitle:nil
-													  otherButtonTitles:NSLocalizedString(@"ok", nil), nil];
-	[confirmationAlert show];
-	
-	[[NSNotificationCenter defaultCenter] removeObserver:self
-													name:GTDataImporterNotificationUpdateFinished
-												  object:nil];
-}
-
-- (void)updateFailed:(NSNotification *)notification {
-	
-	UIAlertView *confirmationAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"new_updates_failed_title", nil)
-																message:NSLocalizedString(@"new_updates_failed_body", nil)
-															   delegate:nil
-													  cancelButtonTitle:nil
-													  otherButtonTitles:NSLocalizedString(@"ok", nil), nil];
-	[confirmationAlert show];
-	
-	[[NSNotificationCenter defaultCenter] removeObserver:self
-													name:GTDataImporterNotificationUpdateFailed
-												  object:nil];
-}
 
 #pragma mark - Helper methods
 - (void)leavePreviewMode {

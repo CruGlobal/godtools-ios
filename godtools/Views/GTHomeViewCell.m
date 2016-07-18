@@ -12,7 +12,7 @@
 
 - (void)awakeFromNib {
     self.titleLabel.numberOfLines = 0;
-    self.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
+    self.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

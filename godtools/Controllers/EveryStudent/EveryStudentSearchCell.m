@@ -18,11 +18,11 @@
     if (self) {
 		// Initialization code
 		self.nameLabel						= [[UILabel alloc] init];
-		self.nameLabel.textAlignment		= UITextAlignmentLeft;
+		self.nameLabel.textAlignment		= NSTextAlignmentLeft;
 		self.nameLabel.font					= [UIFont systemFontOfSize:16];
 		self.nameLabel.backgroundColor		= [UIColor clearColor];
 		self.searchResultLabel				= [[UILabel alloc] init];
-		self.searchResultLabel.textAlignment= UITextAlignmentLeft;
+		self.searchResultLabel.textAlignment= NSTextAlignmentLeft;
 		self.searchResultLabel.font			= [UIFont systemFontOfSize:12];
 		self.searchResultLabel.textColor	= [UIColor darkGrayColor];
 		self.searchResultLabel.backgroundColor = [UIColor clearColor];

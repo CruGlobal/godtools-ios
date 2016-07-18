@@ -19,6 +19,7 @@ NSString const *currentPackageKey = @"com.godtools.gtviewcontroller.currentpacka
 NSString const *refreshDraftAlertKey = @"com.godtools.gtviewcontroller.refreshDraftAlert";
 
 
+# warning KK 7/1/16 - According to Stack Overflow searches, this overloading results in undefined runtime behavior. http://stackoverflow.com/questions/9424004/suppress-warning-category-is-implementing-a-method-which-will-also-be-implement
 -(void)refreshCurrentPage:(NSString *)currentPage{
     NSLog(@"current page:%@",currentPage);
     NSString *pageID = [[currentPage componentsSeparatedByString:@"."]objectAtIndex:0];
