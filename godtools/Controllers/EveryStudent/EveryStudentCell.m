@@ -10,11 +10,22 @@
 
 @implementation EveryStudentCell
 
+@synthesize disclosure;
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
+        disclosure = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 21, self.frame.size.height)];
+        UIImage *image = [UIImage imageNamed:@"GT4_SettingsScreen_RightArrow_"];
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+        imageView.contentMode = UIViewContentModeCenter;
+        imageView.frame = CGRectMake(disclosure.frame.origin.x, disclosure.frame.origin.y, disclosure.frame.size.width, disclosure.frame.size.height);
+        [disclosure addSubview:imageView];
+        imageView.backgroundColor = [UIColor clearColor];
+        disclosure.backgroundColor = [UIColor clearColor];
+        [self addSubview:disclosure];
     }
     return self;
 }
@@ -29,9 +40,13 @@
 -(void)layoutSubviews {
 	
 	[super layoutSubviews];
-	
-	//self.imageView.frame = CGRectMake(10, 10, 20.0, 20.0);
-	//self.imageView.alpha = 0.25;
+    
+    CGRect frame = self.textLabel.frame;
+    self.textLabel.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, frame.size.height-14.0);
+    CGRect imageframe = self.imageView.frame;
+    self.imageView.frame = CGRectMake(imageframe.origin.x, imageframe.origin.y-7.0, imageframe.size.width, imageframe.size.height);
+    self.accessoryType = UITableViewCellAccessoryNone;
+    self.disclosure.frame = CGRectMake(self.frame.size.width-31, 0, 21, self.frame.size.height);
 	
 }
 
@@ -44,7 +59,7 @@
 	CGContextBeginPath(context);
 	
 	//CGContextSetStrokeColorWithColor(context, [[UIColor colorWithRed:(255.0/255.0) green:(255.0/255.0) blue:(255.0/255.0) alpha:0.5] CGColor]);
-	CGContextSetStrokeColorWithColor(context, [[UIColor colorWithRed:(228.0/255.0) green:(229.0/255.0) blue:(231.0/255.0) alpha:1.0] CGColor]);
+	CGContextSetStrokeColorWithColor(context, [[UIColor colorWithRed:(228.0/255.0) green:(229.0/255.0) blue:(231.0/255.0) alpha:0.0] CGColor]);
 	CGContextSetLineWidth(context, 2.0);
 	
 	CGContextMoveToPoint(context, CGRectGetMinX(rect), CGRectGetMaxY(rect)-1);
