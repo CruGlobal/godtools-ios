@@ -87,20 +87,7 @@
     //set the background on the inner part of the cell
     cellBackground.backgroundColor = [UIColor colorWithRed:0.88 green:0.88 blue:0.88 alpha:0.65];
     //allow the 14px separation
-    cell.backgroundColor = [UIColor clearColor];
-	
-//	//set alternating background color
-//	if ((indexPath.row % 2) == 0) {
-//		
-//		cellBackground.backgroundColor	= [UIColor colorWithRed:(244.0/255.0) green:(244.0/255.0) blue:(244.0/255.0) alpha:1.0];
-//		
-//	} else {
-//		
-//		cellBackground.backgroundColor	= [UIColor colorWithRed:(250.0/255.0) green:(250.0/255.0) blue:(250.0/255.0) alpha:1.0];
-//		
-//	}
-	
-	
+    cell.backgroundColor = [UIColor clearColor];	
 	
 	//add formatting
 	cell.textLabel.font = [UIFont systemFontOfSize:16];
