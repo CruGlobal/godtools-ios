@@ -320,11 +320,23 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 
 - (void)languageUpdateFailed:(NSNotification *)notification {
     //if it failed, should we just go home, or alert the user and do something else?
+
+    //hide the indicator, remove the listeners
+    if([self.splashScreen.activityView isAnimating]){
+        [self.splashScreen hideDownloadIndicator];
+    }
+    [self removeListenersForMenuUpdate];
     [self goToHome];
 }
 
 - (void)languageUpdateFinished:(NSNotification *)notification {
     //we successfully updated our language, go to the home page
+    
+    //hide the indicator, remove the listeners
+    if([self.splashScreen.activityView isAnimating]){
+        [self.splashScreen hideDownloadIndicator];
+    }
+    [self removeListenersForMenuUpdate];
     [self goToHome];
 }
 
