@@ -10,22 +10,20 @@
 
 @implementation EveryStudentCell
 
-@synthesize disclosure;
-
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        disclosure = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 21, self.frame.size.height)];
+        self.disclosure = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 21, self.frame.size.height)];
         UIImage *image = [UIImage imageNamed:@"GT4_SettingsScreen_RightArrow_"];
         UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
         imageView.contentMode = UIViewContentModeCenter;
-        imageView.frame = CGRectMake(disclosure.frame.origin.x, disclosure.frame.origin.y, disclosure.frame.size.width, disclosure.frame.size.height);
-        [disclosure addSubview:imageView];
+        imageView.frame = CGRectMake(self.disclosure.frame.origin.x, self.disclosure.frame.origin.y, self.disclosure.frame.size.width, self.disclosure.frame.size.height);
+        [self.disclosure addSubview:imageView];
         imageView.backgroundColor = [UIColor clearColor];
-        disclosure.backgroundColor = [UIColor clearColor];
-        [self addSubview:disclosure];
+        self.disclosure.backgroundColor = [UIColor clearColor];
+        [self addSubview:self.disclosure];
     }
     return self;
 }

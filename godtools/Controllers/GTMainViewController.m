@@ -19,6 +19,7 @@
 #import "GTDefaults.h"
 #import "GTLanguage.h"
 #import "GTStorage.h"
+#import <Crashlytics/Crashlytics.h>
 
 NSString * const GTSplashErrorDomain                                            = @"org.cru.godtools.gtsplashviewcontroller.error.domain";
 NSInteger const GTSplashErrorCodeInitialSetupFailed                             = 1;
@@ -319,7 +320,8 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 }
 
 - (void)languageUpdateFailed:(NSNotification *)notification {
-    //if it failed, should we just go home, or alert the user and do something else?
+    //log the error and then proceed
+    CLSLog(@"Failed language update");
 
     //hide the indicator, remove the listeners
     if([self.splashScreen.activityView isAnimating]){
