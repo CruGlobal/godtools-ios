@@ -15,6 +15,11 @@
 #import "GTGoogleAnalyticsTracker.h"
 #import "FollowUpAPI.h"
 #import "GTFollowUpSubscription.h"
+//GitHub Issue #43
+#import "GTDefaults.h"
+#import "GTLanguage.h"
+#import "GTStorage.h"
+#import <Crashlytics/Crashlytics.h>
 
 NSString * const GTSplashErrorDomain                                            = @"org.cru.godtools.gtsplashviewcontroller.error.domain";
 NSInteger const GTSplashErrorCodeInitialSetupFailed                             = 1;
@@ -44,6 +49,8 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 
 - (void)registerListenersForInitialSetup;
 - (void)removeListenersForInitialSetup;
+- (void)registerListenersForMenuUpdate;
+- (void)removeListenersForMenuUpdate;
 
 @end
 
@@ -87,9 +94,9 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 		
 	} else {
         [self leavePreviewMode];
+        [self registerListenersForMenuUpdate];
         [self sendCachedFollowupSubscriptions];
 		[self updateMenu];
-		[self goToHome];
 	}
 	
 }
@@ -291,10 +298,49 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 }
 
 - (void)menuUpdateFinished:(NSNotification *)notification {
-	
-	if([self.splashScreen.activityView isAnimating]){
-		[self.splashScreen hideDownloadIndicator];
-	}
+    
+    //GitHub Issue #43 - Once the menu has updated, query CoreData and figure out if there's any updates
+    //for the user's current language. If so, just go ahead and get them.
+    NSString *lang = [GTDefaults sharedDefaults].currentLanguageCode;
+    GTLanguage *language = [[GTStorage sharedStorage] languageWithCode:lang];
+    //if there's updates, stay here until they're done
+    if (language.hasUpdates == YES) {
+        [[GTDataImporter sharedImporter] downloadPackagesForLanguage:language];
+    //otherwise, move on
+    } else {
+        //tell the initialization tracker that there's nothing to do
+        [self.setupTracker finishedDownloadingPhonesLanguage];
+        
+        if([self.splashScreen.activityView isAnimating]){
+            [self.splashScreen hideDownloadIndicator];
+        }
+        [self removeListenersForMenuUpdate];
+        [self goToHome];
+    }
+}
+
+- (void)languageUpdateFailed:(NSNotification *)notification {
+    //log the error and then proceed
+    NSError *error = [[NSError alloc] initWithDomain:@"languageDownloadFailed" code:-1 userInfo:nil];
+    [[Crashlytics sharedInstance] recordError:error];
+
+    //hide the indicator, remove the listeners
+    if([self.splashScreen.activityView isAnimating]){
+        [self.splashScreen hideDownloadIndicator];
+    }
+    [self removeListenersForMenuUpdate];
+    [self goToHome];
+}
+
+- (void)languageUpdateFinished:(NSNotification *)notification {
+    //we successfully updated our language, go to the home page
+    
+    //hide the indicator, remove the listeners
+    if([self.splashScreen.activityView isAnimating]){
+        [self.splashScreen hideDownloadIndicator];
+    }
+    [self removeListenersForMenuUpdate];
+    [self goToHome];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -330,6 +376,7 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 											   object:self.setupTracker];
 	
 }
+
 - (void)removeListenersForInitialSetup {
 
 	[[NSNotificationCenter defaultCenter] removeObserver:self
@@ -344,6 +391,49 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 													name:GTInitialSetupTrackerNotificationDidFail
 												  object:self.setupTracker];
 	
+}
+
+- (void)registerListenersForMenuUpdate {
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(menuUpdateBegan:)
+                                                 name:GTDataImporterNotificationMenuUpdateStarted
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(menuUpdateFinished:)
+                                                 name:GTDataImporterNotificationMenuUpdateFinished
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(languageUpdateFailed:)
+                                                 name:GTDataImporterNotificationLanguageDownloadFailed
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(languageUpdateFinished:)
+                                                 name:GTDataImporterNotificationLanguageDownloadFinished
+                                               object:nil];
+}
+
+- (void)removeListenersForMenuUpdate {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:GTDataImporterNotificationMenuUpdateStarted
+                                                  object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:GTDataImporterNotificationMenuUpdateFinished
+                                                  object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:GTDataImporterNotificationLanguageDownloadFailed
+                                                  object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:GTDataImporterNotificationLanguageDownloadFinished
+                                                  object:nil];
+    
 }
 
 - (void)dealloc {
