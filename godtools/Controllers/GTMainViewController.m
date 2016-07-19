@@ -321,7 +321,8 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 
 - (void)languageUpdateFailed:(NSNotification *)notification {
     //log the error and then proceed
-    CLSLog(@"Failed language update");
+    NSError *error = [[NSError alloc] initWithDomain:@"languageDownloadFailed" code:-1 userInfo:nil];
+    [[Crashlytics sharedInstance] recordError:error];
 
     //hide the indicator, remove the listeners
     if([self.splashScreen.activityView isAnimating]){
