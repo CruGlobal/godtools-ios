@@ -10,14 +10,9 @@
 
 @interface GTLanguageViewCell()
 
-@property (nonatomic, assign) BOOL downloading;
-@property (nonatomic, weak) id target;
-@property (nonatomic, assign) SEL selector;
-@property (nonatomic, weak) id parameter;
-
-- (void)configureWithLanguage:(GTLanguage *)language buttonText:(NSString *)buttonText target:(id)target selector:(SEL)selector parameter:(id)parameter;
-- (void)addAccessoryViewWithButtonText:(NSString *)buttonText;
-- (void)callTargetSelectorForAccessory:(id)accessory;
+@property (weak, nonatomic) IBOutlet UIButton *downloadButton;
+@property (weak, nonatomic) IBOutlet UIButton *checkmarkButton;
+@property (weak, nonatomic, readwrite) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end
 
@@ -25,85 +20,42 @@
 
 - (void)awakeFromNib {
     // Initialization code
-	
+    [super awakeFromNib];
+    
 	self.languageName.textColor = [UIColor whiteColor];
-	self.backgroundColor = [UIColor colorWithRed:255 green:255 blue:255 alpha: .1];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
-- (BOOL)isDownloading{
-    return self.downloading;
+- (void)setIsDownloading:(BOOL)isDownloading {
+    if (isDownloading && ![self.activityIndicator isAnimating]) {
+        [self.activityIndicator startAnimating];
+        self.downloadButton.hidden = YES;
+    }
+    
+    if (!isDownloading && [self.activityIndicator isAnimating]) {
+        [self.activityIndicator stopAnimating];
+    }
 }
 
-- (void)setDownloadingField:(BOOL)downloading {
-    self.downloading = downloading;
+- (void)setIsSelected:(BOOL)isSelected {
+    self.checkmarkButton.hidden = !isSelected;
+    
+    // don't show download button if cell is selected
+    if (isSelected) {
+        self.downloadButton.hidden = YES;
+    }
 }
 
-- (void)configureWithLanguage:(GTLanguage *)language buttonText:(NSString *)buttonText target:(id)target selector:(SEL)selector parameter:(id)parameter {
-	
-	self.language	= language;
-	self.target		= target;
-	self.selector	= selector;
-	self.parameter	= parameter;
-	NSString *localizedLanguageName = [[NSLocale currentLocale] displayNameForKey:NSLocaleIdentifier value:language.code];
-	self.languageName.text = ( !localizedLanguageName || [localizedLanguageName isEqualToString:language.code] ? language.name.capitalizedString : localizedLanguageName.capitalizedString );
-	
-	self.checkBox.hidden = YES;
-	self.errorIcon.hidden = YES;
-	
-	// Create custom accessory view with action selector
-	if(buttonText && self.target && self.selector) {
-		[self addAccessoryViewWithButtonText:buttonText];
-	} else {
-		self.accessoryView = nil;
-	}
-	
-}
-
-- (void)addAccessoryViewWithButtonText:(NSString *)buttonText {
-	
-	UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-	button.frame = CGRectMake(0.0f, 0.0f, 100.0f, 25.0f);
-	
-	[button setTitle:( buttonText ? buttonText : NSLocalizedString(@"download", nil) )
-			forState:UIControlStateNormal];
-	
-	[button setTitleColor: [UIColor whiteColor]
-				 forState:UIControlStateNormal];
-	
-	[button addTarget:self
-			   action:@selector(callTargetSelectorForAccessory:)
-	 forControlEvents:UIControlEventTouchUpInside];
-	
-	self.accessoryView = button;
-	
-}
-
-- (void)callTargetSelectorForAccessory:(id)accessory {
-	
-	
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-	if (self.parameter) {
-		
-		if ([self.target respondsToSelector:self.selector]) {
-			[self.target performSelector:self.selector withObject:self.parameter];
-		}
-		
-	} else {
-		
-		if ([self.target respondsToSelector:self.selector]) {
-			[self.target performSelector:self.selector];
-		}
-		
-	}
-#pragma clang diagnostic pop
-	
+- (void)configureWithLanguage:(GTLanguage *)language {
+    self.language = language;
+    
+    NSString *localizedLanguageName = [[NSLocale currentLocale] displayNameForKey:NSLocaleIdentifier value:language.code];
+    self.languageName.text = ( !localizedLanguageName || [localizedLanguageName isEqualToString:language.code] ? language.name.capitalizedString : localizedLanguageName.capitalizedString );
+    
+    self.downloadButton.hidden = [language.downloaded boolValue];
 }
 
 @end

@@ -14,13 +14,10 @@
 
 @property (nonatomic, strong) GTLanguage *language;
 @property (weak, nonatomic) IBOutlet UILabel *languageName;
-@property (weak, nonatomic) IBOutlet UIImageView *checkBox;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
-@property (weak, nonatomic) IBOutlet UIImageView *errorIcon;
 
--(BOOL) isDownloading;
--(void) setDownloadingField: (BOOL)downloading;
+- (void)setIsDownloading:(BOOL)isDownloading;
+- (void)setIsSelected:(BOOL)isSelected;
 
-- (void)configureWithLanguage:(GTLanguage *)language buttonText:(NSString *)buttonText target:(id)target selector:(SEL)selector parameter:(id)parameter;
+- (void)configureWithLanguage:(GTLanguage *)language;
 
 @end
