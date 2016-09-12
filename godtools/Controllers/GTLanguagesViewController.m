@@ -21,7 +21,6 @@
 
 @property (strong, nonatomic) NSMutableArray *languages;
 @property (strong, nonatomic) UIAlertView *buttonLessAlert;
-@property (strong, nonatomic) UIBarButtonItem *updateAllButton;
 @property AFNetworkReachabilityManager *afReachability;
 
 - (void)updateFinished:(NSNotification *)notification;
@@ -61,11 +60,6 @@ BOOL languageDownloadCancelled = NO;
                                    delegate:self
                                    cancelButtonTitle:nil
                                    otherButtonTitles:nil, nil];
-	
-	self.updateAllButton		= [[UIBarButtonItem alloc] initWithTitle: NSLocalizedString(@"update_all", nil)
-															 style:UIBarButtonItemStylePlain
-															target:self
-															action:@selector(updateAllLanguages)];
     
     // set navigation bar title color for title set from story board
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:UITextAttributeTextColor]];
@@ -84,13 +78,6 @@ BOOL languageDownloadCancelled = NO;
         }
     }];
 	
-	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"updatesAvailable == YES AND packages.@count > 0 AND ANY packages.status == %@", @"live"];
-	if(![[GTDefaults sharedDefaults].isInTranslatorMode isEqual:@YES] && [self.languages filteredArrayUsingPredicate:predicate].count > 0) {
-		self.navigationItem.rightBarButtonItem = self.updateAllButton;
-	} else {
-		self.navigationItem.rightBarButtonItem = nil;
-	}
-    
     if([@"finished" isEqualToString:[[GTDefaults sharedDefaults] translationDownloadStatus]]) {
         languageDownloading = nil;
     }
@@ -204,7 +191,7 @@ BOOL languageDownloadCancelled = NO;
     
     GTLanguage *language = [self.languages objectAtIndex:indexPath.section];
 
-    [cell configureWithLanguage:language];
+    [cell configureWithLanguage:language internetReachable:self.afReachability.reachable];
     [cell setIsSelected:[self isSelectedLanguage:language]];
     
     if ([language.code isEqualToString:languageDownloading]) {
@@ -236,12 +223,6 @@ BOOL languageDownloadCancelled = NO;
 				return;
 			}
 			
-//			[cell configureWithLanguage:language
-//                  showingDownloadButton:NO
-//								 target:weakSelf
-//							   selector:@selector(cancelDownloadForLanguageAtCell:)
-//							  parameter:cell];
-			
 			selectedLanguage = language;
             languageActionCell = cell;
             
@@ -264,17 +245,6 @@ BOOL languageDownloadCancelled = NO;
 	}];
 }
 
-- (void)updateAllLanguages {
-	
-	[self ifOnline:^{
-		
-		self.updateAllButton.enabled = NO;
-		[[GTDataImporter sharedImporter] updatePackagesWithNewVersions];
-		
-	}];
-	
-}
-
 - (BOOL)updateLanguageAtCell:(GTLanguageViewCell *)cell {
 	
 	__weak typeof(self)weakSelf = self;
@@ -282,12 +252,6 @@ BOOL languageDownloadCancelled = NO;
 		GTLanguage *language = cell.language;
 		
 		if(language != nil) {
-			
-//			[cell configureWithLanguage:language
-//                  showingDownloadButton:NO
-//								 target:weakSelf
-//							   selector:@selector(cancelDownloadForLanguageAtCell:)
-//							  parameter:cell];
 			
 			[[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadProgressMade
 																object:weakSelf
@@ -312,9 +276,6 @@ BOOL languageDownloadCancelled = NO;
 }
 
 - (void)updateFinished:(NSNotification *)notification {
-	
-	self.updateAllButton.enabled = YES;
-	
 	if (languageDownloading) {
 		languageDownloading = nil;
 		languageDownloadFailed = nil;
@@ -329,15 +290,11 @@ BOOL languageDownloadCancelled = NO;
 														  otherButtonTitles:NSLocalizedString(@"ok", nil), nil];
 		[confirmationAlert show];
 		
-		self.navigationItem.rightBarButtonItem = nil;
 		[self setData];
 	}
 }
 
 - (void)updateFailed:(NSNotification *)notification {
-	
-	self.updateAllButton.enabled = YES;
-	
 	if (languageDownloading) {
 		languageDownloadFailed = selectedLanguage.code.copy;
 		languageDownloading = nil;
@@ -370,7 +327,6 @@ BOOL languageDownloadCancelled = NO;
 		return YES;
 		
 	} else {
-		
 		self.buttonLessAlert.message = NSLocalizedString(@"internet_needed", nil);
 		[self.buttonLessAlert show];
 		[self performSelector:@selector(dismissAlertView:) withObject:self.buttonLessAlert afterDelay:2.0];
@@ -382,7 +338,7 @@ BOOL languageDownloadCancelled = NO;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
     // don't allow row selection during download
-    if([languageDownloading length] != 0) {
+    if ([languageDownloading length] != 0) {
         return;
     }
     
@@ -391,17 +347,22 @@ BOOL languageDownloadCancelled = NO;
     GTLanguage *chosen = (GTLanguage*)[self.languages objectAtIndex:indexPath.section];
 
     // download language if not yet downloaded
-    if(!chosen.downloaded) {
+    if (!chosen.downloaded) {
         languageActionCell = (GTLanguageViewCell *)[tableView cellForRowAtIndexPath:indexPath];
 		[self downloadLanguageAtCell:languageActionCell];
 		
         return;
+    } else if (chosen.hasUpdates && self.afReachability.reachable) {
+        languageActionCell = (GTLanguageViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+        [self updateLanguageAtCell:languageActionCell];
+        
+        return;
     }
 
     // set the current language selected
-    if([GTDefaults sharedDefaults].isChoosingForMainLanguage) {
+    if ([GTDefaults sharedDefaults].isChoosingForMainLanguage) {
         [[GTDefaults sharedDefaults]setCurrentLanguageCode:chosen.code];
-    }else {
+    } else {
         [[GTDefaults sharedDefaults]setCurrentParallelLanguageCode:chosen.code];
     }
    
