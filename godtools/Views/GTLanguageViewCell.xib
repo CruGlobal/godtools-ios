@@ -16,7 +16,10 @@
                 <frame key="frameInset" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view alpha="0.10000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yKL-wt-cou" userLabel="Background View">
+                    <view alpha="0.050000000000000003" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yKL-wt-cou" userLabel="Background View">
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <view alpha="0.25" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sqP-az-F26" userLabel="Selected State Background View">
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Language name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="KFe-mW-0Q8">
@@ -52,8 +55,12 @@
                     <constraint firstItem="svf-Xr-Qzt" firstAttribute="centerX" secondItem="5dh-po-D22" secondAttribute="centerX" id="dG2-iZ-57G"/>
                     <constraint firstItem="svf-Xr-Qzt" firstAttribute="width" secondItem="5dh-po-D22" secondAttribute="width" id="fTj-Zt-H5f"/>
                     <constraint firstItem="dad-0F-weY" firstAttribute="height" secondItem="5dh-po-D22" secondAttribute="height" id="fwL-7G-VGO"/>
+                    <constraint firstItem="sqP-az-F26" firstAttribute="height" secondItem="OVI-a6-Tga" secondAttribute="height" id="ieN-yO-TaV"/>
                     <constraint firstItem="yKL-wt-cou" firstAttribute="height" secondItem="OVI-a6-Tga" secondAttribute="height" id="jjs-Vc-5sO"/>
+                    <constraint firstItem="sqP-az-F26" firstAttribute="centerX" secondItem="OVI-a6-Tga" secondAttribute="centerX" id="leQ-PF-3OF"/>
+                    <constraint firstItem="sqP-az-F26" firstAttribute="centerY" secondItem="OVI-a6-Tga" secondAttribute="centerY" id="oHQ-vL-LdM"/>
                     <constraint firstItem="KFe-mW-0Q8" firstAttribute="leading" secondItem="OVI-a6-Tga" secondAttribute="leadingMargin" constant="10" id="qXT-pr-ycD"/>
+                    <constraint firstItem="sqP-az-F26" firstAttribute="width" secondItem="OVI-a6-Tga" secondAttribute="width" id="tkS-p8-Amn"/>
                     <constraint firstItem="yKL-wt-cou" firstAttribute="width" secondItem="OVI-a6-Tga" secondAttribute="width" id="wEG-wQ-nf8"/>
                     <constraint firstItem="5dh-po-D22" firstAttribute="leading" secondItem="KFe-mW-0Q8" secondAttribute="trailing" constant="10" id="xmO-vL-eZG"/>
                 </constraints>
@@ -64,6 +71,7 @@
                 <outlet property="checkmarkButton" destination="dad-0F-weY" id="NJM-KP-Kka"/>
                 <outlet property="downloadButton" destination="5dh-po-D22" id="b9N-Hw-VeC"/>
                 <outlet property="languageName" destination="KFe-mW-0Q8" id="dZt-fh-iai"/>
+                <outlet property="selectedStateView" destination="sqP-az-F26" id="e49-LB-Lee"/>
             </connections>
             <point key="canvasLocation" x="250" y="273"/>
         </tableViewCell>

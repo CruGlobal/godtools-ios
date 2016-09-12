@@ -13,6 +13,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *downloadButton;
 @property (weak, nonatomic) IBOutlet UIButton *checkmarkButton;
 @property (weak, nonatomic, readwrite) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (weak, nonatomic) IBOutlet UIView *selectedStateView;
+
 
 @end
 
@@ -42,6 +44,7 @@
 
 - (void)setIsSelected:(BOOL)isSelected {
     self.checkmarkButton.hidden = !isSelected;
+    self.selectedStateView.hidden = !isSelected;
     
     // don't show download button if cell is selected
     if (isSelected) {
