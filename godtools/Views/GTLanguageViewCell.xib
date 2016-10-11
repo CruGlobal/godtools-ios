@@ -1,48 +1,83 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="abu-29-z1E" customClass="GTLanguageViewCell">
+        <tableViewCell opaque="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="abu-29-z1E" customClass="GTLanguageViewCell">
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="abu-29-z1E" id="OVI-a6-Tga">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                <frame key="frameInset" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="GT4_DownloadsScreen_CheckMark_" highlightedImage="GT4_DownloadsScreen_CheckMark_" translatesAutoresizingMaskIntoConstraints="NO" id="f9C-HA-QFg">
-                        <rect key="frame" x="8" y="9" width="29" height="22"/>
-                    </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Language name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KFe-mW-0Q8">
-                        <rect key="frame" x="45" y="11" width="166" height="21"/>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <view alpha="0.050000000000000003" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yKL-wt-cou" userLabel="Background View">
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <view alpha="0.25" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sqP-az-F26" userLabel="Selected State Background View">
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Language name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="KFe-mW-0Q8">
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="svf-Xr-Qzt">
-                        <rect key="frame" x="16" y="11" width="20" height="20"/>
-                    </activityIndicatorView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="GT4_DownloadsScreen_ErrorIcon_" highlightedImage="GT4_DownloadsScreen_ErrorIcon_" translatesAutoresizingMaskIntoConstraints="NO" id="tWR-e5-eLj">
-                        <rect key="frame" x="4" y="5" width="37" height="33"/>
-                    </imageView>
+                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="svf-Xr-Qzt"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dad-0F-weY">
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <state key="normal" image="Checkmark-50"/>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5dh-po-D22">
+                        <constraints>
+                            <constraint firstAttribute="width" constant="23" id="XpO-6P-6ws"/>
+                            <constraint firstAttribute="height" constant="25" id="unt-0H-db3"/>
+                        </constraints>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <state key="normal" image="Download-50"/>
+                    </button>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="svf-Xr-Qzt" firstAttribute="centerY" secondItem="5dh-po-D22" secondAttribute="centerY" id="0gY-IT-JaB"/>
+                    <constraint firstItem="yKL-wt-cou" firstAttribute="centerX" secondItem="OVI-a6-Tga" secondAttribute="centerX" id="G06-MR-AOv"/>
+                    <constraint firstItem="dad-0F-weY" firstAttribute="width" secondItem="5dh-po-D22" secondAttribute="width" id="Imy-ur-miT"/>
+                    <constraint firstItem="svf-Xr-Qzt" firstAttribute="height" secondItem="5dh-po-D22" secondAttribute="height" id="KZG-6L-a1W"/>
+                    <constraint firstItem="dad-0F-weY" firstAttribute="centerX" secondItem="5dh-po-D22" secondAttribute="centerX" id="NY3-Br-2nZ"/>
+                    <constraint firstItem="5dh-po-D22" firstAttribute="centerY" secondItem="OVI-a6-Tga" secondAttribute="centerY" id="Rzf-u8-rje"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="5dh-po-D22" secondAttribute="trailing" constant="10" id="SBp-pO-g2N"/>
+                    <constraint firstItem="yKL-wt-cou" firstAttribute="centerY" secondItem="OVI-a6-Tga" secondAttribute="centerY" id="Un8-ON-8LR"/>
+                    <constraint firstItem="dad-0F-weY" firstAttribute="centerY" secondItem="5dh-po-D22" secondAttribute="centerY" id="WNa-AS-ffE"/>
+                    <constraint firstItem="KFe-mW-0Q8" firstAttribute="centerY" secondItem="OVI-a6-Tga" secondAttribute="centerY" id="a3H-aA-eS1"/>
+                    <constraint firstItem="svf-Xr-Qzt" firstAttribute="centerX" secondItem="5dh-po-D22" secondAttribute="centerX" id="dG2-iZ-57G"/>
+                    <constraint firstItem="svf-Xr-Qzt" firstAttribute="width" secondItem="5dh-po-D22" secondAttribute="width" id="fTj-Zt-H5f"/>
+                    <constraint firstItem="dad-0F-weY" firstAttribute="height" secondItem="5dh-po-D22" secondAttribute="height" id="fwL-7G-VGO"/>
+                    <constraint firstItem="sqP-az-F26" firstAttribute="height" secondItem="OVI-a6-Tga" secondAttribute="height" id="ieN-yO-TaV"/>
+                    <constraint firstItem="yKL-wt-cou" firstAttribute="height" secondItem="OVI-a6-Tga" secondAttribute="height" id="jjs-Vc-5sO"/>
+                    <constraint firstItem="sqP-az-F26" firstAttribute="centerX" secondItem="OVI-a6-Tga" secondAttribute="centerX" id="leQ-PF-3OF"/>
+                    <constraint firstItem="sqP-az-F26" firstAttribute="centerY" secondItem="OVI-a6-Tga" secondAttribute="centerY" id="oHQ-vL-LdM"/>
+                    <constraint firstItem="KFe-mW-0Q8" firstAttribute="leading" secondItem="OVI-a6-Tga" secondAttribute="leadingMargin" constant="10" id="qXT-pr-ycD"/>
+                    <constraint firstItem="sqP-az-F26" firstAttribute="width" secondItem="OVI-a6-Tga" secondAttribute="width" id="tkS-p8-Amn"/>
+                    <constraint firstItem="yKL-wt-cou" firstAttribute="width" secondItem="OVI-a6-Tga" secondAttribute="width" id="wEG-wQ-nf8"/>
+                    <constraint firstItem="5dh-po-D22" firstAttribute="leading" secondItem="KFe-mW-0Q8" secondAttribute="trailing" constant="10" id="xmO-vL-eZG"/>
+                </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
             <connections>
-                <outlet property="activityIndicator" destination="svf-Xr-Qzt" id="YJa-gA-fkO"/>
-                <outlet property="checkBox" destination="f9C-HA-QFg" id="mY7-x1-rrL"/>
-                <outlet property="errorIcon" destination="tWR-e5-eLj" id="l7u-rh-E4X"/>
+                <outlet property="activityIndicator" destination="svf-Xr-Qzt" id="vGG-2D-wsR"/>
+                <outlet property="checkmarkButton" destination="dad-0F-weY" id="NJM-KP-Kka"/>
+                <outlet property="downloadButton" destination="5dh-po-D22" id="b9N-Hw-VeC"/>
                 <outlet property="languageName" destination="KFe-mW-0Q8" id="dZt-fh-iai"/>
+                <outlet property="selectedStateView" destination="sqP-az-F26" id="e49-LB-Lee"/>
             </connections>
             <point key="canvasLocation" x="250" y="273"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="GT4_DownloadsScreen_CheckMark_" width="24" height="18"/>
-        <image name="GT4_DownloadsScreen_ErrorIcon_" width="5" height="20"/>
+        <image name="Checkmark-50" width="25" height="25"/>
+        <image name="Download-50" width="25" height="25"/>
     </resources>
 </document>

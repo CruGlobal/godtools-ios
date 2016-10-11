@@ -21,7 +21,6 @@
 
 @property (strong, nonatomic) NSMutableArray *languages;
 @property (strong, nonatomic) UIAlertView *buttonLessAlert;
-@property (strong, nonatomic) UIBarButtonItem *updateAllButton;
 @property AFNetworkReachabilityManager *afReachability;
 
 - (void)updateFinished:(NSNotification *)notification;
@@ -61,11 +60,6 @@ BOOL languageDownloadCancelled = NO;
                                    delegate:self
                                    cancelButtonTitle:nil
                                    otherButtonTitles:nil, nil];
-	
-	self.updateAllButton		= [[UIBarButtonItem alloc] initWithTitle: NSLocalizedString(@"update_all", nil)
-															 style:UIBarButtonItemStylePlain
-															target:self
-															action:@selector(updateAllLanguages)];
     
     // set navigation bar title color for title set from story board
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:UITextAttributeTextColor]];
@@ -84,13 +78,6 @@ BOOL languageDownloadCancelled = NO;
         }
     }];
 	
-	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"updatesAvailable == YES AND packages.@count > 0 AND ANY packages.status == %@", @"live"];
-	if(![[GTDefaults sharedDefaults].isInTranslatorMode isEqual:@YES] && [self.languages filteredArrayUsingPredicate:predicate].count > 0) {
-		self.navigationItem.rightBarButtonItem = self.updateAllButton;
-	} else {
-		self.navigationItem.rightBarButtonItem = nil;
-	}
-    
     if([@"finished" isEqualToString:[[GTDefaults sharedDefaults] translationDownloadStatus]]) {
         languageDownloading = nil;
     }
@@ -108,13 +95,13 @@ BOOL languageDownloadCancelled = NO;
 }
 
 -(void)languageDownloadProgressMade{
-    [self showLanguageDownloadIndicator];
+    [languageActionCell setIsDownloading:YES];
 }
 
 - (void)languageDownloadFinished {
     languageDownloading = nil;
     languageDownloadFailed = nil;
-    [self hideLanguageDownloadIndicator];
+    [languageActionCell setIsDownloading:NO];
     [self setData];
     
     //once language is selected go back to settings page
@@ -124,20 +111,10 @@ BOOL languageDownloadCancelled = NO;
 - (void)languageDownloadFailed {
     languageDownloadFailed = selectedLanguage.code.copy;
     languageDownloading = nil;
-    [self hideLanguageDownloadIndicator];
+    [languageActionCell setIsDownloading:NO];
+    
+    
     [self setData];
-}
-
-- (void)showLanguageDownloadIndicator{
-    if(![languageActionCell.activityIndicator isAnimating]) {
-        [languageActionCell.activityIndicator startAnimating];
-    }
-}
-
-- (void)hideLanguageDownloadIndicator{
-    if([languageActionCell.activityIndicator isAnimating]) {
-        [languageActionCell.activityIndicator stopAnimating];
-    }
 }
 
 - (void)setData{
@@ -207,48 +184,21 @@ BOOL languageDownloadCancelled = NO;
 
     GTLanguageViewCell *cell = (GTLanguageViewCell*)[tableView dequeueReusableCellWithIdentifier:@"GTLanguageViewCell"];
     
-    if (cell == nil)
-    {
+    if (cell == nil) {
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"GTLanguageViewCell" owner:self options:nil];
         cell = [nib objectAtIndex:0];
     }
     
     GTLanguage *language = [self.languages objectAtIndex:indexPath.section];
-	
-	if (language.hasUpdates && ![[GTDefaults sharedDefaults].isInTranslatorMode isEqual:@YES]) {
-		[cell configureWithLanguage:language
-						 buttonText:NSLocalizedString(@"update", nil)
-							 target:self
-						   selector:@selector(updateLanguageAtCell:)
-						  parameter:cell];
-	} else if (!language.downloaded) {
-		[cell configureWithLanguage:language
-						 buttonText:NSLocalizedString(@"download", nil)
-							 target:self
-						   selector:@selector(downloadLanguageAtCell:)
-						  parameter:cell];
-	} else {
-		[cell configureWithLanguage:language
-						 buttonText:nil
-							 target:nil
-						   selector:nil
-						  parameter:nil];
-	}
-	
-    if ([self isSelectedLanguage:language]) {
-        cell.checkBox.hidden = NO;
-    }
+
+    [cell configureWithLanguage:language internetReachable:self.afReachability.reachable];
+    [cell setIsSelected:[self isSelectedLanguage:language]];
     
     if ([language.code isEqualToString:languageDownloading]) {
         languageActionCell = cell;
-        [self showLanguageDownloadIndicator];
+        [languageActionCell setIsDownloading:YES];
     }
-	
-    if ([languageDownloadFailed isEqualToString:language.code] && [selectedLanguage.code isEqualToString:language.code] && ([languageDownloading length] == 0) && !languageDownloadCancelled) {
-        cell.checkBox.hidden = YES;
-        cell.errorIcon.hidden = NO;
-    }
-    
+
     return cell;
 }
 
@@ -273,12 +223,6 @@ BOOL languageDownloadCancelled = NO;
 				return;
 			}
 			
-			[cell configureWithLanguage:language
-							 buttonText:NSLocalizedString(@"cancel", nil)
-								 target:weakSelf
-							   selector:@selector(cancelDownloadForLanguageAtCell:)
-							  parameter:cell];
-			
 			selectedLanguage = language;
             languageActionCell = cell;
             
@@ -301,17 +245,6 @@ BOOL languageDownloadCancelled = NO;
 	}];
 }
 
-- (void)updateAllLanguages {
-	
-	[self ifOnline:^{
-		
-		self.updateAllButton.enabled = NO;
-		[[GTDataImporter sharedImporter] updatePackagesWithNewVersions];
-		
-	}];
-	
-}
-
 - (BOOL)updateLanguageAtCell:(GTLanguageViewCell *)cell {
 	
 	__weak typeof(self)weakSelf = self;
@@ -319,12 +252,6 @@ BOOL languageDownloadCancelled = NO;
 		GTLanguage *language = cell.language;
 		
 		if(language != nil) {
-			
-			[cell configureWithLanguage:language
-							 buttonText:NSLocalizedString(@"cancel", nil)
-								 target:weakSelf
-							   selector:@selector(cancelDownloadForLanguageAtCell:)
-							  parameter:cell];
 			
 			[[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadProgressMade
 																object:weakSelf
@@ -345,17 +272,14 @@ BOOL languageDownloadCancelled = NO;
 }
 
 - (void)updateStarted:(NSNotification *)notification {
-        [self showLanguageDownloadIndicator];
+        [languageActionCell setIsDownloading:YES];
 }
 
 - (void)updateFinished:(NSNotification *)notification {
-	
-	self.updateAllButton.enabled = YES;
-	
 	if (languageDownloading) {
 		languageDownloading = nil;
 		languageDownloadFailed = nil;
-		[self hideLanguageDownloadIndicator];
+		[languageActionCell setIsDownloading:NO];
 		[self setData];
 	} else {
 		
@@ -366,19 +290,15 @@ BOOL languageDownloadCancelled = NO;
 														  otherButtonTitles:NSLocalizedString(@"ok", nil), nil];
 		[confirmationAlert show];
 		
-		self.navigationItem.rightBarButtonItem = nil;
 		[self setData];
 	}
 }
 
 - (void)updateFailed:(NSNotification *)notification {
-	
-	self.updateAllButton.enabled = YES;
-	
 	if (languageDownloading) {
 		languageDownloadFailed = selectedLanguage.code.copy;
 		languageDownloading = nil;
-		[self hideLanguageDownloadIndicator];
+		[languageActionCell setIsDownloading:NO];
 		[self setData];
 	} else {
 		UIAlertView *confirmationAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"new_updates_failed_title", nil)
@@ -394,7 +314,6 @@ BOOL languageDownloadCancelled = NO;
 
 - (void)cancelDownloadForLanguageAtCell:(GTLanguageViewCell *)cell {
 	
-	[cell setDownloadingField:NO];
 	[[GTDataImporter sharedImporter] cancelDownloadPackagesForLanguage];
 	languageDownloadCancelled = YES;
 	
@@ -408,7 +327,6 @@ BOOL languageDownloadCancelled = NO;
 		return YES;
 		
 	} else {
-		
 		self.buttonLessAlert.message = NSLocalizedString(@"internet_needed", nil);
 		[self.buttonLessAlert show];
 		[self performSelector:@selector(dismissAlertView:) withObject:self.buttonLessAlert afterDelay:2.0];
@@ -420,7 +338,7 @@ BOOL languageDownloadCancelled = NO;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
     // don't allow row selection during download
-    if([languageDownloading length] != 0) {
+    if ([languageDownloading length] != 0) {
         return;
     }
     
@@ -429,17 +347,22 @@ BOOL languageDownloadCancelled = NO;
     GTLanguage *chosen = (GTLanguage*)[self.languages objectAtIndex:indexPath.section];
 
     // download language if not yet downloaded
-    if(!chosen.downloaded) {
+    if (!chosen.downloaded) {
         languageActionCell = (GTLanguageViewCell *)[tableView cellForRowAtIndexPath:indexPath];
 		[self downloadLanguageAtCell:languageActionCell];
 		
         return;
+    } else if (chosen.hasUpdates && self.afReachability.reachable) {
+        languageActionCell = (GTLanguageViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+        [self updateLanguageAtCell:languageActionCell];
+        
+        return;
     }
 
     // set the current language selected
-    if([GTDefaults sharedDefaults].isChoosingForMainLanguage) {
+    if ([GTDefaults sharedDefaults].isChoosingForMainLanguage) {
         [[GTDefaults sharedDefaults]setCurrentLanguageCode:chosen.code];
-    }else {
+    } else {
         [[GTDefaults sharedDefaults]setCurrentParallelLanguageCode:chosen.code];
     }
    
