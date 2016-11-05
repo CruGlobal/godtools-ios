@@ -7,7 +7,7 @@
 //
 
 #import "Deeplink.h"
-#import <GRMustache/GRMustache.h>
+#import "Deeplink+helpers.h"
 
 NSString * const DeeplinkBaseURLScheme				= @"https";
 NSString * const DeeplinkBaseURLHost				= @"hack-click-server.herokuapp.com/deeplink/";
@@ -95,31 +95,7 @@ NSString * const DeeplinkParamNamePlatform			= @"platform";
 	return self;
 }
 
-#pragma mark - protected methods
-
-- (instancetype)addParamWithName:(NSString *)name
-						   value:(NSString *)value {
-	
-	if (!name || !value) {
-		return self;
-	}
-	
-	self.params[name] = value;
-	
-	return self;
-}
-
-- (instancetype)addPathComponentWithName:(NSString *)name
-								   value:(NSString *)value {
-	
-	if (!name || !value) {
-		return self;
-	}
-	
-	self.pathComponents[name] = value;
-	
-	return self;
-}
+#pragma mark - private methods
 
 - (NSArray <NSURLQueryItem *>*)queryParamItems {
 	
