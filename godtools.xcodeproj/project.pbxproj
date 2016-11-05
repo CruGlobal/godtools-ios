@@ -582,7 +582,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 68740D4118D24F9A00D36C0E /* Build configuration list for PBXNativeTarget "godtools" */;
 			buildPhases = (
-				30F008E7773BAA21235F6404 /* 📦 Check Pods Manifest.lock */,
+				30F008E7773BAA21235F6404 /* [CP] Check Pods Manifest.lock */,
 				AC3C4B018E46D6DE385AACC5 /* [CP] Check Pods Manifest.lock */,
 				68740D0B18D24F9A00D36C0E /* Sources */,
 				68740D0C18D24F9A00D36C0E /* Frameworks */,
@@ -607,7 +607,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 68740D4418D24F9A00D36C0E /* Build configuration list for PBXNativeTarget "godtoolsTests" */;
 			buildPhases = (
-				09FECA8FE6D82F91580F8199 /* 📦 Check Pods Manifest.lock */,
+				09FECA8FE6D82F91580F8199 /* [CP] Check Pods Manifest.lock */,
 				7FE1B965694515DE422DF435 /* [CP] Check Pods Manifest.lock */,
 				68740D2C18D24F9A00D36C0E /* Sources */,
 				68740D2D18D24F9A00D36C0E /* Frameworks */,
@@ -634,7 +634,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = GT;
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Michael Harrison";
 				TargetAttributes = {
 					68740D0E18D24F9A00D36C0E = {
@@ -709,19 +709,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		09FECA8FE6D82F91580F8199 /* 📦 Check Pods Manifest.lock */ = {
+		09FECA8FE6D82F91580F8199 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		19593D8CB41B194438CA4DCA /* [CP] Copy Pods Resources */ = {
@@ -754,19 +754,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-godtoolsTests/Pods-godtoolsTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		30F008E7773BAA21235F6404 /* 📦 Check Pods Manifest.lock */ = {
+		30F008E7773BAA21235F6404 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		3245AEBBAA04A698DB0C96D2 /* 📦 Copy Pods Resources */ = {
@@ -1055,6 +1055,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1064,14 +1065,20 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Claudine Bael (BKHE62CR3F)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Claudine Bael (BKHE62CR3F)";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1088,7 +1095,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_GENERATE_MAP_FILE = NO;
 				ONLY_ACTIVE_ARCH = YES;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
@@ -1101,6 +1108,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1110,13 +1118,18 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Claudine Bael (BKHE62CR3F)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -1127,7 +1140,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_GENERATE_MAP_FILE = NO;
 				PROVISIONING_PROFILE = "2eb460f3-ddac-43b6-babd-34d2a3ce292e";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
@@ -1166,8 +1179,9 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "godtools/godtools-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cru.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1206,8 +1220,9 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "godtools/godtools-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cru.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1236,7 +1251,8 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "godtoolsTests/godtoolsTests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pointwest.godtools;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUNDLE_LOADER)";
@@ -1259,7 +1275,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "godtools/godtools-Prefix.pch";
 				INFOPLIST_FILE = "godtoolsTests/godtoolsTests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pointwest.godtools;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUNDLE_LOADER)";
