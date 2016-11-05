@@ -1,7 +1,7 @@
 source 'https://github.com/CocoaPods/Specs.git'
 source 'https://github.com/CruGlobal/cocoapods-specs.git'
 
-platform :ios, '6.0'
+platform :ios, '8.0'
 # ignore all warnings from all pods
 inhibit_all_warnings!
 
@@ -20,6 +20,7 @@ pod 'Fabric'
 pod 'Crashlytics'
 pod 'Rollbar', '~> 0.1.5'
 pod 'MagicalRecord', '~> 2.2'
+pod 'JLRoutes', '~> 2.0'
 
 end
 

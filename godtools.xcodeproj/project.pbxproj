@@ -80,6 +80,7 @@
 		68BA853518DCF102001AC6B3 /* GTStorageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BA853418DCF102001AC6B3 /* GTStorageTests.m */; };
 		68BA853918DCF13F001AC6B3 /* CRUStorageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BA853818DCF13F001AC6B3 /* CRUStorageTests.m */; };
 		68BA853B18DCF15D001AC6B3 /* GTConfigTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BA853A18DCF15D001AC6B3 /* GTConfigTests.m */; };
+		68DB06511DCE2AA700BF86E8 /* Deeplink.m in Sources */ = {isa = PBXBuildFile; fileRef = 68DB06501DCE2AA700BF86E8 /* Deeplink.m */; };
 		68E6068618D3952800844377 /* GTAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E6068518D3952800844377 /* GTAPI.m */; };
 		68E6068718D3952800844377 /* GTAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E6068518D3952800844377 /* GTAPI.m */; };
 		68E7C9341BACB49C00D79196 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68E7C9321BACB49C00D79196 /* Main.storyboard */; };
@@ -209,6 +210,8 @@
 		68BA853418DCF102001AC6B3 /* GTStorageTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTStorageTests.m; sourceTree = "<group>"; };
 		68BA853818DCF13F001AC6B3 /* CRUStorageTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRUStorageTests.m; sourceTree = "<group>"; };
 		68BA853A18DCF15D001AC6B3 /* GTConfigTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTConfigTests.m; sourceTree = "<group>"; };
+		68DB064F1DCE2AA700BF86E8 /* Deeplink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Deeplink.h; path = deeplink/Deeplink.h; sourceTree = "<group>"; };
+		68DB06501DCE2AA700BF86E8 /* Deeplink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Deeplink.m; path = deeplink/Deeplink.m; sourceTree = "<group>"; };
 		68E6068418D3952800844377 /* GTAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTAPI.h; path = "godtools-ios-api/GTAPI.h"; sourceTree = "<group>"; };
 		68E6068518D3952800844377 /* GTAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTAPI.m; path = "godtools-ios-api/GTAPI.m"; sourceTree = "<group>"; };
 		68E6068818D3986D00844377 /* GTDefaults.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GTDefaults.h; path = "godtools-ios-api/Models/GTDefaults.h"; sourceTree = "<group>"; };
@@ -434,6 +437,7 @@
 		68740D1818D24F9A00D36C0E /* godtools */ = {
 			isa = PBXGroup;
 			children = (
+				68DB064E1DCE29A400BF86E8 /* deeplink */,
 				4F0C46541CAEEC17007581A8 /* followup-api */,
 				68E6065E18D3834300844377 /* godtools-ios-api */,
 				66D1D7031A0B406800AC4E48 /* Controllers */,
@@ -505,6 +509,15 @@
 				6879E50D1B0CD7E1009E5B8F /* GTAPIMetaDataResponse.xml */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		68DB064E1DCE29A400BF86E8 /* deeplink */ = {
+			isa = PBXGroup;
+			children = (
+				68DB064F1DCE2AA700BF86E8 /* Deeplink.h */,
+				68DB06501DCE2AA700BF86E8 /* Deeplink.m */,
+			);
+			name = deeplink;
 			sourceTree = "<group>";
 		};
 		68E6065E18D3834300844377 /* godtools-ios-api */ = {
@@ -945,6 +958,7 @@
 				4F20B3DB1AC9A2F60026DC9E /* EveryStudentSearchCell.m in Sources */,
 				4F204CB01CB2B0F800F1CBD7 /* FollowUpAPI.m in Sources */,
 				4F20B3D61AC9A2F60026DC9E /* EveryStudentCell.m in Sources */,
+				68DB06511DCE2AA700BF86E8 /* Deeplink.m in Sources */,
 				4FE1E6E51ADEF69700133A3E /* GTGoogleAnalyticsTracker.m in Sources */,
 				B76536DA1A0CD2CF001C3FC3 /* GTLanguageViewCell.m in Sources */,
 				68464FC318E1CE4000D14C2B /* GTStorage.m in Sources */,

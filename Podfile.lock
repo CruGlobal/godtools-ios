@@ -33,6 +33,7 @@ PODS:
   - GoogleAnalytics-iOS-SDK (3.0.9)
   - GTViewController (7.0.3):
     - SSCWhatsAppActivity (~> 1.0)
+  - JLRoutes (2.0)
   - MagicalRecord (2.2):
     - MagicalRecord/Core (= 2.2)
   - MagicalRecord/Core (2.2)
@@ -51,6 +52,7 @@ DEPENDENCIES:
   - Fabric
   - GoogleAnalytics-iOS-SDK (~> 3.0.9)
   - GTViewController (~> 7.0.3)
+  - JLRoutes (~> 2.0)
   - MagicalRecord (~> 2.2)
   - NewRelicAgent (~> 5.3.1)
   - Rollbar (~> 0.1.5)
@@ -74,6 +76,7 @@ SPEC CHECKSUMS:
   Fabric: 190bf1a6eb65f7500de1347d027d2e59a7e53db1
   GoogleAnalytics-iOS-SDK: 3b0994bef22ed2e176a9e2a4d1660c7c2542eb47
   GTViewController: 47816a9676610bbf2010a34487efb827697f0748
+  JLRoutes: 0bead23690bafa726e1528aa6459a56c9b81cb5e
   MagicalRecord: 2dc87179ae7c1f2a274442624ec65a07d4357a6f
   NewRelicAgent: 8d8b27bea8d046f42a4a03c0ca4b571021f100d8
   RaptureXML: b5c33c04c1a4adfd8ad0d5463329a31820596e82
@@ -81,6 +84,6 @@ SPEC CHECKSUMS:
   SSCWhatsAppActivity: fdea072dcf11f1e4889c8f8d9f58118672361900
   SSZipArchive: 2cf2a6d3ac9f03252b7d96f93728b9b983be9afb
 
-PODFILE CHECKSUM: 853ced92f9278724de7ce4fdb9e6ecad7059ab36
+PODFILE CHECKSUM: 335679234a988b0cc98136afc12da25fa61d790e
 
 COCOAPODS: 1.1.1
