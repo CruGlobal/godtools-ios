@@ -82,6 +82,7 @@
 		68BA853B18DCF15D001AC6B3 /* GTConfigTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BA853A18DCF15D001AC6B3 /* GTConfigTests.m */; };
 		68DB06511DCE2AA700BF86E8 /* Deeplink.m in Sources */ = {isa = PBXBuildFile; fileRef = 68DB06501DCE2AA700BF86E8 /* Deeplink.m */; };
 		68DB06541DCE5D7D00BF86E8 /* Deeplink+helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 68DB06531DCE5D7D00BF86E8 /* Deeplink+helpers.m */; };
+		68DB06571DCE605100BF86E8 /* GodToolsDeeplink.m in Sources */ = {isa = PBXBuildFile; fileRef = 68DB06561DCE605100BF86E8 /* GodToolsDeeplink.m */; };
 		68E6068618D3952800844377 /* GTAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E6068518D3952800844377 /* GTAPI.m */; };
 		68E6068718D3952800844377 /* GTAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E6068518D3952800844377 /* GTAPI.m */; };
 		68E7C9341BACB49C00D79196 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68E7C9321BACB49C00D79196 /* Main.storyboard */; };
@@ -215,6 +216,8 @@
 		68DB06501DCE2AA700BF86E8 /* Deeplink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Deeplink.m; path = deeplink/Deeplink.m; sourceTree = "<group>"; };
 		68DB06521DCE5D7D00BF86E8 /* Deeplink+helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Deeplink+helpers.h"; path = "deeplink/Deeplink+helpers.h"; sourceTree = "<group>"; };
 		68DB06531DCE5D7D00BF86E8 /* Deeplink+helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Deeplink+helpers.m"; path = "deeplink/Deeplink+helpers.m"; sourceTree = "<group>"; };
+		68DB06551DCE605100BF86E8 /* GodToolsDeeplink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GodToolsDeeplink.h; path = deeplink/GodToolsDeeplink.h; sourceTree = "<group>"; };
+		68DB06561DCE605100BF86E8 /* GodToolsDeeplink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GodToolsDeeplink.m; path = deeplink/GodToolsDeeplink.m; sourceTree = "<group>"; };
 		68E6068418D3952800844377 /* GTAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTAPI.h; path = "godtools-ios-api/GTAPI.h"; sourceTree = "<group>"; };
 		68E6068518D3952800844377 /* GTAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTAPI.m; path = "godtools-ios-api/GTAPI.m"; sourceTree = "<group>"; };
 		68E6068818D3986D00844377 /* GTDefaults.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GTDefaults.h; path = "godtools-ios-api/Models/GTDefaults.h"; sourceTree = "<group>"; };
@@ -521,6 +524,8 @@
 				68DB06501DCE2AA700BF86E8 /* Deeplink.m */,
 				68DB06521DCE5D7D00BF86E8 /* Deeplink+helpers.h */,
 				68DB06531DCE5D7D00BF86E8 /* Deeplink+helpers.m */,
+				68DB06551DCE605100BF86E8 /* GodToolsDeeplink.h */,
+				68DB06561DCE605100BF86E8 /* GodToolsDeeplink.m */,
 			);
 			name = deeplink;
 			sourceTree = "<group>";
@@ -942,6 +947,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68DB06571DCE605100BF86E8 /* GodToolsDeeplink.m in Sources */,
 				4F20B3D71AC9A2F60026DC9E /* EveryStudentController.m in Sources */,
 				B7E472881A19FE90002DF715 /* GTBaseView.m in Sources */,
 				68278EBD1BCD3E4400472483 /* GTLanguage.m in Sources */,

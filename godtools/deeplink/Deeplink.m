@@ -8,6 +8,7 @@
 
 #import "Deeplink.h"
 #import "Deeplink+helpers.h"
+#import <AdSupport/ASIdentifierManager.h>
 
 NSString * const DeeplinkBaseURLScheme				= @"https";
 NSString * const DeeplinkBaseURLHost				= @"hack-click-server.herokuapp.com/deeplink/";
@@ -17,6 +18,7 @@ NSString * const DeeplinkParamNameReferrerAppID		= @"referrer";
 NSString * const DeeplinkParamNameReferrerUserID	= @"referrer_user_id";
 NSString * const DeeplinkParamNameDeviceID			= @"device_id";
 NSString * const DeeplinkParamNamePlatform			= @"platform";
+NSString * const DeeplinkParamValuePlatform			= @"ios";
 
 @interface Deeplink ()
 
@@ -97,9 +99,18 @@ NSString * const DeeplinkParamNamePlatform			= @"platform";
 
 #pragma mark - private methods
 
+- (NSString *)deviceID {
+	return [ASIdentifierManager sharedManager].advertisingIdentifier.UUIDString ?: @"";
+}
+
 - (NSArray <NSURLQueryItem *>*)queryParamItems {
 	
-	NSMutableArray <NSURLQueryItem *>*queryParamItems = [NSMutableArray array];
+	NSMutableArray <NSURLQueryItem *>*queryParamItems = [NSMutableArray arrayWithArray:@[
+																						 [NSURLQueryItem queryItemWithName:DeeplinkParamNameDeviceID
+																													 value:self.deviceID],
+																						 [NSURLQueryItem queryItemWithName:DeeplinkParamNamePlatform
+																													 value:DeeplinkParamValuePlatform]
+																						 ]];
 	
 	for (NSString *queryParamName in self.params) {
 		NSURLQueryItem *queryItem = [NSURLQueryItem queryItemWithName:queryParamName
@@ -114,19 +125,25 @@ NSString * const DeeplinkParamNamePlatform			= @"platform";
 
 - (NSString *)fullPath {
 	
+	NSString *fullPattern = @":prefix/:app_id/:content";
+	NSString *contentString;
+	
 	//build content path
-	NSString *contentPattern = self.pathComponentPattern;
-	if ([contentPattern hasPrefix:@"/"]) {
-		contentPattern = [contentPattern substringFromIndex:1];
+	if (self.pathComponentPattern) {
+		NSString *contentPattern = self.pathComponentPattern;
+		if ([contentPattern hasPrefix:@"/"]) {
+			contentPattern = [contentPattern substringFromIndex:1];
+		}
+		if ([contentPattern hasSuffix:@"/"]) {
+			contentPattern = [contentPattern substringToIndex:contentPattern.length - 1];
+		}
+		contentString = [self applyParameters:self.pathComponents
+								   toTemplate:contentPattern];
+	} else {
+		fullPattern = @":prefix/:app_id";
 	}
-	if ([contentPattern hasSuffix:@"/"]) {
-		contentPattern = [contentPattern substringToIndex:contentPattern.length - 1];
-	}
-	NSString *contentString = [self applyParameters:self.pathComponents
-										 toTemplate:contentPattern];
 	
 	//build full path using content path
-	NSString *fullPattern = @":prefix/:app_id/:content";
 	NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObject:DeeplinkBaseURLHostPathPrefix
 																	 forKey:@":prefix"];
 	if (self.appID) {

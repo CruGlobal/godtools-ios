@@ -13,6 +13,9 @@
 @required
 - (NSString *)appID;
 
+@optional
+- (NSString *)pathComponentsPattern;
+
 @end
 
 @interface Deeplink : NSObject
