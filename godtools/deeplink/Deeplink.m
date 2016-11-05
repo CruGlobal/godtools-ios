@@ -11,8 +11,8 @@
 #import <AdSupport/ASIdentifierManager.h>
 
 NSString * const DeeplinkBaseURLScheme				= @"https";
-NSString * const DeeplinkBaseURLHost				= @"hack-click-server.herokuapp.com/deeplink/";
-NSString * const DeeplinkBaseURLHostPathPrefix		= @"deeplink";
+NSString * const DeeplinkBaseURLHost				= @"hack-click-server.herokuapp.com";
+NSString * const DeeplinkBaseURLHostPathPrefix		= @"/deeplink";
 
 NSString * const DeeplinkParamNameReferrerAppID		= @"referrer";
 NSString * const DeeplinkParamNameReferrerUserID	= @"referrer_user_id";
@@ -163,7 +163,7 @@ NSString * const DeeplinkParamValuePlatform			= @"ios";
 	NSString *result = template.copy;
 	
 	for (NSString *name in parameters) {
-		NSRange rangeOfName = [template rangeOfString:name];
+		NSRange rangeOfName = [result rangeOfString:name];
 		
 		if (rangeOfName.location != NSNotFound) {
 			result = [result stringByReplacingOccurrencesOfString:name
