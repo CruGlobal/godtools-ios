@@ -8,6 +8,7 @@
 
 #import "Deeplink.h"
 #import "Deeplink+helpers.h"
+#import <JLRoutes/JLRoutes.h>
 
 @implementation Deeplink (helpers)
 
@@ -35,6 +36,16 @@
 	}
 	
 	self.pathComponents[name] = value;
+	
+	return self;
+}
+
+- (instancetype)addRoutePath:(NSString *)routePath
+					 handler:(BOOL (^)(NSDictionary<NSString *, id> *parameters))handlerBlock {
+	
+	NSString *fullRoutePath = [self.baseURLForApp URLByAppendingPathComponent:routePath].absoluteString;
+	
+	[[JLRoutes globalRoutes] addRoute:fullRoutePath handler:handlerBlock];
 	
 	return self;
 }

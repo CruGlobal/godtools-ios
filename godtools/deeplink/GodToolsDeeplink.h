@@ -8,6 +8,9 @@
 
 #import "Deeplink.h"
 
+extern NSString * const GodToolsDeeplinkNotificationNameNavigation;
+extern NSString * const GodToolsDeeplinkNotificationParameterNameNavigationParameter;
+
 extern NSString * const GodToolsDeeplinkPatternParamNameLanguage;
 extern NSString * const GodToolsDeeplinkPatternParamNamePackage;
 extern NSString * const GodToolsDeeplinkPatternParamNamePage;
@@ -17,8 +20,6 @@ extern NSString * const GodToolsDeeplinkParamNameEvent;
 #define DeeplinkLanguageCodeFormatJesusFilm DeeplinkLanguageCodeFormatBCP_47
 
 @interface GodToolsDeeplink : Deeplink
-
-+ (instancetype)generate;
 
 - (NSString *)patternWithLanguagePackageAndPage;
 - (NSString *)patternWithLanguageAndPackage;

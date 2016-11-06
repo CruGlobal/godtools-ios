@@ -9,12 +9,15 @@
 #import "GodToolsDeeplink.h"
 #import "Deeplink+helpers.h"
 
+NSString * const GodToolsDeeplinkNotificationNameNavigation						= @"org.cru.godtools.deeplink.notification.navigation.name";
+NSString * const GodToolsDeeplinkNotificationParameterNameNavigationParameters	= @"org.cru.godtools.deeplink.notification.navigation.parameter.naviagtion-parameters.name";
+
 NSString * const GodToolsDeeplinkPatternParamNameLanguage	= @":language_code";
 NSString * const GodToolsDeeplinkPatternParamNamePackage	= @":package_code";
 NSString * const GodToolsDeeplinkPatternParamNamePage		= @":page_number";
 NSString * const GodToolsDeeplinkParamNameEvent				= @"event";
 
-@interface GodToolsDeeplink () <DeeplinkInternalInterface>
+@interface GodToolsDeeplink () <DeeplinkGeneratorInternalInterface, DeeplinkParserInternalInterface>
 
 @property (nonatomic, assign) BOOL hasPackageCode;
 @property (nonatomic, assign) BOOL hasLanguageCode;
@@ -24,7 +27,7 @@ NSString * const GodToolsDeeplinkParamNameEvent				= @"event";
 
 @implementation GodToolsDeeplink
 
-#pragma mark - DeeplinkInternalInterface
+#pragma mark - DeeplinkGeneratorInternalInterface
 
 - (NSString *)appID {
 	return @"org.cru.godtools";
@@ -45,6 +48,38 @@ NSString * const GodToolsDeeplinkParamNameEvent				= @"event";
 	}
 	
 	return nil;
+}
+
+#pragma mark - DeeplinkParserInternalInterface
+
+- (instancetype)registerHandlers {
+	
+	__weak typeof(self)weakSelf = self;
+	
+	for (NSString *pattern in @[self.patternWithLanguagePackageAndPage,
+								self.patternWithLanguageAndPackage,
+								self.patternWithLanguage,
+								self.patternWithPackageAndPage,
+								self.patternWithPackage]) {
+		
+		[self addRoutePath:pattern
+				   handler:^BOOL(NSDictionary<NSString *,id> *parameters) {
+					   
+					   return [weakSelf postNavigationNotificationWithParameters:parameters];
+				   }];
+	}
+	
+	return self;
+}
+
+- (BOOL)postNavigationNotificationWithParameters:(NSDictionary *)parameters {
+	
+	NSDictionary *userInfo = parameters ? @{GodToolsDeeplinkNotificationParameterNameNavigationParameters: parameters} : nil;
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:GodToolsDeeplinkNotificationNameNavigation
+														object:self
+													  userInfo:userInfo];
+	return YES;
 }
 
 #pragma mark - patterns
@@ -76,13 +111,6 @@ NSString * const GodToolsDeeplinkParamNameEvent				= @"event";
 - (NSString *)patternWithPackage {
 	return [NSString stringWithFormat:@"%@",
 			GodToolsDeeplinkPatternParamNamePackage];
-}
-
-#pragma mark - init
-
-+ (instancetype)generate {
-	
-	return [[self alloc] init];
 }
 
 #pragma mark - public methods

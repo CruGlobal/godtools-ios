@@ -13,7 +13,7 @@ typedef NS_ENUM(NSInteger, DeeplinkLanguageCodeFormat) {
 	DeeplinkLanguageCodeFormatBCP_47
 };
 
-@protocol DeeplinkInternalInterface <NSObject>
+@protocol DeeplinkGeneratorInternalInterface <NSObject>
 
 @required
 - (NSString *)appID;
@@ -23,11 +23,29 @@ typedef NS_ENUM(NSInteger, DeeplinkLanguageCodeFormat) {
 
 @end
 
+@protocol DeeplinkParserInternalInterface <NSObject>
+
+@required
+- (NSString *)appID;
+- (instancetype)registerHandlers;
+
+@end
+
 @interface Deeplink : NSObject
+
+#pragma mark - init
+
++ (instancetype)generate;
++ (instancetype)parse;
+
+- (NSURL *)baseURLForApp;
 
 - (instancetype)registerReferrerWithAppID:(NSString *)referrerAppID;
 - (instancetype)registerReferrerWithAppID:(NSString *)referrerAppID referrerUserID:(NSString *)referrerUserID;
 - (instancetype)build;
 - (instancetype)open;
+
+- (instancetype)openDeeplinkURL:(NSURL *)deeplinkURL;
+- (instancetype)openDeeplinkHash:(NSDictionary *)deeplinkHash;
 
 @end

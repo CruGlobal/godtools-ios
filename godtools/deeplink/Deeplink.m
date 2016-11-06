@@ -10,6 +10,7 @@
 #import "Deeplink+helpers.h"
 #import <UIKit/UIKit.h>
 #import <AdSupport/ASIdentifierManager.h>
+#import <JLRoutes/JLRoutes.h>
 
 NSString * const DeeplinkBaseURLScheme				= @"https";
 NSString * const DeeplinkBaseURLHost				= @"hack-click-server.herokuapp.com";
@@ -20,6 +21,9 @@ NSString * const DeeplinkParamNameReferrerUserID	= @"referrer_user_id";
 NSString * const DeeplinkParamNameDeviceID			= @"device_id";
 NSString * const DeeplinkParamNamePlatform			= @"platform";
 NSString * const DeeplinkParamValuePlatform			= @"ios";
+
+NSString * const DeeplinkLookupParamNamePath		= @"param-name-for-path"; //TODO: lookup real value
+NSString * const DeeplinkLookupParamNameParams		= @"param-name-for-params"; //TODO: lookup real value
 
 @interface Deeplink ()
 
@@ -35,6 +39,20 @@ NSString * const DeeplinkParamValuePlatform			= @"ios";
 
 @implementation Deeplink
 
++ (instancetype)generate {
+	
+	return [[self alloc] init];
+}
+
++ (instancetype)parse {
+	
+	id<DeeplinkParserInternalInterface> parser = [[self alloc] init];
+	
+	[parser registerHandlers];
+	
+	return parser;
+}
+
 - (instancetype)init {
 	
 	self = [super init];
@@ -49,6 +67,39 @@ NSString * const DeeplinkParamValuePlatform			= @"ios";
 	_base.path		= DeeplinkBaseURLHostPathPrefix;
 	_params			= [NSMutableDictionary dictionary];
 	_pathComponents	= [NSMutableDictionary dictionary];
+	
+	return self;
+}
+
+#pragma mark - parser methods
+
+- (NSURL *)baseURLForApp {
+	
+	if (self.appID) {
+		return self.base.URL;
+	}
+	
+	return [self.base.URL URLByAppendingPathComponent:self.appID];
+}
+
+- (instancetype)openDeeplinkURL:(NSURL *)deeplinkURL {
+	
+	[JLRoutes routeURL:deeplinkURL ?: self.baseURLForApp];
+	
+	return self;
+}
+
+- (instancetype)openDeeplinkHash:(NSDictionary *)deeplinkHash {
+	
+	NSURLComponents *fullURLComponents	= self.base.copy;
+	
+	NSString *path					= [self pathWithContentPathPattern:deeplinkHash[DeeplinkLookupParamNamePath]
+												 contentPathParameters:@{}];
+	fullURLComponents.path			= path;
+	NSDictionary *params			= deeplinkHash[DeeplinkLookupParamNameParams];
+	fullURLComponents.queryItems	= [self queryParamItemsWithParams:params];
+	
+	[self openDeeplinkURL:fullURLComponents.URL];
 	
 	return self;
 }
@@ -112,10 +163,20 @@ NSString * const DeeplinkParamValuePlatform			= @"ios";
 																						 [NSURLQueryItem queryItemWithName:DeeplinkParamNamePlatform
 																													 value:DeeplinkParamValuePlatform]
 																						 ]];
+	NSArray <NSURLQueryItem *> *userQueryParamItems = [self queryParamItemsWithParams:self.params];
 	
-	for (NSString *queryParamName in self.params) {
+	[queryParamItems addObjectsFromArray:userQueryParamItems];
+	
+	return queryParamItems;
+}
+
+- (NSArray <NSURLQueryItem *>*)queryParamItemsWithParams:(NSDictionary *)params {
+	
+	NSMutableArray <NSURLQueryItem *>*queryParamItems = [NSMutableArray array];
+	
+	for (NSString *queryParamName in params) {
 		NSURLQueryItem *queryItem = [NSURLQueryItem queryItemWithName:queryParamName
-																value:self.params[queryParamName]];
+																value:params[queryParamName]];
 		if (queryParamItems) {
 			[queryParamItems addObject:queryItem];
 		}
@@ -126,19 +187,26 @@ NSString * const DeeplinkParamValuePlatform			= @"ios";
 
 - (NSString *)fullPath {
 	
+	return [self pathWithContentPathPattern:self.pathComponentPattern
+					  contentPathParameters:self.pathComponents];
+}
+
+- (NSString *)pathWithContentPathPattern:(NSString *)pattern
+				   contentPathParameters:(NSDictionary *)parameters {
+	
 	NSString *fullPattern = @":prefix/:app_id/:content";
 	NSString *contentString;
 	
 	//build content path
-	if (self.pathComponentPattern) {
-		NSString *contentPattern = self.pathComponentPattern;
+	if (pattern) {
+		NSString *contentPattern = pattern;
 		if ([contentPattern hasPrefix:@"/"]) {
 			contentPattern = [contentPattern substringFromIndex:1];
 		}
 		if ([contentPattern hasSuffix:@"/"]) {
 			contentPattern = [contentPattern substringToIndex:contentPattern.length - 1];
 		}
-		contentString = [self applyParameters:self.pathComponents
+		contentString = [self applyParameters:parameters
 								   toTemplate:contentPattern];
 	} else {
 		fullPattern = @":prefix/:app_id";

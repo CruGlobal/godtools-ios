@@ -20,4 +20,7 @@
 - (instancetype)addPathComponentWithName:(NSString *)name
 								   value:(NSString *)value;
 
+- (instancetype)addRoutePath:(NSString *)routePath
+					 handler:(BOOL (^)(NSDictionary<NSString *, id> *parameters))handlerBlock;
+
 @end
