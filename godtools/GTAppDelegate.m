@@ -12,6 +12,7 @@
 #import "GTConfig.h"
 #import "GTGoogleAnalyticsTracker.h"
 #import <Rollbar/Rollbar.h>
+#import "GodToolsDeeplink.h"
 
 @implementation GTAppDelegate
 
@@ -27,8 +28,14 @@
 	[Rollbar initWithAccessToken:[GTConfig sharedConfig].apiKeyRollbar];
 	
     [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"godtools.sqlite"];
-    
+	
+	[[GodToolsDeeplink parser] openLaunchOptions:launchOptions];
+	
     return YES;
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+	return [[GodToolsDeeplink parser] openDeeplinkURL:url];
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application

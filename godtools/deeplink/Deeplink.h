@@ -36,7 +36,7 @@ typedef NS_ENUM(NSInteger, DeeplinkLanguageCodeFormat) {
 #pragma mark - init
 
 + (instancetype)generate;
-+ (instancetype)parse;
++ (instancetype)parser;
 
 - (NSURL *)baseURLForApp;
 
@@ -45,7 +45,8 @@ typedef NS_ENUM(NSInteger, DeeplinkLanguageCodeFormat) {
 - (instancetype)build;
 - (instancetype)open;
 
-- (instancetype)openDeeplinkURL:(NSURL *)deeplinkURL;
-- (instancetype)openDeeplinkHash:(NSDictionary *)deeplinkHash;
+- (BOOL)openLaunchOptions:(NSDictionary *)launchOptions;
+- (BOOL)openDeeplinkURL:(NSURL *)deeplinkURL;
+- (BOOL)openDeeplinkHash:(NSDictionary *)deeplinkHash;
 
 @end

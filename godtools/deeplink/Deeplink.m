@@ -25,8 +25,8 @@ NSString * const DeeplinkParamNameVersionNumber		= @"version_number";
 
 #define DEEPLINK_CURRENT_VERSION_NUMBER @1
 
-NSString * const DeeplinkLookupParamNamePath		= @"param-name-for-path"; //TODO: lookup real value
-NSString * const DeeplinkLookupParamNameParams		= @"param-name-for-params"; //TODO: lookup real value
+NSString * const DeeplinkLookupParamNamePath		= @"path";
+NSString * const DeeplinkLookupParamNameParams		= @"params";
 
 @interface Deeplink ()
 
@@ -47,13 +47,20 @@ NSString * const DeeplinkLookupParamNameParams		= @"param-name-for-params"; //TO
 	return [[self alloc] init];
 }
 
-+ (instancetype)parse {
++ (instancetype)parser {
 	
-	id<DeeplinkParserInternalInterface> parser = [[self alloc] init];
+	__weak typeof(self)weakSelf = self;
+	__block id<DeeplinkParserInternalInterface> _sharedParser = nil;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		
+		_sharedParser = [[weakSelf alloc] init];
+		
+		[_sharedParser registerHandlers];
+		
+	});
 	
-	[parser registerHandlers];
-	
-	return parser;
+	return _sharedParser;
 }
 
 - (instancetype)init {
@@ -85,26 +92,35 @@ NSString * const DeeplinkLookupParamNameParams		= @"param-name-for-params"; //TO
 	return [self.base.URL URLByAppendingPathComponent:self.appID];
 }
 
-- (instancetype)openDeeplinkURL:(NSURL *)deeplinkURL {
+- (BOOL)openLaunchOptions:(NSDictionary *)launchOptions {
 	
-	[JLRoutes routeURL:deeplinkURL ?: self.baseURLForApp];
-	
-	return self;
+	NSURL *url = launchOptions[UIApplicationLaunchOptionsURLKey];
+	return url ? [self openDeeplinkURL:url] : NO;
 }
 
-- (instancetype)openDeeplinkHash:(NSDictionary *)deeplinkHash {
+- (BOOL)openDeeplinkURL:(NSURL *)deeplinkURL {
+	
+	return [JLRoutes routeURL:deeplinkURL ?: self.baseURLForApp];
+}
+
+- (BOOL)openDeeplinkHash:(NSDictionary *)deeplinkHash {
 	
 	NSURLComponents *fullURLComponents	= self.base.copy;
 	
 	NSString *path					= [self pathWithContentPathPattern:deeplinkHash[DeeplinkLookupParamNamePath]
 												 contentPathParameters:@{}];
 	fullURLComponents.path			= path;
-	NSDictionary *params			= deeplinkHash[DeeplinkLookupParamNameParams];
+	
+	NSMutableDictionary *params		= ((NSDictionary *)deeplinkHash[DeeplinkLookupParamNameParams]).mutableCopy ?: @{}.mutableCopy;
+	if (deeplinkHash[DeeplinkParamNameReferrerAppID]) {
+		params[DeeplinkParamNameReferrerAppID] = deeplinkHash[DeeplinkParamNameReferrerAppID];
+	}
+	if (deeplinkHash[DeeplinkParamNameReferrerUserID]) {
+		params[DeeplinkParamNameReferrerUserID] = deeplinkHash[DeeplinkParamNameReferrerUserID];
+	}
 	fullURLComponents.queryItems	= [self queryParamItemsWithParams:params];
 	
-	[self openDeeplinkURL:fullURLComponents.URL];
-	
-	return self;
+	return [self openDeeplinkURL:fullURLComponents.URL];
 }
 
 - (instancetype)registerReferrerWithAppID:(NSString *)referrerAppID {
