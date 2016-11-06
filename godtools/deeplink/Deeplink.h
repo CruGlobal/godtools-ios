@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM(NSInteger, DeeplinkLanguageCodeFormat) {
+	DeeplinkLanguageCodeFormatISO639_3,
+	DeeplinkLanguageCodeFormatBCP_47
+};
+
 @protocol DeeplinkInternalInterface <NSObject>
 
 @required

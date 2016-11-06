@@ -9,6 +9,11 @@
 #import "GodToolsDeeplink.h"
 #import "Deeplink+helpers.h"
 
+NSString * const GodToolsDeeplinkPatternParamNameLanguage	= @":language_code";
+NSString * const GodToolsDeeplinkPatternParamNamePackage	= @":package_code";
+NSString * const GodToolsDeeplinkPatternParamNamePage		= @":page_number";
+NSString * const GodToolsDeeplinkParamNameEvent				= @"event";
+
 @interface GodToolsDeeplink () <DeeplinkInternalInterface>
 
 @property (nonatomic, assign) BOOL hasPackageCode;
@@ -28,12 +33,49 @@
 - (NSString *)pathComponentPattern {
 	
 	if (self.hasLanguageCode && self.hasPackageCode && self.hasPageNumber) {
-		return @":language_code/:package_code/:page_number";
+		return self.patternWithLanguagePackageAndPage;
+	} else if (self.hasLanguageCode && self.hasPackageCode) {
+		return self.patternWithLanguageAndPackage;
+	} else if (self.hasLanguageCode) {
+		return self.patternWithLanguage;
 	} else if (self.hasPackageCode && self.hasPageNumber) {
-		return @":package_code/:page_number";
+		return self.patternWithPackageAndPage;
+	} else if (self.hasPackageCode) {
+		return self.patternWithPackage;
 	}
 	
 	return nil;
+}
+
+#pragma mark - patterns
+
+- (NSString *)patternWithLanguagePackageAndPage {
+	return [NSString stringWithFormat:@"%@/%@/%@",
+			GodToolsDeeplinkPatternParamNameLanguage,
+			GodToolsDeeplinkPatternParamNamePackage,
+			GodToolsDeeplinkPatternParamNamePage];
+}
+
+- (NSString *)patternWithLanguageAndPackage {
+	return [NSString stringWithFormat:@"%@/%@",
+			GodToolsDeeplinkPatternParamNameLanguage,
+			GodToolsDeeplinkPatternParamNamePackage];
+}
+
+- (NSString *)patternWithLanguage {
+	return [NSString stringWithFormat:@"%@",
+			GodToolsDeeplinkPatternParamNameLanguage];
+}
+
+- (NSString *)patternWithPackageAndPage {
+	return [NSString stringWithFormat:@"%@/%@",
+			GodToolsDeeplinkPatternParamNamePackage,
+			GodToolsDeeplinkPatternParamNamePage];
+}
+
+- (NSString *)patternWithPackage {
+	return [NSString stringWithFormat:@"%@",
+			GodToolsDeeplinkPatternParamNamePackage];
 }
 
 #pragma mark - init
@@ -90,6 +132,11 @@
 	
 	return [self addPathComponentWithName:@":page_number"
 									value:((NSNumber *)@(pageNumber)).stringValue];
+}
+
+- (instancetype)addEventWithName:(NSString *)event {
+	return [self addParamWithName:GodToolsDeeplinkParamNameEvent
+							value:event];
 }
 
 #pragma mark - private methods

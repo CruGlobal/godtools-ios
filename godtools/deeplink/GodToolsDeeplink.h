@@ -8,10 +8,10 @@
 
 #import "Deeplink.h"
 
-typedef NS_ENUM(NSInteger, DeeplinkLanguageCodeFormat) {
-	DeeplinkLanguageCodeFormatISO639_3,
-	DeeplinkLanguageCodeFormatBCP_47
-};
+extern NSString * const GodToolsDeeplinkPatternParamNameLanguage;
+extern NSString * const GodToolsDeeplinkPatternParamNamePackage;
+extern NSString * const GodToolsDeeplinkPatternParamNamePage;
+extern NSString * const GodToolsDeeplinkParamNameEvent;
 
 #define DeeplinkLanguageCodeFormatGodTools DeeplinkLanguageCodeFormatISO639_3
 #define DeeplinkLanguageCodeFormatJesusFilm DeeplinkLanguageCodeFormatBCP_47
@@ -20,9 +20,16 @@ typedef NS_ENUM(NSInteger, DeeplinkLanguageCodeFormat) {
 
 + (instancetype)generate;
 
+- (NSString *)patternWithLanguagePackageAndPage;
+- (NSString *)patternWithLanguageAndPackage;
+- (NSString *)patternWithLanguage;
+- (NSString *)patternWithPackageAndPage;
+- (NSString *)patternWithPackage;
+
 - (instancetype)setPackageWithCode:(NSString *)code;
 - (instancetype)setLanguageWithCode:(NSString *)code;
 - (instancetype)setLanguageWithCode:(NSString *)code format:(DeeplinkLanguageCodeFormat)format;
 - (instancetype)setPageWithPageNumber:(NSUInteger)pageNumber;
+- (instancetype)addEventWithName:(NSString *)event;
 
 @end
