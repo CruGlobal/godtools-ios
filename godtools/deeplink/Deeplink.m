@@ -21,6 +21,9 @@ NSString * const DeeplinkParamNameReferrerUserID	= @"referrer_user_id";
 NSString * const DeeplinkParamNameDeviceID			= @"device_id";
 NSString * const DeeplinkParamNamePlatform			= @"platform";
 NSString * const DeeplinkParamValuePlatform			= @"ios";
+NSString * const DeeplinkParamNameVersionNumber		= @"version_number";
+
+#define DEEPLINK_CURRENT_VERSION_NUMBER @1
 
 NSString * const DeeplinkLookupParamNamePath		= @"param-name-for-path"; //TODO: lookup real value
 NSString * const DeeplinkLookupParamNameParams		= @"param-name-for-params"; //TODO: lookup real value
@@ -161,7 +164,9 @@ NSString * const DeeplinkLookupParamNameParams		= @"param-name-for-params"; //TO
 																						 [NSURLQueryItem queryItemWithName:DeeplinkParamNameDeviceID
 																													 value:self.deviceID],
 																						 [NSURLQueryItem queryItemWithName:DeeplinkParamNamePlatform
-																													 value:DeeplinkParamValuePlatform]
+																													 value:DeeplinkParamValuePlatform],
+																						 [NSURLQueryItem queryItemWithName:DeeplinkParamNameVersionNumber
+																													 value:DEEPLINK_CURRENT_VERSION_NUMBER.stringValue]
 																						 ]];
 	NSArray <NSURLQueryItem *> *userQueryParamItems = [self queryParamItemsWithParams:self.params];
 	
