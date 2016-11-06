@@ -83,6 +83,7 @@
 		68DB06511DCE2AA700BF86E8 /* Deeplink.m in Sources */ = {isa = PBXBuildFile; fileRef = 68DB06501DCE2AA700BF86E8 /* Deeplink.m */; };
 		68DB06541DCE5D7D00BF86E8 /* Deeplink+helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 68DB06531DCE5D7D00BF86E8 /* Deeplink+helpers.m */; };
 		68DB06571DCE605100BF86E8 /* GodToolsDeeplink.m in Sources */ = {isa = PBXBuildFile; fileRef = 68DB06561DCE605100BF86E8 /* GodToolsDeeplink.m */; };
+		68DB068C1DCE9C5600BF86E8 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68DB068B1DCE9C5600BF86E8 /* AdSupport.framework */; };
 		68E6068618D3952800844377 /* GTAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E6068518D3952800844377 /* GTAPI.m */; };
 		68E6068718D3952800844377 /* GTAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E6068518D3952800844377 /* GTAPI.m */; };
 		68E7C9341BACB49C00D79196 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68E7C9321BACB49C00D79196 /* Main.storyboard */; };
@@ -218,6 +219,7 @@
 		68DB06531DCE5D7D00BF86E8 /* Deeplink+helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Deeplink+helpers.m"; path = "deeplink/Deeplink+helpers.m"; sourceTree = "<group>"; };
 		68DB06551DCE605100BF86E8 /* GodToolsDeeplink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GodToolsDeeplink.h; path = deeplink/GodToolsDeeplink.h; sourceTree = "<group>"; };
 		68DB06561DCE605100BF86E8 /* GodToolsDeeplink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GodToolsDeeplink.m; path = deeplink/GodToolsDeeplink.m; sourceTree = "<group>"; };
+		68DB068B1DCE9C5600BF86E8 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		68E6068418D3952800844377 /* GTAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTAPI.h; path = "godtools-ios-api/GTAPI.h"; sourceTree = "<group>"; };
 		68E6068518D3952800844377 /* GTAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTAPI.m; path = "godtools-ios-api/GTAPI.m"; sourceTree = "<group>"; };
 		68E6068818D3986D00844377 /* GTDefaults.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GTDefaults.h; path = "godtools-ios-api/Models/GTDefaults.h"; sourceTree = "<group>"; };
@@ -269,6 +271,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68DB068C1DCE9C5600BF86E8 /* AdSupport.framework in Frameworks */,
 				68740D1518D24F9A00D36C0E /* CoreGraphics.framework in Frameworks */,
 				68740D1718D24F9A00D36C0E /* UIKit.framework in Frameworks */,
 				68740D1318D24F9A00D36C0E /* Foundation.framework in Frameworks */,
@@ -430,6 +433,7 @@
 		68740D1118D24F9A00D36C0E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				68DB068B1DCE9C5600BF86E8 /* AdSupport.framework */,
 				68740D1218D24F9A00D36C0E /* Foundation.framework */,
 				68740D1418D24F9A00D36C0E /* CoreGraphics.framework */,
 				68740D1618D24F9A00D36C0E /* UIKit.framework */,
