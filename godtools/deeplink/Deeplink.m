@@ -8,6 +8,7 @@
 
 #import "Deeplink.h"
 #import "Deeplink+helpers.h"
+#import <UIKit/UIKit.h>
 #import <AdSupport/ASIdentifierManager.h>
 
 NSString * const DeeplinkBaseURLScheme				= @"https";
