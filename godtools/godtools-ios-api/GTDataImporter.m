@@ -364,6 +364,67 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
                    withFailureNotifier:GTDataImporterNotificationLanguageDownloadFinished];
 }
 
+- (PMKPromise *)downloadPromisedPackagesForLanguage:(GTLanguage *)language {
+    return [PMKPromise promiseWithResolver:^(PMKResolver resolve) {
+        NSParameterAssert(language);
+        
+        if([[[GTDefaults sharedDefaults] isInTranslatorMode] boolValue]) {
+            [self downloadDraftsForLanguage:language];
+        } else {
+            __weak typeof(self)weakSelf = self;
+            [self.api getResourcesForLanguage:language
+                                     progress:nil
+                                      success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSURL *targetPath) {
+                                         if(response.statusCode == 200) {
+                                             RXMLElement *contents = [weakSelf.packageExtractor unzipResourcesAtTarget:targetPath forLanguage:language package:nil];
+                                             
+                                             if ([weakSelf importPackageContentsFromElement:contents forLanguage:language]) {
+                                                 
+                                                 if([GTDefaults sharedDefaults].isChoosingForMainLanguage){
+                                                     
+                                                     if([[[GTDefaults sharedDefaults]currentParallelLanguageCode] isEqualToString:language.code]) {
+                                                         [[GTDefaults sharedDefaults]setCurrentParallelLanguageCode:nil];
+                                                     }
+                                                     
+                                                     [[GTDefaults sharedDefaults]setCurrentLanguageCode:language.code];
+                                                     
+                                                 } else {
+                                                     [[GTDefaults sharedDefaults]setCurrentParallelLanguageCode:language.code];
+                                                 }
+                                             } else {
+                                                 NSError *error = [NSError errorWithDomain:GTDataImporterErrorDomain
+                                                                                      code:GTDataImporterErrorCodeCouldNotSave
+                                                                                  userInfo:nil];
+                                                 [weakSelf displayPackageImportError:error];
+                                                 resolve(error);
+                                             }
+                                             
+                                             [[GTDefaults sharedDefaults] setTranslationDownloadStatus:@"finished"];
+                                             resolve(@"finished");
+                                             
+                                         } else if(response.statusCode == 500) {
+                                             NSString *errorMessage	= NSLocalizedString(@"packages_download_error", nil);
+                                             NSError *error = [NSError errorWithDomain:GTDataImporterErrorDomain
+                                                                                  code:GTDataImporterErrorCodeInvalidXml
+                                                                              userInfo:@{NSLocalizedDescriptionKey: errorMessage}];
+                                             if(language.downloaded == [NSNumber numberWithBool:NO]){
+                                                 [weakSelf displayDownloadPackagesRequestError:error];
+                                             }
+                                             
+                                             resolve(error);
+                                         }
+                                     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                                         if(!gtLanguageDownloadUserCancellation) {
+                                             [weakSelf displayDownloadPackagesRequestError:error];
+                                         }
+                                         gtLanguageDownloadUserCancellation = FALSE;
+                                         resolve(error);
+                                     }];
+        }
+
+    }];
+}
+
 - (void)downloadXmlFilesForPackage:(GTPackage *)package withProgressNotifier:(NSString *) progressNotificationName withSuccessNotifier:(NSString *) successNotificationName withFailureNotifier:(NSString *) failureNotificationName {
 	
 	NSParameterAssert(package);

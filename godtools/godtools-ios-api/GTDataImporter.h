@@ -89,6 +89,8 @@
 - (void)downloadPackagesForLanguage:(GTLanguage *)language;
 - (void)downloadPackagesForLanguage:(GTLanguage *)language withProgressNotifier:(NSString *) progressNotificationName withSuccessNotifier:(NSString *) successNotificationName withFailureNotifier:(NSString *) failureNotificationName;
 
+- (PMKPromise *)downloadPromisedPackagesForLanguage:(GTLanguage *)language;
+
 /**
  * Cancels most recent downloadPackagesForLanguage request
  */
