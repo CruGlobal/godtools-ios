@@ -86,9 +86,6 @@
  *
  *  @param language All resources in this language will be downloaded and made available for use.
  */
-- (void)downloadPackagesForLanguage:(GTLanguage *)language;
-- (void)downloadPackagesForLanguage:(GTLanguage *)language withProgressNotifier:(NSString *) progressNotificationName withSuccessNotifier:(NSString *) successNotificationName withFailureNotifier:(NSString *) failureNotificationName;
-
 - (PMKPromise *)downloadPromisedPackagesForLanguage:(GTLanguage *)language;
 
 /**

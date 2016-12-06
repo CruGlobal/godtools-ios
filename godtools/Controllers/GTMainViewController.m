@@ -19,10 +19,6 @@
 NSString * const GTSplashErrorDomain                                            = @"org.cru.godtools.gtsplashviewcontroller.error.domain";
 NSInteger const GTSplashErrorCodeInitialSetupFailed                             = 1;
 
-NSString * const GTSplashNotificationDownloadPhonesLanugageSuccess				= @"org.cru.godtools.gtsplashviewcontroller.notification.downloadphoneslanguagesuccess";
-NSString * const GTSplashNotificationDownloadPhonesLanugageProgress				= @"org.cru.godtools.gtsplashviewcontroller.notification.downloadphoneslanguageprogress";
-NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cru.godtools.gtsplashviewcontroller.notification.downloadphoneslanguagefailure";
-
 @interface GTMainViewController () <UIAlertViewDelegate>
 
 @property (nonatomic, strong) GTInitialSetupTracker *setupTracker;
@@ -34,16 +30,6 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 
 - (void)updateMenu;
 - (void)goToHome;
-
-- (void)initialSetupBegan:(NSNotification *)notification;
-- (void)initialSetupFinished:(NSNotification *)notification;
-- (void)initialSetupFailed:(NSNotification *)notification;
-
-- (void)menuUpdateBegan:(NSNotification *)notification;
-- (void)menuUpdateFinished:(NSNotification *)notification;
-
-- (void)registerListenersForInitialSetup;
-- (void)removeListenersForInitialSetup;
 
 @end
 
@@ -72,26 +58,34 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 												  }];
 	[GTDataImporter sharedImporter];
 
+    [self leavePreviewMode];
+    [self updateMenu];
+    
     //check if first launch
-    if(self.setupTracker.firstLaunch){
-		
-		[self registerListenersForInitialSetup];
+    if(self.setupTracker.firstLaunch) {
+        [self.splashScreen showDownloadIndicatorWithLabel:NSLocalizedString(@"status_initial_setup", nil)];
+        
 		[self.setupTracker beganInitialSetup];
 		
         //prepare initial content
         [self persistLocalEnglishPackage];
         [self persistLocalMetaData];
 		
+        GTLanguage *phonesLanguage = [[GTStorage sharedStorage] findClosestLanguageTo:[GTDefaults sharedDefaults].phonesLanguageCode];
+        
+        if (!phonesLanguage) {
+            [self.setupTracker finishedDownloadingPhonesLanguage];
+            [self initialSetupFinished];
+            return;
+        }
+        
 		//download phone's language
 		[self downloadPhonesLanguage];
 		
 	} else {
-        [self leavePreviewMode];
         [self sendCachedFollowupSubscriptions];
-		[self updateMenu];
 		[self goToHome];
 	}
-	
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -119,15 +113,10 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 	RXMLElement *metaXML = [RXMLElement elementFromXMLData:[NSData dataWithContentsOfFile:pathOfMeta]];
 	
 	if ([[GTDataImporter sharedImporter] importMenuInfoFromXMLElement:metaXML]) {
-		
 		[self.setupTracker finishedExtractingMetaData];
-		
 	} else {
-		
 		[self.setupTracker failedExtractingMetaData];
-		
 	}
-	
 }
 
 - (void)persistLocalEnglishPackage {
@@ -159,58 +148,21 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 	}
 	
 	[GTDefaults sharedDefaults].currentLanguageCode = english.code;
-	
 }
 
-- (void)downloadPhonesLanguage {
-	
-	if (![[GTDefaults sharedDefaults].phonesLanguageCode isEqualToString:@"en"]) {
-	
-		__weak typeof(self)weakSelf = self;
-		[[NSNotificationCenter defaultCenter] addObserverForName:GTSplashNotificationDownloadPhonesLanugageSuccess
-														  object:nil
-														   queue:nil
-													  usingBlock:^(NSNotification *note) {
-														  
-														  [weakSelf.setupTracker finishedDownloadingPhonesLanguage];
-														  
-													  }];
-		
-		[[NSNotificationCenter defaultCenter] addObserverForName:GTSplashNotificationDownloadPhonesLanugageFailure
-														  object:nil
-														   queue:nil
-													  usingBlock:^(NSNotification *note) {
-														  
-														  [weakSelf.setupTracker failedDownloadingPhonesLanguage];
-														  
-													  }];
-		
-		[[NSNotificationCenter defaultCenter] addObserverForName:GTDataImporterNotificationMenuUpdateFinished
-														  object:nil
-														   queue:nil
-													  usingBlock:^(NSNotification *note) {
-			
-														  [self.splashScreen showDownloadIndicatorWithLabel:NSLocalizedString(@"status_downloading_resources", nil)];
-														  
-														  [GTDefaults sharedDefaults].isChoosingForMainLanguage = YES;
-														  GTLanguage *phonesLanguage = [[GTStorage sharedStorage] findClosestLanguageTo:[GTDefaults sharedDefaults].phonesLanguageCode];
-														  
-                                                          if(phonesLanguage) {
-
-															  [[GTDataImporter sharedImporter] downloadPackagesForLanguage:phonesLanguage
-																									  withProgressNotifier:GTSplashNotificationDownloadPhonesLanugageProgress
-																									   withSuccessNotifier:GTSplashNotificationDownloadPhonesLanugageSuccess
-																									   withFailureNotifier:GTSplashNotificationDownloadPhonesLanugageFailure];
-                                                          } else {
-                                                              [weakSelf.setupTracker finishedDownloadingPhonesLanguage];
-                                                          }
-														  
-		}];
-	
-	}
-	
-	[self updateMenu];
-	
+- (void)downloadPhonesLanguage:(GTLanguage *)phonesLanguage {
+    __weak typeof(self) weakSelf = self;
+    
+    [self.splashScreen showDownloadIndicatorWithLabel:NSLocalizedString(@"status_downloading_resources", nil)];
+    
+    [GTDefaults sharedDefaults].isChoosingForMainLanguage = YES;
+    
+    [[GTDataImporter sharedImporter] downloadPromisedPackagesForLanguage:phonesLanguage].then(^{
+        [weakSelf.setupTracker finishedDownloadingPhonesLanguage];
+        [weakSelf initialSetupFinished];
+    }).catch(^{
+        [weakSelf initialSetupFailed];
+    });
 }
 
 
@@ -236,53 +188,33 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
     }];
 }
 
-
-#pragma mark - memory management methods
-
-- (void)didReceiveMemoryWarning {
-	
-    [super didReceiveMemoryWarning];
-	
-}
-
 #pragma mark - UI methods
 
 - (void)goToHome {
-	
 	[self performSegueWithIdentifier:@"splashToHomeViewSegue" sender:self];
 }
 
-- (void)initialSetupBegan:(NSNotification *)notification {
-	
-	[self.splashScreen showDownloadIndicatorWithLabel:NSLocalizedString(@"status_initial_setup", nil)];
-}
-
-
-- (void)initialSetupFinished:(NSNotification *)notification {
+- (void)initialSetupFinished {
 	
 	if([self.splashScreen.activityView isAnimating]){
 		[self.splashScreen hideDownloadIndicator];
 	}
 	
-	[self removeListenersForInitialSetup];
 	[self goToHome];
 	self.setupTracker.firstLaunch = NO;
 }
 
-- (void)initialSetupFailed:(NSNotification *)notification {
+- (void)initialSetupFailed {
 	
 	if([self.splashScreen.activityView isAnimating]){
 		[self.splashScreen hideDownloadIndicator];
 	}
-	
-	[self removeListenersForInitialSetup];
 	
 	NSError *error = [NSError errorWithDomain:GTSplashErrorDomain
 										 code:GTSplashErrorCodeInitialSetupFailed
 									 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"initial_setup_error_message", nil) }];
 	
 	[[GTErrorHandler sharedErrorHandler] displayError:error];
-	
 }
 
 - (void)menuUpdateBegan:(NSNotification *)notification {
@@ -308,51 +240,9 @@ NSString * const GTSplashNotificationDownloadPhonesLanugageFailure				= @"org.cr
 	
 }
 
-
-
-#pragma mark - listener methods
-
-- (void)registerListenersForInitialSetup {
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(initialSetupBegan:)
-												 name:GTInitialSetupTrackerNotificationDidBegin
-											   object:self.setupTracker];
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(initialSetupFinished:)
-												 name:GTInitialSetupTrackerNotificationDidFinish
-											   object:self.setupTracker];
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(initialSetupFailed:)
-												 name:GTInitialSetupTrackerNotificationDidFail
-											   object:self.setupTracker];
-	
-}
-- (void)removeListenersForInitialSetup {
-
-	[[NSNotificationCenter defaultCenter] removeObserver:self
-													name:GTInitialSetupTrackerNotificationDidBegin
-												  object:self.setupTracker];
-	
-	[[NSNotificationCenter defaultCenter] removeObserver:self
-													name:GTInitialSetupTrackerNotificationDidFinish
-												  object:self.setupTracker];
-	
-	[[NSNotificationCenter defaultCenter] removeObserver:self
-													name:GTInitialSetupTrackerNotificationDidFail
-												  object:self.setupTracker];
-	
-}
-
-- (void)dealloc {
-}
-
-#pragma mark - Update languages to new versions
-
 #pragma mark - Helper methods
 - (void)leavePreviewMode {
     [[GTDefaults sharedDefaults] setIsInTranslatorMode:[NSNumber numberWithBool:NO]];
 }
+
 @end
