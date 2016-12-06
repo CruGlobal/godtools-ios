@@ -249,7 +249,9 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
 	[operation setProgressiveDownloadProgressBlock:^(AFDownloadRequestOperation *operation, NSInteger bytesRead, long long totalBytesRead, long long totalBytesExpected, long long totalBytesReadForFile, long long totalBytesExpectedToReadForFile) {
 
         NSNumber *percentage = @(totalBytesReadForFile/(float)totalBytesExpectedToReadForFile);
-		progress(percentage);
+        if(progress) {
+            progress(percentage);   
+        }
 		
 	}];
 
