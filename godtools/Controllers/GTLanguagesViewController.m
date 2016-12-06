@@ -90,14 +90,13 @@ BOOL languageDownloadCancelled = NO;
     [self.afReachability stopMonitoring];
 }
 
-- (void)setData{
-    self.languages = [[GTStorage sharedStorage] fetchArrayOfModels:[GTLanguage class] inBackground:YES].mutableCopy;
+- (void)setData {
+    // fetch the current array of all languages and sort them by name
+    self.languages = [[[GTStorage sharedStorage] fetchArrayOfModels:[GTLanguage class]
+                                                       inBackground:YES]
+                      sortedArrayUsingSelector:@selector(compare:)].mutableCopy;
     
-    NSArray *sortedArray;
-    sortedArray = [self.languages sortedArrayUsingSelector:@selector(compare:)];
-    
-    self.languages = [sortedArray mutableCopy];
-    
+    // if selecting parallel language, remove main language from the list
     if(![GTDefaults sharedDefaults].isChoosingForMainLanguage) {
 		
 		GTLanguage *main = [[GTStorage sharedStorage] languageWithCode:[GTDefaults sharedDefaults].currentLanguageCode];
@@ -107,15 +106,13 @@ BOOL languageDownloadCancelled = NO;
 		
     }
     
-    NSPredicate *predicate = [[NSPredicate alloc]init];
-    
     if([[GTDefaults sharedDefaults] isInTranslatorMode] == [NSNumber numberWithBool:YES]){
-		predicate = [NSPredicate predicateWithFormat:@"packages.@count >= 0"];
+        // if in preivew mode, only show languages that have at least one package
+        self.languages = [self.languages filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"packages.@count >= 0"]].mutableCopy;
     } else {
-		predicate = [NSPredicate predicateWithFormat:@"packages.@count > 0 AND ANY packages.status == %@",@"live"];
+        // if not preview mode, only show languages w/ at least one package that's live
+        self.languages = [self.languages filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"packages.@count > 0 AND ANY packages.status == %@",@"live"]].mutableCopy;
     }
-    
-    self.languages = [self.languages filteredArrayUsingPredicate:predicate].mutableCopy;
     
     [self.tableView reloadData];
 }
