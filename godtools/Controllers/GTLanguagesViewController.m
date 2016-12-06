@@ -218,6 +218,12 @@ BOOL languageDownloadCancelled = NO;
     GTLanguage *chosen = (GTLanguage*)[self.languages objectAtIndex:indexPath.section];
     languageActionCell = (GTLanguageViewCell *)[tableView cellForRowAtIndexPath:indexPath];
     
+    if ([chosen.downloaded boolValue] && !chosen.hasUpdates) {
+        [self setLanguageCodeInDefaults:chosen.code];
+        [self.navigationController popViewControllerAnimated:YES];
+        return;
+    }
+    
     if ([self ableToDownloadLanguageAtCell:languageActionCell]) {
         __weak typeof(self) weakSelf = self;
         
@@ -232,12 +238,7 @@ BOOL languageDownloadCancelled = NO;
         // do the download/import
         [[GTDataImporter sharedImporter] downloadPromisedPackagesForLanguage:chosen].then(^{
             
-            // set the current language selected
-            if ([GTDefaults sharedDefaults].isChoosingForMainLanguage) {
-                [[GTDefaults sharedDefaults]setCurrentLanguageCode:chosen.code];
-            } else {
-                [[GTDefaults sharedDefaults]setCurrentParallelLanguageCode:chosen.code];
-            }
+            [weakSelf setLanguageCodeInDefaults:chosen.code];
             
             // so as to show check mark on selected language
             [tableView reloadData];
@@ -253,6 +254,15 @@ BOOL languageDownloadCancelled = NO;
             // hide the UI download indicator
             [languageActionCell setIsDownloading:NO];
         });
+    }
+}
+
+#pragma mark - Convenience methods
+- (void)setLanguageCodeInDefaults:(NSString *)code {
+    if ([GTDefaults sharedDefaults].isChoosingForMainLanguage) {
+        [[GTDefaults sharedDefaults]setCurrentLanguageCode:code];
+    } else {
+        [[GTDefaults sharedDefaults]setCurrentParallelLanguageCode:code];
     }
 }
 
