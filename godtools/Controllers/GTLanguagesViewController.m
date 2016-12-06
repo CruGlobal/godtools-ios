@@ -322,8 +322,4 @@ BOOL languageDownloadCancelled = NO;
     [alertView dismissWithClickedButtonIndex:0 animated:YES];
 }
 
-- (void)dealloc {
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
 @end
