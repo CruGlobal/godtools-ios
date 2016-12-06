@@ -16,4 +16,5 @@
 	#import <NewRelicAgent/NewRelic.h>
     #import "Constants.h"
     #import <CoreData+MagicalRecord.h>
+    #import <PromiseKit/PromiseKit.h>
 #endif
