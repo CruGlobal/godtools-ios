@@ -90,29 +90,6 @@ BOOL languageDownloadCancelled = NO;
     [self.afReachability stopMonitoring];
 }
 
--(void)languageDownloadProgressMade{
-    [languageActionCell setIsDownloading:YES];
-}
-
-- (void)languageDownloadFinished {
-    languageDownloading = nil;
-    languageDownloadFailed = nil;
-    [languageActionCell setIsDownloading:NO];
-    [self setData];
-    
-    //once language is selected go back to settings page
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)languageDownloadFailed {
-    languageDownloadFailed = selectedLanguage.code.copy;
-    languageDownloading = nil;
-    [languageActionCell setIsDownloading:NO];
-    
-    
-    [self setData];
-}
-
 - (void)setData{
     self.languages = [[GTStorage sharedStorage] fetchArrayOfModels:[GTLanguage class] inBackground:YES].mutableCopy;
     
@@ -220,46 +197,7 @@ BOOL languageDownloadCancelled = NO;
     return YES;
 }
 
-- (void)updateStarted:(NSNotification *)notification {
-        [languageActionCell setIsDownloading:YES];
-}
 
-- (void)updateFinished:(NSNotification *)notification {
-	if (languageDownloading) {
-		languageDownloading = nil;
-		languageDownloadFailed = nil;
-		[languageActionCell setIsDownloading:NO];
-		[self setData];
-	} else {
-		
-		UIAlertView *confirmationAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"new_updates_completed_title", nil)
-																	message:NSLocalizedString(@"new_updates_completed_body", nil)
-																   delegate:nil
-														  cancelButtonTitle:nil
-														  otherButtonTitles:NSLocalizedString(@"ok", nil), nil];
-		[confirmationAlert show];
-		
-		[self setData];
-	}
-}
-
-- (void)updateFailed:(NSNotification *)notification {
-	if (languageDownloading) {
-		languageDownloadFailed = selectedLanguage.code.copy;
-		languageDownloading = nil;
-		[languageActionCell setIsDownloading:NO];
-		[self setData];
-	} else {
-		UIAlertView *confirmationAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"new_updates_failed_title", nil)
-																	message:NSLocalizedString(@"new_updates_failed_body", nil)
-																   delegate:nil
-														  cancelButtonTitle:nil
-														  otherButtonTitles:NSLocalizedString(@"ok", nil), nil];
-		[confirmationAlert show];
-		
-		[self setData];
-	}
-}
 
 - (void)cancelDownloadForLanguageAtCell:(GTLanguageViewCell *)cell {
 	
@@ -315,6 +253,72 @@ BOOL languageDownloadCancelled = NO;
             // hide the UI download indicator
             [languageActionCell setIsDownloading:NO];
         });
+    }
+}
+
+#pragma mark - API status/progress listener methods
+
+-(void)languageDownloadProgressMade{
+    [languageActionCell setIsDownloading:YES];
+}
+
+- (void)languageDownloadFinished {
+    languageDownloading = nil;
+    languageDownloadFailed = nil;
+    [languageActionCell setIsDownloading:NO];
+    [self setData];
+    
+    //once language is selected go back to settings page
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)languageDownloadFailed {
+    languageDownloadFailed = selectedLanguage.code.copy;
+    languageDownloading = nil;
+    [languageActionCell setIsDownloading:NO];
+    
+    
+    [self setData];
+}
+
+- (void)updateStarted:(NSNotification *)notification {
+    [languageActionCell setIsDownloading:YES];
+}
+
+- (void)updateFinished:(NSNotification *)notification {
+    if (languageDownloading) {
+        languageDownloading = nil;
+        languageDownloadFailed = nil;
+        [languageActionCell setIsDownloading:NO];
+        [self setData];
+    } else {
+        
+        UIAlertView *confirmationAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"new_updates_completed_title", nil)
+                                                                    message:NSLocalizedString(@"new_updates_completed_body", nil)
+                                                                   delegate:nil
+                                                          cancelButtonTitle:nil
+                                                          otherButtonTitles:NSLocalizedString(@"ok", nil), nil];
+        [confirmationAlert show];
+        
+        [self setData];
+    }
+}
+
+- (void)updateFailed:(NSNotification *)notification {
+    if (languageDownloading) {
+        languageDownloadFailed = selectedLanguage.code.copy;
+        languageDownloading = nil;
+        [languageActionCell setIsDownloading:NO];
+        [self setData];
+    } else {
+        UIAlertView *confirmationAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"new_updates_failed_title", nil)
+                                                                    message:NSLocalizedString(@"new_updates_failed_body", nil)
+                                                                   delegate:nil
+                                                          cancelButtonTitle:nil
+                                                          otherButtonTitles:NSLocalizedString(@"ok", nil), nil];
+        [confirmationAlert show];
+        
+        [self setData];
     }
 }
 
