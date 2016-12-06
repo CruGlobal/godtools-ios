@@ -51,8 +51,6 @@ BOOL languageDownloadCancelled = NO;
     }
 
     [self setData];
-    
-    [self registerListeners];
 
     self.buttonLessAlert        = [[UIAlertView alloc]
                                    initWithTitle:@""
@@ -90,8 +88,6 @@ BOOL languageDownloadCancelled = NO;
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
     [self.afReachability stopMonitoring];
-
-    [self removeListeners];
 }
 
 -(void)languageDownloadProgressMade{
@@ -225,11 +221,7 @@ BOOL languageDownloadCancelled = NO;
 			
 			selectedLanguage = language;
             languageActionCell = cell;
-            
-            [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadProgressMade
-                                                                object:weakSelf
-                                                              userInfo:nil];
-            
+
             [[GTDataImporter sharedImporter] downloadPackagesForLanguage:language];
 
             languageDownloading = language.code.copy;
@@ -249,10 +241,6 @@ BOOL languageDownloadCancelled = NO;
 		GTLanguage *language = cell.language;
 		
 		if(language != nil) {
-			
-			[[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadProgressMade
-																object:weakSelf
-															  userInfo:nil];
 			
 			[[GTDataImporter sharedImporter] updatePackagesForLanguage:language];
 			
@@ -376,101 +364,6 @@ BOOL languageDownloadCancelled = NO;
 
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void) registerListeners {
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(languageDownloadProgressMade)
-                                                 name: GTDataImporterNotificationLanguageDownloadProgressMade
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(languageDownloadFinished)
-                                                 name: GTDataImporterNotificationLanguageDownloadFinished
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(languageDownloadFailed)
-                                                 name: GTDataImporterNotificationLanguageDownloadFailed
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(setData)
-                                                 name:GTDataImporterNotificationMenuUpdateFinished
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(updateStarted:)
-                                                 name:GTDataImporterNotificationUpdateStarted
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(updateFinished:)
-                                                 name:GTDataImporterNotificationUpdateFinished
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(updateFailed:)
-                                                 name:GTDataImporterNotificationUpdateFailed
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(updateStarted:)
-                                                 name:GTDataImporterNotificationMajorUpdateStarted
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(updateFinished:)
-                                                 name:GTDataImporterNotificationMajorUpdateFinished
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(updateFailed:)
-                                                 name:GTDataImporterNotificationMajorUpdateFailed
-                                               object:nil];
-}
-
-- (void) removeListeners {
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name: GTDataImporterNotificationLanguageDownloadProgressMade
-                                                  object:nil];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name: GTDataImporterNotificationLanguageDownloadFinished
-                                                  object:nil];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name: GTDataImporterNotificationLanguageDownloadFailed
-                                                  object:nil];
-
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:GTDataImporterNotificationMenuUpdateFinished
-                                                  object:nil];
-
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:GTDataImporterNotificationUpdateStarted
-                                                  object:nil];
-
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:GTDataImporterNotificationUpdateFinished
-                                                  object:nil];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:GTDataImporterNotificationUpdateFailed
-                                                  object:nil];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                 name:GTDataImporterNotificationMajorUpdateStarted
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                 name:GTDataImporterNotificationMajorUpdateFinished
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                 name:GTDataImporterNotificationMajorUpdateFailed
-                                               object:nil];
 }
 
 @end
