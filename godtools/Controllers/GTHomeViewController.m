@@ -165,51 +165,22 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 }
 
 #pragma mark - Download packages methods
--(void)downloadFinished:(NSNotification *) notification{
-    NSLog(@"NOTIFICATION: %@",notification.name);
-    [((GTBaseView *)self.view) hideDownloadIndicator];
-
+-(void)downloadFinished {
     [self setData];
     [self.tableView reloadData];
-    
-    if([notification.name isEqualToString: GTDataImporterNotificationPublishDraftSuccessful]){
-        [self refresh];
-    }else if ([notification.name isEqualToString:GTDataImporterNotificationLanguageDownloadFinished]){
-        [[GTDataImporter sharedImporter] updateMenuInfo];
-    }else if([notification.name isEqualToString:GTDataImporterNotificationMenuUpdateFinished]){
-        self.isRefreshing = NO;
-    }
-    
+
+    self.isRefreshing = NO;
+
     if(!self.isRefreshing) {
         [self.view setUserInteractionEnabled:YES];
         [self.refreshControl endRefreshing];
     }
 }
 
--(void)downloadFailed:(NSNotification *) notification{
-    NSLog(@"NOTIFICATION: %@",notification.name);
-    
+-(void)downloadFailed {
     self.isRefreshing = NO;
     [self.view setUserInteractionEnabled:YES];
     [self.refreshControl endRefreshing];
-}
-
--(void)showDownloadIndicator:(NSNotification *) notification{
-
-    [self.view setUserInteractionEnabled:NO];
-
-    if([[GTDefaults sharedDefaults]isInTranslatorMode] == [NSNumber numberWithBool:YES]){
-        self.isRefreshing = YES;
-    }
-    if([notification.name isEqualToString:GTDataImporterNotificationCreateDraftStarted]){
-        [((GTBaseView *)self.view) showDownloadIndicatorWithLabel: NSLocalizedString(@"status_creating_drafts", nil)];
-    }else if([notification.name isEqualToString:GTDataImporterNotificationPublishDraftStarted]){
-        [((GTBaseView *)self.view) showDownloadIndicatorWithLabel: NSLocalizedString(@"status_publishing_drafts", nil)];
-    }else if([notification.name isEqualToString:GTDataImporterNotificationMenuUpdateStarted]){
-        [((GTBaseView *)self.view) showDownloadIndicatorWithLabel:[NSString stringWithFormat: NSLocalizedString(@"status_updating_menu", @"update resources (with menu)")]];
-    }else if([notification.name isEqualToString:GTDataImporterNotificationLanguageDownloadFinished]){
-           [((GTBaseView *)self.view) showDownloadIndicatorWithLabel:[NSString stringWithFormat: NSLocalizedString(@"status_updating_resources", nil)]];
-    }
 }
 
 #pragma mark - Instruction selectors
@@ -673,7 +644,16 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
                                                         forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:YES] objectAtIndex:0];
     
     [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:YES];
-    [[GTDataImporter sharedImporter]downloadPromisedPackagesForLanguage:current];
+    
+    __weak typeof(self) weakSelf = self;
+    
+    [[GTDataImporter sharedImporter]downloadPromisedPackagesForLanguage:current].then(^{
+        [[GTDataImporter sharedImporter] updateMenuInfo];
+    }).catch(^{
+        [weakSelf downloadFailed];
+    }).finally(^{
+        [weakSelf downloadFinished];
+    });
 }
 #pragma mark - Renderer methods
 -(void)loadRendererWithPackage: (GTPackage *)package{
