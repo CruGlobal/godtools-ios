@@ -351,13 +351,17 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 #pragma mark - Package downloading
 
 - (void)downloadPackage:(GTPackage *)package {
-	NSLog(@"downloadPackage() ...");
-	[self downloadPackage:package withProgressNotifier:GTDataImporterNotificationPackageDownloadProgressMade withSuccessNotifier:GTDataImporterNotificationPackageDownloadFinished withFailureNotifier:GTDataImporterNotificationPackageDownloadFailed];
+	[self downloadPackage:package
+     withProgressNotifier:GTDataImporterNotificationPackageDownloadProgressMade
+      withSuccessNotifier:GTDataImporterNotificationPackageDownloadFinished
+      withFailureNotifier:GTDataImporterNotificationPackageDownloadFailed];
 }
 
 - (void)downloadPackagesForLanguage:(GTLanguage *)language {
-    NSLog(@"downloadPackagesForLanguage() ...");
-     [self downloadPackagesForLanguage:language withProgressNotifier:GTDataImporterNotificationLanguageDownloadProgressMade withSuccessNotifier:GTDataImporterNotificationLanguageDownloadFinished withFailureNotifier:GTDataImporterNotificationLanguageDownloadFinished];
+     [self downloadPackagesForLanguage:language
+                  withProgressNotifier:GTDataImporterNotificationLanguageDownloadProgressMade
+                   withSuccessNotifier:GTDataImporterNotificationLanguageDownloadFinished
+                   withFailureNotifier:GTDataImporterNotificationLanguageDownloadFinished];
 }
 
 - (void)downloadXmlFilesForPackage:(GTPackage *)package withProgressNotifier:(NSString *) progressNotificationName withSuccessNotifier:(NSString *) successNotificationName withFailureNotifier:(NSString *) failureNotificationName {

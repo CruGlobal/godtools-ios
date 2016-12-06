@@ -230,10 +230,7 @@ BOOL languageDownloadCancelled = NO;
                                                                 object:weakSelf
                                                               userInfo:nil];
             
-            [[GTDataImporter sharedImporter] downloadPackagesForLanguage:language
-                                                    withProgressNotifier:GTDataImporterNotificationLanguageDownloadProgressMade
-                                                     withSuccessNotifier:GTDataImporterNotificationLanguageDownloadFinished
-                                                     withFailureNotifier:GTDataImporterNotificationLanguageDownloadFailed];
+            [[GTDataImporter sharedImporter] downloadPackagesForLanguage:language];
 
             languageDownloading = language.code.copy;
 
