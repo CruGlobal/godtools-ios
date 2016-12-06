@@ -216,7 +216,7 @@ BOOL languageDownloadCancelled = NO;
         [cantDownloadAlert show];
         
         return NO;
-    }    
+    }
     return YES;
 }
 
@@ -280,15 +280,18 @@ BOOL languageDownloadCancelled = NO;
     GTLanguage *chosen = (GTLanguage*)[self.languages objectAtIndex:indexPath.section];
     languageActionCell = (GTLanguageViewCell *)[tableView cellForRowAtIndexPath:indexPath];
     
-    // download language if not yet downloaded
     if ([self ableToDownloadLanguageAtCell:languageActionCell]) {
         __weak typeof(self) weakSelf = self;
         
+        // set state so that we know which language is being downloaded.
         languageDownloading = chosen.code.copy;
         languageDownloadCancelled = NO;
-        
         [[GTDefaults sharedDefaults] setTranslationDownloadStatus:@"running"];
         
+        // shows the UI download indicator
+        [languageActionCell setIsDownloading:YES];
+        
+        // do the download/import
         [[GTDataImporter sharedImporter] downloadPromisedPackagesForLanguage:chosen].then(^{
             
             // set the current language selected
@@ -305,6 +308,12 @@ BOOL languageDownloadCancelled = NO;
             [weakSelf.navigationController popViewControllerAnimated:YES];
         }).catch(^(NSError *error) {
             
+        }).finally(^{
+            // reset state so a new download can happen
+            languageDownloading = nil;
+            
+            // hide the UI download indicator
+            [languageActionCell setIsDownloading:NO];
         });
     }
 }
