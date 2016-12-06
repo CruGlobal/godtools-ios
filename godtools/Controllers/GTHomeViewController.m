@@ -151,8 +151,6 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
     
     [self setData];
 
-    [self registerListeners];
-
     if(![self languageHasLivePackages:[self getCurrentPrimaryLanguage]] && ![self isTranslatorMode]) {
         self.languageCode = @"en";
         [[GTDefaults sharedDefaults] setCurrentLanguageCode:@"en" ];
@@ -164,15 +162,6 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
     [self unregisterFollowupListener];
     
     [self.tableView reloadData];
-}
-
--(void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:NO];
-}
-
--(void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-    [self removeListeners];
 }
 
 #pragma mark - Download packages methods
@@ -622,7 +611,7 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
                                                             object:self
                                                           userInfo:nil];
         [GTDefaults sharedDefaults].isChoosingForMainLanguage = YES;
-        [[GTDataImporter sharedImporter]downloadPackagesForLanguage:language];
+        [[GTDataImporter sharedImporter]downloadPromisedPackagesForLanguage:language];
     }
 }
 
@@ -684,7 +673,7 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
                                                         forValue:[[GTDefaults sharedDefaults] currentLanguageCode] inBackground:YES] objectAtIndex:0];
     
     [[GTDefaults sharedDefaults]setIsChoosingForMainLanguage:YES];
-    [[GTDataImporter sharedImporter]downloadPackagesForLanguage:current];
+    [[GTDataImporter sharedImporter]downloadPromisedPackagesForLanguage:current];
 }
 #pragma mark - Renderer methods
 -(void)loadRendererWithPackage: (GTPackage *)package{
@@ -781,83 +770,6 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-}
-
-- (void) registerListeners {
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(downloadFinished:)
-                                                 name:GTDataImporterNotificationMenuUpdateFinished
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(showDownloadIndicator:)
-                                                 name:GTDataImporterNotificationMenuUpdateStarted
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(downloadFinished:)
-                                                 name:GTDataImporterNotificationLanguageDownloadFinished
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(downloadFailed:)
-                                                 name:GTDataImporterNotificationLanguageDownloadFailed
-                                               object:nil];
-    //Putting this back as part of PR #45 feedback. It looks like it was just calling a refresh on the
-    //page when the user created a draft before, so the new selector is refreshDraftsButtonDragged:
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(refreshDraftsButtonDragged:)
-                                                 name:GTDataImporterNotificationCreateDraftSuccessful
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(downloadFinished:)
-                                                 name: GTDataImporterNotificationCreateDraftFail
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(showDownloadIndicator:)
-                                                 name: GTDataImporterNotificationPublishDraftStarted
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(downloadFinished:)
-                                                 name: GTDataImporterNotificationPublishDraftSuccessful
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(downloadFinished:)
-                                                 name: GTDataImporterNotificationPublishDraftFail
-                                               object:nil];
-}
-
-- (void) removeListeners {
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:GTDataImporterNotificationMenuUpdateFinished
-                                                  object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:GTDataImporterNotificationMenuUpdateStarted
-                                                  object:nil];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                 name:GTDataImporterNotificationLanguageDownloadFinished
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                 name:GTDataImporterNotificationLanguageDownloadFailed
-                                               object:nil];
-
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name: GTDataImporterNotificationCreateDraftStarted
-                                                  object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name: GTDataImporterNotificationCreateDraftSuccessful
-                                                  object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name: GTDataImporterNotificationCreateDraftFail
-                                                  object:nil];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name: GTDataImporterNotificationPublishDraftStarted
-                                                  object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name: GTDataImporterNotificationPublishDraftSuccessful
-                                                  object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name: GTDataImporterNotificationPublishDraftFail
-                                                  object:nil];
 }
 
 - (void)registerFollowupListener {
