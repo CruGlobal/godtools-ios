@@ -20,6 +20,7 @@ pod 'Fabric'
 pod 'Crashlytics'
 pod 'Rollbar', '~> 0.1.5'
 pod 'MagicalRecord', '~> 2.2'
+pod 'PromiseKit', '~> 1.7'
 
 end
 

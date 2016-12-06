@@ -75,7 +75,7 @@
 		6879E5121B0CD85C009E5B8F /* GTAPIStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 6879E5111B0CD85C009E5B8F /* GTAPIStub.m */; };
 		68A1CBFD18DB6C3B00D84F12 /* GTDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E6068918D3986D00844377 /* GTDefaults.m */; };
 		68A1CBFF18DB6F9600D84F12 /* GTAPITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A1CBFE18DB6F9600D84F12 /* GTAPITest.m */; };
-		68BA852D18DCE50C001AC6B3 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		68BA852D18DCE50C001AC6B3 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
 		68BA853318DCF0EB001AC6B3 /* GTDefaultsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BA853218DCF0EB001AC6B3 /* GTDefaultsTests.m */; };
 		68BA853518DCF102001AC6B3 /* GTStorageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BA853418DCF102001AC6B3 /* GTStorageTests.m */; };
 		68BA853918DCF13F001AC6B3 /* CRUStorageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BA853818DCF13F001AC6B3 /* CRUStorageTests.m */; };
@@ -582,7 +582,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 68740D4118D24F9A00D36C0E /* Build configuration list for PBXNativeTarget "godtools" */;
 			buildPhases = (
-				30F008E7773BAA21235F6404 /* 📦 Check Pods Manifest.lock */,
+				30F008E7773BAA21235F6404 /* [CP] Check Pods Manifest.lock */,
 				AC3C4B018E46D6DE385AACC5 /* [CP] Check Pods Manifest.lock */,
 				68740D0B18D24F9A00D36C0E /* Sources */,
 				68740D0C18D24F9A00D36C0E /* Frameworks */,
@@ -607,7 +607,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 68740D4418D24F9A00D36C0E /* Build configuration list for PBXNativeTarget "godtoolsTests" */;
 			buildPhases = (
-				09FECA8FE6D82F91580F8199 /* 📦 Check Pods Manifest.lock */,
+				09FECA8FE6D82F91580F8199 /* [CP] Check Pods Manifest.lock */,
 				7FE1B965694515DE422DF435 /* [CP] Check Pods Manifest.lock */,
 				68740D2C18D24F9A00D36C0E /* Sources */,
 				68740D2D18D24F9A00D36C0E /* Frameworks */,
@@ -709,19 +709,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		09FECA8FE6D82F91580F8199 /* 📦 Check Pods Manifest.lock */ = {
+		09FECA8FE6D82F91580F8199 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		19593D8CB41B194438CA4DCA /* [CP] Copy Pods Resources */ = {
@@ -754,19 +754,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-godtoolsTests/Pods-godtoolsTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		30F008E7773BAA21235F6404 /* 📦 Check Pods Manifest.lock */ = {
+		30F008E7773BAA21235F6404 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		3245AEBBAA04A698DB0C96D2 /* 📦 Copy Pods Resources */ = {
@@ -972,7 +972,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				68BA852D18DCE50C001AC6B3 /* (null) in Sources */,
+				68BA852D18DCE50C001AC6B3 /* BuildFile in Sources */,
 				68278EC21BCD3E4400472483 /* GTPackage.m in Sources */,
 				68BA853B18DCF15D001AC6B3 /* GTConfigTests.m in Sources */,
 				68464FB618E1C7C700D14C2B /* GTAPIErrorHandlerTests.m in Sources */,
