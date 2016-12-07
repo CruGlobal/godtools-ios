@@ -18,6 +18,6 @@
 - (void)setIsDownloading:(BOOL)isDownloading;
 - (void)setIsSelected:(BOOL)isSelected;
 
-- (void)configureWithLanguage:(GTLanguage *)language internetReachable:(BOOL)internetReachable;
+- (void)configureWithLanguage:(GTLanguage *)language;
 
 @end

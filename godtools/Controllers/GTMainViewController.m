@@ -26,9 +26,7 @@ NSInteger const GTSplashErrorCodeInitialSetupFailed                             
 
 - (void)persistLocalMetaData;
 - (void)persistLocalEnglishPackage;
-- (void)downloadPhonesLanguage;
 
-- (void)updateMenu;
 - (void)goToHome;
 
 @end
@@ -56,36 +54,43 @@ NSInteger const GTSplashErrorCodeInitialSetupFailed                             
 												  usingBlock:^(NSNotification * _Nonnull note) {
 													  self.setupTracker.firstLaunch = YES;
 												  }];
-	[GTDataImporter sharedImporter];
+	
 
     [self leavePreviewMode];
-    [self updateMenu];
     
     //check if first launch
-    if(self.setupTracker.firstLaunch) {
-        [self.splashScreen showDownloadIndicatorWithLabel:NSLocalizedString(@"status_initial_setup", nil)];
-        
-		[self.setupTracker beganInitialSetup];
-		
-        //prepare initial content
-        [self persistLocalEnglishPackage];
-        [self persistLocalMetaData];
-		
+    if(!self.setupTracker.firstLaunch) {
+        [self sendCachedFollowupSubscriptions];
+        [self goToHome];
+        return;
+    }
+    
+    [self.splashScreen showDownloadIndicatorWithLabel:NSLocalizedString(@"status_initial_setup", nil)];
+    [self.setupTracker beganInitialSetup];
+    
+    //prepare initial content
+    [self persistLocalEnglishPackage];
+    [self persistLocalMetaData];
+    
+    __weak typeof(self) weakSelf = self;
+    
+    [[GTDataImporter sharedImporter] updateMenuInfo].then(^{
         GTLanguage *phonesLanguage = [[GTStorage sharedStorage] findClosestLanguageTo:[GTDefaults sharedDefaults].phonesLanguageCode];
         
-        if (!phonesLanguage) {
-            [self.setupTracker finishedDownloadingPhonesLanguage];
-            [self initialSetupFinished];
-            return;
-        }
-        
-		//download phone's language
-		[self downloadPhonesLanguage];
-		
-	} else {
-        [self sendCachedFollowupSubscriptions];
-		[self goToHome];
-	}
+        [[GTDataImporter sharedImporter] updateMenuInfo].then(^{
+            if (phonesLanguage) {
+                return [[GTDataImporter sharedImporter] downloadPromisedPackagesForLanguage:phonesLanguage];
+            }
+            return [PMKPromise promiseWithValue:@"finished"];
+        }).then(^{
+            [[GTDefaults sharedDefaults] setCurrentLanguageCode:(phonesLanguage ? phonesLanguage.code : @"en")];
+            [weakSelf.setupTracker finishedDownloadingPhonesLanguage];
+        }).catch(^{
+            
+        }).finally(^{
+            [weakSelf initialSetupFinished];
+        });
+    });
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -97,12 +102,6 @@ NSInteger const GTSplashErrorCodeInitialSetupFailed                             
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
 	
-}
-
-#pragma mark - API request methods
-
-- (void)updateMenu {
-	[[GTDataImporter sharedImporter] updateMenuInfo];
 }
 
 #pragma mark - First Launch methods

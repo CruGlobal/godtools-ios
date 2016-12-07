@@ -122,52 +122,32 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 
 #pragma mark - Menu Info Import
 
-- (void)updateMenuInfo {
+- (PMKPromise *)updateMenuInfo {
     
 	__weak typeof(self)weakSelf = self;
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationMenuUpdateStarted
-                                                        object:weakSelf
-                                                      userInfo:nil];
-
-	[self.api getMenuInfoSince:self.lastMenuInfoUpdate
-					   success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLRootElement) {
-						   
-						   @try {
-
-							   [weakSelf importMenuInfoFromXMLElement:XMLRootElement];
-                               
-                               [[NSNotificationCenter defaultCenter]
-                                    postNotificationName:GTDataImporterNotificationMenuUpdateFinished
-                                    object:weakSelf
-                                    userInfo:nil];
-						   
-						   } @catch (NSException *exception) {
-
-							   NSString *errorMessage	= NSLocalizedString(@"menu_download_bad_xml", nil);
-							   NSError *xmlError = [NSError errorWithDomain:GTDataImporterErrorDomain
-																	   code:GTDataImporterErrorCodeInvalidXml
-																   userInfo:@{NSLocalizedDescriptionKey: errorMessage,
-																			  NSLocalizedFailureReasonErrorKey: exception.description }];
-							   [weakSelf displayMenuInfoImportError:xmlError];
-
-                               [[NSNotificationCenter defaultCenter]
-                                    postNotificationName:GTDataImporterNotificationMenuUpdateFinished
-                                    object:weakSelf
-                                    userInfo:nil];
-						   }
-						   
-					   } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLRootElement) {
-						   
-						   [weakSelf displayMenuInfoRequestError:error];
-                           [[NSNotificationCenter defaultCenter]
-                                postNotificationName:GTDataImporterNotificationMenuUpdateFinished
-                                object:weakSelf
-                                userInfo:nil];
-                           
-					   }];
-
-	
+    return [PMKPromise promiseWithResolver:^(PMKResolver resolve) {
+        [weakSelf.api getMenuInfoSince:weakSelf.lastMenuInfoUpdate
+                               success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLRootElement) {
+                                   @try {
+                                       [weakSelf importMenuInfoFromXMLElement:XMLRootElement];
+                                       resolve(@"finished");
+                                   } @catch (NSException *exception) {
+                                       
+                                       NSString *errorMessage	= NSLocalizedString(@"menu_download_bad_xml", nil);
+                                       NSError *xmlError = [NSError errorWithDomain:GTDataImporterErrorDomain
+                                                                               code:GTDataImporterErrorCodeInvalidXml
+                                                                           userInfo:@{NSLocalizedDescriptionKey: errorMessage,
+                                                                                      NSLocalizedFailureReasonErrorKey: exception.description }];
+                                       [weakSelf displayMenuInfoImportError:xmlError];
+                                       resolve(xmlError);
+                                   }
+                               }
+                               failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLRootElement) {
+                                   [weakSelf displayMenuInfoRequestError:error];
+                                   resolve(error);
+                               }];
+    }];
 }
 
 - (BOOL)importMenuInfoFromXMLElement:(RXMLElement *)rootElement {

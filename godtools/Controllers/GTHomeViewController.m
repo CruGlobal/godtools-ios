@@ -648,7 +648,7 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
     __weak typeof(self) weakSelf = self;
     
     [[GTDataImporter sharedImporter]downloadPromisedPackagesForLanguage:current].then(^{
-        [[GTDataImporter sharedImporter] updateMenuInfo];
+        return [[GTDataImporter sharedImporter] updateMenuInfo];
     }).catch(^{
         [weakSelf downloadFailed];
     }).finally(^{

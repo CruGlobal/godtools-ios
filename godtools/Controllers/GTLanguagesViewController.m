@@ -161,7 +161,7 @@ BOOL languageDownloadCancelled = NO;
     
     GTLanguage *language = [self.languages objectAtIndex:indexPath.section];
 
-    [cell configureWithLanguage:language internetReachable:self.afReachability.reachable];
+    [cell configureWithLanguage:language];
     [cell setIsSelected:[self isSelectedLanguage:language]];
     
     if ([language.code isEqualToString:languageDownloading]) {

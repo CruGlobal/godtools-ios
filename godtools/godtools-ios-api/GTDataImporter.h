@@ -51,7 +51,7 @@
  *  You should listen for this and present the user with the option of updating their resources.
  *  If they select to updated their resources you can use updatePackagesWithNewVersions to complete that action.
  */
-- (void)updateMenuInfo;
+- (PMKPromise *)updateMenuInfo;
 
 /**
  *  Downloads new versions of all resources that are out of date according to the meta data downloaded using updateMenuInfo.
