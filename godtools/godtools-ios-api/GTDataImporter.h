@@ -19,8 +19,6 @@
  */
 @interface GTDataImporter : NSObject
 
-#warning This is the main class you should use with the apps logic. Start by reading this documentation
-
 /**
  *  Singleton for God Tools Data Importer
  *
@@ -52,23 +50,6 @@
  *  If they select to updated their resources you can use updatePackagesWithNewVersions to complete that action.
  */
 - (PMKPromise *)updateMenuInfo;
-
-/**
- *  Downloads new versions of all resources that are out of date according to the meta data downloaded using updateMenuInfo.
- *
- *  @note This method is designed to be used after receiving the "Update Needed" notification from the updateMenuInfo method.
- */
-- (void)updatePackagesWithNewVersions;
-
-/**
- *  For a particular language will downloads new versions of all resources that are out of date according to the meta data downloaded using updateMenuInfo.
- *
- *  @param language		the language you would like to restrict updates to. If nil it will update all languages.
- *
- *  @note This method is designed to be used by the language list, for manually updating languages one at a time.
- */
-- (void)updatePackagesForLanguage:(GTLanguage *)language;
-
 
 
 /////////////////////////Methods for Manual model///////////////////////////

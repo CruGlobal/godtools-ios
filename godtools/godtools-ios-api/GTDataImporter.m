@@ -113,11 +113,6 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 	[self willChangeValueForKey:@"defaults"];
 	_defaults	= defaults;
 	[self didChangeValueForKey:@"defaults"];
-	
-#warning incomplete implementation for setupForDefaults
-	//add listeners
-	//check if currentLanguage needs to be downloaded (ie first time app is opened)
-	
 }
 
 #pragma mark - Menu Info Import
@@ -402,57 +397,44 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
     }];
 }
 
-- (void)downloadXmlFilesForPackage:(GTPackage *)package withProgressNotifier:(NSString *) progressNotificationName withSuccessNotifier:(NSString *) successNotificationName withFailureNotifier:(NSString *) failureNotificationName {
-	
-	NSParameterAssert(package);
-	
-	__weak typeof(self)weakSelf = self;
-	[self.api getXmlFilesForPackage:package
-						   progress:^(NSNumber *percentage) {
-								
-								[[NSNotificationCenter defaultCenter] postNotificationName:progressNotificationName
-																					object:weakSelf
-																				  userInfo:@{GTDataImporterNotificationLanguageDownloadPercentageKey: percentage,
-																							 GTDataImporterNotificationPackageKeyPackage: package}];
-								
-							} success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSURL *targetPath) {
-								
-								RXMLElement *contents =[weakSelf.packageExtractor unzipResourcesAtTarget:targetPath forLanguage:package.language package:package];
-								
-								if(contents!=nil){
-									//Update storage with data from contents.
-									[contents iterate:@"resource" usingBlock: ^(RXMLElement *resource) {
-										
-										package.name			= [NSString stringWithUTF8String:[[resource attribute:@"name"] UTF8String]];
-										package.configFile		= [resource attribute:@"config"];
-										package.status			= [resource attribute:@"status"];
-										package.localVersion	= [resource attribute:@"version"];
-										package.latestVersion	= [resource attribute:@"version"];
-										
-									}];
-									
-									[[NSNotificationCenter defaultCenter] postNotificationName:successNotificationName
-																						object:self
-																					  userInfo:@{GTDataImporterNotificationPackageKeyPackage: package}];
-									
-									[weakSelf cleanUpAfterDownloadingPackage:package];
-								}
-								
-							} failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-								
-								if (!gtUpdatePackagesUserCancellation) {
-									
-									[weakSelf displayDownloadPackagesRequestError:error];
-									
-								}
-								
-								gtUpdatePackagesUserCancellation = FALSE;
-								[[NSNotificationCenter defaultCenter] postNotificationName:failureNotificationName
-																					object:self
-																				  userInfo:@{GTDataImporterNotificationPackageKeyPackage: package}];
-								
-							}];
-	
+- (PMKPromise *)downloadXmlFilesForPackage:(GTPackage *)package {
+    
+    NSParameterAssert(package);
+    
+    __weak typeof(self)weakSelf = self;
+    
+    return [PMKPromise promiseWithResolver:^(PMKResolver resolve) {
+        [weakSelf.api getXmlFilesForPackage:package
+                                   progress:nil
+                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSURL *targetPath) {
+                                        RXMLElement *contents =[weakSelf.packageExtractor unzipResourcesAtTarget:targetPath forLanguage:package.language package:package];
+                                        
+                                        if(contents!=nil){
+                                            //Update storage with data from contents.
+                                            [contents iterate:@"resource" usingBlock: ^(RXMLElement *resource) {
+                                                
+                                                package.name			= [NSString stringWithUTF8String:[[resource attribute:@"name"] UTF8String]];
+                                                package.configFile		= [resource attribute:@"config"];
+                                                package.status			= [resource attribute:@"status"];
+                                                package.localVersion	= [resource attribute:@"version"];
+                                                package.latestVersion	= [resource attribute:@"version"];
+                                                
+                                            }];
+                                            
+                                            [weakSelf cleanUpAfterDownloadingPackage:package];
+                                            resolve(@"finished");
+                                        }
+                                        
+                                    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                                        
+                                        if (!gtUpdatePackagesUserCancellation) {
+                                            [weakSelf displayDownloadPackagesRequestError:error];
+                                        }
+                                        
+                                        gtUpdatePackagesUserCancellation = FALSE;
+                                        resolve(error);
+                                    }];
+    }];
 }
 
 - (void)downloadPackage:(GTPackage *)package withProgressNotifier:(NSString *) progressNotificationName withSuccessNotifier:(NSString *) successNotificationName withFailureNotifier:(NSString *) failureNotificationName {
@@ -702,55 +684,6 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 		}
 		
     }
-}
-
-- (void)updatePackagesWithNewVersions {
-	
-	[self updatePackagesForLanguage:nil];
-	
-}
-
-- (void)updatePackagesForLanguage:(GTLanguage *)language {
-	
-	NSArray *majorUpdates = self.languagesNeedingMajorUpdate.allValues;
-	NSArray *minorUpdates = self.packagesNeedingMinorUpdate;
-	
-	if (language) {
-		NSPredicate *languagePredicate = [NSPredicate predicateWithFormat:@"code == %@", language.code];
-		NSPredicate *packagePredicate = [NSPredicate predicateWithFormat:@"language.code == %@", language.code];
-		majorUpdates = [self.languagesNeedingMajorUpdate.allValues filteredArrayUsingPredicate:languagePredicate];
-		minorUpdates = [self.packagesNeedingMinorUpdate filteredArrayUsingPredicate:packagePredicate];
-	}
-	
-	[self.updateTracker updateInitiatedForLanguage:language
-								  withMajorUpdates:majorUpdates
-									  minorUpdates:minorUpdates];
-	
-	__weak typeof(self)weakSelf = self;
-	
-	[self.languagesNeedingMajorUpdate enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull languageCode, GTLanguage * _Nonnull currentLanguage, BOOL * _Nonnull stop) {
-		if (language == nil || [currentLanguage.code isEqualToString:language.code]) {
-			
-			[weakSelf downloadPackagesForLanguage:currentLanguage
-							 withProgressNotifier:GTDataImporterNotificationLanguageDownloadProgressMade
-							  withSuccessNotifier:GTDataImporterNotificationLanguageDownloadFinished
-							  withFailureNotifier:GTDataImporterNotificationLanguageDownloadFailed];
-		}
-	}];
-	
-	[self.packagesNeedingMinorUpdate enumerateObjectsUsingBlock:^(GTPackage *package, NSUInteger index, BOOL *stop) {
-		
-		if (language == nil || [package.language.code isEqualToString:language.code]) {
-			
-			[weakSelf downloadXmlFilesForPackage:package
-                            withProgressNotifier:GTDataImporterNotificationUpdateStarted
-                             withSuccessNotifier:GTDataImporterNotificationUpdateFinished
-                             withFailureNotifier:GTDataImporterNotificationUpdateFailed];
-
-		}
-		
-	}];
-
 }
 
 - (void)cleanUpAfterDownloadingPackage:(GTPackage *)package {
