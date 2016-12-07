@@ -285,39 +285,6 @@ NSString * const GTAPIAuthEndpointAuthTokenKey				= @"auth-token";
     
 }
 
--(void)createDraftsForLanguage:(GTLanguage *)language package:(GTPackage *)package success:(void (^)(NSURLRequest *, NSHTTPURLResponse *))success failure:(void (^)(NSURLRequest *, NSHTTPURLResponse *, NSError *))failure{
-    
-    NSMutableURLRequest *request	= [self.requestSerializer createDraftsRequestWithLanguage:language
-                                                                                   package:package
-                                                                                     error:nil];
-    
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]initWithRequest:request];
-    
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        success(operation.request, operation.response);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        failure(operation.request, operation.response, error);
-    }];
-    
-    [self startRequestWithOperation:operation];
-
-}
-
--(void)publishTranslationForLanguage:(GTLanguage *)language package:(GTPackage *)package success:(void (^)(NSURLRequest *, NSHTTPURLResponse *))success failure:(void (^)(NSURLRequest *, NSHTTPURLResponse *, NSError *))failure{
-    
-    NSMutableURLRequest *request = [self.requestSerializer publishDraftRequestWithLanguage:language package:package error:nil];
-    
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]initWithRequest:request];
-    
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        success(operation.request, operation.response);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        failure(operation.request, operation.response, error);
-    }];
-    
-    [self startRequestWithOperation:operation];
-}
-
 - (void)startRequestWithOperation:(NSOperation *)apiRequestOperation {
 	
 	__weak typeof(self)weakSelf = self;

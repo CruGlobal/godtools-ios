@@ -47,8 +47,6 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 
 @property (strong, nonatomic) GTLanguage *phonesLanguage;
 @property (strong, nonatomic) UIAlertView *phonesLanguageAlert;
-@property (strong, nonatomic) UIAlertView *draftsAlert;
-@property (strong, nonatomic) UIAlertView *createDraftsAlert;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @property (strong, nonatomic) EveryStudentController *everyStudentViewController;
@@ -112,12 +110,6 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 		[self.instructionsOverlayView removeFromSuperview];
 		
     }
-	
-    self.draftsAlert = [[UIAlertView alloc] initWithTitle:nil
-												 message:NSLocalizedString(@"draft_publish_message", nil)
-												delegate:self
-									   cancelButtonTitle:NSLocalizedString(@"draft_publish_negative", nil)
-									   otherButtonTitles:NSLocalizedString(@"draft_publish_confirm", nil), nil];
     
     [self checkPhonesLanguage];
 }
@@ -552,21 +544,8 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 
 #pragma mark - Utility methods
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
-    if(alertView == self.phonesLanguageAlert){
-        if (buttonIndex == 1) {
-            [self setMainLanguageToPhonesLanguage];
-        }
-    }else if(alertView == self.draftsAlert){
-        if(buttonIndex == 1){
-            //publish draft
-            GTPackage *selectedPackage = [self.articles objectAtIndex:[self.selectedSectionNumber intValue]];
-            [[GTDataImporter sharedImporter] publishDraftForLanguage:selectedPackage.language package:selectedPackage];
-        }
-    }else if(alertView == self.createDraftsAlert){
-        if(buttonIndex > 0){
-            GTPackage *selectedPackage = [[self packagesWithNoDrafts]objectAtIndex:([self.selectedSectionNumber intValue] - self.articles.count)];
-            [[GTDataImporter sharedImporter]createDraftsForLanguage:selectedPackage.language package:selectedPackage];
-        }
+    if(alertView == self.phonesLanguageAlert && buttonIndex == 1){
+        [self setMainLanguageToPhonesLanguage];
     }
 }
 
