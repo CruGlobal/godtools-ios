@@ -345,63 +345,60 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 }
 
 - (PMKPromise *)downloadPromisedPackagesForLanguage:(GTLanguage *)language {
+    if([[[GTDefaults sharedDefaults] isInTranslatorMode] boolValue]) {
+        return [self downloadDraftsForLanguage:language];
+    }
     return [PMKPromise promiseWithResolver:^(PMKResolver resolve) {
         NSParameterAssert(language);
-        
-        if([[[GTDefaults sharedDefaults] isInTranslatorMode] boolValue]) {
-            [self downloadDraftsForLanguage:language];
-        } else {
-            __weak typeof(self)weakSelf = self;
-            [self.api getResourcesForLanguage:language
-                                     progress:nil
-                                      success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSURL *targetPath) {
-                                         if(response.statusCode == 200) {
-                                             RXMLElement *contents = [weakSelf.packageExtractor unzipResourcesAtTarget:targetPath forLanguage:language package:nil];
-                                             
-                                             if ([weakSelf importPackageContentsFromElement:contents forLanguage:language]) {
-                                                 
-                                                 if([GTDefaults sharedDefaults].isChoosingForMainLanguage){
-                                                     
-                                                     if([[[GTDefaults sharedDefaults]currentParallelLanguageCode] isEqualToString:language.code]) {
-                                                         [[GTDefaults sharedDefaults]setCurrentParallelLanguageCode:nil];
-                                                     }
-                                                     
-                                                     [[GTDefaults sharedDefaults]setCurrentLanguageCode:language.code];
-                                                     
-                                                 } else {
-                                                     [[GTDefaults sharedDefaults]setCurrentParallelLanguageCode:language.code];
-                                                 }
-                                             } else {
-                                                 NSError *error = [NSError errorWithDomain:GTDataImporterErrorDomain
-                                                                                      code:GTDataImporterErrorCodeCouldNotSave
-                                                                                  userInfo:nil];
-                                                 [weakSelf displayPackageImportError:error];
-                                                 resolve(error);
-                                             }
-                                             
-                                             [[GTDefaults sharedDefaults] setTranslationDownloadStatus:@"finished"];
-                                             resolve(@"finished");
-                                             
-                                         } else if(response.statusCode == 500) {
-                                             NSString *errorMessage	= NSLocalizedString(@"packages_download_error", nil);
-                                             NSError *error = [NSError errorWithDomain:GTDataImporterErrorDomain
-                                                                                  code:GTDataImporterErrorCodeInvalidXml
-                                                                              userInfo:@{NSLocalizedDescriptionKey: errorMessage}];
-                                             if(language.downloaded == [NSNumber numberWithBool:NO]){
-                                                 [weakSelf displayDownloadPackagesRequestError:error];
-                                             }
-                                             
-                                             resolve(error);
-                                         }
-                                     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                         if(!gtLanguageDownloadUserCancellation) {
-                                             [weakSelf displayDownloadPackagesRequestError:error];
-                                         }
-                                         gtLanguageDownloadUserCancellation = FALSE;
-                                         resolve(error);
-                                     }];
-        }
-
+        __weak typeof(self)weakSelf = self;
+        [self.api getResourcesForLanguage:language
+                                 progress:nil
+                                  success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSURL *targetPath) {
+                                      if(response.statusCode == 200) {
+                                          RXMLElement *contents = [weakSelf.packageExtractor unzipResourcesAtTarget:targetPath forLanguage:language package:nil];
+                                          
+                                          if ([weakSelf importPackageContentsFromElement:contents forLanguage:language]) {
+                                              
+                                              if([GTDefaults sharedDefaults].isChoosingForMainLanguage){
+                                                  
+                                                  if([[[GTDefaults sharedDefaults]currentParallelLanguageCode] isEqualToString:language.code]) {
+                                                      [[GTDefaults sharedDefaults]setCurrentParallelLanguageCode:nil];
+                                                  }
+                                                  
+                                                  [[GTDefaults sharedDefaults]setCurrentLanguageCode:language.code];
+                                                  
+                                              } else {
+                                                  [[GTDefaults sharedDefaults]setCurrentParallelLanguageCode:language.code];
+                                              }
+                                          } else {
+                                              NSError *error = [NSError errorWithDomain:GTDataImporterErrorDomain
+                                                                                   code:GTDataImporterErrorCodeCouldNotSave
+                                                                               userInfo:nil];
+                                              [weakSelf displayPackageImportError:error];
+                                              resolve(error);
+                                          }
+                                          
+                                          [[GTDefaults sharedDefaults] setTranslationDownloadStatus:@"finished"];
+                                          resolve(@"finished");
+                                          
+                                      } else if(response.statusCode == 500) {
+                                          NSString *errorMessage	= NSLocalizedString(@"packages_download_error", nil);
+                                          NSError *error = [NSError errorWithDomain:GTDataImporterErrorDomain
+                                                                               code:GTDataImporterErrorCodeInvalidXml
+                                                                           userInfo:@{NSLocalizedDescriptionKey: errorMessage}];
+                                          if(language.downloaded == [NSNumber numberWithBool:NO]){
+                                              [weakSelf displayDownloadPackagesRequestError:error];
+                                          }
+                                          
+                                          resolve(error);
+                                      }
+                                  } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                                      if(!gtLanguageDownloadUserCancellation) {
+                                          [weakSelf displayDownloadPackagesRequestError:error];
+                                      }
+                                      gtLanguageDownloadUserCancellation = FALSE;
+                                      resolve(error);
+                                  }];
     }];
 }
 
@@ -850,123 +847,105 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
     }];
 }
 
-- (void)downloadDraftsForLanguage:(GTLanguage *)language {
+- (PMKPromise *)downloadDraftsForLanguage:(GTLanguage *)language {
     
    	NSParameterAssert(language.code);
     
     __weak typeof(self)weakSelf = self;
     
-    [weakSelf.api getDraftsResourcesForLanguage:language
-                            progress:^(NSNumber *percentage) {
-        
-                                [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadProgressMade
-                                                                                    object:weakSelf
-                                                                                  userInfo:@{GTDataImporterNotificationLanguageDownloadPercentageKey: percentage}];
-        
-                            } success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSURL *targetPath) {
-                                if(response.statusCode == 200){
-                                     RXMLElement *contents =[weakSelf.packageExtractor unzipResourcesAtTarget:targetPath forLanguage:language package:nil];
-                                     NSError *error;
-                                     if(contents!=nil){
-                                         //Update storage with data from contents.
-                                         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"status == %@",@"draft"];
-                                         
-                                         [language removePackages:[language.packages filteredSetUsingPredicate:predicate]];
-                                         [contents iterate:@"resource" usingBlock: ^(RXMLElement *resource) {
-
-                                             NSString *existingIdentifier = [GTPackage identifierWithPackageCode:[resource attribute:@"package"] languageCode:language.code];
-                                             
-                                             GTPackage *package;
-                                             
-                                             NSArray *packageArray = [self.storage fetchArrayOfModels:[GTPackage class] usingKey:@"identifier" forValues:@[existingIdentifier] inBackground:YES];
-                                             
-                                             if([packageArray count]==0){
-                                                 package = [GTPackage packageWithCode:[resource attribute:@"package"] language:language inContext:self.storage.backgroundObjectContext];
-                                                 
+    return [PMKPromise promiseWithResolver:^(PMKResolver resolve) {
+        [weakSelf.api getDraftsResourcesForLanguage:language
+                                           progress:nil
+                                            success:^(NSURLRequest *request, NSHTTPURLResponse *response, NSURL *targetPath) {
+                                                if (response.statusCode == 200) {
+                                                    RXMLElement *contents =[weakSelf.packageExtractor unzipResourcesAtTarget:targetPath forLanguage:language package:nil];
+                                                    NSError *error;
+                                                    if (contents!=nil) {
+                                                        //Update storage with data from contents.
+                                                        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"status == %@",@"draft"];
+                                                        
+                                                        [language removePackages:[language.packages filteredSetUsingPredicate:predicate]];
+                                                        [contents iterate:@"resource" usingBlock: ^(RXMLElement *resource) {
+                                                            
+                                                            NSString *existingIdentifier = [GTPackage identifierWithPackageCode:[resource attribute:@"package"] languageCode:language.code];
+                                                            
+                                                            GTPackage *package;
+                                                            
+                                                            NSArray *packageArray = [self.storage fetchArrayOfModels:[GTPackage class] usingKey:@"identifier" forValues:@[existingIdentifier] inBackground:YES];
+                                                            
+                                                            if ([packageArray count]==0) {
+                                                                package = [GTPackage packageWithCode:[resource attribute:@"package"] language:language inContext:self.storage.backgroundObjectContext];
+                                                                
+                                                                
+                                                            } else {
+                                                                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"status == %@",@"draft"];
+                                                                
+                                                                NSArray *filteredArray = [packageArray filteredArrayUsingPredicate:predicate];
+                                                                package =  filteredArray.count > 0 ? filteredArray.firstObject : nil;
+                                                                if (!package) {
+                                                                    
+                                                                    package = [GTPackage packageWithCode:[resource attribute:@"package"] language:language inContext:self.storage.backgroundObjectContext];
+                                                                    package.latestVersion = [resource attribute:@"version"];
+                                                                }
+                                                            }
+                                                            
+                                                            package.name			= [resource attribute:@"name"];
+                                                            package.configFile		= [resource attribute:@"config"];
+                                                            package.icon			= [resource attribute:@"icon"];
+                                                            package.status			= [resource attribute:@"status"];
+                                                            package.localVersion	= [resource attribute:@"version"];
+                                                            
+                                                            [language addPackagesObject:package];
+                                                            
+                                                        }];
+                                                        
+                                                        language.downloaded = @YES;
+                                                        
+                                                        if (![self.storage.backgroundObjectContext save:&error]) {
+                                                            resolve(error);
+                                                        } else {
+                                                            //this is to catch the error from the empty live packages
+                                                            if([GTDefaults sharedDefaults].isChoosingForMainLanguage){
+                                                                if([[[GTDefaults sharedDefaults]currentParallelLanguageCode] isEqualToString:language.code]){
+                                                                    [[GTDefaults sharedDefaults]setCurrentParallelLanguageCode:nil];
+                                                                }
+                                                                
+                                                                [[GTDefaults sharedDefaults]setCurrentLanguageCode:language.code];
+                                                                
+                                                            } else {
+                                                                [[GTDefaults sharedDefaults]setCurrentParallelLanguageCode:language.code];
+                                                            }
+                                                        }
+                                                    }
+                                                    resolve(@"finished");
+                                                    return;
+                                                }
+                                                if (response.statusCode == 404) {
+                                                    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"status == %@",@"draft"];
+                                                    
+                                                    [language removePackages:[language.packages filteredSetUsingPredicate:predicate]];
+                                                    
+                                                    NSError *error;
+                                                    [self.storage.backgroundObjectContext save:&error];
+                                                    
+                                                    if (error) {
+                                                        resolve(error);
+                                                    }
+                                                }
                                                 
-                                             }else{
-                                                 NSPredicate *predicate = [NSPredicate predicateWithFormat:@"status == %@",@"draft"];
-                                                 
-                                                 NSArray *filteredArray = [packageArray filteredArrayUsingPredicate:predicate];
-                                                 package =  filteredArray.count > 0 ? filteredArray.firstObject : nil;
-                                                 //NSLog(@"PACKAGE");
-                                                 if(!package){
+                                                NSString *errorMessage	= NSLocalizedString(@"server_error", nil);
+                                                NSError *error = [NSError errorWithDomain:GTDataImporterErrorDomain
+                                                                                     code:GTDataImporterErrorCodeInvalidXml
+                                                                                 userInfo:@{NSLocalizedDescriptionKey: errorMessage, }];
+                                                [weakSelf displayDownloadPackagesRequestError:error];
+                                                resolve(error);
+                                                
+                                            } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                                                [weakSelf displayDownloadPackagesRequestError:error];
+                                                resolve(error);
+                                            }];
+    }];
 
-                                                     package = [GTPackage packageWithCode:[resource attribute:@"package"] language:language inContext:self.storage.backgroundObjectContext];
-                                                     package.latestVersion = [resource attribute:@"version"];
-                                                 }else{
-                                                     //[language removePackagesObject:package];
-                                                 }
-                                             }
-                                             
-                                             package.name			= [resource attribute:@"name"];
-                                             package.configFile		= [resource attribute:@"config"];
-                                             package.icon			= [resource attribute:@"icon"];
-                                             package.status			= [resource attribute:@"status"];
-                                             package.localVersion	= [resource attribute:@"version"];
-                                             
-                                             [language addPackagesObject:package];
-                                             
-                                         }];    
-                                         
-                                         language.downloaded = [NSNumber numberWithBool: YES];
-                                         if (![self.storage.backgroundObjectContext save:&error]) {
-                                             NSLog(@"error saving drafts");
-                                         }else{
-                                             //this is to catch the error from the empty live packages
-                                             if([GTDefaults sharedDefaults].isChoosingForMainLanguage){
-                                                 
-                                                 if([[[GTDefaults sharedDefaults]currentParallelLanguageCode] isEqualToString:language.code]){
-                                                     
-                                                     [[GTDefaults sharedDefaults]setCurrentParallelLanguageCode:nil];
-                                                 }
-                                                 
-                                                 
-                                                 [[GTDefaults sharedDefaults]setCurrentLanguageCode:language.code];
-                                                 
-                                             }else{
-                                                 NSLog(@"set %@ as parallel",language.name );
-                                                 [[GTDefaults sharedDefaults]setCurrentParallelLanguageCode:language.code];
-                                             }
-
-                                         }
-                                         
-                                         [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadFinished
-                                                                                             object:self];
-                                     }
-                                }else{
-                                    NSLog(@"error. response is: %@",response);
-                                    if(response.statusCode == 404){
-                                        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"status == %@",@"draft"];
-                                        
-                                        [language removePackages:[language.packages filteredSetUsingPredicate:predicate]];
-                                        
-                                        NSError *error;
-                                        if (![self.storage.backgroundObjectContext save:&error]) {
-                                            NSLog(@"error saving");
-                                        }
-                                    }else if(response.statusCode == 500 || response.statusCode == 401){
-                                        NSString *errorMessage	= NSLocalizedString(@"server_error", nil);
-                                        NSError *error = [NSError errorWithDomain:GTDataImporterErrorDomain
-                                                                             code:GTDataImporterErrorCodeInvalidXml
-                                                                         userInfo:@{NSLocalizedDescriptionKey: errorMessage, }];
-                                        [weakSelf displayDownloadPackagesRequestError:error];
-
-                                        [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadFailed
-                                                                                            object:self];
-
-                                    }else{
-                                        [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadFinished object:self];
-                                    }
-                                }
-                                
-                             } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                 NSLog(@"Failute here..");
-                                 [weakSelf displayDownloadPackagesRequestError:error];
-                                 [[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationLanguageDownloadFailed
-                                                                                     object:self];
-                                 
-                             }];
 }
 
 -(void)downloadPageForLanguage:(GTLanguage *)language package:(GTPackage *)package pageID:(NSString *)pageID {

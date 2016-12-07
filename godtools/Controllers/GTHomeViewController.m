@@ -57,9 +57,6 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
 @property (strong, nonatomic) NSString *selectedSectionNumber;
 
 - (void)dismissInstructions:(UITapGestureRecognizer *)gestureRecognizer;
-- (IBAction)settingsButtonPressed:(id)sender;
-- (IBAction)shareButtonPressed:(id)sender;
-- (IBAction)refreshDraftsButtonDragged:(id)sender;
 
 @end
 
@@ -242,39 +239,6 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
     [self refresh];
 };
 
-#pragma mark - Home View Cell Delegates
-
--(void) showTranslatorOptionsButtonPressed:(NSString *)sectionIdentifier{
-    if([self.selectedSectionNumber isEqualToString:sectionIdentifier]){
-        self.selectedSectionNumber = nil;
-    } else {
-        self.selectedSectionNumber = sectionIdentifier;
-    }
-    [self.tableView reloadData];
-}
-
--(void) publishDraftButtonPressed:(NSString *)sectionIdentifier{
-    self.selectedSectionNumber = sectionIdentifier;
-    [self.draftsAlert show];
-}
-
--(void) deleteDraftButtonPressed:(NSString *)sectionIdentifier{
-    self.selectedSectionNumber = sectionIdentifier;
-}
-
--(void) createDraftButtonPressed:(NSString *)sectionIdentifier{
-    self.selectedSectionNumber = sectionIdentifier;
-    GTPackage *selectedPackage = [self.packagesWithNoDrafts objectAtIndex:([sectionIdentifier intValue] - self.articles.count)];
-    NSString *selectedPackageTitle = selectedPackage.name;
-    self.createDraftsAlert = [[UIAlertView alloc] initWithTitle:selectedPackageTitle
-														message:NSLocalizedString(@"draft_start_message", nil)
-													   delegate:self
-											  cancelButtonTitle:NSLocalizedString(@"cancel", nil)
-											  otherButtonTitles:NSLocalizedString(@"yes", nil), nil];
-
-    [self.createDraftsAlert show];
-}
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -375,35 +339,7 @@ NSString *const GTHomeViewControllerShareCampaignName          = @"app-sharing";
         if([self.languageCode isEqualToString:@"am-ET"]){
             cell.titleLabel.font = [UIFont fontWithName:@"NotoSansEthiopic" size:cell.titleLabel.font.pointSize];
         }
-        
-        if([self isTranslatorMode] && self.selectedSectionNumber != nil && [self.selectedSectionNumber intValue] == indexPath.section) {
-            if([self.selectedSectionNumber intValue] >= self.articles.count) {
-                cell.createOptionsView.hidden = NO;
-            } else {
-                cell.publishDeleteOptionsView.hidden = NO;
-            }
-            cell.verticalLayoutConstraint.constant = 33.0;
-            if([self.selectedSectionNumber intValue] >= self.articles.count) {
-                cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GT4_HomeScreen_PreviewCell_Missing_Bkgd.png"]];
-            } else {
-                cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GT4_HomeScreen_PreviewCell_Bkgd.png"]];
-            }
-            cell.backgroundColor = [UIColor clearColor];
-        } else if([self isTranslatorMode]){
-            cell.publishDeleteOptionsView.hidden = YES;
-            cell.createOptionsView.hidden = YES;
-            cell.verticalLayoutConstraint.constant = 2.0;
-            cell.backgroundView = nil;
-        } else {
-            cell.publishDeleteOptionsView.hidden = YES;
-            cell.createOptionsView.hidden = YES;
-            cell.verticalLayoutConstraint.constant = 2.0;
-            cell.backgroundView = nil;
-        }
-      
-        
-        cell.showTranslatorOptionsButton.hidden = ![self isTranslatorMode];
-        cell.delegate = self;
+
         cell.sectionIdentifier = [@(indexPath.section) stringValue];
         
         return cell;

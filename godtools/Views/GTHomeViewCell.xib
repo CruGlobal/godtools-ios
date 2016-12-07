@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -13,62 +14,15 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="161"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IOb-6t-RhA" id="xhQ-1F-7kA">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="160"/>
+                <frame key="frameInset" width="320" height="160.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PjV-YV-I0C">
-                        <rect key="frame" x="283" y="17" width="27" height="22"/>
-                        <state key="normal" image="GT4_HomeScreen_DraftGripC_">
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                        <connections>
-                            <action selector="showTranslatorOptionsButtonPressed:" destination="IOb-6t-RhA" eventType="touchUpInside" id="RZD-6Z-7fq"/>
-                        </connections>
-                    </button>
-                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gdm-PF-AH9">
-                        <rect key="frame" x="191" y="50" width="141" height="77"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="GT4_HomeScreen_DraftPopover_IconsOnly" translatesAutoresizingMaskIntoConstraints="NO" id="MEO-rK-c5o">
-                                <rect key="frame" x="21" y="4" width="100" height="53"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rBa-59-nqG">
-                                <rect key="frame" x="57" y="22" width="27" height="27"/>
-                                <state key="normal" image="GT4_HomeScreen_PublishDraftIcon_">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="publishDraftButtonPressed:" destination="IOb-6t-RhA" eventType="touchUpInside" id="dk8-65-Ypu"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </view>
-                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DED-aJ-94p">
-                        <rect key="frame" x="191" y="50" width="141" height="77"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="GT4_HomeScreen_DraftPopover_IconsOnly" translatesAutoresizingMaskIntoConstraints="NO" id="bCQ-dj-iNf">
-                                <rect key="frame" x="21" y="4" width="100" height="53"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oDw-t5-ZQ2">
-                                <rect key="frame" x="62" y="24" width="21" height="23"/>
-                                <state key="normal" image="GT4_HomeScreen_CreateDraftIcon_">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="createDraftButtonPressed:" destination="IOb-6t-RhA" eventType="touchUpInside" id="o4f-NK-sPx"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UeF-AY-tJc">
-                        <rect key="frame" x="63" y="13" width="210" height="23"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="19"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="poS-Zh-dm8">
-                        <rect key="frame" x="0.0" y="0.0" width="53" height="53"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="53" id="LbI-r6-1uC"/>
                             <constraint firstAttribute="width" secondItem="poS-Zh-dm8" secondAttribute="height" multiplier="1:1" id="SFN-rJ-OYG"/>
@@ -85,29 +39,17 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailingMargin" secondItem="UeF-AY-tJc" secondAttribute="trailing" constant="39" id="5XK-x5-aMC"/>
-                    <constraint firstAttribute="centerY" secondItem="UeF-AY-tJc" secondAttribute="centerY" constant="55.5" id="PzW-Ap-2gz"/>
+                    <constraint firstAttribute="centerY" secondItem="UeF-AY-tJc" secondAttribute="centerY" id="PzW-Ap-2gz"/>
                     <constraint firstItem="UeF-AY-tJc" firstAttribute="leading" secondItem="poS-Zh-dm8" secondAttribute="trailing" constant="10" id="QD8-9d-P3V"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="PjV-YV-I0C" secondAttribute="trailing" constant="2" id="T3y-fg-C4u"/>
                     <constraint firstItem="poS-Zh-dm8" firstAttribute="top" secondItem="xhQ-1F-7kA" secondAttribute="topMargin" constant="-8" id="UUe-JE-0Wk"/>
-                    <constraint firstItem="PjV-YV-I0C" firstAttribute="top" secondItem="xhQ-1F-7kA" secondAttribute="topMargin" constant="9" id="a2K-m7-PoI"/>
                     <constraint firstItem="poS-Zh-dm8" firstAttribute="leading" secondItem="xhQ-1F-7kA" secondAttribute="leadingMargin" constant="-8" id="hhk-7R-aLI"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="createOptionsView" destination="DED-aJ-94p" id="t3Q-t7-2Lg"/>
                 <outlet property="icon" destination="poS-Zh-dm8" id="8fp-IB-cxk"/>
-                <outlet property="publishDeleteOptionsView" destination="gdm-PF-AH9" id="EFw-zf-Mz6"/>
-                <outlet property="showTranslatorOptionsButton" destination="PjV-YV-I0C" id="Mkp-0C-RBk"/>
                 <outlet property="titleLabel" destination="UeF-AY-tJc" id="CBd-os-ZfH"/>
-                <outlet property="verticalLayoutConstraint" destination="PzW-Ap-2gz" id="Tyx-4M-ygy"/>
             </connections>
             <point key="canvasLocation" x="356" y="247.5"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="GT4_HomeScreen_CreateDraftIcon_" width="21" height="23"/>
-        <image name="GT4_HomeScreen_DraftGripC_" width="27" height="7"/>
-        <image name="GT4_HomeScreen_DraftPopover_IconsOnly" width="156" height="60"/>
-        <image name="GT4_HomeScreen_PublishDraftIcon_" width="20" height="23"/>
-    </resources>
 </document>
