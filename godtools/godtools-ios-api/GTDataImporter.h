@@ -69,27 +69,6 @@
  */
 - (PMKPromise *)downloadPromisedPackagesForLanguage:(GTLanguage *)language;
 
-/**
- * Cancels most recent downloadPackagesForLanguage request
- */
-- (void)cancelDownloadPackagesForLanguage;
-
-/**
- *  Compares local version number with the version number on the web server. It does this for every resource written in the languages listed in languageCodes.
- *  If the web server is newer it will record it as being in need of an update. If there are one or more resources in
- *  need of an update this method will post a notification with the name GTDataImporterNotificationNameUpdateNeeded.
- *  
- *  @note This method DOES NOT download the version numbers. updateMenuInfo downloads the meta data,
- *  this method just processes the result. This method is also called at the end of updateMenuInfo so only needs to be
- *  called if you want to manually check separate to downloading the meta data with updateMenuInfo.
- *
- *  @warning It will throw an exception if languageCodes is nil or empty.
- *
- *  @param languageCodes An array of the language code for languages you want to check for updates. Cannot be nil or empty.
- */
-- (void)checkForPackagesWithNewVersionsForLanguageCodes:(NSArray *)languageCodes;
-
-
 - (void)downloadPageForLanguage:(GTLanguage*)language package:(GTPackage*)package pageID:(NSString*)pageID ;
 
 

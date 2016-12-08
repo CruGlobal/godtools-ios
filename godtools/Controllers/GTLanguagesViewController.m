@@ -194,15 +194,6 @@ BOOL languageDownloadCancelled = NO;
     return YES;
 }
 
-
-
-- (void)cancelDownloadForLanguageAtCell:(GTLanguageViewCell *)cell {
-	
-	[[GTDataImporter sharedImporter] cancelDownloadPackagesForLanguage];
-	languageDownloadCancelled = YES;
-	
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
     // don't allow row selection during download

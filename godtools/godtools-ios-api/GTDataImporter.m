@@ -12,7 +12,6 @@
 #import "RXMLElement.h"
 #import "GTPackage.h"
 #import <GTViewController/GTFileLoader.h>
-#import "GTUpdateTracker.h"
 
 NSString *const GTDataImporterErrorDomain								= @"com.godtoolsapp.GTDataImporter.errorDomain";
 
@@ -42,10 +41,6 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 @property (nonatomic, strong, readonly) GTPackageExtractor	*packageExtractor;
 @property (nonatomic, strong)			GTDefaults			*defaults;
 @property (nonatomic, strong)			NSDate				*lastMenuInfoUpdate;
-@property (nonatomic, strong)			NSMutableDictionary	*languagesNeedingMajorUpdate;
-@property (nonatomic, strong)			NSMutableArray		*packagesNeedingMajorUpdate;
-@property (nonatomic, strong)			NSMutableArray		*packagesNeedingMinorUpdate;
-@property (nonatomic, strong)			GTUpdateTracker		*updateTracker;
 
 - (void)fillArraysWithPackageAndLanguageCodesForXmlElement:(RXMLElement *)rootElement packageCodeArray:(NSMutableArray **)packageCodesArray languageCodeArray:(NSMutableArray **)languageCodesArray;
 - (void)fillDictionariesWithPackageAndLanguageObjectsForPackageCodeArray:(NSArray *)packageCodes languageCodeArray:(NSArray *)languageCodes packageObjectsDictionary:(NSMutableDictionary **)packageObjectsDictionary languageObjectsDictionary:(NSMutableDictionary **)languageObjectsDictionary;
@@ -58,7 +53,6 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 - (void)displayDownloadPackagesRequestError:(NSError *)error;
 
 - (void)cleanUpAfterDownloadingPackage:(GTPackage *)package;
-- (void)addUpdateTrackingCallbacks;
 - (void)downloadPackage:(GTPackage *)package;
 - (void)downloadPackage:(GTPackage *)package withProgressNotifier:(NSString *) progressNotificationName withSuccessNotifier:(NSString *) successNotificationName withFailureNotifier:(NSString *) failureNotificationName;
 
@@ -90,19 +84,10 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 	self = [self init];
 	
     if (self) {
-		
-		self.languagesNeedingMajorUpdate = [NSMutableDictionary dictionary];
-		self.packagesNeedingMajorUpdate	= [NSMutableArray array];
-		self.packagesNeedingMinorUpdate	= [NSMutableArray array];
-		
-		self.updateTracker				= [GTUpdateTracker updateTrackerWithNotificationOwner:self];
-		[self addUpdateTrackingCallbacks];
-		
 		_api				= api;
 		_storage			= storage;
 		_defaults			= defaults;
 		_packageExtractor	= packageExtractor;
-		
     }
 	
     return self;
@@ -259,10 +244,8 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 			language						= [GTLanguage languageWithCode:languageCode inContext:self.storage.backgroundObjectContext];
             language.name                   = [languageElement attribute:@"name"];
 			languageObjects[languageCode]	= language;
-            //NSLog(@"Language %@ created",language.name);
-        }else{
-            //NSLog(@"got %@ with %i packages",language.name, language.packages.count);
         }
+        
 		[self updateOrCreatePackageObjectsForXmlElement:languageElement
 										 languageObject:language
 							   packageObjectsDictionary:packageObjects];
@@ -642,110 +625,44 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
 	
 	NSArray *downloadedLanguages	= [context executeFetchRequest:fetchRequest error:nil];
 	NSMutableDictionary *languagesNeedingUpdates = [NSMutableDictionary dictionary];
-	[self.languagesNeedingMajorUpdate removeAllObjects];
-	[self.packagesNeedingMajorUpdate removeAllObjects];
-	[self.packagesNeedingMinorUpdate removeAllObjects];
 
     if (downloadedLanguages != nil && downloadedLanguages.count > 0) {
 		
 		NSError *error;
-		__weak typeof(self)weakSelf = self;
 		[downloadedLanguages enumerateObjectsUsingBlock:^(GTLanguage *language, NSUInteger index, BOOL *stop) {
 			
 			[language.packages enumerateObjectsUsingBlock:^(GTPackage *package, BOOL *stop) {
 				
 				if (package.needsMajorUpdate) {
 					
-					[weakSelf.packagesNeedingMajorUpdate addObject:package];
-					weakSelf.languagesNeedingMajorUpdate[language.code] = language;
 					package.language.updatesAvailable =  @YES;
 					languagesNeedingUpdates[language.code] = @YES;
 					
 				} else if (package.needsMinorUpdate) {
-					
-					[weakSelf.packagesNeedingMinorUpdate addObject:package];
 					package.language.updatesAvailable =  @YES;
 					languagesNeedingUpdates[language.code] = @YES;
-					
 				}
-				
 			}];
-			
 		}];
 		
 		if (![self.storage.backgroundObjectContext save:&error]) {
 			NSLog(@"Error saving updates");
 		}
-		
-		if (self.languagesNeedingMajorUpdate.count > 0 || self.packagesNeedingMinorUpdate.count > 0) {
-			[[NSNotificationCenter defaultCenter] postNotificationName:GTDataImporterNotificationNewVersionsAvailable
-																object:self
-															  userInfo:@{GTDataImporterNotificationNewVersionsAvailableKeyNumberAvailable: @(languagesNeedingUpdates.count) }];
-		}
-		
     }
 }
 
 - (void)cleanUpAfterDownloadingPackage:(GTPackage *)package {
-	
-	if ( [self.updateTracker hasFinishedUpdatingLanguage:package.language] ) {
-		
-		package.language.downloaded			= @YES;
-		package.language.updatesAvailable	= @NO;
-		
-	}
-	
-	NSError *error;
-	if (![self.storage.backgroundObjectContext save:&error]) {
-		
-		NSLog(@"error saving");
-	}
-	
-	[[GTDefaults sharedDefaults] setTranslationDownloadStatus:@"finished"];
-	
+    package.language.downloaded			= @YES;
+    package.language.updatesAvailable	= @NO;
+    
+    NSError *error;
+    if (![self.storage.backgroundObjectContext save:&error]) {
+        
+        NSLog(@"error saving");
+    }
+    
+    [[GTDefaults sharedDefaults] setTranslationDownloadStatus:@"finished"];
 }
-
-- (void)addUpdateTrackingCallbacks {
-	
-	__weak typeof(self)weakSelf = self;
-	[[NSNotificationCenter defaultCenter] addObserverForName:GTDataImporterNotificationMajorUpdateFailed
-													  object:self
-													   queue:nil
-												  usingBlock:^(NSNotification *note) {
-													  
-													  GTLanguage *language = note.userInfo[GTDataImporterNotificationKeyLanguage];
-													  [weakSelf.updateTracker majorUpdateFailedForLanguage:language];
-												  }];
-	
-	[[NSNotificationCenter defaultCenter] addObserverForName:GTDataImporterNotificationMajorUpdateFinished
-													  object:self
-													   queue:nil
-												  usingBlock:^(NSNotification *note) {
-													  
-													  GTLanguage *language = note.userInfo[GTDataImporterNotificationKeyLanguage];
-													  [weakSelf.updateTracker majorUpdateCompletedForLanguage:language];
-												  }];
-	
-	[[NSNotificationCenter defaultCenter] addObserverForName:GTDataImporterNotificationPackageXmlDownloadFailed
-													  object:self
-													   queue:nil
-												  usingBlock:^(NSNotification *note) {
-													  
-													  GTPackage *package = note.userInfo[GTDataImporterNotificationPackageKeyPackage];
-													  [weakSelf.updateTracker minorUpdateFailedForPackage:package];
-												  }];
-	
-	[[NSNotificationCenter defaultCenter] addObserverForName:GTDataImporterNotificationPackageXmlDownloadFinished
-													  object:self
-													   queue:nil
-												  usingBlock:^(NSNotification *note) {
-													  
-													  GTPackage *package = note.userInfo[GTDataImporterNotificationPackageKeyPackage];
-													  [weakSelf.updateTracker minorUpdateCompletedForPackage:package];
-												  }];
-	
-}
-
 
 #pragma mark - Translator Mode
 -(void)authorizeTranslator :(NSString *)accessCode{
