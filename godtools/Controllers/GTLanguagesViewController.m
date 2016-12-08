@@ -17,7 +17,7 @@
 
 #import "GTGoogleAnalyticsTracker.h"
 
-@interface GTLanguagesViewController ()
+@interface GTLanguagesViewController() <GTLanguageViewCellDelegate>
 
 @property (strong, nonatomic) NSMutableArray *languages;
 @property (strong, nonatomic) UIAlertView *buttonLessAlert;
@@ -159,6 +159,8 @@ BOOL languageDownloadCancelled = NO;
         cell = [nib objectAtIndex:0];
     }
     
+    cell.delegate = self;
+    
     GTLanguage *language = [self.languages objectAtIndex:indexPath.section];
 
     [cell configureWithLanguage:language];
@@ -203,9 +205,22 @@ BOOL languageDownloadCancelled = NO;
     
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 
-    GTLanguage *chosen = (GTLanguage*)[self.languages objectAtIndex:indexPath.section];
     languageActionCell = (GTLanguageViewCell *)[tableView cellForRowAtIndexPath:indexPath];
     
+    [self downloadLanguage];
+}
+
+#pragma mark - Convenience methods
+- (void)setLanguageCodeInDefaults:(NSString *)code {
+    if ([GTDefaults sharedDefaults].isChoosingForMainLanguage) {
+        [[GTDefaults sharedDefaults]setCurrentLanguageCode:code];
+    } else {
+        [[GTDefaults sharedDefaults]setCurrentParallelLanguageCode:code];
+    }
+}
+
+- (void)downloadLanguage {
+    GTLanguage *chosen = languageActionCell.language;
     if ([chosen.downloaded boolValue] && !chosen.hasUpdates) {
         [self setLanguageCodeInDefaults:chosen.code];
         [self.navigationController popViewControllerAnimated:YES];
@@ -229,7 +244,7 @@ BOOL languageDownloadCancelled = NO;
             [weakSelf setLanguageCodeInDefaults:chosen.code];
             
             // so as to show check mark on selected language
-            [tableView reloadData];
+            [self.tableView reloadData];
             
             //once language is selected go back to settings page
             [weakSelf.navigationController popViewControllerAnimated:YES];
@@ -244,16 +259,6 @@ BOOL languageDownloadCancelled = NO;
         });
     }
 }
-
-#pragma mark - Convenience methods
-- (void)setLanguageCodeInDefaults:(NSString *)code {
-    if ([GTDefaults sharedDefaults].isChoosingForMainLanguage) {
-        [[GTDefaults sharedDefaults]setCurrentLanguageCode:code];
-    } else {
-        [[GTDefaults sharedDefaults]setCurrentParallelLanguageCode:code];
-    }
-}
-
 #pragma mark - API status/progress listener methods
 
 -(void)languageDownloadProgressMade{
@@ -318,6 +323,13 @@ BOOL languageDownloadCancelled = NO;
         
         [self setData];
     }
+}
+
+#pragma mark- GTLanguageViewCellDelegate methods
+- (void)languageViewCellDownloadButtonWasPressed:(id)sender {
+    languageActionCell = sender;
+    
+    [self downloadLanguage];
 }
 
 -(void)dismissAlertView:(UIAlertView *)alertView{

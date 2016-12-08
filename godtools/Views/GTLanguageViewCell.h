@@ -10,10 +10,17 @@
 #import <UIKit/UIKit.h>
 #import "GTLanguage.h"
 
+@protocol GTLanguageViewCellDelegate <NSObject>
+@required
+- (void)languageViewCellDownloadButtonWasPressed:(id)sender;
+@end
+
 @interface GTLanguageViewCell : UITableViewCell
 
 @property (nonatomic, strong) GTLanguage *language;
 @property (weak, nonatomic) IBOutlet UILabel *languageName;
+
+@property (strong, nonatomic) id<GTLanguageViewCellDelegate> delegate;
 
 - (void)setIsDownloading:(BOOL)isDownloading;
 - (void)setIsSelected:(BOOL)isSelected;

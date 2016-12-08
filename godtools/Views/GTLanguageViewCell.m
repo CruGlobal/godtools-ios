@@ -62,4 +62,10 @@
     self.downloadButton.hidden = [language.downloaded boolValue] && !language.hasUpdates;
 }
 
+- (IBAction)downloadButtonWasPressed:(id)sender {
+    if (self.delegate) {
+        [self.delegate languageViewCellDownloadButtonWasPressed:self];
+    }
+}
+
 @end
