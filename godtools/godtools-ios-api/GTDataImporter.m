@@ -294,8 +294,13 @@ BOOL gtUpdatePackagesUserCancellation									= FALSE;
                 package.name			= [packageElement attribute:GTDataImporterPackageMetaXmlAttributeNameName];
             }
 
+            if ([languageCode isEqualToString:@"en"]) {
+                int x = 1234;
+            }
             package.status			= [packageElement attribute:GTDataImporterPackageMetaXmlAttributeNameStatus];
             package.type			= [packageElement attribute:GTDataImporterPackageMetaXmlAttributeNameType];
+            package.latestVersion = version;
+            
 			//package.localVersion	= package.localVersion; //don't change local version. The xml data only represents what is on the server
 			[package setIfGreaterThanLatestVersion:version];
 			
