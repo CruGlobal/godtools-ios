@@ -61,7 +61,13 @@ NSInteger const GTSplashErrorCodeInitialSetupFailed                             
     //check if first launch
     if(!self.setupTracker.firstLaunch) {
         [self sendCachedFollowupSubscriptions];
-        [self goToHome];
+        
+        __weak typeof(self) weakSelf = self;
+        
+        [[GTDataImporter sharedImporter] updateMenuInfo].finally(^{
+            [weakSelf goToHome];
+        });
+        
         return;
     }
     
