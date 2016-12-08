@@ -64,7 +64,13 @@ NSInteger const GTSplashErrorCodeInitialSetupFailed                             
         
         __weak typeof(self) weakSelf = self;
         
-        [[GTDataImporter sharedImporter] updateMenuInfo].finally(^{
+        [[GTDataImporter sharedImporter] updateMenuInfo].then(^{
+            GTLanguage *currentLanguage = [[GTStorage sharedStorage] languageWithCode:[[GTDefaults sharedDefaults] currentLanguageCode]];
+            if (currentLanguage.hasUpdates) {
+                return [[GTDataImporter sharedImporter] downloadPromisedPackagesForLanguage:currentLanguage];
+            }
+            return [PMKPromise promiseWithValue:@"finished"];
+        }).finally(^{
             [weakSelf goToHome];
         });
         
