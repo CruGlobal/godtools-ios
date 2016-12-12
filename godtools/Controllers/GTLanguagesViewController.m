@@ -221,7 +221,7 @@ BOOL languageDownloadCancelled = NO;
 
 - (void)downloadLanguage {
     GTLanguage *chosen = languageActionCell.language;
-    if ([chosen.downloaded boolValue] && !chosen.hasUpdates) {
+    if (chosen.downloaded.boolValue && !chosen.hasUpdates) {
         [self setLanguageCodeInDefaults:chosen.code];
         [self.navigationController popViewControllerAnimated:YES];
         return;
