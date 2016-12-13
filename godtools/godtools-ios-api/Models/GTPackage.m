@@ -68,8 +68,8 @@
 - (BOOL)needsUpdate {
 	EDSemver *latest		= [EDSemver semverWithString:self.latestVersion];
 	EDSemver *local			= [EDSemver semverWithString:self.localVersion];
-	
-	return [latest isGreaterThan: local];
+
+    return [latest isGreaterThan: local];
 }
 
 - (BOOL)needsMajorUpdate {

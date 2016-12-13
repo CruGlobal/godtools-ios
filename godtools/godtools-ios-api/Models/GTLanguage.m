@@ -28,7 +28,13 @@
 }
 
 - (BOOL)hasUpdates {
-	return ( [self.updatesAvailable isEqual:@YES] ? YES : NO );
+    for (GTPackage *package in self.packages) {
+        if (package.needsUpdate) {
+            return YES;
+        }
+    }
+    
+    return NO;
 }
 
 @end

@@ -52,13 +52,20 @@
     }
 }
 
-- (void)configureWithLanguage:(GTLanguage *)language internetReachable:(BOOL)internetReachable {
+- (void)configureWithLanguage:(GTLanguage *)language {
     self.language = language;
     
     NSString *localizedLanguageName = [[NSLocale currentLocale] displayNameForKey:NSLocaleIdentifier value:language.code];
     self.languageName.text = ( !localizedLanguageName || [localizedLanguageName isEqualToString:language.code] ? language.name.capitalizedString : localizedLanguageName.capitalizedString );
     
-    self.downloadButton.hidden = [language.downloaded boolValue] || (language.hasUpdates && internetReachable);
+    //download button is hidden if the language is downloaded AND the language has no updates
+    self.downloadButton.hidden = [language.downloaded boolValue] && !language.hasUpdates;
+}
+
+- (IBAction)downloadButtonWasPressed:(id)sender {
+    if (self.delegate) {
+        [self.delegate languageViewCellDownloadButtonWasPressed:self];
+    }
 }
 
 @end

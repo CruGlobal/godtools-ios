@@ -11,6 +11,7 @@
 @implementation GTHomeViewCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     self.titleLabel.numberOfLines = 0;
     self.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
 }
@@ -31,22 +32,6 @@
     } else {
         self.backgroundColor = [UIColor colorWithRed:0.88 green:0.88 blue:0.88 alpha:0.65];
     }
-}
-
--(void) showTranslatorOptionsButtonPressed:(id)sender {
-    [self.delegate showTranslatorOptionsButtonPressed:self.sectionIdentifier];
-}
-
--(void) publishDraftButtonPressed:(id)sender {
-    [self.delegate publishDraftButtonPressed:self.sectionIdentifier];
-}
-
--(void) deleteDraftButtonPressed:(id)sender {
-    [self.delegate deleteDraftButtonPressed:self.sectionIdentifier];
-}
-
--(void) createDraftButtonPressed:(id)sender {
-    [self.delegate createDraftButtonPressed:self.sectionIdentifier];
 }
 
 @end

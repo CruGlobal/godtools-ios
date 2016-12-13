@@ -29,8 +29,6 @@
 		681D22A21B87703F00269FE5 /* config.sample.plist in Resources */ = {isa = PBXBuildFile; fileRef = 681D22A01B87703F00269FE5 /* config.sample.plist */; };
 		681D22A51B878F8900269FE5 /* GTInitialSetupTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 681D22A41B878F8900269FE5 /* GTInitialSetupTracker.m */; };
 		681D22A61B878F8900269FE5 /* GTInitialSetupTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 681D22A41B878F8900269FE5 /* GTInitialSetupTracker.m */; };
-		6822D0521B067F63001EB06F /* GTUpdateTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6822D0511B067F63001EB06F /* GTUpdateTracker.m */; };
-		6822D0531B067F63001EB06F /* GTUpdateTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6822D0511B067F63001EB06F /* GTUpdateTracker.m */; };
 		68278EBB1BCD3E4400472483 /* GTLanguage+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 68278EB41BCD3E4400472483 /* GTLanguage+CoreDataProperties.m */; };
 		68278EBC1BCD3E4400472483 /* GTLanguage+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 68278EB41BCD3E4400472483 /* GTLanguage+CoreDataProperties.m */; };
 		68278EBD1BCD3E4400472483 /* GTLanguage.m in Sources */ = {isa = PBXBuildFile; fileRef = 68278EB61BCD3E4400472483 /* GTLanguage.m */; };
@@ -156,8 +154,6 @@
 		681D22A01B87703F00269FE5 /* config.sample.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = config.sample.plist; path = "godtools-ios-api/config.sample.plist"; sourceTree = "<group>"; };
 		681D22A31B878F8900269FE5 /* GTInitialSetupTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTInitialSetupTracker.h; path = Controllers/GTInitialSetupTracker.h; sourceTree = "<group>"; };
 		681D22A41B878F8900269FE5 /* GTInitialSetupTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTInitialSetupTracker.m; path = Controllers/GTInitialSetupTracker.m; sourceTree = "<group>"; };
-		6822D0501B067F63001EB06F /* GTUpdateTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTUpdateTracker.h; sourceTree = "<group>"; };
-		6822D0511B067F63001EB06F /* GTUpdateTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTUpdateTracker.m; sourceTree = "<group>"; };
 		68278EAA1BCC4BA400472483 /* GTModel-2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "GTModel-2.xcdatamodel"; sourceTree = "<group>"; };
 		68278EB31BCD3E4400472483 /* GTLanguage+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GTLanguage+CoreDataProperties.h"; path = "godtools-ios-api/Models/GTLanguage+CoreDataProperties.h"; sourceTree = "<group>"; };
 		68278EB41BCD3E4400472483 /* GTLanguage+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GTLanguage+CoreDataProperties.m"; path = "godtools-ios-api/Models/GTLanguage+CoreDataProperties.m"; sourceTree = "<group>"; };
@@ -518,8 +514,6 @@
 				68E6068518D3952800844377 /* GTAPI.m */,
 				68464FD118E1CEBE00D14C2B /* GTDataImporter.h */,
 				68464FD218E1CEBE00D14C2B /* GTDataImporter.m */,
-				6822D0501B067F63001EB06F /* GTUpdateTracker.h */,
-				6822D0511B067F63001EB06F /* GTUpdateTracker.m */,
 				682F0E8F18D8FBE100FBE3E0 /* config.plist */,
 				681D22A01B87703F00269FE5 /* config.sample.plist */,
 			);
@@ -582,7 +576,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 68740D4118D24F9A00D36C0E /* Build configuration list for PBXNativeTarget "godtools" */;
 			buildPhases = (
-				30F008E7773BAA21235F6404 /* 📦 Check Pods Manifest.lock */,
+				30F008E7773BAA21235F6404 /* [CP] Check Pods Manifest.lock */,
 				AC3C4B018E46D6DE385AACC5 /* [CP] Check Pods Manifest.lock */,
 				68740D0B18D24F9A00D36C0E /* Sources */,
 				68740D0C18D24F9A00D36C0E /* Frameworks */,
@@ -607,7 +601,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 68740D4418D24F9A00D36C0E /* Build configuration list for PBXNativeTarget "godtoolsTests" */;
 			buildPhases = (
-				09FECA8FE6D82F91580F8199 /* 📦 Check Pods Manifest.lock */,
+				09FECA8FE6D82F91580F8199 /* [CP] Check Pods Manifest.lock */,
 				7FE1B965694515DE422DF435 /* [CP] Check Pods Manifest.lock */,
 				68740D2C18D24F9A00D36C0E /* Sources */,
 				68740D2D18D24F9A00D36C0E /* Frameworks */,
@@ -709,19 +703,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		09FECA8FE6D82F91580F8199 /* 📦 Check Pods Manifest.lock */ = {
+		09FECA8FE6D82F91580F8199 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		19593D8CB41B194438CA4DCA /* [CP] Copy Pods Resources */ = {
@@ -754,19 +748,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-godtoolsTests/Pods-godtoolsTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		30F008E7773BAA21235F6404 /* 📦 Check Pods Manifest.lock */ = {
+		30F008E7773BAA21235F6404 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		3245AEBBAA04A698DB0C96D2 /* 📦 Copy Pods Resources */ = {
@@ -957,7 +951,6 @@
 				68278EC11BCD3E4400472483 /* GTPackage.m in Sources */,
 				68464FC118E1CE4000D14C2B /* CRUStorage.m in Sources */,
 				B76536C51A0CC6CB001C3FC3 /* GTHomeViewCell.m in Sources */,
-				6822D0521B067F63001EB06F /* GTUpdateTracker.m in Sources */,
 				B7EA1B461A3826070098890F /* GTSplashScreenView.m in Sources */,
 				68740D2318D24F9A00D36C0E /* GTAppDelegate.m in Sources */,
 				68464FCD18E1CE4E00D14C2B /* GTErrorHandler.m in Sources */,
@@ -987,7 +980,6 @@
 				68464FC418E1CE4000D14C2B /* GTStorage.m in Sources */,
 				68464FCE18E1CE4E00D14C2B /* GTErrorHandler.m in Sources */,
 				68464FD418E1CEBE00D14C2B /* GTDataImporter.m in Sources */,
-				6822D0531B067F63001EB06F /* GTUpdateTracker.m in Sources */,
 				68278EBE1BCD3E4400472483 /* GTLanguage.m in Sources */,
 				68740D4A18D259AA00D36C0E /* GTModel.xcdatamodeld in Sources */,
 				68464FD018E1CE4E00D14C2B /* GTStorageErrorHandler.m in Sources */,
