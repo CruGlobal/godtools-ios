@@ -26,3 +26,4 @@ config.plist
 #FastLane
 *.ipa
 *.zip
+report.xml
