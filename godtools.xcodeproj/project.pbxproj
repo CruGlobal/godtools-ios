@@ -75,7 +75,7 @@
 		6879E5121B0CD85C009E5B8F /* GTAPIStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 6879E5111B0CD85C009E5B8F /* GTAPIStub.m */; };
 		68A1CBFD18DB6C3B00D84F12 /* GTDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E6068918D3986D00844377 /* GTDefaults.m */; };
 		68A1CBFF18DB6F9600D84F12 /* GTAPITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A1CBFE18DB6F9600D84F12 /* GTAPITest.m */; };
-		68BA852D18DCE50C001AC6B3 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
+		68BA852D18DCE50C001AC6B3 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		68BA853318DCF0EB001AC6B3 /* GTDefaultsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BA853218DCF0EB001AC6B3 /* GTDefaultsTests.m */; };
 		68BA853518DCF102001AC6B3 /* GTStorageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BA853418DCF102001AC6B3 /* GTStorageTests.m */; };
 		68BA853918DCF13F001AC6B3 /* CRUStorageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BA853818DCF13F001AC6B3 /* CRUStorageTests.m */; };
@@ -972,7 +972,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				68BA852D18DCE50C001AC6B3 /* BuildFile in Sources */,
+				68BA852D18DCE50C001AC6B3 /* (null) in Sources */,
 				68278EC21BCD3E4400472483 /* GTPackage.m in Sources */,
 				68BA853B18DCF15D001AC6B3 /* GTConfigTests.m in Sources */,
 				68464FB618E1C7C700D14C2B /* GTAPIErrorHandlerTests.m in Sources */,
