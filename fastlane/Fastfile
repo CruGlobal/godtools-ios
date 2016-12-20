@@ -27,6 +27,8 @@ before_all do |lane, options|
 
     import_from_git(url: 'git@github.com:CruGlobal/mobile-deployment-config.git', path: 'ios/Fastfile')
 
+    cru_reset_keychain
+
     cru_remote_setup(options)
 
     end
