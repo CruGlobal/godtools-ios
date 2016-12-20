@@ -22,15 +22,22 @@ default_platform :ios
 
 platform :ios do
 
+# before_all do |lane, options|
+#    @run_once_before_all ||= begin
+
+#    import_from_git(url: 'git@github.com:CruGlobal/mobile-deployment-config.git', path: 'ios/Fastfile')
+
+# end
+
 lane :production do
 
     cert(
-        username: "ryan.t.carlson@cru.org"
+  #      username: "ryan.t.carlson@cru.org"
     )
 
 
     sigh(
-        username: "ryan.t.carlson@cru.org",
+  #      username: "ryan.t.carlson@cru.org",
         app_identifier: "org.cru.godtools",
     )
 
@@ -40,7 +47,7 @@ lane :production do
     )
 
     deliver(
-        username: "ryan.t.carlson@cru.org",
+   #     username: "ryan.t.carlson@cru.org",
     )
 end
 
