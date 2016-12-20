@@ -22,12 +22,14 @@ default_platform :ios
 
 platform :ios do
 
-# before_all do |lane, options|
-#    @run_once_before_all ||= begin
+before_all do |lane, options|
+    @run_once_before_all ||= begin
 
-#    import_from_git(url: 'git@github.com:CruGlobal/mobile-deployment-config.git', path: 'ios/Fastfile')
+    import_from_git(url: 'git@github.com:CruGlobal/mobile-deployment-config.git', path: 'ios/Fastfile')
 
-# end
+    cru_remote_setup(options)
+
+end
 
 lane :production do
 
@@ -49,6 +51,8 @@ lane :production do
     deliver(
    #     username: "ryan.t.carlson@cru.org",
     )
+
+    cru_remote_cleanup
 end
 
 end
