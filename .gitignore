@@ -27,3 +27,6 @@ config.plist
 *.ipa
 *.zip
 report.xml
+*.cer
+*.mobileprovision
+Preview.html
