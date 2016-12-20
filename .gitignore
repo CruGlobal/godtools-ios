@@ -22,3 +22,7 @@ Pods
 
 #GodTools specific
 config.plist
+
+#FastLane
+*.ipa
+*.zip
