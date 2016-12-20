@@ -29,6 +29,8 @@ before_all do |lane, options|
 
     cru_remote_setup(options)
 
+    end
+
 end
 
 lane :production do
