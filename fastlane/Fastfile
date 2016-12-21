@@ -74,7 +74,7 @@ platform :ios do
 	lane :beta do |options|
 
 		if ENV["GIT_BRANCH"].to_s.length > 0
-			Actions.sh("git checkout -b #{ENV["GIT_BRANCH"]}", log: true)
+			Actions.sh("git checkout -B #{ENV["GIT_BRANCH"]}", log: true)
 			Actions.sh("git pull", log: true)
 		end
 
@@ -134,7 +134,7 @@ platform :ios do
 	lane :production do |options|
 
 		if ENV["GIT_BRANCH"].to_s.length > 0
-			Actions.sh("git checkout -b #{ENV["GIT_BRANCH"]}", log: false)
+			Actions.sh("git checkout -B #{ENV["GIT_BRANCH"]}", log: false)
 			Actions.sh("git pull", log: false)
 		end
 
