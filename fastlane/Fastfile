@@ -116,7 +116,7 @@ platform :ios do
 
 		clean_build_artifacts
 		commit_version_bump(
-			xcodeproj: "{{project_filename}}"
+			xcodeproj: "{{project_filename}}",
 			message: "Build number bump for Beta build #{lane_context[SharedValues::BUILD_NUMBER]}",
 		)
 		add_git_tag
