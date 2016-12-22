@@ -57,16 +57,19 @@ platform :ios do
 			clear_derived_data
 		end
 
-		scan(
-				workspace: "{{workspace_filename}}",
-				scheme: "{{test_scheme_name}}",
-				code_coverage: true
-		)
+#
+#		The God Tools project currently has no tests. Skip this for now.
+#
+#		scan(
+#				workspace: "godtools.xcworkspace",
+#				scheme: "{{test_scheme_name}}",
+#				code_coverage: true
+#		)
 
-		xcov(
-				workspace: "{{workspace_filename}}",
-				scheme: "{{test_scheme_name}}"
-		)
+#		xcov(
+#				workspace: "{{workspace_filename}}",
+#				scheme: "{{test_scheme_name}}"
+#		)
 
 	end
 
