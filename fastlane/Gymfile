@@ -8,6 +8,8 @@
 
 scheme "godtools"
 
+workspace "godtools.xcworkspace"
+
 # sdk "iphoneos9.0"
 
 output_directory "./"
