@@ -638,8 +638,7 @@
 				ORGANIZATIONNAME = "Michael Harrison";
 				TargetAttributes = {
 					68740D0E18D24F9A00D36C0E = {
-						DevelopmentTeam = DQ48D9BF2V;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					68740D2F18D24F9A00D36C0E = {
 						DevelopmentTeam = DQ48D9BF2V;
