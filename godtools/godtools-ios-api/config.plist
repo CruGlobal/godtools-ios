@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>follow_up_api_secret_key</key>
+	<string></string>
+	<key>follow_up_api_shared_key</key>
+	<string></string>
+	<key>follow_up_api_url_base</key>
+	<string>https://www.growthspaces.org/api/v1/</string>
+	<key>follow_up_api_default_route_id</key>
+	<string>1</string>
+	<key>newrelic_api_key</key>
+	<string></string>
+	<key>google_analytics_api_key</key>
+	<string></string>
+	<key>rollbar_client_api_key</key>
+	<string></string>
+	<key>rollbar_server_api_key</key>
+	<string></string>
+	<key>interpreter_version</key>
+	<integer>1</integer>
+	<key>base_url</key>
+	<string>https://api.godtoolsapp.com/godtools-api/rest/</string>
+</dict>
+</plist>
