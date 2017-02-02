@@ -21,6 +21,18 @@
 		4F20B3DA1AC9A2F60026DC9E /* EveryStudentItemsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F20B3D01AC9A2F60026DC9E /* EveryStudentItemsController.xib */; };
 		4F20B3DB1AC9A2F60026DC9E /* EveryStudentSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F20B3D21AC9A2F60026DC9E /* EveryStudentSearchCell.m */; };
 		4F62978D1AA8E0CC003E1A1C /* GTAccessCodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F62978C1AA8E0CC003E1A1C /* GTAccessCodeController.m */; };
+		4F8306CE1E43D5C500812D57 /* Appfile in Resources */ = {isa = PBXBuildFile; fileRef = 4F8306BD1E43D5C500812D57 /* Appfile */; };
+		4F8306CF1E43D5C500812D57 /* Fastfile in Resources */ = {isa = PBXBuildFile; fileRef = 4F8306BE1E43D5C500812D57 /* Fastfile */; };
+		4F8306D01E43D5C500812D57 /* Gymfile in Resources */ = {isa = PBXBuildFile; fileRef = 4F8306BF1E43D5C500812D57 /* Gymfile */; };
+		4F8306D11E43D5C500812D57 /* description.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4F8306C21E43D5C500812D57 /* description.txt */; };
+		4F8306D21E43D5C500812D57 /* keywords.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4F8306C31E43D5C500812D57 /* keywords.txt */; };
+		4F8306D31E43D5C500812D57 /* description.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4F8306C51E43D5C500812D57 /* description.txt */; };
+		4F8306D41E43D5C500812D57 /* keywords.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4F8306C61E43D5C500812D57 /* keywords.txt */; };
+		4F8306D51E43D5C500812D57 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 4F8306C81E43D5C500812D57 /* .gitignore */; };
+		4F8306D61E43D5C500812D57 /* fastlane_cleanup_script.sh in Resources */ = {isa = PBXBuildFile; fileRef = 4F8306C91E43D5C500812D57 /* fastlane_cleanup_script.sh */; };
+		4F8306D71E43D5C500812D57 /* AdHoc_org.cru.godtools.mobileprovision in Resources */ = {isa = PBXBuildFile; fileRef = 4F8306CB1E43D5C500812D57 /* AdHoc_org.cru.godtools.mobileprovision */; };
+		4F8306D81E43D5C500812D57 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 4F8306CC1E43D5C500812D57 /* README.md */; };
+		4F8306D91E43D5C500812D57 /* report.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4F8306CD1E43D5C500812D57 /* report.xml */; };
 		4FE1E6E51ADEF69700133A3E /* GTGoogleAnalyticsTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE1E6E41ADEF69700133A3E /* GTGoogleAnalyticsTracker.m */; };
 		6692BB1C1A072B0C00B15355 /* GTDataImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 68464FD218E1CEBE00D14C2B /* GTDataImporter.m */; };
 		66D1D7011A09F40F00AC4E48 /* en.zip in Resources */ = {isa = PBXBuildFile; fileRef = 66D1D6AB1A09F40F00AC4E48 /* en.zip */; };
@@ -148,6 +160,18 @@
 		4F20B3D21AC9A2F60026DC9E /* EveryStudentSearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EveryStudentSearchCell.m; path = Controllers/EveryStudent/EveryStudentSearchCell.m; sourceTree = "<group>"; };
 		4F62978B1AA8E06B003E1A1C /* GTAccessCodeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GTAccessCodeController.h; sourceTree = "<group>"; };
 		4F62978C1AA8E0CC003E1A1C /* GTAccessCodeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTAccessCodeController.m; path = Controllers/GTAccessCodeController.m; sourceTree = "<group>"; };
+		4F8306BD1E43D5C500812D57 /* Appfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Appfile; sourceTree = "<group>"; };
+		4F8306BE1E43D5C500812D57 /* Fastfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Fastfile; sourceTree = "<group>"; };
+		4F8306BF1E43D5C500812D57 /* Gymfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Gymfile; sourceTree = "<group>"; };
+		4F8306C21E43D5C500812D57 /* description.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = description.txt; sourceTree = "<group>"; };
+		4F8306C31E43D5C500812D57 /* keywords.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = keywords.txt; sourceTree = "<group>"; };
+		4F8306C51E43D5C500812D57 /* description.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = description.txt; sourceTree = "<group>"; };
+		4F8306C61E43D5C500812D57 /* keywords.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = keywords.txt; sourceTree = "<group>"; };
+		4F8306C81E43D5C500812D57 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		4F8306C91E43D5C500812D57 /* fastlane_cleanup_script.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = fastlane_cleanup_script.sh; sourceTree = "<group>"; };
+		4F8306CB1E43D5C500812D57 /* AdHoc_org.cru.godtools.mobileprovision */ = {isa = PBXFileReference; lastKnownFileType = file; path = AdHoc_org.cru.godtools.mobileprovision; sourceTree = "<group>"; };
+		4F8306CC1E43D5C500812D57 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		4F8306CD1E43D5C500812D57 /* report.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = report.xml; sourceTree = "<group>"; };
 		4FD1FB7B1BFE555F00A9B722 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4FE1E6E41ADEF69700133A3E /* GTGoogleAnalyticsTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTGoogleAnalyticsTracker.m; sourceTree = "<group>"; };
 		4FE1E6E61ADEF6D400133A3E /* GTGoogleAnalyticsTracker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GTGoogleAnalyticsTracker.h; sourceTree = "<group>"; };
@@ -334,6 +358,65 @@
 			name = EveryStudent;
 			sourceTree = "<group>";
 		};
+		4F8306BC1E43D5C500812D57 /* fastlane */ = {
+			isa = PBXGroup;
+			children = (
+				4F8306BD1E43D5C500812D57 /* Appfile */,
+				4F8306BE1E43D5C500812D57 /* Fastfile */,
+				4F8306BF1E43D5C500812D57 /* Gymfile */,
+				4F8306C01E43D5C500812D57 /* metadata */,
+				4F8306C71E43D5C500812D57 /* output */,
+				4F8306CC1E43D5C500812D57 /* README.md */,
+				4F8306CD1E43D5C500812D57 /* report.xml */,
+			);
+			path = fastlane;
+			sourceTree = "<group>";
+		};
+		4F8306C01E43D5C500812D57 /* metadata */ = {
+			isa = PBXGroup;
+			children = (
+				4F8306C11E43D5C500812D57 /* default */,
+				4F8306C41E43D5C500812D57 /* en-US */,
+			);
+			path = metadata;
+			sourceTree = "<group>";
+		};
+		4F8306C11E43D5C500812D57 /* default */ = {
+			isa = PBXGroup;
+			children = (
+				4F8306C21E43D5C500812D57 /* description.txt */,
+				4F8306C31E43D5C500812D57 /* keywords.txt */,
+			);
+			path = default;
+			sourceTree = "<group>";
+		};
+		4F8306C41E43D5C500812D57 /* en-US */ = {
+			isa = PBXGroup;
+			children = (
+				4F8306C51E43D5C500812D57 /* description.txt */,
+				4F8306C61E43D5C500812D57 /* keywords.txt */,
+			);
+			path = "en-US";
+			sourceTree = "<group>";
+		};
+		4F8306C71E43D5C500812D57 /* output */ = {
+			isa = PBXGroup;
+			children = (
+				4F8306C81E43D5C500812D57 /* .gitignore */,
+				4F8306C91E43D5C500812D57 /* fastlane_cleanup_script.sh */,
+				4F8306CA1E43D5C500812D57 /* profiles */,
+			);
+			path = output;
+			sourceTree = "<group>";
+		};
+		4F8306CA1E43D5C500812D57 /* profiles */ = {
+			isa = PBXGroup;
+			children = (
+				4F8306CB1E43D5C500812D57 /* AdHoc_org.cru.godtools.mobileprovision */,
+			);
+			path = profiles;
+			sourceTree = "<group>";
+		};
 		66D1D6551A09F40F00AC4E48 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -401,6 +484,7 @@
 		68740D0618D24F9A00D36C0E = {
 			isa = PBXGroup;
 			children = (
+				4F8306BC1E43D5C500812D57 /* fastlane */,
 				68740D1818D24F9A00D36C0E /* godtools */,
 				68740D3718D24F9A00D36C0E /* godtoolsTests */,
 				68740D1118D24F9A00D36C0E /* Frameworks */,
@@ -671,23 +755,34 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F8306D41E43D5C500812D57 /* keywords.txt in Resources */,
 				681D22A11B87703F00269FE5 /* config.sample.plist in Resources */,
+				4F8306D31E43D5C500812D57 /* description.txt in Resources */,
 				B76536C61A0CC6CB001C3FC3 /* GTHomeViewCell.xib in Resources */,
 				B7D2AF861A415419009B7D5B /* NotoSansEthiopic-Regular.ttf in Resources */,
+				4F8306D01E43D5C500812D57 /* Gymfile in Resources */,
 				66D1D7021A09F40F00AC4E48 /* meta.xml in Resources */,
 				4F20B3D81AC9A2F60026DC9E /* EveryStudentController.xib in Resources */,
 				4F20B3D31AC9A2F60026DC9E /* EveryStudent.xml in Resources */,
+				4F8306D11E43D5C500812D57 /* description.txt in Resources */,
 				68E7C93B1BACB5AE00D79196 /* InfoPlist.strings in Resources */,
 				B7D2AF881A43D2D4009B7D5B /* GTSettingsAboutGodToolsView.xib in Resources */,
+				4F8306D91E43D5C500812D57 /* report.xml in Resources */,
+				4F8306CE1E43D5C500812D57 /* Appfile in Resources */,
 				4F20B3D51AC9A2F60026DC9E /* EveryStudentArticleView.xib in Resources */,
+				4F8306CF1E43D5C500812D57 /* Fastfile in Resources */,
 				B76536DC1A0CD2E1001C3FC3 /* GTLanguageViewCell.xib in Resources */,
 				682F0E9018D8FBE100FBE3E0 /* config.plist in Resources */,
 				68740D2B18D24F9A00D36C0E /* Images.xcassets in Resources */,
 				B7D2AF851A415419009B7D5B /* NotoSansEthiopic-Bold.ttf in Resources */,
 				68E7C93F1BACB5BB00D79196 /* Localizable.strings in Resources */,
+				4F8306D71E43D5C500812D57 /* AdHoc_org.cru.godtools.mobileprovision in Resources */,
 				4F20B3DA1AC9A2F60026DC9E /* EveryStudentItemsController.xib in Resources */,
 				68E7C9341BACB49C00D79196 /* Main.storyboard in Resources */,
 				B7EA1B431A38097D0098890F /* GTSplashScreenView.xib in Resources */,
+				4F8306D21E43D5C500812D57 /* keywords.txt in Resources */,
+				4F8306D51E43D5C500812D57 /* .gitignore in Resources */,
+				4F8306D61E43D5C500812D57 /* fastlane_cleanup_script.sh in Resources */,
 				66D1D7011A09F40F00AC4E48 /* en.zip in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -948,6 +1043,7 @@
 				4FE1E6E51ADEF69700133A3E /* GTGoogleAnalyticsTracker.m in Sources */,
 				B76536DA1A0CD2CF001C3FC3 /* GTLanguageViewCell.m in Sources */,
 				68464FC318E1CE4000D14C2B /* GTStorage.m in Sources */,
+				4F8306D81E43D5C500812D57 /* README.md in Sources */,
 				B76536CC1A0CCAE8001C3FC3 /* GTSettingsViewController.m in Sources */,
 				68740D4918D259AA00D36C0E /* GTModel.xcdatamodeld in Sources */,
 				B76536D71A0CD1AC001C3FC3 /* GTLanguagesViewController.m in Sources */,
